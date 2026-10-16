@@ -1,0 +1,4 @@
+id = "satchel-parse"
+title = "Read a command"
+prompt = "`parse(command)` returns a `(verb, noun)` pair in lower case: `parse(\"Take Lamp\")` is `(\"take\", \"lamp\")`, `parse(\"look\")` is `(\"look\", \"\")` and `parse(\"\")` is `(\"\", \"\")`."
+hp = 20

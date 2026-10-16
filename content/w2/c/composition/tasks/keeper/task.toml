@@ -1,0 +1,7 @@
+id = "composition-keeper"
+concept = "composition"
+kind = "write"
+title = "The animal keeper"
+prompt = "`Animal(name)` is given. Write a class `Keeper(name)` that has its own empty `animals` list, `adopt(animal)` to add one, and `feed_all()` returning a list like `[\"Sly is fed\", \"Ollie is fed\"]` in adoption order."
+hints = ["The keeper holds animals in `self.animals`; it does not inherit from `Animal`.", "`return [f\"{a.name} is fed\" for a in self.animals]`"]
+gotcha = false

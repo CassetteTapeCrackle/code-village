@@ -1,0 +1,3 @@
+id = "identity-copy-basket"
+title = "A second basket"
+prompt = "Finish `copy_basket(basket)`: return a **new** `Basket` with the same owner and a copy of the fruits list. `.copy()` copies a list."

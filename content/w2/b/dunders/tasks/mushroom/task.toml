@@ -1,0 +1,7 @@
+id = "dunders-mushroom"
+concept = "dunders"
+kind = "write"
+title = "Name that mushroom"
+prompt = "Write a class `Mushroom(name, spots)` with `__str__` returning text like `\"fly agaric (5 spots)\"`, and `__eq__` saying two mushrooms are equal when both name and spots match."
+hints = ["`__str__` returns an f-string; `__eq__(self, other)` compares both attributes.", "`return f\"{self.name} ({self.spots} spots)\"` and `return isinstance(other, Mushroom) and self.name == other.name and self.spots == other.spots`."]
+gotcha = false

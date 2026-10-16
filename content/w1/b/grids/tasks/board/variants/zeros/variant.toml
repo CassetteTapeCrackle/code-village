@@ -1,0 +1,3 @@
+id = "grids-zeros"
+title = "A grid of zeros"
+prompt = "`zeros(n)` should return an `n` by `n` grid of `0` where every row is its own list, so changing one cell changes only that cell. It has a bug: find and fix it."

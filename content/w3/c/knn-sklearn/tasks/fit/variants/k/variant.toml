@@ -1,0 +1,3 @@
+id = "knn-sklearn-k"
+title = "Choose the k"
+prompt = "Finish `crowd(X, y, new_rows)`: make a `KNeighborsClassifier` where 5 neighbours vote, fit it on `X` and `y`, and return a plain list of labels for `new_rows`."

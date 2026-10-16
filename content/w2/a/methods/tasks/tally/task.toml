@@ -1,0 +1,7 @@
+id = "methods-tally"
+concept = "methods"
+kind = "complete"
+title = "Tally them all"
+prompt = "Finish `Tally`: `add(n)` already adds to `total`, and `add_all(numbers)` should add each number by calling `self.add`."
+hints = ["Loop over `numbers`.", "`for n in numbers: self.add(n)`"]
+gotcha = false

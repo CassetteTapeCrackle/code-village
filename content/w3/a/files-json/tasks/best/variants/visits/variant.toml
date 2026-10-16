@@ -1,0 +1,3 @@
+id = "files-json-visits"
+title = "Sign the visitors' book"
+prompt = "The file at `path` holds a JSON list of names. Finish `sign(path, name)`: load the list, add `name` at the end, and save the list back to the same file."

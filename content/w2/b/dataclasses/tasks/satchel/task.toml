@@ -1,0 +1,7 @@
+id = "dataclasses-satchel"
+concept = "dataclasses"
+kind = "fix"
+title = "A satchel for everyone"
+prompt = "`Satchel` should start with an empty `items` list of its own. The program fails before any satchel is made: find and fix the bug."
+hints = ["Read the error: what does it say about a mutable default?", "`from dataclasses import dataclass, field`, then `items: list = field(default_factory=list)`."]
+gotcha = true

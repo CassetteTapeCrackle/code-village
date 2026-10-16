@@ -1,0 +1,7 @@
+id = "inheritance-penguin"
+concept = "inheritance"
+kind = "complete"
+title = "Penguins waddle"
+prompt = "Finish `Penguin(Bird)`: it overrides `move()` so that `Penguin(\"Pip\").move()` returns `\"Pip waddles\"`, while other birds still fly."
+hints = ["Write `move` again inside `Penguin`; `self.name` is set by `Bird.__init__`.", "`return f\"{self.name} waddles\"`"]
+gotcha = false

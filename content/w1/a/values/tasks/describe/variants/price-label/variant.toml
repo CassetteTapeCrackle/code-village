@@ -1,0 +1,3 @@
+id = "values-price-label"
+title = "A price label"
+prompt = "Finish `price_label(item, price)` so that `price_label(\"tea\", 2.5)` returns `\"Price of tea: 2.5\"`."

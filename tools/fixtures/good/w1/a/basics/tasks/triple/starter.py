@@ -1,0 +1,2 @@
+def triple(n):
+    pass

@@ -1,0 +1,7 @@
+id = "functions-add-item"
+concept = "functions"
+kind = "fix"
+title = "A fresh bag each time"
+prompt = "`add_item(item, items)` adds `item` to `items` and returns the list. When no list is given it should start a **new** empty list every time, but the second call remembers the first. Find and fix the bug."
+hints = ["Call `add_item(\"tea\")` then `add_item(\"jam\")` and print both results.", "Use `items=None` in the `def`, then `if items is None: items = []` inside (`is None` checks for Python's \"nothing\" value)."]
+gotcha = true

@@ -1,0 +1,7 @@
+id = "functions-by-length"
+concept = "functions"
+kind = "complete"
+title = "Shortest first"
+prompt = "Finish `sort_by_length(words)` so the words come back shortest first. Words of the same length keep their order."
+hints = ["`sorted` takes a `key`.", "`return sorted(words, key=len)`"]
+gotcha = false

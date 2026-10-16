@@ -1,0 +1,4 @@
+id = "stars-accuracy"
+title = "Stars it has never seen"
+prompt = "`star_accuracy(X, y)` scales `X` with your `scale_columns`, splits it with `test_size=0.25` and `random_state=0`, fits a 3-neighbour model on the training part, and returns its accuracy on the test part as a plain float. It must reach 0.8 (on this split, giving every star the same label scores 0.5 at best, and skipping the scaling scores 0.4). To keep it simple, the whole catalogue is scaled before the split; in real projects you scale with the training rows only, so the test rows stay unseen."
+hp = 25

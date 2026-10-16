@@ -1,0 +1,4 @@
+id = "storehouse-restock"
+title = "Restock and count"
+prompt = "`restock(quantity)` adds to the stock, and `value()` returns what the stock is worth: stock times price."
+hp = 40

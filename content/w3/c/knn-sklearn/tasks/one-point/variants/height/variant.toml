@@ -1,0 +1,3 @@
+id = "knn-sklearn-height"
+title = "One height"
+prompt = "`size_of(X, y, height)` should return the label (a plain string) for one height, where each row of `X` holds a single number. It crashes with `Expected 2D array` (one row in a list needs two pairs of brackets): find and fix the bug."

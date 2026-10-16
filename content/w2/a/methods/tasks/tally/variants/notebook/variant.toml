@@ -1,0 +1,3 @@
+id = "methods-notebook"
+title = "Write many lines"
+prompt = "Finish `Notebook`: `write(line)` already adds a line to `lines`, and `write_lines(lines)` should add each one by calling `self.write`."

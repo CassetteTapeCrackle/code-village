@@ -1,0 +1,4 @@
+id = "guessing-hint"
+title = "Higher or lower"
+prompt = "`hint(secret, guess)` returns `\"higher\"` when the guess is too small, `\"lower\"` when it is too big, and `\"correct\"` when it is right."
+hp = 30

@@ -1,0 +1,3 @@
+id = "strings-file-name"
+title = "A file name"
+prompt = "Finish `file_name(title)`: strip the spaces at the ends, make it lower-case, swap the spaces inside for `_`, and add `.txt`: `file_name(\"  My Notes \")` is `\"my_notes.txt\"`."

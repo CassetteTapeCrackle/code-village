@@ -1,0 +1,7 @@
+id = "grids-column"
+concept = "grids"
+kind = "complete"
+title = "One column"
+prompt = "Finish `column(grid, c)`: it returns a list with the value at index `c` of every row."
+hints = ["Each `row` is a list: `row[c]` is the value you want.", "`values.append(row[c])`"]
+gotcha = false

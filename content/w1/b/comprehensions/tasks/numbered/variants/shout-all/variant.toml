@@ -1,0 +1,3 @@
+id = "comprehensions-shout-all"
+title = "Shout them all"
+prompt = "Finish `shout_all(words)` so `shout_all([\"tea\", \"jam\"])` returns `[\"TEA!\", \"JAM!\"]`."

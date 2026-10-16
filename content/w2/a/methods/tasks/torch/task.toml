@@ -1,0 +1,7 @@
+id = "methods-torch"
+concept = "methods"
+kind = "write"
+title = "A torch that runs down"
+prompt = "Write a class `Torch`: `Torch(battery)` stores `battery`, `use(minutes)` takes that many minutes off but never goes below 0, and `is_empty()` returns `True` when `battery` is 0."
+hints = ["`use` changes `self.battery`; `is_empty` only answers.", "In `use`: `self.battery = max(self.battery - minutes, 0)`; in `is_empty`: `return self.battery == 0`."]
+gotcha = false

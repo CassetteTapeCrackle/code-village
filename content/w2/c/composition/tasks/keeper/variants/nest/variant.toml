@@ -1,0 +1,3 @@
+id = "composition-nest"
+title = "A nest of eggs"
+prompt = "`Egg(colour)` is given. Write a class `Nest()` that has its own empty `eggs` list, `lay(egg)` to add one, and `colours()` returning the eggs' colours in order. The nest holds eggs as an attribute; it is not an egg."

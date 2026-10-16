@@ -1,0 +1,4 @@
+# Cloudflare's public Turnstile test secret. Local use only.
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+# A throwaway salt for hashing IPs. Local use only.
+IP_SALT=dev-salt

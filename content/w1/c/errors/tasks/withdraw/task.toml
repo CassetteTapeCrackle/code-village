@@ -1,0 +1,7 @@
+id = "errors-withdraw"
+concept = "errors"
+kind = "complete"
+title = "Not enough money"
+prompt = "Finish `withdraw(balance, amount)`: it returns the new balance, but raises `ValueError(\"not enough money\")` when `amount` is bigger than `balance`."
+hints = ["Check before subtracting.", "`if amount > balance: raise ValueError(\"not enough money\")`"]
+gotcha = false

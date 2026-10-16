@@ -1,0 +1,4 @@
+id = "satchel-take"
+title = "Pick things up"
+prompt = "`take(rooms, here, item, satchel)` moves `item` from the room's items into the `satchel` list and returns `True`. If the item is not in the room it changes nothing and returns `False`."
+hp = 25

@@ -1,0 +1,7 @@
+id = "class-attributes-rangers"
+concept = "class-attributes"
+kind = "complete"
+title = "How many rangers?"
+prompt = "Finish `Ranger`: the class attribute `count` starts at 0, and every new ranger should add 1 to it."
+hints = ["Change the shared counter through the class, not through `self`.", "In `__init__`: `Ranger.count += 1`."]
+gotcha = false

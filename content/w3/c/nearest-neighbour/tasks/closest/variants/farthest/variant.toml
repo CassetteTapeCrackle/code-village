@@ -1,0 +1,3 @@
+id = "nearest-neighbour-farthest"
+title = "The farthest peak"
+prompt = "Write `farthest(points, target)`: `points` is a list of `(x, y)` tuples. Return the point farthest from `target`, using `math.dist`."

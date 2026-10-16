@@ -1,0 +1,48 @@
+/* Non-colour tokens and base rules; colours come from palette.css (generated from palette.json). */
+@font-face {
+  font-family: "Departure Mono";
+  src: url("./fonts/DepartureMono-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+:root {
+  --font-ui: "Departure Mono", ui-monospace, monospace;
+  --font-pixel: var(--font-ui);
+  --font-mono: var(--font-ui);
+  --ctl-h: 40px;
+  --frame: inset 0 0 0 2px var(--line), inset 0 -4px 0 var(--line);
+}
+@media (pointer: coarse) {
+  :root {
+    --ctl-h: 44px;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+/* Ligatures off everywhere, so code shows == and != as typed. Inherited; code fonts use longhands so nothing resets it. */
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 17px/1.6 var(--font-ui);
+  font-variant-ligatures: none;
+  font-feature-settings:
+    "calt" 0,
+    "liga" 0;
+}
+/* Whole-pixel line heights keep the ruled paper below on whole pixels, so text and rules round together. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  line-height: round(1.15em, 1px);
+  text-wrap: balance;
+}
+a {
+  color: var(--link);
+}
+:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}

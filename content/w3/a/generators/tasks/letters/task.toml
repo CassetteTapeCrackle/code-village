@@ -1,0 +1,7 @@
+id = "generators-letters"
+concept = "generators"
+kind = "complete"
+title = "Count the letters"
+prompt = "Finish `total_letters(words)`: it returns how many letters all the words have together, with `sum` over a generator expression."
+hints = ["Inside `sum(...)`, write `len(w)` for each `w` in `words`.", "`return sum(len(w) for w in words)`"]
+gotcha = false

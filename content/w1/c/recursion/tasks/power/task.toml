@@ -1,0 +1,7 @@
+id = "recursion-power"
+concept = "recursion"
+kind = "fix"
+title = "It never stops"
+prompt = "`power(base, exp)` should return `base` to the power `exp` (with `exp` 0 or more), recursively. It crashes: find and fix it."
+hints = ["Read the error: the calls never stop. What should `power(base, 0)` be?", "Add a base case first: `if exp == 0: return 1`."]
+gotcha = true

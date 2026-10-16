@@ -1,0 +1,3 @@
+id = "loops-first-even"
+title = "The first even one"
+prompt = "Finish `first_even(numbers)`: it returns the first even number in the list, or `None` if there is none. A number `n` is even when `n % 2 == 0`."

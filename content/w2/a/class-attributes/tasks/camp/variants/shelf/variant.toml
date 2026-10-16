@@ -1,0 +1,3 @@
+id = "class-attributes-shelf"
+title = "Everybody's books"
+prompt = "Each `Shelf` should keep its own `books`, but adding a book to one shelf adds it to every shelf. Find and fix the bug: make the list in `__init__`."

@@ -1,0 +1,7 @@
+id = "identity-trails"
+concept = "identity"
+kind = "write"
+title = "Same trail or twins?"
+prompt = "Write `compare(a, b)` for two `Trail` objects (each has a `name`): return `\"same\"` if they are the very same object, `\"twins\"` if they are different objects with the same name, and `\"different\"` otherwise. The `Trail` class is given."
+hints = ["Check `a is b` first, then compare names.", "`if a is b: return \"same\"`, then `if a.name == b.name: return \"twins\"`, else `return \"different\"`."]
+gotcha = false

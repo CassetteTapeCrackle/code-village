@@ -1,0 +1,15 @@
+{
+  "name": "Code Village",
+  "short_name": "Code Village",
+  "description": "Learn Python in a cozy village: lessons you pass by writing code, a garden that remembers, bosses to beat.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef0e2",
+  "theme_color": "#eef0e2",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

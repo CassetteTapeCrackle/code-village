@@ -1,0 +1,2 @@
+def total(numbers):
+    pass

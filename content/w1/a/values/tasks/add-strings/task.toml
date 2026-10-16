@@ -1,0 +1,7 @@
+id = "values-add-strings"
+concept = "values"
+kind = "fix"
+title = "Numbers written as text"
+prompt = "`add_strings(a, b)` gets two numbers written as text, like `\"3\"` and `\"4\"`, and should return their sum as an int (here, 7). It has a bug: find and fix it."
+hints = ["Run it: what does `\"3\" + \"4\"` give?", "Convert each one with `int()` before adding: `int(a) + int(b)`."]
+gotcha = true

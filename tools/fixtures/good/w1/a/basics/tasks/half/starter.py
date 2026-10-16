@@ -1,0 +1,2 @@
+def half(n):
+    pass

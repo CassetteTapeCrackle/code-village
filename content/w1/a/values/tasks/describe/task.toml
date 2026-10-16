@@ -1,0 +1,7 @@
+id = "values-describe"
+concept = "values"
+kind = "complete"
+title = "Say how old"
+prompt = "Finish `describe(name, age)` so that `describe(\"Noa\", 12)` returns `\"Noa is 12 years old\"`. `age` is an int."
+hints = ["`age` is an int: turn it into text before joining.", "`return name + \" is \" + str(age) + \" years old\"`"]
+gotcha = false

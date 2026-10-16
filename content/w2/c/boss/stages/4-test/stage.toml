@@ -1,0 +1,4 @@
+id = "registry-test"
+title = "Your own test"
+prompt = "Write `test_registry()` with `assert`s: register an animal and find it, check that an unknown name gives `None`, and check that a second arrival with the same name raises `ValueError` (for example `assert False` right after the second `arrive`, inside a `try` that catches `ValueError`). It must pass on your registry and fail on a careless one that never refuses a name."
+hp = 25

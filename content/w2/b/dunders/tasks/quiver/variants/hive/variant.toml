@@ -1,0 +1,3 @@
+id = "dunders-hive"
+title = "Count the bees"
+prompt = "Finish `Hive`: `__len__` should return how many bees it holds, so `len(Hive([\"Bea\", \"Buzz\"]))` is 2."

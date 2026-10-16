@@ -1,0 +1,7 @@
+id = "dicts-stock"
+concept = "dicts"
+kind = "fix"
+title = "What is left?"
+prompt = "`in_stock(stock, item)` should return how many of `item` are left, and 0 for an item the shop has never had. It has a bug: find and fix it."
+hints = ["Try it with an item that is not in the dict.", "`return stock.get(item, 0)`"]
+gotcha = true

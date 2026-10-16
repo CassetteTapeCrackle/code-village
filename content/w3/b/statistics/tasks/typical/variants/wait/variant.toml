@@ -1,0 +1,3 @@
+id = "statistics-wait"
+title = "A typical wait"
+prompt = "`typical_wait(minutes)` should return the typical wait at the cable car: the middle value once sorted, so one very long wait does not drag it. It uses the mean instead: find and fix the bug."

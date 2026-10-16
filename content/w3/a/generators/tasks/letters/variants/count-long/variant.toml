@@ -1,0 +1,3 @@
+id = "generators-count-long"
+title = "How many long words"
+prompt = "Finish `count_long(words)`: it returns how many words have more than 3 letters, with `sum` over a generator expression that gives `1` for each long word."

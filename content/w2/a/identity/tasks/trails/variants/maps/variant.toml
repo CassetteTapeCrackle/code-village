@@ -1,0 +1,3 @@
+id = "identity-maps"
+title = "The same map?"
+prompt = "Write `compare_maps(a, b)` for two `Map` objects (each has a `region`): `\"same map\"` if they are the very same object, `\"copies\"` if they are different objects of the same region, `\"different\"` otherwise."

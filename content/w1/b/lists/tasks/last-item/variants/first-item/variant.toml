@@ -1,0 +1,3 @@
+id = "lists-first-item"
+title = "The first one"
+prompt = "Write `first_item(items)` that returns the first value of a non-empty list."

@@ -1,0 +1,7 @@
+id = "pandas-tables-tallest"
+concept = "pandas-tables"
+kind = "write"
+title = "Who is tallest?"
+prompt = "Write `tallest(text)`: `text` is CSV with the columns `name` and `height`. Read it with pandas and return the name of the tallest person."
+hints = ["`df = pd.read_csv(io.StringIO(text))`, then sort by height or look up the biggest.", "`return df.sort_values(\"height\").iloc[-1][\"name\"]` (iloc[-1] is the last row)."]
+gotcha = false

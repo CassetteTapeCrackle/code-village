@@ -1,0 +1,8 @@
+def test_positive():
+    expect_equal(learner["sign"](7), "positive", "sign(7)")
+
+def test_negative():
+    expect_equal(learner["sign"](-2), "negative", "sign(-2)")
+
+def test_zero():
+    expect_equal(learner["sign"](0), "zero", "sign(0)")

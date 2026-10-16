@@ -1,0 +1,7 @@
+id = "testing-total-test"
+concept = "testing"
+kind = "fix"
+title = "A test that cannot fail"
+prompt = "`test_total()` should catch a broken `total`, but it passes even when `total` always returns 0. Find and fix the bug in the test, not in `total`."
+hints = ["Read the `assert` line: what exactly is being checked?", "Remove the brackets: `assert total([1, 2]) == 3, \"total([1, 2]) should be 3\"`."]
+gotcha = true

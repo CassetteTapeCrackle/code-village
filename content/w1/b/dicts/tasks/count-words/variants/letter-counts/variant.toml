@@ -1,0 +1,3 @@
+id = "dicts-letter-counts"
+title = "Letter counts"
+prompt = "Write `letter_counts(word)` that returns a dict from each letter to how many times it appears."

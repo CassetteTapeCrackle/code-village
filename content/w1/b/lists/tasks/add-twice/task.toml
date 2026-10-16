@@ -1,0 +1,7 @@
+id = "lists-add-twice"
+concept = "lists"
+kind = "write"
+title = "Add it twice"
+prompt = "Write `add_twice(items, x)` that adds `x` at the end of `items` two times, then returns the list."
+hints = ["`append` adds one value at the end.", "Call `items.append(x)` twice, then `return items`."]
+gotcha = false

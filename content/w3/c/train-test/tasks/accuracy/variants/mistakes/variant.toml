@@ -1,0 +1,3 @@
+id = "train-test-mistakes"
+title = "Count the mistakes"
+prompt = "Write `mistakes(truth, guesses)` by hand: return a list of the positions where `guesses` does not match `truth`."

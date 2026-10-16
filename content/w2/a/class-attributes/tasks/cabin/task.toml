@@ -1,0 +1,7 @@
+id = "class-attributes-cabin"
+concept = "class-attributes"
+kind = "write"
+title = "Room in the cabin"
+prompt = "Write a class `Cabin` with a class attribute `capacity = 4`. `Cabin(name)` stores `name` and its own empty `guests` list. `check_in(guest)` adds the guest and returns `True` while there is room, otherwise returns `False` without adding."
+hints = ["`capacity = 4` goes in the class body; `self.guests = []` goes in `__init__`.", "In `check_in`: `if len(self.guests) < self.capacity:` append and return `True`, else return `False`."]
+gotcha = false

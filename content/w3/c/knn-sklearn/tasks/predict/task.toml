@@ -1,0 +1,7 @@
+id = "knn-sklearn-predict"
+concept = "knn-sklearn"
+kind = "write"
+title = "Label the new stars"
+prompt = "Write `labels_for(X, y, new_rows)`: fit a `KNeighborsClassifier` with `n_neighbors=1` on `X` and `y`, and return a plain list of its labels for `new_rows`."
+hints = ["`model = KNeighborsClassifier(n_neighbors=1).fit(X, y)`", "`return model.predict(new_rows).tolist()`"]
+gotcha = false

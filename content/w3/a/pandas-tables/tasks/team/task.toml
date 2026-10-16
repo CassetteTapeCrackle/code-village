@@ -1,0 +1,7 @@
+id = "pandas-tables-team"
+concept = "pandas-tables"
+kind = "complete"
+title = "Who is on the team?"
+prompt = "Finish `names_in(text, team)`: `text` is CSV with `name`, `height` and `team` columns. Return a plain list of the names of the people in `team`, in their order."
+hints = ["Keep the rows where `df[\"team\"] == team`.", "`return df[df[\"team\"] == team][\"name\"].tolist()`"]
+gotcha = false

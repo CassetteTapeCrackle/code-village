@@ -1,0 +1,4 @@
+id = "calc-add"
+title = "Add"
+prompt = "Write `add(a, b)`."
+hp = 10

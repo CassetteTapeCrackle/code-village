@@ -1,0 +1,3 @@
+id = "dataclasses-quiver-default"
+title = "A quiver for everyone"
+prompt = "`Quiver` should start with an empty `arrows` list of its own, but the program fails before any quiver is made: find and fix it with `field(default_factory=list)` (import `field` from `dataclasses`)."

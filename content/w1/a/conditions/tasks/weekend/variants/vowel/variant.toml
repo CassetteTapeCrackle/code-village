@@ -1,0 +1,3 @@
+id = "conditions-vowel"
+title = "Is it a vowel?"
+prompt = "`is_vowel(letter)` should return `True` for `\"a\"`, `\"e\"`, `\"i\"`, `\"o\"` or `\"u\"`, and `False` otherwise. It has a bug: find and fix it."

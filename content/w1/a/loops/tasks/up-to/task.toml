@@ -1,0 +1,7 @@
+id = "loops-up-to"
+concept = "loops"
+kind = "fix"
+title = "Up to and including"
+prompt = "`up_to(n)` should return the list `[1, 2, ..., n]`. It has a bug: find and fix it."
+hints = ["Print `list(range(1, 3))`: is 3 in it?", "`range` stops before its end: use `range(1, n + 1)`."]
+gotcha = true

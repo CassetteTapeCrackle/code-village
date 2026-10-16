@@ -1,0 +1,7 @@
+id = "basics-half"
+concept = "numbers"
+kind = "write"
+title = "Half it"
+prompt = "Write `half(n)`."
+hints = ["Divide by 2."]
+gotcha = false

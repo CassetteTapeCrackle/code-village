@@ -1,0 +1,7 @@
+id = "knn-sklearn-one-point"
+concept = "knn-sklearn"
+kind = "fix"
+title = "Just this one"
+prompt = "`label_one(X, y, x, z)` should return the label (a plain string) of the single point `(x, z)`. It crashes with `Expected 2D array`: find and fix the bug."
+hints = ["`predict` wants a list of rows. How many brackets does one row in a list need?", "`model.predict([[x, z]]).tolist()[0]`"]
+gotcha = true

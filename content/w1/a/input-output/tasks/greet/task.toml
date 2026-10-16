@@ -1,0 +1,7 @@
+id = "io-greet"
+concept = "io"
+kind = "write"
+title = "Say hello"
+prompt = "Write a program that reads a name and prints `Hello, NAME!` (for `Sam`, it prints `Hello, Sam!`)."
+hints = ["`name = input()` reads the line.", "`print(f\"Hello, {name}!\")`"]
+gotcha = false

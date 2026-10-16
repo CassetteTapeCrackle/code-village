@@ -1,0 +1,3 @@
+id = "lists-without"
+title = "Without it"
+prompt = "`without(items, x)` should return a **new** list without the first `x`, and leave `items` unchanged. It has a bug: find and fix it."

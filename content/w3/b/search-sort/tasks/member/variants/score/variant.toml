@@ -1,0 +1,3 @@
+id = "search-sort-score"
+title = "Find the score"
+prompt = "`has_score(scores, s)` uses a binary search to say whether `s` is in `scores`. For `[90, 20, 70, 40]` and `90` it says `False`: find and fix the bug. (A binary search needs sorted data.)"

@@ -1,0 +1,3 @@
+id = "functions-power"
+title = "Squared by default"
+prompt = "Write `power(base, exponent=2)` that returns `base` to the power `exponent` (`**` raises to a power)."

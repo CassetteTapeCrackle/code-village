@@ -1,0 +1,7 @@
+id = "dicts-count-words"
+concept = "dicts"
+kind = "write"
+title = "Word counts"
+prompt = "Write `count_words(text)` that returns a dict from each word to how many times it appears. Words are separated by spaces."
+hints = ["Loop over `text.split()` and count like the fruit example.", "`counts[word] = counts.get(word, 0) + 1`"]
+gotcha = false

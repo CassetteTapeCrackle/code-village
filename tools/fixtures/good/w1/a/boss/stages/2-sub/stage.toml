@@ -1,0 +1,4 @@
+id = "calc-sub"
+title = "Subtract"
+prompt = "Write `sub(a, b)`."
+hp = 10

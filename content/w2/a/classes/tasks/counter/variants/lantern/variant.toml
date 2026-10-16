@@ -1,0 +1,3 @@
+id = "classes-lantern"
+title = "Light the lantern"
+prompt = "`Lantern()` starts with `lit` as `False`, and `light()` should set `lit` to `True`. Calling `light` crashes: find and fix the bug (every method needs `self` first)."

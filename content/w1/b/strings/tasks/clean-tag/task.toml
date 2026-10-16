@@ -1,0 +1,7 @@
+id = "strings-clean-tag"
+concept = "strings"
+kind = "complete"
+title = "Tidy tags"
+prompt = "Finish `clean_tag(tag)`: strip the spaces at the ends, make it lower-case, and swap the spaces inside for `-`. `\"  Python Village \"` becomes `\"python-village\"`."
+hints = ["Chain the methods, keeping each result.", "`return tag.lower().replace(\" \", \"-\")`"]
+gotcha = false

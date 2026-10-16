@@ -1,0 +1,2 @@
+def quadruple(n):
+    pass

@@ -1,0 +1,7 @@
+id = "generators-spread"
+concept = "generators"
+kind = "fix"
+title = "The spread of the numbers"
+prompt = "`spread(numbers)` should return the largest number minus the smallest. It crashes instead: find and fix the bug."
+hints = ["`max(values)` walks through the whole generator. What is left in it for `min`?", "Keep a list instead: `values = [n for n in numbers]`."]
+gotcha = true

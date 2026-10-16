@@ -1,0 +1,7 @@
+id = "properties-plot"
+concept = "properties"
+kind = "write"
+title = "A garden plot"
+prompt = "Write a class `Plot` storing `width` and `depth`, with two properties: `area` (width times depth) and `fence` (the length of fence around it, 2 times (width plus depth))."
+hints = ["Each property is a method with `@property` above it, returning a value.", "`return self.width * self.depth` and `return 2 * (self.width + self.depth)`."]
+gotcha = false

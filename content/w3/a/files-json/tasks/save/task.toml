@@ -1,0 +1,7 @@
+id = "files-json-save"
+concept = "files-json"
+kind = "write"
+title = "Save the list"
+prompt = "Write `save_lines(path, lines)`: it writes each string of `lines` to the file at `path`, one per line (each followed by `\"\\n\"`)."
+hints = ["Open the file with `\"w\"` inside a `with`, then loop over `lines`.", "In the loop: `f.write(line + \"\\n\")`."]
+gotcha = false

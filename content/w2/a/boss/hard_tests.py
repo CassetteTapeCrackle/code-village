@@ -1,0 +1,15 @@
+def test_sell_nothing():
+    """selling 0 is fine and changes nothing"""
+    inv = learner["Inventory"]("acorns", 5, 2)
+    expect_equal((inv.sell(0), inv.stock, inv.revenue), (True, 5, 0), "sell(0)")
+
+def test_sell_everything():
+    inv = learner["Inventory"]("acorns", 5, 2)
+    expect_equal((inv.sell(5), inv.stock, inv.value()), (True, 0, 0), "selling the whole stock")
+
+def test_two_storehouses():
+    """two inventories keep their own books"""
+    a = learner["Inventory"]("acorns", 5, 2)
+    b = learner["Inventory"]("hazelnuts", 9, 3)
+    a.sell(2)
+    expect_equal((b.stock, b.sales, b.revenue), (9, 0, 0), "the hazelnuts after selling acorns")

@@ -1,0 +1,3 @@
+id = "strings-whisper"
+title = "Whisper"
+prompt = "`whisper(text)` should return the text in lower case with `...` at the end: `whisper(\"HEY\")` is `\"hey...\"`. It has a bug: find and fix it."

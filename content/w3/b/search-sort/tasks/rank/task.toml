@@ -1,0 +1,7 @@
+id = "search-sort-rank"
+concept = "search-sort"
+kind = "complete"
+title = "Your place in the race"
+prompt = "Finish `rank(sorted_times, time)`: `sorted_times` is sorted from fastest to slowest. Return how many times are faster (smaller) than `time`, with `bisect`."
+hints = ["The index `bisect_left` gives is how many values come before `time`.", "`return bisect.bisect_left(sorted_times, time)`"]
+gotcha = false

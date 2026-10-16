@@ -1,0 +1,3 @@
+id = "grids-row-totals"
+title = "Row totals"
+prompt = "Write `row_totals(grid)` that returns a list with the total of each row."

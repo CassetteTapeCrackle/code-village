@@ -1,0 +1,4 @@
+id = "calc-mul"
+title = "Multiply"
+prompt = "Write `mul(a, b)`."
+hp = 10

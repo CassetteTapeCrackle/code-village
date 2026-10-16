@@ -1,0 +1,4 @@
+id = "guessing-play"
+title = "The whole game"
+prompt = "`play(secret)` reads guesses with `input()` (no question text). For each guess it prints `higher` or `lower`, or `Correct! Guesses used: N` and stops. A line that is not a valid guess prints `Please type a whole number from 1 to 100.` and does not use up a guess. After 5 wrong guesses it prints `Out of guesses. It was SECRET.` Inside a loop, `continue` jumps straight to the next round and `return` leaves the function."
+hp = 40

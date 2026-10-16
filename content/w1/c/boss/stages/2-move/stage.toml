@@ -1,0 +1,4 @@
+id = "satchel-move"
+title = "Walk around"
+prompt = "`move(rooms, here, direction)` returns the room that exit leads to, or `here` when there is no exit that way."
+hp = 20

@@ -1,0 +1,3 @@
+id = "methods-oven"
+title = "Can we bake?"
+prompt = "`can_bake(oven)` should return `True` only when the oven is ready. It says every oven is ready: find and fix the bug."

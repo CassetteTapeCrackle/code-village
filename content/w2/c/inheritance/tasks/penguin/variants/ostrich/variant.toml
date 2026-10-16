@@ -1,0 +1,3 @@
+id = "inheritance-ostrich"
+title = "Ostriches run"
+prompt = "Finish `Ostrich(Bird)`: override `move()` so that `Ostrich(\"Oz\").move()` returns `\"Oz runs\"`, while other birds still fly."

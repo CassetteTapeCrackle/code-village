@@ -1,0 +1,3 @@
+id = "sortable-pebbles"
+title = "The smallest pebble"
+prompt = "Give the class `Pebble` a `__lt__(self, other)` method comparing `size`, so that `min(pebbles)` finds the smallest pebble."

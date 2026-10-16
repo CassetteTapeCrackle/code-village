@@ -1,0 +1,7 @@
+id = "classes-backpack"
+concept = "classes"
+kind = "complete"
+title = "Pack a backpack"
+prompt = "Finish `Backpack`: `pack(item)` already adds an item, and `count()` should return how many items are packed."
+hints = ["The items live in `self.items`, a list.", "`return len(self.items)`"]
+gotcha = false

@@ -1,0 +1,7 @@
+id = "classes-tent"
+concept = "classes"
+kind = "write"
+title = "Pitch a tent"
+prompt = "Write a class `Tent` whose `__init__(self, owner, size)` stores `owner` and `size` as attributes: `Tent(\"Noa\", 2).owner` is `\"Noa\"`."
+hints = ["Inside `__init__`, store each value on `self`.", "`self.owner = owner` and `self.size = size`."]
+gotcha = false

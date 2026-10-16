@@ -1,0 +1,7 @@
+id = "loops-sum-to"
+concept = "loops"
+kind = "write"
+title = "Add them up"
+prompt = "Write `sum_to(n)` that returns 1 + 2 + ... + n. `sum_to(0)` is 0."
+hints = ["Keep a total and loop over `range(1, n + 1)`.", "`total = 0`, then `for i in range(1, n + 1): total = total + i`, then `return total`."]
+gotcha = false

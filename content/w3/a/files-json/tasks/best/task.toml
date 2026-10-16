@@ -1,0 +1,7 @@
+id = "files-json-best"
+concept = "files-json"
+kind = "complete"
+title = "The best score"
+prompt = "The file at `path` holds a JSON dict of names and scores. Finish `best_player(path)`: load it, then return the name with the highest score."
+hints = ["Which function reads JSON back from an open file?", "`data = json.load(f)`"]
+gotcha = false

@@ -1,0 +1,3 @@
+id = "nearest-neighbour-one"
+title = "One neighbour"
+prompt = "Finish `label_of(known, point)`: `known` is a list of `(point, label)` pairs. Return the label of the pair nearest to `point`."

@@ -1,0 +1,7 @@
+id = "lists-copy-and-add"
+concept = "lists"
+kind = "fix"
+title = "Leave the original alone"
+prompt = "`copy_and_add(items, x)` should return a **new** list with `x` at the end, and leave `items` unchanged. It has a bug: find and fix it."
+hints = ["Run it, then print the original list after the call.", "`new = items` is not a copy. Try `new = items.copy()`."]
+gotcha = true

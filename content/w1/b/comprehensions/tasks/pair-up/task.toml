@@ -1,0 +1,7 @@
+id = "comprehensions-pair-up"
+concept = "comprehensions"
+kind = "fix"
+title = "Nobody left out"
+prompt = "`pair_up(names, scores)` should pair every name with its score, using `None` when a name has no score yet. It has a bug: find and fix it."
+hints = ["Try three names and two scores: who goes missing?", "Loop with `enumerate(names)`; use `scores[i]` when `i < len(scores)`, otherwise `None`."]
+gotcha = true

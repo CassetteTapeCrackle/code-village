@@ -1,0 +1,4 @@
+id = "stars-nearest"
+title = "The nearest star"
+prompt = "`nearest_label(X, y, point)` returns the label in `y` of the row of `X` nearest to `point`, by hand with `math.dist`."
+hp = 25

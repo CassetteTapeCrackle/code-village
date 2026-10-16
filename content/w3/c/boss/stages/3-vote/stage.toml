@@ -1,0 +1,4 @@
+id = "stars-vote"
+title = "Let them vote"
+prompt = "`knn_predict(X, y, rows, k)` fits a scikit-learn `KNeighborsClassifier` with `k` neighbours on `X` and `y`, and returns a plain list of its labels for `rows`. If `k` is bigger than the number of known stars, raise your own `ValueError` with a message that mentions the stars (scikit-learn's error does not)."
+hp = 25

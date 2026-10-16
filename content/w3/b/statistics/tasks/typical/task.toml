@@ -1,0 +1,7 @@
+id = "statistics-typical"
+concept = "statistics"
+kind = "fix"
+title = "A typical price"
+prompt = "`typical_price(prices)` should return the typical price: the middle one once sorted, so that one huge price cannot drag it. For `[3, 4, 3, 5, 90]` it returns `21.0` instead of `4.0`: find and fix the bug."
+hints = ["The mean uses every value, the 90 too. Which number only looks at the middle?", "`return float(np.median(prices))`"]
+gotcha = true

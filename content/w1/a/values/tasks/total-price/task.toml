@@ -1,0 +1,7 @@
+id = "values-total-price"
+concept = "values"
+kind = "write"
+title = "Price for a few"
+prompt = "Write `total_price(price, quantity)` that returns the price of one item times how many there are."
+hints = ["Multiply the two parameters.", "`return price * quantity`"]
+gotcha = false

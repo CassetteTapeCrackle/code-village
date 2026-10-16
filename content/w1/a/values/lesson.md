@@ -1,0 +1,80 @@
++++
+id = "values"
+title = "Values, types and variables"
+world = "w1"
+region = "a"
+order = 1
+concepts = ["values"]
+remember = ["Every value has a type: int, float, str or bool. type(x) tells you which.", "= stores a value in a name; the name can point at a new value later.", "+ adds numbers but joins strings: \"3\" + \"4\" is \"34\".", "int(), float() and str() convert; int() cuts the decimals off, round() goes to the nearest whole number (a half goes to the even one: round(2.5) is 2).", "import math loads a module of extra tools: then math.sqrt(x) and math.floor(x) work."]
+[loot]
+id = "pebble-counter"
+name = "Pebble Counter"
++++
+
+Python works with **values**. Every value has a **type**: whole numbers are `int`, numbers with a decimal point are `float`, text between quotes is `str`, and `True` and `False` are `bool`. `type()` tells you which one you have.
+
+```python claim
+assert type(7) is int and type(7.5) is float and type("7") is str and type(True) is bool
+```
+
+```python example
+print(type(7), type(7.5), type("7"), type(True))
+```
+
+A **variable** is a name for a value. `=` takes the value on the right and stores it under the name on the left. You can store a new value later, even one computed from the old one.
+
+```python example
+apples = 3
+apples = apples + 2
+print(apples)
+```
+
+Numbers do arithmetic: `*` multiplies, `/` divides and always gives a float, `//` divides and rounds down to a whole number, `%` gives the remainder, and `**` raises to a power.
+
+```python claim
+assert 7 / 2 == 3.5 and type(6 / 2) is float
+assert 7 // 2 == 3 and -7 // 2 == -4 and 7.5 // 2 == 3.0
+assert 7 % 2 == 1 and 2 ** 3 == 8
+```
+
+```python example
+print(7 * 3, 7 / 2, 7 // 2, 7 % 2, 2 ** 3)
+```
+
+Most tasks ask you to finish a small **function**. A line like `def total_price(price, quantity):` gives it a name and lists the values it receives, its **parameters**. The indented lines below are its body, and `return` hands the answer back. The starter body is `pass`, which means "nothing yet": replace it with your code. The Functions lesson explains all of this in depth later.
+
+::task total-price
+
+Types matter. `+` adds numbers, but it **joins** strings. So `"3" + "4"` is `"34"`, not 7. Convert first with `int()`, `float()` or `str()`.
+
+```python claim
+assert "3" + "4" == "34" and int("3") + int("4") == 7 and float("2.5") == 2.5 and str(12) == "12"
+```
+
+```python predict
+a = "3"
+b = "4"
+print(a + b, int(a) + int(b))
+```
+
+::task add-strings
+
+`int()` on a float cuts the decimals off (it does not round), and `str()` turns any value into text, which is handy for building messages.
+
+```python claim
+assert int(9.99) == 9 and int(-9.99) == -9
+assert round(9.99) == 10 and round(2.5) == 2 and round(3.5) == 4
+```
+
+```python example
+print(int(9.99), round(9.99), str(12) + " eggs")
+```
+
+Python also comes with **modules** of extra tools. `import math` loads one, and then its tools are ready to use with `math.` in front.
+
+```python example
+import math
+print(math.sqrt(16), math.floor(9.99), math.pi)
+```
+
+::task describe

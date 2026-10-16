@@ -1,0 +1,4 @@
+id = "registry-keepers"
+title = "Keepers"
+prompt = "`Keeper(name)` has its own list of animals: `adopt(animal)` adds one, and `feed_all()` returns `[\"Sly is fed\", ...]` in adoption order."
+hp = 25

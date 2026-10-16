@@ -1,0 +1,7 @@
+id = "inheritance-squirrel"
+concept = "inheritance"
+kind = "fix"
+title = "A squirrel with no name"
+prompt = "`Squirrel(name)` should be an `Animal` with a `name` and its own empty `stash`. Asking for its name raises `AttributeError`: find and fix the bug."
+hints = ["Which `__init__` sets `self.name`, and does it ever run for a squirrel?", "Start `Squirrel.__init__` with `super().__init__(name)`."]
+gotcha = true

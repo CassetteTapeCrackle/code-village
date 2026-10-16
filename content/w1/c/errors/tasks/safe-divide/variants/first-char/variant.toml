@@ -1,0 +1,3 @@
+id = "errors-first-char"
+title = "First letter, safely"
+prompt = "Write `first_char(text)` that returns the first character, or `None` for an empty string. Use `try` and `except IndexError`."

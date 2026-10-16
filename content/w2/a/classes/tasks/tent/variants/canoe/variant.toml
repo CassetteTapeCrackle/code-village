@@ -1,0 +1,3 @@
+id = "classes-canoe"
+title = "A canoe"
+prompt = "Write a class `Canoe` whose `__init__(self, name, seats)` stores `name` and `seats`: `Canoe(\"Otter\", 2).seats` is `2`."

@@ -1,0 +1,7 @@
+id = "comprehensions-odd-squares"
+concept = "comprehensions"
+kind = "write"
+title = "Odd squares"
+prompt = "Write `odd_squares(numbers)` that returns the squares of the odd numbers, in order. Try a list comprehension."
+hints = ["A number is odd when `n % 2 == 1`.", "`return [n * n for n in numbers if n % 2 == 1]`"]
+gotcha = false

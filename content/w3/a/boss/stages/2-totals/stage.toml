@@ -1,0 +1,4 @@
+id = "sales-totals"
+title = "Totals per product"
+prompt = "`totals(sales)` takes the list from `read_sales` and returns a dict of each product and the money it brought in (quantity times price, added up over all its rows)."
+hp = 35

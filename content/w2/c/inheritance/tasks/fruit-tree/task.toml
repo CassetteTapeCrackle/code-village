@@ -1,0 +1,7 @@
+id = "inheritance-fruit-tree"
+concept = "inheritance"
+kind = "write"
+title = "A tree that bears fruit"
+prompt = "`Tree(kind, height)` is given, with `describe()` returning `\"oak, 20 m\"`. Write `FruitTree(Tree)`: `FruitTree(kind, height, fruit)` also stores `fruit`, and its `describe()` adds `\", gives FRUIT\"` to the parent's text: `\"apple, 4 m, gives apples\"`."
+hints = ["In `__init__`, call `super().__init__(kind, height)` before storing `fruit`.", "`return super().describe() + f\", gives {self.fruit}\"`"]
+gotcha = false

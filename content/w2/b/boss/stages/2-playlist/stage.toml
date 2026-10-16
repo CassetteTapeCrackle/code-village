@@ -1,0 +1,4 @@
+id = "playlist-list"
+title = "The playlist"
+prompt = "`Playlist(name)` keeps its own list of songs. `add(song)` adds one, `len(playlist)` counts them (write `__len__`), and `str(playlist)` is like `\"Morning: 2 songs\"` (write `__str__`)."
+hp = 35

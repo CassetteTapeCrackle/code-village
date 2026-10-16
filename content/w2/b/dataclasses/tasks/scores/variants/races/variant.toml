@@ -1,0 +1,3 @@
+id = "dataclasses-races"
+title = "The fastest runner"
+prompt = "Finish `Race` so that races sort by `time`, then `runner`, and `winner(races)` returns the runner with the smallest time. `@dataclass(order=True)` makes a dataclass sortable, and `min` finds the smallest."

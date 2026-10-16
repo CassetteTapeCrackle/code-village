@@ -1,0 +1,7 @@
+id = "dicts-unique-sorted"
+concept = "dicts"
+kind = "complete"
+title = "Each one once"
+prompt = "Finish `unique_sorted(values)`: it returns a sorted list with every value only once."
+hints = ["A set has no order, but `sorted()` takes a set and returns a list.", "`return sorted(unique)`"]
+gotcha = false

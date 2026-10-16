@@ -1,0 +1,3 @@
+id = "lists-add-both"
+title = "Add both"
+prompt = "Write `add_both(items, a, b)` that adds `a` then `b` at the end of `items`, then returns the list."

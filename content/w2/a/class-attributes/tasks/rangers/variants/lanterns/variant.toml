@@ -1,0 +1,3 @@
+id = "class-attributes-lanterns"
+title = "How many lanterns?"
+prompt = "Finish `Lantern`: the class attribute `made` starts at 0, and every new lantern should add 1 to it. Change it through the class: `Lantern.made += 1`."

@@ -1,0 +1,3 @@
+id = "values-average"
+title = "Halfway"
+prompt = "Write `average_of_two(a, b)` that returns the number halfway between `a` and `b`."

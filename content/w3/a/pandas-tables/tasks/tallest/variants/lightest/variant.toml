@@ -1,0 +1,3 @@
+id = "pandas-tables-lightest"
+title = "The lightest pack"
+prompt = "Write `lightest(text)`: `text` is CSV with the columns `pack` and `kg`. Read it with pandas and return the name of the lightest pack."

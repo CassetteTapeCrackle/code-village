@@ -1,0 +1,3 @@
+id = "values-next-number"
+title = "The next number"
+prompt = "`next_number(text)` gets a number written as text, like `\"41\"`, and should return the next number, `42`. It returns `\"411\"` instead: find and fix the bug."

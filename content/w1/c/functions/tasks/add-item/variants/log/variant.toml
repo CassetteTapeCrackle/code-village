@@ -1,0 +1,3 @@
+id = "functions-log"
+title = "The logbook"
+prompt = "`log(message, entries)` adds `message` to `entries` and returns the list. When no list is given it should start a **new** empty one each time. It has a bug: find and fix it. Use `None` as the default, and make the list inside the function when `entries is None`."

@@ -1,0 +1,3 @@
+id = "errors-parse-price"
+title = "Read a price"
+prompt = "`parse_price(text)` should return the price as a float, or `None` when the text is not a number. It always returns `None`: find the hidden bug, and catch only the error you expect."

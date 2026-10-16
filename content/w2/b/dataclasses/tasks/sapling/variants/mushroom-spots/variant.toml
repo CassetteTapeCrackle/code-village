@@ -1,0 +1,3 @@
+id = "dataclasses-mushroom-spots"
+title = "A spotty mushroom"
+prompt = "Write a dataclass `Toadstool` with fields `name` (str) and `spots` (int, default 0), and a method `add_spot()` that adds 1 to `spots`. Start with `from dataclasses import dataclass` and put `@dataclass` above the class."

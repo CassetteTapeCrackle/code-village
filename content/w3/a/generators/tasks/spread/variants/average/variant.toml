@@ -1,0 +1,3 @@
+id = "generators-average"
+title = "The average"
+prompt = "`average(numbers)` should return the sum divided by how many numbers there are. It crashes: find and fix the bug. (A generator can only be walked through once.)"

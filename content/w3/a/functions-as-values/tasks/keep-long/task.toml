@@ -1,0 +1,7 @@
+id = "functions-as-values-keep-long"
+concept = "functions-as-values"
+kind = "complete"
+title = "Only the long words"
+prompt = "Finish `long_words(words, n)`: it returns a list of the words longer than `n` letters, in their order, using `filter` and a `lambda`."
+hints = ["The lambda gets one word and answers `True` or `False`.", "`return list(filter(lambda w: len(w) > n, words))`"]
+gotcha = false

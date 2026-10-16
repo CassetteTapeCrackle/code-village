@@ -1,0 +1,4 @@
+id = "guessing-read"
+title = "Read a guess"
+prompt = "`read_guess(text)` returns the guess as an int, ignoring spaces around it, or `None` when the text is not a whole number from 1 to 100. `text.strip()` removes the spaces around the text, `text.isdecimal()` is True when every character is a digit, and `None` is Python's value for \"nothing\"."
+hp = 30

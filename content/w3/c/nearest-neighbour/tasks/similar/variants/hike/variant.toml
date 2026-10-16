@@ -1,0 +1,3 @@
+id = "nearest-neighbour-hike"
+title = "A hike like this one"
+prompt = "`most_like(hikes, wanted)` gets `(name, climb_m, km)` tuples and a `(climb_m, km)` wish, and should return the most similar hike once both columns are scaled to 0 to 1. It scales them, then measures with the raw numbers (where the metres climbed swamp the km): find and fix the bug."
