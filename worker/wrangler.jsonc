@@ -2,19 +2,21 @@
   "name": "code-village",
   "main": "src/index.ts",
   "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "preview_urls": false,
   "assets": { "directory": "../dist", "binding": "ASSETS", "run_worker_first": ["/api/*", "/mcp"] },
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "code-village",
-      "database_id": "local-only-until-owner-creates-it",
+      "database_id": "8bf357d9-87ae-44eb-b501-126d47d69a83",
       "migrations_dir": "migrations",
     },
   ],
   "triggers": { "crons": ["17 3 * * *"] },
   "ai": { "binding": "AI" },
   "vars": {
-    "TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFYr7Xo-W0WadkgZ",
     "TUTOR_MODEL": "@cf/google/gemma-4-26b-a4b-it",
   },
 }
