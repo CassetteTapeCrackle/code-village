@@ -58,7 +58,7 @@
   import { forgetClosed, openWorlds, unseenOpened, worldById } from "../worlds/registry";
   import { cachedTerrain, keepTerrain, terrainCacheKey } from "./terrainCache";
   import { coveredRect, covers, type ViewRect } from "./view";
-  import { SAMPLE_COUNT, lightOverride, shouldGoLight } from "./light";
+  import { SAMPLE_COUNT, SAMPLE_WARMUP_MS, WINDOW_COUNT, lightOverride, shouldGoLight } from "./light";
   import { ambientEvery, nextFrameMs } from "./cadence";
   import { onIdle } from "../ui/idle";
   import { prefetchLessonAssets } from "../lesson/prefetch";
@@ -154,6 +154,7 @@
   const forcedLight = lightOverride(location.search);
   let light = forcedLight === true;
   const samples: number[] = []; // recent paint times, for light-mode detection
+  let sampleWarmUntil = Infinity; // no judgement until a static layer is up and has settled
   const MOTION_HOLD_MS = 250; // a drag or scroll keeps painting every frame this long after it stops
   let motionUntil = 0; // the player is driving the map until then
   let lastPaintMs = 0;
@@ -423,6 +424,9 @@
           scratch.getContext("2d", { willReadFrequently: true }) ?? undefined,
         );
         staticLayer = layer;
+        // A static redraw starts the light-mode judgement again: the first paints after it are not a slow machine.
+        samples.length = 0;
+        sampleWarmUntil = performance.now() + SAMPLE_WARMUP_MS;
         paint();
       };
       if (defer) onIdle(compose, 500);
@@ -473,9 +477,9 @@
         seconds += dt;
         tick(dt);
         paint();
-        if (forcedLight === null && !light) {
+        if (forcedLight === null && !light && now >= sampleWarmUntil) {
           samples.push(lastPaintMs);
-          if (samples.length > SAMPLE_COUNT) samples.shift();
+          if (samples.length > SAMPLE_COUNT * WINDOW_COUNT) samples.shift();
           light = shouldGoLight(samples);
         }
         if (light && covered) return; // painted once behind the board; a close wakes the loop
