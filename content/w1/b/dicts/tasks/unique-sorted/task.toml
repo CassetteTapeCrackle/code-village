@@ -3,5 +3,5 @@ concept = "dicts"
 kind = "complete"
 title = "Each one once"
 prompt = "Finish `unique_sorted(values)`: it returns a sorted list with every value only once."
-hints = ["A set has no order, but `sorted()` takes a set and returns a list.", "`return sorted(seen)`"]
+hints = ["A set has no order, but `sorted()` takes a set and returns a list.", "`sorted([\"b\", \"a\"])` gives `[\"a\", \"b\"]`: it takes any iterable, a set too."]
 gotcha = false

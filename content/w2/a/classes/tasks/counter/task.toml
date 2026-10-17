@@ -3,5 +3,5 @@ concept = "classes"
 kind = "fix"
 title = "Counting acorns"
 prompt = "`Counter()` starts with `total` at 0, and `add(amount)` should add `amount` to `total`. Calling `add` crashes: find and fix the bug."
-hints = ["Read the error: how many arguments does `add` take, and how many does Python pass?", "The method needs `self` first: `def bump(self, step):`."]
+hints = ["Read the error: how many arguments does `add` take, and how many does Python pass?", "Python fills the first parameter with the object itself: `counter.add(2)` passes `counter`. Add `self` before `amount`."]
 gotcha = true

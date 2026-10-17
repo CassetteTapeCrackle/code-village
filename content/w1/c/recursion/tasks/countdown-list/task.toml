@@ -3,5 +3,5 @@ concept = "recursion"
 kind = "complete"
 title = "Count down into a list"
 prompt = "Finish `countdown_list(n)` so it returns `[n, n - 1, ..., 1]`, recursively. `countdown_list(0)` is `[]`."
-hints = ["The list for n is `[n]` followed by the list for n - 1.", "The list for k is `[k]` plus the list for `k - 1`: `return [k] + build(k - 1)`."]
+hints = ["The list for n is `[n]` followed by the list for n - 1.", "The list for k is `[k]` plus the list for `k - 1`: build `[k] + rest` where `rest` is the recursive call on `k - 1`."]
 gotcha = false

@@ -3,5 +3,5 @@ concept = "knn-sklearn"
 kind = "complete"
 title = "Teach it first"
 prompt = "Finish `classify(X, y, new_rows)`: the model is made, but it never learns from `X` and `y` before predicting. Add the missing line."
-hints = ["A model learns with `fit`.", "Teach the model before predicting: `model.fit(features, labels)`."]
+hints = ["A model learns with `fit`.", "`model.fit` takes the inputs first, then their labels."]
 gotcha = false

@@ -3,5 +3,5 @@ concept = "search-sort"
 kind = "fix"
 title = "Is she on the list?"
 prompt = "`on_list(names, name)` should say whether `name` is in `names`. For `[\"Sam\", \"Ines\", \"Noa\"]` and `\"Sam\"` it says `False`: find and fix the bug."
-hints = ["`bisect_left` does a binary search. Is `names` sorted?", "Sort a copy first: `values = sorted(values)` at the start."]
+hints = ["`bisect_left` does a binary search. Is `names` sorted?", "`sorted(names)` returns a new sorted list; `names.sort()` sorts in place."]
 gotcha = true

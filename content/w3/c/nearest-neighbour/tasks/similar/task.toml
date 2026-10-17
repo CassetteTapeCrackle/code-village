@@ -3,5 +3,5 @@ concept = "nearest-neighbour"
 kind = "fix"
 title = "What is the mystery animal?"
 prompt = "`most_similar(animals, mystery)` gets `(name, grams, metres)` tuples and a `(grams, metres)` mystery, and should return the name of the most similar animal once both columns are scaled to 0 to 1. It scales them, but then measures with the raw numbers: find and fix the bug."
-hints = ["`grams` and `metres` hold the scaled values; the mystery's are the last of each.", "Use the last scaled values as the mystery: `goal = (grams[-1], metres[-1])` and measure distances to `goal`."]
+hints = ["`grams` and `metres` hold the scaled values; the mystery's are the last of each.", "Put the last values in a tuple: `(grams[-1], metres[-1])`."]
 gotcha = true

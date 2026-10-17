@@ -3,5 +3,5 @@ concept = "knn-sklearn"
 kind = "write"
 title = "Label the new stars"
 prompt = "Write `labels_for(X, y, new_rows)`: fit a `KNeighborsClassifier` with `n_neighbors=1` on `X` and `y`, and return a plain list of its labels for `new_rows`."
-hints = ["Build the model with one neighbour and fit it on `X` and `y`.", "`return model.predict(fresh).tolist()`"]
+hints = ["Build the model with one neighbour and fit it on `X` and `y`.", "`model.predict(new_rows)` gives the labels as an array; `tolist()` makes a list."]
 gotcha = false

@@ -160,12 +160,35 @@ class ContentCheck(unittest.TestCase):
         self.assertEqual(done.returncode, 1)
         self.assertIn("basics-double: hint 1 gives away the solution: `return n * 2`", done.stdout)
 
-    def test_hint_with_different_names_passes(self):
+    def test_hint_with_new_names_fails(self):
         def edit(lesson):
             toml = lesson / "tasks" / "double" / "task.toml"
             toml.write_text(toml.read_text().replace('hints = ["Multiply by 2."]', 'hints = ["Try `return x * 2`."]'))
         done, _ = check(broken_copy(edit))
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("basics-double: hint 1 gives away the solution: `return x * 2` is `return n * 2` renamed", done.stdout)
+
+    def test_hint_with_new_names_and_another_operation_passes(self):
+        def edit(lesson):
+            toml = lesson / "tasks" / "double" / "task.toml"
+            toml.write_text(toml.read_text().replace('hints = ["Multiply by 2."]', 'hints = ["Try `return x + 2`."]'))
+        done, _ = check(broken_copy(edit))
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+
+    def test_a_different_message_passes(self):
+        sys.path.insert(0, str(ROOT / "tools"))
+        from content_check import Problems, check_hints
+        problems = Problems()
+        check_hints("x", ['Try `print(f"Hi, {city}!")`.'], 'return print(f"Hello, {name}!")', "", problems)
+        self.assertEqual(problems, [])
+
+    def test_a_different_comprehension_passes(self):
+        sys.path.insert(0, str(ROOT / "tools"))
+        from content_check import Problems, check_hints
+        problems = Problems()
+        check_hints("x", ["Try `[w.upper() for w in words if len(w) > 3]`."],
+                    "return [n * n for n in numbers if n % 2 == 1]", "", problems)
+        self.assertEqual(problems, [])
 
     def test_starter_line_and_short_line_in_a_hint_pass(self):
         def edit(lesson):

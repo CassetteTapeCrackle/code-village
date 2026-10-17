@@ -3,5 +3,5 @@ concept = "train-test"
 kind = "write"
 title = "How often was it right?"
 prompt = "Write `accuracy(truth, guesses)` by hand (no scikit-learn): return the share of positions where `guesses` matches `truth`, as a number from `0.0` to `1.0`."
-hints = ["Count the matches with `zip(truth, guesses)`, then divide by the length.", "`return sum(a == b for a, b in zip(truth, guesses)) / len(truth)`"]
+hints = ["Count the matches with `zip(truth, guesses)`, then divide by the length.", "`list(zip([1, 2], [1, 3]))` pairs the lists: `[(1, 1), (2, 3)]`. How many pairs have equal halves?"]
 gotcha = false

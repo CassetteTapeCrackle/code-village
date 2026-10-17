@@ -3,5 +3,5 @@ concept = "functions-as-values"
 kind = "write"
 title = "Do it twice"
 prompt = "Write `apply_twice(f, x)`: it calls the function `f` on `x`, then calls `f` again on that result, and returns it. `apply_twice(add_one, 5)` is `7`."
-hints = ["First `once = f(x)`, then call `f` on `once`.", "Call and call again: `return g(g(y))`."]
+hints = ["First `once = f(x)`, then call `f` on `once`.", "Return the second result: `double(double(3))` calls `double` twice."]
 gotcha = false

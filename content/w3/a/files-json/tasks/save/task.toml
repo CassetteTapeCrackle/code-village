@@ -3,5 +3,5 @@ concept = "files-json"
 kind = "write"
 title = "Save the list"
 prompt = "Write `save_lines(path, lines)`: it writes each string of `lines` to the file at `path`, one per line (each followed by `\"\\n\"`)."
-hints = ["Open the file with `\"w\"` inside a `with`, then loop over `lines`.", "In the loop: `out.write(text + \"\\n\")`."]
+hints = ["Open the file with `\"w\"` inside a `with`, then loop over `lines`.", "`out.write` takes one string, so add a newline: `text + \"\\n\"`."]
 gotcha = false
