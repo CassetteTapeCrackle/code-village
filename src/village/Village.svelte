@@ -59,6 +59,7 @@
   import { cachedTerrain, keepTerrain, terrainCacheKey } from "./terrainCache";
   import { coveredRect, covers, type ViewRect } from "./view";
   import { SAMPLE_COUNT, lightOverride, shouldGoLight } from "./light";
+  import { ambientEvery, nextFrameMs } from "./cadence";
   import { onIdle } from "../ui/idle";
   import { prefetchLessonAssets } from "../lesson/prefetch";
 
@@ -152,6 +153,11 @@
   // Light mode: chosen from the machine's own paint times, or forced by ?light=1 / ?light=0 for testing.
   const forcedLight = lightOverride(location.search);
   let light = forcedLight === true;
+  const samples: number[] = []; // recent paint times, for light-mode detection
+  const MOTION_HOLD_MS = 250; // a drag or scroll keeps painting every frame this long after it stops
+  let motionUntil = 0; // the player is driving the map until then
+  let lastPaintMs = 0;
+  let displayMs = 0;
   let wakeLoop: (() => void) | undefined; // set by the frame loop, so a board closing can resume it
   // Mochi idles at the west edge of the square, beside the fountain when there is one
   const mochi = actorAt({ x: PLAZA.x, y: PLAZA.center.y }, 12);
@@ -182,6 +188,7 @@
   function paint(): void {
     const ctx = canvas?.getContext("2d");
     if (!ctx || !staticLayer) return;
+    const started = performance.now();
     // Only the visible part of the map (plus room for overhanging sprites) is blitted and stepped: the rest
     // of the map is off screen, and the viewport repaints as soon as it scrolls past what was painted.
     const view =
@@ -255,12 +262,15 @@
     });
     ctx.restore();
     paintedView = view;
+    lastPaintMs = performance.now() - started;
   }
 
-  // Scrolling and resizing must not show unpainted edges: repaint as soon as the view leaves the last one.
+  // Scrolling and resizing must not show unpainted edges: the frame loop repaints the visible part on the
+  // frame the scroll arrives, with the new position. Reduced motion has no loop, so this one frame paints.
   let scrollRaf = 0;
   function onViewChanged(): void {
-    if (!staticLayer || !viewport) return;
+    motionUntil = performance.now() + MOTION_HOLD_MS;
+    if (!reduced || !staticLayer || !viewport || scrollRaf) return;
     const visible = coveredRect(
       viewport.scrollLeft,
       viewport.scrollTop,
@@ -270,7 +280,6 @@
       0,
     );
     if (paintedView && covers(paintedView, visible)) return;
-    if (scrollRaf) return;
     scrollRaf = requestAnimationFrame(() => {
       scrollRaf = 0;
       paint();
@@ -436,53 +445,58 @@
       viewport.scrollLeft = PLAZA.center.x * TILE * scale - viewport.clientWidth / 2;
       viewport.scrollTop = PLAZA.center.y * TILE * scale - viewport.clientHeight / 2;
     });
-    let timer: ReturnType<typeof setTimeout> | undefined;
     let raf = 0;
-    let last = 0;
+    let lastFrame = 0;
+    let sinceTick = 0;
+    let framesSincePaint = 0;
     let focused = true;
-    const samples: number[] = []; // recent paint times, for light-mode detection
-    // The map is stepped pixel art: 30 fps reads the same, and 10 is enough while a board covers it or the
-    // window is not focused. Between paints no frame is woken at all: a timer sleeps to just before the next
-    // paint is due, and the animation frame after it paints, with tick fed the real elapsed time throughout.
-    // In light mode a board-covered map is painted once and then left alone until the board closes.
-    const gap = (): number => (covered || !focused ? 100 : 1000 / 30);
-    const wake = (): void => {
-      if (light && covered) return;
-      timer = setTimeout(
-        () => {
-          timer = undefined;
-          raf = requestAnimationFrame(frame);
-        },
-        Math.max(0, gap() - 8), // a frame early, so the animation frame lands on the beat the paint is due
-      );
-    };
-    const frame = (now: number): void => {
+    // The map is stepped pixel art, so ambient motion needs about 30 paints a second, while anything the player
+    // drives (a drag, a scroll, Mochi walking, a board opening or closing) paints on every display frame. The
+    // ambient beat counts animation frames and paints every Nth one (N from the measured display rate), never
+    // a timer, so every paint lands on a vsync at an even interval on 60 Hz and 120 Hz alike. A board over the
+    // map and an unfocused window are quieter still. In light mode a board-covered map is painted once and
+    // then left alone until the board closes.
+    const step = (now: number): void => {
       raf = 0;
-      const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
-      last = now;
-      seconds += dt;
-      tick(dt);
-      const started = performance.now();
-      paint();
-      if (forcedLight === null && !light) {
-        samples.push(performance.now() - started);
-        if (samples.length > SAMPLE_COUNT) samples.shift();
-        light = shouldGoLight(samples);
+      const delta = lastFrame ? now - lastFrame : 0;
+      lastFrame = now;
+      displayMs = nextFrameMs(displayMs, delta);
+      framesSincePaint++;
+      const every = ambientEvery(displayMs, covered || !focused ? 10 : undefined);
+      // Between ambient paints the frame only counts: no scene work, no viewport reads. A scroll or any
+      // other move sets motionUntil, so its frame paints at once.
+      if (now < motionUntil || travel !== null || mochi.moving || framesSincePaint >= every) {
+        framesSincePaint = 0;
+        sinceTick += Math.min(0.1, delta / 1000);
+        const dt = sinceTick;
+        sinceTick = 0;
+        seconds += dt;
+        tick(dt);
+        paint();
+        if (forcedLight === null && !light) {
+          samples.push(lastPaintMs);
+          if (samples.length > SAMPLE_COUNT) samples.shift();
+          light = shouldGoLight(samples);
+        }
+        if (light && covered) return; // painted once behind the board; a close wakes the loop
+      } else {
+        sinceTick += Math.min(0.1, delta / 1000);
       }
-      wake();
+      raf = requestAnimationFrame(step);
     };
     const start = (): void => {
-      if (reduced || timer || raf) return;
-      last = 0;
-      wake();
+      if (reduced || raf) return;
+      lastFrame = 0;
+      sinceTick = 0;
+      framesSincePaint = 0;
+      raf = requestAnimationFrame(step);
     };
     const stop = (): void => {
-      clearTimeout(timer);
-      timer = undefined;
       cancelAnimationFrame(raf);
       raf = 0;
     };
     wakeLoop = (): void => {
+      motionUntil = performance.now() + MOTION_HOLD_MS;
       if (!covered) start();
     };
     const onVisibility = (): void => (document.hidden ? stop() : start());
