@@ -3,5 +3,5 @@ concept = "testing"
 kind = "complete"
 title = "Test the edges"
 prompt = "`test_average()` already checks a normal list. Add two checks: a list of one number gives that number, and an empty list raises `ValueError` (the helper `raises_value_error(f, arg)` tells you whether it does)."
-hints = ["One `assert` for `[5]`, one `assert` using the helper with `[]`.", "`assert average([5]) == 5` and `assert raises_value_error(average, [])`."]
+hints = ["One `assert` for `[5]`, one `assert` using the helper with `[]`.", "For a `mean` function: `assert mean([7]) == 7` and `assert raises_value_error(mean, [])`."]
 gotcha = false

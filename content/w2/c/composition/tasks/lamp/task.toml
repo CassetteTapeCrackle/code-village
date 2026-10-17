@@ -3,5 +3,5 @@ concept = "composition"
 kind = "complete"
 title = "A lamp with a battery"
 prompt = "Finish `Lamp.shine()`: the lamp has a `Battery`. When the battery's `charge` is 0, return `\"dark\"`. Otherwise drain the battery once and return `\"light\"`."
-hints = ["Ask the part: `self.battery.charge`, and `self.battery.drain()`.", "`if self.battery.charge == 0: return \"dark\"`, then `self.battery.drain()` and `return \"light\"`."]
+hints = ["Ask the part: read its `charge`, and call its `drain()` method.", "For a heater: `if self.tank.level == 0: return \"empty\"`, then `self.tank.fill()` and `return \"full\"`."]
 gotcha = false

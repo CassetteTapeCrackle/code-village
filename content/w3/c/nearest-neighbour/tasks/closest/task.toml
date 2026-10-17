@@ -3,5 +3,5 @@ concept = "nearest-neighbour"
 kind = "write"
 title = "The closest camp"
 prompt = "Write `closest(points, target)`: `points` is a list of `(x, y)` tuples. Return the point nearest to `target`, using `math.dist`."
-hints = ["`min` with a `key` picks the point with the smallest distance.", "`return min(points, key=lambda p: math.dist(p, target))`"]
+hints = ["`min` with a `key` picks the point with the smallest distance.", "`return min(points, key=lambda p: math.dist(p, goal))`"]
 gotcha = false

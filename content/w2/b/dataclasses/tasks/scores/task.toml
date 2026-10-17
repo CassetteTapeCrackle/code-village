@@ -3,5 +3,5 @@ concept = "dataclasses"
 kind = "complete"
 title = "The leaderboard"
 prompt = "Finish `Score` so that scores sort by `points`, then by `name`, and `best(scores)` returns the name of the highest score."
-hints = ["One argument to the decorator makes dataclasses sortable.", "Write `@dataclass(order=True)`, and in `best`: `return max(scores).name`."]
+hints = ["One argument to the decorator makes dataclasses sortable.", "Pass `order=True` to the decorator. For `best`: `return max(rows).label`."]
 gotcha = false

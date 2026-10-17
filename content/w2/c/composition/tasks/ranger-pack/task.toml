@@ -3,5 +3,5 @@ concept = "composition"
 kind = "fix"
 title = "A ranger is not a backpack"
 prompt = "A `Ranger` should **have** a `Backpack` called `pack`, so `ranger.pack.add(\"rope\")` works. Right now a ranger **is** a backpack, so it has no `pack` at all: fix the design."
-hints = ["Drop the inheritance: `class Ranger:` on its own.", "In `Ranger.__init__`, store `self.name = name` and `self.pack = Backpack()`."]
+hints = ["Drop the inheritance: define the class on its own, with no parent in the parentheses.", "In `__init__`, store the name and make the part: `self.title = title` and `self.bag = Backpack()`."]
 gotcha = true

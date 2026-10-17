@@ -3,5 +3,5 @@ concept = "nearest-neighbour"
 kind = "complete"
 title = "Three neighbours vote"
 prompt = "Finish `vote(known, point)`: `known` is a list of `(point, label)` pairs. Take the 3 pairs nearest to `point` and return the label most of them have."
-hints = ["Sort `known` by distance to `point` and keep the first 3.", "`nearest = sorted(known, key=lambda pair: math.dist(pair[0], point))[:3]`"]
+hints = ["Sort `known` by distance to `point` and keep the first 3.", "`nearest = sorted(known, key=lambda pair: math.dist(pair[0], spot))[:3]`"]
 gotcha = false

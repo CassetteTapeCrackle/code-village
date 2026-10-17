@@ -152,6 +152,28 @@ class ContentCheck(unittest.TestCase):
         self.assertNotEqual(done.returncode, 0)
         self.assertIn("hint code is not valid Python: `for i in range(3\nprint(i)`", done.stdout + done.stderr)
 
+    def test_hint_quoting_the_solution_fails(self):
+        def edit(lesson):
+            toml = lesson / "tasks" / "double" / "task.toml"
+            toml.write_text(toml.read_text().replace('hints = ["Multiply by 2."]', 'hints = ["Try `return n * 2`."]'))
+        done, _ = check(broken_copy(edit))
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("basics-double: hint 1 gives away the solution: `return n * 2`", done.stdout)
+
+    def test_hint_with_different_names_passes(self):
+        def edit(lesson):
+            toml = lesson / "tasks" / "double" / "task.toml"
+            toml.write_text(toml.read_text().replace('hints = ["Multiply by 2."]', 'hints = ["Try `return x * 2`."]'))
+        done, _ = check(broken_copy(edit))
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+
+    def test_starter_line_and_short_line_in_a_hint_pass(self):
+        def edit(lesson):
+            toml = lesson / "tasks" / "double" / "task.toml"
+            toml.write_text(toml.read_text().replace('hints = ["Multiply by 2."]', 'hints = ["Keep `def double(n):`, and `pass` is fine."]'))
+        done, _ = check(broken_copy(edit))
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+
     def test_non_string_hint_fails_cleanly(self):
         def edit(lesson):
             toml = lesson / "tasks" / "double" / "task.toml"

@@ -3,5 +3,5 @@ concept = "functions"
 kind = "write"
 title = "A friendly default"
 prompt = "Write `greeting(name, word=\"Hello\")` that returns `\"Hello, Noa!\"` for `greeting(\"Noa\")` and `\"Hi, Sam!\"` for `greeting(\"Sam\", \"Hi\")`."
-hints = ["Put the default in the `def` line.", "`return f\"{word}, {name}!\"`"]
+hints = ["Put the default in the `def` line.", "`return f\"{greeting}, {person}!\"`"]
 gotcha = false

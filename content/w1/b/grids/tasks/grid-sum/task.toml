@@ -3,5 +3,5 @@ concept = "grids"
 kind = "write"
 title = "Add up a grid"
 prompt = "Write `grid_sum(grid)` that returns the total of every number in a grid."
-hints = ["Use a loop over the rows, and a loop over each row's cells.", "`total = 0`, `for row in grid:`, `for cell in row: total = total + cell`."]
+hints = ["Use a loop over the rows, and a loop over each row's cells.", "Same nesting with a product: `product = 1`, `for line in table:`, `for value in line: product = product * value`."]
 gotcha = false

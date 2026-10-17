@@ -3,5 +3,5 @@ concept = "statistics"
 kind = "write"
 title = "The middle value"
 prompt = "Write `median(values)` by hand (no NumPy): sort the values, and return the middle one. With an even number of values, return the mean of the two middle ones."
-hints = ["`s = sorted(values)` and `mid = len(s) // 2`. With an odd count, the answer is `s[mid]`.", "With an even count (`len(s) % 2 == 0`): `return (s[mid - 1] + s[mid]) / 2`."]
+hints = ["Sort the values first. How does integer division give you the index of the middle value?", "With an even count, average the two middle values: `return (values[m - 1] + values[m]) / 2`."]
 gotcha = false

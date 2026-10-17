@@ -3,5 +3,5 @@ concept = "strings"
 kind = "write"
 title = "Initials"
 prompt = "Write `initials(full_name)` that returns the first letter of each word, in capitals: `initials(\"noa river\")` is `\"NR\"`."
-hints = ["`full_name.split()` gives the words; `word[0]` is a first letter.", "Start with `result = \"\"`, add `word[0].upper()` for each word, then return it."]
+hints = ["`full_name.split()` gives the words; `word[0]` is a first letter.", "Start with `letters = \"\"`, add `part[0].upper()` for each part, then return it."]
 gotcha = false

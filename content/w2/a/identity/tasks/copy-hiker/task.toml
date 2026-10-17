@@ -3,5 +3,5 @@ concept = "identity"
 kind = "complete"
 title = "A hiker's twin"
 prompt = "Finish `copy_hiker(hiker)`: return a **new** `Hiker` with the same name and a copy of the pack, so packing the copy's bag leaves the original's alone."
-hints = ["Make the new object with `Hiker(...)`, and copy the list with `list(...)` or `.copy()`.", "`return Hiker(hiker.name, hiker.pack.copy())`"]
+hints = ["Make the new object with `Hiker(...)`, and copy the list with `list(...)` or `.copy()`.", "Make a new object and copy the list: `return Walker(walker.name, walker.bag.copy())`."]
 gotcha = false

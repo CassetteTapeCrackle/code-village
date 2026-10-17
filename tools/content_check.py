@@ -125,14 +125,34 @@ def hint_code_compiles(span):
     return False
 
 
-def check_hints(item_id, hints, problems):
-    for hint in hints:
+def squeeze(code):
+    """Code with every space gone, so a hint cannot dodge the check by reformatting a line."""
+    return "".join(code.split())
+
+
+def giveaway_lines(solution, starter):
+    """The solution lines a hint must not quote: short ones and ones the starter already shows teach nothing."""
+    shown = {squeeze(line) for line in starter.splitlines()}
+    answers = set()
+    for line in solution.splitlines():
+        code = squeeze(line)
+        if not line.strip().startswith("#") and len(code) >= 8 and code not in shown:
+            answers.add(code)
+    return answers
+
+
+def check_hints(item_id, hints, solution, starter, problems):
+    # Review sessions show a task's variants without hints, so only the task's own solution matters.
+    answers = giveaway_lines(solution, starter)
+    for number, hint in enumerate(hints, 1):
         if not isinstance(hint, str):
             problems.add(item_id, "a hint must be a string")
             continue
         for span in HINT_CODE.findall(hint):
             if looks_like_code(span) and not hint_code_compiles(span):
                 problems.add(item_id, f"hint code is not valid Python: `{span}`")
+            if squeeze(span) in answers:
+                problems.add(item_id, f"hint {number} gives away the solution: `{span}`")
 
 
 def check_claim(where, code, problems):
@@ -240,7 +260,7 @@ def load_task(folder, problems):
         problems.add(where, f"kind must be one of {sorted(KINDS)}")
     if not meta.get("hints"):
         problems.add(where, "a task needs at least one hint")
-    check_hints(meta.get("id", where), meta.get("hints") or [], problems)
+    check_hints(meta.get("id", where), meta.get("hints") or [], files["solution"], files["starter"], problems)
     task_id = meta.get("id", where)
     check_solution(task_id, files["solution"], files["tests"], problems)
     check_starter(task_id, files["starter"], files["tests"], problems)

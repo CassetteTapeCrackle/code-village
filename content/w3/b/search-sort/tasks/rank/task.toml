@@ -3,5 +3,5 @@ concept = "search-sort"
 kind = "complete"
 title = "Your place in the race"
 prompt = "Finish `rank(sorted_times, time)`: `sorted_times` is sorted from fastest to slowest. Return how many times are faster (smaller) than `time`, with `bisect`."
-hints = ["The index `bisect_left` gives is how many values come before `time`.", "`return bisect.bisect_left(sorted_times, time)`"]
+hints = ["The index `bisect_left` gives is how many values come before `time`.", "Ask `bisect` for the insertion point: `return bisect.bisect_left(times, moment)`."]
 gotcha = false

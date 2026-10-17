@@ -3,5 +3,5 @@ concept = "numpy-arrays"
 kind = "write"
 title = "Scale the map"
 prompt = "Write `scale(values, factor)`: it returns a NumPy array with every value of the list `values` multiplied by `factor`."
-hints = ["Make an array first: `np.array(values)`.", "`return np.array(values) * factor`"]
+hints = ["Make an array first: `np.array(values)`.", "`return np.array(items) * weight`"]
 gotcha = false

@@ -3,5 +3,5 @@ concept = "grids"
 kind = "fix"
 title = "A fair board"
 prompt = "`make_board(rows, cols)` should return a grid of `\".\"` where every row is its own list, so placing an `X` in one row leaves the others alone. It has a bug: find and fix it."
-hints = ["Make a board, change `board[0][0]`, then print the board.", "Build the rows one by one: `board = []`, then in a loop `board.append([\".\"] * cols)`."]
+hints = ["Make a board, change `board[0][0]`, then print the board.", "Build the rows one by one: start with `grid = []`, then `grid.append([\"-\"] * width)` in a loop."]
 gotcha = true
