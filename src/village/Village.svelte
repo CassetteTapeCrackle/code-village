@@ -10,9 +10,7 @@
   import { levelFor } from "../learning/xp";
   import { game } from "../store/progress.svelte";
   import { VILLAGER_CLOTHES } from "../art/palette";
-  import { MOCHI } from "../art/sprites";
-  import SpriteCanvas from "../ui/SpriteCanvas.svelte";
-  import { moment } from "../ui/moments.svelte";
+  import { announceLevel, moment } from "../ui/moments.svelte";
   import { isRainyDay, type Palette } from "./clock";
   import { clock, forcedSeason } from "./clock-state.svelte";
   import { lootFound } from "../learning/house";
@@ -20,17 +18,16 @@
   import { rockLine } from "./terrain";
   import { FEATURES, featureLand } from "./scenery";
   import { DESTINIES, newScenes, SCENE_FEATURES, type NewScene } from "./destinies";
-  import { decorFor, newSince, villagersFor, type Decor } from "./decor";
+  import { decorFor, newSince, villagersFor } from "./decor";
   import { describeJob, jobsFor, type Job } from "./routines";
   import TodayCard from "../ui/TodayCard.svelte";
   import { board, boardWidth, NARROW } from "../ui/board.svelte";
-  import { clearShowMe, showMe, showOnMap } from "../ui/showme.svelte";
+  import { clearShowMe, showMe } from "../ui/showme.svelte";
   import {
     MAP_H,
     MAP_W,
     PLACES,
     PLAZA,
-    SPOTS,
     STREET_Y,
     TILE,
     VX,
@@ -58,7 +55,9 @@
   import { forgetClosed, openWorlds, unseenOpened, worldById } from "../worlds/registry";
   import { cachedTerrain, keepTerrain, terrainCacheKey } from "./terrainCache";
   import { coveredRect, covers, type ViewRect } from "./view";
-  import { SAMPLE_COUNT, lightOverride, shouldGoLight } from "./light";
+  import { SAMPLE_COUNT, SAMPLE_WARMUP_MS, WINDOW_COUNT, lightOverride, shouldGoLight } from "./light";
+  import { ambientEvery, nextFrameMs } from "./cadence";
+  import { paintRate, perfEnabled } from "./perf";
   import { onIdle } from "../ui/idle";
   import { prefetchLessonAssets } from "../lesson/prefetch";
 
@@ -152,6 +151,16 @@
   // Light mode: chosen from the machine's own paint times, or forced by ?light=1 / ?light=0 for testing.
   const forcedLight = lightOverride(location.search);
   let light = forcedLight === true;
+  const samples: number[] = []; // recent paint times, for light-mode detection
+  let sampleWarmUntil = Infinity; // no judgement until a static layer is up and has settled
+  const MOTION_HOLD_MS = 250; // a drag or scroll keeps painting every frame this long after it stops
+  let motionUntil = 0; // the player is driving the map until then
+  // ?perf=1: a small readout of the loop's own numbers, off (and free) otherwise.
+  const perfOn = perfEnabled(location.search);
+  let perfText = $state("");
+  const paintTimes: number[] = [];
+  let lastPaintMs = 0;
+  let displayMs = 0;
   let wakeLoop: (() => void) | undefined; // set by the frame loop, so a board closing can resume it
   // Mochi idles at the west edge of the square, beside the fountain when there is one
   const mochi = actorAt({ x: PLAZA.x, y: PLAZA.center.y }, 12);
@@ -182,6 +191,7 @@
   function paint(): void {
     const ctx = canvas?.getContext("2d");
     if (!ctx || !staticLayer) return;
+    const started = performance.now();
     // Only the visible part of the map (plus room for overhanging sprites) is blitted and stepped: the rest
     // of the map is off screen, and the viewport repaints as soon as it scrolls past what was painted.
     const view =
@@ -255,12 +265,19 @@
     });
     ctx.restore();
     paintedView = view;
+    lastPaintMs = performance.now() - started;
+    if (perfOn) {
+      paintTimes.push(started);
+      while (paintTimes.length > 0 && paintTimes[0] < started - 1500) paintTimes.shift();
+    }
   }
 
-  // Scrolling and resizing must not show unpainted edges: repaint as soon as the view leaves the last one.
+  // Scrolling and resizing must not show unpainted edges: the frame loop repaints the visible part on the
+  // frame the scroll arrives, with the new position. Reduced motion has no loop, so this one frame paints.
   let scrollRaf = 0;
   function onViewChanged(): void {
-    if (!staticLayer || !viewport) return;
+    motionUntil = performance.now() + MOTION_HOLD_MS;
+    if (!reduced || !staticLayer || !viewport || scrollRaf) return;
     const visible = coveredRect(
       viewport.scrollLeft,
       viewport.scrollTop,
@@ -270,7 +287,6 @@
       0,
     );
     if (paintedView && covers(paintedView, visible)) return;
-    if (scrollRaf) return;
     scrollRaf = requestAnimationFrame(() => {
       scrollRaf = 0;
       paint();
@@ -414,6 +430,9 @@
           scratch.getContext("2d", { willReadFrequently: true }) ?? undefined,
         );
         staticLayer = layer;
+        // A static redraw starts the light-mode judgement again: the first paints after it are not a slow machine.
+        samples.length = 0;
+        sampleWarmUntil = performance.now() + SAMPLE_WARMUP_MS;
         paint();
       };
       if (defer) onIdle(compose, 500);
@@ -436,53 +455,69 @@
       viewport.scrollLeft = PLAZA.center.x * TILE * scale - viewport.clientWidth / 2;
       viewport.scrollTop = PLAZA.center.y * TILE * scale - viewport.clientHeight / 2;
     });
-    let timer: ReturnType<typeof setTimeout> | undefined;
     let raf = 0;
-    let last = 0;
+    let lastFrame = 0;
+    let sinceTick = 0;
+    let framesSincePaint = 0;
     let focused = true;
-    const samples: number[] = []; // recent paint times, for light-mode detection
-    // The map is stepped pixel art: 30 fps reads the same, and 10 is enough while a board covers it or the
-    // window is not focused. Between paints no frame is woken at all: a timer sleeps to just before the next
-    // paint is due, and the animation frame after it paints, with tick fed the real elapsed time throughout.
-    // In light mode a board-covered map is painted once and then left alone until the board closes.
-    const gap = (): number => (covered || !focused ? 100 : 1000 / 30);
-    const wake = (): void => {
-      if (light && covered) return;
-      timer = setTimeout(
-        () => {
-          timer = undefined;
-          raf = requestAnimationFrame(frame);
-        },
-        Math.max(0, gap() - 8), // a frame early, so the animation frame lands on the beat the paint is due
-      );
+    let perfAt = 0;
+    const readout = (now: number): void => {
+      if (!perfOn) return;
+      perfAt = now;
+      const hz = displayMs > 0 ? Math.round(1000 / displayMs) : 0;
+      perfText = `${paintRate(paintTimes, now)} paint/s | last ${lastPaintMs.toFixed(1)} ms | ${hz} Hz | light ${light ? "on" : "off"}`;
     };
-    const frame = (now: number): void => {
+    // The map is stepped pixel art, so ambient motion needs about 30 paints a second, while anything the player
+    // drives (a drag, a scroll, Mochi walking, a board opening or closing) paints on every display frame. The
+    // ambient beat counts animation frames and paints every Nth one (N from the measured display rate), never
+    // a timer, so every paint lands on a vsync at an even interval on 60 Hz and 120 Hz alike. A board over the
+    // map and an unfocused window are quieter still. In light mode a board-covered map is painted once and
+    // then left alone until the board closes.
+    const step = (now: number): void => {
       raf = 0;
-      const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
-      last = now;
-      seconds += dt;
-      tick(dt);
-      const started = performance.now();
-      paint();
-      if (forcedLight === null && !light) {
-        samples.push(performance.now() - started);
-        if (samples.length > SAMPLE_COUNT) samples.shift();
-        light = shouldGoLight(samples);
+      const delta = lastFrame ? now - lastFrame : 0;
+      lastFrame = now;
+      displayMs = nextFrameMs(displayMs, delta);
+      framesSincePaint++;
+      const every = ambientEvery(displayMs, covered || !focused ? 10 : undefined);
+      // Between ambient paints the frame only counts: no scene work, no viewport reads. A scroll or any
+      // other move sets motionUntil, so its frame paints at once.
+      if (now < motionUntil || travel !== null || mochi.moving || framesSincePaint >= every) {
+        framesSincePaint = 0;
+        sinceTick += Math.min(0.1, delta / 1000);
+        const dt = sinceTick;
+        sinceTick = 0;
+        seconds += dt;
+        tick(dt);
+        paint();
+        if (forcedLight === null && !light && now >= sampleWarmUntil) {
+          samples.push(lastPaintMs);
+          if (samples.length > SAMPLE_COUNT * WINDOW_COUNT) samples.shift();
+          light = shouldGoLight(samples);
+        }
+        if (perfOn && now - perfAt > 250) readout(now);
+        if (light && covered && staticLayer) {
+          readout(now); // the last paint before the loop sleeps: show it, then wait for the close
+          return;
+        }
+      } else {
+        sinceTick += Math.min(0.1, delta / 1000);
       }
-      wake();
+      raf = requestAnimationFrame(step);
     };
     const start = (): void => {
-      if (reduced || timer || raf) return;
-      last = 0;
-      wake();
+      if (reduced || raf) return;
+      lastFrame = 0;
+      sinceTick = 0;
+      framesSincePaint = 0;
+      raf = requestAnimationFrame(step);
     };
     const stop = (): void => {
-      clearTimeout(timer);
-      timer = undefined;
       cancelAnimationFrame(raf);
       raf = 0;
     };
     wakeLoop = (): void => {
+      motionUntil = performance.now() + MOTION_HOLD_MS;
       if (!covered) start();
     };
     const onVisibility = (): void => (document.hidden ? stop() : start());
@@ -527,9 +562,8 @@
     setTimeout(() => (drag = null)); // after the click that ends a drag has been seen
   }
 
-  // The level-up banner shows once per level, listing what is new since the level last seen.
+  // The level toast shows once per level, naming what is new since the level last seen.
   const SEEN_KEY = "code-village/seen-level";
-  let levelUp: { level: number; items: Decor[] } | null = $state(null);
   function readSeen(): number | null {
     try {
       const saved = localStorage.getItem(SEEN_KEY);
@@ -542,7 +576,7 @@
     try {
       localStorage.setItem(SEEN_KEY, String(level));
     } catch {
-      // private mode: the banner may show again next visit
+      // private mode: the toast may show again next visit
     }
   }
   function checkLevelUp(): void {
@@ -553,25 +587,10 @@
       return;
     }
     const items = newSince(seen, level);
-    if (items.length > 0) {
-      levelUp = { level, items };
-      moment("fanfare");
-    } else markSeen(level);
-  }
-  function closeLevelUp(look: boolean): void {
-    if (!levelUp) return;
-    const { level, items } = levelUp;
-    const spot = SPOTS[items[0].id];
-    markSeen(level);
-    levelUp = null;
-    if (!look || !spot) {
-      checkScenes();
-      return;
-    }
-    // the village points at what was just built: a caption names it all, and every new thing sparkles
-    showOnMap(spot, `New at level ${level}: ${items.map((d) => d.name).join(", ")}`, "", "");
-    const until = performance.now() + 5000;
-    sparkles = items.flatMap((d) => (SPOTS[d.id] ? [{ ...SPOTS[d.id], until }] : []));
+    markSeen(level); // shown now, so a reload does not raise it again
+    if (items.length === 0) return;
+    moment("fanfare");
+    announceLevel({ level, items });
   }
 
   // A banner for the scenes found items brought to the map since the last visit, once; "Show me" scrolls to the
@@ -746,7 +765,7 @@
   function checkBanners(): void {
     checkOpened();
     if (!opened) checkLevelUp();
-    if (!opened && !levelUp) checkScenes();
+    if (!opened) checkScenes();
   }
   let wasCovered: boolean | undefined; // set by the first run, so mounting under a board does not count as closing it
   let wasLooking = false;
@@ -824,9 +843,10 @@
       top: at.y * TILE * scale - viewport.clientHeight / 2,
       behavior: reduced ? "auto" : "smooth",
     });
+    const until = performance.now() + 4000;
     sparkles = [
       ...sparkles.filter((sp) => sp.until > performance.now()),
-      { x: at.x, y: at.y, until: performance.now() + 4000 },
+      ...showMe.spots.map((p) => ({ x: p.x, y: p.y, until })),
     ];
   });
   $effect(() => {
@@ -855,6 +875,9 @@
 </script>
 
 <div class="village" class:covered>
+  {#if perfOn}
+    <p class="perf" aria-hidden="true">{perfText}</p>
+  {/if}
   <h1 class="sr-only">Code Village</h1>
   <div
     class="viewport"
@@ -1022,27 +1045,6 @@
         </div>
       </div>
     </div>
-  {:else if levelUp}
-    <div
-      class="levelup"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="levelup-h"
-      use:modal={() => closeLevelUp(false)}
-    >
-      <div class="card paper px">
-        <span class="ribbon">Level up!</span>
-        <h2 id="levelup-h">Level {levelUp.level}</h2>
-        <SpriteCanvas grid={MOCHI} scale={5} />
-        <ul>
-          {#each levelUp.items as item (item.id)}<li>{item.name}</li>{/each}
-        </ul>
-        <div class="row">
-          <button type="button" class="primary" onclick={() => closeLevelUp(true)}>Show me</button>
-          <button type="button" onclick={() => closeLevelUp(false)}>Later</button>
-        </div>
-      </div>
-    </div>
   {/if}
 </div>
 
@@ -1050,6 +1052,19 @@
   .village {
     position: relative;
     height: 100%;
+  }
+  .perf {
+    position: fixed;
+    z-index: 30;
+    right: 8px;
+    bottom: 8px;
+    margin: 0;
+    padding: 4px 8px;
+    background: rgb(15 23 14 / 0.8);
+    color: #fff;
+    font: 12px/1.4 var(--font-mono);
+    white-space: nowrap;
+    pointer-events: none;
   }
   .viewport {
     overflow: auto;

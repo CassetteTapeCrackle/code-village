@@ -2,6 +2,7 @@ import { render, screen, within } from "@testing-library/svelte";
 import { afterEach, expect, test } from "vitest";
 import SchoolView from "../screens/SchoolView.svelte";
 import { update } from "../store/progress.svelte";
+import { clearLevelToast, moments } from "../ui/moments.svelte";
 import Village from "../village/Village.svelte";
 import { teacherFor } from "../learning/school";
 import { emptyProgress } from "../learning/types";
@@ -21,6 +22,7 @@ const places = (): HTMLElement => screen.getByRole("navigation", { name: "Places
 
 afterEach(() => {
   update(() => emptyProgress());
+  clearLevelToast();
   localStorage.clear();
 });
 
@@ -104,4 +106,21 @@ test("moving the pointer around the map leaves a villager's bubble up", async ()
     .dispatchEvent(new PointerEvent("pointermove", { clientX: 1, clientY: 1, bubbles: true }));
   await Promise.resolve();
   expect(document.querySelector(".talk-bubble")).not.toBeNull();
+});
+
+test("a jump of several levels raises one toast for the highest, and marks it seen at once", () => {
+  localStorage.setItem("code-village/seen-level", "2");
+  update((p) => ({ ...p, xp: 1500 })); // level 6
+  render(Village);
+  expect(localStorage.getItem("code-village/seen-level")).toBe("6");
+  expect(moments.level?.level).toBe(6);
+  expect(moments.level?.items.map((item) => item.id)).toEqual([
+    "stall",
+    "flowers",
+    "fountain",
+    "ducks",
+    "windmill",
+    "bunting",
+    "mika",
+  ]);
 });

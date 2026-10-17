@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { openWith, typeCode } from "./helpers";
+import { openSeeded, openWith, typeCode } from "./helpers";
 
 // Every Collections lesson passed, so the region's boss (the Gradebook) is awake.
 const done = { passedAt: "2026-10-01" };
@@ -63,15 +63,23 @@ test("beating a boss plays the defeat scene", async ({ page }) => {
   await expect(page.getByText("0 / 100")).toBeVisible();
 });
 
-test("a new level greets you in the village with what changed", async ({ page }) => {
-  await page.goto("/");
-  await page.evaluate(() => localStorage.setItem("code-village/seen-level", "2"));
-  await openWith(page, "/", { ...listsPassed, xp: 320 });
-  const banner = page.getByRole("dialog", { name: "Level 3" });
-  await expect(banner.getByText("A market stall in the square")).toBeVisible();
-  await banner.getByRole("button", { name: "Show me" }).click();
-  await expect(banner).toBeHidden();
+test("a new level greets you in the village with a toast of what changed", async ({ page }) => {
+  await openSeeded(page, "/", { ...listsPassed, xp: 320 }, 2);
+  const toast = page.locator(".level-toast");
+  await expect(toast.getByText("Level 3")).toBeVisible();
+  await expect(toast.getByText("A market stall in the square")).toBeVisible();
+  await expect(toast).toBeInViewport();
+  await toast.getByRole("button", { name: "Show me" }).click();
+  await expect(toast).toHaveCount(0);
   await expect(page.getByText(/New at level 3: A market stall in the square/)).toBeVisible();
+});
+
+test("a level toast marks itself seen as it appears, so a reload does not bring it back", async ({
+  page,
+}) => {
+  await openSeeded(page, "/", { ...listsPassed, xp: 320 }, 2);
+  await expect(page.locator(".level-toast").getByText("Level 3")).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem("code-village/seen-level"))).toBe("3");
   await page.reload();
-  await expect(page.getByRole("dialog", { name: "Level 3" })).toHaveCount(0);
+  await expect(page.locator(".level-toast")).toHaveCount(0);
 });

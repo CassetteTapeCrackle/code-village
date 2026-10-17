@@ -21,10 +21,11 @@ export function modal(node: HTMLElement, onClose: () => void): { destroy: () => 
       first?.focus();
     }
   };
-  node.addEventListener("keydown", onKey);
+  // On document, not the node: the pop-up still closes when its focus went somewhere else.
+  document.addEventListener("keydown", onKey);
   return {
     destroy: () => {
-      node.removeEventListener("keydown", onKey);
+      document.removeEventListener("keydown", onKey);
       before?.focus?.();
     },
   };
