@@ -3,5 +3,5 @@ concept = "dataclasses"
 kind = "write"
 title = "A growing sapling"
 prompt = "Write a dataclass `Sapling` with fields `name` (str) and `height` (int, default 1), and a method `grow(cm)` that adds `cm` to `height`. `Sapling(\"oak\")` should print as `Sapling(name='oak', height=1)`."
-hints = ["`from dataclasses import dataclass`, then `@dataclass` above the class and the two fields in its body.", "`height: int = 1`, and `def grow(self, cm): self.height += cm`."]
+hints = ["Import the decorator from `dataclasses`, put it above the class, and list the fields in the class body.", "A field with a default is `size: int = 2`; a method can add to it: `def expand(self, step): self.size += step`."]
 gotcha = false

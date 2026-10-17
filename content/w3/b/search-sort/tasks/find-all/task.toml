@@ -3,5 +3,5 @@ concept = "search-sort"
 kind = "write"
 title = "Every place it appears"
 prompt = "Write `find_all(items, target)`: a linear search that returns a list of every index where `target` appears in `items` (an empty list if it is not there)."
-hints = ["Loop with `for i, x in enumerate(items):` and keep the matching `i`s in a list.", "`return [i for i, x in enumerate(items) if x == target]`"]
+hints = ["Loop with `for i, x in enumerate(items):` and keep the matching `i`s in a list.", "Collect matches in a comprehension: `[i for i, x in enumerate([\"a\", \"b\"]) if x == \"b\"]` gives `[1]`."]
 gotcha = false

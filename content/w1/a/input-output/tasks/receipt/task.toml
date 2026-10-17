@@ -3,5 +3,5 @@ concept = "io"
 kind = "complete"
 title = "A small receipt"
 prompt = "The program reads an item, its price and a quantity. Finish it so it prints one line like `3 x tea = 7.50`, with the total to 2 decimals."
-hints = ["Use an f-string with `{total:.2f}`.", "`print(f\"{quantity} x {item} = {total:.2f}\")`"]
+hints = ["Use an f-string with `{total:.2f}`.", "`print(f\"{name}: {score:.1f}\")` prints one decimal; `{score:.2f}` gives two."]
 gotcha = false

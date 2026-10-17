@@ -13,13 +13,17 @@ Usage: python3 tools/content_check.py [--content DIR] [--out FILE] [--no-version
 """
 
 import argparse
+import builtins
 import hashlib
 import importlib.metadata
+import io
 import json
+import keyword
 import os
 import re
 import subprocess
 import sys
+import tokenize
 import tomllib
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -56,6 +60,9 @@ HINT_WRAPS = (
 # parse as the keyword argument `x=1+_y` and pass. So only a span with no space, or one ending in a
 # comma, takes the glue.
 GLUE_WRAPS = ("_x {s} _y", "_f(_x, {s}_y)")
+SKIP_TOKENS = {tokenize.NL, tokenize.NEWLINE, tokenize.INDENT, tokenize.DEDENT, tokenize.ENDMARKER,
+               tokenize.COMMENT}
+BUILTINS = set(dir(builtins))
 
 
 def takes_glue(span):
@@ -125,14 +132,60 @@ def hint_code_compiles(span):
     return False
 
 
-def check_hints(item_id, hints, problems):
-    for hint in hints:
+def squeeze(code):
+    """Code with every space gone, so a hint cannot dodge the check by reformatting a line."""
+    return "".join(code.split())
+
+
+def renamed_shape(code):
+    """A token sequence where each name becomes v1, v2... in first-seen order.
+
+    Keywords, builtins and attribute names after a dot keep their name, as do operators and literals,
+    so a consistent rename of the solution keeps the same sequence and a different operation does not.
+    None means the fragment cannot be tokenized.
+    """
+    names = {}
+    kept = []
+    previous = ""
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(code).readline):
+            if tok.type in SKIP_TOKENS:
+                continue
+            if (tok.type == tokenize.NAME and not keyword.iskeyword(tok.string)
+                    and tok.string not in BUILTINS and previous != "."):
+                kept.append(names.setdefault(tok.string, f"v{len(names) + 1}"))
+            else:
+                kept.append(tok.string)
+            previous = tok.string
+    except (tokenize.TokenError, IndentationError):
+        return None
+    return tuple(kept)
+
+
+def giveaway_lines(solution, starter):
+    """The solution lines a hint must not quote: short ones and ones the starter already shows teach nothing."""
+    shown = {squeeze(line) for line in starter.splitlines()}
+    return [line.strip() for line in solution.splitlines()
+            if not line.strip().startswith("#") and len(squeeze(line)) >= 8 and squeeze(line) not in shown]
+
+
+def check_hints(item_id, hints, solution, starter, problems):
+    # Review sessions show a task's variants without hints, so only the task's own solution matters.
+    shown = {squeeze(line) for line in starter.splitlines()}
+    answers = giveaway_lines(solution, starter)
+    quoted = {squeeze(line) for line in answers}
+    shapes = {renamed: line for line in answers if (renamed := renamed_shape(line))}
+    for number, hint in enumerate(hints, 1):
         if not isinstance(hint, str):
             problems.add(item_id, "a hint must be a string")
             continue
         for span in HINT_CODE.findall(hint):
             if looks_like_code(span) and not hint_code_compiles(span):
                 problems.add(item_id, f"hint code is not valid Python: `{span}`")
+            if squeeze(span) in quoted:
+                problems.add(item_id, f"hint {number} gives away the solution: `{span}`")
+            elif len(squeeze(span)) >= 8 and squeeze(span) not in shown and (line := shapes.get(renamed_shape(span))):
+                problems.add(item_id, f"hint {number} gives away the solution: `{span}` is `{line}` renamed")
 
 
 def check_claim(where, code, problems):
@@ -240,7 +293,7 @@ def load_task(folder, problems):
         problems.add(where, f"kind must be one of {sorted(KINDS)}")
     if not meta.get("hints"):
         problems.add(where, "a task needs at least one hint")
-    check_hints(meta.get("id", where), meta.get("hints") or [], problems)
+    check_hints(meta.get("id", where), meta.get("hints") or [], files["solution"], files["starter"], problems)
     task_id = meta.get("id", where)
     check_solution(task_id, files["solution"], files["tests"], problems)
     check_starter(task_id, files["starter"], files["tests"], problems)

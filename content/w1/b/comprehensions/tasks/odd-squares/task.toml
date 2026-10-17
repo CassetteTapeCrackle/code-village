@@ -3,5 +3,5 @@ concept = "comprehensions"
 kind = "write"
 title = "Odd squares"
 prompt = "Write `odd_squares(numbers)` that returns the squares of the odd numbers, in order. Try a list comprehension."
-hints = ["A number is odd when `n % 2 == 1`.", "`return [n * n for n in numbers if n % 2 == 1]`"]
+hints = ["A number is odd when `n % 2 == 1`.", "Filter inside the brackets: `[w.upper() for w in words if len(w) > 3]` keeps the long words, upper-cased."]
 gotcha = false

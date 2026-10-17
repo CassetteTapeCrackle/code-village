@@ -3,5 +3,5 @@ concept = "values"
 kind = "write"
 title = "Price for a few"
 prompt = "Write `total_price(price, quantity)` that returns the price of one item times how many there are."
-hints = ["Multiply the two parameters.", "`return price * quantity`"]
+hints = ["Multiply the two parameters.", "Put the `*` operator between the two parameters, after `return`."]
 gotcha = false

@@ -3,5 +3,5 @@ concept = "generators"
 kind = "complete"
 title = "Count the letters"
 prompt = "Finish `total_letters(words)`: it returns how many letters all the words have together, with `sum` over a generator expression."
-hints = ["Inside `sum(...)`, write `len(w)` for each `w` in `words`.", "`return sum(len(w) for w in words)`"]
+hints = ["Inside `sum(...)`, write `len(w)` for each `w` in `words`.", "`sum(len(w) for w in [\"hi\", \"there\"])` is 7; use the same shape on `words`."]
 gotcha = false

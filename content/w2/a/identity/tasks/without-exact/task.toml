@@ -3,5 +3,5 @@ concept = "identity"
 kind = "fix"
 title = "Not that bag, this one"
 prompt = "`without_exact(bags, bag)` should return the bags without that exact bag object, even when another bag holds the same items. It removes the wrong one: find and fix the bug."
-hints = ["`remove` deletes the first bag that is `==` to `bag`. Which test is about the very same object?", "`return [b for b in bags if b is not bag]`"]
+hints = ["`remove` deletes the first bag that is `==` to `bag`. Which test is about the very same object?", "Keep every bag where `x is not bag`, not `x != bag`."]
 gotcha = true
