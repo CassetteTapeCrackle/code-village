@@ -244,27 +244,18 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    /* drops in on four frames: falls, overshoots 3px, settles */
+    /* falls a short way and fades in on the compositor, so it eases on every frame */
     .board {
-      animation: board-drop 320ms steps(1, end) both;
+      animation: board-drop 320ms ease-out both;
     }
     @keyframes board-drop {
-      0% {
-        translate: 0 -56px;
+      from {
+        translate: 0 -24px;
         opacity: 0;
       }
-      25% {
-        translate: 0 -22px;
-        opacity: 1;
-      }
-      50% {
-        translate: 0 -4px;
-      }
-      75% {
-        translate: 0 3px;
-      }
-      100% {
+      to {
         translate: 0 0;
+        opacity: 1;
       }
     }
   }
@@ -316,21 +307,13 @@
       animation-name: sheet-up;
     }
     @keyframes sheet-up {
-      0% {
-        translate: 0 60%;
-        opacity: 1;
+      from {
+        translate: 0 40%;
+        opacity: 0;
       }
-      25% {
-        translate: 0 24%;
-      }
-      50% {
-        translate: 0 4%;
-      }
-      75% {
-        translate: 0 -1%;
-      }
-      100% {
+      to {
         translate: 0 0;
+        opacity: 1;
       }
     }
   }

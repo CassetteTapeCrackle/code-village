@@ -103,20 +103,16 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     .toast {
-      animation: toast-in 260ms steps(1, end) both;
+      animation: toast-in 260ms ease-out both;
     }
     @keyframes toast-in {
-      0% {
-        translate: 0 -40px;
+      from {
+        translate: 0 -16px;
+        opacity: 0;
       }
-      34% {
-        translate: 0 -14px;
-      }
-      67% {
-        translate: 0 3px;
-      }
-      100% {
+      to {
         translate: 0 0;
+        opacity: 1;
       }
     }
     .xp-float {
