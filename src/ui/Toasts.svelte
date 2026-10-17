@@ -1,15 +1,18 @@
 <script lang="ts">
   import { untrack } from "svelte";
-  import { ICONS, MOCHI } from "../art/sprites";
+  import { ICONS } from "../art/sprites";
   import { TROPHY_SPRITES } from "../art/trophies";
   import { bundle } from "../content/bundle";
   import type { Progress } from "../learning/types";
   import { game } from "../store/progress.svelte";
   import { ITEM_SPRITES } from "../village/destinies";
+  import { SPOTS } from "../village/layout";
   import SpriteCanvas from "./SpriteCanvas.svelte";
-  import { momentsBetween, type Toast } from "./celebrate";
+  import { levelSummary, momentsBetween, type Toast } from "./celebrate";
+  import { clearLevelToast, moments } from "./moments.svelte";
+  import { showOnMap } from "./showme.svelte";
 
-  // Moments, wherever they happen: a ribbon for each find and new level, and "+15 XP" floating up by the level.
+  // Moments, wherever they happen: a ribbon for each find, and "+15 XP" floating up by the level.
   let before: Progress = untrack(() => $state.snapshot(game.progress) as Progress);
   let shown: (Toast & { key: number })[] = $state([]);
   let floats: { key: number; xp: number }[] = $state([]);
@@ -32,11 +35,40 @@
   });
 
   const icon = (t: Toast) =>
-    t.kind === "level"
-      ? MOCHI
-      : t.kind === "trophy"
-        ? (TROPHY_SPRITES[t.item ?? ""] ?? ICONS.star)
-        : (ITEM_SPRITES[t.item ?? ""] ?? ICONS.sprout);
+    t.kind === "trophy"
+      ? (TROPHY_SPRITES[t.item ?? ""] ?? ICONS.star)
+      : (ITEM_SPRITES[t.item ?? ""] ?? ICONS.sprout);
+
+  // The level toast rises when the map is back in view, then leaves on its own, on Escape or on its close button.
+  $effect(() => {
+    if (!moments.level) return;
+    const timer = setTimeout(clearLevelToast, 8000);
+    return () => clearTimeout(timer);
+  });
+  $effect(() => {
+    if (!moments.level) return;
+    const onKey = (e: KeyboardEvent): void => {
+      if (e.key === "Escape") clearLevelToast();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  });
+
+  function showLevel(): void {
+    const news = moments.level;
+    if (!news) return;
+    const spots = news.items.flatMap((item) => (SPOTS[item.id] ? [SPOTS[item.id]] : []));
+    clearLevelToast();
+    const [first] = spots;
+    if (!first) return;
+    showOnMap(
+      first,
+      `New at level ${news.level}: ${news.items.map((item) => item.name).join(", ")}`,
+      "",
+      "",
+      spots,
+    );
+  }
 </script>
 
 <div class="toasts" role="status">
@@ -45,6 +77,16 @@
   {/each}
 </div>
 {#each floats as f (f.key)}<span class="xp-float" aria-hidden="true">+{f.xp} XP</span>{/each}
+{#if moments.level}
+  <div class="level-toast" role="status">
+    <div class="level-live">
+      <p class="level-title">Level {moments.level.level}</p>
+      <p class="level-summary">{levelSummary(moments.level.items.map((item) => item.name))}</p>
+    </div>
+    <button type="button" class="primary" onclick={showLevel}>Show me</button>
+    <button type="button" class="level-close" aria-label="Close" onclick={clearLevelToast}>×</button>
+  </div>
+{/if}
 
 <style>
   .toasts {
@@ -77,9 +119,50 @@
     background: var(--butter);
     text-shadow: none;
   }
-  .toast.level {
+  .level-toast {
+    position: absolute;
+    z-index: 30;
+    left: 12px;
+    right: 12px;
+    bottom: 14px;
+    width: fit-content;
+    max-width: min(560px, calc(100% - 24px));
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px 12px 16px;
+    color: var(--ink-light);
     background: var(--coral-2);
-    font-size: 18px;
+    box-shadow:
+      inset 0 0 0 3px var(--outline),
+      inset 0 -6px 0 3px rgb(0 0 0 / 0.18),
+      0 4px 0 rgb(0 0 0 / 0.25);
+  }
+  .level-live {
+    min-width: 0;
+  }
+  .level-title {
+    margin: 0;
+    font: 700 18px var(--font-pixel);
+    text-shadow: 2px 2px 0 rgb(0 0 0 / 0.25);
+  }
+  .level-summary {
+    margin: 2px 0 0;
+    font: 600 13px/1.35 var(--font-pixel);
+  }
+  .level-toast button {
+    flex: none;
+    min-height: 34px;
+    padding: 0 12px 3px;
+    font-size: 13px;
+  }
+  .level-close {
+    width: 34px;
+    padding: 0 0 3px;
+    color: var(--ink-light);
+    background: transparent;
+    box-shadow: inset 0 0 0 3px rgb(255 255 255 / 0.35);
   }
   .xp-float {
     position: absolute;
@@ -100,10 +183,33 @@
       font-size: 14px;
       white-space: normal;
     }
+    .level-toast {
+      gap: 8px;
+      padding: 8px 8px 10px 12px;
+    }
+    .level-title {
+      font-size: 16px;
+    }
+    .level-summary {
+      font-size: 12px;
+    }
   }
   @media (prefers-reduced-motion: no-preference) {
     .toast {
       animation: toast-in 260ms ease-out both;
+    }
+    .level-toast {
+      animation: rise-in 320ms ease-out both;
+    }
+    @keyframes rise-in {
+      from {
+        translate: 0 16px;
+        opacity: 0;
+      }
+      to {
+        translate: 0 0;
+        opacity: 1;
+      }
     }
     @keyframes toast-in {
       from {

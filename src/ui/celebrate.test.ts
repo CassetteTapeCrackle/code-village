@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
 import { testBundle } from "../learning/test-bundle";
 import { emptyProgress, type Progress } from "../learning/types";
-import { momentsBetween } from "./celebrate";
+import { levelSummary, momentsBetween } from "./celebrate";
 
 const bundle = testBundle();
 const passed = { passedAt: "2026-10-15" };
@@ -25,7 +25,7 @@ test("passing a lesson finds its loot", () => {
   });
 });
 
-test("beating a boss wins its trophy, and crossing a level says so", () => {
+test("beating a boss wins its trophy", () => {
   const before: Progress = { ...emptyProgress(), xp: 90 };
   const after: Progress = {
     ...before,
@@ -40,8 +40,15 @@ test("beating a boss wins its trophy, and crossing a level says so", () => {
     },
   };
   const { toasts } = momentsBetween(bundle, before, after);
-  expect(toasts.map((t) => t.kind)).toEqual(["trophy", "level"]);
-  expect(toasts[1].text).toMatch(/^Level 2!/);
+  expect(toasts.map((t) => t.kind)).toEqual(["trophy"]);
+});
+
+test("a level's summary names three new things, then counts the rest", () => {
+  expect(levelSummary(["Lanterns"])).toBe("Lanterns");
+  expect(levelSummary(["Lanterns", "Lou", "Stall"])).toBe("Lanterns, Lou, Stall");
+  expect(levelSummary(["Lanterns", "Lou", "Stall", "Flowers", "Fountain"])).toBe(
+    "Lanterns, Lou, Stall and 2 more",
+  );
 });
 
 test("a loaded save or a cheat (lots of news at once) is not celebrated", () => {
@@ -49,6 +56,14 @@ test("a loaded save or a cheat (lots of news at once) is not celebrated", () => 
     ...emptyProgress(),
     xp: 2000,
     lessons: Object.fromEntries(bundle.lessons.map((l) => [l.id, passed])),
+    bosses: {
+      gradebook: {
+        stagesPassed: [],
+        wonAt: "2026-10-15",
+        hardWonAt: null,
+        hardChecks: 0,
+      },
+    },
   };
   expect(momentsBetween(bundle, emptyProgress(), all)).toEqual({ xp: 0, toasts: [] });
 });

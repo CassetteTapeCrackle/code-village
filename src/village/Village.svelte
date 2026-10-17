@@ -10,9 +10,7 @@
   import { levelFor } from "../learning/xp";
   import { game } from "../store/progress.svelte";
   import { VILLAGER_CLOTHES } from "../art/palette";
-  import { MOCHI } from "../art/sprites";
-  import SpriteCanvas from "../ui/SpriteCanvas.svelte";
-  import { moment } from "../ui/moments.svelte";
+  import { announceLevel, moment } from "../ui/moments.svelte";
   import { isRainyDay, type Palette } from "./clock";
   import { clock, forcedSeason } from "./clock-state.svelte";
   import { lootFound } from "../learning/house";
@@ -20,17 +18,16 @@
   import { rockLine } from "./terrain";
   import { FEATURES, featureLand } from "./scenery";
   import { DESTINIES, newScenes, SCENE_FEATURES, type NewScene } from "./destinies";
-  import { decorFor, newSince, villagersFor, type Decor } from "./decor";
+  import { decorFor, newSince, villagersFor } from "./decor";
   import { describeJob, jobsFor, type Job } from "./routines";
   import TodayCard from "../ui/TodayCard.svelte";
   import { board, boardWidth, NARROW } from "../ui/board.svelte";
-  import { clearShowMe, showMe, showOnMap } from "../ui/showme.svelte";
+  import { clearShowMe, showMe } from "../ui/showme.svelte";
   import {
     MAP_H,
     MAP_W,
     PLACES,
     PLAZA,
-    SPOTS,
     STREET_Y,
     TILE,
     VX,
@@ -565,9 +562,8 @@
     setTimeout(() => (drag = null)); // after the click that ends a drag has been seen
   }
 
-  // The level-up banner shows once per level, listing what is new since the level last seen.
+  // The level toast shows once per level, naming what is new since the level last seen.
   const SEEN_KEY = "code-village/seen-level";
-  let levelUp: { level: number; items: Decor[] } | null = $state(null);
   function readSeen(): number | null {
     try {
       const saved = localStorage.getItem(SEEN_KEY);
@@ -580,7 +576,7 @@
     try {
       localStorage.setItem(SEEN_KEY, String(level));
     } catch {
-      // private mode: the banner may show again next visit
+      // private mode: the toast may show again next visit
     }
   }
   function checkLevelUp(): void {
@@ -591,25 +587,10 @@
       return;
     }
     const items = newSince(seen, level);
-    if (items.length > 0) {
-      levelUp = { level, items };
-      moment("fanfare");
-    } else markSeen(level);
-  }
-  function closeLevelUp(look: boolean): void {
-    if (!levelUp) return;
-    const { level, items } = levelUp;
-    const spot = SPOTS[items[0].id];
-    markSeen(level);
-    levelUp = null;
-    if (!look || !spot) {
-      checkScenes();
-      return;
-    }
-    // the village points at what was just built: a caption names it all, and every new thing sparkles
-    showOnMap(spot, `New at level ${level}: ${items.map((d) => d.name).join(", ")}`, "", "");
-    const until = performance.now() + 5000;
-    sparkles = items.flatMap((d) => (SPOTS[d.id] ? [{ ...SPOTS[d.id], until }] : []));
+    markSeen(level); // shown now, so a reload does not raise it again
+    if (items.length === 0) return;
+    moment("fanfare");
+    announceLevel({ level, items });
   }
 
   // A banner for the scenes found items brought to the map since the last visit, once; "Show me" scrolls to the
@@ -784,7 +765,7 @@
   function checkBanners(): void {
     checkOpened();
     if (!opened) checkLevelUp();
-    if (!opened && !levelUp) checkScenes();
+    if (!opened) checkScenes();
   }
   let wasCovered: boolean | undefined; // set by the first run, so mounting under a board does not count as closing it
   let wasLooking = false;
@@ -862,9 +843,10 @@
       top: at.y * TILE * scale - viewport.clientHeight / 2,
       behavior: reduced ? "auto" : "smooth",
     });
+    const until = performance.now() + 4000;
     sparkles = [
       ...sparkles.filter((sp) => sp.until > performance.now()),
-      { x: at.x, y: at.y, until: performance.now() + 4000 },
+      ...showMe.spots.map((p) => ({ x: p.x, y: p.y, until })),
     ];
   });
   $effect(() => {
@@ -1060,27 +1042,6 @@
         <div class="row">
           <button type="button" class="primary" onclick={() => closeNewOnMap(true)}>Show me</button>
           <button type="button" onclick={() => closeNewOnMap(false)}>Later</button>
-        </div>
-      </div>
-    </div>
-  {:else if levelUp}
-    <div
-      class="levelup"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="levelup-h"
-      use:modal={() => closeLevelUp(false)}
-    >
-      <div class="card paper px">
-        <span class="ribbon">Level up!</span>
-        <h2 id="levelup-h">Level {levelUp.level}</h2>
-        <SpriteCanvas grid={MOCHI} scale={5} />
-        <ul>
-          {#each levelUp.items as item (item.id)}<li>{item.name}</li>{/each}
-        </ul>
-        <div class="row">
-          <button type="button" class="primary" onclick={() => closeLevelUp(true)}>Show me</button>
-          <button type="button" onclick={() => closeLevelUp(false)}>Later</button>
         </div>
       </div>
     </div>

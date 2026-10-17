@@ -1,15 +1,29 @@
 import type { Point } from "../village/grid";
 
 // "Show me" from a board: the board closes, and the village scrolls to the spot with a caption and a way back.
-export const showMe: { at: Point | null; label: string; back: string; backLabel: string } = $state({
+export const showMe: {
+  at: Point | null;
+  spots: Point[];
+  label: string;
+  back: string;
+  backLabel: string;
+} = $state({
   at: null,
+  spots: [],
   label: "",
   back: "#/",
   backLabel: "",
 });
 
-export function showOnMap(at: Point, label: string, back: string, backLabel: string): void {
+export function showOnMap(
+  at: Point,
+  label: string,
+  back: string,
+  backLabel: string,
+  also: Point[] = [],
+): void {
   showMe.at = at;
+  showMe.spots = also.length > 0 ? also : [at];
   showMe.label = label;
   showMe.back = back;
   showMe.backLabel = backLabel;
@@ -18,4 +32,5 @@ export function showOnMap(at: Point, label: string, back: string, backLabel: str
 
 export function clearShowMe(): void {
   showMe.at = null;
+  showMe.spots = [];
 }

@@ -16,6 +16,26 @@ export async function openWith(page: Page, path: string, progress: object): Prom
   await page.reload();
 }
 
+// Seeds a save before the app's own scripts run, for a first visit that must not be lost to a second load.
+export async function openSeeded(
+  page: Page,
+  path: string,
+  progress: object,
+  seenLevel: number,
+): Promise<void> {
+  await page.addInitScript(
+    ({ p, seen }) => {
+      if (sessionStorage.getItem("__seeded")) return;
+      sessionStorage.setItem("__seeded", "1");
+      localStorage.clear();
+      localStorage.setItem("code-village/progress", JSON.stringify(p));
+      localStorage.setItem("code-village/seen-level", String(seen));
+    },
+    { p: progress, seen: seenLevel },
+  );
+  await page.goto(path);
+}
+
 // On wide screens a lesson shows one task on the slate; click its pin in the notebook to bring it up.
 export async function showTask(page: Page, taskTitle: string): Promise<void> {
   const pin = page.getByRole("button", { name: `Open task: ${taskTitle}` });
