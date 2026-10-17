@@ -60,6 +60,7 @@
   import { coveredRect, covers, type ViewRect } from "./view";
   import { SAMPLE_COUNT, SAMPLE_WARMUP_MS, WINDOW_COUNT, lightOverride, shouldGoLight } from "./light";
   import { ambientEvery, nextFrameMs } from "./cadence";
+  import { paintRate, perfEnabled } from "./perf";
   import { onIdle } from "../ui/idle";
   import { prefetchLessonAssets } from "../lesson/prefetch";
 
@@ -157,6 +158,10 @@
   let sampleWarmUntil = Infinity; // no judgement until a static layer is up and has settled
   const MOTION_HOLD_MS = 250; // a drag or scroll keeps painting every frame this long after it stops
   let motionUntil = 0; // the player is driving the map until then
+  // ?perf=1: a small readout of the loop's own numbers, off (and free) otherwise.
+  const perfOn = perfEnabled(location.search);
+  let perfText = $state("");
+  const paintTimes: number[] = [];
   let lastPaintMs = 0;
   let displayMs = 0;
   let wakeLoop: (() => void) | undefined; // set by the frame loop, so a board closing can resume it
@@ -264,6 +269,10 @@
     ctx.restore();
     paintedView = view;
     lastPaintMs = performance.now() - started;
+    if (perfOn) {
+      paintTimes.push(started);
+      while (paintTimes.length > 0 && paintTimes[0] < started - 1500) paintTimes.shift();
+    }
   }
 
   // Scrolling and resizing must not show unpainted edges: the frame loop repaints the visible part on the
@@ -454,6 +463,13 @@
     let sinceTick = 0;
     let framesSincePaint = 0;
     let focused = true;
+    let perfAt = 0;
+    const readout = (now: number): void => {
+      if (!perfOn) return;
+      perfAt = now;
+      const hz = displayMs > 0 ? Math.round(1000 / displayMs) : 0;
+      perfText = `${paintRate(paintTimes, now)} paint/s | last ${lastPaintMs.toFixed(1)} ms | ${hz} Hz | light ${light ? "on" : "off"}`;
+    };
     // The map is stepped pixel art, so ambient motion needs about 30 paints a second, while anything the player
     // drives (a drag, a scroll, Mochi walking, a board opening or closing) paints on every display frame. The
     // ambient beat counts animation frames and paints every Nth one (N from the measured display rate), never
@@ -482,7 +498,11 @@
           if (samples.length > SAMPLE_COUNT * WINDOW_COUNT) samples.shift();
           light = shouldGoLight(samples);
         }
-        if (light && covered) return; // painted once behind the board; a close wakes the loop
+        if (perfOn && now - perfAt > 250) readout(now);
+        if (light && covered && staticLayer) {
+          readout(now); // the last paint before the loop sleeps: show it, then wait for the close
+          return;
+        }
       } else {
         sinceTick += Math.min(0.1, delta / 1000);
       }
@@ -873,6 +893,9 @@
 </script>
 
 <div class="village" class:covered>
+  {#if perfOn}
+    <p class="perf" aria-hidden="true">{perfText}</p>
+  {/if}
   <h1 class="sr-only">Code Village</h1>
   <div
     class="viewport"
@@ -1068,6 +1091,19 @@
   .village {
     position: relative;
     height: 100%;
+  }
+  .perf {
+    position: fixed;
+    z-index: 30;
+    right: 8px;
+    bottom: 8px;
+    margin: 0;
+    padding: 4px 8px;
+    background: rgb(15 23 14 / 0.8);
+    color: #fff;
+    font: 12px/1.4 var(--font-mono);
+    white-space: nowrap;
+    pointer-events: none;
   }
   .viewport {
     overflow: auto;
