@@ -1,4 +1,4 @@
-import { limitParam } from "../../src/tutor/models.ts";
+import { modelParams } from "../../src/tutor/models.ts";
 import type { Env } from "./env";
 import { LIMITS } from "./limits.ts";
 
@@ -59,7 +59,7 @@ export function textStream(sse: ReadableStream<Uint8Array>): ReadableStream<stri
 }
 
 // The live model call, wired in index.ts. The token cap parameter differs per model
-// family (limitParam carries the verified mapping).
+// family (modelParams carries the verified mapping, and turns Gemma thinking off).
 export async function askWorkersAi(
   env: Env,
   messages: { role: string; content: string }[],
@@ -70,7 +70,7 @@ export async function askWorkersAi(
   const sse = (await run(model, {
     messages,
     stream: true,
-    ...limitParam(model, LIMITS.maxOutputTokens),
+    ...modelParams(model, LIMITS.maxOutputTokens),
   })) as ReadableStream<Uint8Array>;
   return textStream(sse);
 }
