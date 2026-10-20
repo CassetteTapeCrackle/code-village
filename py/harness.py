@@ -37,16 +37,22 @@ class _CappedOutput(io.StringIO):
 
 
 @contextlib.contextmanager
-def _fake_input(answers, message):
+def _fake_input(answers, message, echo=False):
+    """echo=True prints prompt and answer like a terminal (Run); checks leave prompts out of the output,
+    so `input("Name: ")` passes the same tests as `input()`."""
     feed = iter(answers)
     original = builtins.input
 
     def fake(prompt=""):
-        print(prompt, end="")
         try:
-            return next(feed)
+            answer = next(feed)
         except StopIteration:
+            if echo:
+                print(prompt)
             raise Failure(message) from None
+        if echo:
+            print(f"{prompt}{answer}")
+        return answer
 
     builtins.input = fake
     try:
@@ -112,7 +118,7 @@ def _execute(code, namespace):
 def run_code(code, inputs):
     out = _CappedOutput()
     error = None
-    with _fresh_dir(), contextlib.redirect_stdout(out), _fake_input(inputs, "input() was called more times than this run gives answers"):
+    with _fresh_dir(), contextlib.redirect_stdout(out), _fake_input(inputs, "input() is waiting for an answer: type it in the input box, one line per input()", echo=True):
         try:
             _execute(code, {"__name__": "__main__"})
         except BaseException as e:  # noqa: BLE001 - every learner error is reported, never raised

@@ -32,6 +32,17 @@ test("an infinite loop is stopped after 5 s and Python still works afterwards", 
   await expect(task.getByText("alive", { exact: true })).toBeVisible({ timeout: 60_000 });
 });
 
+test("Run feeds input() from the input box, like a terminal", async ({ page }) => {
+  await page.goto("/#/lesson/lists");
+  await showTask(page, "Add it twice");
+  await typeCode(page, "Add it twice", "name = input('Name: ')\nprint('Hi', name)\n");
+  await showTask(page, "Add it twice");
+  const task = page.getByRole("region", { name: "Add it twice" });
+  await task.getByRole("textbox", { name: /Input lines for Run/ }).fill("Sam");
+  await task.getByRole("button", { name: "Run" }).click();
+  await expect(task.locator("pre.out")).toHaveText("Name: Sam\nHi Sam\n", { timeout: 60_000 });
+});
+
 test("a syntax error is reported on its line", async ({ page }) => {
   await page.goto("/#/lesson/lists");
   await showTask(page, "The last one");
