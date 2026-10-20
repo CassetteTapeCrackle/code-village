@@ -95,7 +95,7 @@
 
   function hrefFor(p: Place): string | null {
     if (p.kind === "school") return "#/school";
-    if (p.kind === "cabin" || p.kind === "observatory") return `#/school/${p.world}`;
+    if (p.kind === "cabin" || p.kind === "observatory" || p.kind === "hall") return `#/school/${p.world}`;
     if (p.kind === "library") return "#/library";
     if (p.kind === "garden") return "#/garden";
     if (p.kind === "house") return "#/house";

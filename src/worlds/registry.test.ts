@@ -43,7 +43,7 @@ describe("blocked roads", () => {
   });
 
   it.each(doors)("$id can be reached once $world is open", ({ door }) => {
-    expect(findPath(buildMap(["w1", "w2", "w3"]), PLAZA.center, door)).not.toBeNull();
+    expect(findPath(buildMap(["w1", "w2", "w3", "w4"]), PLAZA.center, door)).not.toBeNull();
   });
 
   it("keeps a gate tile on each closed road and opens it with the world", () => {
