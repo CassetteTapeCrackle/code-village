@@ -40,6 +40,8 @@
   let code = $state(untrack(() => (draftKey ? game.progress.drafts[draftKey] : undefined) ?? starter));
   let busy = $state(false);
   let ran: RunResult | null = $state(null);
+  let inputs = $state("");
+  const asksInput = $derived(code.includes("input("));
   let unavailable: string | null = $state(null);
   let saveTimer: ReturnType<typeof setTimeout> | undefined;
 
@@ -53,7 +55,7 @@
 
   async function run(): Promise<void> {
     busy = true;
-    const o = await getRunner().run(code);
+    const o = await getRunner().run(code, inputs === "" ? [] : inputs.split("\n"));
     busy = false;
     unavailable = o.kind === "unavailable" ? o.message : null;
     ran = o.kind === "ok" ? o.result : o.kind === "timeout" ? { stdout: "", error: TIMEOUT_MESSAGE } : null;
@@ -73,6 +75,12 @@
   <h2 id="h-{id}">{title}</h2>
   <div class="prompt"><Markdown text={prompt} /></div>
   <LazyCodeEditor value={code} label="Your code for {title}" onchange={edit} />
+  {#if asksInput}
+    <label class="inputs">
+      <span>Input lines for Run (one per line, for <code>input()</code>)</span>
+      <textarea rows="2" bind:value={inputs}></textarea>
+    </label>
+  {/if}
   <div class="actions">
     <button type="button" onclick={run} disabled={busy}>Run</button>
     <button type="button" class="primary" onclick={check} disabled={busy || checkDisabled}
@@ -151,6 +159,30 @@
     gap: 8px;
     margin-top: 8px;
     flex-wrap: wrap;
+  }
+  .inputs {
+    display: grid;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .inputs span {
+    font: 600 15px var(--font-pixel);
+  }
+  .inputs textarea {
+    padding: 8px 10px;
+    border: 0;
+    outline: none;
+    resize: vertical;
+    background: var(--well);
+    color: var(--text);
+    box-shadow: inset 0 0 0 2px var(--outline);
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+  .inputs textarea:focus-visible {
+    box-shadow:
+      inset 0 0 0 2px var(--outline),
+      inset 0 0 0 4px var(--butter);
   }
   .out {
     margin: 8px 0 0;

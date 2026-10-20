@@ -20,7 +20,7 @@ def test_empty():
 class RunCode(unittest.TestCase):
     def test_prints_and_feeds_input(self):
         out = harness.run_code("name = input('Name? ')\nprint('hi', name)", ["Noa"])
-        self.assertEqual(out, {"stdout": "Name? hi Noa\n", "error": None})
+        self.assertEqual(out, {"stdout": "Name? Noa\nhi Noa\n", "error": None})
 
     def test_error_is_trimmed_to_learner_code(self):
         out = harness.run_code("x = 1\nprint(x / 0)", [])
@@ -35,7 +35,8 @@ class RunCode(unittest.TestCase):
 
     def test_input_runs_out(self):
         out = harness.run_code("input()\ninput()", ["only one"])
-        self.assertIn("input() was called more times than this run gives answers", out["error"])
+        self.assertEqual(out["stdout"], "only one\n\n")
+        self.assertIn("input() is waiting for an answer", out["error"])
 
     def test_output_is_capped(self):
         out = harness.run_code("for i in range(100000):\n    print('spam spam spam')", [])
@@ -78,6 +79,12 @@ class RunTests(unittest.TestCase):
     def test_run_program_for_script_tasks(self):
         tests = 'PROGRAM = True\ndef test_greets():\n    expect_equal(run_program(["Ines"]), "Hello Ines\\n")'
         out = harness.run_tests("print('Hello', input())", tests)
+        self.assertTrue(out["results"][0]["passed"], out)
+
+    def test_input_prompt_does_not_change_checked_output(self):
+        # regression: a classmate's input("Name: ") worked in VS Code but failed the check
+        tests = 'PROGRAM = True\ndef test_greets():\n    expect_equal(run_program(["Ines"]), "Hello Ines\\n")'
+        out = harness.run_tests("print('Hello', input('Name: '))", tests)
         self.assertTrue(out["results"][0]["passed"], out)
 
 
