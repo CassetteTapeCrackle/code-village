@@ -31,6 +31,22 @@ export const RANGER: Grid = [
   ".kk..kk.",
 ];
 
+// A teacher whose portrait is not drawn yet: a traveller in a grey hood and a plain cloak.
+export const TRAVELLER: Grid = [
+  "..kkkk..",
+  ".kSSSSk.",
+  "kSSuuSSk",
+  "kSueueSk",
+  ".kuuuuk.",
+  "..khhk..",
+  ".khhhhk.",
+  "khhhhhhk",
+  "kuhhhhuk",
+  ".khhhhk.",
+  ".khhhhk.",
+  ".kk..kk.",
+];
+
 // The mountains' stargazer: a midnight-blue robe with a star, and a yellow scarf.
 export const STARGAZER: Grid = [
   "..kkkk..",
@@ -75,6 +91,9 @@ export const TEACHER: Grid = [
   ".k1111k.",
   ".kk..kk.",
 ];
+
+// Teacher portraits by the id a world.toml names; an unknown id shows the TRAVELLER.
+export const PORTRAITS: Record<string, Grid> = { teacher: TEACHER, ranger: RANGER, stargazer: STARGAZER };
 
 export const CAT: Grid = ["k.k......", "kckkkkk..", "kcecccck.", "kccccccck", ".kcCcCcck", "..kk.kk.."];
 

@@ -1,5 +1,6 @@
 import { stamp } from "../art/draw";
 import { SPRITE_COLORS } from "../art/palette";
+import { ICONS } from "../art/sprites";
 import { TROPHY_SPRITES } from "../art/trophies";
 import type { Palette } from "../village/clock";
 import { ITEM_SPRITES } from "../village/destinies";
@@ -74,8 +75,7 @@ export function drawHouseRoom(
   }
   const shown = trophies.slice(-(3 + extra));
   shown.forEach((id, i) => {
-    const grid = TROPHY_SPRITES[id];
-    if (!grid) return;
+    const grid = TROPHY_SPRITES[id] ?? ICONS.star; // a trophy whose sprite is not drawn yet
     const x = i < 3 ? 28 + i * 13 : 155 + (i - 3) * 13;
     stamp(ctx, grid, s, x, 13 - grid.length);
   });

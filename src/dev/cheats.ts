@@ -1,7 +1,10 @@
 // Debug shortcuts for the cheat screen. Each one goes through the real learning rules,
 // so XP, loot, plants and trophies come out exactly as if the work had been done.
 import type { Boss, Bundle, Lesson } from "../content/types";
+import { PORTRAITS } from "../art/sprites";
+import { TROPHY_SPRITES } from "../art/trophies";
 import { DECOR } from "../village/decor";
+import { ITEM_SPRITES } from "../village/destinies";
 import { worldById } from "../worlds/registry";
 import { passStages, winHard } from "../learning/boss";
 import { addDays } from "../learning/dates";
@@ -67,4 +70,18 @@ export function openWorld(bundle: Bundle, p: Progress, day: Day, worldId: string
 // Every lesson passed, every boss beaten on hard mode, and the village at its top level.
 export function finishEverything(bundle: Bundle, p: Progress, day: Day): Progress {
   return reachLevel(beatBosses(bundle, passLessons(bundle, p, day), day, true), TOP_LEVEL);
+}
+
+// What a world's content names but nobody has drawn yet: it shows placeholder art (star, sprout, traveller).
+export function missingArt(b: Bundle): string[] {
+  const trophies = b.bosses
+    .flatMap((x) => [x.trophy.id, x.hardTrophy.id])
+    .filter((id) => !TROPHY_SPRITES[id]);
+  const items = b.lessons.map((l) => l.loot.id).filter((id) => !ITEM_SPRITES[id]);
+  const portraits = b.worlds.map((w) => w.teacher.portrait).filter((id) => !PORTRAITS[id]);
+  return [
+    ...trophies.map((id) => `trophy ${id}`),
+    ...items.map((id) => `item ${id}`),
+    ...portraits.map((id) => `portrait ${id}`),
+  ];
 }

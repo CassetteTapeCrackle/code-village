@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ICONS } from "../art/sprites";
   import { TROPHY_SPRITES } from "../art/trophies";
   import { bundle } from "../content/bundle";
   import { api } from "../net/api";
@@ -51,7 +52,7 @@
         {#each card.trophies as name (name)}
           {@const sprite = spriteFor(name)}
           <li>
-            {#if sprite}<SpriteCanvas grid={TROPHY_SPRITES[sprite]} scale={3} />{/if}
+            {#if sprite}<SpriteCanvas grid={TROPHY_SPRITES[sprite] ?? ICONS.star} scale={3} />{/if}
             <span>{name}</span>
           </li>
         {/each}

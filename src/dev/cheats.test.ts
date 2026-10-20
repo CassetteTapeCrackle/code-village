@@ -1,9 +1,10 @@
-import { expect, test } from "vitest";
+import { describe, expect, it, test } from "vitest";
 import { bossState } from "../learning/boss";
 import { testBundle } from "../learning/test-bundle";
 import { emptyProgress } from "../learning/types";
 import { levelFor } from "../learning/xp";
 import {
+  missingArt,
   TOP_LEVEL,
   beatBosses,
   finishEverything,
@@ -49,4 +50,23 @@ test("finishing everything passes every lesson, beats every boss on hard mode an
   expect(Object.keys(p.lessons).length).toBe(realBundle.lessons.length);
   expect(realBundle.bosses.every((b) => p.bosses[b.id]?.hardWonAt)).toBe(true);
   expect(levelFor(p.xp)).toBeGreaterThanOrEqual(TOP_LEVEL);
+});
+
+describe("missing art", () => {
+  it("is empty for the shipped worlds", () => {
+    expect(missingArt(realBundle)).toEqual([]);
+  });
+
+  it("lists a new world's undrawn trophies, items and teacher portrait", () => {
+    const b = testBundle();
+    b.worlds[0].teacher.portrait = "owl";
+    expect(missingArt(b)).toEqual([
+      "trophy gradebook-trophy",
+      "trophy gradebook-gold",
+      "item vars-loot",
+      "item loops-loot",
+      "item lists-loot",
+      "portrait owl",
+    ]);
+  });
 });
