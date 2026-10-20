@@ -47,8 +47,20 @@ function boss(id: string, region: string, stageIds: string[]): Boss {
 // Region a teaches vars and loops; region b teaches lists and has the gradebook boss.
 export function testBundle(): Bundle {
   return {
-    version: 2,
+    version: 3,
     python: "3.14",
+    worlds: [
+      {
+        id: "w1",
+        order: 1,
+        name: "The Village",
+        area: "village",
+        regions: { a: "First programs", b: "Collections" },
+        building: { name: "School", placeId: "school" },
+        teacher: { name: "Ms. Juniper", portrait: "teacher" },
+        key: null,
+      },
+    ],
     lessons: [
       lesson("vars", "a", ["vars"], [task("vars-1", "vars", ["vars-1b"]), task("vars-2", "vars")]),
       lesson("loops", "a", ["loops"], [task("loops-1", "loops")]),

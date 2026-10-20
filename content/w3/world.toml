@@ -1,0 +1,22 @@
+# The world's words and wiring. Its look lives in code (src/village/areas.ts, terrain.ts).
+id = "w3"
+order = 3
+name = "The Mountains"
+area = "mountains"
+regions = { a = "Data", b = "Numbers", c = "A first model" }
+
+[building]
+name = "Observatory"
+place = "observatory"
+
+[teacher]
+name = "Stargazer Alex"
+portrait = "stargazer"
+
+# The previous world's boss trophy that opens this world.
+[key]
+boss = "ranger-registry"
+trophy = "ranger-badge"
+trophy_name = "Ranger's Badge"
+opens = "gets you over the rockslide"
+gate_hint = "A rockslide blocks the mountain path. You would need a way to climb over it..."

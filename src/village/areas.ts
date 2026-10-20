@@ -13,7 +13,6 @@ export type Area = {
   road: Point[]; // corner points of the road from the village into the hub, walked in order
   gate: Point; // the blocked tile on that road while the world is closed
   gateSprite: "logs" | "rocks";
-  hint: string; // shown when hovering the blocked road
   places: Place[];
 };
 
@@ -27,7 +26,6 @@ export const AREAS: Area[] = [
     road: [village(11, 18), { x: 20, y: 46 }], // the main street, on west past the library
     gate: village(-1, 18),
     gateSprite: "logs",
-    hint: "Fallen logs block the forest path. It is too dark beyond them. A light might help...",
     places: [
       {
         id: "cabin",
@@ -94,7 +92,6 @@ export const AREAS: Area[] = [
     road: [village(38, 18), village(38, -14)], // north from the street, east of the stall
     gate: village(38, -1),
     gateSprite: "rocks",
-    hint: "A rockslide blocks the mountain path. You would need a way to climb over it...",
     places: [
       {
         id: "observatory",

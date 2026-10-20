@@ -30,7 +30,9 @@ class ContentCheck(unittest.TestCase):
         done, out = check(GOOD)
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
         bundle = json.loads(out.read_text())
-        self.assertEqual(bundle["version"], 2)
+        self.assertEqual(bundle["version"], 3)
+        self.assertEqual(bundle["worlds"][0]["building"], {"name": "School", "placeId": "school"})
+        self.assertIsNone(bundle["worlds"][0]["key"])
         lesson = bundle["lessons"][0]
         self.assertEqual([b["type"] for b in lesson["blocks"]], ["text", "example", "predict", "task", "task", "task"])
         self.assertEqual(lesson["blocks"][1]["output"], "42\n")
@@ -42,6 +44,25 @@ class ContentCheck(unittest.TestCase):
         self.assertEqual([s["id"] for s in boss["stages"]], ["calc-add", "calc-sub", "calc-mul"])
         self.assertEqual((boss["hardChecks"], boss["intro"]), (3, "Build a tiny calculator."))
         self.assertNotIn("solution", json.dumps(bundle))
+
+    def test_world_folder_without_world_toml_fails(self):
+        done, _ = check(broken_copy(lambda d: (d.parents[1] / "world.toml").unlink()))
+        self.assertIn("w1/world.toml: missing", done.stdout)
+
+    def test_region_without_a_name_fails(self):
+        def drop_region(d):
+            toml = d.parents[1] / "world.toml"
+            toml.write_text(toml.read_text().replace('regions = { a = "Basics" }', 'regions = { b = "Other" }'))
+        done, _ = check(broken_copy(drop_region))
+        self.assertIn("region a has no name in w1/world.toml", done.stdout)
+
+    def test_first_world_with_a_key_fails(self):
+        def add_key(d):
+            toml = d.parents[1] / "world.toml"
+            toml.write_text(toml.read_text() + '\n[key]\nboss = "calc"\ntrophy = "calc-trophy"\ntrophy_name = "T"\n'
+                            'opens = "o"\ngate_hint = "h"\n')
+        done, _ = check(broken_copy(add_key))
+        self.assertIn("the first world must have no [key]", done.stdout)
 
     def test_wrong_solution_fails_the_build(self):
         content = broken_copy(lambda d: (d / "tasks/double/solution.py").write_text("def double(n):\n    return n\n"))

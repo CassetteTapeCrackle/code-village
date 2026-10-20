@@ -4,7 +4,7 @@ import { emptyProgress } from "../learning/types";
 import { AREAS } from "../village/areas";
 import { buildMap, walkable } from "../village/layout";
 import { findPath } from "../village/paths";
-import { PLAZA } from "../village/layout";
+import { PLACES, PLAZA } from "../village/layout";
 import { WORLDS, openWorlds, worldOpen } from "./registry";
 
 describe("worlds", () => {
@@ -21,6 +21,12 @@ describe("worlds", () => {
       const boss = w.key && bundle.bosses.find((b) => b.id === w.key!.bossId);
       if (boss) expect(boss.trophy.id).toBe(w.key!.trophyId);
     }
+  });
+
+  it("puts every world's building on the map", () => {
+    const places = [...PLACES, ...AREAS.flatMap((a) => a.places)];
+    for (const w of WORLDS)
+      expect(places.some((p) => p.id === w.building.placeId && p.world === w.id)).toBe(true);
   });
 
   it("gives every world after the first an area", () => {

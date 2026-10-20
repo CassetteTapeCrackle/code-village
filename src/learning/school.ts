@@ -1,15 +1,11 @@
-import type { Bundle, Lesson } from "../content/types";
+import type { Bundle, Lesson, World } from "../content/types";
+import { worldById } from "../worlds/registry";
 import { lessonTasks } from "./progress";
 import type { Progress } from "./types";
 
-const TEACHER_NAME = "Ms. Juniper";
-
-// Each world's lessons have their own teacher: Ms. Juniper at the schoolhouse, Ranger Noa at the cabin.
-export type Teacher = { name: string; portrait: "teacher" | "ranger" | "stargazer" };
-export function teacherFor(world: string): Teacher {
-  if (world === "w2") return { name: "Ranger Noa", portrait: "ranger" };
-  if (world === "w3") return { name: "Stargazer Alex", portrait: "stargazer" };
-  return { name: TEACHER_NAME, portrait: "teacher" };
+// Each world's lessons have their own teacher, named in its world.toml.
+export function teacherFor(world: string): World["teacher"] {
+  return worldById(world)?.teacher ?? { name: "Ms. Juniper", portrait: "teacher" };
 }
 
 // What the teacher says at the schoolhouse door: where to pick up, in that order of priority.

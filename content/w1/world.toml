@@ -1,0 +1,14 @@
+# The world's words and wiring. Its look lives in code (src/village/areas.ts, terrain.ts).
+id = "w1"
+order = 1
+name = "The Village"
+area = "village"
+regions = { a = "First programs", b = "Collections", c = "Structure" }
+
+[building]
+name = "School"
+place = "school"
+
+[teacher]
+name = "Ms. Juniper"
+portrait = "teacher"

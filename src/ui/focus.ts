@@ -5,20 +5,21 @@ import { PLACES, lairOf } from "../village/layout";
 // Which building a page belongs to (the village keeps it lit beside the board) and where the board's close leads.
 export type Focus = { place: string | null; back: string; backLabel: string };
 
-const SCHOOLS: Record<string, string> = { w1: "school", w2: "cabin", w3: "observatory" };
+const schoolOf = (bundle: Bundle, world: string): string | undefined =>
+  bundle.worlds.find((w) => w.id === world)?.building.placeId;
 const MAP: Focus = { place: null, back: "#/", backLabel: "Back to the map" };
 
 export function focusFor(route: Route, bundle: Bundle): Focus {
   switch (route.name) {
     case "school":
-      return { ...MAP, place: SCHOOLS[route.world ?? "w1"] ?? null };
+      return { ...MAP, place: schoolOf(bundle, route.world ?? "w1") ?? null };
     case "garden":
     case "library":
     case "house":
       return { ...MAP, place: route.name };
     case "lesson": {
       const lesson = bundle.lessons.find((l) => l.id === route.id);
-      const school = lesson && PLACES.find((p) => p.id === SCHOOLS[lesson.world]);
+      const school = lesson && PLACES.find((p) => p.id === schoolOf(bundle, lesson.world));
       if (!lesson || !school) return MAP;
       return {
         place: school.id,

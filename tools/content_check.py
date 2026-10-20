@@ -41,6 +41,10 @@ TASK_FIELDS = {"id": str, "concept": str, "kind": str, "title": str, "prompt": s
 VARIANT_FIELDS = {"id": str, "title": str, "prompt": str}
 BOSS_FIELDS = {"id": str, "title": str, "world": str, "region": str, "hard_checks": int, "trophy": dict, "hard_trophy": dict}
 STAGE_FIELDS = {"id": str, "title": str, "prompt": str, "hp": int}
+WORLD_FIELDS = {"id": str, "order": int, "name": str, "area": str, "regions": dict, "building": dict, "teacher": dict}
+BUILDING_FIELDS = {"name": str, "place": str}
+TEACHER_FIELDS = {"name": str, "portrait": str}
+KEY_FIELDS = {"boss": str, "trophy": str, "trophy_name": str, "opens": str, "gate_hint": str}
 CODE_FILES = ("starter", "solution", "tests")
 KINDS = {"write", "fix", "complete"}
 FENCE = re.compile(r"^```python (example|predict|claim)\n(.*?)^```\n", re.S | re.M)
@@ -407,6 +411,68 @@ def check_bosses(bosses, lessons, problems):
         seen.add(key)
 
 
+def load_world(folder, problems):
+    """A world folder's world.toml: its words and wiring (the look lives in code)."""
+    where = f"{folder.name}/world.toml"
+    try:
+        meta = tomllib.loads((folder / "world.toml").read_text())
+    except OSError:
+        problems.add(where, "missing: every world folder needs one")
+        return None
+    except tomllib.TOMLDecodeError as e:
+        problems.add(where, f"unreadable: {e}")
+        return None
+    require(meta, WORLD_FIELDS, where, "world.toml", problems)
+    require(meta.get("building") or {}, BUILDING_FIELDS, where, "[building]", problems)
+    require(meta.get("teacher") or {}, TEACHER_FIELDS, where, "[teacher]", problems)
+    if "key" in meta:
+        require(meta["key"], KEY_FIELDS, where, "[key]", problems)
+    if meta.get("id") != folder.name:
+        problems.add(where, f"id must be the folder name, {folder.name}")
+    return meta
+
+
+def check_worlds(worlds, lessons, bosses, problems):
+    """Every world is ordered once, names every region it teaches, and opens with a boss trophy from an earlier world."""
+    orders = [w["order"] for w in worlds if isinstance(w.get("order"), int)]
+    first = min(orders, default=None)
+    for dup in sorted({o for o in orders if orders.count(o) > 1}):
+        problems.add("worlds", f"order {dup} is used twice")
+    by_id = {w["id"]: w for w in worlds}
+    for lesson in lessons:
+        world = by_id.get(lesson["world"])
+        if world is None:
+            problems.add(lesson["id"], f"world {lesson['world']} has no world.toml")
+        elif lesson["region"] not in (world.get("regions") or {}):
+            problems.add(lesson["id"], f"region {lesson['region']} has no name in {lesson['world']}/world.toml")
+    trophies = {b["trophy"].get("id"): b for b in bosses}
+    for world in worlds:
+        key = world.get("key")
+        if world.get("order") == first and key:
+            problems.add(world["id"], "the first world must have no [key]: nothing could open it")
+        if world.get("order") != first and not key:
+            problems.add(world["id"], "needs a [key]: without one it is open from the start")
+        if not key:
+            continue
+        boss = trophies.get(key.get("trophy"))
+        if boss is None or boss["id"] != key.get("boss"):
+            problems.add(world["id"], f"[key] trophy {key.get('trophy')} is not the trophy of boss {key.get('boss')}")
+        elif by_id.get(boss["world"], {}).get("order", 0) >= world.get("order", 0):
+            problems.add(world["id"], f"[key] boss {boss['id']} must be in an earlier world")
+
+
+def world_entry(meta):
+    """A world.toml as the game's World type reads it."""
+    key = meta.get("key")
+    return {
+        "id": meta["id"], "order": meta["order"], "name": meta["name"], "area": meta["area"], "regions": meta["regions"],
+        "building": {"name": meta["building"]["name"], "placeId": meta["building"]["place"]},
+        "teacher": {"name": meta["teacher"]["name"], "portrait": meta["teacher"]["portrait"]},
+        "key": key and {"bossId": key["boss"], "trophyId": key["trophy"], "trophyName": key["trophy_name"],
+                        "opens": key["opens"], "gateHint": key["gate_hint"]},
+    }
+
+
 def pyodide_python():
     return json.loads(PYODIDE_LOCK.read_text())["info"]["python"]
 
@@ -463,6 +529,8 @@ def main():
     check_concepts(lessons, problems)
     check_ids(lessons, bosses, problems)
     check_bosses(bosses, lessons, problems)
+    worlds = [w for w in (load_world(d, problems) for d in subfolders(content)) if w]
+    check_worlds(worlds, lessons, bosses, problems)
     if problems:
         print("\n".join(sorted(problems)))
         print(f"content check FAILED: {len(problems)} problem(s)")
@@ -470,7 +538,9 @@ def main():
     lessons.sort(key=lambda lesson: (lesson["world"], lesson["order"]))
     bosses.sort(key=lambda boss: (boss["world"], boss["region"]))
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps({"version": 2, "python": python, "lessons": lessons, "bosses": bosses}, indent=1))
+    worlds.sort(key=lambda world: world["order"])
+    bundle = {"version": 3, "python": python, "worlds": [world_entry(w) for w in worlds], "lessons": lessons, "bosses": bosses}
+    out.write_text(json.dumps(bundle, indent=1))
     stamp.write_text(source)
     n_tasks = len(all_tasks(lessons))
     print(f"content ok: {len(lessons)} lesson(s), {n_tasks} task(s), {len(bosses)} boss(es) -> {out}")
