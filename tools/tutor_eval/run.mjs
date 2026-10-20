@@ -4,7 +4,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { tutorMessages } from "../../src/tutor/packet.ts";
-import { limitParam } from "../../src/tutor/models.ts";
+import { modelParams } from "../../src/tutor/models.ts";
 // the Worker's own chunk parser, so the bake-off reads model output exactly as the app does
 import { textFromChunk } from "../../worker/src/aiStream.ts";
 
@@ -111,7 +111,7 @@ export async function runBakeoff({
           {
             method: "POST",
             headers: { authorization: `Bearer ${apiToken}`, "content-type": "application/json" },
-            body: JSON.stringify({ messages, stream: true, ...limitParam(model, MAX_TOKENS) }),
+            body: JSON.stringify({ messages, stream: true, ...modelParams(model, MAX_TOKENS) }),
           },
         );
         if (!res.ok) {
