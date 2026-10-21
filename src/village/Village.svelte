@@ -73,10 +73,10 @@
   // Who lives here grows with the level (Lou at 2, Mika at 6); counted when the village opens.
   // Noa the ranger lives in the forest once its road is open, and Alex the stargazer in the mountains.
   const VILLAGERS = [
-    "Juniper",
     ...villagersFor(levelFor(game.progress.xp)),
     ...(open.includes("w2") ? ["Noa"] : []),
     ...(open.includes("w3") ? ["Alex"] : []),
+    "Juniper",
   ];
   const HOMES: Record<string, Point> = {
     Juniper: village(28, 12), // the school door
