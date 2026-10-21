@@ -59,7 +59,7 @@ export function forestDepth(x: number, y: number): number {
   return d + (fbm(x / 4, y / 4, 3) - 0.5) * 7;
 }
 
-export type GroundStyle = "rock" | "forest" | "edge" | "meadow" | "village" | "sand" | "sea";
+export type GroundStyle = "rock" | "forest" | "edge" | "meadow" | "village" | "sand" | "wet" | "sea";
 // The one answer to what kind of ground a point is, for scatter and paint. Areas with their own ground answer
 // first (see Area.ground).
 export function groundStyle(x: number, y: number): GroundStyle {

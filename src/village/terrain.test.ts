@@ -10,6 +10,7 @@ import {
   rockLine,
   snowLine,
 } from "./terrain";
+import { shoreLine } from "./areas";
 
 const map = buildMap(["w1", "w2", "w3"], featureLand());
 
@@ -68,11 +69,17 @@ test("no tree or rock grows next to a path, a door or a building", () => {
 });
 
 describe("the shore", () => {
-  it("answers its own ground: lawn at the top, then sand, then sea", () => {
-    for (const x of [5.5, 48.5, 90.5]) {
+  it("shapes the coast: a cove in the middle, a point to the west, a headland to the east", () => {
+    expect(shoreLine(46)).toBeLessThan(shoreLine(30) - 1); // the cove
+    expect(shoreLine(8)).toBeGreaterThan(shoreLine(20)); // the tide pool point
+    expect(shoreLine(92)).toBeGreaterThan(82); // the headland runs out
+  });
+  it("answers lawn, then sand, then a wet band, then sea down every column", () => {
+    for (const x of [5.5, 30.5, 46.5, 70.5, 92.5]) {
       expect(groundStyle(x, 64.5)).toBe("village");
-      expect(groundStyle(x, 74.5)).toBe("sand");
-      expect(groundStyle(x, 84.5)).toBe("sea");
+      expect(groundStyle(x, shoreLine(x) - 2)).toBe("sand");
+      expect(groundStyle(x, shoreLine(x) - 0.5)).toBe("wet");
+      expect(groundStyle(x, shoreLine(x) + 0.5)).toBe("sea");
     }
   });
   it("leaves the forest and the village above it as they were", () => {

@@ -142,8 +142,20 @@
       "sand2": "#dcc78f",
       "sand3": "#f4e8c4",
       "sea": "#6aa8c8",
-      "sea2": "#5b97b8",
-      "foam": "#f4fbfd"
+      "foam": "#f4fbfd",
+      "shallow": "#a8dcd4",
+      "shallow2": "#8fcfcb",
+      "deep": "#4f8bb3",
+      "deeper": "#3f7299",
+      "crest": "#d8eef4",
+      "sparkle": "#ffffff",
+      "wet": "#cdb784",
+      "wet2": "#bda672",
+      "ripple": "#e2cf9c",
+      "grain": "#c9b27a",
+      "seaweed": "#3f5a4a",
+      "dune": "#7fa05a",
+      "dune2": "#a9c98a"
     }
   },
   "night": {
@@ -288,8 +300,20 @@
       "sand2": "#5f5845",
       "sand3": "#7a735c",
       "sea": "#1d3746",
-      "sea2": "#192f3d",
-      "foam": "#5d7d8c"
+      "foam": "#5d7d8c",
+      "shallow": "#2a5552",
+      "shallow2": "#244a48",
+      "deep": "#27465a",
+      "deeper": "#203a4c",
+      "crest": "#58717f",
+      "sparkle": "#cfe8ef",
+      "wet": "#6d6448",
+      "wet2": "#5d5540",
+      "ripple": "#7a6f52",
+      "grain": "#635a42",
+      "seaweed": "#223829",
+      "dune": "#466e3c",
+      "dune2": "#558a4c"
     }
   },
   "tints": {

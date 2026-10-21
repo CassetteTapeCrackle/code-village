@@ -51,7 +51,9 @@ test("a path is a contiguous walk ending at the door; an unreachable tile gives 
 
 test("the river bends but stays one stream, never touches a building, and keeps both bridges", () => {
   for (let y = 8; y < MAP_H; y++) {
-    const water = [...map.tiles[y]].flatMap((t, x) => ("~#".includes(t) && x > 70 ? [x] : []));
+    // West of the headland (x < 90): the headland's far side has its own sea, so the one-stream
+    // check stays on the river and the sea it flows into.
+    const water = [...map.tiles[y]].flatMap((t, x) => ("~#".includes(t) && x > 70 && x < 90 ? [x] : []));
     expect(water.length, `row ${y}`).toBeGreaterThan(0);
     expect(water.at(-1)! - water[0] + 1, `row ${y} is one stream`).toBe(water.length);
   }

@@ -1,6 +1,6 @@
 import type { MapColors } from "../art/palette";
 import { pixelBuffer } from "../art/pixels";
-import { seaLine } from "./areas";
+import { shoreLine } from "./areas";
 import { TILE } from "./grid";
 import type { VillageMap } from "./layout";
 import { bayer, fbm, hash01, ridged, valueNoise } from "./noise";
@@ -268,7 +268,7 @@ export function drawRiver(
     map.tiles[Math.floor(y / TILE)]?.[Math.floor(x / TILE)] ?? ".";
   for (let y = RIVER_TOP_ROW * TILE; y < h; y++) {
     const centre = riverCenterPx(y);
-    if (y / TILE >= seaLine(centre / TILE) + 0.5) break; // the river runs into the sea
+    if (y / TILE >= shoreLine(centre / TILE) + 0.5) break; // the river runs into the sea
     const half = riverHalfPx(y);
     const gorge = y / TILE < rockLine(81) + 0.6;
     for (let x = Math.floor(centre - half - 8); x < Math.ceil(centre + half + 8); x++) {

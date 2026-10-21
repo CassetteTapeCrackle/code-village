@@ -249,7 +249,7 @@ export function buildMap(open: string[] = ["w1"], reserved: readonly Rect[] = []
         else if (tileHash(x, y) % 17 === 1) grid[y][x] = "*";
         continue;
       }
-      if (ground === "sand") {
+      if (ground === "sand" || ground === "wet") {
         if (tileHash(x, y) % 23 === 1) grid[y][x] = "*"; // a shell
         continue;
       }
