@@ -57,6 +57,15 @@ test("notebook paragraphs start on the ruling and stay on it", async ({ page }) 
   for (const lesson of ["lists", "input-output", "recursion"]) {
     await page.goto(`/#/lesson/${lesson}`);
     await expect(page.locator(".notebook > .text").first()).toBeVisible();
+    // Measure the resting layout: the shipped font is in, the lazy editors have replaced their
+    // stand-ins, and the padding pass after those changes has landed.
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+    });
+    await expect(page.locator(".notebook .stand-in")).toHaveCount(0, { timeout: 60_000 });
+    await expect(page.locator(".notebook")).toHaveAttribute("data-ruling", "aligned", {
+      timeout: 60_000,
+    });
     // top: offset from the first rule; height: inline code must not stretch a line past 28 px
     const off = await page.locator(".notebook").evaluate((nb) => {
       const top = nb.getBoundingClientRect().top + parseFloat(getComputedStyle(nb).paddingTop);
