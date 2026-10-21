@@ -34,6 +34,11 @@ export const ROUTINES: Record<string, Job[]> = {
     { activity: "water", spot: DEN_STEP, facing: 1, seconds: 9 },
     { activity: "read", spot: FOREST_HUB, facing: -1, seconds: 8 },
   ],
+  Juniper: [
+    { activity: "read", spot: SCHOOL_STEP, facing: 1, seconds: 12 },
+    { activity: "chat", spot: SCHOOL_STEP, facing: -1, seconds: 6 },
+    { activity: "read", spot: SCHOOL_STEP, facing: 1, seconds: 8 },
+  ],
   Ines: [
     { activity: "sweep", spot: SCHOOL_STEP, facing: 1, seconds: 9 },
     { activity: "chat", spot: SQUARE_EAST, facing: -1, seconds: 6 },

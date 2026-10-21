@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildMap, PLAZA, walkable } from "./layout";
+import { buildMap, PLAZA, village, walkable } from "./layout";
 import { findPath } from "./paths";
 import { ROUTINES, describeJob, jobsFor, routineFor } from "./routines";
 
@@ -30,5 +30,11 @@ describe("villager routines", () => {
 
   it("falls back to a routine for an unknown name", () => {
     expect(routineFor("Nobody").length).toBeGreaterThan(0);
+  });
+
+  it("keeps Juniper at the school door", () => {
+    const door = village(28, 12);
+    expect(ROUTINES.Juniper.length).toBeGreaterThan(1);
+    for (const job of ROUTINES.Juniper) expect(job.spot).toEqual(door);
   });
 });
