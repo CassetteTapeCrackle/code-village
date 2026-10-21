@@ -10,7 +10,7 @@
 
 <div class="dialog paper px" role="status">
   <div class="portrait px">
-    <SpriteCanvas grid={grids[portrait] ?? TRAVELLER} scale={portrait === "mochi" ? 4 : 5} />
+    <SpriteCanvas grid={grids[portrait] ?? TRAVELLER} scale={4} />
   </div>
   <div class="words">
     <div class="who">{who}</div>

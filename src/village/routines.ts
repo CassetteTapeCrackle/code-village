@@ -6,6 +6,8 @@ export type Activity = "sweep" | "fish" | "water" | "read" | "chat" | "carry";
 export type Job = { activity: Activity; spot: Point; facing: 1 | -1; seconds: number; when?: string }; // when: a lair id that must be cleared first
 
 const SCHOOL_STEP: Point = village(28, 12);
+// Ms. Juniper greets the class on the path below the door, clear of the school's label.
+const SCHOOL_PATH: Point = village(28, 14);
 const BRIDGE: Point = village(41, 18);
 const GARDEN_GATE: Point = village(35, 22);
 const LIBRARY_STEP: Point = village(11, 18);
@@ -33,6 +35,11 @@ export const ROUTINES: Record<string, Job[]> = {
     { activity: "carry", spot: MAZE_GATE, facing: 1, seconds: 6 },
     { activity: "water", spot: DEN_STEP, facing: 1, seconds: 9 },
     { activity: "read", spot: FOREST_HUB, facing: -1, seconds: 8 },
+  ],
+  Juniper: [
+    { activity: "read", spot: SCHOOL_PATH, facing: 1, seconds: 12 },
+    { activity: "chat", spot: SCHOOL_PATH, facing: -1, seconds: 6 },
+    { activity: "read", spot: SCHOOL_PATH, facing: 1, seconds: 8 },
   ],
   Ines: [
     { activity: "sweep", spot: SCHOOL_STEP, facing: 1, seconds: 9 },
@@ -78,6 +85,7 @@ export const ROUTINES: Record<string, Job[]> = {
 // Where each spot is, in words, for the villager list ("Ines, sweeping at the schoolhouse step").
 const SPOT_WORDS: [Point, string][] = [
   [SCHOOL_STEP, "at the schoolhouse step"],
+  [SCHOOL_PATH, "outside the school"],
   [BRIDGE, "on the bridge"],
   [GARDEN_GATE, "at the garden gate"],
   [LIBRARY_STEP, "by the library"],

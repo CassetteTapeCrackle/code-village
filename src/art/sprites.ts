@@ -1,4 +1,5 @@
 import type { Grid } from "./draw";
+import { FIGURES } from "./figures";
 
 // One character per pixel, "." is transparent; colours come from SPRITE_COLORS.
 // Mochi is the old Study room mascot, unchanged.
@@ -13,22 +14,6 @@ export const MOCHI: Grid = [
   ".kGgggggggGk",
   "..kGGGGGGGk.",
   "...kkkkkkk..",
-];
-
-// The forest's ranger: a brown hat and green clothes.
-export const RANGER: Grid = [
-  "..oooo..",
-  ".oooooo.",
-  "kHHuuHHk",
-  "kHueueHk",
-  ".kuuuuk.",
-  "..kLLk..",
-  ".kJJJJk.",
-  "kJJJJJJk",
-  "kuJJJJuk",
-  ".kJJJJk.",
-  ".kJJJJk.",
-  ".kk..kk.",
 ];
 
 // A teacher whose portrait is not drawn yet: a traveller in a grey hood and a plain cloak.
@@ -47,22 +32,6 @@ export const TRAVELLER: Grid = [
   ".kk..kk.",
 ];
 
-// The mountains' stargazer: a midnight-blue robe with a star, and a yellow scarf.
-export const STARGAZER: Grid = [
-  "..kkkk..",
-  ".kHHHHk.",
-  "kHHuuHHk",
-  "kHueueHk",
-  ".kuuuuk.",
-  "..kyyk..",
-  ".kZZZZk.",
-  "kZZyZZZk",
-  "kuZZZZuk",
-  ".kZZZZk.",
-  ".kZZZZk.",
-  ".kk..kk.",
-];
-
 export const VILLAGER: Grid = [
   "..kkkk..",
   ".kHHHHk.",
@@ -77,23 +46,13 @@ export const VILLAGER: Grid = [
   ".kk..kk.",
 ];
 
-export const TEACHER: Grid = [
-  "..kkkk..",
-  ".kHHHHk.",
-  "kHHuuHHk",
-  "kHueueHk",
-  ".kuuuuk.",
-  "..kaak..",
-  ".k1111k.",
-  "k111111k",
-  "ku1111uk",
-  ".k1111k.",
-  ".k1111k.",
-  ".kk..kk.",
-];
-
 // Teacher portraits by the id a world.toml names; an unknown id shows the TRAVELLER.
-export const PORTRAITS: Record<string, Grid> = { teacher: TEACHER, ranger: RANGER, stargazer: STARGAZER };
+export const PORTRAITS: Record<string, Grid> = {
+  teacher: FIGURES.Juniper,
+  ranger: FIGURES.Noa,
+  stargazer: FIGURES.Alex,
+  bram: FIGURES.Bram,
+};
 
 export const CAT: Grid = ["k.k......", "kckkkkk..", "kcecccck.", "kccccccck", ".kcCcCcck", "..kk.kk.."];
 

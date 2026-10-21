@@ -32,6 +32,7 @@
     TILE,
     VX,
     buildMap,
+    village,
     type Place,
     type Point,
   } from "./layout";
@@ -75,8 +76,10 @@
     ...villagersFor(levelFor(game.progress.xp)),
     ...(open.includes("w2") ? ["Noa"] : []),
     ...(open.includes("w3") ? ["Alex"] : []),
+    "Juniper",
   ];
   const HOMES: Record<string, Point> = {
+    Juniper: village(28, 14), // below the school door
     Noa: { x: 20, y: 46 },
     Alex: { x: 78, y: 14 },
     Wren: { x: 28, y: 51 },
@@ -209,12 +212,13 @@
     ctx.rect(view.x, view.y, view.w, view.h);
     ctx.clip();
     ctx.drawImage(staticLayer, view.x, view.y, view.w, view.h, view.x, view.y, view.w, view.h);
-    const walker = (a: Actor, clothes?: string) => ({
+    const walker = (a: Actor, name?: string, clothes?: string) => ({
       x: a.x,
       y: a.y,
       facing: a.facing,
       moving: a.moving,
       clothes,
+      name,
     });
     drawDynamic(ctx, {
       palette: clock.palette,
@@ -222,7 +226,7 @@
       t: seconds,
       mochi: walker(mochi),
       napping: idle > NAP_AFTER,
-      villagers: villagers.map((v) => {
+      villagers: villagers.map((v, i) => {
         const job = v.jobs[v.job];
         let activity = !job
           ? null
@@ -237,7 +241,7 @@
           !villagers.some((o) => o !== v && Math.hypot(o.actor.x - v.actor.x, o.actor.y - v.actor.y) < 3)
         )
           activity = null;
-        return { ...walker(v.actor, v.clothes), activity };
+        return { ...walker(v.actor, VILLAGERS[i], v.clothes), activity };
       }),
       rain,
       ducks: decorFor(scene.level).includes("ducks"),

@@ -31,6 +31,25 @@ export const LINES: Record<string, Line[]> = {
     doing("read", "Shh, I am at the good part."),
     doing("water", "The garden drinks more than Sam does."),
   ],
+  Juniper: [
+    chatter("Good morning! Punctuality is the first kindness a programmer learns."),
+    chatter(
+      "I keep a spare pencil for anyone who forgot theirs. And a spare semicolon, though Python never asks.",
+    ),
+    chatter("Every error message is a letter from the computer. Read it to the end."),
+    chatter("The library is alphabetical again. Ines and I have an understanding."),
+    chatter("I write my lesson notes in a notebook with a margin for second thoughts."),
+    chatter("A quiet classroom is a running program. A noisy one is running too, just louder."),
+    tip("functions", "A function has one job. Name it like a promise, then keep it."),
+    tip("errors", "Read the traceback from the bottom up. The last line usually tells the truth first."),
+    tip(
+      "strings",
+      "In quotes it is data; without quotes it is a name. That one difference is half of programming.",
+    ),
+    tip("dicts", "A dict maps a key to a value, like a name to a desk. Every key has its own seat."),
+    doing("read", "Reading over your exercises. They are coming along."),
+    doing("chat", "Come closer. I am all ears, and I brought spare pencils."),
+  ],
   Sam: [
     chatter("The river is cold, but the bridge is warm by noon."),
     chatter("I caught nine fish today. Or ten. I always lose count at the end."),

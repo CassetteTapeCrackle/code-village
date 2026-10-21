@@ -12,6 +12,10 @@ describe("villager lines", () => {
     }
   });
 
+  it("gives Juniper lines of her own", () => {
+    expect(LINES.Juniper.length).toBeGreaterThanOrEqual(4);
+  });
+
   it("keeps a tip back until its lesson is passed", () => {
     const tips = (passed: string[]): string[] => {
       let memory = freshMemory();

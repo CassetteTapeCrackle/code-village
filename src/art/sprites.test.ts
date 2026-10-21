@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
 import type { Grid } from "./draw";
 import { SPRITE_COLORS } from "./palette";
+import { FIGURES } from "./figures";
 import * as sprites from "./sprites";
 
 const grids: [string, Grid][] = [
@@ -25,4 +26,11 @@ test.each(grids)("%s is rectangular and every pixel has a colour by day and by n
 
 test("both palettes define the same characters", () => {
   expect(Object.keys(SPRITE_COLORS.night).sort()).toEqual(Object.keys(SPRITE_COLORS.day).sort());
+});
+
+test("teacher portraits are the teachers' own figures", () => {
+  expect(sprites.PORTRAITS.teacher).toBe(FIGURES.Juniper);
+  expect(sprites.PORTRAITS.ranger).toBe(FIGURES.Noa);
+  expect(sprites.PORTRAITS.stargazer).toBe(FIGURES.Alex);
+  expect(sprites.PORTRAITS.bram).toBe(FIGURES.Bram);
 });
