@@ -71,7 +71,7 @@ const BUILDING_SPRITES: Record<string, (p: Place) => Grid> = {
   house: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "j", icon: ICONS.heart }),
   cabin: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "d", wall: "h", icon: ICONS.sprout }),
   observatory: (p) => observatory(p.w * TILE, p.h * TILE),
-  hall: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "z", wall: "w", icon: ICONS.book }), // placeholder
+  hall: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "z", wall: "w", icon: ICONS.anchor }),
 };
 
 function drawTile(

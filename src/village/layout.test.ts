@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 import { MAP_H, MAP_W, PLACES, PLAZA, RIVER_X, STREET_Y, VY, buildMap, inside, walkable } from "./layout";
+import { SHORE_WALK_ROW } from "./areas";
 import { findPath } from "./paths";
 
 const SHORE_Y = 64;
@@ -49,6 +50,13 @@ test("a path is a contiguous walk ending at the door; an unreachable tile gives 
   expect(findPath(map, PLAZA.center, { x: 0, y: 0 })).toBeNull();
 });
 
+test("shore doors open onto the walkway row; the old row-76 road is gone", () => {
+  const shore = PLACES.filter((p) => p.world === "w4");
+  expect(PLACES.find((p) => p.id === "harbour")!.door.y).toBe(SHORE_WALK_ROW);
+  expect(shore.map((p) => p.lair ?? p.kind).sort()).toEqual(["hall", "lighthouse", "pools", "wreck"]);
+  expect(map.tiles[76].includes("=")).toBe(false);
+});
+
 test("the river bends but stays one stream, never touches a building, and keeps both bridges", () => {
   for (let y = 8; y < MAP_H; y++) {
     // West of the headland (x < 90): the headland's far side has its own sea, so the one-stream
@@ -58,6 +66,8 @@ test("the river bends but stays one stream, never touches a building, and keeps 
     expect(water.at(-1)! - water[0] + 1, `row ${y} is one stream`).toBe(water.length);
   }
   for (const place of PLACES) {
+    // the tide pools and the wreck are coastal lairs that sit at the sea by design, not the river
+    if (place.lair === "pools" || place.lair === "wreck") continue;
     for (let y = place.y - 1; y <= place.y + place.h; y++)
       for (let x = place.x - 1; x <= place.x + place.w; x++)
         expect(map.tiles[y]?.[x], place.id).not.toBe("~");
