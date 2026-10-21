@@ -35,7 +35,7 @@ export function tileOf(a: Actor): Point {
   return { x: Math.round(a.x), y: Math.round(a.y) };
 }
 
-// Which actor a click lands on: within half a tile sideways, and up to 1.5 tiles above its feet (its sprite).
+// Which actor a click lands on: within half a tile sideways, and up to the full figure above its feet.
 export function actorAtPoint(actors: Actor[], x: number, y: number): number {
-  return actors.findIndex((a) => Math.abs(a.x - x) <= 0.6 && y <= a.y + 0.6 && y >= a.y - 1.5);
+  return actors.findIndex((a) => Math.abs(a.x - x) <= 0.6 && y <= a.y + 0.6 && y >= a.y - 1.75);
 }

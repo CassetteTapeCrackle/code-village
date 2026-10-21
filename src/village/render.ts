@@ -1,4 +1,5 @@
 import { px, stamp, type Grid } from "../art/draw";
+import { FIGURES, type FigureName } from "../art/figures";
 import type { DrawEnv } from "./features/env";
 import { FEATURES, FLAT_FEATURES, FLAT_PLACES, unlocked, type Feature } from "./scenery";
 import { beginCapture, covering, drawPiece, endCapture, pieces, type Piece } from "../art/standing";
@@ -649,6 +650,7 @@ type Walker = {
   facing: 1 | -1;
   moving: boolean;
   clothes?: string;
+  name?: string;
   activity?: Activity | null;
 };
 export type DynamicScene = {
@@ -673,6 +675,16 @@ export type DynamicScene = {
   view?: ViewRect; // the part of the map being painted: actors and clouds clear of it are skipped
 };
 
+// Which grid a named villager walks as: their own figure, or the shared VILLAGER for anyone unknown.
+export function figureFor(name: string | undefined): Grid {
+  return name && name in FIGURES ? FIGURES[name as FigureName] : VILLAGER;
+}
+
+// The top of a figure standing on `tileY`: the y drawActivity anchors its props to.
+export function activityTop(tileY: number, grid: Grid): number {
+  return Math.round(tileY * TILE + TILE - grid.length) - 1;
+}
+
 function drawWalker(
   ctx: CanvasRenderingContext2D,
   grid: Grid,
@@ -689,9 +701,15 @@ function drawWalker(
 }
 
 // What a villager holds or shows while doing their job, drawn on top of their sprite at (x, y).
-function drawActivity(ctx: CanvasRenderingContext2D, s: Record<string, string>, w: Walker, t: number): void {
+function drawActivity(
+  ctx: CanvasRenderingContext2D,
+  s: Record<string, string>,
+  w: Walker,
+  grid: Grid,
+  t: number,
+): void {
   const x = Math.round(w.x * TILE);
-  const y = Math.round(w.y * TILE + TILE - VILLAGER.length) - 1;
+  const y = activityTop(w.y, grid);
   const f = w.facing;
   const hand = f > 0 ? x + 7 : x;
   switch (w.activity) {
@@ -839,7 +857,7 @@ export function drawDynamic(ctx: CanvasRenderingContext2D, scene: DynamicScene):
   scene.birds.forEach((bird, i) => drawBird(ctx, s, bird, i, scene.t));
   // walkers from the back to the front; after each, whatever stands in front of it is drawn again over it
   const walkers = [
-    ...scene.villagers.map((v) => ({ w: v, grid: VILLAGER })),
+    ...scene.villagers.map((v) => ({ w: v, grid: figureFor(v.name) })),
     { w: scene.mochi, grid: MOCHI },
   ].sort((a, b) => a.w.y - b.w.y);
   for (const { w, grid } of walkers) {
@@ -853,8 +871,8 @@ export function drawDynamic(ctx: CanvasRenderingContext2D, scene: DynamicScene):
     if (scene.view && !overlap(box, scene.view)) continue; // a walker clear of the view
     if (grid === MOCHI) drawMochi(ctx, s, c, scene);
     else {
-      drawWalker(ctx, VILLAGER, { ...s, "1": w.clothes ?? s["1"] }, w, scene.t, c.shadow);
-      if (w.activity) drawActivity(ctx, s, w, scene.t);
+      drawWalker(ctx, grid, grid === VILLAGER ? { ...s, "1": w.clothes ?? s["1"] } : s, w, scene.t, c.shadow);
+      if (w.activity) drawActivity(ctx, s, w, grid, scene.t);
     }
     for (const piece of covering(scene.standing, box, feet)) drawPiece(ctx, piece);
   }
