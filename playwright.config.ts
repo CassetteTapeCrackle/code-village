@@ -11,7 +11,8 @@ export default defineConfig({
       command: "pnpm dev --port 5173 --strictPort",
       url: "http://localhost:5173",
       reuseExistingServer: true,
-      timeout: 120_000,
+      // a fresh worktree copies Pyodide and builds every module on its first start, which takes over two minutes
+      timeout: 300_000,
     },
     // the production build, for the service worker (offline) test
     {
