@@ -21,6 +21,7 @@ import { drawLife, type Life } from "./critters";
 import { leafColours, snowCapped, type Season } from "./weather";
 import { drawMine, drawObservatory, drawPeak, drawRidge, summit } from "./features/mountainPlaces";
 import { drawCabin, drawDen, drawHollowOak, drawMaze } from "./features/forestPlaces";
+import { SHORE_LAIRS } from "./features/shoreLairs";
 import { drawGardenPlace, drawMarsh, drawQuarry, drawRuins, polishHouse } from "./features/villagePlaces";
 import { MAP_COLORS, SPRITE_COLORS, TINTS, type MapColors } from "../art/palette";
 import {
@@ -173,6 +174,11 @@ function drawLair(
   const lair = place.lair ?? place.id;
   if (["oak", "maze", "den", "mine", "ridge", "peak"].includes(lair)) {
     drawWildLair(ctx, place, lair, state, palette, season);
+    return;
+  }
+  if (lair in SHORE_LAIRS) {
+    SHORE_LAIRS[lair as keyof typeof SHORE_LAIRS](ctx, { c, s }, place, state);
+    if (state === "asleep") stamp(ctx, ZZZ, s, (place.x + place.w / 2) * TILE - 3, place.y * TILE + 4);
     return;
   }
   if (lair === "quarry") drawQuarry(ctx, { c, s }, place, state);
