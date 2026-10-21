@@ -32,8 +32,8 @@ describe("villager routines", () => {
     expect(routineFor("Nobody").length).toBeGreaterThan(0);
   });
 
-  it("keeps Juniper at the school door", () => {
-    const door = village(28, 12);
+  it("keeps Juniper on the path below the school door", () => {
+    const door = village(28, 14);
     expect(ROUTINES.Juniper.length).toBeGreaterThan(1);
     for (const job of ROUTINES.Juniper) expect(job.spot).toEqual(door);
   });

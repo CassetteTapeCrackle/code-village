@@ -79,7 +79,7 @@
     "Juniper",
   ];
   const HOMES: Record<string, Point> = {
-    Juniper: village(28, 12), // the school door
+    Juniper: village(28, 14), // below the school door
     Noa: { x: 20, y: 46 },
     Alex: { x: 78, y: 14 },
     Wren: { x: 28, y: 51 },
