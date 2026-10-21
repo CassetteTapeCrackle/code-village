@@ -1,4 +1,4 @@
-import { AREAS, inRect } from "./areas";
+import { AREAS, inRect, shoreLine } from "./areas";
 import { fbm, hash01, ridged, valueNoise } from "./noise";
 
 // The mountains' shape (tiles unless a name ends in Px). See the world-pass mockup's mock2.py.
@@ -95,18 +95,36 @@ export function forestGrowth(tx: number, ty: number): "tree" | "undergrowth" | n
 }
 
 // The river: a gentle bend that fades to nothing at each bridge row, and one wide reed pool (pixels).
+// Below row 65 it meanders across the beach and ends at the sea.
 const BRIDGE_ROWS = [14, 46];
 export const RIVER_TOP_ROW = 8;
 export function riverCenterPx(yPx: number): number {
   const yt = yPx / 8 - 0.5;
   const w = clamp01((Math.min(...BRIDGE_ROWS.map((b) => Math.abs(yt - b))) - 1.2) / 3);
   const bend = (1.6 * Math.sin(yt / 6.5) + 0.9 * Math.sin(yt / 2.7 + 1)) * w;
-  return (81 + Math.max(-1, Math.min(2, bend))) * 8 + 8;
+  const sway = clamp01((yt - 65) / 3);
+  const meander = sway * (1.9 * Math.sin((yt - 65) / 2.6) + 0.6 * Math.sin((yt - 65) / 1.3));
+  return (81 + Math.max(-1, Math.min(2, bend)) + meander) * 8 + 8;
 }
-export const riverHalfPx = (yPx: number): number => 8 + 9 * clamp01(1 - Math.abs(yPx / 8 - 38.5) / 2.6);
-// The water tiles of a row (none above the waterfall).
+
+// Where the meandering river sinks below the shoreline (tiles): its mouth, found by iterating to a fixed
+// point so the river's centre at that row sits exactly on the shoreline.
+const MOUTH = (() => {
+  let x = riverCenterPx(76 * 8);
+  for (let i = 0; i < 8; i++) x = riverCenterPx(shoreLine(x / 8) * 8);
+  return { x, y: shoreLine(x / 8) };
+})();
+
+// The river's mouth (pixels): where the stream meets the sea, for the footbridge and the sandbar.
+export const riverMouthPx = (): { x: number; y: number } => ({ x: MOUTH.x, y: MOUTH.y * 8 });
+
+export const riverHalfPx = (yPx: number): number => {
+  const half = 8 + 9 * clamp01(1 - Math.abs(yPx / 8 - 38.5) / 2.6);
+  return half + 1.5 * clamp01((yPx / 8 - (MOUTH.y - 2.6)) / 2.6) * 8; // it widens as it reaches the sea
+};
+// The water tiles of a row (none above the waterfall, none out at sea past the mouth).
 export function riverTiles(ty: number): number[] {
-  if (ty < RIVER_TOP_ROW) return [];
+  if (ty < RIVER_TOP_ROW || ty >= Math.floor(MOUTH.y)) return [];
   const c = riverCenterPx(ty * 8 + 4);
   const half = riverHalfPx(ty * 8 + 4);
   const xs: number[] = [];

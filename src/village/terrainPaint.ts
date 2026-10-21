@@ -1,6 +1,5 @@
 import type { MapColors } from "../art/palette";
 import { pixelBuffer } from "../art/pixels";
-import { shoreLine } from "./areas";
 import { TILE } from "./grid";
 import type { VillageMap } from "./layout";
 import { bayer, fbm, hash01, ridged, valueNoise } from "./noise";
@@ -17,6 +16,7 @@ import {
   rangeFootPx,
   riverCenterPx,
   riverHalfPx,
+  riverMouthPx,
   rockLine,
   snowLine,
 } from "./terrain";
@@ -265,25 +265,41 @@ export function drawRiver(
   const h = map.h * TILE;
   const buf = pixelBuffer(ctx, 0, 0, w, h);
   const reeds: [number, number][] = [];
+  const mouthY = riverMouthPx().y;
   const tileAt = (x: number, y: number): string =>
     map.tiles[Math.floor(y / TILE)]?.[Math.floor(x / TILE)] ?? ".";
   for (let y = RIVER_TOP_ROW * TILE; y < h; y++) {
+    if (y >= mouthY) break; // the river ends at the sea
     const centre = riverCenterPx(y);
-    if (y / TILE >= shoreLine(centre / TILE) + 0.5) break; // the river runs into the sea
     const half = riverHalfPx(y);
     const gorge = y / TILE < rockLine(81) + 0.6;
+    const beach = y / TILE > 66;
+    const mouth = clamp((y / TILE - (mouthY / TILE - 2.6)) / 2.6); // 0 up the beach, 1 at the sea
     for (let x = Math.floor(centre - half - 8); x < Math.ceil(centre + half + 8); x++) {
       if (PATH_OR_BUILDING.includes(tileAt(x, y))) continue;
       const d = Math.abs(x + 0.5 - centre);
       if (d < half) {
-        let col = (x + y * 2) % 7 === 0 ? c.water2 : c.water;
-        if (y < (RIVER_TOP_ROW + 1) * TILE) col = (x * 3 + y * 5) % 4 ? c.snow : c.water2; // foam under the fall
+        if (y < (RIVER_TOP_ROW + 1) * TILE) {
+          buf.set(x, y, (x * 3 + y * 5) % 4 ? c.snow : c.water2); // foam under the fall
+          continue;
+        }
+        const t = d / half;
+        // a small sandbar splits the stream just above the sea
+        const dx = (x + 0.5 - centre) / TILE;
+        if (((dx + 0.2) / 0.85) ** 2 + ((y / TILE - (mouthY / TILE - 0.9)) / 0.6) ** 2 < 1) {
+          buf.set(x, y, hash01(x, y, 140) > 0.12 ? c.wet : c.ripple);
+          continue;
+        }
+        let col = t < 0.3 + 0.1 * Math.sin(y / 7) ? c.sea : t > 0.82 ? c.water2 : c.water;
+        if (hash01(x, Math.floor(y / 5), 130) < 0.07 && t < 0.75) col = c.water2; // flow streaks
+        if (mouth > 0.55 && bayer(x, y) < (mouth - 0.55) * 1.6) col = c.shallow; // mixes into the sea
+        if (mouth > 0.7 && hash01(Math.floor(x / 2), y, 131) < 0.08) col = c.foam;
         buf.set(x, y, col);
         continue;
       }
       if (gorge) continue;
       const k = Math.floor(d - half);
-      if (k === 0) buf.set(x, y, y % 3 ? c.path2 : c.stone2);
+      if (k === 0) buf.set(x, y, beach ? c.wet2 : y % 3 ? c.path2 : c.stone2);
       else if (k === 1 && hash01(x, y, 3) < 0.3) buf.set(x, y, c.stone);
     }
     if (!gorge && y % TILE === 0 && y > 160 && hash01(y, 9, 2) < 0.3) {

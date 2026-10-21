@@ -7,6 +7,9 @@ import {
   groundStyle,
   isBackRange,
   nearRangeHeightPx,
+  riverCenterPx,
+  riverMouthPx,
+  riverTiles,
   rockLine,
   snowLine,
 } from "./terrain";
@@ -93,4 +96,24 @@ it("lays no snow or leaves on the sea or wet sand", () => {
   expect(seasonSkips("sea")).toBe(true);
   expect(seasonSkips("wet")).toBe(true);
   expect(seasonSkips("sand")).toBe(false);
+});
+
+describe("the river", () => {
+  const OLD_CENTRE: Record<number, number> = {
+    10: 661.2206753173531,
+    14: 656,
+    30: 648,
+    46: 656,
+    60: 651.6792634405226,
+  };
+  it("keeps its course above the beach", () => {
+    for (const y of [10, 14, 30, 46, 60]) expect(riverCenterPx(y * 8 + 4)).toBe(OLD_CENTRE[y]);
+  });
+  it("meanders across the beach and ends at the sea", () => {
+    const xs = [66, 68, 70, 72, 74].map((y) => riverCenterPx(y * 8 + 4) / 8);
+    expect(Math.max(...xs) - Math.min(...xs)).toBeGreaterThan(2);
+    const m = riverMouthPx();
+    expect(Math.abs(m.y / 8 - shoreLine(m.x / 8))).toBeLessThan(0.6);
+    expect(riverTiles(Math.ceil(m.y / 8) + 2)).toEqual([]);
+  });
 });
