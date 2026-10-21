@@ -168,7 +168,11 @@ export const AREAS: Area[] = [
     ], // on south from the plaza's lane
     gate: { x: 68, y: 64 },
     gateSprite: "logs",
-    ground: (x, y) => (y >= seaLine(x) ? "sea" : y < duneLine(x) ? "village" : "sand"),
+    ground: (x, y) => {
+      if (y >= shoreLine(x)) return "sea";
+      if (y > shoreLine(x) - 1.2 + 0.25 * valueNoise(x * 2, 1, 60)) return "wet";
+      return y < duneLine(x) ? "village" : "sand";
+    },
     places: [
       {
         id: "harbour",
@@ -241,5 +245,14 @@ export function styleAt(x: number, y: number): AreaStyle {
 
 // Where the village lawn gives way to sand (tiles): a wavy line just inside the shore.
 export const duneLine = (x: number): number => 65.6 + 2.6 * valueNoise(x / 3.5, 7.7, 91);
-// Where the beach meets the sea (tiles): a gently wavy line near the map's bottom.
-export const seaLine = (x: number): number => 79.5 + 1.6 * valueNoise(x / 6, 4.2, 90);
+
+const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
+// Where the beach meets the sea (tiles): the mockup's shore(x) in shapes.py, a gentle wave with a cove under the
+// wreck, a tide-pool point west and the headland running out east under the lighthouse.
+export const shoreLine = (x: number): number => {
+  let base = 78.2 + 1.2 * Math.sin(x / 7) + (valueNoise(x / 4, 3.1, 5) - 0.5) * 2;
+  base -= 3.2 * Math.exp(-(((x - 46) / 6.5) ** 2));
+  base += 4.5 * clamp01((x - 84) / 5) ** 1.5;
+  base += 1.6 * Math.exp(-(((x - 8) / 4) ** 2));
+  return base;
+};

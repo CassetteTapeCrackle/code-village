@@ -49,6 +49,7 @@ import {
 import type { Palette, TimeOfDay } from "./clock";
 import type { Activity } from "./routines";
 import { duneLine, styleAt } from "./areas";
+import { drawShore } from "./shorePaint";
 import { MAP_H, MAP_W, PLACES, TILE, VX, VY, village, type Place, type VillageMap } from "./layout";
 import { overlap, type ViewRect } from "./view";
 
@@ -98,16 +99,12 @@ function drawTile(
         : shore && !lawn
           ? [c.sand, c.sand2, c.sand3]
           : [c.grass, c.grass2, c.grass3];
-  const beach = shore && at(tx, ty - 1) !== "~"; // the first row of sea breaks on the sand
   for (let y = 0; y < TILE; y++) {
     for (let x = 0; x < TILE; x++) {
       const gx = ox + x;
       const gy = oy + y;
       let color = g1;
-      if (t === "~" && shore && groundStyle(tx + 0.5, ty + 0.5) === "sea") {
-        const foam = beach && y < 2 + ((gx >> 2) % 2);
-        color = foam ? c.foam : (gx * 3 + gy * 5) % 13 === 0 ? c.water2 : gy % 16 > 9 ? c.sea2 : c.sea;
-      } else if (
+      if (
         shore &&
         !lawn &&
         ".T*D".includes(t) &&
@@ -142,18 +139,12 @@ function drawTile(
     stamp(ctx, (tx + ty) % 3 === 0 ? MUSHROOM : FERN, s, ox + 1, oy + 3);
     return;
   }
-  if (t === "*" && shore) {
-    // a shell: a pale curl with a pink lip
-    px(ctx, s.w, ox + 3, oy + 4, 2, 1);
-    px(ctx, s.p, ox + 2, oy + 5, 3, 1);
-    return;
-  }
   if (t === "*" && style === "mountains") {
     px(ctx, c.snow, ox + 2, oy + 4, 3, 2);
     px(ctx, s.S, ox + 5, oy + 5, 2, 1);
     return;
   }
-  if (t === "*") {
+  if (t === "*" && style !== "shore") {
     px(ctx, s.p, ox + 2, oy + 3);
     px(ctx, s.a, ox + 5, oy + 5);
     px(ctx, s.W, ox + 4, oy + 2);
@@ -478,6 +469,7 @@ export function drawTerrain(
   drawMountainGround(ctx, map, { c, s });
   drawForestGround(ctx, map, { c, s });
   drawVillageGround(ctx, map, { c, s }, palette === "night");
+  drawShore(ctx, map, { c, s });
   drawSeasonGround(ctx, map, { c, s }, season, palette === "night");
   drawRiver(ctx, map, { c, s }, palette === "night");
   drawPaths(ctx, map, { c, s });

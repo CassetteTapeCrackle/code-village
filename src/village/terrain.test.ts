@@ -7,9 +7,14 @@ import {
   groundStyle,
   isBackRange,
   nearRangeHeightPx,
+  riverCenterPx,
+  riverMouthPx,
+  riverTiles,
   rockLine,
   snowLine,
 } from "./terrain";
+import { shoreLine } from "./areas";
+import { seasonSkips } from "./terrainPaint";
 
 const map = buildMap(["w1", "w2", "w3"], featureLand());
 
@@ -68,15 +73,47 @@ test("no tree or rock grows next to a path, a door or a building", () => {
 });
 
 describe("the shore", () => {
-  it("answers its own ground: lawn at the top, then sand, then sea", () => {
-    for (const x of [5.5, 48.5, 90.5]) {
+  it("shapes the coast: a cove in the middle, a point to the west, a headland to the east", () => {
+    expect(shoreLine(46)).toBeLessThan(shoreLine(30) - 1); // the cove
+    expect(shoreLine(8)).toBeGreaterThan(shoreLine(20)); // the tide pool point
+    expect(shoreLine(92)).toBeGreaterThan(82); // the headland runs out
+  });
+  it("answers lawn, then sand, then a wet band, then sea down every column", () => {
+    for (const x of [5.5, 30.5, 46.5, 70.5, 92.5]) {
       expect(groundStyle(x, 64.5)).toBe("village");
-      expect(groundStyle(x, 74.5)).toBe("sand");
-      expect(groundStyle(x, 84.5)).toBe("sea");
+      expect(groundStyle(x, shoreLine(x) - 2)).toBe("sand");
+      expect(groundStyle(x, shoreLine(x) - 0.5)).toBe("wet");
+      expect(groundStyle(x, shoreLine(x) + 0.5)).toBe("sea");
     }
   });
   it("leaves the forest and the village above it as they were", () => {
     expect(groundStyle(5.5, 50.5)).toBe("forest");
     expect(groundStyle(60.5, 50.5)).toBe("village");
+  });
+});
+
+it("lays no snow or leaves on the sea or wet sand", () => {
+  expect(seasonSkips("sea")).toBe(true);
+  expect(seasonSkips("wet")).toBe(true);
+  expect(seasonSkips("sand")).toBe(false);
+});
+
+describe("the river", () => {
+  const OLD_CENTRE: Record<number, number> = {
+    10: 661.2206753173531,
+    14: 656,
+    30: 648,
+    46: 656,
+    60: 651.6792634405226,
+  };
+  it("keeps its course above the beach", () => {
+    for (const y of [10, 14, 30, 46, 60]) expect(riverCenterPx(y * 8 + 4)).toBe(OLD_CENTRE[y]);
+  });
+  it("meanders across the beach and ends at the sea", () => {
+    const xs = [66, 68, 70, 72, 74].map((y) => riverCenterPx(y * 8 + 4) / 8);
+    expect(Math.max(...xs) - Math.min(...xs)).toBeGreaterThan(2);
+    const m = riverMouthPx();
+    expect(Math.abs(m.y / 8 - shoreLine(m.x / 8))).toBeLessThan(0.6);
+    expect(riverTiles(Math.ceil(m.y / 8) + 2)).toEqual([]);
   });
 });
