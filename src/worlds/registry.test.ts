@@ -4,7 +4,7 @@ import { emptyProgress } from "../learning/types";
 import { AREAS } from "../village/areas";
 import { buildMap, walkable } from "../village/layout";
 import { findPath } from "../village/paths";
-import { PLAZA } from "../village/layout";
+import { PLACES, PLAZA } from "../village/layout";
 import { WORLDS, openWorlds, worldOpen } from "./registry";
 
 describe("worlds", () => {
@@ -23,6 +23,12 @@ describe("worlds", () => {
     }
   });
 
+  it("puts every world's building on the map", () => {
+    const places = [...PLACES, ...AREAS.flatMap((a) => a.places)];
+    for (const w of WORLDS)
+      expect(places.some((p) => p.id === w.building.placeId && p.world === w.id)).toBe(true);
+  });
+
   it("gives every world after the first an area", () => {
     for (const w of WORLDS.slice(1))
       expect(AREAS.some((a) => a.id === w.area && a.world === w.id)).toBe(true);
@@ -37,7 +43,7 @@ describe("blocked roads", () => {
   });
 
   it.each(doors)("$id can be reached once $world is open", ({ door }) => {
-    expect(findPath(buildMap(["w1", "w2", "w3"]), PLAZA.center, door)).not.toBeNull();
+    expect(findPath(buildMap(["w1", "w2", "w3", "w4"]), PLAZA.center, door)).not.toBeNull();
   });
 
   it("keeps a gate tile on each closed road and opens it with the world", () => {

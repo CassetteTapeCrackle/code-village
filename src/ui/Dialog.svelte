@@ -1,24 +1,17 @@
 <script lang="ts">
   import type { Grid } from "../art/draw";
-  import { MOCHI, RANGER, STARGAZER, TEACHER } from "../art/sprites";
+  import { MOCHI, PORTRAITS, TRAVELLER } from "../art/sprites";
   import SpriteCanvas from "./SpriteCanvas.svelte";
 
   // An RPG-style speech box: a framed portrait, a name, and a line.
-  let {
-    who,
-    line,
-    portrait = "teacher",
-  }: { who: string; line: string; portrait?: "teacher" | "ranger" | "stargazer" | "mochi" } = $props();
-  const grids: Record<string, Grid> = {
-    teacher: TEACHER,
-    ranger: RANGER,
-    stargazer: STARGAZER,
-    mochi: MOCHI,
-  };
+  let { who, line, portrait = "teacher" }: { who: string; line: string; portrait?: string } = $props();
+  const grids: Record<string, Grid> = { ...PORTRAITS, mochi: MOCHI };
 </script>
 
 <div class="dialog paper px" role="status">
-  <div class="portrait px"><SpriteCanvas grid={grids[portrait]} scale={portrait === "mochi" ? 4 : 5} /></div>
+  <div class="portrait px">
+    <SpriteCanvas grid={grids[portrait] ?? TRAVELLER} scale={portrait === "mochi" ? 4 : 5} />
+  </div>
   <div class="words">
     <div class="who">{who}</div>
     <p>{line}</p>

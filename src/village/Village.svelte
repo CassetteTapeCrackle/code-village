@@ -95,7 +95,7 @@
 
   function hrefFor(p: Place): string | null {
     if (p.kind === "school") return "#/school";
-    if (p.kind === "cabin" || p.kind === "observatory") return `#/school/${p.world}`;
+    if (p.kind === "cabin" || p.kind === "observatory" || p.kind === "hall") return `#/school/${p.world}`;
     if (p.kind === "library") return "#/library";
     if (p.kind === "garden") return "#/garden";
     if (p.kind === "house") return "#/house";
@@ -709,7 +709,7 @@
     const gate = closedAreas.find((a) => Math.abs(a.gate.x - tx) <= 1 && Math.abs(a.gate.y - ty) <= 1);
     const scene_ = sceneAt(tx, ty);
     hint = gate
-      ? { text: gate.hint, x: gate.gate.x, y: gate.gate.y }
+      ? { text: worldById(gate.world)?.key?.gateHint ?? "", x: gate.gate.x, y: gate.gate.y }
       : scene_
         ? { text: scene_.text, x: scene_.at.x + 0.5, y: scene_.at.y }
         : null;
@@ -943,7 +943,8 @@
           {/each}
           {#each closedAreas as a (a.id)}
             <li class="sr-only">
-              The road to {worldById(a.world)?.name.replace("The ", "the ")} is blocked. {a.hint}
+              The road to {worldById(a.world)?.name.replace("The ", "the ")} is blocked. {worldById(a.world)
+                ?.key?.gateHint}
             </li>
           {/each}
         </ul>

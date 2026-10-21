@@ -13,6 +13,7 @@
     TOP_LEVEL,
     beatBosses,
     finishEverything,
+    missingArt,
     openWorld,
     passLessons,
     plantsDue,
@@ -27,6 +28,7 @@
     bosses: bundle.bosses.filter((b) => b.world === w.id),
   }));
   const levels = [...new Set(DECOR.map((d) => d.level))];
+  const missing = missingArt(bundle);
   const open = $derived(openWorlds(bundle, game.progress));
   let done = $state("");
   let confirmReset = $state(false);
@@ -183,6 +185,18 @@
       {/each}
       <button type="button" onclick={() => forceSeason(null)}>Follow the real date</button>
     </div>
+  </section>
+
+  <section aria-labelledby="art-h">
+    <h2 id="art-h">Still on placeholder art</h2>
+    {#if missing.length === 0}
+      <p>Every trophy, item and teacher has its own sprite.</p>
+    {:else}
+      <p>These show a star, a sprout or a hooded traveller until someone draws them:</p>
+      <ul>
+        {#each missing as m (m)}<li>{m}</li>{/each}
+      </ul>
+    {/if}
   </section>
 
   <section aria-labelledby="reset-h">

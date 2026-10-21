@@ -1,0 +1,22 @@
+# The world's words and wiring. Its look lives in code (src/village/areas.ts, terrain.ts).
+id = "w2"
+order = 2
+name = "The Forest"
+area = "forest"
+regions = { a = "Classes", b = "Behaviour", c = "Families" }
+
+[building]
+name = "Ranger's cabin"
+place = "cabin"
+
+[teacher]
+name = "Ranger Noa"
+portrait = "ranger"
+
+# The previous world's boss trophy that opens this world.
+[key]
+boss = "lost-satchel"
+trophy = "ruin-lantern"
+trophy_name = "Ruin Lantern"
+opens = "lights the forest path"
+gate_hint = "Fallen logs block the forest path. It is too dark beyond them. A light might help..."

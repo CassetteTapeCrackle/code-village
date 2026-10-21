@@ -7,12 +7,18 @@ game from teaching something wrong. A rule nothing checks is a rule that will br
 ## Layout
 
 ```
+content/<world>/world.toml
 content/<world>/<region>/<lesson>/lesson.md
 content/<world>/<region>/<lesson>/tasks/<task>/          task.toml, starter.py, solution.py, tests.py
 content/<world>/<region>/<lesson>/tasks/<task>/variants/<variant>/   variant.toml, starter.py, solution.py, tests.py
 content/<world>/<region>/boss/                           boss.md, starter.py, solution.py, hard_tests.py
 content/<world>/<region>/boss/stages/<n-name>/           stage.toml, tests.py
 ```
+
+`world.toml` holds a world's words and wiring: `id` (the folder name), `order`, `name`, `area` (the look, drawn in
+code in `src/village/areas.ts`), `regions` (a name per region letter), `[building]` (`name`, `place`), `[teacher]`
+(`name`, `portrait`) and, for every world but the first, `[key]`: the earlier boss whose trophy opens it (`boss`,
+`trophy`, `trophy_name`, `opens`, `gate_hint`). See `content/w2/world.toml`.
 
 Any task, variant or boss folder may also hold `wrong/*.py` (see below).
 

@@ -1,5 +1,6 @@
 import type { MapColors } from "../art/palette";
 import { pixelBuffer } from "../art/pixels";
+import { seaLine } from "./areas";
 import { TILE } from "./grid";
 import type { VillageMap } from "./layout";
 import { bayer, fbm, hash01, ridged, valueNoise } from "./noise";
@@ -267,6 +268,7 @@ export function drawRiver(
     map.tiles[Math.floor(y / TILE)]?.[Math.floor(x / TILE)] ?? ".";
   for (let y = RIVER_TOP_ROW * TILE; y < h; y++) {
     const centre = riverCenterPx(y);
+    if (y / TILE >= seaLine(centre / TILE) + 0.5) break; // the river runs into the sea
     const half = riverHalfPx(y);
     const gorge = y / TILE < rockLine(81) + 0.6;
     for (let x = Math.floor(centre - half - 8); x < Math.ceil(centre + half + 8); x++) {
@@ -439,7 +441,8 @@ export function drawSeasonGround(
   const buf = pixelBuffer(ctx, 0, 0, map.w * TILE, map.h * TILE);
   for (let ty = 0; ty < map.h; ty++) {
     for (let tx = 0; tx < map.w; tx++) {
-      if ("=#PGM".includes(map.tiles[ty][tx]) || groundStyle(tx + 0.5, ty + 0.5) === "rock") continue;
+      const ground = groundStyle(tx + 0.5, ty + 0.5);
+      if ("=#PGM".includes(map.tiles[ty][tx]) || ground === "rock" || ground === "sea") continue;
       for (let gy = ty * TILE; gy < (ty + 1) * TILE; gy++) {
         for (let gx = tx * TILE; gx < (tx + 1) * TILE; gx++) {
           const r = hash01(gx, gy, 601);

@@ -1,8 +1,10 @@
 import { VX, village, type Point } from "./grid";
 import type { Place } from "./layout";
+import { valueNoise } from "./noise";
+import type { GroundStyle } from "./terrain";
 
 export type Rect = { x: number; y: number; w: number; h: number };
-export type AreaStyle = "village" | "forest" | "mountains";
+export type AreaStyle = "village" | "forest" | "mountains" | "shore";
 // One area per world. Coordinates are world tiles; the village area matches VX, VY in layout.ts.
 export type Area = {
   id: string;
@@ -13,7 +15,9 @@ export type Area = {
   road: Point[]; // corner points of the road from the village into the hub, walked in order
   gate: Point; // the blocked tile on that road while the world is closed
   gateSprite: "logs" | "rocks";
-  hint: string; // shown when hovering the blocked road
+  // A newer area owns its ground: terrain.ts asks it first for points inside its rect. The forest and the
+  // mountains have none: terrain.ts blends them on purpose.
+  ground?: (x: number, y: number) => GroundStyle;
   places: Place[];
 };
 
@@ -27,7 +31,6 @@ export const AREAS: Area[] = [
     road: [village(11, 18), { x: 20, y: 46 }], // the main street, on west past the library
     gate: village(-1, 18),
     gateSprite: "logs",
-    hint: "Fallen logs block the forest path. It is too dark beyond them. A light might help...",
     places: [
       {
         id: "cabin",
@@ -94,7 +97,6 @@ export const AREAS: Area[] = [
     road: [village(38, 18), village(38, -14)], // north from the street, east of the stall
     gate: village(38, -1),
     gateSprite: "rocks",
-    hint: "A rockslide blocks the mountain path. You would need a way to climb over it...",
     places: [
       {
         id: "observatory",
@@ -152,9 +154,81 @@ export const AREAS: Area[] = [
       },
     ],
   },
+  // World 4's shore, south of the village. Placeholder art until its own look is designed: the places use the
+  // generic hall and ruins, and the river runs on into the sea.
+  {
+    id: "shore",
+    world: "w4",
+    rect: { x: 0, y: 64, w: 96, h: 22 },
+    style: "shore",
+    hub: { x: 68, y: 70 },
+    road: [
+      { x: 68, y: 57 },
+      { x: 68, y: 70 },
+    ], // on south from the plaza's lane
+    gate: { x: 68, y: 64 },
+    gateSprite: "logs",
+    ground: (x, y) => (y >= seaLine(x) ? "sea" : y < duneLine(x) ? "village" : "sand"),
+    places: [
+      {
+        id: "harbour",
+        name: "Harbour",
+        kind: "hall",
+        world: "w4",
+        x: 71,
+        y: 66,
+        w: 7,
+        h: 6,
+        door: { x: 74, y: 72 },
+        route: "vh",
+      },
+      {
+        id: "tide-pools",
+        name: "The tide pools",
+        kind: "lair",
+        lair: "ruins",
+        world: "w4",
+        region: "a",
+        x: 20,
+        y: 70,
+        w: 8,
+        h: 6,
+        door: { x: 24, y: 76 },
+        route: "vh",
+      },
+      {
+        id: "wreck",
+        name: "The wreck",
+        kind: "lair",
+        lair: "ruins",
+        world: "w4",
+        region: "b",
+        x: 40,
+        y: 70,
+        w: 8,
+        h: 6,
+        door: { x: 44, y: 76 },
+        route: "vh",
+      },
+      {
+        id: "lighthouse",
+        name: "The lighthouse",
+        kind: "lair",
+        lair: "ruins",
+        world: "w4",
+        region: "c",
+        x: 86,
+        y: 68,
+        w: 8,
+        h: 8,
+        door: { x: 90, y: 76 },
+        route: "vh",
+      },
+    ],
+  },
 ];
 
-const inRect = (r: Rect, x: number, y: number): boolean =>
+export const inRect = (r: Rect, x: number, y: number): boolean =>
   x >= r.x && x < r.x + r.w && y >= r.y && y < r.y + r.h;
 
 function areaAt(x: number, y: number): Area | undefined {
@@ -164,3 +238,8 @@ function areaAt(x: number, y: number): Area | undefined {
 export function styleAt(x: number, y: number): AreaStyle {
   return areaAt(x, y)?.style ?? "village";
 }
+
+// Where the village lawn gives way to sand (tiles): a wavy line just inside the shore.
+export const duneLine = (x: number): number => 65.6 + 2.6 * valueNoise(x / 3.5, 7.7, 91);
+// Where the beach meets the sea (tiles): a gently wavy line near the map's bottom.
+export const seaLine = (x: number): number => 79.5 + 1.6 * valueNoise(x / 6, 4.2, 90);

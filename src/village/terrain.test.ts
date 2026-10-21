@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { describe, expect, it, test } from "vitest";
 import { buildMap, PLACES, walkable } from "./layout";
 import { featureLand } from "./scenery";
 import {
@@ -65,4 +65,18 @@ test("no tree or rock grows next to a path, a door or a building", () => {
           expect("=#PGB~", `${x},${y}`).not.toContain(map.tiles[y + dy][x + dx]);
     }
   }
+});
+
+describe("the shore", () => {
+  it("answers its own ground: lawn at the top, then sand, then sea", () => {
+    for (const x of [5.5, 48.5, 90.5]) {
+      expect(groundStyle(x, 64.5)).toBe("village");
+      expect(groundStyle(x, 74.5)).toBe("sand");
+      expect(groundStyle(x, 84.5)).toBe("sea");
+    }
+  });
+  it("leaves the forest and the village above it as they were", () => {
+    expect(groundStyle(5.5, 50.5)).toBe("forest");
+    expect(groundStyle(60.5, 50.5)).toBe("village");
+  });
 });

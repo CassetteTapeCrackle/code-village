@@ -1,3 +1,4 @@
+import { AREAS, inRect } from "./areas";
 import { fbm, hash01, ridged, valueNoise } from "./noise";
 
 // The mountains' shape (tiles unless a name ends in Px). See the world-pass mockup's mock2.py.
@@ -58,9 +59,12 @@ export function forestDepth(x: number, y: number): number {
   return d + (fbm(x / 4, y / 4, 3) - 0.5) * 7;
 }
 
-export type GroundStyle = "rock" | "forest" | "edge" | "meadow" | "village";
-// The one answer to what kind of ground a point is, for scatter and paint.
+export type GroundStyle = "rock" | "forest" | "edge" | "meadow" | "village" | "sand" | "sea";
+// The one answer to what kind of ground a point is, for scatter and paint. Areas with their own ground answer
+// first (see Area.ground).
 export function groundStyle(x: number, y: number): GroundStyle {
+  const own = AREAS.find((a) => a.ground && inRect(a.rect, x, y));
+  if (own?.ground) return own.ground(x, y);
   if (y < 28 && y < rockLine(x)) return "rock";
   const d = forestDepth(x, y);
   if (d > 0) return "forest";

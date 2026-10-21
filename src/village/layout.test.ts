@@ -2,7 +2,9 @@ import { expect, test } from "vitest";
 import { MAP_H, MAP_W, PLACES, PLAZA, RIVER_X, STREET_Y, VY, buildMap, inside, walkable } from "./layout";
 import { findPath } from "./paths";
 
-const map = buildMap(["w1", "w2", "w3"]); // every road open, so every door can be checked
+const SHORE_Y = 64;
+
+const map = buildMap(["w1", "w2", "w3", "w4"]); // every road open, so every door can be checked
 
 test("the map has the declared size", () => {
   expect(map.tiles).toHaveLength(MAP_H);
@@ -31,8 +33,8 @@ test("buildings stay off the river, and the street crosses it on a bridge", () =
   for (const place of PLACES)
     for (const x of RIVER_X) expect(x >= place.x && x < place.x + place.w).toBe(false);
   const bridges = map.tiles.flatMap((row, y) =>
-    [...row].flatMap((t, x) => (t === "#" && y >= VY ? [{ x, y }] : [])),
-  ); // the mountain path has its own bridge up north
+    [...row].flatMap((t, x) => (t === "#" && y >= VY && y < SHORE_Y ? [{ x, y }] : [])),
+  ); // the mountain path and the shore path have their own bridges
   expect(bridges).toEqual(RIVER_X.map((x) => ({ x, y: STREET_Y })));
 });
 

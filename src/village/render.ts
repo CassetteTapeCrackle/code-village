@@ -47,7 +47,7 @@ import {
 } from "../art/sprites";
 import type { Palette, TimeOfDay } from "./clock";
 import type { Activity } from "./routines";
-import { styleAt } from "./areas";
+import { duneLine, styleAt } from "./areas";
 import { MAP_H, MAP_W, PLACES, TILE, VX, VY, village, type Place, type VillageMap } from "./layout";
 import { overlap, type ViewRect } from "./view";
 
@@ -69,6 +69,7 @@ const BUILDING_SPRITES: Record<string, (p: Place) => Grid> = {
   house: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "j", icon: ICONS.heart }),
   cabin: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "d", wall: "h", icon: ICONS.sprout }),
   observatory: (p) => observatory(p.w * TILE, p.h * TILE),
+  hall: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "z", wall: "w", icon: ICONS.book }), // placeholder
 };
 
 function drawTile(
@@ -86,18 +87,35 @@ function drawTile(
   const at = (x: number, y: number): string => map.tiles[y]?.[x] ?? ".";
   const style = styleAt(tx, ty);
   const meadow = style === "mountains" && ty >= 17; // the lower slopes are still green
+  const shore = style === "shore";
+  const lawn = shore && ty + 1 < duneLine(tx) - 0.8; // whole tiles of grass above the dune line
   const [g1, g2, g3] =
     style === "forest"
       ? [c.forest, c.forest2, c.forest3]
       : style === "mountains" && !meadow
         ? [c.rock, c.rock2, c.rock3]
-        : [c.grass, c.grass2, c.grass3];
+        : shore && !lawn
+          ? [c.sand, c.sand2, c.sand3]
+          : [c.grass, c.grass2, c.grass3];
+  const beach = shore && at(tx, ty - 1) !== "~"; // the first row of sea breaks on the sand
   for (let y = 0; y < TILE; y++) {
     for (let x = 0; x < TILE; x++) {
       const gx = ox + x;
       const gy = oy + y;
       let color = g1;
-      if (t === "~") color = (gx + gy * 2) % 7 === 0 ? c.water2 : c.water;
+      if (t === "~" && shore && groundStyle(tx + 0.5, ty + 0.5) === "sea") {
+        const foam = beach && y < 2 + ((gx >> 2) % 2);
+        color = foam ? c.foam : (gx * 3 + gy * 5) % 13 === 0 ? c.water2 : gy % 16 > 9 ? c.sea2 : c.sea;
+      } else if (
+        shore &&
+        !lawn &&
+        ".T*D".includes(t) &&
+        gy / TILE < duneLine(gx / TILE) + (hash01(gx, gy, 92) - 0.5) * 0.5
+      )
+        color = (gx * 7 + gy * 3) % 11 === 0 ? c.grass2 : c.grass; // the lawn's ragged last pixels
+      else if (t === "~" && shore)
+        color = g1; // sand under the river: its own painter draws the water
+      else if (t === "~") color = (gx + gy * 2) % 7 === 0 ? c.water2 : c.water;
       else if (t === "#") color = y === 0 || y === TILE - 1 ? s.k : gx % 3 === 0 ? c.bridge2 : c.bridge;
       else if (t === "P") color = gx % 4 === 0 || gy % 4 === 0 ? c.path2 : c.plaza;
       else if (t === "=" || t === "G") {
@@ -121,6 +139,12 @@ function drawTile(
   }
   if (t === "*" && style === "forest") {
     stamp(ctx, (tx + ty) % 3 === 0 ? MUSHROOM : FERN, s, ox + 1, oy + 3);
+    return;
+  }
+  if (t === "*" && shore) {
+    // a shell: a pale curl with a pink lip
+    px(ctx, s.w, ox + 3, oy + 4, 2, 1);
+    px(ctx, s.p, ox + 2, oy + 5, 3, 1);
     return;
   }
   if (t === "*" && style === "mountains") {
