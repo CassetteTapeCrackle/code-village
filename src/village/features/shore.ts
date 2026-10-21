@@ -1,5 +1,5 @@
 import type { MapColors } from "../../art/palette";
-import { paintAt, smallHouse, type Paint } from "../../art/paint";
+import { oval, paintAt, smallHouse, type Paint } from "../../art/paint";
 import { SHORE_WALK_ROW, shoreLine } from "../areas";
 import { TILE } from "../grid";
 import { PLACES } from "../layout";
@@ -16,6 +16,12 @@ const shoreYPx = (x: number): number => shoreLine(x / TILE) * TILE;
 const WALK_PX = SHORE_WALK_ROW * TILE;
 const westBank = riverCenterPx(WALK_PX) - riverHalfPx(WALK_PX);
 const eastBank = riverCenterPx(WALK_PX) + riverHalfPx(WALK_PX);
+
+// The plank steps from the boardwalk down to the tide pools and the wreck, one flight per door.
+const WALK_SPURS = ["tide-pools", "wreck"].map((id) => {
+  const door = PLACES.find((p) => p.id === id)!.door;
+  return { x: door.x * TILE + TILE / 2, bottom: door.y * TILE + 1 };
+});
 
 const always = { kind: "always" } as const;
 const atLevel = (n: number) => ({ kind: "level", level: n }) as const;
@@ -51,6 +57,41 @@ function boardwalkH(
       p.put(x, y - 3, s.d);
       p.put(x, y + 9, s.d);
     }
+}
+
+// The footbridge at the walkway row: a short wooden span over the river, humped a little, with rails on
+// both sides and piles down into the water.
+function footbridge(p: Paint, s: Record<string, string>, x0: number, x1: number, y: number): void {
+  const w = Math.max(1, x1 - x0);
+  const hump = (x: number): number => Math.round(2 * Math.sin((Math.PI * (x - x0)) / w));
+  for (let x = x0; x < x1; x++) {
+    const top = y - hump(x);
+    const h = y + 6 - top;
+    for (let j = 0; j <= h; j++)
+      p.put(x, top + j, j === 0 || j === h ? s.k : x % 3 === 0 ? s.d : j === 1 ? s.plankLight : s.h);
+    p.put(x, top - 3, s.d); // far handrail
+    p.put(x, y + 9, s.d); // near handrail
+  }
+  for (let x = x0 + 2; x < x1; x += 5) {
+    const top = y - hump(x);
+    p.fill(x, top - 2, 1, 2, s.k);
+    p.fill(x, y + 7, 1, 2, s.k);
+    p.put(x, y + 10, s.o);
+    p.put(x, y + 11, s.o); // a pile in the shallows
+  }
+}
+
+// A few plank steps from the boardwalk down onto the sand.
+function walkSteps(p: Paint, s: Record<string, string>, cx: number, top: number, bottom: number): void {
+  const n = 4;
+  const h = Math.ceil((bottom - top + 1) / n);
+  for (let i = 0; i < n; i++) {
+    const y = top + i * h;
+    const w = 7 + i;
+    for (let j = 0; j < h; j++)
+      for (let x = cx - w; x <= cx + w; x++)
+        p.put(x, y + j, j === 0 ? s.plankLight : j === h - 1 ? s.k : x % 4 === 0 ? s.d : s.h);
+  }
 }
 
 function jettyV(p: Paint, s: Record<string, string>, x: number, y0: number, y1: number, w = 9): void {
@@ -172,10 +213,27 @@ function dirtPath(p: Paint, c: MapColors, pts: [number, number][], half = 3): vo
             p.put(
               cx + dx,
               cy + dy,
-              hash01(Math.round(cx + dx), Math.round(cy + dy), 3) < 0.12 ? c.path2 : c.path,
+              hash01(Math.round(cx + dx), Math.round(cy + dy), 3) < 0.12 ? c.wet : c.path2,
             );
-          else if (d <= half + 0.6 && !p.is(cx + dx, cy + dy, c.path)) p.put(cx + dx, cy + dy, c.path2);
+          else if (d <= half + 0.6 && !p.is(cx + dx, cy + dy, c.path2)) p.put(cx + dx, cy + dy, c.dry);
         }
+    }
+  }
+}
+
+// Stepping stones up a rocky slope: flat slabs, alternating tones, so a climb reads as steps.
+function steppingStones(p: Paint, c: MapColors, s: Record<string, string>, pts: [number, number][]): void {
+  let n = 0;
+  for (let k = 0; k + 1 < pts.length; k++) {
+    const [x0, y0] = pts[k];
+    const [x1, y1] = pts[k + 1];
+    const steps = Math.max(1, Math.round(Math.hypot(x1 - x0, y1 - y0) / 6));
+    for (let i = k === 0 ? 0 : 1; i <= steps; i++) {
+      const cx = Math.round(x0 + ((x1 - x0) * i) / steps);
+      const cy = Math.round(y0 + ((y1 - y0) * i) / steps);
+      const wide = n++ % 2 === 0;
+      oval(p, cx, cy, wide ? 5 : 4, wide ? 2.5 : 2, () => (wide ? c.stone : c.stone2), s.k);
+      p.shade(cx + 2, cy + 3, 0.18);
     }
   }
 }
@@ -228,39 +286,60 @@ export const SHORE_FEATURES: Feature[] = [
     land: [],
     unlock: always,
     draw: ({ ctx, s }) =>
-      paintAt(ctx, 7 * TILE - 2, WALK_PX - 4, westBank - 7 * TILE + 4, 14, (p) =>
-        boardwalkH(p, s, 7 * TILE, westBank, WALK_PX, true),
-      ),
+      paintAt(ctx, 7 * TILE - 2, WALK_PX - 4, westBank - 7 * TILE + 4, 38, (p) => {
+        boardwalkH(p, s, 7 * TILE, westBank, WALK_PX, true);
+        for (const spur of WALK_SPURS) walkSteps(p, s, spur.x, WALK_PX + 7, spur.bottom);
+      }),
   },
   {
     id: "footbridge",
     land: [],
     unlock: always,
     draw: ({ ctx, s }) =>
-      paintAt(ctx, westBank - 2, WALK_PX - 4, eastBank - westBank + 4, 14, (p) =>
-        boardwalkH(p, s, westBank, eastBank, WALK_PX, true),
+      paintAt(ctx, westBank - 3, WALK_PX - 7, eastBank - westBank + 6, 21, (p) =>
+        footbridge(p, s, Math.floor(westBank) - 1, Math.ceil(eastBank) + 1, WALK_PX),
       ),
   },
   {
     id: "lighthouse-path",
     land: [],
     unlock: always,
-    draw: ({ ctx, c }) => {
+    draw: ({ ctx, c, s }) => {
       const door = PLACES.find((p) => p.id === "lighthouse")!.door;
       const dx = door.x * TILE + TILE / 2;
       const dy = door.y * TILE + TILE / 2;
-      paintAt(ctx, eastBank - 4, WALK_PX - 4, dx - eastBank + 12, dy - WALK_PX + 12, (p) =>
+      const foot = { x: Math.ceil(eastBank) + 1, y: WALK_PX + 4 };
+      // the mockup's path leaves the bridge at x 85 and climbs down the headland to the lighthouse door
+      const bend = { x: 89 * TILE, y: WALK_PX + 4 };
+      const fork = { x: 86 * TILE, y: WALK_PX + 5 };
+      const climb = { x: 87.4 * TILE, y: 74.2 * TILE };
+      const base = { x: 89.8 * TILE, y: 78.8 * TILE };
+      paintAt(ctx, foot.x - 8, foot.y - 8, dx - foot.x + 20, base.y - foot.y + 22, (p) => {
         dirtPath(
           p,
           c,
           [
-            [eastBank, WALK_PX + 4],
-            [dx - TILE, dy],
+            [foot.x, foot.y],
+            [bend.x, bend.y],
+            [dx, bend.y],
             [dx, dy],
           ],
+          4,
+        );
+        dirtPath(
+          p,
+          c,
+          [
+            [fork.x, fork.y + 2],
+            [climb.x, climb.y],
+          ],
           2,
-        ),
-      );
+        );
+        steppingStones(p, c, s, [
+          [climb.x - 2, climb.y + 2],
+          [base.x - 2, base.y - 2],
+        ]);
+      });
     },
   },
   {

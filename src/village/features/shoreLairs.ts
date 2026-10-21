@@ -9,7 +9,6 @@ import type { LairState } from "../render";
 type Colors = { c: MapColors; s: Record<string, string> };
 type ShoreLair = (ctx: CanvasRenderingContext2D, colors: Colors, place: Place, state: LairState) => void;
 
-const tilePx = (t: number): number => Math.round(t * TILE);
 const shoreYPx = (x: number): number => shoreLine(x / TILE) * TILE;
 
 // A colour halfway to the sea, so a wreck's hull looks sunk rather than painted on top of the water.
@@ -104,37 +103,34 @@ function lighthouse(
     }
 }
 
-// The wreck: a hull on its side, bare while its boss sleeps.
+// The wreck: a dark wooden hull on its side, ribs showing, half sunk in the cove's shallows.
 function wreck(p: Paint, c: MapColors, s: Record<string, string>, cx: number, cy: number, scale = 1): void {
-  const ang = -0.32;
-  const L = 34 * scale;
-  const Wd = 12 * scale;
-  for (let yy = -26; yy <= 26; yy++)
-    for (let xx = -26; xx <= 26; xx++) {
+  const ang = -0.3;
+  const L = 36 * scale;
+  const Wd = 14 * scale;
+  const reach = Math.ceil(26 * scale);
+  for (let yy = -reach; yy <= reach; yy++)
+    for (let xx = -reach; xx <= reach; xx++) {
       const u = xx * Math.cos(ang) + yy * Math.sin(ang);
       const v = -xx * Math.sin(ang) + yy * Math.cos(ang);
       const t = (u + L / 2) / L;
       if (t < 0 || t > 1) continue;
-      const half = (Wd / 2) * (t < 0.6 ? 1 : Math.sqrt(Math.max(0, 1 - ((t - 0.6) / 0.4) ** 2)));
+      const half = (Wd / 2) * (t < 0.62 ? 1 : Math.sqrt(Math.max(0, 1 - ((t - 0.62) / 0.38) ** 2)));
       if (Math.abs(v) > half) continue;
       const x = cx + xx;
       const y = cy + yy;
-      let col =
-        Math.abs(v) > half - 1
-          ? s.k
-          : Math.abs(v) > half - 2
-            ? s.h
-            : Math.round(u) % 4 === 0
-              ? s.plankLight
-              : t > 0.3 && t < 0.55 && v > 1
-                ? s.N
-                : s.o;
-      if (y > shoreYPx(x) + 1) col = mix(col, c.sea, 0.55);
+      let col = s.H;
+      if (Math.abs(v) > half - 1)
+        col = s.k; // the outline
+      else if (Math.abs(v) > half - 2)
+        col = s.h; // the lit rim of the hull
+      else if (Math.round(u) % 4 === 0) col = s.plankLight; // a rib
+      if (y > shoreYPx(x) + 1) col = mix(col, c.sea, 0.45);
       p.put(x, y, col);
     }
-  for (let x = cx - 26; x < cx + 26; x++) {
+  for (let x = cx - Math.round(20 * scale); x < cx + Math.round(20 * scale); x++) {
     const y = Math.round(shoreYPx(x)) + 1;
-    if (Math.abs(x - cx) < 18 && hash01(x, y, 4) < 0.7) p.put(x, y, s.W);
+    if (hash01(x, y, 4) < 0.7) p.put(x, y, s.W); // a line of foam at the waterline
   }
 }
 
@@ -159,9 +155,11 @@ const drawPools: ShoreLair = (ctx, { c, s }, place) => {
 
 const drawWreck: ShoreLair = (ctx, { c, s }, place) => {
   // step 5 adds the cleared look (crabs, a buoy); every state draws the bare wreck for now
-  paintAt(ctx, place.x * TILE - 26, place.y * TILE - 26, place.w * TILE + 52, place.h * TILE + 52, (p) =>
-    wreck(p, c, s, tilePx(46), tilePx(76), 1),
-  );
+  const scale = 1.3;
+  const cx = (place.x + place.w / 2) * TILE;
+  const cy = shoreYPx(cx) - 1;
+  const pad = Math.ceil(30 * scale);
+  paintAt(ctx, cx - pad, cy - pad, pad * 2, pad * 2, (p) => wreck(p, c, s, cx, cy, scale));
 };
 
 const drawLighthouse: ShoreLair = (ctx, { c, s }, place) => {

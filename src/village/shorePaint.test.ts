@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { shoreLine } from "./areas";
-import { sandKey, SHORE_ROCKS, waterKey } from "./shorePaint";
+import { TILE } from "./grid";
+import { buildMap, PLACES } from "./layout";
+import { sandKey, SHORE_ROCKS, shoreGroundPainted, waterKey } from "./shorePaint";
+import { groundStyle } from "./terrain";
 
 describe("shore water", () => {
   it("deepens away from the beach", () => {
@@ -23,6 +26,28 @@ describe("shore sand", () => {
       sandKey(x * 8, Math.round((shoreLine(x) - 0.4) * 8)),
     );
     expect(["sand", "sand2", "sand3", "grain"]).toContain(sandKey(x * 8, Math.round((shoreLine(x) - 4) * 8)));
+  });
+});
+
+describe("shore ground under places", () => {
+  it("follows the ground style under a place, so a lair in the sea is not a sand box", () => {
+    const map = buildMap(["w1", "w2", "w3", "w4"]);
+    const wreck = PLACES.find((p) => p.id === "wreck")!;
+    let seaTiles = 0;
+    for (let y = wreck.y; y < wreck.y + wreck.h; y++)
+      for (let x = wreck.x; x < wreck.x + wreck.w; x++) {
+        if (groundStyle(x + 0.5, y + 0.5) !== "sea") continue;
+        seaTiles++;
+        expect(map.tiles[y][x]).toBe("B");
+        expect(shoreGroundPainted(map.tiles[y][x]), `${x},${y}`).toBe(true);
+        expect(waterKey(x * TILE + 4, y * TILE + 4)).toMatch(
+          /^(foam|shallow|shallow2|sea|deep|deeper|crest|sparkle)$/,
+        );
+      }
+    expect(seaTiles).toBeGreaterThan(0);
+  });
+  it("leaves the paths, the plaza, the bridges and the gates to their own painters", () => {
+    for (const tile of ["=", "#", "P", "G"]) expect(shoreGroundPainted(tile), tile).toBe(false);
   });
 });
 

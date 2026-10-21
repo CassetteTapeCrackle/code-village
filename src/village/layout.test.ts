@@ -2,6 +2,7 @@ import { expect, test } from "vitest";
 import { MAP_H, MAP_W, PLACES, PLAZA, RIVER_X, STREET_Y, VY, buildMap, inside, walkable } from "./layout";
 import { SHORE_WALK_ROW } from "./areas";
 import { findPath } from "./paths";
+import { groundStyle } from "./terrain";
 
 const SHORE_Y = 64;
 
@@ -67,7 +68,13 @@ test("the river bends but stays one stream, never touches a building, and keeps 
   }
   for (const place of PLACES) {
     // the tide pools and the wreck are coastal lairs that sit at the sea by design, not the river
-    if (place.lair === "pools" || place.lair === "wreck") continue;
+    if (place.lair === "pools" || place.lair === "wreck") {
+      for (let y = place.y - 1; y <= place.y + place.h; y++)
+        for (let x = place.x - 1; x <= place.x + place.w; x++)
+          if (map.tiles[y]?.[x] === "~")
+            expect(groundStyle(x + 0.5, y + 0.5), `${place.id} ${x},${y}`).toBe("sea");
+      continue;
+    }
     for (let y = place.y - 1; y <= place.y + place.h; y++)
       for (let x = place.x - 1; x <= place.x + place.w; x++)
         expect(map.tiles[y]?.[x], place.id).not.toBe("~");
