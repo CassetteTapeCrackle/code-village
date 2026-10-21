@@ -309,31 +309,20 @@ export const SHORE_FEATURES: Feature[] = [
       const dx = door.x * TILE + TILE / 2;
       const dy = door.y * TILE + TILE / 2;
       const foot = { x: Math.ceil(eastBank) + 1, y: WALK_PX + 4 };
-      // the mockup's path leaves the bridge at x 85 and climbs down the headland to the lighthouse door
-      const bend = { x: 89 * TILE, y: WALK_PX + 4 };
-      const fork = { x: 86 * TILE, y: WALK_PX + 5 };
+      // the walk ends at the door where the headland starts; stepping stones climb down from it to the tower
       const climb = { x: 87.4 * TILE, y: 74.2 * TILE };
       const base = { x: 89.8 * TILE, y: 78.8 * TILE };
-      paintAt(ctx, foot.x - 8, foot.y - 8, dx - foot.x + 20, base.y - foot.y + 22, (p) => {
+      paintAt(ctx, foot.x - 8, foot.y - 8, base.x - foot.x + 20, base.y - foot.y + 22, (p) => {
         dirtPath(
           p,
           c,
           [
             [foot.x, foot.y],
-            [bend.x, bend.y],
-            [dx, bend.y],
+            [dx, foot.y],
             [dx, dy],
-          ],
-          4,
-        );
-        dirtPath(
-          p,
-          c,
-          [
-            [fork.x, fork.y + 2],
             [climb.x, climb.y],
           ],
-          2,
+          3,
         );
         steppingStones(p, c, s, [
           [climb.x - 2, climb.y + 2],

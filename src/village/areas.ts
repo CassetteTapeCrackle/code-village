@@ -224,7 +224,7 @@ export const AREAS: Area[] = [
         y: 72,
         w: 5,
         h: 6,
-        door: { x: 90, y: 71 },
+        door: { x: 86, y: 71 },
         route: "hv",
       },
     ],
