@@ -53,8 +53,9 @@
   onMount(() => {
     let placeholderOffered = false;
     const view = new EditorView({
-      // a trailing blank line invites typing outside the function, so the editor starts without one
-      doc: value.trimEnd() + "\n",
+      // No trailing blank line: it invites typing outside the function, and its extra line would make
+      // the editor taller than the stand-in that reserved its box while this chunk loaded.
+      doc: value.trimEnd(),
       parent: host,
       extensions: [
         // Tab accepts a suggestion, otherwise indents; Escape then Tab still leaves the editor
