@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { shoreLine } from "./areas";
-import { sandKey, waterKey } from "./shorePaint";
+import { sandKey, SHORE_ROCKS, waterKey } from "./shorePaint";
 
 describe("shore water", () => {
   it("deepens away from the beach", () => {
@@ -23,5 +23,20 @@ describe("shore sand", () => {
       sandKey(x * 8, Math.round((shoreLine(x) - 0.4) * 8)),
     );
     expect(["sand", "sand2", "sand3", "grain"]).toContain(sandKey(x * 8, Math.round((shoreLine(x) - 4) * 8)));
+  });
+});
+
+describe("shore boulders", () => {
+  it("keeps every boulder on the map and near the water", () => {
+    for (const [x, y, r] of SHORE_ROCKS) {
+      expect(x * 8 - r).toBeGreaterThanOrEqual(0);
+      expect(x * 8 + r).toBeLessThanOrEqual(96 * 8);
+      expect(y * 8 + r).toBeLessThanOrEqual(86 * 8);
+      expect(Math.abs(y - shoreLine(x))).toBeLessThan(6);
+    }
+  });
+  it("puts boulders on the tide pool point and on the headland", () => {
+    expect(SHORE_ROCKS.some(([x]) => x < 14)).toBe(true);
+    expect(SHORE_ROCKS.filter(([x]) => x > 84).length).toBeGreaterThanOrEqual(20);
   });
 });

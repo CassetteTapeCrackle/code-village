@@ -11,6 +11,7 @@ import {
   snowLine,
 } from "./terrain";
 import { shoreLine } from "./areas";
+import { seasonSkips } from "./terrainPaint";
 
 const map = buildMap(["w1", "w2", "w3"], featureLand());
 
@@ -86,4 +87,10 @@ describe("the shore", () => {
     expect(groundStyle(5.5, 50.5)).toBe("forest");
     expect(groundStyle(60.5, 50.5)).toBe("village");
   });
+});
+
+it("lays no snow or leaves on the sea or wet sand", () => {
+  expect(seasonSkips("sea")).toBe(true);
+  expect(seasonSkips("wet")).toBe(true);
+  expect(seasonSkips("sand")).toBe(false);
 });

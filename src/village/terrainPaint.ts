@@ -7,6 +7,7 @@ import { bayer, fbm, hash01, ridged, valueNoise } from "./noise";
 import { stamp } from "../art/draw";
 import { FERN, MUSHROOM, REEDS } from "../art/sprites";
 import { pathMask } from "./ribbons";
+import type { GroundStyle } from "./terrain";
 import {
   farRangeTopPx,
   forestDepth,
@@ -429,6 +430,11 @@ export function snowAt(gx: number, gy: number, c: { snow: string; stone: string 
   return depth > 0.62 && (gx * 3 + gy) % 11 === 0 ? c.stone : c.snow;
 }
 
+// Where a season lays nothing: bare rock and open water (and the wet sand between them) stay bare.
+export function seasonSkips(ground: GroundStyle): boolean {
+  return ground === "rock" || ground === "sea" || ground === "wet";
+}
+
 // The season on the ground: fallen leaves in autumn, snow lying on the grass and the forest floor in winter.
 export function drawSeasonGround(
   ctx: CanvasRenderingContext2D,
@@ -442,7 +448,7 @@ export function drawSeasonGround(
   for (let ty = 0; ty < map.h; ty++) {
     for (let tx = 0; tx < map.w; tx++) {
       const ground = groundStyle(tx + 0.5, ty + 0.5);
-      if ("=#PGM".includes(map.tiles[ty][tx]) || ground === "rock" || ground === "sea") continue;
+      if ("=#PGM".includes(map.tiles[ty][tx]) || seasonSkips(ground)) continue;
       for (let gy = ty * TILE; gy < (ty + 1) * TILE; gy++) {
         for (let gx = tx * TILE; gx < (tx + 1) * TILE; gx++) {
           const r = hash01(gx, gy, 601);
