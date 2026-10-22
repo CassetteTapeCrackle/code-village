@@ -3,6 +3,7 @@
   import { onMount, untrack } from "svelte";
   import { bundle } from "../content/bundle";
   import { regionName } from "../content/regions";
+  import { regularLessons } from "../content/lessons";
   import { bossOpen } from "../learning/access";
   import { bossState } from "../learning/boss";
   import { today } from "../learning/dates";
@@ -62,6 +63,7 @@
   import { paintRate, perfEnabled } from "./perf";
   import { onIdle } from "../ui/idle";
   import { prefetchLessonAssets } from "../lesson/prefetch";
+  import { tourEvent } from "../tour/tour.svelte";
 
   // While a board is open (covered), the village keeps `focus` (a place id) lit beside it and stops taking clicks.
   let { focus = null, covered = false }: { focus?: string | null; covered?: boolean } = $props();
@@ -800,6 +802,7 @@
         noteMochiTile();
         paint();
       } else mochi.path = path.slice(1);
+      tourEvent("walk-anywhere");
     }
   }
 
@@ -904,8 +907,16 @@
   // The newest open world's regions, as the small progress strip on the map.
   const stripWorld = open.at(-1) ?? "w1";
   const strip = $derived(
-    [...new Set(bundle.lessons.filter((l) => l.world === stripWorld).map((l) => l.region))].map((region) => {
-      const these = bundle.lessons.filter((l) => l.world === stripWorld && l.region === region);
+    [
+      ...new Set(
+        regularLessons(bundle.lessons)
+          .filter((l) => l.world === stripWorld)
+          .map((l) => l.region),
+      ),
+    ].map((region) => {
+      const these = regularLessons(bundle.lessons).filter(
+        (l) => l.world === stripWorld && l.region === region,
+      );
       return {
         region,
         name: regionName(stripWorld, region),
@@ -960,6 +971,7 @@
                   class="place"
                   {href}
                   style={box}
+                  data-place={p.id}
                   aria-label={placeLabel(p)}
                   onclick={(e) => go(e, p)}
                   draggable="false"
@@ -977,7 +989,7 @@
                 </a>
               </li>
             {:else if lairs[p.id] === "asleep"}
-              <li class="place" style={box}>
+              <li class="place" style={box} data-place={p.id}>
                 <span
                   class="plate quiet"
                   aria-hidden="true"
@@ -1024,7 +1036,7 @@
       onclick={() => (location.hash = "#/")}
     ></div>
   {:else}
-    <div class="note"><TodayCard /></div>
+    <div class="note" data-tour="today"><TodayCard /></div>
     {#if !showMe.at}<div class="worldstrip paper px" aria-label="Progress in {worldById(stripWorld)?.name}">
         <b>{worldById(stripWorld)?.name}</b>
         {#each strip as r (r.region)}<span

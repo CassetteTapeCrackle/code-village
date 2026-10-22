@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Lesson, Task } from "../content/types";
   import { account } from "../store/account.svelte";
+  import { tourEvent } from "../tour/tour.svelte";
   import { agentPacket, CAPS, type Snapshot, type Turn } from "../tutor/packet";
   import { askTutor, OFFLINE_MESSAGE, readEvents } from "../tutor/stream";
 
@@ -69,6 +70,7 @@
     const message = draft.trim();
     if (!token || message.length === 0 || streaming) return;
     notePrivacySeen();
+    tourEvent("ask-tutor");
     const history = turns.slice(-CAPS.turns);
     saveThread([...turns, { role: "learner", text: message }]);
     draft = "";
@@ -116,7 +118,7 @@
   const codeParts = (text: string): string[] => text.split("`");
 </script>
 
-<div class="ask">
+<div class="ask" data-tour="tutor">
   <div class="row">
     {#if signedIn}
       <button type="button" onclick={() => (open = !open)} aria-expanded={open}>Ask the teacher</button>

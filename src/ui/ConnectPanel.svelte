@@ -2,6 +2,7 @@
   import { setupCommands } from "../net/agentSetup";
   import { api } from "../net/api";
   import { account } from "../store/account.svelte";
+  import { tour } from "../tour/tour.svelte";
 
   type Status = { exists: boolean; createdAt: string | null };
 
@@ -17,6 +18,11 @@
     const current = account.current;
     if (!current) return;
     void load(current.token);
+  });
+
+  // The tour shows this panel when it reaches the connecting step.
+  $effect(() => {
+    if (tour.state.step === "connect" && !tour.state.done) open = true;
   });
 
   async function load(main: string): Promise<void> {
@@ -79,7 +85,7 @@
   const commands = $derived(token ? setupCommands(location.origin, token) : []);
 </script>
 
-<section aria-labelledby="connect-heading">
+<section aria-labelledby="connect-heading" data-tour="connect">
   <h3 id="connect-heading">
     <button
       type="button"

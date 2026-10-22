@@ -7,6 +7,8 @@
   import { busyLabel } from "../runner/activity.svelte";
   import { getRunner } from "../runner/shared";
   import { game, update } from "../store/progress.svelte";
+  import { TOUR_TASK_ID } from "../tour/tour";
+  import { tourEvent } from "../tour/tour.svelte";
   import LazyCodeEditor from "./LazyCodeEditor.svelte";
   import Markdown from "./Markdown.svelte";
   import LoadFailed from "./LoadFailed.svelte";
@@ -59,6 +61,7 @@
     busy = false;
     unavailable = o.kind === "unavailable" ? o.message : null;
     ran = o.kind === "ok" ? o.result : o.kind === "timeout" ? { stdout: "", error: TIMEOUT_MESSAGE } : null;
+    if (id === TOUR_TASK_ID && inputs.trim() !== "") tourEvent("run");
   }
 
   async function check(): Promise<void> {
@@ -82,8 +85,8 @@
     </label>
   {/if}
   <div class="actions">
-    <button type="button" onclick={run} disabled={busy}>Run</button>
-    <button type="button" class="primary" onclick={check} disabled={busy || checkDisabled}
+    <button type="button" data-tour="run" onclick={run} disabled={busy}>Run</button>
+    <button type="button" class="primary" data-tour="check" onclick={check} disabled={busy || checkDisabled}
       >{busy ? busyLabel() : checkLabel}</button
     >
   </div>
