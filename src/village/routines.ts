@@ -1,6 +1,6 @@
 import { village, type Point } from "./layout";
 
-export type Activity = "sweep" | "fish" | "water" | "read" | "chat" | "carry";
+export type Activity = "sweep" | "fish" | "water" | "read" | "chat" | "carry" | "mend";
 // One stop in a villager's day: walk to `spot`, face that way, and do `activity` there for about `seconds`.
 // "carry" is shown on the walk there (a crate overhead) and ends with setting it down.
 export type Job = { activity: Activity; spot: Point; facing: 1 | -1; seconds: number; when?: string }; // when: a lair id that must be cleared first
@@ -28,6 +28,13 @@ const MOUNTAIN_HUB: Point = { x: 78, y: 14 };
 const MINE_STEP: Point = { x: 11, y: 14 };
 const RIDGE_STEP: Point = { x: 40, y: 11 };
 const PEAK_STEP: Point = { x: 89, y: 11 };
+// the shore (world tiles): he works along the walkway row, the only walkable ground down there
+const NET_RACK: Point = { x: 53, y: 70 }; // in front of the rack, which stands on the dunes
+const JETTY_ROOT: Point = { x: 73, y: 70 }; // the jetty is drawn over sea; the walk grid has no tile on it
+const SLIPWAY: Point = { x: 64, y: 70 }; // above the ramp and the boat
+const LANTERN_POST: Point = { x: 75, y: 70 };
+// His hut fronts onto reserved ground, so he steps out onto the walk below it (the hut sits at x 56 to 61).
+export const BRAM_HOME: Point = { x: 58, y: 70 };
 
 export const ROUTINES: Record<string, Job[]> = {
   // Wren the forager, from level 8: her hut is by the bramble maze
@@ -80,6 +87,13 @@ export const ROUTINES: Record<string, Job[]> = {
     { activity: "fish", spot: BRIDGE, facing: -1, seconds: 12 },
     { activity: "read", spot: LIBRARY_STEP, facing: 1, seconds: 10 },
   ],
+  // Skipper Bram's day: nets in the morning, the jetty at midday, the boat in the afternoon, lanterns at dusk.
+  Bram: [
+    { activity: "mend", spot: NET_RACK, facing: 1, seconds: 12 },
+    { activity: "fish", spot: JETTY_ROOT, facing: 1, seconds: 14 },
+    { activity: "carry", spot: SLIPWAY, facing: 1, seconds: 6 },
+    { activity: "carry", spot: LANTERN_POST, facing: -1, seconds: 4 },
+  ],
 };
 
 // Where each spot is, in words, for the villager list ("Ines, sweeping at the schoolhouse step").
@@ -104,6 +118,10 @@ const SPOT_WORDS: [Point, string][] = [
   [MINE_STEP, "by the old mine"],
   [RIDGE_STEP, "on the windy ridge"],
   [PEAK_STEP, "at the peak"],
+  [NET_RACK, "at the net rack"],
+  [JETTY_ROOT, "at the jetty root"],
+  [SLIPWAY, "at the slipway"],
+  [LANTERN_POST, "by the jetty lanterns"],
 ];
 const VERBS: Record<Activity, string> = {
   sweep: "sweeping",
@@ -112,6 +130,7 @@ const VERBS: Record<Activity, string> = {
   read: "reading",
   chat: "chatting",
   carry: "carrying a crate",
+  mend: "mending nets",
 };
 
 export function describeJob(job: Job, working: boolean): string {
