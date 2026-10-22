@@ -61,7 +61,7 @@
     busy = false;
     unavailable = o.kind === "unavailable" ? o.message : null;
     ran = o.kind === "ok" ? o.result : o.kind === "timeout" ? { stdout: "", error: TIMEOUT_MESSAGE } : null;
-    if (id === TOUR_TASK_ID && inputs.trim() !== "") tourEvent("run");
+    if (id === TOUR_TASK_ID) tourEvent("run");
   }
 
   async function check(): Promise<void> {

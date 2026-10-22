@@ -2,6 +2,8 @@ import { fireEvent, render, screen } from "@testing-library/svelte";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import type { Lesson, Task } from "../content/types";
 import { signIn, signOut } from "../store/account.svelte";
+import { TOUR_TASK_ID, freshTour } from "../tour/tour";
+import { tour } from "../tour/tour.svelte";
 import TaskPanel from "./TaskPanel.svelte";
 
 const runner = vi.hoisted(() => ({
@@ -73,4 +75,12 @@ test("a Check queues a snapshot of the code and its results for the server", asy
     checks: 1,
     hints: 0,
   });
+});
+
+test("Run on the tour task moves the tour on without input lines", async () => {
+  vi.useRealTimers();
+  tour.state = { ...freshTour(), step: "run" };
+  render(TaskPanel, { lesson, task: { ...task, id: TOUR_TASK_ID } });
+  await fireEvent.click(screen.getByRole("button", { name: "Run" }));
+  await vi.waitFor(() => expect(tour.state.step).toBe("check"));
 });

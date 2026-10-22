@@ -2,10 +2,12 @@ import { describe, expect, test } from "vitest";
 import { emptyProgress } from "../learning/types";
 import {
   cardSpot,
+  clipBox,
   freshTour,
   nextStep,
   replayTour,
   shouldStart,
+  targetBox,
   TOUR_STEPS,
   unseenTip,
   waitingAt,
@@ -35,22 +37,24 @@ describe("nextStep", () => {
     expect(nextStep(at("walk-anywhere"), "walk-anywhere").step).toBe("walk-building");
     expect(nextStep(at("run"), "walk-building").step).toBe("run");
     expect(nextStep(at("run"), "run").step).toBe("check");
-    expect(nextStep(at("check"), "check").step).toBe("ask-tutor");
+    expect(nextStep(at("check"), "check").step).toBe("grows");
   });
 
   test("Next only moves the steps that offer it", () => {
     expect(nextStep(at("welcome"), "next").step).toBe("walk-anywhere");
-    expect(nextStep(at("ask-tutor"), "next").step).toBe("grows");
+    expect(nextStep(at("grows"), "next").step).toBe("join-board");
+    expect(nextStep(at("ask-tutor"), "next").step).toBe("connect");
     expect(nextStep(at("run"), "next").step).toBe("run");
   });
 
-  test("joining the board records it and leads to the recovery code", () => {
+  test("joining the board records it, then the recovery code, then the teacher", () => {
     const joined = nextStep(at("join-board"), "join-board");
     expect(joined.step).toBe("recovery");
     expect(joined.joined).toBe(true);
+    expect(nextStep(joined, "recovery").step).toBe("ask-tutor");
   });
 
-  test("Later skips the recovery step when the board was not joined", () => {
+  test("Later skips the recovery code and the teacher, who needs an account", () => {
     expect(nextStep(at("join-board"), "next").step).toBe("connect");
   });
 
@@ -58,7 +62,7 @@ describe("nextStep", () => {
     const state = at("recovery", { joined: true });
     expect(nextStep(state, "next").step).toBe("recovery");
     const saved = nextStep(state, "recovery");
-    expect(saved.step).toBe("connect");
+    expect(saved.step).toBe("ask-tutor");
     expect(saved.recoverySaved).toBe(true);
   });
 
@@ -94,6 +98,55 @@ describe("waitingAt", () => {
     expect(waitingAt("#/lesson/hello-village")).toBe("in the lesson");
     expect(waitingAt("#/school")).toBe("at the school");
     expect(waitingAt("#/house")).toBe("at the house");
+  });
+});
+
+describe("targetBox", () => {
+  test("keeps a visible target's viewport rect", () => {
+    expect(targetBox({ left: 12, top: 34, width: 100, height: 40 })).toEqual({
+      left: 12,
+      top: 34,
+      width: 100,
+      height: 40,
+    });
+  });
+
+  test("hides a target that has no size yet", () => {
+    expect(targetBox({ left: 0, top: 0, width: 0, height: 0 })).toBeNull();
+  });
+});
+
+describe("clipBox", () => {
+  const bounds = { left: 100, top: 100, width: 200, height: 100 };
+
+  test("keeps a box that already fits", () => {
+    expect(clipBox({ left: 120, top: 110, width: 50, height: 20 }, bounds)).toEqual({
+      left: 120,
+      top: 110,
+      width: 50,
+      height: 20,
+    });
+  });
+
+  test("cuts the parts outside the scroll panel", () => {
+    expect(clipBox({ left: 90, top: 90, width: 60, height: 30 }, bounds)).toEqual({
+      left: 100,
+      top: 100,
+      width: 50,
+      height: 20,
+    });
+    expect(clipBox({ left: 280, top: 180, width: 60, height: 40 }, bounds)).toEqual({
+      left: 280,
+      top: 180,
+      width: 20,
+      height: 20,
+    });
+  });
+
+  test("hides a box with no visible part", () => {
+    expect(clipBox({ left: 0, top: 0, width: 50, height: 50 }, bounds)).toBeNull();
+    expect(clipBox({ left: 100, top: 200, width: 50, height: 50 }, bounds)).toBeNull();
+    expect(clipBox({ left: 100, top: 100, width: 0, height: 0 }, bounds)).toBeNull();
   });
 });
 

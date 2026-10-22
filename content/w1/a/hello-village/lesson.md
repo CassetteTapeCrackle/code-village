@@ -6,17 +6,16 @@ region = "a"
 order = 0
 tour = true
 concepts = ["io"]
-remember = ["input() reads a line of text and always gives you a str.", "An f-string puts a value inside text: f\"Hello, {name}!\"."]
+remember = ["`print()` shows text on the screen.", "The text goes between the quotes."]
 [loot]
 id = "welcome-bell"
 name = "Welcome Bell"
 +++
 
-Ms. Juniper waves you in. Your first program will ask for a name and greet it.
+Ms. Juniper waves you in. "`print()` shows text on the screen," she says. "The text goes between the quotes."
 
 ```python example
-name = "Mochi"
-print(f"Hello, {name}!")
+print("Hello NAME!")
 ```
 
 ::task hello

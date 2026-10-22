@@ -81,7 +81,7 @@ export const TOUR_STEPS: TourStep[] = [
   {
     id: "run",
     target: "run",
-    text: "Press Run to try your code. Type your name in the input box first, then run it.",
+    text: "Replace NAME with your name, then press Run.",
     done: "run",
     at: `#/lesson/${TOUR_LESSON_ID}`,
   },
@@ -90,14 +90,6 @@ export const TOUR_STEPS: TourStep[] = [
     target: "check",
     text: "Run tries your code. Check tests it against the task. Press Check and see.",
     done: "check",
-    at: `#/lesson/${TOUR_LESSON_ID}`,
-  },
-  {
-    id: "ask-tutor",
-    target: "tutor",
-    text: "Stuck? Ask the teacher. One question is enough for now, and Next is always there.",
-    done: "ask-tutor",
-    allowNext: true,
     at: `#/lesson/${TOUR_LESSON_ID}`,
   },
   {
@@ -124,6 +116,14 @@ export const TOUR_STEPS: TourStep[] = [
     at: "#/house",
   },
   {
+    id: "ask-tutor",
+    target: "tutor",
+    text: "Open any lesson and ask the teacher. One question is enough for now, and Next is always there.",
+    done: "ask-tutor",
+    allowNext: true,
+    at: `#/lesson/${TOUR_LESSON_ID}`,
+  },
+  {
     id: "connect",
     target: "connect",
     text: "If you use Claude Code, Codex or opencode, connect it here. Skipping is fine.",
@@ -133,7 +133,7 @@ export const TOUR_STEPS: TourStep[] = [
   {
     id: "goodbye",
     target: null,
-    text: "That is the whole tour. You can replay it from your house whenever you like. Have fun!",
+    text: "That is the whole tour. You can replay it from your house whenever you like. Joining the board there also unlocks the teacher, if you chose Later. Have fun!",
     done: "next",
   },
 ];
@@ -153,6 +153,22 @@ export function waitingAt(at: string): string {
 
 export type CardBox = { left: number; top: number; width: number; height: number };
 export type CardSpot = { right: boolean; top: boolean };
+
+// The target as the overlay needs it: viewport coordinates, or null while it has no size (not on screen yet).
+export function targetBox(rect: CardBox): CardBox | null {
+  if (rect.width === 0 && rect.height === 0) return null;
+  return { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
+}
+
+// The ring is fixed, so a scroll container cannot clip it. This is the part of it the container shows.
+export function clipBox(box: CardBox, bounds: CardBox): CardBox | null {
+  const left = Math.max(box.left, bounds.left);
+  const top = Math.max(box.top, bounds.top);
+  const right = Math.min(box.left + box.width, bounds.left + bounds.width);
+  const bottom = Math.min(box.top + box.height, bounds.top + bounds.height);
+  if (right <= left || bottom <= top) return null;
+  return { left, top, width: right - left, height: bottom - top };
+}
 
 // The card sits on the side the target is not, so it never covers what it points at. On a place, though, the
 // target is often high on the right, and that put the card over the title and first instructions: there it
@@ -212,8 +228,13 @@ export function shouldStart(stored: TourState | null, progress: Progress): boole
 function advance(state: TourState): TourState {
   const index = TOUR_STEPS.findIndex((s) => s.id === state.step);
   let next = index + 1;
-  // Skipping the board means there is no recovery code to save.
-  while (next < TOUR_STEPS.length && TOUR_STEPS[next].id === "recovery" && !state.joined) next += 1;
+  // Skipping the board means there is no recovery code to save, and no account to ask the teacher with.
+  while (
+    next < TOUR_STEPS.length &&
+    (TOUR_STEPS[next].id === "recovery" || TOUR_STEPS[next].id === "ask-tutor") &&
+    !state.joined
+  )
+    next += 1;
   if (next >= TOUR_STEPS.length) return { ...state, step: "goodbye", done: true };
   return { ...state, step: TOUR_STEPS[next].id };
 }

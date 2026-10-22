@@ -2,6 +2,6 @@ id = "tour-hello"
 concept = "io"
 kind = "write"
 title = "Say hello"
-prompt = "Ask for a name with `input()`, then print `Hello, NAME! Welcome to Code Village.`"
-hints = ["`name = input()` reads the line.", "`print(f\"Hi, {name}!\")` puts a name inside the text."]
+prompt = "Replace `NAME` with your own name, then press Run. When you see your name, press Check."
+hints = ["Click between the quotes and type your name in place of NAME.", "Keep the quotes and the ! where they are."]
 gotcha = false
