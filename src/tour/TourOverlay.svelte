@@ -19,7 +19,28 @@
   const path = (h: string): string => h.replace(/^#\/?/, "").replace(/\?.*$/, "");
   const here = $derived(path(hash));
   const step = $derived(tour.state.done ? null : TOUR_STEPS.find((s) => s.id === tour.state.step));
-  const away = $derived(Boolean(step?.at !== undefined && step.at !== undefined && path(step.at) !== here));
+  // The card only speaks on the map or on the screen its step points at, so it never sits on another screen.
+  const away = $derived(Boolean(step?.at && path(step.at) !== here));
+
+  // Nor over a dialog the screen itself put up: a boss defeat, a conflict, a level greeting. The tour's own
+  // card is a dialog too, so it is not counted.
+  let blocked = $state(false);
+  $effect(() => {
+    const check = (): void => {
+      blocked = Array.from(document.querySelectorAll('[role="dialog"]')).some(
+        (el) => !el.classList.contains("tour-card"),
+      );
+    };
+    check();
+    const observer = new MutationObserver(check);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["role"],
+    });
+    return () => observer.disconnect();
+  });
 
   let box = $state<Box | null>(null);
   function measure(): void {
@@ -85,7 +106,7 @@
   });
 </script>
 
-{#if box && step && !step.place}
+{#if box && step && !step.place && !away && !blocked}
   <div
     class="ring"
     aria-hidden="true"
@@ -94,7 +115,7 @@
   ></div>
 {/if}
 
-{#if box && step?.place && step.mochi}
+{#if box && step?.place && step.mochi && !away && !blocked}
   <div
     class="mochi-bubble"
     class:below={bubbleBelow}
@@ -105,9 +126,9 @@
   </div>
 {/if}
 
-{#if step}
+{#if step && !away && !blocked}
   <div
-    class="card paper px"
+    class="card paper px tour-card"
     class:left={cardLeft}
     class:top={cardTop}
     role="dialog"
@@ -121,15 +142,16 @@
     </div>
     <p class="line" aria-live="polite">{step.text}</p>
     <div class="foot">
-      {#if away}<button type="button" onclick={back}>Take me back</button>{/if}
       {#if step.allowNext || step.done === "next"}
         <button type="button" class="primary" onclick={next}>{step.nextLabel ?? "Next"}</button>
       {/if}
     </div>
   </div>
+{:else if step && away && !blocked}
+  <button type="button" class="card paper px tour-card back" onclick={back}>Take me back</button>
 {/if}
 
-{#if tip}
+{#if tip && !blocked}
   <div class="tip paper px" role="status">
     <SpriteCanvas grid={MOCHI} scale={2} />
     <span>{tipText}</span>
@@ -256,5 +278,14 @@
       bottom: 140px;
       max-width: none;
     }
+  }
+  /* The way back is a small chip, not a card, so it can sit on a screen the tour does not belong to. */
+  .card.back {
+    left: 16px;
+    right: auto;
+    bottom: 16px;
+    width: auto;
+    padding: 8px 12px;
+    font-size: 14px;
   }
 </style>

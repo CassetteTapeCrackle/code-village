@@ -6,6 +6,8 @@ test("a fresh player is greeted, walks, opens the school and passes the tour tas
   const card = page.getByRole("dialog", { name: "Ms. Juniper" });
   await expect(card).toBeVisible();
   await expect(card).toContainText("Welcome to Code Village");
+  await card.getByRole("button", { name: "Next" }).click();
+  await expect(card).toContainText("Click any patch of grass");
 
   // click anywhere: a patch of grass near the square
   const world = page.locator(".world");

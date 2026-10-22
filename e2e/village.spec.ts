@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 import { openWith, showTask, typeCode } from "./helpers";
 
 test.describe("with reduced motion", () => {

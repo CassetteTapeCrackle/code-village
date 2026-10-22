@@ -3,6 +3,7 @@ import { expect, test } from "vitest";
 import { CAPS } from "../../src/tutor/packet";
 import { bundle } from "../../src/content/bundle";
 import { lessonTasks } from "../../src/learning/progress";
+import { XP } from "../../src/learning/xp";
 import { emptyProgress, type Progress } from "../../src/learning/types";
 import { eventsFromProgress } from "../../src/sync/events";
 import { handle } from "../src/router";
@@ -219,5 +220,9 @@ test("a full offline progress backfills onto the board", async () => {
   await cache?.delete("https://x/api/leaderboard");
   const board = await handle(new Request("https://x/api/leaderboard"), env, deps);
   const data = (await board.json()) as { rows: { nickname: string; xp: number }[] };
-  expect(data.rows.find((r) => r.nickname === "Backfill")?.xp).toBe(5595);
+  // Every task and lesson the bundle ships, tour lesson included, plus both wins of every boss.
+  const expected =
+    bundle.lessons.reduce((sum, lesson) => sum + lessonTasks(lesson).length * XP.taskClean + XP.lesson, 0) +
+    bundle.bosses.reduce((sum, boss) => sum + boss.stages.length * XP.bossStage + XP.bossWin + XP.hardWin, 0);
+  expect(data.rows.find((r) => r.nickname === "Backfill")?.xp).toBe(expected);
 });
