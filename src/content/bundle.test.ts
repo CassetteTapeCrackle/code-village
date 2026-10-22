@@ -26,7 +26,6 @@ describe("content bundle", () => {
       "dunders-feather",
       "dunders-mushroom",
       "dunders-sign",
-      "io-minutes",
       "io-receipt",
       "strings-shout",
       "strings-whisper",
