@@ -3,7 +3,7 @@ import type { MapColors } from "../../art/palette";
 import { shoreLine } from "../areas";
 import type { Palette } from "../clock";
 import { TILE } from "../grid";
-import { PLACES } from "../layout";
+import { MAP_H, MAP_W, PLACES } from "../layout";
 import type { LairState } from "../render";
 
 // The shore's three lairs in story order: the tide pools (region a), the wreck (b), the lighthouse (c).
@@ -86,27 +86,72 @@ function drawStoryBoat(
   }
 }
 
-// The lit lighthouse's beam sweeping the sea: a soft wedge of the night glow, held still with reduced motion.
+// Canvas angles run clockwise from east, so PI / 2 is due south: the lit lamp sweeps the sea that is actually inside
+// the map, south-east through south to south-west of the headland. The beam is clipped to the water, so it never
+// lights the sand, the rocks or the village.
+const BEAM_MID = Math.PI / 2 + 0.18;
+const BEAM_SWING = 0.56;
+export const BEAM_ARC = { from: BEAM_MID - BEAM_SWING, to: BEAM_MID + BEAM_SWING } as const;
+const BEAM_SWEEP_SECONDS = 34; // one slow pass out and back
+const BEAM_HALF_ANGLE = 0.075; // thin at the lamp, widening with distance
+const BEAM_REACH = 260;
+const BEAM_ALPHA = 0.85; // of the palette glow's own 0.28, so the light stays faint
+const LAMP_HALO = 14;
+
+export function beamAngle(t: number, still: boolean): number {
+  if (still) return BEAM_MID;
+  return BEAM_MID + Math.sin((t / BEAM_SWEEP_SECONDS) * Math.PI * 2) * BEAM_SWING;
+}
+
+// Everything below the shoreline is sea; the beam may only light that.
+function clipToSea(ctx: CanvasRenderingContext2D): void {
+  ctx.beginPath();
+  ctx.moveTo(0, MAP_H * TILE);
+  for (let x = 0; x <= MAP_W; x += 1) ctx.lineTo(x * TILE, shoreLine(x) * TILE);
+  ctx.lineTo(MAP_W * TILE, MAP_H * TILE);
+  ctx.closePath();
+  ctx.clip();
+}
+
+// A radial fade of the palette's glow: brightest at the lamp, gone by `reach`. "transparent" carries the glow's
+// own alpha down to nothing without introducing a colour of its own.
+function glowFade(
+  ctx: CanvasRenderingContext2D,
+  c: MapColors,
+  x: number,
+  y: number,
+  reach: number,
+): CanvasGradient {
+  const gradient = ctx.createRadialGradient(x, y, 2, x, y, reach);
+  gradient.addColorStop(0, c.glow);
+  gradient.addColorStop(1, "transparent");
+  return gradient;
+}
+
+// The lit lighthouse's beam: a soft wedge over the sea, held still with reduced motion, and a small halo on the lamp.
 export function drawBeam(ctx: CanvasRenderingContext2D, c: MapColors, t: number, still: boolean): void {
   const place = PLACES.find((p) => p.id === "lighthouse");
   if (!place) return;
   const lx = place.x * TILE + (place.w * TILE) / 2;
   const ly = place.y * TILE + 16; // the lamp room's middle
-  const angle = 2.5 + (still ? 0 : Math.sin(t * 0.35) * 0.32); // south-west along the coast
-  for (let dx = -7; dx <= 7; dx++)
-    for (let dy = -7; dy <= 7; dy++) if (dx * dx + dy * dy <= 45) px(ctx, c.glow, lx + dx, ly + dy);
-  for (let d = 8; d < 140; d += 2) {
-    const half = 1 + d * 0.05;
-    for (let w = -half; w <= half; w += 1.5)
-      px(
-        ctx,
-        c.glow,
-        Math.round(lx + Math.cos(angle) * d - Math.sin(angle) * w),
-        Math.round(ly + Math.sin(angle) * d + Math.cos(angle) * w),
-        2,
-        2,
-      );
-  }
+  const angle = beamAngle(t, still);
+  ctx.save();
+  ctx.globalAlpha = BEAM_ALPHA;
+  ctx.fillStyle = glowFade(ctx, c, lx, ly, BEAM_REACH);
+  clipToSea(ctx);
+  ctx.beginPath();
+  ctx.moveTo(lx, ly);
+  ctx.arc(lx, ly, BEAM_REACH, angle - BEAM_HALF_ANGLE, angle + BEAM_HALF_ANGLE);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+  // the lamp itself stays a small, soft glow above the tower
+  ctx.save();
+  ctx.fillStyle = glowFade(ctx, c, lx, ly, LAMP_HALO);
+  ctx.beginPath();
+  ctx.arc(lx, ly, LAMP_HALO, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
 export type ShoreStory = {

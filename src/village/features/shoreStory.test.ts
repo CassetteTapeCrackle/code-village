@@ -6,7 +6,7 @@ import { FLAT_FEATURES, featureLand } from "../scenery";
 import type { DrawEnv } from "./env";
 import { SHORE_FEATURES } from "./shore";
 import { SHORE_LAIRS } from "./shoreLairs";
-import { boatStage, drawShoreStory, sailAt, shoreStoryLairs } from "./shoreStory";
+import { BEAM_ARC, beamAngle, boatStage, drawShoreStory, sailAt, shoreStoryLairs } from "./shoreStory";
 
 const CLEARED: LairState = "cleared";
 
@@ -46,6 +46,7 @@ function fakeCtx(): CanvasRenderingContext2D {
   return {
     canvas: { width: 768, height: 688 },
     fillStyle: "",
+    globalAlpha: 1,
     getTransform: () => ({ e: 0, f: 0 }),
     getImageData: (_x: number, _y: number, w: number, h: number) => ({
       data: new Uint8ClampedArray(w * h * 4),
@@ -54,6 +55,16 @@ function fakeCtx(): CanvasRenderingContext2D {
     }),
     putImageData: () => {},
     fillRect: () => {},
+    save: () => {},
+    restore: () => {},
+    beginPath: () => {},
+    moveTo: () => {},
+    lineTo: () => {},
+    closePath: () => {},
+    clip: () => {},
+    arc: () => {},
+    fill: () => {},
+    createRadialGradient: () => ({ addColorStop: () => {} }),
   } as unknown as CanvasRenderingContext2D;
 }
 
@@ -97,6 +108,23 @@ test("the boat feature draws at every stage and in winter, and is flat on the gr
       const lairs = shoreStoryLairs(stage);
       expect(() => boat.draw(boatEnv(lairs, season)), `stage ${stage} ${season}`).not.toThrow();
     }
+});
+
+test("the beam sweeps slowly over the sea only, and holds still with reduced motion", () => {
+  // the arc stays in the southern quadrant, south-east to south-west of the lamp, never north over the headland,
+  // the sand or the village
+  expect(BEAM_ARC.from).toBeGreaterThanOrEqual(Math.PI / 4);
+  expect(BEAM_ARC.to).toBeLessThanOrEqual((3 * Math.PI) / 4);
+  let previous = beamAngle(0, false);
+  for (let t = 0; t < 120; t += 0.5) {
+    const angle = beamAngle(t, false);
+    expect(angle).toBeGreaterThanOrEqual(BEAM_ARC.from - 1e-9);
+    expect(angle).toBeLessThanOrEqual(BEAM_ARC.to + 1e-9);
+    expect(Math.sin(angle)).toBeGreaterThan(0); // southward: toward the sea
+    expect(Math.abs(angle - previous)).toBeLessThan(0.1); // a slow sweep, not a flick
+    previous = angle;
+  }
+  expect(beamAngle(0, true)).toBe(beamAngle(30, true));
 });
 
 test("the story layer draws the sailing boat and the night beam", () => {
