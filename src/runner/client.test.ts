@@ -37,6 +37,17 @@ describe("runner client", () => {
     expect(await pending).toEqual({ kind: "ok", result: { stdout: "1\n", error: null } });
   });
 
+  test("a check carries the task's strict flag", async () => {
+    const w = fakeWorker();
+    const runner = createRunner({ makeWorker: () => w });
+    w.send({ type: "ready" });
+    const pending = runner.check("a", "t", true);
+    await Promise.resolve();
+    expect(w.jobs[0]).toMatchObject({ mode: "check", strict: true });
+    w.send({ type: "done", id: w.jobs[0].id, result: { error: null, results: [] } });
+    await pending;
+  });
+
   test("jobs run one at a time, in order", async () => {
     const w = fakeWorker();
     const runner = createRunner({ makeWorker: () => w });

@@ -5,6 +5,8 @@ export type Exercise = {
   prompt: string;
   starter: string;
   tests: string;
+  // The task teaches exact output formatting, so checks compare text exactly instead of forgiving case, spacing and punctuation.
+  strict?: boolean;
 };
 
 export type Task = Exercise & {

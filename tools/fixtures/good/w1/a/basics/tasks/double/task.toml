@@ -5,3 +5,5 @@ title = "Double it"
 prompt = "Write `double(n)`."
 hints = ["Multiply by 2."]
 gotcha = true
+
+strict = true

@@ -57,7 +57,8 @@ class RunTests(unittest.TestCase):
         code = "def add_twice(items, x):\n    items.append(x)\n    return items"
         r = harness.run_tests(code, TESTS)["results"][0]
         self.assertFalse(r["passed"])
-        self.assertEqual(r["message"], "add_twice([1], 5) returned [1, 5], expected [1, 5, 5]")
+        prefix = "add_twice([1], 5) returned [1, 5], expected "
+        self.assertEqual(r["message"], f"{prefix}[1, 5, 5]\n{' ' * (len(prefix) + 5)}^")
 
     def test_missing_function(self):
         r = harness.run_tests("def add_once(items, x):\n    return items", TESTS)["results"][0]
@@ -86,6 +87,44 @@ class RunTests(unittest.TestCase):
         tests = 'PROGRAM = True\ndef test_greets():\n    expect_equal(run_program(["Ines"]), "Hello Ines\\n")'
         out = harness.run_tests("print('Hello', input('Name: '))", tests)
         self.assertTrue(out["results"][0]["passed"], out)
+
+
+class LenientChecks(unittest.TestCase):
+    def passes(self, got, expected, strict=False):
+        tests = f'def test_value():\n    expect_equal(learner["value"](), {expected!r})'
+        return harness.run_tests(f'def value():\n    return {got!r}', tests, strict=strict)["results"][0]
+
+    def test_case_is_forgiven(self):
+        self.assertTrue(self.passes("hello sam", "Hello Sam")["passed"])
+
+    def test_extra_spaces_are_forgiven(self):
+        self.assertTrue(self.passes("  hello   sam  ", "hello sam")["passed"])
+
+    def test_punctuation_is_forgiven(self):
+        r = self.passes("Hello Sam", "Hello, Sam!")
+        self.assertTrue(r["passed"], r)
+
+    def test_a_dot_between_digits_is_kept(self):
+        self.assertFalse(self.passes("15", "1.5")["passed"])
+
+    def test_a_comma_between_digits_is_kept(self):
+        self.assertFalse(self.passes("1000", "1,000")["passed"])
+
+    def test_strict_keeps_the_text_exact(self):
+        self.assertFalse(self.passes("hello sam", "Hello, Sam!", strict=True)["passed"])
+        self.assertTrue(self.passes("Hello, Sam!", "Hello, Sam!", strict=True)["passed"])
+
+    def test_lists_of_str_are_compared_item_by_item(self):
+        tests = 'def test_value():\n    expect_equal(learner["value"](), ["Hello, Sam!", "Bye"])'
+        out = harness.run_tests('def value():\n    return ["hello sam", "BYE."]', tests)
+        self.assertTrue(out["results"][0]["passed"], out)
+
+    def test_message_marks_the_first_difference(self):
+        r = self.passes("Hello Sam!", "Hello, Sam!", strict=True)
+        self.assertEqual(r["message"], "expected 'Hello, Sam!', got 'Hello Sam!'\n" + " " * 15 + "^")
+
+    def test_non_str_values_still_compare_exactly(self):
+        self.assertFalse(self.passes(1, "1")["passed"])
 
 
 class Cli(unittest.TestCase):

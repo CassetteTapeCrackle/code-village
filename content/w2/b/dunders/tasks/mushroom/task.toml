@@ -5,3 +5,5 @@ title = "Name that mushroom"
 prompt = "Write a class `Mushroom(name, spots)` with `__str__` returning text like `\"fly agaric (5 spots)\"`, and `__eq__` saying two mushrooms are equal when both name and spots match."
 hints = ["`__str__` returns an f-string; `__eq__(self, other)` compares both attributes.", "For a `Boat`: `return f\"{self.name} ({self.seats} seats)\"` and `return isinstance(other, Boat) and self.name == other.name and self.seats == other.seats`."]
 gotcha = false
+
+strict = true

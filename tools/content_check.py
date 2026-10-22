@@ -95,16 +95,16 @@ def passes(result):
     return bool(result and not result["error"] and result["results"] and all(r["passed"] for r in result["results"]))
 
 
-def check_solution(item_id, code, tests, problems, what="the solution"):
-    done = harness({"mode": "check", "code": code, "tests": tests})
+def check_solution(item_id, code, tests, problems, what="the solution", strict=False):
+    done = harness({"mode": "check", "code": code, "tests": tests, "strict": strict})
     if done is None:
         problems.add(item_id, f"{what} ran longer than {LIMIT} s")
     elif not passes(done):
         problems.add(item_id, f"{what} fails: {done['error'] or [r for r in done['results'] if not r['passed']]}")
 
 
-def check_starter(item_id, code, tests, problems):
-    if passes(harness({"mode": "check", "code": code, "tests": tests})):
+def check_starter(item_id, code, tests, problems, strict=False):
+    if passes(harness({"mode": "check", "code": code, "tests": tests, "strict": strict})):
         problems.add(item_id, "the starter already passes every test (the task is trivial)")
 
 
@@ -112,7 +112,8 @@ def check_wrong(item_id, folder, suites, problems):
     """Each wrong/*.py is a mistake a learner could make: some test in the suites must fail it."""
     for wrong in sorted((folder / "wrong").glob("*.py")):
         code = wrong.read_text()
-        if all(passes(harness({"mode": "check", "code": code, "tests": tests})) for tests in suites):
+        if all(passes(harness({"mode": "check", "code": code, "tests": tests, "strict": strict}))
+               for tests, strict in suites):
             problems.add(item_id, f"wrong/{wrong.name} passes every test: the tests miss that mistake")
 
 
@@ -280,11 +281,15 @@ def load_variant(folder, concept, problems):
     if meta is None:
         return None
     require(meta, VARIANT_FIELDS, where, "variant.toml", problems)
+    strict = meta.get("strict", False)
+    if not isinstance(strict, bool):
+        problems.add(where, "strict must be true or false")
     variant_id = meta.get("id", where)
-    check_solution(variant_id, files["solution"], files["tests"], problems)
-    check_starter(variant_id, files["starter"], files["tests"], problems)
-    check_wrong(variant_id, folder, [files["tests"]], problems)
-    return {**{k: meta.get(k) for k in VARIANT_FIELDS}, "concept": concept, "starter": files["starter"], "tests": files["tests"]}
+    check_solution(variant_id, files["solution"], files["tests"], problems, strict=strict)
+    check_starter(variant_id, files["starter"], files["tests"], problems, strict=strict)
+    check_wrong(variant_id, folder, [(files["tests"], strict)], problems)
+    return {**{k: meta.get(k) for k in VARIANT_FIELDS}, "concept": concept, "strict": strict,
+            "starter": files["starter"], "tests": files["tests"]}
 
 
 def load_task(folder, problems):
@@ -297,13 +302,17 @@ def load_task(folder, problems):
         problems.add(where, f"kind must be one of {sorted(KINDS)}")
     if not meta.get("hints"):
         problems.add(where, "a task needs at least one hint")
+    strict = meta.get("strict", False)
+    if not isinstance(strict, bool):
+        problems.add(where, "strict must be true or false")
     check_hints(meta.get("id", where), meta.get("hints") or [], files["solution"], files["starter"], problems)
     task_id = meta.get("id", where)
-    check_solution(task_id, files["solution"], files["tests"], problems)
-    check_starter(task_id, files["starter"], files["tests"], problems)
-    check_wrong(task_id, folder, [files["tests"]], problems)
+    check_solution(task_id, files["solution"], files["tests"], problems, strict=strict)
+    check_starter(task_id, files["starter"], files["tests"], problems, strict=strict)
+    check_wrong(task_id, folder, [(files["tests"], strict)], problems)
     variants = [v for d in subfolders(folder / "variants") if (v := load_variant(d, meta.get("concept"), problems))]
-    return {**{k: meta.get(k) for k in TASK_FIELDS}, "starter": files["starter"], "tests": files["tests"], "variants": variants}
+    return {**{k: meta.get(k) for k in TASK_FIELDS}, "strict": strict,
+            "starter": files["starter"], "tests": files["tests"], "variants": variants}
 
 
 def load_lesson(lesson_md, problems):
@@ -373,7 +382,7 @@ def load_boss(boss_md, problems):
     for stage in stages:
         check_solution(boss_id, files["solution"], stage["tests"], problems, f"the solution (stage {stage['id']})")
     check_solution(boss_id, files["solution"], files["hard_tests"], problems, "the solution (hard mode)")
-    check_wrong(boss_id, folder, [s["tests"] for s in stages] + [files["hard_tests"]], problems)
+    check_wrong(boss_id, folder, [(s["tests"], False) for s in stages] + [(files["hard_tests"], False)], problems)
     if stages:
         check_starter(boss_id, files["starter"], stages[0]["tests"], problems)
     return {"id": boss_id, "title": meta.get("title"), "world": meta.get("world"), "region": meta.get("region"),
