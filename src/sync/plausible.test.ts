@@ -109,5 +109,5 @@ test("a full progress backfilled the way the browser sends it is fully accepted"
     .filter((v) => !v.ok)
     .map((v) => (v.ok ? "" : `${v.event.kind}:${v.event.id} ${v.reason}`));
   expect(rejected).toEqual([]);
-  expect(verdicts).toHaveLength(180);
+  expect(verdicts).toHaveLength(182);
 });

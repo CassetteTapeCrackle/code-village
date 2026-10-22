@@ -19,6 +19,7 @@ export const HOME_SPOTS: Record<string, { x: number; y: number; where: string }>
   "abacus-beads": { x: 82, y: 34, where: "on the desk" },
   "nesting-dolls": { x: 104, y: 12, where: "on the mantel" },
   "weaving-loom": { x: 130, y: 26, where: "in the corner, with its rug" },
+  "welcome-bell": { x: 18, y: 49, where: "on the floor by the door" },
 };
 
 export function drawHouseRoom(

@@ -1,4 +1,5 @@
 import type { Bundle, Lesson, World } from "../content/types";
+import { regularLessons } from "../content/lessons";
 import { worldById } from "../worlds/registry";
 import { lessonTasks } from "./progress";
 import type { Progress } from "./types";
@@ -14,7 +15,7 @@ export function teacherGreeting(
   p: Progress,
   world = "w1",
 ): { line: string; lessonId: string | null } {
-  const lessons = bundle.lessons.filter((l) => l.world === world);
+  const lessons = regularLessons(bundle.lessons).filter((l) => l.world === world);
   const started = lessons.find(
     (l) => !p.lessons[l.id] && lessonTasks(l).some((t) => p.tasks[t.id]?.passedAt),
   );
@@ -66,7 +67,9 @@ export function regionToOpen(bundle: Bundle, p: Progress, world = "w1"): string 
     (b) =>
       b.world === world &&
       !p.bosses[b.id]?.wonAt &&
-      bundle.lessons.filter((l) => l.world === world && l.region === b.region).every((l) => p.lessons[l.id]),
+      bundle.lessons
+        .filter((l) => !l.tour && l.world === world && l.region === b.region)
+        .every((l) => p.lessons[l.id]),
   );
   return boss?.region ?? null;
 }

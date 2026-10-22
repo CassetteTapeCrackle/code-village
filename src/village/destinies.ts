@@ -2,6 +2,7 @@ import type { Grid } from "../art/draw";
 
 // Each lesson item's own sprite, shown in the house collection, on the wall shelf and in the item's scene.
 export const ITEM_SPRITES: Record<string, Grid> = {
+  "welcome-bell": ["..kkk..", ".kaaak.", "kaaaaak", "kaaaaak", ".kaaak.", "..kkk..", "...k..."],
   "pebble-counter": ["kkkkkkk", "kroaobk", "koaorok", "kboroak", "kkkkkkk"],
   "tin-whistle": ["......k", ".....kS", "....kSk", "...kSk.", "..kSk..", ".kSk...", "kSk...."],
   "brass-compass": [".kkkkk.", "kaWWWak", "kaWrWak", "kaWkWak", "kaWbWak", "kaWWWak", ".kkkkk."],

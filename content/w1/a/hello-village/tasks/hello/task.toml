@@ -1,0 +1,7 @@
+id = "tour-hello"
+concept = "io"
+kind = "write"
+title = "Say hello"
+prompt = "Ask for a name with `input()`, then print `Hello, NAME! Welcome to Code Village.`"
+hints = ["`name = input()` reads the line.", "`print(f\"Hi, {name}!\")` puts a name inside the text."]
+gotcha = false
