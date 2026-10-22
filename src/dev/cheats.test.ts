@@ -12,6 +12,7 @@ import {
   passLessons,
   plantsDue,
   reachLevel,
+  resetWorld,
 } from "./cheats";
 import { bundle as realBundle } from "../content/bundle";
 import { openWorlds } from "../worlds/registry";
@@ -50,6 +51,21 @@ test("finishing everything passes every lesson, beats every boss on hard mode an
   expect(Object.keys(p.lessons).length).toBe(realBundle.lessons.length);
   expect(realBundle.bosses.every((b) => p.bosses[b.id]?.hardWonAt)).toBe(true);
   expect(levelFor(p.xp)).toBeGreaterThanOrEqual(TOP_LEVEL);
+});
+
+test("resetting a world clears its lessons, bosses and skip, and keeps the other worlds", () => {
+  const full = finishEverything(realBundle, emptyProgress(), D);
+  const withSkip = {
+    ...full,
+    worldsSkipped: { w1: D },
+    drafts: { ...full.drafts, "boss:lost-satchel": "code" },
+  };
+  const p = resetWorld(realBundle, withSkip, "w1");
+  expect(realBundle.lessons.filter((l) => l.world === "w1").every((l) => !p.lessons[l.id])).toBe(true);
+  expect(realBundle.bosses.filter((b) => b.world === "w1").every((b) => !p.bosses[b.id])).toBe(true);
+  expect(realBundle.lessons.some((l) => l.world === "w2" && p.lessons[l.id])).toBe(true);
+  expect(p.worldsSkipped).toEqual({});
+  expect(p.drafts["boss:lost-satchel"]).toBeUndefined();
 });
 
 describe("missing art", () => {

@@ -11,7 +11,7 @@ type SocialEvent = SyncEvent & { received: string };
 type PlayerEvents = { nickname: string; createdAt: string; lastActive: string; events: SocialEvent[] };
 type Rankable = { row: BoardRow; createdAt: string };
 
-const NEWS_KINDS = new Set(["lesson_passed", "boss_won", "boss_hard_won"]);
+const NEWS_KINDS = new Set(["lesson_passed", "boss_won", "boss_hard_won", "world_skipped"]);
 
 function isNewsEvent(e: SocialEvent): e is SocialEvent & { kind: NewsItem["kind"] } {
   return NEWS_KINDS.has(e.kind);

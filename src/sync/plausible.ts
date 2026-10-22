@@ -1,6 +1,7 @@
 import type { Bundle, Lesson } from "../content/types";
 import { bossOpen } from "../learning/access";
 import { lessonTasks } from "../learning/progress";
+import { applySkip, finalBoss } from "../learning/skip";
 import { emptyProgress, type BossProgress, type Progress } from "../learning/types";
 import { openWorlds } from "../worlds/registry";
 import type { SyncEvent } from "./events";
@@ -11,8 +12,8 @@ function bossProgress(): BossProgress {
   return { stagesPassed: [], wonAt: null, hardWonAt: null, hardChecks: 0 };
 }
 
-export function progressFromEvents(events: SyncEvent[]): Progress {
-  const p = emptyProgress();
+export function progressFromEvents(bundle: Bundle, events: SyncEvent[]): Progress {
+  let p = emptyProgress();
   for (const e of events) {
     if (e.kind === "task_passed") {
       p.tasks[e.id] = { passedAt: e.at, hintsUsed: e.hints, checks: 0, xpEarned: 0 };
@@ -25,8 +26,10 @@ export function progressFromEvents(events: SyncEvent[]): Progress {
       (p.bosses[bossId] ??= bossProgress()).stagesPassed.push(stageId);
     } else if (e.kind === "boss_won") {
       (p.bosses[e.id] ??= bossProgress()).wonAt = e.at;
-    } else {
+    } else if (e.kind === "boss_hard_won") {
       (p.bosses[e.id] ??= bossProgress()).hardWonAt = e.at;
+    } else {
+      p = applySkip(bundle, p, e.id, e.at);
     }
   }
   return p;
@@ -58,14 +61,30 @@ function reject(
     const boss = bundle.bosses.find((b) => b.id === bossId);
     if (!boss) return "unknown boss";
     if (!boss.stages.some((s) => s.id === stageId)) return "unknown stage";
-    if (!bossOpen(bundle, progress, boss)) return "boss not open";
+    if (!openWorlds(bundle, progress).includes(boss.world)) return "world not open";
+    // The skip fights the final boss while its region is still asleep. The world must be open and the
+    // skip itself still has to pass every stage, which world_skipped checks below.
+    if (!bossOpen(bundle, progress, boss) && finalBoss(bundle, boss.world)?.id !== boss.id)
+      return "boss not open";
     return null;
   }
   if (e.kind === "boss_won") {
     const boss = bundle.bosses.find((b) => b.id === e.id);
     if (!boss) return "unknown boss";
+    if (!bossOpen(bundle, progress, boss)) return "boss not open";
     const passed = progress.bosses[boss.id]?.stagesPassed ?? [];
     if (!boss.stages.every((s) => passed.includes(s.id))) return "stages missing";
+    return null;
+  }
+  if (e.kind === "world_skipped") {
+    const world = bundle.worlds.find((w) => w.id === e.id);
+    if (!world) return "unknown world";
+    if (!openWorlds(bundle, progress).includes(world.id)) return "world not open";
+    if (progress.worldsSkipped[world.id]) return "world already skipped";
+    const boss = finalBoss(bundle, world.id);
+    if (!boss) return "no final boss";
+    const passed = progress.bosses[boss.id]?.stagesPassed ?? [];
+    if (!boss.stages.every((s) => passed.includes(s.id))) return "final boss stages missing";
     return null;
   }
   const boss = bundle.bosses.find((b) => b.id === e.id);
@@ -87,11 +106,12 @@ export function replay(bundle: Bundle, accepted: SyncEvent[], incoming: SyncEven
   for (const e of incoming) {
     const key = `${e.kind}:${e.id}`;
     if (seen.has(key)) {
-      // resending is harmless: the database ignores the duplicate and so do we
+      // resending is harmless: the database ignores the duplicate and so do we (a skip is keyed by its
+      // world, so a resent skip is never counted twice)
       verdicts.push({ event: e, ok: true });
       continue;
     }
-    const reason = reject(bundle, progressFromEvents(running), e, taskLesson);
+    const reason = reject(bundle, progressFromEvents(bundle, running), e, taskLesson);
     if (reason) {
       verdicts.push({ event: e, ok: false, reason });
     } else {

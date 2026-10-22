@@ -28,3 +28,9 @@ export function levelSummary(names: readonly string[]): string {
   const shown = names.slice(0, 3).join(", ");
   return names.length > 3 ? `${shown} and ${names.length - 3} more` : shown;
 }
+
+// Ms. Juniper's line for a skipped world, used by the one "World cleared" moment.
+export function clearedLine(bundle: Bundle, worldId: string): string {
+  const name = bundle.worlds.find((w) => w.id === worldId)?.name ?? "this world";
+  return `You tested out of ${name.toLowerCase()}. Every lesson here counts as done and every boss is beaten. Hard mode is still yours to win.`;
+}

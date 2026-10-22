@@ -79,7 +79,7 @@ function lessonMarkdown(lesson: Lesson): string {
 }
 
 function progressText(events: SyncEvent[]): string {
-  const progress = progressFromEvents(events);
+  const progress = progressFromEvents(bundle, events);
   const score = scoreFromEvents(bundle, events);
   const open = openWorlds(bundle, progress);
   const next = bundle.lessons.find((l) => open.includes(l.world) && !progress.lessons[l.id]);
@@ -128,7 +128,7 @@ function createServer(player: Player, env: Env): McpServer {
     },
     async ({ id }) => {
       const lesson = lessonById(id);
-      const open = openWorlds(bundle, progressFromEvents(await eventsFor(env, player.id)));
+      const open = openWorlds(bundle, progressFromEvents(bundle, await eventsFor(env, player.id)));
       if (!lesson || !open.includes(lesson.world)) return refuse(NO_LESSON);
       return text(lessonMarkdown(lesson));
     },

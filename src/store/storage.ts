@@ -20,9 +20,15 @@ function fromSaved(raw: unknown): Progress | null {
   const merged = { ...emptyProgress(), ...data } as Progress;
   const shapeOk =
     typeof merged.xp === "number" &&
-    [merged.tasks, merged.lessons, merged.plants, merged.drafts, merged.reviewLast, merged.bosses].every(
-      isRecord,
-    );
+    [
+      merged.tasks,
+      merged.lessons,
+      merged.plants,
+      merged.drafts,
+      merged.reviewLast,
+      merged.bosses,
+      merged.worldsSkipped,
+    ].every(isRecord);
   return shapeOk ? merged : null;
 }
 
