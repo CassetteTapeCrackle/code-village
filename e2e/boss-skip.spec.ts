@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 import { readFileSync } from "node:fs";
 
 const SOLUTION = readFileSync("content/w1/c/boss/solution.py", "utf8");

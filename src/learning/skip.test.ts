@@ -112,3 +112,13 @@ test("the client's XP and the server's score agree on a skip", () => {
   const p = applySkip(village, emptyProgress(), "w1", D);
   expect(scoreFromEvents(village, eventsFromProgress(p)).xp).toBe(p.xp);
 });
+
+test("a skip leaves the tour lesson alone: it belongs to the tour, not the world", () => {
+  const tour = village.lessons.find((l) => l.tour)!;
+  const p = applySkip(village, emptyProgress(), tour.world, D);
+  expect(p.lessons[tour.id]).toBeUndefined();
+  for (const task of lessonTasks(tour)) expect(p.tasks[task.id]).toBeUndefined();
+  expect(Object.keys(p.lessons).length).toBe(
+    village.lessons.filter((l) => l.world === tour.world && !l.tour).length,
+  );
+});

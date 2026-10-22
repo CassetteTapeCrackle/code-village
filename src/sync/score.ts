@@ -1,3 +1,4 @@
+import { regularLessons } from "../content/lessons";
 import type { Bundle } from "../content/types";
 import { lessonTasks } from "../learning/progress";
 import { XP, levelFor, taskXp } from "../learning/xp";
@@ -26,7 +27,8 @@ export function scoreFromEvents(bundle: Bundle, events: SyncEvent[]): Score {
   const trophies: string[] = [];
   // What each event id belongs to, so a skip's payment is never paid again by a later event.
   const worldOf = new Map<string, string>();
-  for (const lesson of bundle.lessons) {
+  // the tour lesson is not a world's content: a skip neither pays for it nor swallows it later
+  for (const lesson of regularLessons(bundle.lessons)) {
     worldOf.set(`lesson:${lesson.id}`, lesson.world);
     for (const task of lessonTasks(lesson)) worldOf.set(`task:${task.id}`, lesson.world);
   }
@@ -40,7 +42,7 @@ export function scoreFromEvents(bundle: Bundle, events: SyncEvent[]): Score {
   };
   // A skip pays for what the earlier events did not: the same clean run, never twice, and no hard win.
   const paySkip = (worldId: string): void => {
-    const worldLessons = bundle.lessons.filter((l) => l.world === worldId);
+    const worldLessons = regularLessons(bundle.lessons).filter((l) => l.world === worldId);
     for (const task of worldLessons.flatMap(lessonTasks)) {
       if (passedTasks.has(task.id)) continue;
       xp += XP.taskClean;

@@ -1,3 +1,4 @@
+import { regularLessons } from "../content/lessons";
 import type { Boss, Bundle } from "../content/types";
 import { openWorlds } from "../worlds/registry";
 import { bossOpen } from "./access";
@@ -29,7 +30,7 @@ export function canSkip(bundle: Bundle, progress: Progress, boss: Boss): boolean
 // Marks a whole world as done the way a clean run would: every task, lesson and boss, its XP and its
 // seeds. Work already done keeps its own XP, and hard mode is never touched.
 export function applySkip(bundle: Bundle, progress: Progress, worldId: string, at: Day): Progress {
-  const lessons = bundle.lessons.filter((l) => l.world === worldId);
+  const lessons = regularLessons(bundle.lessons).filter((l) => l.world === worldId); // the tour lesson is not the world's content
   const bosses = bundle.bosses.filter((b) => b.world === worldId);
   let xp = progress.xp;
 
