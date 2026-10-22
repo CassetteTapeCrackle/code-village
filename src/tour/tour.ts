@@ -81,7 +81,7 @@ export const TOUR_STEPS: TourStep[] = [
   {
     id: "run",
     target: "run",
-    text: "Press Run to try your code. Type your name in the input box first, then run it.",
+    text: "Replace NAME with your name, then press Run.",
     done: "run",
     at: `#/lesson/${TOUR_LESSON_ID}`,
   },
