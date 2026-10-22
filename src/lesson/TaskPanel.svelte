@@ -42,7 +42,7 @@
 
   async function check(code: string): Promise<void> {
     update((p) => recordCheck(p, task.id));
-    checked = await getRunner().check(code, task.tests);
+    checked = await getRunner().check(code, task.tests, task.strict);
     setSnapshot({
       taskId: task.id,
       code,

@@ -5,3 +5,5 @@ title = "Shout it"
 prompt = "`shout(text)` should return the text in capitals with `!` at the end: `shout(\"hey\")` is `\"HEY!\"`. It has a bug: find and fix it."
 hints = ["Does `text.upper()` change `text`?", "Keep the result: `text = text.upper()`, or return `text.upper() + \"!\"`."]
 gotcha = true
+
+strict = true

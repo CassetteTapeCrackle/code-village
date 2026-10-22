@@ -3,7 +3,7 @@ export type TestResult = { name: string; passed: boolean; message: string };
 export type CheckResult = { error: string | null; results: TestResult[] };
 export type Job =
   | { id: number; mode: "run"; code: string; inputs: string[] }
-  | { id: number; mode: "check"; code: string; tests: string };
+  | { id: number; mode: "check"; code: string; tests: string; strict: boolean };
 export type WorkerMessage =
   | { type: "ready" }
   | { type: "load-failed"; message: string }

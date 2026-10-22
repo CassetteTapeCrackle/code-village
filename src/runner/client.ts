@@ -9,7 +9,7 @@ export type WorkerLike = {
 };
 export type Runner = {
   run(code: string, inputs?: string[]): Promise<Outcome<RunResult>>;
-  check(code: string, tests: string): Promise<Outcome<CheckResult>>;
+  check(code: string, tests: string, strict?: boolean): Promise<Outcome<CheckResult>>;
   status(): "loading" | "ready" | "failed";
   retry(): void;
 };
@@ -118,7 +118,8 @@ export function createRunner({
   start();
   return {
     run: (code, inputs = []) => submit<RunResult>({ id: nextId++, mode: "run", code, inputs }),
-    check: (code, tests) => submit<CheckResult>({ id: nextId++, mode: "check", code, tests }),
+    check: (code, tests, strict = false) =>
+      submit<CheckResult>({ id: nextId++, mode: "check", code, tests, strict }),
     status: () => state,
     retry: () => {
       if (state !== "failed") return;

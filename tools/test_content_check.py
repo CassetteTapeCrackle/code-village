@@ -40,10 +40,20 @@ class ContentCheck(unittest.TestCase):
         double = lesson["blocks"][3]["task"]
         self.assertEqual([v["id"] for v in double["variants"]], ["basics-double-quadruple"])
         self.assertEqual(double["variants"][0]["concept"], "numbers")
+        self.assertIs(double["strict"], True)
+        self.assertIs(double["variants"][0]["strict"], False)
         boss = bundle["bosses"][0]
         self.assertEqual([s["id"] for s in boss["stages"]], ["calc-add", "calc-sub", "calc-mul"])
         self.assertEqual((boss["hardChecks"], boss["intro"]), (3, "Build a tiny calculator."))
         self.assertNotIn("solution", json.dumps(bundle))
+
+    def test_strict_must_be_a_bool(self):
+        def edit(d):
+            p = d / "tasks/double/task.toml"
+            p.write_text(p.read_text().replace("strict = true", 'strict = "yes"'))
+
+        done, _ = check(broken_copy(edit))
+        self.assertIn("strict must be true or false", done.stdout)
 
     def test_a_tour_lesson_is_flagged_and_kept_in_the_bundle(self):
         def mark_tour(d):

@@ -126,11 +126,59 @@ def run_code(code, inputs):
     return {"stdout": out.getvalue(), "error": error}
 
 
+_STRICT = False
+# The punctuation beginners are allowed to get wrong: only a dot or comma between two digits is kept.
+_IGNORED_PUNCTUATION = ",.!?;:'\""
+
+
+def _lenient_text(text):
+    text = " ".join(text.casefold().split())
+    kept = []
+    for i, char in enumerate(text):
+        if char in _IGNORED_PUNCTUATION:
+            if char in ".," and 0 < i < len(text) - 1 and text[i - 1].isdigit() and text[i + 1].isdigit():
+                kept.append(char)
+            continue
+        kept.append(char)
+    return "".join(kept)
+
+
+def _forgiving(value):
+    """What a str, or a container of str, compares as when the task does not teach exact formatting."""
+    if isinstance(value, str):
+        return _lenient_text(value)
+    if isinstance(value, list):
+        return [_forgiving(item) for item in value]
+    if isinstance(value, tuple):
+        return tuple(_forgiving(item) for item in value)
+    if isinstance(value, dict):
+        return {_forgiving(key): _forgiving(item) for key, item in value.items()}
+    return value
+
+
+def _first_difference(actual, expected):
+    for i, (a, e) in enumerate(zip(actual, expected)):
+        if a != e:
+            return i
+    return min(len(actual), len(expected))
+
+
+def _mismatch(actual, expected, call):
+    shown_actual, shown_expected = repr(actual), repr(expected)
+    if call:
+        head = f"{call} returned {shown_actual}, expected {shown_expected}"
+        start = len(f"{call} returned {shown_actual}, expected ")
+    else:
+        head = f"expected {shown_expected}, got {shown_actual}"
+        start = len("expected ")
+    caret = " " * (start + _first_difference(shown_actual, shown_expected)) + "^"
+    return f"{head}\n{caret}"
+
+
 def expect_equal(actual, expected, call=""):
-    if actual != expected:
-        if call:
-            raise Failure(f"{call} returned {actual!r}, expected {expected!r}")
-        raise Failure(f"expected {expected!r}, got {actual!r}")
+    same = actual == expected if _STRICT else _forgiving(actual) == _forgiving(expected)
+    if not same:
+        raise Failure(_mismatch(actual, expected, call))
 
 
 class _Learner(dict):
@@ -140,9 +188,15 @@ class _Learner(dict):
         raise Failure(f"{name} is not defined in your code")
 
 
-def run_tests(code, tests):
-    with _fresh_dir():
-        return _run_tests(code, tests)
+def run_tests(code, tests, strict=False):
+    global _STRICT
+    previous = _STRICT
+    _STRICT = strict
+    try:
+        with _fresh_dir():
+            return _run_tests(code, tests)
+    finally:
+        _STRICT = previous
 
 
 def _run_tests(code, tests):
@@ -188,12 +242,12 @@ def run_code_json(code, inputs_json):
     return json.dumps(run_code(code, json.loads(inputs_json)))
 
 
-def run_tests_json(code, tests):
-    return json.dumps(run_tests(code, tests))
+def run_tests_json(code, tests, strict=False):
+    return json.dumps(run_tests(code, tests, strict))
 
 
 # Pyodide runs this file as __main__ too, but has no stdin job to read.
 if __name__ == "__main__" and sys.platform != "emscripten":
     job = json.load(sys.stdin)
-    result = run_code(job["code"], job.get("inputs", [])) if job["mode"] == "run" else run_tests(job["code"], job["tests"])
+    result = run_code(job["code"], job.get("inputs", [])) if job["mode"] == "run" else run_tests(job["code"], job["tests"], job.get("strict", False))
     print(json.dumps(result))
