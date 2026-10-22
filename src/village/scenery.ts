@@ -39,7 +39,7 @@ export const FLAT_FEATURES: ReadonlySet<string> = new Set([
   "long-jetty",
   "second-jetty",
   "slipway",
-  "broken-boat",
+  "boat",
   "shore-bunting",
   "towels",
   "sandcastles",

@@ -59,3 +59,26 @@ export function forceSeason(season: Season | null): void {
     // private mode: the preview lasts until the page reloads
   }
 }
+
+// The dev cheat screen can preview the shore story by forcing its lair states for the map, for the browser session.
+const SHORE_KEY = "code-village/forced-shore-stage";
+function savedShoreStage(): number | null {
+  try {
+    const saved = sessionStorage.getItem(SHORE_KEY);
+    if (saved === null) return null;
+    const stage = Number(saved);
+    return Number.isInteger(stage) && stage >= 0 && stage <= 3 ? stage : null;
+  } catch {
+    return null;
+  }
+}
+export const forcedShoreStage: { stage: number | null } = $state({ stage: savedShoreStage() });
+export function forceShoreStage(stage: number | null): void {
+  forcedShoreStage.stage = stage;
+  try {
+    if (stage === null) sessionStorage.removeItem(SHORE_KEY);
+    else sessionStorage.setItem(SHORE_KEY, String(stage));
+  } catch {
+    // private mode: the preview lasts until the page reloads
+  }
+}

@@ -5,6 +5,7 @@ import { TILE } from "../grid";
 import { PLACES } from "../layout";
 import { hash01 } from "../noise";
 import type { Feature } from "../scenery";
+import { boatStage } from "./shoreStory";
 import { riverCenterPx, riverHalfPx } from "../terrain";
 
 // placeholder levels: World 4's cap and progression arrive with its course (owner confirms these numbers)
@@ -115,7 +116,7 @@ function jettyV(p: Paint, s: Record<string, string>, x: number, y0: number, y1: 
     }
 }
 
-function bigBoat(p: Paint, s: Record<string, string>, x: number, y: number, state: "broken" | "fixed"): void {
+function bigBoat(p: Paint, s: Record<string, string>, x: number, y: number, stage: 0 | 1 | 2): void {
   // seen from above, bow pointing down to the sea: 14 wide, 26 long
   const L = 26;
   for (let j = 0; j < L; j++) {
@@ -128,16 +129,16 @@ function bigBoat(p: Paint, s: Record<string, string>, x: number, y: number, stat
       const X_ = x + 7 + i;
       const Y_ = y + j;
       if (a > half - 1 || j === 0) p.put(X_, Y_, s.k);
-      else if (a > half - 2) p.put(X_, Y_, state === "fixed" ? s.W : s.plankLight);
+      else if (a > half - 2) p.put(X_, Y_, stage === 2 ? s.W : s.plankLight);
       else if (j === 8 || j === 16) p.put(X_, Y_, s.h);
-      else p.put(X_, Y_, state === "fixed" ? (i % 3 ? s.b : s.B) : i % 3 ? s.o : s.H);
+      else p.put(X_, Y_, stage === 2 ? (i % 3 ? s.b : s.B) : i % 3 ? s.o : s.H);
     }
   }
   for (let j = 0; j < L; j++) {
     p.shade(x + 15, y + j + 2, 0.25);
     p.shade(x + 16, y + j + 2, 0.2);
   }
-  if (state === "broken") {
+  if (stage === 0) {
     for (const [i, j] of [
       [4, 5],
       [5, 5],
@@ -152,9 +153,43 @@ function bigBoat(p: Paint, s: Record<string, string>, x: number, y: number, stat
       p.put(x + 1 + i, y + 10 + i / 3, s.k);
       p.put(x + 1 + i, y + 9 + i / 3, s.plankLight);
     }
+  } else if (stage === 1) {
+    // fresh planks patched over the old hull, the snapped mast still lying across her
+    for (const [i0, j, len] of [
+      [3, 7, 5],
+      [7, 8, 4],
+      [4, 15, 6],
+      [8, 16, 3],
+    ] as const)
+      for (let i = i0; i < i0 + len; i++) p.put(x + i, y + j, s.plankLight);
+    for (let i = 0; i < 12; i++) {
+      p.put(x + 1 + i, y + 10 + i / 3, s.k);
+      p.put(x + 1 + i, y + 9 + i / 3, s.plankLight);
+    }
   } else {
-    p.fill(x + 6, y + 4, 2, 2, s.k); // the mast seen from above
+    // the new mast, seen from above, and her rigging
+    p.fill(x + 6, y + 12, 3, 3, s.k);
+    p.put(x + 7, y + 13, s.h);
+    for (let j = 1; j < 12; j++)
+      for (const [dx, dy] of [
+        [-Math.round(j / 4), -j],
+        [1 + Math.round(j / 4), -j],
+        [-Math.round(j / 4), j],
+        [1 + Math.round(j / 4), j],
+      ] as const)
+        p.put(x + 7 + dx, y + 13 + dy, s.h);
   }
+}
+
+// Winter: a tarpaulin lashed over the hull while she waits on the slipway.
+function tarpaulin(p: Paint, s: Record<string, string>, x: number, y: number): void {
+  for (let j = 2; j < 24; j++) {
+    const half = j < 8 || j > 17 ? 4 : 6;
+    for (let i = 7 - half; i <= 7 + half; i++)
+      p.put(x + i, y + j, i === 7 - half || i === 7 + half || j === 2 || j === 23 ? s.k : i < 7 ? s.s : s.S);
+  }
+  for (let j = 3; j < 23; j++) p.put(x + 7, y + j, s.S); // the ridge
+  for (let j = 6; j < 22; j += 5) p.hline(x + 2, x + 11, y + j, s.o); // the ropes
 }
 
 function slipway(p: Paint, s: Record<string, string>, x: number, y0: number, y1: number): void {
@@ -389,23 +424,30 @@ export const SHORE_FEATURES: Feature[] = [
     },
   },
   {
-    id: "broken-boat",
+    id: "boat",
     land: [],
     unlock: always,
-    draw: ({ ctx, s }) => {
+    draw: ({ ctx, s, lairs, season }) => {
+      const stage = boatStage(lairs);
+      if (stage === 3) return; // she is in the water now, drawn on the moving layer
       const bx = Math.round(64.4 * TILE);
       const by = Math.round(72.9 * TILE);
-      paintAt(ctx, bx - 4, by - 2, 24, 30, (p) => bigBoat(p, s, bx, by, "broken"));
-      // the pot of tar by the ramp, stage 1 of the boat repair
-      const tx = Math.round(63.2 * TILE);
-      const ty = Math.round(71.4 * TILE);
-      paintAt(ctx, tx - 5, ty - 6, 15, 14, (p) => {
-        p.fill(tx - 3, ty - 1, 7, 5, s.k);
-        p.fill(tx - 2, ty, 5, 3, s.N);
-        p.put(tx - 1, ty + 1, s.W);
-        p.vline(tx + 2, ty - 4, ty - 1, s.o);
-        p.put(tx + 3, ty - 4, s.o);
+      paintAt(ctx, bx - 4, by - 2, 24, 30, (p) => {
+        bigBoat(p, s, bx, by, stage);
+        if (season === "winter") tarpaulin(p, s, bx, by);
       });
+      // the pot of tar by the ramp while she is still broken
+      if (stage === 0) {
+        const tx = Math.round(63.2 * TILE);
+        const ty = Math.round(71.4 * TILE);
+        paintAt(ctx, tx - 5, ty - 6, 15, 14, (p) => {
+          p.fill(tx - 3, ty - 1, 7, 5, s.k);
+          p.fill(tx - 2, ty, 5, 3, s.N);
+          p.put(tx - 1, ty + 1, s.W);
+          p.vline(tx + 2, ty - 4, ty - 1, s.o);
+          p.put(tx + 3, ty - 4, s.o);
+        });
+      }
     },
   },
   {

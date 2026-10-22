@@ -33,6 +33,7 @@ const env = (season: Season, ctx: CanvasRenderingContext2D): DrawEnv => ({
   palette: "day",
   map: { tiles: [] } as unknown as VillageMap,
   found: new Set(),
+  lairs: {},
   season,
   plots: [],
 });

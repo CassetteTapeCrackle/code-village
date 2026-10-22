@@ -19,6 +19,7 @@ import { hash01 } from "./noise";
 import { BALLOON } from "../art/scenes";
 import { drawLife, type Life } from "./critters";
 import { drawShoreLife } from "./shoreCritters";
+import { drawShoreStory } from "./features/shoreStory";
 import { leafColours, snowCapped, type Season } from "./weather";
 import { drawMine, drawObservatory, drawPeak, drawRidge, summit } from "./features/mountainPlaces";
 import { drawCabin, drawDen, drawHollowOak, drawMaze } from "./features/forestPlaces";
@@ -535,7 +536,17 @@ export function drawScene(
     else stand(draw);
   }
   const found = new Set(scene.found);
-  const env: DrawEnv = { ctx, s, c, palette, map, found, season: scene.season, plots: scene.plots };
+  const env: DrawEnv = {
+    ctx,
+    s,
+    c,
+    palette,
+    map,
+    found,
+    season: scene.season,
+    plots: scene.plots,
+    lairs: scene.lairs,
+  };
   const shown = FEATURES.filter((f) => unlocked(f, scene.level, found));
   const drawFeature = (f: Feature): void =>
     FLAT_FEATURES.has(f.id) ? f.draw(env) : stand((g) => f.draw({ ...env, ctx: g }));
@@ -654,6 +665,7 @@ type Walker = {
 };
 export type DynamicScene = {
   palette: Palette;
+  lairs: Record<string, LairState>; // the shore story: which lairs are cleared (the boat, the beam)
   time: TimeOfDay;
   t: number; // seconds since the loop started, for animation phases
   level: number;
@@ -837,6 +849,12 @@ export function drawDynamic(ctx: CanvasRenderingContext2D, scene: DynamicScene):
   const c = MAP_COLORS[scene.palette];
   drawLife(ctx, s, MAP_COLORS[scene.palette], scene.life);
   drawShoreLife(ctx, s, c, { ...scene.life, level: scene.level, mochi: scene.mochi });
+  drawShoreStory(ctx, s, c, {
+    lairs: scene.lairs,
+    palette: scene.palette,
+    t: scene.t,
+    still: scene.still,
+  });
   const house = PLACES.find((p) => p.kind === "house")!;
   const catX = (house.x + house.w) * TILE + 16;
   const catY = (house.y + house.h) * TILE - 8;
