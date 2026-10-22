@@ -18,6 +18,7 @@ import { groundStyle, riverCenterPx, treeKind, villageGrowth } from "./terrain";
 import { hash01 } from "./noise";
 import { BALLOON } from "../art/scenes";
 import { drawLife, type Life } from "./critters";
+import { drawShoreLife } from "./shoreCritters";
 import { leafColours, snowCapped, type Season } from "./weather";
 import { drawMine, drawObservatory, drawPeak, drawRidge, summit } from "./features/mountainPlaces";
 import { drawCabin, drawDen, drawHollowOak, drawMaze } from "./features/forestPlaces";
@@ -475,7 +476,7 @@ export function drawTerrain(
   drawMountainGround(ctx, map, { c, s });
   drawForestGround(ctx, map, { c, s });
   drawVillageGround(ctx, map, { c, s }, palette === "night");
-  drawShore(ctx, map, { c, s });
+  drawShore(ctx, map, { c, s }, season);
   drawSeasonGround(ctx, map, { c, s }, season, palette === "night");
   drawRiver(ctx, map, { c, s }, palette === "night");
   drawPaths(ctx, map, { c, s });
@@ -655,6 +656,7 @@ export type DynamicScene = {
   palette: Palette;
   time: TimeOfDay;
   t: number; // seconds since the loop started, for animation phases
+  level: number;
   mochi: Walker;
   napping: boolean;
   villagers: Walker[];
@@ -834,6 +836,7 @@ export function drawDynamic(ctx: CanvasRenderingContext2D, scene: DynamicScene):
   const s = SPRITE_COLORS[scene.palette];
   const c = MAP_COLORS[scene.palette];
   drawLife(ctx, s, MAP_COLORS[scene.palette], scene.life);
+  drawShoreLife(ctx, s, c, { ...scene.life, level: scene.level, mochi: scene.mochi });
   const house = PLACES.find((p) => p.kind === "house")!;
   const catX = (house.x + house.w) * TILE + 16;
   const catY = (house.y + house.h) * TILE - 8;

@@ -8,7 +8,16 @@ import type { Feature } from "../scenery";
 import { riverCenterPx, riverHalfPx } from "../terrain";
 
 // placeholder levels: World 4's cap and progression arrive with its course (owner confirms these numbers)
-export const SHORE_LEVELS = { huts: 12, jetty: 13, bunting: 14 } as const;
+export const SHORE_LEVELS = {
+  huts: 12,
+  jetty: 13,
+  bunting: 14,
+  beach: 15,
+  cart: 16,
+  swimmers: 17,
+  kite: 18,
+  lanterns: 19,
+} as const;
 
 const shoreYPx = (x: number): number => shoreLine(x / TILE) * TILE;
 
