@@ -17,6 +17,15 @@ describe("shore water", () => {
     for (let gy = 79 * 8; gy < 86 * 8; gy++) keys.add(waterKey(240, gy));
     expect(keys.size).toBeGreaterThanOrEqual(4);
   });
+  it("winter brings bigger crests", () => {
+    const count = (winter: boolean): number => {
+      let n = 0;
+      for (let gy = 80 * TILE; gy < 86 * TILE; gy++)
+        for (let gx = 25 * TILE; gx < 45 * TILE; gx++) if (waterKey(gx, gy, winter) === "crest") n++;
+      return n;
+    };
+    expect(count(true)).toBeGreaterThan(count(false));
+  });
 });
 
 describe("shore sand", () => {

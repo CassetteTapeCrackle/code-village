@@ -8,7 +8,16 @@ import type { Feature } from "../scenery";
 import { riverCenterPx, riverHalfPx } from "../terrain";
 
 // placeholder levels: World 4's cap and progression arrive with its course (owner confirms these numbers)
-export const SHORE_LEVELS = { huts: 12, jetty: 13, bunting: 14 } as const;
+export const SHORE_LEVELS = {
+  huts: 12,
+  jetty: 13,
+  bunting: 14,
+  beach: 15,
+  cart: 16,
+  swimmers: 17,
+  kite: 18,
+  lanterns: 19,
+} as const;
 
 const shoreYPx = (x: number): number => shoreLine(x / TILE) * TILE;
 
@@ -258,13 +267,21 @@ function netRack(p: Paint, s: Record<string, string>, x: number, y: number): voi
   }
 }
 
-// Bunting hung along the boardwalk rail: a sagging string with a flag every nine pixels.
+// Bunting hung along the boardwalk rail: a thin string with a small triangle pennant every nine pixels.
 function shoreBunting(p: Paint, s: Record<string, string>, x0: number, x1: number, y: number): void {
   const flags = [s.r, s.b, s.a, s.g];
-  for (let x = x0; x < x1; x++) {
-    const yy = y + Math.round(2 * Math.sin(((x - x0) / 9) * Math.PI) ** 2);
-    if (x % 9 !== 0) p.put(x, yy, s.k);
-    if (x % 9 === 3) p.put(x, yy + 1, flags[Math.floor(x / 9) % 4]);
+  const stringY = (x: number): number => y + Math.round(2 * Math.sin(((x - x0) / 9) * Math.PI) ** 2);
+  for (let x = x0; x < x1; x++) p.put(x, stringY(x), s.k);
+  for (let k = 0, x = x0 + 2; x + 1 < x1; x += 9, k++) {
+    const fy = stringY(x);
+    const col = flags[k % 4];
+    // a three wide, three tall pennant hanging off the string, tapering to its point
+    p.put(x - 1, fy + 1, col);
+    p.put(x, fy + 1, col);
+    p.put(x + 1, fy + 1, col);
+    p.put(x, fy + 2, col);
+    p.put(x + 1, fy + 2, col);
+    p.put(x + 1, fy + 3, col);
   }
 }
 

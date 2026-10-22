@@ -4,6 +4,7 @@ import { AREAS, duneLine, shoreLine } from "./areas";
 import { TILE } from "./grid";
 import type { VillageMap } from "./layout";
 import { bayer, fbm, hash01, valueNoise } from "./noise";
+import type { Season } from "./weather";
 
 type Colors = { c: MapColors; s: Record<string, string> };
 type MapKey = keyof MapColors;
@@ -14,7 +15,7 @@ const SHORE = AREAS.find((a) => a.style === "shore")!;
 
 // The sea's colour at a pixel, ported from the mockup's water branch (shoremock.py): five depths
 // ordered-dithered together, wave crests, sun sparkles and breaking foam along the waterline.
-export function waterKey(gx: number, gy: number): MapKey {
+export function waterKey(gx: number, gy: number, winter = false): MapKey {
   const x = gx / 8;
   const y = gy / 8;
   const d = y - shoreLine(x); // tiles below the waterline (> 0 is sea)
@@ -37,9 +38,11 @@ export function waterKey(gx: number, gy: number): MapKey {
     break;
   }
   const wave = (gy + 3 * Math.sin(gx / 11 + gy / 17)) % 14;
-  if (depth > 1.6 && wave < 1 && hash01(Math.floor(gx / 3), gy, 51) < 0.55) col = "crest";
+  if (depth > 1.6 && wave < (winter ? 2 : 1) && hash01(Math.floor(gx / 3), gy, 51) < (winter ? 0.7 : 0.55))
+    col = "crest";
   if (depth > 2.4 && hash01(gx, gy, 52) < 0.0035) col = "sparkle";
-  if (d < 0.28 + 0.12 * Math.sin(gx / 3.3) && hash01(Math.floor(gx / 2), gy, 53) < 0.9) col = "foam";
+  if (d < (winter ? 0.42 : 0.28) + 0.12 * Math.sin(gx / 3.3) && hash01(Math.floor(gx / 2), gy, 53) < 0.9)
+    col = "foam";
   return col;
 }
 
@@ -164,8 +167,14 @@ function boulder(
 
 // The shore's water, wet sand and dry sand, then dunes, a rope fence, shells, boulders and tide pools,
 // painted once into the cached terrain layer. Paths, the plaza and gates are left to their own painters.
-export function drawShore(ctx: CanvasRenderingContext2D, map: VillageMap, colors: Colors): void {
+export function drawShore(
+  ctx: CanvasRenderingContext2D,
+  map: VillageMap,
+  colors: Colors,
+  season: Season,
+): void {
   const { c, s } = colors;
+  const winter = season === "winter";
   const r = SHORE.rect;
   const buf = pixelBuffer(ctx, r.x * TILE, r.y * TILE, r.w * TILE, r.h * TILE);
   const ground = SHORE.ground!;
@@ -175,7 +184,7 @@ export function drawShore(ctx: CanvasRenderingContext2D, map: VillageMap, colors
       for (let gy = ty * TILE; gy < (ty + 1) * TILE; gy++) {
         for (let gx = tx * TILE; gx < (tx + 1) * TILE; gx++) {
           const g = ground(gx / TILE, gy / TILE);
-          if (g === "sea") buf.set(gx, gy, c[waterKey(gx, gy)]);
+          if (g === "sea") buf.set(gx, gy, c[waterKey(gx, gy, winter)]);
           else if (g === "wet" || g === "sand") buf.set(gx, gy, c[sandKey(gx, gy)]);
         }
       }

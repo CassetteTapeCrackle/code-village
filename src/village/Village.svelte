@@ -224,6 +224,7 @@
       palette: clock.palette,
       time: clock.time,
       t: seconds,
+      level: scene.level,
       mochi: walker(mochi),
       napping: idle > NAP_AFTER,
       villagers: villagers.map((v, i) => {
