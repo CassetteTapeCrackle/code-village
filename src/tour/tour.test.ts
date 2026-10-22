@@ -1,12 +1,14 @@
 import { describe, expect, test } from "vitest";
 import { emptyProgress } from "../learning/types";
 import {
+  cardSpot,
   freshTour,
   nextStep,
   replayTour,
   shouldStart,
   TOUR_STEPS,
   unseenTip,
+  waitingAt,
   type TourState,
   type TourStepId,
 } from "./tour";
@@ -83,6 +85,45 @@ describe("nextStep", () => {
     const end = nextStep(at("goodbye"), "next");
     expect(end.done).toBe(true);
     expect(end.skipped).toBe(false);
+  });
+});
+
+describe("waitingAt", () => {
+  test("the way back says where Ms. Juniper waits", () => {
+    expect(waitingAt("#/")).toBe("on the map");
+    expect(waitingAt("#/lesson/hello-village")).toBe("in the lesson");
+    expect(waitingAt("#/school")).toBe("at the school");
+    expect(waitingAt("#/house")).toBe("at the house");
+  });
+});
+
+describe("cardSpot", () => {
+  const target = (left: number, top: number) => ({ left, top, width: 100, height: 40 });
+  const viewport = { width: 1280, height: 800 };
+
+  test("on the map the card takes the half away from the target", () => {
+    expect(cardSpot("", target(100, 100), viewport)).toEqual({ right: true, top: false });
+    expect(cardSpot("", target(1000, 600), viewport)).toEqual({ right: false, top: true });
+  });
+
+  test("on a place the wide card keeps to the bottom left, clear of the title", () => {
+    expect(cardSpot("lesson/hello-village", target(1000, 600), viewport)).toEqual({
+      right: false,
+      top: false,
+    });
+    expect(cardSpot("school", target(100, 100), viewport)).toEqual({ right: false, top: false });
+  });
+
+  test("a phone keeps the target-aware card", () => {
+    const phone = { width: 390, height: 844 };
+    expect(cardSpot("lesson/hello-village", target(300, 700), phone)).toEqual({
+      right: false,
+      top: true,
+    });
+    expect(cardSpot("lesson/hello-village", target(20, 100), phone)).toEqual({
+      right: true,
+      top: false,
+    });
   });
 });
 

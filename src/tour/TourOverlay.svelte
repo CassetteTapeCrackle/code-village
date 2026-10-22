@@ -1,7 +1,7 @@
 <script lang="ts">
   import { MOCHI, PORTRAITS } from "../art/sprites";
   import SpriteCanvas from "../ui/SpriteCanvas.svelte";
-  import { TIP_TEXT, TOUR_STEPS, unseenTip, type TipId } from "./tour";
+  import { cardSpot, TIP_TEXT, TOUR_STEPS, waitingAt, unseenTip, type TipId } from "./tour";
   import { noteTip, tour, tourEvent } from "./tour.svelte";
 
   // One overlay for the whole tour: Juniper's line, one highlight, and a way out at every step.
@@ -76,9 +76,9 @@
     };
   });
 
-  // The card sits on the side the target is not, so it never covers what it points at.
-  const cardLeft = $derived(box ? box.left + box.width / 2 < window.innerWidth / 2 : false);
-  const cardTop = $derived(box ? box.top + box.height / 2 > window.innerHeight / 2 : false);
+  // The card sits on the side the target is not, so it never covers what it points at. On a place it keeps
+  // to the bottom left, clear of the title, and only a phone still follows the target.
+  const spot = $derived(cardSpot(here, box, { width: window.innerWidth, height: window.innerHeight }));
   const bubbleBelow = $derived(box ? box.top < 90 : false);
 
   function skip(): void {
@@ -129,8 +129,8 @@
 {#if step && !away && !blocked}
   <div
     class="card paper px tour-card"
-    class:left={cardLeft}
-    class:top={cardTop}
+    class:right={spot.right}
+    class:top={spot.top}
     role="dialog"
     aria-modal="false"
     aria-labelledby="tour-heading"
@@ -148,7 +148,9 @@
     </div>
   </div>
 {:else if step && away && !blocked}
-  <button type="button" class="card paper px tour-card back" onclick={back}>Take me back</button>
+  <button type="button" class="card paper px tour-card back" onclick={back}
+    >Ms. Juniper is waiting {waitingAt(step.at ?? "#/")}: take me back</button
+  >
 {/if}
 
 {#if tip && !blocked}
@@ -168,7 +170,7 @@
     width: min(92vw, 340px);
     padding: 12px 16px 14px;
   }
-  .card.left {
+  .card.right {
     left: auto;
     right: 16px;
   }
@@ -265,7 +267,7 @@
       width: auto;
       bottom: 72px;
     }
-    .card.left {
+    .card.right {
       left: 8px;
       right: 8px;
     }

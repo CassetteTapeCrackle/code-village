@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { regionToOpen, teacherGreeting } from "./school";
-import { testBundle } from "./test-bundle";
+import { article, regionToOpen, teacherGreeting } from "./school";
+import { lesson, task, testBundle } from "./test-bundle";
 import { emptyProgress, type Progress } from "./types";
 
 const bundle = testBundle();
@@ -37,6 +37,18 @@ test("the teacher reacts to each Check, and celebrates the whole lesson", async 
   expect(teacherLine(lesson, 0, 2, "fail", null)).toMatch(/first red line/);
   expect(teacherLine(lesson, 0, 2, "error", null)).toMatch(/stopped with an error/);
   expect(teacherLine(lesson, 2, 2, "pass", null)).toMatch(/lists seed is on its way/);
+});
+
+test("the seed line takes the article its concept sounds like", async () => {
+  const { teacherLine } = await import("./school");
+  const io = lesson("io", "a", ["io"], [task("io-1", "io")]);
+  expect(teacherLine(io, 1, 1, "pass", null)).toBe(
+    "That is the whole lesson! An io seed is on its way to the garden.",
+  );
+  expect(teacherLine(bundle.lessons[1], 1, 1, "pass", null)).toMatch(/A loops seed/);
+  expect(article("io")).toBe("An");
+  expect(article("errors")).toBe("An");
+  expect(article("lists")).toBe("A");
 });
 
 test("the lessons board unfolds the next lesson's region, else an awake boss's, else none", () => {

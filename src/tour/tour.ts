@@ -1,4 +1,5 @@
 import type { Progress } from "../learning/types";
+import { parseRoute } from "../route";
 
 // The first-visit tour: a short list of steps, each with one target on screen and one way to finish.
 // Screens fire events by name; the tour ignores any event that is not the current step's, so wandering off
@@ -136,6 +137,40 @@ export const TOUR_STEPS: TourStep[] = [
     done: "next",
   },
 ];
+
+// Where the way-back chip sends you, in words: "on the map", "at the school", "in the lesson".
+export function waitingAt(at: string): string {
+  const route = parseRoute(at).name;
+  if (route === "home") return "on the map";
+  if (route === "lesson") return "in the lesson";
+  if (route === "boss") return "in the lair";
+  if (route === "school") return "at the school";
+  if (route === "house") return "at the house";
+  if (route === "board") return "on the board";
+  if (route === "cheat") return "in the village";
+  return `in the ${route}`;
+}
+
+export type CardBox = { left: number; top: number; width: number; height: number };
+export type CardSpot = { right: boolean; top: boolean };
+
+// The card sits on the side the target is not, so it never covers what it points at. On a place, though, the
+// target is often high on the right, and that put the card over the title and first instructions: there it
+// keeps to the bottom left instead, below the Remember box when the page leaves room. Phones keep the old rule.
+export function cardSpot(
+  here: string,
+  target: CardBox | null,
+  viewport: { width: number; height: number },
+): CardSpot {
+  const onMap = here === "";
+  const phone = viewport.width <= 760;
+  if (!onMap && !phone) return { right: false, top: false };
+  if (!target) return { right: false, top: false };
+  return {
+    right: target.left + target.width / 2 < viewport.width / 2,
+    top: target.top + target.height / 2 > viewport.height / 2,
+  };
+}
 
 export const TIP_TEXT: Record<TipId, string> = {
   garden: "The garden grows a plant for every concept you pass.",
