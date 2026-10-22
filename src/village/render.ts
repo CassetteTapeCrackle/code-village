@@ -21,6 +21,7 @@ import { drawLife, type Life } from "./critters";
 import { leafColours, snowCapped, type Season } from "./weather";
 import { drawMine, drawObservatory, drawPeak, drawRidge, summit } from "./features/mountainPlaces";
 import { drawCabin, drawDen, drawHollowOak, drawMaze } from "./features/forestPlaces";
+import { SHORE_LAIRS } from "./features/shoreLairs";
 import { drawGardenPlace, drawMarsh, drawQuarry, drawRuins, polishHouse } from "./features/villagePlaces";
 import { MAP_COLORS, SPRITE_COLORS, TINTS, type MapColors } from "../art/palette";
 import {
@@ -71,7 +72,7 @@ const BUILDING_SPRITES: Record<string, (p: Place) => Grid> = {
   house: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "j", icon: ICONS.heart }),
   cabin: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "d", wall: "h", icon: ICONS.sprout }),
   observatory: (p) => observatory(p.w * TILE, p.h * TILE),
-  hall: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "z", wall: "w", icon: ICONS.book }), // placeholder
+  hall: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "z", wall: "w", icon: ICONS.anchor }),
 };
 
 function drawTile(
@@ -173,6 +174,11 @@ function drawLair(
   const lair = place.lair ?? place.id;
   if (["oak", "maze", "den", "mine", "ridge", "peak"].includes(lair)) {
     drawWildLair(ctx, place, lair, state, palette, season);
+    return;
+  }
+  if (lair in SHORE_LAIRS) {
+    SHORE_LAIRS[lair as keyof typeof SHORE_LAIRS](ctx, { c, s }, place, state);
+    if (state === "asleep") stamp(ctx, ZZZ, s, (place.x + place.w / 2) * TILE - 3, place.y * TILE + 4);
     return;
   }
   if (lair === "quarry") drawQuarry(ctx, { c, s }, place, state);

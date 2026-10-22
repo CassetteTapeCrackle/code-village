@@ -260,7 +260,7 @@ export const WATERING_CAN: Grid = ["....kk.", "kkkkbk.", "kbbbbbk", "kbbbbk.", "
 export const POT: Grid = ["kkkkkkk", "ktttttk", ".kTTTk.", ".kkkkk."];
 
 export const ICONS: Record<
-  "book" | "slate" | "heart" | "sprout" | "coin" | "key" | "rope" | "cup" | "star",
+  "book" | "slate" | "heart" | "sprout" | "coin" | "key" | "rope" | "cup" | "star" | "anchor",
   Grid
 > = {
   coin: [".aaa.", "aayaa", "ayaaa", "aaaaa", ".aaa."],
@@ -272,6 +272,7 @@ export const ICONS: Record<
   slate: ["kkkkk", "knnnk", "knwnk", "knnnk", "kkkkk"],
   heart: [".k.k.", "kpkpk", "kpppk", ".kpk.", "..k.."],
   sprout: ["l...l", ".l.l.", "..L..", "..L..", "ooooo"],
+  anchor: ["..k..", ".kkk.", "..k..", "k.k.k", ".kkk."],
 };
 
 export type BuildingOptions = {

@@ -124,6 +124,10 @@ export const SHORE_ROCKS: readonly [number, number, number][] = [
   [10.84, 78.78, 5.54],
 ];
 
+// Whether the shore ground paints a tile: only paths, bridges, the plaza and gates are left to their own
+// painters. A place (B) is painted as if it were not there, so a lair standing in the sea sits in water.
+export const shoreGroundPainted = (tile: string): boolean => !"=#PG".includes(tile);
+
 // Rock outcrops where nothing is scattered: the headland east of x 85 and the tide pool point west of x 8.
 const rocky = (x: number, y: number): boolean =>
   (x > 85 && y > shoreLine(x) - 5 && fbm(x / 2.5, y / 2.5, 40) > 0.42) ||
@@ -159,7 +163,7 @@ function boulder(
 }
 
 // The shore's water, wet sand and dry sand, then dunes, a rope fence, shells, boulders and tide pools,
-// painted once into the cached terrain layer. Paths, buildings and gates are left to their own painters.
+// painted once into the cached terrain layer. Paths, the plaza and gates are left to their own painters.
 export function drawShore(ctx: CanvasRenderingContext2D, map: VillageMap, colors: Colors): void {
   const { c, s } = colors;
   const r = SHORE.rect;
@@ -167,7 +171,7 @@ export function drawShore(ctx: CanvasRenderingContext2D, map: VillageMap, colors
   const ground = SHORE.ground!;
   for (let ty = r.y; ty < r.y + r.h; ty++) {
     for (let tx = r.x; tx < r.x + r.w; tx++) {
-      if ("=#PGB".includes(map.tiles[ty][tx])) continue;
+      if (!shoreGroundPainted(map.tiles[ty][tx])) continue;
       for (let gy = ty * TILE; gy < (ty + 1) * TILE; gy++) {
         for (let gx = tx * TILE; gx < (tx + 1) * TILE; gx++) {
           const g = ground(gx / TILE, gy / TILE);

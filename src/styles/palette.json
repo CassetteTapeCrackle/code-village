@@ -98,7 +98,18 @@
       "x": "#b3a76a",
       "i": "#cfe8ef",
       "I": "#7fb8d0",
-      "1": "#6f9fc0"
+      "1": "#6f9fc0",
+      "plankLight": "#dcc08a",
+      "cream": "#e6dccb",
+      "stoneLight": "#d4cdb8",
+      "net": "#6b6a60",
+      "pink2": "#d98a85",
+      "green2": "#86b064",
+      "gold2": "#d9a93a",
+      "purple": "#c9a7d6",
+      "purple2": "#a985b8",
+      "skyBlue": "#a8d4e6",
+      "skyBlue2": "#7fb8d0"
     },
     "map": {
       "grass": "#9cc27a",
@@ -260,7 +271,18 @@
       "x": "#8a8155",
       "i": "#8fb0c0",
       "I": "#3f6a80",
-      "1": "#4f7896"
+      "1": "#4f7896",
+      "plankLight": "#9c8c62",
+      "cream": "#a8a090",
+      "stoneLight": "#6d6b5c",
+      "net": "#3b3a33",
+      "pink2": "#a96a66",
+      "green2": "#5f7d4a",
+      "gold2": "#a8822c",
+      "purple": "#7d6a8c",
+      "purple2": "#6b5578",
+      "skyBlue": "#547585",
+      "skyBlue2": "#3f5f70"
     },
     "map": {
       "grass": "#355a32",
