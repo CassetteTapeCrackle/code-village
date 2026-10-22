@@ -40,6 +40,12 @@ test("buildings stay off the river, and the street crosses it on a bridge", () =
   expect(bridges).toEqual(RIVER_X.map((x) => ({ x, y: STREET_Y })));
 });
 
+test("the long jetty is walkable from the walkway to its end", () => {
+  for (let y = SHORE_WALK_ROW + 1; y <= 82; y++) expect(["=", "#"], `row ${y}`).toContain(map.tiles[y][73]);
+  expect(map.tiles[82][73]).toBe("#"); // the end tile is bridge over the sea
+  expect(findPath(map, PLAZA.center, { x: 73, y: 82 })).not.toBeNull();
+});
+
 test("a path is a contiguous walk ending at the door; an unreachable tile gives null", () => {
   const school = PLACES.find((p) => p.id === "school")!;
   const path = findPath(map, PLAZA.center, school.door)!;
@@ -55,7 +61,8 @@ test("shore doors open onto the walkway row; the old row-76 road is gone", () =>
   const shore = PLACES.filter((p) => p.world === "w4");
   expect(PLACES.find((p) => p.id === "harbour")!.door.y).toBe(SHORE_WALK_ROW);
   expect(shore.map((p) => p.lair ?? p.kind).sort()).toEqual(["hall", "lighthouse", "pools", "wreck"]);
-  expect(map.tiles[76].includes("=")).toBe(false);
+  // only the long jetty's approach crosses the old row-76 line now
+  expect([...map.tiles[76]].flatMap((t, x) => (t === "=" ? [x] : []))).toEqual([73]);
 });
 
 test("the river bends but stays one stream, never touches a building, and keeps both bridges", () => {

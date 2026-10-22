@@ -19,8 +19,8 @@
   import { FEATURES, featureLand } from "./scenery";
   import { shoreStoryLairs } from "./features/shoreStory";
   import { DESTINIES, newScenes, SCENE_FEATURES, type NewScene } from "./destinies";
-  import { decorFor, newSince, villagersFor } from "./decor";
-  import { describeJob, jobsFor, type Job } from "./routines";
+  import { decorFor, newSince, villagerNames } from "./decor";
+  import { BRAM_HOME, describeJob, jobsFor, type Job } from "./routines";
   import TodayCard from "../ui/TodayCard.svelte";
   import { board, boardWidth, NARROW } from "../ui/board.svelte";
   import { clearShowMe, showMe } from "../ui/showme.svelte";
@@ -73,17 +73,13 @@
   const day = today();
   // Who lives here grows with the level (Lou at 2, Mika at 6); counted when the village opens.
   // Noa the ranger lives in the forest once its road is open, and Alex the stargazer in the mountains.
-  const VILLAGERS = [
-    ...villagersFor(levelFor(game.progress.xp)),
-    ...(open.includes("w2") ? ["Noa"] : []),
-    ...(open.includes("w3") ? ["Alex"] : []),
-    "Juniper",
-  ];
+  const VILLAGERS = villagerNames(levelFor(game.progress.xp), open);
   const HOMES: Record<string, Point> = {
     Juniper: village(28, 14), // below the school door
     Noa: { x: 20, y: 46 },
     Alex: { x: 78, y: 14 },
     Wren: { x: 28, y: 51 },
+    Bram: BRAM_HOME, // the walk below his hut; the hut's own ground is not walkable
   };
   const concepts = [...new Set(bundle.lessons.flatMap((l) => l.concepts))];
 

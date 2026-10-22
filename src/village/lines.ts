@@ -147,6 +147,21 @@ export const LINES: Record<string, Line[]> = {
     doing("water", "Flowers first, flags second."),
     doing("read", "This book has a whole chapter on knots."),
   ],
+  Bram: [
+    chatter("Hmph. Another landlubber. Mind the nets, they bite."),
+    chatter("Forty years at sea and the gulls still won't listen to a word I say."),
+    chatter("The boat's not broken. She's resting. ...Fine. She's a bit broken."),
+    chatter("Brought you a fish. Don't make a thing of it."),
+    chatter("Salt in the beard, salt in the boots, salt in the tea. I stopped asking why."),
+    chatter("A knot is a loop that gave its word and kept it. Rare things, both."),
+    chatter("The tide keeps a schedule and never once checked it with me."),
+    chatter("Every boat I loved leaked a little. You bail, and you carry on."),
+    chatter("The lighthouse waves all night and nobody waves back. I know the feeling."),
+    chatter("If the wind turns, come find me. I will be where the tea is."),
+    chatter("You stand like someone who has never been rained on at sea. We will fix that."),
+    chatter("Fish lie. The sea does not. Mostly the sea does not."),
+    doing("mend", "These nets won't mend themselves. Neither will your loops."),
+  ],
 };
 
 export const freshMemory = (): LineMemory => ({ used: [], sinceNudge: 3 });

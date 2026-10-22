@@ -767,6 +767,17 @@ function drawActivity(
       px(ctx, s.o, x + 1, y - 2, 6, 1);
       break;
     }
+    case "mend": {
+      // a net draped over his hands: two sagging rows, and a needle pulling through the mesh
+      for (let i = 0; i < 9; i++) {
+        const sag = Math.round(Math.sin((i / 8) * Math.PI) * 2);
+        px(ctx, s.net, x + i, y + 5 + sag);
+        if (i % 2 === 0) px(ctx, s.net, x + i, y + 7 + sag);
+      }
+      const pull = Math.round(Math.sin(t * 3));
+      px(ctx, s.k, x + 4 + pull, y + 9, 2, 1);
+      break;
+    }
   }
 }
 

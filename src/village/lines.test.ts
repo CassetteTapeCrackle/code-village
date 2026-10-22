@@ -12,6 +12,19 @@ describe("villager lines", () => {
     }
   });
 
+  it("gives Bram the spec's samples verbatim, and a line for mending", () => {
+    const said = LINES.Bram.map((l) => l.text);
+    for (const sample of [
+      "Hmph. Another landlubber. Mind the nets, they bite.",
+      "Forty years at sea and the gulls still won't listen to a word I say.",
+      "The boat's not broken. She's resting. ...Fine. She's a bit broken.",
+      "Brought you a fish. Don't make a thing of it.",
+    ])
+      expect(said).toContain(sample);
+    expect(LINES.Bram.length).toBeGreaterThanOrEqual(6);
+    expect(LINES.Bram.some((l) => l.kind === "activity" && l.activity === "mend")).toBe(true);
+  });
+
   it("gives Juniper lines of her own", () => {
     expect(LINES.Juniper.length).toBeGreaterThanOrEqual(4);
   });
