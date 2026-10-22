@@ -12,11 +12,12 @@
   import { VILLAGER_CLOTHES } from "../art/palette";
   import { announceLevel, moment } from "../ui/moments.svelte";
   import { isRainyDay, type Palette } from "./clock";
-  import { clock, forcedSeason } from "./clock-state.svelte";
+  import { clock, forcedSeason, forcedShoreStage } from "./clock-state.svelte";
   import { lootFound } from "../learning/house";
   import { seasonFor, windAt, type Season } from "./weather";
   import { rockLine } from "./terrain";
   import { FEATURES, featureLand } from "./scenery";
+  import { shoreStoryLairs } from "./features/shoreStory";
   import { DESTINIES, newScenes, SCENE_FEATURES, type NewScene } from "./destinies";
   import { decorFor, newSince, villagersFor } from "./decor";
   import { describeJob, jobsFor, type Job } from "./routines";
@@ -90,6 +91,10 @@
     p.region ? bundle.bosses.find((b) => b.world === p.world && b.region === p.region) : undefined;
 
   function lairState(p: Place): LairState {
+    // the cheat screen can force a shore story stage for previews (World 4 has no bosses yet)
+    const forced = forcedShoreStage.stage;
+    if (forced !== null && p.kind === "lair" && p.world === "w4")
+      return shoreStoryLairs(forced)[p.id] ?? "asleep";
     const boss = bossFor(p);
     if (!boss) return "scenery";
     if (bossState(game.progress, boss.id).wonAt) return "cleared";
@@ -222,6 +227,7 @@
     });
     drawDynamic(ctx, {
       palette: clock.palette,
+      lairs,
       time: clock.time,
       t: seconds,
       mochi: walker(mochi),

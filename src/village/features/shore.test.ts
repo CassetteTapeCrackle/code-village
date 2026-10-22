@@ -11,7 +11,7 @@ const START = [
   "quay",
   "long-jetty",
   "slipway",
-  "broken-boat",
+  "boat",
   "bram-hut",
   "net-rack",
   "beach-huts",
@@ -47,7 +47,7 @@ test("walkers are never hidden by what lies on the ground", () => {
     "long-jetty",
     "second-jetty",
     "slipway",
-    "broken-boat",
+    "boat",
     "shore-bunting",
   ])
     expect(FLAT_FEATURES.has(id), id).toBe(true);

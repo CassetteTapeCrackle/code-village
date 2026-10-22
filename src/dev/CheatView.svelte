@@ -6,7 +6,14 @@
   import { emptyProgress } from "../learning/types";
   import { levelFor } from "../learning/xp";
   import { game, update } from "../store/progress.svelte";
-  import { clock, forceSeason, forceTime, forcedSeason } from "../village/clock-state.svelte";
+  import {
+    clock,
+    forceSeason,
+    forceShoreStage,
+    forceTime,
+    forcedSeason,
+    forcedShoreStage,
+  } from "../village/clock-state.svelte";
   import { DECOR } from "../village/decor";
   import { WORLDS, openWorlds } from "../worlds/registry";
   import {
@@ -184,6 +191,21 @@
         >
       {/each}
       <button type="button" onclick={() => forceSeason(null)}>Follow the real date</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="shore-h">
+    <h2 id="shore-h">Shore story (now: {forcedShoreStage.stage ?? "from the bosses"})</h2>
+    <p>World 4 has no bosses yet: force a stage to preview the boat, the lairs and the lighthouse beam.</p>
+    <div class="row">
+      {#each [0, 1, 2, 3] as stage (stage)}
+        <button
+          type="button"
+          aria-pressed={forcedShoreStage.stage === stage}
+          onclick={() => forceShoreStage(stage)}>Stage {stage}</button
+        >
+      {/each}
+      <button type="button" onclick={() => forceShoreStage(null)}>Follow the bosses</button>
     </div>
   </section>
 

@@ -134,8 +134,59 @@ function wreck(p: Paint, c: MapColors, s: Record<string, string>, cx: number, cy
   }
 }
 
-const drawPools: ShoreLair = (ctx, { c, s }, place) => {
-  // step 5 adds the cleared look (clear water, starfish, anemones); every state draws the asleep look for now
+// A starfish on a cleared pool's floor: five arms, lighter at the middle.
+function starfish(p: Paint, s: Record<string, string>, x: number, y: number): void {
+  p.put(x, y - 2, s.T);
+  p.put(x, y + 2, s.T);
+  p.put(x - 2, y, s.T);
+  p.put(x + 2, y, s.t);
+  p.put(x, y, s.T);
+  for (const [dx, dy] of [
+    [-1, -1],
+    [1, -1],
+    [-1, 1],
+    [1, 1],
+  ] as const)
+    p.put(x + dx, y + dy, s.t);
+}
+
+// An anemone: a pink foot with a crown of tentacles.
+function anemone(p: Paint, s: Record<string, string>, x: number, y: number): void {
+  p.put(x, y, s.P);
+  for (const [dx, dy] of [
+    [0, -1],
+    [-1, -1],
+    [1, -1],
+    [-2, -2],
+    [2, -2],
+    [0, -2],
+  ] as const)
+    p.put(x + dx, y + dy, dy < -1 ? s.p : s.P);
+}
+
+// A crab on the wreck: a coral shell, eyes up and legs out.
+function crab(p: Paint, s: Record<string, string>, x: number, y: number): void {
+  p.hline(x - 2, x + 2, y + 1, s.r);
+  p.hline(x - 1, x + 1, y + 2, s.T);
+  p.put(x - 1, y, s.k);
+  p.put(x + 1, y, s.k);
+  for (const dx of [-3, -2, 2, 3]) p.put(x + dx, y + 2, s.T);
+}
+
+// A buoy bobbing at the wreck: a red and white ball on the water.
+function buoy(p: Paint, s: Record<string, string>, x: number, y: number): void {
+  for (let dy = -2; dy <= 2; dy++)
+    for (let dx = -2; dx <= 2; dx++) {
+      if (dx * dx + dy * dy > 5) continue;
+      p.put(x + dx, y + dy, dx * dx + dy * dy >= 2 && (dy < 0 || dx > 0) ? s.W : s.r);
+    }
+  p.put(x, y - 3, s.k);
+  p.put(x - 1, y + 3, s.W);
+  p.put(x + 1, y + 3, s.W);
+}
+
+const drawPools: ShoreLair = (ctx, { c, s }, place, state) => {
+  const cleared = state === "cleared";
   const x0 = place.x * TILE;
   const y0 = place.y * TILE;
   paintAt(ctx, x0 - 4, y0 - 4, place.w * TILE + 8, place.h * TILE + 8, (p) => {
@@ -143,7 +194,31 @@ const drawPools: ShoreLair = (ctx, { c, s }, place) => {
       [5.6, 75.2, 8, 5],
       [8.4, 76.6, 7, 4],
     ] as const)
-      oval(p, cx * TILE, cy * TILE, rx, ry, (x, y) => ((x + y) % 4 === 0 ? s.z : s.N), s.k);
+      oval(
+        p,
+        cx * TILE,
+        cy * TILE,
+        rx,
+        ry,
+        (x, y) =>
+          cleared
+            ? (x + y) % 5 === 0
+              ? c.crest
+              : (x + y) % 3 === 0
+                ? c.shallow2
+                : c.shallow
+            : (x + y) % 4 === 0
+              ? s.z
+              : s.N,
+        s.k,
+      );
+    if (cleared) {
+      starfish(p, s, 5.2 * TILE, 75.3 * TILE);
+      starfish(p, s, 8.7 * TILE, 76.4 * TILE);
+      anemone(p, s, 4.4 * TILE, 75.6 * TILE);
+      anemone(p, s, 9.6 * TILE, 77.1 * TILE);
+      anemone(p, s, 7.5 * TILE, 76.1 * TILE);
+    }
     for (const [cx, cy, r] of [
       [4.6, 76.4, 5],
       [7.6, 77.1, 6],
@@ -153,20 +228,25 @@ const drawPools: ShoreLair = (ctx, { c, s }, place) => {
   });
 };
 
-const drawWreck: ShoreLair = (ctx, { c, s }, place) => {
-  // step 5 adds the cleared look (crabs, a buoy); every state draws the bare wreck for now
+const drawWreck: ShoreLair = (ctx, { c, s }, place, state) => {
   const scale = 1.3;
   const cx = (place.x + place.w / 2) * TILE;
   const cy = shoreYPx(cx) - 1;
   const pad = Math.ceil(30 * scale);
-  paintAt(ctx, cx - pad, cy - pad, pad * 2, pad * 2, (p) => wreck(p, c, s, cx, cy, scale));
+  paintAt(ctx, cx - pad, cy - pad, pad * 2, pad * 2, (p) => {
+    wreck(p, c, s, cx, cy, scale);
+    if (state !== "cleared") return;
+    // crabs move into the old hull, and a buoy marks her
+    crab(p, s, cx - 9, cy - 7);
+    crab(p, s, cx + 12, cy + 5);
+    buoy(p, s, cx - Math.round(28 * scale), shoreYPx(cx - 28 * scale) + 4);
+  });
 };
 
-const drawLighthouse: ShoreLair = (ctx, { c, s }, place) => {
-  // step 5 adds the lit lamp and its night beam; every state draws the dark lighthouse for now
+const drawLighthouse: ShoreLair = (ctx, { c, s }, place, state) => {
   const x = place.x * TILE + (place.w * TILE) / 2 - 7;
   const y = place.y * TILE + 11;
-  paintAt(ctx, x - 8, y - 4, 30, 62, (p) => lighthouse(p, s, c, x, y, false));
+  paintAt(ctx, x - 8, y - 4, 30, 62, (p) => lighthouse(p, s, c, x, y, state === "cleared"));
 };
 
 export const SHORE_LAIRS: Record<"pools" | "wreck" | "lighthouse", ShoreLair> = {
