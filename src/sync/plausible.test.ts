@@ -1,3 +1,4 @@
+import { scoreFromEvents } from "./score";
 import { expect, test } from "vitest";
 import { bundle as village } from "../content/bundle";
 import { lessonTasks } from "../learning/progress";
@@ -142,14 +143,13 @@ test("a skip of a world whose road is still blocked is rejected", () => {
   ]);
 });
 
-test("a second skip of the same world is rejected", () => {
+test("a resent skip is harmless, like any resent event, and never counts twice", () => {
+  // a dropped connection resends what the server already took: refusing it would look like an error
   const verdicts = replay(bundle, [], [...finalStages, skipped("w1"), skipped("w1")]);
-  expect(verdicts.map((v) => v.ok)).toEqual([true, true, true, true, false]);
-  const last = verdicts[4];
-  expect(last.ok ? null : last.reason).toBe("world already skipped");
-  expect(replay(bundle, [skipped("w1")], [skipped("w1")])).toEqual([
-    { event: skipped("w1"), ok: false, reason: "world already skipped" },
-  ]);
+  expect(verdicts.every((v) => v.ok)).toBe(true);
+  expect(replay(bundle, [skipped("w1")], [skipped("w1")])).toEqual([{ event: skipped("w1"), ok: true }]);
+  const once = scoreFromEvents(bundle, [...finalStages, skipped("w1")]).xp;
+  expect(scoreFromEvents(bundle, [...finalStages, skipped("w1"), skipped("w1")]).xp).toBe(once);
 });
 
 test("the next world's skip works the same", () => {

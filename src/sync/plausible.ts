@@ -106,13 +106,9 @@ export function replay(bundle: Bundle, accepted: SyncEvent[], incoming: SyncEven
   for (const e of incoming) {
     const key = `${e.kind}:${e.id}`;
     if (seen.has(key)) {
-      // resending is harmless: the database ignores the duplicate and so do we. A world can only be
-      // skipped once, though, so a second skip is refused rather than counted again.
-      verdicts.push(
-        e.kind === "world_skipped"
-          ? { event: e, ok: false, reason: "world already skipped" }
-          : { event: e, ok: true },
-      );
+      // resending is harmless: the database ignores the duplicate and so do we (a skip is keyed by its
+      // world, so a resent skip is never counted twice)
+      verdicts.push({ event: e, ok: true });
       continue;
     }
     const reason = reject(bundle, progressFromEvents(bundle, running), e, taskLesson);
