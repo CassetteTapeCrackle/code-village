@@ -38,7 +38,7 @@
     type Point,
   } from "./layout";
   import { actorAt, actorAtPoint, stepActor, tileOf, type Actor } from "./motion";
-  import { findPath } from "./paths";
+  import { findPath, findWalk } from "./paths";
   import {
     BIRD_SCARE_TILES,
     BIRD_SPOTS,
@@ -168,6 +168,12 @@
   let wakeLoop: (() => void) | undefined; // set by the frame loop, so a board closing can resume it
   // Mochi idles at the west edge of the square, beside the fountain when there is one
   const mochi = actorAt({ x: PLAZA.x, y: PLAZA.center.y }, 12);
+  // the tile Mochi stands on, for the end-to-end tests (the map itself is a canvas)
+  let mochiTile = $state(`${Math.round(mochi.x)},${Math.round(mochi.y)}`);
+  function noteMochiTile(): void {
+    const key = `${Math.round(mochi.x)},${Math.round(mochi.y)}`;
+    if (key !== mochiTile) mochiTile = key;
+  }
   const starts = [20, 36, 12, 44].map((x) => x + VX);
   // each villager works through their routine: walk to a spot, do something there for a while, move on
   const villagers: {
@@ -328,6 +334,7 @@
       travel = null;
       location.hash = href;
     }
+    noteMochiTile();
     for (const v of villagers) {
       if (v.actor.path.length > 0) {
         stepActor(v.actor, dt);
@@ -366,7 +373,12 @@
     }
     const href = hrefFor(place);
     if (!href || reduced || e.metaKey || e.ctrlKey || e.shiftKey) return;
-    const path = findPath(map, tileOf(mochi), place.door);
+    const path = findWalk(
+      map,
+      tileOf(mochi),
+      place.door,
+      closedAreas.map((a) => a.rect),
+    );
     if (!path) return;
     e.preventDefault();
     mochi.path = path.slice(1);
@@ -755,7 +767,7 @@
 
   // Clicking a villager on the map talks to them, like the buttons under the map.
   function clickMap(e: MouseEvent): void {
-    if (drag?.moved || (e.target as Element).closest("a")) return;
+    if (drag?.moved || (e.target as Element).closest("a, .place")) return;
     const box = world.getBoundingClientRect();
     const x = (e.clientX - box.left) / (TILE * scale) - 0.5;
     const y = (e.clientY - box.top) / (TILE * scale) - 0.5;
@@ -765,7 +777,30 @@
       y,
     );
     if (hit >= 0) speak(hit);
-    else hover(e); // phones: a tap on an item or a blocked road shows its name
+    else {
+      hover(e); // phones: a tap on an item or a blocked road shows its name
+      // a click anywhere else sends Mochi walking; clicks on grass, sand and paths all count
+      travel = null;
+      const path = findWalk(
+        map,
+        tileOf(mochi),
+        { x: Math.round(x), y: Math.round(y) },
+        closedAreas.map((a) => a.rect),
+      );
+      if (!path) {
+        mochi.path = []; // the click still cancels the walk he was on
+        return;
+      }
+      idle = 0;
+      if (reduced) {
+        const end = path[path.length - 1];
+        mochi.x = end.x;
+        mochi.y = end.y;
+        mochi.path = [];
+        noteMochiTile();
+        paint();
+      } else mochi.path = path.slice(1);
+    }
   }
 
   // The banners wait for the map: they show when the village is in view, not under a board.
@@ -832,10 +867,16 @@
       mochi.x = focused.door.x;
       mochi.y = focused.door.y;
       mochi.path = [];
+      noteMochiTile();
       paint();
       return;
     }
-    const path = findPath(map, tileOf(mochi), focused.door);
+    const path = findWalk(
+      map,
+      tileOf(mochi),
+      focused.door,
+      closedAreas.map((a) => a.rect),
+    );
     if (path && path.length > 1) {
       mochi.path = path.slice(1);
       idle = 0;
@@ -903,6 +944,7 @@
       onclick={clickMap}
       onpointermove={hover}
       onpointerleave={() => (hint = null)}
+      data-mochi={mochiTile}
       style="width: {MAP_W * TILE * scale}px; height: {MAP_H * TILE * scale}px"
     >
       <canvas bind:this={canvas} width={MAP_W * TILE} height={MAP_H * TILE} aria-hidden="true"></canvas>
