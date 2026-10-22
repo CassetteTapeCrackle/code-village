@@ -28,11 +28,11 @@ const MOUNTAIN_HUB: Point = { x: 78, y: 14 };
 const MINE_STEP: Point = { x: 11, y: 14 };
 const RIDGE_STEP: Point = { x: 40, y: 11 };
 const PEAK_STEP: Point = { x: 89, y: 11 };
-// the shore (world tiles): he works along the walkway row, the only walkable ground down there
+// the shore (world tiles): he works along the walkway row and out along the long jetty
 const NET_RACK: Point = { x: 53, y: 70 }; // in front of the rack, which stands on the dunes
-const JETTY_ROOT: Point = { x: 73, y: 70 }; // the jetty is drawn over sea; the walk grid has no tile on it
+const JETTY_END: Point = { x: 73, y: 82 }; // the long jetty's last plank, out over the sea
 const SLIPWAY: Point = { x: 64, y: 70 }; // above the ramp and the boat
-const LANTERN_POST: Point = { x: 75, y: 70 };
+const LANTERN_POST: Point = { x: 73, y: 76 }; // the quay top, by the jetty root
 // His hut fronts onto reserved ground, so he steps out onto the walk below it (the hut sits at x 56 to 61).
 export const BRAM_HOME: Point = { x: 58, y: 70 };
 
@@ -90,7 +90,7 @@ export const ROUTINES: Record<string, Job[]> = {
   // Skipper Bram's day: nets in the morning, the jetty at midday, the boat in the afternoon, lanterns at dusk.
   Bram: [
     { activity: "mend", spot: NET_RACK, facing: 1, seconds: 12 },
-    { activity: "fish", spot: JETTY_ROOT, facing: 1, seconds: 14 },
+    { activity: "fish", spot: JETTY_END, facing: 1, seconds: 14 },
     { activity: "carry", spot: SLIPWAY, facing: 1, seconds: 6 },
     { activity: "carry", spot: LANTERN_POST, facing: -1, seconds: 4 },
   ],
@@ -119,7 +119,7 @@ const SPOT_WORDS: [Point, string][] = [
   [RIDGE_STEP, "on the windy ridge"],
   [PEAK_STEP, "at the peak"],
   [NET_RACK, "at the net rack"],
-  [JETTY_ROOT, "at the jetty root"],
+  [JETTY_END, "at the end of the long jetty"],
   [SLIPWAY, "at the slipway"],
   [LANTERN_POST, "by the jetty lanterns"],
 ];

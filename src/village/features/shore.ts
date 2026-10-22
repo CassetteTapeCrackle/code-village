@@ -343,9 +343,11 @@ export const SHORE_FEATURES: Feature[] = [
     land: [],
     unlock: always,
     draw: ({ ctx, s }) => {
-      const jx = Math.round(73.4 * TILE);
+      // start on the walk tile (73) so the jetty covers the paved road under it, and end on the tile edge
+      // so the jetty's last walk tile is covered too
+      const jx = 73 * TILE;
       const y0 = Math.round(shoreYPx(jx + 4) - 4);
-      const y1 = Math.round(shoreYPx(jx + 4) + 44);
+      const y1 = Math.ceil((shoreYPx(jx + 4) + 44) / TILE) * TILE;
       paintAt(ctx, jx - 4, y0 - 4, 20, y1 - y0 + 8, (p) => jettyV(p, s, jx, y0, y1));
     },
   },

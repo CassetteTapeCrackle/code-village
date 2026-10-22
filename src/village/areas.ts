@@ -164,7 +164,9 @@ export const AREAS: Area[] = [
     road: [
       { x: 68, y: 57 },
       { x: 68, y: 70 },
-    ], // on south from the plaza's lane
+      { x: 73, y: 70 },
+      { x: 73, y: 82 },
+    ], // on south from the plaza's lane, then east and down the long jetty
     gate: { x: 68, y: 64 },
     gateSprite: "logs",
     ground: (x, y) => {
