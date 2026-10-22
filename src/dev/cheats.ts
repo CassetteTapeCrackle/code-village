@@ -72,6 +72,30 @@ export function finishEverything(bundle: Bundle, p: Progress, day: Day): Progres
   return reachLevel(beatBosses(bundle, passLessons(bundle, p, day), day, true), TOP_LEVEL);
 }
 
+// Wipes one world's work and its skip, so its lair can be tested again. XP stays as it is: this is a
+// test shortcut, not save surgery.
+export function resetWorld(bundle: Bundle, p: Progress, worldId: string): Progress {
+  const lessons = bundle.lessons.filter((l) => l.world === worldId);
+  const lessonIds = new Set(lessons.map((l) => l.id));
+  const taskIds = new Set(lessons.flatMap(lessonTasks).map((t) => t.id));
+  const bossIds = new Set(bundle.bosses.filter((b) => b.world === worldId).map((b) => b.id));
+  const without = <T>(record: Record<string, T>, drop: (key: string) => boolean): Record<string, T> =>
+    Object.fromEntries(Object.entries(record).filter(([key]) => !drop(key)));
+  const worldsSkipped = { ...p.worldsSkipped };
+  delete worldsSkipped[worldId];
+  return {
+    ...p,
+    tasks: without(p.tasks, (id) => taskIds.has(id)),
+    lessons: without(p.lessons, (id) => lessonIds.has(id)),
+    bosses: without(p.bosses, (id) => bossIds.has(id)),
+    drafts: without(p.drafts, (id) => {
+      const bossKey = id.startsWith("boss:") ? id.slice("boss:".length).replace(/:hard$/, "") : "";
+      return taskIds.has(id) || bossIds.has(bossKey);
+    }),
+    worldsSkipped,
+  };
+}
+
 // What a world's content names but nobody has drawn yet: it shows placeholder art (star, sprout, traveller).
 export function missingArt(b: Bundle): string[] {
   const trophies = b.bosses

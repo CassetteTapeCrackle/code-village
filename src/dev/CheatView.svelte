@@ -25,6 +25,7 @@
     passLessons,
     plantsDue,
     reachLevel,
+    resetWorld,
   } from "./cheats";
 
   const day = today();
@@ -112,6 +113,12 @@
             run(`${w.name}: every lesson passed.`, (p) =>
               passLessons(bundle, p, day, (l) => l.world === w.id),
             )}>Pass all its lessons</button
+        >
+        <button
+          type="button"
+          onclick={() =>
+            run(`${w.name}: reset, ready to test out again.`, (p) => resetWorld(bundle, p, w.id))}
+          >Reset this world</button
         >
         {#each w.regions as r (r)}
           <button

@@ -5,12 +5,14 @@
   import { regionName } from "../content/regions";
   import { bossOpen } from "../learning/access";
   import { bossState } from "../learning/boss";
+  import { canSkip } from "../learning/skip";
   import { today } from "../learning/dates";
   import { STAGE_NAMES, isWilting } from "../learning/plants";
   import { levelFor } from "../learning/xp";
   import { game } from "../store/progress.svelte";
   import { VILLAGER_CLOTHES } from "../art/palette";
   import { announceLevel, moment } from "../ui/moments.svelte";
+  import { clearedLine } from "../ui/celebrate";
   import { isRainyDay, type Palette } from "./clock";
   import { clock, forcedSeason, forcedShoreStage } from "./clock-state.svelte";
   import { lootFound } from "../learning/house";
@@ -54,7 +56,7 @@
   import { freshMemory, pickLine, type LineMemory } from "./lines";
   import { AREAS, type Area } from "./areas";
   import { modal } from "../ui/modal";
-  import { forgetClosed, openWorlds, unseenOpened, worldById } from "../worlds/registry";
+  import { forgetClosed, openWorlds, unseenOpened, WORLDS, worldById } from "../worlds/registry";
   import { cachedTerrain, keepTerrain, terrainCacheKey } from "./terrainCache";
   import { coveredRect, covers, type ViewRect } from "./view";
   import { SAMPLE_COUNT, SAMPLE_WARMUP_MS, WINDOW_COUNT, lightOverride, shouldGoLight } from "./light";
@@ -97,6 +99,13 @@
     return bossOpen(bundle, game.progress, boss) ? "awake" : "asleep";
   }
 
+  // The sleeping lair that offers a skip: the final boss of an open world, before it has been skipped.
+  function skipBossFor(p: Place) {
+    if (p.kind !== "lair" || lairState(p) !== "asleep") return undefined;
+    const boss = bossFor(p);
+    return boss && canSkip(bundle, game.progress, boss) ? boss : undefined;
+  }
+
   function hrefFor(p: Place): string | null {
     if (p.kind === "school") return "#/school";
     if (p.kind === "cabin" || p.kind === "observatory" || p.kind === "hall") return `#/school/${p.world}`;
@@ -104,7 +113,9 @@
     if (p.kind === "garden") return "#/garden";
     if (p.kind === "house") return "#/house";
     const boss = bossFor(p);
-    return boss && lairState(p) !== "asleep" ? `#/boss/${boss.id}` : null;
+    if (boss && lairState(p) !== "asleep") return `#/boss/${boss.id}`;
+    const skip = skipBossFor(p);
+    return skip ? `#/boss/${skip.id}/skip` : null;
   }
 
   const lairs = $derived(
@@ -362,6 +373,13 @@
   function go(e: MouseEvent, place: Place): void {
     if (drag?.moved) {
       e.preventDefault();
+      return;
+    }
+    const skip = skipBossFor(place);
+    if (skip) {
+      // The sleeping final boss opens its offer first; the boss screen is one click further.
+      e.preventDefault();
+      offered = skip;
       return;
     }
     const href = hrefFor(place);
@@ -623,12 +641,7 @@
   function checkScenes(): void {
     const seen = readSeenScenes();
     const fresh = newScenes(bundle.lessons, scene.found, seen, FEATURES);
-    if (fresh === null)
-      markSeenScenes(
-        scene.found.flatMap((id) =>
-          DESTINIES[id]?.kind === "scene" ? [(DESTINIES[id] as { feature: string }).feature] : [],
-        ),
-      );
+    if (fresh === null) markScenesSeen();
     else if (fresh.length > 0) newOnMap = fresh;
   }
   function closeNewOnMap(showMe: boolean): void {
@@ -768,8 +781,54 @@
     else hover(e); // phones: a tap on an item or a blocked road shows its name
   }
 
+  // A sleeping final boss offers a test out before the fight.
+  let offered = $state<{ id: string; title: string } | null>(null);
+
+  // One "World cleared" moment after a skip, instead of the road, level and scene banners stacking up.
+  const CLEARED_KEY = "code-village/seen-cleared";
+  let clearedWorld: string | null = $state(null);
+  function readSeenCleared(): string[] {
+    try {
+      const saved = localStorage.getItem(CLEARED_KEY);
+      if (saved === null) return [];
+      // A world that is no longer skipped (a cheat reset) was clearly not seen yet: its skip is new again.
+      return (JSON.parse(saved) as string[]).filter((id) => game.progress.worldsSkipped[id]);
+    } catch {
+      return [];
+    }
+  }
+  function markSeenCleared(ids: string[]): void {
+    try {
+      localStorage.setItem(CLEARED_KEY, JSON.stringify(ids));
+    } catch {
+      // private mode: the moment may show again next visit
+    }
+  }
+  function markScenesSeen(): void {
+    markSeenScenes(
+      scene.found.flatMap((id) =>
+        DESTINIES[id]?.kind === "scene" ? [(DESTINIES[id] as { feature: string }).feature] : [],
+      ),
+    );
+  }
+  function checkCleared(): boolean {
+    const skipped = WORLDS.filter((w) => game.progress.worldsSkipped[w.id]).map((w) => w.id);
+    const seen = readSeenCleared();
+    const unseen = skipped.filter((id) => !seen.includes(id));
+    if (unseen.length === 0) return false;
+    // Everything that would have raised a banner for this change is marked seen with it.
+    markSeenCleared([...new Set([...seen, ...skipped])]);
+    markSeen(levelFor(game.progress.xp));
+    markSeenWorlds(open);
+    markScenesSeen();
+    clearedWorld = unseen[unseen.length - 1];
+    moment("fanfare");
+    return true;
+  }
+
   // The banners wait for the map: they show when the village is in view, not under a board.
   function checkBanners(): void {
+    if (checkCleared()) return;
     checkOpened();
     if (!opened) checkLevelUp();
     if (!opened) checkScenes();
@@ -928,9 +987,10 @@
                     class:left={p.x < 3}
                     class:right={p.x + p.w > MAP_W - 3}
                     >{p.name}{#if p.kind === "lair"}
-                      <span class="tag {lairs[p.id] === 'cleared' ? 'good' : 'warn'}"
-                        >{lairs[p.id] === "cleared" ? "beaten" : "awake"}</span
-                      >{/if}</span
+                      {#if lairs[p.id] === "cleared"}<span class="tag good">beaten</span>
+                      {:else if lairs[p.id] === "awake"}<span class="tag warn">awake</span>
+                      {:else}<span class="tag sleep">asleep</span>{/if}
+                    {/if}</span
                   >
                 </a>
               </li>
@@ -1014,7 +1074,27 @@
     </ul>
     <p class="sr-only" aria-live="polite">{heard}</p>
   </section>
-  {#if opened}
+  {#if clearedWorld}
+    <div
+      class="levelup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cleared-h"
+      use:modal={() => (clearedWorld = null)}
+    >
+      <div class="card paper px">
+        <span class="ribbon">Tested out</span>
+        <h2 id="cleared-h">World cleared</h2>
+        <p class="opened-line">{worldById(clearedWorld)?.name}</p>
+        <p>{clearedLine(bundle, clearedWorld)}</p>
+        <div class="row">
+          <button type="button" class="primary" onclick={() => (clearedWorld = null)}
+            >Back to the village</button
+          >
+        </div>
+      </div>
+    </div>
+  {:else if opened}
     <div
       class="levelup"
       role="dialog"
@@ -1050,6 +1130,31 @@
         <div class="row">
           <button type="button" class="primary" onclick={() => closeNewOnMap(true)}>Show me</button>
           <button type="button" onclick={() => closeNewOnMap(false)}>Later</button>
+        </div>
+      </div>
+    </div>
+  {/if}
+  {#if offered}
+    <div
+      class="levelup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="offer-h"
+      use:modal={() => (offered = null)}
+    >
+      <div class="card paper px">
+        <span class="ribbon">Test out</span>
+        <h2 id="offer-h">Already know this world?</h2>
+        <p class="opened-line">{offered.title} is still asleep, but you can wake it for a test.</p>
+        <p class="warn">
+          Winning marks every lesson of this world as done, and its bosses as beaten. Hard mode stays yours to
+          win.
+        </p>
+        <div class="row">
+          <a class="btnlink primary px" href={`#/boss/${offered.id}/skip`} onclick={() => (offered = null)}
+            >Challenge the boss now</a
+          >
+          <button type="button" onclick={() => (offered = null)}>Not yet</button>
         </div>
       </div>
     </div>
@@ -1364,6 +1469,12 @@
   .opened-line {
     margin: 0;
     font-size: 18px;
+  }
+  .levelup .warn {
+    margin: 0;
+    color: var(--bad);
+    font-size: 15px;
+    line-height: 1.45;
   }
   .hint-bubble {
     position: absolute;
