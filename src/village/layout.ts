@@ -149,6 +149,7 @@ export const PLACES: Place[] = [
 ];
 
 const WALKABLE = new Set(["=", "#", "P"]);
+const GROUND = new Set([".", "*"]);
 
 // The lair a region's boss lives in, and how to name it in a sentence ("the quarry", "the hollow oak").
 export function lairOf(world: string, region: string): Place | undefined {
@@ -160,6 +161,14 @@ export function lairName(world: string, region: string): string {
 
 export function walkable(map: VillageMap, x: number, y: number): boolean {
   return y >= 0 && y < map.h && x >= 0 && x < map.w && WALKABLE.has(map.tiles[y][x]);
+}
+
+// Where Mochi may walk: paths, grass and flowers, but not the land a closed area keeps fogged.
+export function mochiCanStand(map: VillageMap, x: number, y: number, closed: readonly Rect[]): boolean {
+  if (y < 0 || y >= map.h || x < 0 || x >= map.w) return false;
+  const tile = map.tiles[y][x];
+  if (!WALKABLE.has(tile) && !GROUND.has(tile)) return false;
+  return !closed.some((r) => x >= r.x && x < r.x + r.w && y >= r.y && y < r.y + r.h);
 }
 
 export function inside(place: Place, x: number, y: number): boolean {
