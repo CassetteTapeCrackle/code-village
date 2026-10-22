@@ -18,6 +18,19 @@ test("clicking a building on the map sends Mochi there, then opens it", async ({
   await expect(page.getByRole("heading", { name: "School", exact: true })).toBeVisible({ timeout: 8_000 });
 });
 
+test("clicking open grass walks Mochi there", async ({ page }) => {
+  await page.goto("/");
+  const world = page.locator(".world");
+  await expect(world).toHaveAttribute("data-mochi", "66,46");
+  // the opening frame centres the map on the square; wait for that scroll before clicking
+  await page.waitForFunction(() => (document.querySelector(".viewport")?.scrollTop ?? 0) > 0);
+  const box = await world.boundingBox();
+  if (!box) throw new Error("the map has no box");
+  const tile = box.width / 96; // the map is 96 tiles wide
+  await page.mouse.click(box.x + 62.5 * tile, box.y + 47.5 * tile); // grass just south west of the plaza
+  await expect(world).toHaveAttribute("data-mochi", "62,47", { timeout: 8_000 });
+});
+
 // Counts the map's paints (each paint blits the static layer with drawImage), the way measure.cjs does.
 async function trackPaints(page: import("@playwright/test").Page): Promise<void> {
   await page.addInitScript(() => {
