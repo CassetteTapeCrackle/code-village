@@ -1,7 +1,17 @@
 <script lang="ts">
   import { MOCHI, PORTRAITS } from "../art/sprites";
+  import { parseRoute } from "../route";
   import SpriteCanvas from "../ui/SpriteCanvas.svelte";
-  import { cardSpot, TIP_TEXT, TOUR_STEPS, targetBox, waitingAt, unseenTip, type TipId } from "./tour";
+  import {
+    cardSpot,
+    clipBox,
+    TIP_TEXT,
+    TOUR_STEPS,
+    targetBox,
+    waitingAt,
+    unseenTip,
+    type TipId,
+  } from "./tour";
   import { noteTip, tour, tourEvent } from "./tour.svelte";
 
   // One overlay for the whole tour: Juniper's line, one highlight, and a way out at every step.
@@ -19,8 +29,9 @@
   const path = (h: string): string => h.replace(/^#\/?/, "").replace(/\?.*$/, "");
   const here = $derived(path(hash));
   const step = $derived(tour.state.done ? null : TOUR_STEPS.find((s) => s.id === tour.state.step));
-  // The card only speaks on the map or on the screen its step points at, so it never sits on another screen.
-  const away = $derived(Boolean(step?.at && path(step.at) !== here));
+  // The card only speaks on the screen its step points at (any lesson counts for the teacher step), so it
+  // never sits on another screen.
+  const away = $derived(Boolean(step?.at && parseRoute(step.at).name !== parseRoute(hash).name));
 
   // Nor over a dialog the screen itself put up: a boss defeat, a conflict, a level greeting. The tour's own
   // card is a dialog too, so it is not counted.
@@ -43,6 +54,46 @@
   });
 
   let box = $state<Box | null>(null);
+  let bounds = $state<Box | null>(null);
+
+  const viewportBox = (): Box => ({
+    left: 0,
+    top: 0,
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  function scrollParent(el: Element): Element | null {
+    for (let node = el.parentElement; node; node = node.parentElement) {
+      const style = getComputedStyle(node);
+      if (/(auto|scroll|overlay)/.test(`${style.overflowX} ${style.overflowY}`)) return node;
+    }
+    return null;
+  }
+
+  // What a target's scroll panel shows: past this the fixed ring would float over other content.
+  function visibleBounds(target: Element): Box {
+    const viewport = viewportBox();
+    const parent = scrollParent(target);
+    if (!parent) return viewport;
+    const rect = parent.getBoundingClientRect();
+    return (
+      clipBox({ left: rect.left, top: rect.top, width: rect.width, height: rect.height }, viewport) ?? {
+        ...viewport,
+        width: 0,
+        height: 0,
+      }
+    );
+  }
+
+  function outside(rect: DOMRect, visible: Box): boolean {
+    return (
+      rect.left < visible.left ||
+      rect.top < visible.top ||
+      rect.right > visible.left + visible.width ||
+      rect.bottom > visible.top + visible.height
+    );
+  }
 
   // The ring has to follow its target: scrolling (any panel), resizing, the target or its container
   // changing size, fonts settling, and the first few frames while a screen animates in. Every trigger
@@ -53,6 +104,7 @@
 
     let frame = 0;
     let burst = 0;
+    let nudged = false;
     let watched: Element[] = [];
     const sizes = new ResizeObserver(() => schedule());
 
@@ -77,7 +129,23 @@
         : null;
       const target = found instanceof Element ? found : null;
       watch(target);
-      box = target ? targetBox(target.getBoundingClientRect()) : null;
+      if (!target) {
+        box = null;
+        bounds = null;
+        return;
+      }
+      const rect = target.getBoundingClientRect();
+      const visible = visibleBounds(target);
+      // Once at the step's start, bring a target below the fold into view. Smooth unless reduced motion.
+      if (!nudged && (rect.width > 0 || rect.height > 0)) {
+        nudged = true;
+        if (outside(rect, visible)) {
+          const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          target.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+        }
+      }
+      box = targetBox(rect);
+      bounds = visibleBounds(target);
     }
 
     function tick(): void {
@@ -138,13 +206,18 @@
   });
 </script>
 
-{#if box && step && !step.place && !away && !blocked}
+{#if box && bounds && step && !step.place && !away && !blocked}
   <div
-    class="ring"
+    class="ring-clip"
     aria-hidden="true"
-    style="left: {box.left - 6}px; top: {box.top - 6}px; width: {box.width + 12}px; height: {box.height +
-      12}px"
-  ></div>
+    style="left: {bounds.left}px; top: {bounds.top}px; width: {bounds.width}px; height: {bounds.height}px"
+  >
+    <div
+      class="ring"
+      style="left: {box.left - bounds.left - 6}px; top: {box.top - bounds.top - 6}px; width: {box.width +
+        12}px; height: {box.height + 12}px"
+    ></div>
+  </div>
 {/if}
 
 {#if box && step?.place && step.mochi && !away && !blocked}
@@ -242,9 +315,14 @@
     flex-wrap: wrap;
     gap: 8px;
   }
-  .ring {
+  .ring-clip {
     position: fixed;
     z-index: 39;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .ring {
+    position: absolute;
     pointer-events: none;
     box-shadow:
       0 0 0 3px var(--outline),

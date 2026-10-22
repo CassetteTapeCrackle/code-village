@@ -36,7 +36,21 @@ test("a fresh player is greeted, walks, opens the school and passes the tour tas
   await expect(card).toContainText("Run tries your code");
   await task.getByRole("button", { name: "Check" }).click();
   await expect(task.getByText("Passed. +15 XP")).toBeVisible({ timeout: 60_000 });
-  await expect(card).toContainText("Stuck? Ask the teacher");
+
+  // the tour moves on to the map, then to the house for the board
+  const back = page.getByRole("button", { name: /Ms. Juniper is waiting on the map/ });
+  await expect(back).toBeVisible();
+  await back.click();
+  await expect(card).toContainText("XP grows your village");
+  await card.getByRole("button", { name: "Next" }).click();
+
+  await expect(page.getByRole("button", { name: /Ms. Juniper is waiting at the house/ })).toBeVisible();
+  await page.getByRole("button", { name: /Ms. Juniper is waiting at the house/ }).click();
+  await expect(card).toContainText("join the village board");
+  await card.getByRole("button", { name: "Later" }).click();
+
+  // Later means no account, so the teacher step is skipped
+  await expect(card).toContainText("connect it here");
 
   // the rest is optional
   await card.getByRole("button", { name: "Skip the tour" }).click();
