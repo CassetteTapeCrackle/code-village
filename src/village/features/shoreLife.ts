@@ -2,6 +2,7 @@ import { px, stamp, type Grid } from "../../art/draw";
 import { paintAt, type Paint } from "../../art/paint";
 import { HANDCART, LANTERN, ROWBOAT } from "../../art/sprites";
 import type { MapColors } from "../../art/palette";
+import { shoreLine } from "../areas";
 import { TILE } from "../grid";
 import type { Feature } from "../scenery";
 import type { Season } from "../weather";
@@ -71,15 +72,15 @@ const TOWELS: readonly [number, number, string, string][] = [
   [30.4, 73.6, "b", "W"],
   [36.2, 72.8, "y", "r"],
   [38.4, 73.4, "g", "W"],
-  [47.6, 72.8, "purple", "W"],
-  [50, 73.2, "r", "y"],
+  [53, 72.8, "purple", "W"],
+  [54.4, 73.2, "r", "y"],
 ];
 
 // The three striped parasols, centre in world tiles.
 const PARASOLS: readonly [number, number, string, string, number?][] = [
   [29.8, 72.3, "r", "W"],
   [37.8, 72.2, "b", "W"],
-  [49.4, 71.8, "y", "W", 8],
+  [53.6, 71.8, "y", "W", 8],
 ];
 
 // Rowboats moored off the jetties: x, y, flipped.
@@ -98,7 +99,7 @@ export const SHORE_LIFE: Feature[] = [
     unlock: atLevel(SHORE_LEVELS.beach),
     draw: ({ ctx, s, season }) => {
       if (!inSeason("towels", season)) return;
-      paintAt(ctx, 27 * TILE, 70 * TILE, 25 * TILE, 5 * TILE, (p) => {
+      paintAt(ctx, 26 * TILE, 70 * TILE, 30 * TILE, 5 * TILE, (p) => {
         for (const [tx, ty, a, b] of TOWELS)
           towel(p, Math.round(tx * TILE), Math.round(ty * TILE), s[a], s[b]);
       });
@@ -110,7 +111,7 @@ export const SHORE_LIFE: Feature[] = [
     unlock: atLevel(SHORE_LEVELS.beach),
     draw: ({ ctx, s, season }) => {
       if (!inSeason("parasols", season)) return;
-      paintAt(ctx, 28 * TILE, 70 * TILE, 23 * TILE, 4 * TILE, (p) => {
+      paintAt(ctx, 28 * TILE, 70 * TILE, 28 * TILE, 4 * TILE, (p) => {
         for (const [tx, ty, a, b, r] of PARASOLS)
           parasol(p, Math.round(tx * TILE), Math.round(ty * TILE), s[a], s[b], s.k, r ?? 7);
       });
@@ -122,9 +123,9 @@ export const SHORE_LIFE: Feature[] = [
     unlock: atLevel(SHORE_LEVELS.cart),
     draw: ({ ctx, s, season }) => {
       if (!inSeason("ice-cream-cart", season)) return;
-      stamp(ctx, HANDCART, s, Math.round(45 * TILE), Math.round(72.2 * TILE));
-      paintAt(ctx, 45 * TILE, 70 * TILE, 10 * TILE, 4 * TILE, (p) =>
-        parasol(p, Math.round(46.2 * TILE), Math.round(71.6 * TILE), s.r, s.W, s.k, 5),
+      stamp(ctx, HANDCART, s, Math.round(50.8 * TILE), Math.round(72.2 * TILE));
+      paintAt(ctx, 50 * TILE, 70 * TILE, 5 * TILE, 4 * TILE, (p) =>
+        parasol(p, Math.round(51.8 * TILE), Math.round(71.6 * TILE), s.r, s.W, s.k, 5),
       );
     },
   },
@@ -135,7 +136,7 @@ export const SHORE_LIFE: Feature[] = [
     draw: ({ ctx, s }) => {
       for (const [tx, ty] of [
         [33.5, 75.2],
-        [43.5, 75.4],
+        [40.6, 75.4],
       ])
         stamp(ctx, CASTLE, { ...s, x: s.plankLight }, Math.round(tx * TILE), Math.round(ty * TILE));
       stamp(ctx, BUCKET, s, Math.round(35.2 * TILE), Math.round(76 * TILE));
@@ -157,7 +158,10 @@ export const SHORE_LIFE: Feature[] = [
     draw: ({ ctx, c, s, palette }) => {
       for (const tx of LANTERNS_X) {
         const lx = tx * TILE;
-        const ly = Math.round(71.6 * TILE);
+        // the quay's drawn top edge follows shoreLine (quay in shore.ts): its paved walk is the eight rows
+        // from there, so the post's foot (the last of its eleven rows) lands on the stones
+        const top = Math.round(shoreLine((lx + 2) / TILE) * TILE) - 10;
+        const ly = top - 3;
         if (palette === "night") glow(ctx, c, lx + 2, ly + 2);
         stamp(ctx, LANTERN, s, lx, ly);
       }

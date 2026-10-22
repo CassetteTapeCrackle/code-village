@@ -1,7 +1,8 @@
 import { expect, test } from "vitest";
 import { MAP_COLORS, SPRITE_COLORS } from "../../art/palette";
 import type { DrawEnv } from "../features/env";
-import type { VillageMap } from "../layout";
+import { SHORE_WALK_ROW } from "../areas";
+import { PLACES, type VillageMap } from "../layout";
 import { TILE } from "../grid";
 import type { Season } from "../weather";
 import { crabAt, drawShoreLife, gullAt, type ShoreLife } from "../shoreCritters";
@@ -100,4 +101,73 @@ test("a gull flies off when Mochi is near and sits when he is away", () => {
   const scared = gullAt(0, 0, { x: spot.x + 0.5, y: spot.y });
   expect(scared.gone).toBe(false);
   expect(scared.x).toBeGreaterThan(spot.x * TILE + 10);
+});
+
+type Box = { x: number; y: number; w: number; h: number };
+
+const CANVAS = { w: 1024, h: 800 };
+
+// A canvas that keeps its pixels, so a scattered feature (the towels) is measured by what it paints.
+function pixelRecording(): { ctx: CanvasRenderingContext2D; paintsIn: (box: Box) => boolean } {
+  const data = new Uint8ClampedArray(CANVAS.w * CANVAS.h * 4);
+  const ctx = {
+    fillStyle: "",
+    getImageData: (x: number, y: number, w: number, h: number) => {
+      const image = { width: w, height: h, data: new Uint8ClampedArray(w * h * 4) };
+      for (let j = 0; j < h; j++) {
+        const from = ((y + j) * CANVAS.w + x) * 4;
+        image.data.set(data.subarray(from, from + w * 4), j * w * 4);
+      }
+      return image;
+    },
+    putImageData: (
+      image: { width: number; height: number; data: Uint8ClampedArray },
+      x: number,
+      y: number,
+    ) => {
+      for (let j = 0; j < image.height; j++) {
+        const from = ((y + j) * CANVAS.w + x) * 4;
+        data.set(image.data.subarray(j * image.width * 4, (j + 1) * image.width * 4), from);
+      }
+    },
+    fillRect: (x: number, y: number, w: number, h: number) => {
+      for (let j = 0; j < h; j++)
+        for (let i = 0; i < w; i++) data[((y + j) * CANVAS.w + x + i) * 4 + 3] = 255;
+    },
+  } as unknown as CanvasRenderingContext2D;
+  const paintsIn = (b: Box): boolean => {
+    for (let y = b.y; y < b.y + b.h; y++)
+      for (let x = b.x; x < b.x + b.w; x++) {
+        const i = (y * CANVAS.w + x) * 4;
+        if (data[i] | data[i + 1] | data[i + 2] | data[i + 3]) return true;
+      }
+    return false;
+  };
+  return { ctx, paintsIn };
+}
+
+// The wreck's place rect and the plank steps down to its door (walkSteps in shore.ts), in canvas pixels.
+const wreck = PLACES.find((p) => p.id === "wreck")!;
+const wreckRect: Box = {
+  x: wreck.x * TILE,
+  y: wreck.y * TILE,
+  w: wreck.w * TILE,
+  h: wreck.h * TILE,
+};
+const stepsTop = SHORE_WALK_ROW * TILE + 7;
+const stepsRow = Math.ceil((wreck.door.y * TILE + 1 - stepsTop + 1) / 4);
+const wreckSteps: Box = {
+  x: wreck.door.x * TILE + TILE / 2 - 10,
+  y: stepsTop,
+  w: 21,
+  h: 4 * stepsRow,
+};
+
+test("no beach life overlaps the wreck or the steps down to it", () => {
+  for (const f of SHORE_LIFE) {
+    const { ctx, paintsIn } = pixelRecording();
+    f.draw(env("summer", ctx));
+    expect(paintsIn(wreckRect), f.id).toBe(false);
+    expect(paintsIn(wreckSteps), f.id).toBe(false);
+  }
 });
