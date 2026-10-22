@@ -123,7 +123,7 @@
       <SpriteCanvas grid={moments.sound ? SPEAKER : MUTE} scale={3} />
     </button>
     <div class="level" aria-hidden="true">{level}</div>
-    <div class="xp">
+    <div class="xp" data-tour="xp">
       {#if maxed}
         <div class="bar maxed" role="img" aria-label="Max level reached">
           <i style="width: 100%"></i><b class="max">MAX</b>

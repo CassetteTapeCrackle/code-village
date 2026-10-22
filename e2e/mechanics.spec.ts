@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 import { openSeeded, openWith, typeCode } from "./helpers";
 
 // Every Collections lesson passed, so the region's boss (the Gradebook) is awake.

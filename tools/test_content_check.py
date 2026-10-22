@@ -45,6 +45,24 @@ class ContentCheck(unittest.TestCase):
         self.assertEqual((boss["hardChecks"], boss["intro"]), (3, "Build a tiny calculator."))
         self.assertNotIn("solution", json.dumps(bundle))
 
+    def test_a_tour_lesson_is_flagged_and_kept_in_the_bundle(self):
+        def mark_tour(d):
+            p = d / "lesson.md"
+            p.write_text(p.read_text().replace("order = 1\n", "order = 1\ntour = true\n"))
+
+        done, out = check(broken_copy(mark_tour))
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        lesson = json.loads(out.read_text())["lessons"][0]
+        self.assertIs(lesson["tour"], True)
+
+    def test_a_tour_flag_must_be_a_bool(self):
+        def bad_tour(d):
+            p = d / "lesson.md"
+            p.write_text(p.read_text().replace("order = 1\n", 'order = 1\ntour = "yes"\n'))
+
+        done, _ = check(broken_copy(bad_tour))
+        self.assertIn("tour must be true or false", done.stdout)
+
     def test_world_folder_without_world_toml_fails(self):
         done, _ = check(broken_copy(lambda d: (d.parents[1] / "world.toml").unlink()))
         self.assertIn("w1/world.toml: missing", done.stdout)

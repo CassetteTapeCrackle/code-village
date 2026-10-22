@@ -311,6 +311,8 @@ def load_lesson(lesson_md, problems):
     meta, body = front_matter(lesson_md.read_text(), where, LESSON_FIELDS, problems)
     if meta is None:
         return None
+    if "tour" in meta and not isinstance(meta["tour"], bool):
+        problems.add(where, "tour must be true or false")
     blocks = []
     placed = set()
     for block in split_body(body):
@@ -340,7 +342,10 @@ def load_lesson(lesson_md, problems):
     for folder in subfolders(lesson_md.parent / "tasks"):
         if folder.name not in placed:
             problems.add(where, f"task folder {folder.name} is never placed with ::task")
-    return {**{k: meta.get(k) for k in LESSON_FIELDS}, "blocks": blocks}
+    lesson = {**{k: meta.get(k) for k in LESSON_FIELDS}, "blocks": blocks}
+    if meta.get("tour"):
+        lesson["tour"] = True
+    return lesson
 
 
 def load_boss(boss_md, problems):

@@ -26,6 +26,8 @@ export type Lesson = {
   world: string;
   region: string;
   order: number;
+  // The first-visit tour lesson: it teaches, but it never counts towards a region or a boss.
+  tour?: boolean;
   concepts: string[];
   remember: string[];
   loot: { id: string; name: string };

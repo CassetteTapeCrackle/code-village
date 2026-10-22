@@ -10,6 +10,8 @@
   import { moment } from "../ui/moments.svelte";
   import { game, update } from "../store/progress.svelte";
   import { setSnapshot } from "../store/sync.svelte";
+  import { TOUR_TASK_ID } from "../tour/tour";
+  import { tourEvent } from "../tour/tour.svelte";
   import type { Snapshot } from "../tutor/packet";
   import AskPanel from "./AskPanel.svelte";
   import CodePanel from "./CodePanel.svelte";
@@ -50,6 +52,7 @@
     });
     const passed = passedAll(checked);
     if (passed) update((p) => passTask(p, lesson, task.id, today()));
+    if (passed && task.id === TOUR_TASK_ID) tourEvent("check");
     onresult?.(passed ? "pass" : checked.kind === "ok" && !checked.result.error ? "fail" : "error");
     moment(passed ? "pass" : "fail");
   }

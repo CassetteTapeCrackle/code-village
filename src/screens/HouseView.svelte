@@ -1,6 +1,7 @@
 <script lang="ts">
   import Screen from "../ui/Screen.svelte";
   import { bundle } from "../content/bundle";
+  import { regularLessons } from "../content/lessons";
   import { today } from "../learning/dates";
   import { collection } from "../learning/house";
   import { ICONS } from "../art/sprites";
@@ -17,11 +18,14 @@
   import { SPOTS } from "../village/layout";
   import HouseRoom from "./HouseRoom.svelte";
   import ProfilePanel from "../ui/ProfilePanel.svelte";
+  import { restartTour } from "../tour/tour.svelte";
 
   // The house: your finds in the room, one line of numbers, the shelf of what you found, and the village's growth
   // as a level track (one node per level, the next one named once). Backups sit quietly at the foot.
   const level = $derived(levelFor(game.progress.xp));
   const slots = $derived(collection(bundle, game.progress));
+  const counted = $derived(regularLessons(bundle.lessons));
+  const countedPassed = $derived(counted.filter((l) => game.progress.lessons[l.id]).length);
   const found = $derived(slots.filter((sl) => sl.found));
   const top = Math.max(...DECOR.map((d) => d.level));
   const next = $derived(nextDecor(level));
@@ -69,7 +73,7 @@
   <ul class="stats" aria-label="Stats">
     <li class="px"><b>{level}</b> level</li>
     <li class="px"><b>{game.progress.xp}</b> XP</li>
-    <li class="px"><b>{Object.keys(game.progress.lessons).length}/{bundle.lessons.length}</b> lessons</li>
+    <li class="px"><b>{countedPassed}/{counted.length}</b> lessons</li>
     <li class="px">
       <b>{bundle.bosses.filter((b) => game.progress.bosses[b.id]?.wonAt).length}/{bundle.bosses.length}</b> bosses
     </li>
@@ -77,6 +81,9 @@
       <b>{Object.values(game.progress.plants).filter((pl) => pl.stage >= 2).length}</b> in bloom
     </li>
   </ul>
+  <p class="replay">
+    <button type="button" onclick={restartTour}>Replay the tour</button>
+  </p>
 
   <section aria-labelledby="loot-heading">
     <div class="h">
@@ -229,6 +236,9 @@
   .stats b {
     font: 700 17px var(--font-pixel);
     color: var(--text);
+  }
+  .replay {
+    margin: 10px 0 0;
   }
   .shelf {
     list-style: none;

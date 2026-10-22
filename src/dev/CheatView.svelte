@@ -2,6 +2,8 @@
   import Screen from "../ui/Screen.svelte";
   import { bundle } from "../content/bundle";
   import { regionName } from "../content/regions";
+  import { regularLessons } from "../content/lessons";
+  import { restartTour } from "../tour/tour.svelte";
   import { today } from "../learning/dates";
   import { emptyProgress } from "../learning/types";
   import { levelFor } from "../learning/xp";
@@ -28,10 +30,11 @@
   } from "./cheats";
 
   const day = today();
+  const counted = regularLessons(bundle.lessons);
   // every world with content, each with its regions and bosses, in order
-  const worlds = WORLDS.filter((w) => bundle.lessons.some((l) => l.world === w.id)).map((w) => ({
+  const worlds = WORLDS.filter((w) => counted.some((l) => l.world === w.id)).map((w) => ({
     ...w,
-    regions: [...new Set(bundle.lessons.filter((l) => l.world === w.id).map((l) => l.region))],
+    regions: [...new Set(counted.filter((l) => l.world === w.id).map((l) => l.region))],
     bosses: bundle.bosses.filter((b) => b.world === w.id),
   }));
   const levels = [...new Set(DECOR.map((d) => d.level))];
@@ -52,11 +55,19 @@
     <code>VITE_CHEAT=1</code>.
   </p>
   <p>
-    Level {levelFor(game.progress.xp)} · {game.progress.xp} XP · {Object.keys(game.progress.lessons).length} of
-    {bundle.lessons.length} lessons passed · open: {WORLDS.filter((w) => open.includes(w.id))
+    Level {levelFor(game.progress.xp)} · {game.progress.xp} XP ·
+    {Object.keys(game.progress.lessons).filter((id) => counted.some((l) => l.id === id)).length} of
+    {counted.length} lessons passed · open: {WORLDS.filter((w) => open.includes(w.id))
       .map((w) => w.name)
       .join(", ")}
   </p>
+
+  <section aria-labelledby="tour-h">
+    <h2 id="tour-h">Tour</h2>
+    <div class="row">
+      <button type="button" onclick={restartTour}>Restart the tour</button>
+    </div>
+  </section>
 
   <section aria-labelledby="all-h">
     <h2 id="all-h">Everything</h2>

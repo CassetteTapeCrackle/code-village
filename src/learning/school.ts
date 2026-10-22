@@ -1,4 +1,5 @@
 import type { Bundle, Lesson, World } from "../content/types";
+import { regularLessons } from "../content/lessons";
 import { worldById } from "../worlds/registry";
 import { lessonTasks } from "./progress";
 import type { Progress } from "./types";
@@ -14,7 +15,7 @@ export function teacherGreeting(
   p: Progress,
   world = "w1",
 ): { line: string; lessonId: string | null } {
-  const lessons = bundle.lessons.filter((l) => l.world === world);
+  const lessons = regularLessons(bundle.lessons).filter((l) => l.world === world);
   const started = lessons.find(
     (l) => !p.lessons[l.id] && lessonTasks(l).some((t) => p.tasks[t.id]?.passedAt),
   );
@@ -38,6 +39,12 @@ export function teacherGreeting(
 
 export type TaskEvent = "start" | "pass" | "fail" | "error";
 
+// The seed line starts a sentence, so the article is capitalised: "An io seed", "A loops seed".
+// shortcut: first letter only, fine for these concept names, which have no silent or "you" vowels.
+export function article(word: string): "A" | "An" {
+  return /^[aeiou]/i.test(word) ? "An" : "A";
+}
+
 // The teacher's line on the lesson desk, reacting to the latest Check.
 export function teacherLine(
   lesson: Lesson,
@@ -47,7 +54,7 @@ export function teacherLine(
   nextTitle: string | null,
 ): string {
   if (passed === total && total > 0)
-    return `That is the whole lesson! A ${lesson.concepts[0]} seed is on its way to the garden.`;
+    return `That is the whole lesson! ${article(lesson.concepts[0])} ${lesson.concepts[0]} seed is on its way to the garden.`;
   if (event === "pass")
     return `Well done! ${passed} of ${total} passed.${nextTitle ? ` Next: ${nextTitle}.` : ""}`;
   if (event === "fail")
@@ -66,7 +73,9 @@ export function regionToOpen(bundle: Bundle, p: Progress, world = "w1"): string 
     (b) =>
       b.world === world &&
       !p.bosses[b.id]?.wonAt &&
-      bundle.lessons.filter((l) => l.world === world && l.region === b.region).every((l) => p.lessons[l.id]),
+      bundle.lessons
+        .filter((l) => !l.tour && l.world === world && l.region === b.region)
+        .every((l) => p.lessons[l.id]),
   );
   return boss?.region ?? null;
 }

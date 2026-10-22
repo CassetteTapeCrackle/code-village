@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 import { showTask, typeCode } from "./helpers";
 
 test("pass a task, earn XP, and keep it after a reload", async ({ page }) => {

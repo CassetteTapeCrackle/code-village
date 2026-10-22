@@ -24,6 +24,7 @@
   import Village from "./village/Village.svelte";
   import { getRunner } from "./runner/shared";
   import { onIdle } from "./ui/idle";
+  import TourOverlay from "./tour/TourOverlay.svelte";
 
   tickClock();
   $effect(() => {
@@ -119,6 +120,7 @@
     <Toasts />
     <ConflictDialog />
   </main>
+  <TourOverlay />
 </div>
 
 <style>
