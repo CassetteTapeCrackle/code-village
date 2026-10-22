@@ -6,19 +6,25 @@ def greeting():
         raise Failure("Print one line, like Hello Mochi!")
     return lines[0].strip()
 
+def name_after_hello(line):
+    if not line.lower().startswith("hello"):
+        raise Failure('The line should start with "Hello ".')
+    rest = line[len("Hello"):]
+    if rest and rest[0] not in " ,!":
+        raise Failure('The line should start with "Hello ".')
+    rest = rest.lstrip(" ,")
+    if rest.endswith("!"):
+        rest = rest[:-1]
+    return rest.strip()
+
 def test_one_line():
     """one line of output"""
     greeting()
 
 def test_your_name():
     """Hello with your name"""
-    line = greeting()
-    if not line.startswith("Hello "):
-        raise Failure('The line should start with "Hello ".')
-    if not line.endswith("!"):
-        raise Failure('The line should end with "!".')
-    name = line[len("Hello "):-1].strip()
-    if name == "NAME":
+    name = name_after_hello(greeting())
+    if name.casefold() == "name":
         raise Failure("Replace NAME with your own name")
     if not name:
         raise Failure("Put your name between Hello and !")

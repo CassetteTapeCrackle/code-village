@@ -6,6 +6,7 @@ import {
   nextStep,
   replayTour,
   shouldStart,
+  targetBox,
   TOUR_STEPS,
   unseenTip,
   waitingAt,
@@ -94,6 +95,21 @@ describe("waitingAt", () => {
     expect(waitingAt("#/lesson/hello-village")).toBe("in the lesson");
     expect(waitingAt("#/school")).toBe("at the school");
     expect(waitingAt("#/house")).toBe("at the house");
+  });
+});
+
+describe("targetBox", () => {
+  test("keeps a visible target's viewport rect", () => {
+    expect(targetBox({ left: 12, top: 34, width: 100, height: 40 })).toEqual({
+      left: 12,
+      top: 34,
+      width: 100,
+      height: 40,
+    });
+  });
+
+  test("hides a target that has no size yet", () => {
+    expect(targetBox({ left: 0, top: 0, width: 0, height: 0 })).toBeNull();
   });
 });
 

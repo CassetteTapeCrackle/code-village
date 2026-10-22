@@ -1,7 +1,7 @@
 <script lang="ts">
   import { MOCHI, PORTRAITS } from "../art/sprites";
   import SpriteCanvas from "../ui/SpriteCanvas.svelte";
-  import { cardSpot, TIP_TEXT, TOUR_STEPS, waitingAt, unseenTip, type TipId } from "./tour";
+  import { cardSpot, TIP_TEXT, TOUR_STEPS, targetBox, waitingAt, unseenTip, type TipId } from "./tour";
   import { noteTip, tour, tourEvent } from "./tour.svelte";
 
   // One overlay for the whole tour: Juniper's line, one highlight, and a way out at every step.
@@ -43,36 +43,68 @@
   });
 
   let box = $state<Box | null>(null);
-  function measure(): void {
-    const current = step;
-    if (!current?.target) {
-      box = null;
-      return;
-    }
-    const found = document.querySelector(
-      current.place ? `[data-place="${current.target}"]` : `[data-tour="${current.target}"]`,
-    );
-    if (!(found instanceof Element)) {
-      box = null;
-      return;
-    }
-    const rect = found.getBoundingClientRect();
-    box =
-      rect.width === 0 && rect.height === 0
-        ? null
-        : { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
-  }
 
+  // The ring has to follow its target: scrolling (any panel), resizing, the target or its container
+  // changing size, fonts settling, and the first few frames while a screen animates in. Every trigger
+  // only asks for one measurement on the next frame, so a scroll never measures more than it paints.
   $effect(() => {
     void step;
     void hash;
-    const timer = setTimeout(measure, 40);
-    addEventListener("resize", measure);
-    addEventListener("scroll", measure, true);
+
+    let frame = 0;
+    let burst = 0;
+    let watched: Element[] = [];
+    const sizes = new ResizeObserver(() => schedule());
+
+    function watch(target: Element | null): void {
+      const next: Element[] = [];
+      if (target) {
+        next.push(target);
+        if (target.parentElement) next.push(target.parentElement);
+      }
+      if (next.length === watched.length && next.every((el, i) => el === watched[i])) return;
+      sizes.disconnect();
+      for (const el of next) sizes.observe(el);
+      watched = next;
+    }
+
+    function measure(): void {
+      const current = step;
+      const found = current?.target
+        ? document.querySelector(
+            current.place ? `[data-place="${current.target}"]` : `[data-tour="${current.target}"]`,
+          )
+        : null;
+      const target = found instanceof Element ? found : null;
+      watch(target);
+      box = target ? targetBox(target.getBoundingClientRect()) : null;
+    }
+
+    function tick(): void {
+      frame = 0;
+      measure();
+      if (burst > 0) {
+        burst -= 1;
+        frame = requestAnimationFrame(tick);
+      }
+    }
+
+    function schedule(): void {
+      if (frame === 0) frame = requestAnimationFrame(tick);
+    }
+
+    const onMove = (): void => schedule();
+    addEventListener("resize", onMove);
+    addEventListener("scroll", onMove, true);
+    if (document.fonts) void document.fonts.ready.then(schedule);
+    burst = 24;
+    schedule();
+
     return () => {
-      clearTimeout(timer);
-      removeEventListener("resize", measure);
-      removeEventListener("scroll", measure, true);
+      cancelAnimationFrame(frame);
+      removeEventListener("resize", onMove);
+      removeEventListener("scroll", onMove, true);
+      sizes.disconnect();
     };
   });
 

@@ -154,6 +154,12 @@ export function waitingAt(at: string): string {
 export type CardBox = { left: number; top: number; width: number; height: number };
 export type CardSpot = { right: boolean; top: boolean };
 
+// The target as the overlay needs it: viewport coordinates, or null while it has no size (not on screen yet).
+export function targetBox(rect: CardBox): CardBox | null {
+  if (rect.width === 0 && rect.height === 0) return null;
+  return { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
+}
+
 // The card sits on the side the target is not, so it never covers what it points at. On a place, though, the
 // target is often high on the right, and that put the card over the title and first instructions: there it
 // keeps to the bottom left instead, below the Remember box when the page leaves room. Phones keep the old rule.
