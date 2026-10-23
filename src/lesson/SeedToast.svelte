@@ -3,6 +3,7 @@
   import { SPRITE_COLORS } from "../art/palette";
   import { PLANT_TOPS, POT } from "../art/sprites";
   import { onMount } from "svelte";
+  import { bundle, conceptName } from "../content/bundle";
   import { article } from "../learning/school";
   import { clock } from "../village/clock-state.svelte";
 
@@ -59,7 +60,10 @@
 <div class="toast" role="status">
   <canvas bind:this={canvas} width="7" height="9" aria-hidden="true"></canvas>
   <div>
-    {#each concepts as c (c)}<p>{article(c)} {c} seed was planted in the garden.</p>{/each}
+    {#each concepts as c (c)}
+      {@const name = conceptName(bundle, c)}
+      <p>{article(name)} {name} seed was planted in the garden.</p>
+    {/each}
     <a href="#/garden">See the garden</a>
   </div>
 </div>

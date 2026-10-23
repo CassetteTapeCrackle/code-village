@@ -1,4 +1,5 @@
 import type { Bundle, Lesson, World } from "../content/types";
+import { conceptName } from "../content/bundle";
 import { regularLessons } from "../content/lessons";
 import { worldById } from "../worlds/registry";
 import { lessonTasks } from "./progress";
@@ -39,7 +40,7 @@ export function teacherGreeting(
 
 export type TaskEvent = "start" | "pass" | "fail" | "error";
 
-// The seed line starts a sentence, so the article is capitalised: "An io seed", "A loops seed".
+// The seed line starts a sentence, so the article is capitalised: "An input and output seed", "A loops seed".
 // shortcut: first letter only, fine for these concept names, which have no silent or "you" vowels.
 export function article(word: string): "A" | "An" {
   return /^[aeiou]/i.test(word) ? "An" : "A";
@@ -47,14 +48,17 @@ export function article(word: string): "A" | "An" {
 
 // The teacher's line on the lesson desk, reacting to the latest Check.
 export function teacherLine(
+  bundle: Bundle,
   lesson: Lesson,
   passed: number,
   total: number,
   event: TaskEvent,
   nextTitle: string | null,
 ): string {
-  if (passed === total && total > 0)
-    return `That is the whole lesson! ${article(lesson.concepts[0])} ${lesson.concepts[0]} seed is on its way to the garden.`;
+  if (passed === total && total > 0) {
+    const name = conceptName(bundle, lesson.concepts[0]);
+    return `That is the whole lesson! ${article(name)} ${name} seed is on its way to the garden.`;
+  }
   if (event === "pass")
     return `Well done! ${passed} of ${total} passed.${nextTitle ? ` Next: ${nextTitle}.` : ""}`;
   if (event === "fail")

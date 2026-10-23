@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte";
   import { SvelteSet } from "svelte/reactivity";
-  import { bundle } from "../content/bundle";
+  import { bundle, conceptName } from "../content/bundle";
   import type { Exercise } from "../content/types";
   import { examResult, finishExam, formatLeft } from "../learning/exam";
   import { XP } from "../learning/xp";
@@ -48,7 +48,7 @@
   <ul class="scores">
     {#each scores as s (s.concept)}
       <li class:good={s.passed}>
-        {s.concept}: {s.passed ? "solid" : "needs work"}{#if !s.passed && s.lessonId}
+        {conceptName(bundle, s.concept)}: {s.passed ? "solid" : "needs work"}{#if !s.passed && s.lessonId}
           · <a href="#/lesson/{s.lessonId}">back to the lesson</a>{/if}
       </li>
     {/each}

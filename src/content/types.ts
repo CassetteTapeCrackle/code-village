@@ -65,4 +65,11 @@ export type World = {
   key: { bossId: string; trophyId: string; trophyName: string; opens: string; gateHint: string } | null;
 };
 
-export type Bundle = { version: 3; python: string; worlds: World[]; lessons: Lesson[]; bosses: Boss[] };
+export type Bundle = {
+  version: 3;
+  python: string;
+  concepts: Record<string, string>;
+  worlds: World[];
+  lessons: Lesson[];
+  bosses: Boss[];
+};
