@@ -12,6 +12,8 @@
     clock,
     forceSeason,
     forceShoreStage,
+    liftFog,
+    liftedFog,
     forceTime,
     forcedSeason,
     forcedShoreStage,
@@ -224,6 +226,12 @@
         >
       {/each}
       <button type="button" onclick={() => forceShoreStage(null)}>Follow the bosses</button>
+    </div>
+    <p>The shore stays under fog until World 4 has content. Lift it to walk there.</p>
+    <div class="row">
+      <button type="button" aria-pressed={liftedFog.on} onclick={() => liftFog(!liftedFog.on)}
+        >{liftedFog.on ? "Bring the fog back" : "Lift the fog over the shore"}</button
+      >
     </div>
   </section>
 

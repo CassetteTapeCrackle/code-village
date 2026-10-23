@@ -21,7 +21,7 @@
   import { levelFor } from "./learning/xp";
   import { canSkip } from "./learning/skip";
   import { game } from "./store/progress.svelte";
-  import { tickClock } from "./village/clock-state.svelte";
+  import { liftedFog, tickClock } from "./village/clock-state.svelte";
   import Village from "./village/Village.svelte";
   import { getRunner } from "./runner/shared";
   import { onIdle } from "./ui/idle";
@@ -67,7 +67,8 @@
   // The village stays under every page: a board opens beside the page's building, and closing it returns to the map.
   const focus = $derived(focusFor(route, bundle));
   const covered = $derived(route.name !== "home");
-  const villageKey = $derived(`${open.join(",")}|${levelFor(game.progress.xp)}`);
+  // the cheat screen lifting the fog over a world with no content also rebuilds the map
+  const villageKey = $derived(`${open.join(",")}|${levelFor(game.progress.xp)}|${liftedFog.on}`);
   $effect(() => {
     board.back = focus.back;
     board.backLabel = focus.backLabel;
