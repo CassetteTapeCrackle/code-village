@@ -3,5 +3,5 @@ concept = "dunders"
 kind = "complete"
 title = "Count the arrows"
 prompt = "Finish `Quiver`: `__len__` should return how many arrows it holds, so `len(Quiver([\"oak\", \"ash\"]))` is 2 and an empty quiver counts as false."
-hints = ["The arrows are in `self.arrows`.", "`return len(self.stones)`"]
+hints = ["The arrows are in `self.arrows`.", "`len()` counts the items in a list. Return the length of the arrows list stored on `self`."]
 gotcha = false

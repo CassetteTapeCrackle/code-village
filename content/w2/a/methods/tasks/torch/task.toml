@@ -3,5 +3,5 @@ concept = "methods"
 kind = "write"
 title = "A torch that runs down"
 prompt = "Write a class `Torch`: `Torch(battery)` stores `battery`, `use(minutes)` takes that many minutes off but never goes below 0, and `is_empty()` returns `True` when `battery` is 0."
-hints = ["`use` changes `self.battery`; `is_empty` only answers.", "In one method clamp the value: `self.power = max(self.power - seconds, 0)`; in the other compare: `return self.power == 0`."]
+hints = ["`use` changes `self.battery`; `is_empty` only answers.", "In `use`, subtract the minutes from `self.battery` and keep the bigger of that result and 0. In `is_empty`, compare the battery with 0."]
 gotcha = false

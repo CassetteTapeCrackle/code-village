@@ -3,5 +3,5 @@ concept = "testing"
 kind = "write"
 title = "Test the clamp"
 prompt = "`clamp(n, low, high)` keeps `n` between `low` and `high`. Write `test_clamp()` with `assert`s checking a number in the middle, one below `low` and one above `high`. Your test must pass with this `clamp`, and fail if `clamp` forgot either limit."
-hints = ["Three asserts, one for each case.", "For a `limit` function: `assert limit(4, 0, 9) == 4`, `assert limit(-2, 0, 9) == 0`, `assert limit(88, 0, 9) == 9`."]
+hints = ["Three asserts, one for each case.", "Use a value inside the limits, a negative value below the low limit, and a value above the high limit; assert each result equals the clamped value."]
 gotcha = false

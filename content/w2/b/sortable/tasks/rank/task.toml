@@ -3,5 +3,5 @@ concept = "sortable"
 kind = "fix"
 title = "Who walked furthest?"
 prompt = "`rank(hikers)` should return the hikers' names, furthest walker first. It crashes with a `TypeError`: find and fix the bug."
-hints = ["How should `sorted` compare two `Hiker` objects? Give it a key.", "Write `def distance(hiker): return hiker.km`, then `sorted(hikers, key=distance, reverse=True)`."]
+hints = ["How should `sorted` compare two `Hiker` objects? Give it a key.", "Write a small key function that takes one hiker and returns the hiker's `km`, then pass it to `sorted` with `reverse=True`."]
 gotcha = true

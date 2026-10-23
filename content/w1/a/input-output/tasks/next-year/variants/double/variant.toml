@@ -1,3 +1,3 @@
 id = "io-double"
 title = "Double it"
-prompt = "This program reads a number and should print `Double: N`, with N twice the number. For `4` it prints `Double: 44`: find and fix the bug."
+prompt = "This program reads a number and should print `Double: N`, with N twice the number. For `4` it currently prints `Double: 44`; it should print `Double: 8`. Find and fix the bug."

@@ -3,5 +3,5 @@ concept = "class-attributes"
 kind = "fix"
 title = "Everybody's tents"
 prompt = "Each `Camp` should keep its own list of tents, but adding a tent to one camp adds it to all of them. Find and fix the bug."
-hints = ["Where is the `tents` list made, and how many lists are there?", "A class body runs once. Put the empty list in `__init__` instead, as `self.beds = []`."]
+hints = ["Where is the `tents` list made, and how many lists are there?", "The class body runs once, so a list made there is shared. Create the empty `tents` list on `self` inside `__init__`."]
 gotcha = true

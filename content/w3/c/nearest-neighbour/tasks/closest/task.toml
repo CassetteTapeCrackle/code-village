@@ -2,6 +2,6 @@ id = "nearest-neighbour-closest"
 concept = "nearest-neighbour"
 kind = "write"
 title = "The closest camp"
-prompt = "Write `closest(points, target)`: `points` is a list of `(x, y)` tuples. Return the point nearest to `target`, using `math.dist`."
+prompt = "Write `closest(points, target)`: `points` is a list of tuples of numbers, one number per feature; the tests use two and three features. Return the whole nearest tuple, using `math.dist`."
 hints = ["`min` with a `key` picks the point with the smallest distance.", "`math.dist((0, 0), (3, 4))` is `5.0`: the distance between two points."]
 gotcha = false

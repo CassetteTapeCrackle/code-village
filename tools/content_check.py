@@ -167,6 +167,38 @@ def renamed_shape(code):
     return tuple(kept)
 
 
+STRING_TOKENS = {tokenize.STRING}
+for _string_token in ("FSTRING_START", "FSTRING_MIDDLE", "FSTRING_END"):
+    if hasattr(tokenize, _string_token):
+        STRING_TOKENS.add(getattr(tokenize, _string_token))
+
+
+def masked_shape(code):
+    """A token sequence with every name, attribute, string and number replaced by a placeholder.
+
+    Keywords, builtins, operators and punctuation keep their spelling, so a hint that only renames
+    names, attributes, strings or numbers still matches the solution line it copies. None means the
+    fragment cannot be tokenized.
+    """
+    names = {}
+    kept = []
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(code).readline):
+            if tok.type in SKIP_TOKENS:
+                continue
+            if tok.type == tokenize.NAME and not keyword.iskeyword(tok.string) and tok.string not in BUILTINS:
+                kept.append(names.setdefault(tok.string, f"v{len(names) + 1}"))
+            elif tok.type in STRING_TOKENS:
+                kept.append("s")
+            elif tok.type == tokenize.NUMBER:
+                kept.append("n")
+            else:
+                kept.append(tok.string)
+    except (tokenize.TokenError, IndentationError):
+        return None
+    return tuple(kept)
+
+
 def giveaway_lines(solution, starter):
     """The solution lines a hint must not quote: short ones and ones the starter already shows teach nothing."""
     shown = {squeeze(line) for line in starter.splitlines()}
@@ -180,6 +212,7 @@ def check_hints(item_id, hints, solution, starter, problems):
     answers = giveaway_lines(solution, starter)
     quoted = {squeeze(line) for line in answers}
     shapes = {renamed: line for line in answers if (renamed := renamed_shape(line))}
+    masked = {masked: line for line in answers if (masked := masked_shape(line)) and len(masked) >= 4}
     for number, hint in enumerate(hints, 1):
         if not isinstance(hint, str):
             problems.add(item_id, "a hint must be a string")
@@ -191,6 +224,8 @@ def check_hints(item_id, hints, solution, starter, problems):
                 problems.add(item_id, f"hint {number} gives away the solution: `{span}`")
             elif len(squeeze(span)) >= 8 and squeeze(span) not in shown and (line := shapes.get(renamed_shape(span))):
                 problems.add(item_id, f"hint {number} gives away the solution: `{span}` is `{line}` renamed")
+            elif (shape := masked_shape(span)) and len(shape) >= 4 and (line := masked.get(shape)):
+                problems.add(item_id, f"hint {number} gives away the solution: `{span}` is `{line}` with names, strings or numbers changed")
 
 
 def check_claim(where, code, problems):

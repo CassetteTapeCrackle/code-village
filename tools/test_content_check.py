@@ -224,6 +224,24 @@ class ContentCheck(unittest.TestCase):
         done, _ = check(broken_copy(edit))
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
 
+    def test_hint_with_swapped_attributes_strings_and_numbers_fails(self):
+        sys.path.insert(0, str(ROOT / "tools"))
+        from content_check import Problems, check_hints
+        problems = Problems()
+        check_hints("x", ['Try `return frame.sort_values("age").iloc[-1]["name"]`.'],
+                    'return df.sort_values("height").iloc[-1]["name"]', "", problems)
+        self.assertEqual(len(problems), 1)
+        self.assertIn("hint 1 gives away the solution", problems[0])
+        self.assertIn("with names, strings or numbers changed", problems[0])
+
+    def test_generic_hint_mentioning_a_builtin_or_attribute_passes(self):
+        sys.path.insert(0, str(ROOT / "tools"))
+        from content_check import Problems, check_hints
+        problems = Problems()
+        check_hints("x", ["`len()` counts the items in a list.", "Store the value in `self.x`."],
+                    "return len(self.items)", "", problems)
+        self.assertEqual(problems, [])
+
     def test_a_different_message_passes(self):
         sys.path.insert(0, str(ROOT / "tools"))
         from content_check import Problems, check_hints
