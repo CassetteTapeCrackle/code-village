@@ -103,34 +103,158 @@ function lighthouse(
     }
 }
 
-// The wreck: a dark wooden hull on its side, ribs showing, half sunk in the cove's shallows.
-function wreck(p: Paint, c: MapColors, s: Record<string, string>, cx: number, cy: number, scale = 1): void {
-  const ang = -0.3;
-  const L = 36 * scale;
-  const Wd = 14 * scale;
-  const reach = Math.ceil(26 * scale);
-  for (let yy = -reach; yy <= reach; yy++)
-    for (let xx = -reach; xx <= reach; xx++) {
-      const u = xx * Math.cos(ang) + yy * Math.sin(ang);
-      const v = -xx * Math.sin(ang) + yy * Math.cos(ang);
-      const t = (u + L / 2) / L;
-      if (t < 0 || t > 1) continue;
-      const half = (Wd / 2) * (t < 0.62 ? 1 : Math.sqrt(Math.max(0, 1 - ((t - 0.62) / 0.38) ** 2)));
-      if (Math.abs(v) > half) continue;
-      const x = cx + xx;
-      const y = cy + yy;
-      let col = s.H;
-      if (Math.abs(v) > half - 1)
-        col = s.k; // the outline
-      else if (Math.abs(v) > half - 2)
-        col = s.h; // the lit rim of the hull
-      else if (Math.round(u) % 4 === 0) col = s.plankLight; // a rib
-      if (y > shoreYPx(x) + 1) col = mix(col, c.sea, 0.45);
-      p.put(x, y, col);
+// The wreck: a hull on her side in the cove's shallows, planks stove in and her ribs showing, the mast
+// snapped on the sand above her and a rag of sail trailing into the water. She lies stern in the sea, bow
+// up the sand; local i runs along her length, v down from the waterline.
+function wreck(p: Paint, c: MapColors, s: Record<string, string>, cx: number, cy: number): void {
+  const L = 54;
+  const x0 = cx - 22;
+  const waterline = (x: number): number => Math.round(shoreYPx(x)) + 1;
+  // everything below the water wears the sea's tint, so the hull reads as sunk rather than painted over it
+  const put = (x: number, y: number, color: string): void =>
+    p.put(x, y, y > waterline(x) ? mix(color, c.sea, 0.45) : color);
+
+  // her sheer and her keel, as [station, depth]: a narrow bow up on the sand, a wide stern down in the sea
+  const along = (stations: readonly (readonly [number, number])[], i: number): number => {
+    const k = stations.findIndex(([at]) => at >= i);
+    if (k <= 0) return stations[Math.max(0, k)][1];
+    const [a0, v0] = stations[k - 1];
+    const [a1, v1] = stations[k];
+    return v0 + ((v1 - v0) * (i - a0)) / (a1 - a0);
+  };
+  const sheer = [
+    [0, -8],
+    [8, -7],
+    [18, -6],
+    [28, -4.5],
+    [38, -3],
+    [46, -1.5],
+    [53, 0],
+  ] as const;
+  const keel = [
+    [0, 0],
+    [8, 6],
+    [18, 10],
+    [26, 11],
+    [34, 12],
+    [42, 12],
+    [53, 13],
+  ] as const;
+  // bites broken out of her sheer
+  const notch = (i: number): number =>
+    [
+      [6, 4, 1.5],
+      [15, 5, 2],
+      [31, 4, 2],
+      [42, 4, 1.5],
+    ].reduce((d, [at, w, deep]) => Math.max(d, deep * (1 - Math.abs(i - at) / (w / 2))), 0);
+  const top = (i: number): number => Math.round(along(sheer, i) + Math.max(0, notch(i)));
+  const bottom = (i: number): number => Math.round(along(keel, i));
+
+  // planks stove in: dark inside, her frames standing through, their line curving toward the bilge
+  const gap = (i: number, v: number, first: number, last: number): boolean => {
+    const h = hash01(i, v, 71);
+    return (
+      i >= first + (h < 0.3 ? 1 : 0) && i <= last - (h > 0.7 ? 1 : 0) && v >= top(i) + 2 && v <= bottom(i) - 3
+    );
+  };
+  const frame = (i: number, v: number, first: number): boolean => {
+    const t = (v - top(i)) / Math.max(1, bottom(i) - top(i));
+    const k = i - first - 1 - Math.round(1.2 * Math.sin(Math.PI * t));
+    return k >= 0 && k % 4 === 0;
+  };
+  // one more hole stove through her side, its splintered lip catching the light from the top left
+  const rips = (i: number, v: number): boolean => {
+    const mid = (top(i) + bottom(i)) / 2;
+    return ((i - 26.5) / 3.3) ** 2 + ((v - mid) / 2.8) ** 2 < 1 + (hash01(i, v, 53) - 0.5) * 0.6;
+  };
+
+  for (let i = 0; i < L; i++) {
+    const x = x0 + i;
+    const t = top(i);
+    const b = bottom(i);
+    for (let v = t; v <= b; v++) {
+      const y = cy + v;
+      let col: string;
+      if (v === t || v === b)
+        col = s.k; // the broken edge and her keel
+      else if (v === t + 1)
+        col = notch(i) > 0.5 ? s.k : s.h; // torn open at the bites, lit elsewhere
+      else if (gap(i, v, 10, 21)) col = frame(i, v, 10) ? s.plankLight : s.k;
+      else if (gap(i, v, 32, 43)) col = frame(i, v, 32) ? s.plankLight : s.k;
+      else if (rips(i, v)) col = !rips(i - 1, v) || !rips(i, v - 1) ? s.plankLight : s.k;
+      else {
+        // her remaining planks run lengthwise, dark seams and a lit strake under the sheer
+        col = (v - t - 1) % 3 === 2 ? s.H : hash01(x, y, 17) < 0.07 ? s.o : s.d;
+      }
+      // barnacles crusted on her near the tide line
+      if (
+        col !== s.k &&
+        col !== s.plankLight &&
+        col !== s.h &&
+        Math.abs(y - waterline(x)) <= 2 &&
+        hash01(x, y, 19) < 0.22
+      )
+        col = hash01(x, y, 29) < 0.4 ? s.cream : s.s;
+      put(x, y, col);
     }
-  for (let x = cx - Math.round(20 * scale); x < cx + Math.round(20 * scale); x++) {
-    const y = Math.round(shoreYPx(x)) + 1;
-    if (hash01(x, y, 4) < 0.7) p.put(x, y, s.W); // a line of foam at the waterline
+  }
+
+  // a rag of her sail, still bent to the broken spar and trailing into the water over her bow
+  for (let y = 595; y <= 609; y++)
+    for (let x = 338; x <= 358; x++) {
+      const t = (y - 595) / 14;
+      const left = 344 - 3 * t + (hash01(x, y, 61) - 0.5) * 1.6;
+      const right = 351 + 3 * t + (hash01(x, y, 62) - 0.5) * 1.6;
+      if (x < left || x > right) continue;
+      if (y > 602 && hash01(x, y, 63) < (y - 602) / 12) continue; // the torn hem
+      put(
+        x,
+        y,
+        x <= left + 0.6 || x >= right - 0.6 || y === 595 || y === 609 ? s.k : x < 345 ? s.W : s.cream,
+      );
+    }
+
+  // her mast, snapped in two and lying on the sand across her bow, the shorter piece kicked askew
+  const spars = [
+    [333, 601, 349, 596],
+    [350, 594, 361, 599],
+  ] as const;
+  const onSpar = (x: number, y: number): boolean =>
+    spars.some(([ax, ay, bx, by]) => {
+      const dx = bx - ax;
+      const dy = by - ay;
+      const along = ((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy);
+      if (along < 0 || along > 1) return false;
+      return Math.abs((x - ax) * dy - (y - ay) * dx) / Math.hypot(dx, dy) <= 1.2;
+    });
+  for (let y = 589; y <= 605; y++)
+    for (let x = 331; x <= 363; x++) {
+      if (!onSpar(x, y)) continue;
+      put(x, y, !onSpar(x, y - 1) ? s.h : !onSpar(x, y + 1) ? s.k : s.d); // lit on top, outlined below
+      if (!onSpar(x, y + 1)) p.shade(x, y + 2, 0.16); // a soft shadow on the sand
+    }
+
+  // weed clinging to her at the tide line
+  for (const [x, n] of [
+    [350, 3],
+    [362, 4],
+    [376, 2],
+  ] as const) {
+    const y0 = waterline(x) - 1;
+    for (let j = 0; j < n; j++) {
+      put(x + j, y0 + (j % 2), c.seaweed);
+      if (j % 2 === 0) put(x + j, y0 - 1, c.seaweed);
+    }
+  }
+
+  // foam where the swell breaks on her
+  for (let x = x0; x < x0 + L; x++) {
+    const i = x - x0;
+    const y = waterline(x);
+    if (y < cy + top(i) || y > cy + bottom(i)) continue; // only where she meets the water
+    if (hash01(x, y, 4) < 0.75) p.put(x, y, c.foam);
+    if (hash01(x, y, 6) < 0.25) p.put(x, y + 1, c.foam);
   }
 }
 
@@ -229,17 +353,16 @@ const drawPools: ShoreLair = (ctx, { c, s }, place, state) => {
 };
 
 const drawWreck: ShoreLair = (ctx, { c, s }, place, state) => {
-  const scale = 1.3;
   const cx = (place.x + place.w / 2) * TILE;
   const cy = shoreYPx(cx) - 1;
-  const pad = Math.ceil(30 * scale);
+  const pad = 40;
   paintAt(ctx, cx - pad, cy - pad, pad * 2, pad * 2, (p) => {
-    wreck(p, c, s, cx, cy, scale);
+    wreck(p, c, s, cx, cy);
     if (state !== "cleared") return;
-    // crabs move into the old hull, and a buoy marks her
-    crab(p, s, cx - 9, cy - 7);
-    crab(p, s, cx + 12, cy + 5);
-    buoy(p, s, cx - Math.round(28 * scale), shoreYPx(cx - 28 * scale) + 4);
+    // crabs move onto her broken sheer, and a buoy marks her
+    crab(p, s, cx + 10, cy - 5);
+    crab(p, s, cx + 20, cy - 3);
+    buoy(p, s, cx - 36, shoreYPx(cx - 36) + 4);
   });
 };
 
