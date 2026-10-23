@@ -21,7 +21,7 @@
   import { levelFor } from "./learning/xp";
   import { canSkip } from "./learning/skip";
   import { game } from "./store/progress.svelte";
-  import { liftedFog, tickClock } from "./village/clock-state.svelte";
+  import { liftedFog, previewBeach, tickClock } from "./village/clock-state.svelte";
   import Village from "./village/Village.svelte";
   import { getRunner } from "./runner/shared";
   import { onIdle } from "./ui/idle";
@@ -68,7 +68,9 @@
   const focus = $derived(focusFor(route, bundle));
   const covered = $derived(route.name !== "home");
   // the cheat screen lifting the fog over a world with no content also rebuilds the map
-  const villageKey = $derived(`${open.join(",")}|${levelFor(game.progress.xp)}|${liftedFog.on}`);
+  const villageKey = $derived(
+    `${open.join(",")}|${levelFor(game.progress.xp)}|${liftedFog.on}|${previewBeach.level}`,
+  );
   $effect(() => {
     board.back = focus.back;
     board.backLabel = focus.backLabel;

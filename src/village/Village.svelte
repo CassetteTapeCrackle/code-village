@@ -15,7 +15,7 @@
   import { announceLevel, moment } from "../ui/moments.svelte";
   import { clearedLine } from "../ui/celebrate";
   import { isRainyDay, type Palette } from "./clock";
-  import { clock, forcedSeason, forcedShoreStage, liftedFog } from "./clock-state.svelte";
+  import { clock, forcedSeason, forcedShoreStage, liftedFog, previewBeach } from "./clock-state.svelte";
   import { lootFound } from "../learning/house";
   import { seasonFor, windAt, type Season } from "./weather";
   import { rockLine } from "./terrain";
@@ -138,7 +138,7 @@
   );
   const scene = $derived({
     palette: clock.palette,
-    level: levelFor(game.progress.xp),
+    level: Math.max(levelFor(game.progress.xp), previewBeach.level ?? 0), // the cheat can preview a later beach
     found: lootFound(bundle, game.progress).map((f) => f.id),
     plots,
     lairs,
@@ -969,7 +969,7 @@
   });
 
   // The newest open world's regions, as the small progress strip on the map.
-  const stripWorld = open.at(-1) ?? "w1";
+  const stripWorld = open.filter((w) => worldById(w)).at(-1) ?? "w1"; // a world with no lessons yet has no progress
   const strip = $derived(
     [
       ...new Set(
