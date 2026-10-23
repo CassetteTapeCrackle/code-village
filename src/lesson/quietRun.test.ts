@@ -15,3 +15,9 @@ test("classes count as definitions too", () => {
 test("a quiet program with no definitions just says it printed nothing", () => {
   expect(quietRunNote("x = 3\n")).toBe("Your code ran without errors and printed nothing.");
 });
+
+test("the sandbox has no Check button, so its note does not mention one", () => {
+  const note = quietRunNote("def area(w, h):\n    return w * h\n", false);
+  expect(note).not.toContain("Check");
+  expect(note).toContain("print(area(...))");
+});
