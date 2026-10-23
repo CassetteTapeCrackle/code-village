@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { quietRunNote } from "./quietRun";
   import { untrack } from "svelte";
   import type { Snippet } from "svelte";
   import { saveDraft } from "../learning/progress";
@@ -93,7 +94,7 @@
   {#if unavailable}<LoadFailed message={unavailable} />{/if}
   {#if ran}
     <pre class="out" aria-live="polite">{ran.stdout}{#if ran.error}<span class="err">{ran.error}</span
-        >{/if}</pre>
+        >{:else if ran.stdout === ""}<span class="quiet">{quietRunNote(code)}</span>{/if}</pre>
   {/if}
   {@render children?.()}
 </section>
@@ -194,6 +195,10 @@
     font-family: var(--font-mono);
     font-size: 14px;
     white-space: pre-wrap;
+  }
+  .quiet {
+    white-space: normal;
+    opacity: 0.8;
   }
   .err {
     color: var(--bad);

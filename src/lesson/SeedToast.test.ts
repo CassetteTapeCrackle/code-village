@@ -8,3 +8,8 @@ test("one line per planted concept, and a way to the garden", () => {
   expect(screen.getByText("A loops seed was planted in the garden.")).toBeTruthy();
   expect(screen.getByRole("link", { name: "See the garden" }).getAttribute("href")).toBe("#/garden");
 });
+
+test("a concept starting with a vowel gets 'An'", () => {
+  render(SeedToast, { concepts: ["io"] });
+  expect(screen.getByText("An io seed was planted in the garden.")).toBeTruthy();
+});
