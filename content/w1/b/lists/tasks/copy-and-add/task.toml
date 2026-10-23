@@ -3,5 +3,5 @@ concept = "lists"
 kind = "fix"
 title = "Leave the original alone"
 prompt = "`copy_and_add(items, x)` should return a **new** list with `x` at the end, and leave `items` unchanged. It has a bug: find and fix it."
-hints = ["Run it, then print the original list after the call.", "Call `.copy()` on the list: `items.copy()` gives a new list; `bag = basket` only adds another name."]
+hints = ["Run it, then print the original list after the call.", "Call `.copy()` on the list to get a new list; assigning `new = items` only gives the same list a second name."]
 gotcha = true

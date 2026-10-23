@@ -3,5 +3,5 @@ concept = "conditions"
 kind = "complete"
 title = "Ferry tickets"
 prompt = "Finish `ticket_price(age)`: 0 under 4, 5 from 4 to 17, 9 from 18 to 64, and 6 from 65."
-hints = ["Keep going with `elif`: the order of the checks matters.", "Add `elif age < 65: return 9` and then `else: return 6`."]
+hints = ["Keep going with `elif`: the order of the checks matters.", "After the two cases in the starter, add an `elif` for ages 18 to 64 and a final `else` for 65 and over."]
 gotcha = false

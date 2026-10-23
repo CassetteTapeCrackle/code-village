@@ -3,5 +3,5 @@ concept = "errors"
 kind = "write"
 title = "Divide safely"
 prompt = "Write `safe_divide(a, b)` that returns `a / b`, or `None` when `b` is 0. Use `try` and `except ZeroDivisionError`."
-hints = ["Dividing by zero raises `ZeroDivisionError`.", "`try: return a / b` then `except ZeroDivisionError: return None`."]
+hints = ["Dividing by zero raises `ZeroDivisionError`.", "Put the division inside a `try`, and in the `except ZeroDivisionError` branch return `None`."]
 gotcha = false

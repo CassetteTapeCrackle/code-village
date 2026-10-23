@@ -3,5 +3,5 @@ concept = "lists"
 kind = "write"
 title = "The last one"
 prompt = "Write `last_item(items)` that returns the last value of a non-empty list."
-hints = ["Negative indexes count from the end.", "`items[-1]` is the last value."]
+hints = ["Negative indexes count from the end.", "`-1` points at the last position, so use it as the index inside the square brackets."]
 gotcha = false

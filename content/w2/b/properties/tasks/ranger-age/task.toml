@@ -3,5 +3,5 @@ concept = "properties"
 kind = "fix"
 title = "A setter that never stops"
 prompt = "`Ranger(name, age)` should store the age through a setter that refuses negative ages with `ValueError`. Making any ranger crashes with a `RecursionError`: find and fix the bug."
-hints = ["What does the setter's last line assign to, and what runs when you assign to it?", "Store the value as `self._score = value`."]
+hints = ["What does the setter's last line assign to, and what runs when you assign to it?", "The getter reads `self._age`. Store the setter's value in that same attribute instead of assigning to the property again."]
 gotcha = true

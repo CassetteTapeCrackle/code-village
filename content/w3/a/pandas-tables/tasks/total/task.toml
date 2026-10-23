@@ -3,5 +3,5 @@ concept = "pandas-tables"
 kind = "fix"
 title = "The shopping total"
 prompt = "`total_price(text)` should add up the `price` column of a CSV, skipping prices that are not numbers. For tea 3, jam ?, bun 2 it returns `\"3?2\"` instead of `5`: find and fix the bug."
-hints = ["The `?` made pandas read the whole column as text. What does `sum` do with text?", "`return float(pd.to_numeric(df[\"cost\"], errors=\"coerce\").sum())`"]
+hints = ["The `?` made pandas read the whole column as text. What does `sum` do with text?", "`pd.to_numeric` converts a column to numbers; with `errors=\"coerce\"` it turns bad text into a missing value that `sum` ignores. Use it on the price column before summing."]
 gotcha = true

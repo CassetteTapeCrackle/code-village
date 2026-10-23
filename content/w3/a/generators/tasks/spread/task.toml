@@ -3,5 +3,5 @@ concept = "generators"
 kind = "fix"
 title = "The spread of the numbers"
 prompt = "`spread(numbers)` should return the largest number minus the smallest. It crashes instead: find and fix the bug."
-hints = ["`max(values)` walks through the whole generator. What is left in it for `min`?", "Keep a list instead: `numbers = list(numbers)` turns the generator into a list."]
+hints = ["`max(values)` walks through the whole generator. What is left in it for `min`?", "Turn the generator into a list first, so `max` and `min` can both walk it."]
 gotcha = true

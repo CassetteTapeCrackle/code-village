@@ -3,5 +3,5 @@ concept = "conditions"
 kind = "write"
 title = "Plus or minus"
 prompt = "Write `sign(n)` that returns `\"positive\"`, `\"negative\"` or `\"zero\"`."
-hints = ["Use `if`, `elif` and `else`.", "For a weather check: `if temp < 0: return \"freezing\"`, then `elif temp < 15:`, then `else:`."]
+hints = ["Use `if`, `elif` and `else`.", "Put the three cases in order: one `if` branch, then `elif`, then `else`, and return the matching word from each."]
 gotcha = false

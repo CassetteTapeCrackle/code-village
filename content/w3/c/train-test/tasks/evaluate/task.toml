@@ -3,5 +3,5 @@ concept = "train-test"
 kind = "complete"
 title = "Split, fit, score"
 prompt = "Finish `evaluate(X, y)`: split `X` and `y` with `test_size=0.25` and `random_state=0`, fit a 1-neighbour model on the training part, and return its score on the test part as a plain float. The split line is missing."
-hints = ["`train_test_split(X, y, test_size=0.25, random_state=0)` gives four lists, in the order the next lines use.", "Unpack in this order: `X_train, X_test, y_train, y_test = ...` (inputs first, then labels)."]
+hints = ["`train_test_split` returns four lists: train inputs, test inputs, train labels, test labels.", "Pass the test size and random state from the prompt, and unpack the four results in the order the next lines use."]
 gotcha = false

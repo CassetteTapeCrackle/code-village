@@ -1,2 +1,2 @@
-def greeting(name):
+def greeting(name, word="Hello"):
     pass
