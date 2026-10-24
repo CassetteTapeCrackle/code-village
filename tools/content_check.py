@@ -430,9 +430,31 @@ def all_tasks(lessons):
     return [b["task"] for lesson in lessons for b in lesson["blocks"] if b["type"] == "task"]
 
 
-def check_concepts(lessons, problems):
+def load_concepts(content, problems):
+    """content/concepts.toml: the readable name of every concept."""
+    where = "concepts.toml"
+    try:
+        names = tomllib.loads((content / "concepts.toml").read_text())
+    except OSError:
+        problems.add(where, "missing: every concept needs a name")
+        return {}
+    except tomllib.TOMLDecodeError as e:
+        problems.add(where, f"unreadable: {e}")
+        return {}
+    for concept, name in names.items():
+        if not isinstance(name, str) or not name.strip():
+            problems.add(where, f"concept {concept} needs a name")
+    return {concept: name for concept, name in names.items() if isinstance(name, str) and name.strip()}
+
+
+def check_concepts(lessons, names, problems):
     tasks = all_tasks(lessons)
-    for concept in sorted({c for lesson in lessons for c in lesson["concepts"]}):
+    used = {c for lesson in lessons for c in lesson["concepts"]} | {t["concept"] for t in tasks}
+    for concept in sorted(used - names.keys()):
+        problems.add("concepts.toml", f"concept {concept} has no name")
+    for concept in sorted(names.keys() - used):
+        problems.add("concepts.toml", f"concept {concept} is named but no lesson or task uses it")
+    for concept in sorted(used):
         mine = [t for t in tasks if t["concept"] == concept]
         if len(mine) < 3:
             problems.add("content", f"concept {concept} has {len(mine)} tasks, needs at least 3")
@@ -575,7 +597,8 @@ def main():
         lessons = [x for x in pool.map(lambda md: load_lesson(md, problems), sorted(content.glob("*/*/*/lesson.md"))) if x]
         bosses = [x for x in pool.map(lambda md: load_boss(md, problems), sorted(content.glob("*/*/boss/boss.md"))) if x]
     check_style(content, problems)
-    check_concepts(lessons, problems)
+    concepts = load_concepts(content, problems)
+    check_concepts(lessons, concepts, problems)
     check_ids(lessons, bosses, problems)
     check_bosses(bosses, lessons, problems)
     worlds = [w for w in (load_world(d, problems) for d in subfolders(content)) if w]
@@ -588,7 +611,8 @@ def main():
     bosses.sort(key=lambda boss: (boss["world"], boss["region"]))
     out.parent.mkdir(parents=True, exist_ok=True)
     worlds.sort(key=lambda world: world["order"])
-    bundle = {"version": 3, "python": python, "worlds": [world_entry(w) for w in worlds], "lessons": lessons, "bosses": bosses}
+    bundle = {"version": 3, "python": python, "concepts": dict(sorted(concepts.items())),
+              "worlds": [world_entry(w) for w in worlds], "lessons": lessons, "bosses": bosses}
     out.write_text(json.dumps(bundle, indent=1))
     stamp.write_text(source)
     n_tasks = len(all_tasks(lessons))

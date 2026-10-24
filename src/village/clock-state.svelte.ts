@@ -82,3 +82,46 @@ export function forceShoreStage(stage: number | null): void {
     // private mode: the preview lasts until the page reloads
   }
 }
+
+// The dev cheat screen can lift the fog over areas whose world has no content yet (World 4's shore), so testers
+// can walk there, for the browser session.
+const FOG_KEY = "code-village/lift-fog";
+function savedLiftedFog(): boolean {
+  try {
+    return sessionStorage.getItem(FOG_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+export const liftedFog: { on: boolean } = $state({ on: savedLiftedFog() });
+export function liftFog(on: boolean): void {
+  liftedFog.on = on;
+  try {
+    if (on) sessionStorage.setItem(FOG_KEY, "1");
+    else sessionStorage.removeItem(FOG_KEY);
+  } catch {
+    // private mode: the fog comes back when the page reloads
+  }
+}
+
+// The dev cheat screen can preview the beach as a later level would grow it (World 4's levels are above
+// today's cap), for the browser session. The real level and XP never change.
+const BEACH_KEY = "code-village/preview-beach-level";
+function savedBeachLevel(): number | null {
+  try {
+    const saved = Number(sessionStorage.getItem(BEACH_KEY));
+    return Number.isInteger(saved) && saved > 0 ? saved : null;
+  } catch {
+    return null;
+  }
+}
+export const previewBeach: { level: number | null } = $state({ level: savedBeachLevel() });
+export function previewBeachLevel(level: number | null): void {
+  previewBeach.level = level;
+  try {
+    if (level === null) sessionStorage.removeItem(BEACH_KEY);
+    else sessionStorage.setItem(BEACH_KEY, String(level));
+  } catch {
+    // private mode: the preview lasts until the page reloads
+  }
+}

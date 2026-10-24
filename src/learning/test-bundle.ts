@@ -49,6 +49,7 @@ export function testBundle(): Bundle {
   return {
     version: 3,
     python: "3.14",
+    concepts: { vars: "values and variables", io: "input and output", loops: "loops", lists: "lists" },
     worlds: [
       {
         id: "w1",

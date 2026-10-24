@@ -15,7 +15,7 @@
   import { announceLevel, moment } from "../ui/moments.svelte";
   import { clearedLine } from "../ui/celebrate";
   import { isRainyDay, type Palette } from "./clock";
-  import { clock, forcedSeason, forcedShoreStage } from "./clock-state.svelte";
+  import { clock, forcedSeason, forcedShoreStage, liftedFog, previewBeach } from "./clock-state.svelte";
   import { lootFound } from "../learning/house";
   import { seasonFor, windAt, type Season } from "./weather";
   import { rockLine } from "./terrain";
@@ -71,7 +71,11 @@
   let { focus = null, covered = false }: { focus?: string | null; covered?: boolean } = $props();
 
   // Worlds open when their key trophy is owned; read once when the village opens (App remounts it when one opens).
-  const open = openWorlds(bundle, game.progress);
+  // the cheat screen can lift the fog over areas whose world has no content yet, for testers
+  const open = [
+    ...openWorlds(bundle, game.progress),
+    ...(liftedFog.on ? AREAS.map((a) => a.world).filter((w) => !worldById(w)) : []),
+  ];
   const map = buildMap(open, featureLand());
   const closedAreas = AREAS.filter((a) => !open.includes(a.world));
   const day = today();
@@ -110,7 +114,8 @@
 
   function hrefFor(p: Place): string | null {
     if (p.kind === "school") return "#/school";
-    if (p.kind === "cabin" || p.kind === "observatory" || p.kind === "hall") return `#/school/${p.world}`;
+    if (p.kind === "cabin" || p.kind === "observatory" || p.kind === "hall")
+      return worldById(p.world) ? `#/school/${p.world}` : null; // a world with no lessons yet has no school
     if (p.kind === "library") return "#/library";
     if (p.kind === "garden") return "#/garden";
     if (p.kind === "house") return "#/house";
@@ -133,7 +138,7 @@
   );
   const scene = $derived({
     palette: clock.palette,
-    level: levelFor(game.progress.xp),
+    level: Math.max(levelFor(game.progress.xp), previewBeach.level ?? 0), // the cheat can preview a later beach
     found: lootFound(bundle, game.progress).map((f) => f.id),
     plots,
     lairs,
@@ -964,7 +969,7 @@
   });
 
   // The newest open world's regions, as the small progress strip on the map.
-  const stripWorld = open.at(-1) ?? "w1";
+  const stripWorld = open.filter((w) => worldById(w)).at(-1) ?? "w1"; // a world with no lessons yet has no progress
   const strip = $derived(
     [
       ...new Set(

@@ -31,6 +31,7 @@ class ContentCheck(unittest.TestCase):
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
         bundle = json.loads(out.read_text())
         self.assertEqual(bundle["version"], 3)
+        self.assertEqual(bundle["concepts"], {"numbers": "numbers"})
         self.assertEqual(bundle["worlds"][0]["building"], {"name": "School", "placeId": "school"})
         self.assertIsNone(bundle["worlds"][0]["key"])
         lesson = bundle["lessons"][0]
@@ -116,6 +117,19 @@ class ContentCheck(unittest.TestCase):
             p.write_text(p.read_text().replace("gotcha = true", "gotcha = false"))
         done, _ = check(broken_copy(edit))
         self.assertIn("concept numbers has no gotcha task", done.stdout)
+
+    def test_concept_without_a_name_fails(self):
+        done, _ = check(broken_copy(lambda d: (d.parents[2] / "concepts.toml").write_text("")))
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("concepts.toml: concept numbers has no name", done.stdout)
+
+    def test_unused_concept_name_fails(self):
+        def edit(d):
+            p = d.parents[2] / "concepts.toml"
+            p.write_text(p.read_text() + 'gone = "gone"\n')
+        done, _ = check(broken_copy(edit))
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("concepts.toml: concept gone is named but no lesson or task uses it", done.stdout)
 
     def test_infinite_example_fails_instead_of_hanging(self):
         def edit(d):

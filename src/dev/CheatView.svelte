@@ -12,11 +12,16 @@
     clock,
     forceSeason,
     forceShoreStage,
+    liftFog,
+    liftedFog,
+    previewBeach,
+    previewBeachLevel,
     forceTime,
     forcedSeason,
     forcedShoreStage,
   } from "../village/clock-state.svelte";
   import { DECOR } from "../village/decor";
+  import { SHORE_LEVELS } from "../village/features/shore";
   import { WORLDS, openWorlds } from "../worlds/registry";
   import {
     TOP_LEVEL,
@@ -224,6 +229,23 @@
         >
       {/each}
       <button type="button" onclick={() => forceShoreStage(null)}>Follow the bosses</button>
+    </div>
+    <p>The beach grows with levels above today's cap. Preview each step (your real level stays the same):</p>
+    <div class="row">
+      {#each Object.entries(SHORE_LEVELS).sort((a, b) => a[1] - b[1]) as [what, level] (what)}
+        <button
+          type="button"
+          aria-pressed={previewBeach.level === level}
+          onclick={() => previewBeachLevel(level)}>{level}: {what}</button
+        >
+      {/each}
+      <button type="button" onclick={() => previewBeachLevel(null)}>Real level</button>
+    </div>
+    <p>The shore stays under fog until World 4 has content. Lift it to walk there.</p>
+    <div class="row">
+      <button type="button" aria-pressed={liftedFog.on} onclick={() => liftFog(!liftedFog.on)}
+        >{liftedFog.on ? "Bring the fog back" : "Lift the fog over the shore"}</button
+      >
     </div>
   </section>
 

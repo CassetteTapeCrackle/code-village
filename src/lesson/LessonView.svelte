@@ -2,6 +2,7 @@
   import Screen from "../ui/Screen.svelte";
   import { onMount, untrack } from "svelte";
   import type { Lesson } from "../content/types";
+  import { bundle } from "../content/bundle";
   import { lessonTasks } from "../learning/progress";
   import { teacherFor, teacherLine, type TaskEvent } from "../learning/school";
   import { game } from "../store/progress.svelte";
@@ -43,7 +44,7 @@
     selected = id;
     event = "start";
   }
-  const line = $derived(teacherLine(lesson, nPassed, tasks.length, event, nextOpen?.title ?? null));
+  const line = $derived(teacherLine(bundle, lesson, nPassed, tasks.length, event, nextOpen?.title ?? null));
 </script>
 
 {#snippet notebook()}

@@ -27,14 +27,15 @@ export function inSeason(id: string, season: Season): boolean {
 const atLevel = (level: number) => ({ kind: "level", level }) as const;
 
 // ---------- the mockup's small new sprites, in the shared palette letters ----------
+// Wet sand, lit from the left: L light, x the wet sand, X its shade, a dark doorway and a red flag.
 const CASTLE: Grid = [
-  "k.k...k.k",
-  "kxk.r.kxk",
-  "kxk.k.kxk",
-  "kxxkkkxxk",
-  "kxxxxxxxk",
-  "kxxkkkxxk",
-  "kxxk.kxxk",
+  "....r....",
+  "....k....",
+  "k.k.k.k.k",
+  "kLxkkkxXk",
+  "kLxxxxxXk",
+  "kLxkkkxXk",
+  "kLxkXkxXk",
   "kkkkkkkkk",
 ];
 const BUCKET: Grid = ["k...k", ".kkk.", "kbbbk", "kbbbk", ".kkk."];
@@ -133,12 +134,18 @@ export const SHORE_LIFE: Feature[] = [
     id: "sandcastles",
     land: [],
     unlock: { kind: "always" },
-    draw: ({ ctx, s }) => {
+    draw: ({ ctx, s, c }) => {
       for (const [tx, ty] of [
         [33.5, 75.2],
         [40.6, 75.4],
       ])
-        stamp(ctx, CASTLE, { ...s, x: s.plankLight }, Math.round(tx * TILE), Math.round(ty * TILE));
+        stamp(
+          ctx,
+          CASTLE,
+          { ...s, L: c.sand3, x: c.wet, X: c.wet2 },
+          Math.round(tx * TILE),
+          Math.round(ty * TILE),
+        );
       stamp(ctx, BUCKET, s, Math.round(35.2 * TILE), Math.round(76 * TILE));
     },
   },
