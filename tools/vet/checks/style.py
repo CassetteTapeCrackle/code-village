@@ -5,17 +5,13 @@ import sys
 from collections.abc import Iterable
 from pathlib import Path
 
-from ..adapter import LanguageAdapter
+from ..adapter import LanguageAdapter, ToolError
 from ..finding import Finding, subject
 from ..model import Content, fingerprint_text
 
 # ignored: zip(strict=) is not taught, and assert False is how the testing lessons fail a test by hand
 LINT_RULES = ["--select", "E,F,W,B,SIM", "--ignore", "E501,B905,B011"]
 RUFF_LIMIT = 60
-
-
-class ToolError(RuntimeError):
-    """The linter itself could not run: a problem with the machine, not with the content."""
 
 
 def _ruff(paths: list[str]) -> str:

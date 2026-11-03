@@ -11,6 +11,10 @@ from typing import Literal, NotRequired, Protocol, TypedDict
 # seconds a run may take: a guard against runaway loops, not a speed budget (World 3 runs take ~2 s alone but
 # 10+ s on a loaded machine)
 LIMIT = 30
+class ToolError(RuntimeError):
+    """A tool a check needs could not run: a problem with the machine, not with the content."""
+
+
 Compare = Literal["exact", "unordered", "float", "text", "array", "frame", "valid"]
 
 
@@ -132,7 +136,6 @@ class LanguageAdapter(Protocol):
     def rewrites(self, code: str) -> list[Rewrite]: ...
 
     def features(self, code: str) -> frozenset[str]: ...
-
 
 
 def passes(outcome: CheckOutcome | None) -> bool:

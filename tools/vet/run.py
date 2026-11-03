@@ -3,7 +3,7 @@
 from collections.abc import Callable, Iterable
 from pathlib import Path
 
-from .adapter import LanguageAdapter
+from .adapter import LanguageAdapter, ToolError
 from .checks import bosses, claims, concepts, hints, ids, solutions, style, worlds, wrong
 from .finding import Finding
 from .load import load_content
@@ -17,13 +17,23 @@ CHECKS: list[CheckFn] = [
 ]
 
 
-def vet_content(content: Content, adapter: LanguageAdapter) -> list[Finding]:
-    """Every finding the checks report on loaded content."""
-    return [f for check in CHECKS for f in check(content, adapter)]
+def vet_content(content: Content, adapter: LanguageAdapter) -> tuple[list[Finding], list[str]]:
+    """Every finding the checks report on loaded content, and why any check could not run at all."""
+    findings: list[Finding] = []
+    broken = []
+    for check in CHECKS:
+        try:
+            findings += check(content, adapter)
+        except ToolError as e:
+            broken.append(str(e))
+    return findings, broken
 
 
 def vet(root: Path, adapter: LanguageAdapter | None = None, only: frozenset[str] | None = None) -> list[Finding]:
     """Every finding on the content under root, load problems included; `only` keeps the named rules."""
     content, findings = load_content(root)
-    findings += vet_content(content, adapter or PythonAdapter())
+    checked, broken = vet_content(content, adapter or PythonAdapter())
+    if broken:
+        raise ToolError("; ".join(broken))
+    findings += checked
     return [f for f in findings if only is None or f.rule in only]

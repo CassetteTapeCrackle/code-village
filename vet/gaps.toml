@@ -1,1 +1,2 @@
-# Known gaps: written by `python -m tools.vet.gaps --write`. Never edit by hand; fix the content instead.
+# Known gaps: written by `pnpm gaps --write`. Never edit by hand; fix the content instead.
+

@@ -44,7 +44,8 @@ def expected_rules(canary_dir: Path) -> set[str]:
 
 
 def found_rules(canary_dir: Path) -> set[str]:
-    return {f.rule for f in vet(materialize(canary_dir, Path(tempfile.mkdtemp())))}
+    with tempfile.TemporaryDirectory() as into:
+        return {f.rule for f in vet(materialize(canary_dir, Path(into)))}
 
 
 class Canaries(unittest.TestCase):

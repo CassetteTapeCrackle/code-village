@@ -24,7 +24,6 @@ class Finding:
         return GapKey(rule=self.rule, item=self.item, fingerprint=self.fingerprint)
 
 
-
 @dataclass(frozen=True)
 class Subject:
     """What findings are about: the item id, the fingerprint they are pinned to, and the file to open."""

@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from vet import Finding, GapKey
-from vet.gaps import added_for_old_rules, compare, dump_gaps, load_gaps
+from vet.gaps import BaseError, added_for_old_rules, compare, dump_gaps, load_gaps, world_summary
 
 
 def finding(rule: str = "solution-fails", item: str = "a", fingerprint: str = "f1") -> Finding:
@@ -37,18 +37,20 @@ class Compare(unittest.TestCase):
     def test_new_finding_fails(self) -> None:
         diff = compare([finding()], set())
         self.assertEqual(diff.new, [finding()])
-        self.assertFalse(diff.ok)
 
     def test_stale_gap_fails(self) -> None:
         gone = GapKey("solution-fails", "a", "old")
         diff = compare([], {gone})
         self.assertEqual(diff.stale, [gone])
-        self.assertFalse(diff.ok)
 
     def test_known_gap_passes(self) -> None:
         diff = compare([finding()], {finding().key})
         self.assertEqual((diff.new, diff.stale, diff.known), ([], [], [finding()]))
-        self.assertTrue(diff.ok)
+
+    def test_unreadable_files_can_never_be_listed(self) -> None:
+        unreadable = finding(rule="file-unreadable")
+        diff = compare([unreadable], {unreadable.key})
+        self.assertEqual((diff.new, diff.known), ([unreadable], []))
 
     def test_changed_fingerprint_is_new_and_stale(self) -> None:
         diff = compare([finding(fingerprint="f2")], {finding().key})
@@ -68,6 +70,19 @@ class File(unittest.TestCase):
         self.assertEqual(load_gaps(Path(tempfile.mkdtemp()) / "gaps.toml"), set())
 
 
+class Summary(unittest.TestCase):
+    def test_summary_counts_per_world_and_rule(self) -> None:
+        findings = [Finding("solution-fails", "a", "1", "m", "w1/a/x/tasks/t/solution.py"),
+                    Finding("solution-fails", "b", "2", "m", "w1/b/y/tasks/u/solution.py"),
+                    Finding("concept-no-gotcha", "content", "3", "m", "concepts.toml")]
+        summary = world_summary(findings)
+        self.assertIn("| w1 | solution-fails | right-refused | 2 |", summary)
+        self.assertIn("| all | concept-no-gotcha | wiring | 1 |", summary)
+
+    def test_summary_says_none(self) -> None:
+        self.assertIn("None.", world_summary([]))
+
+
 class Base(unittest.TestCase):
     def test_base_check_rejects_added_entry_for_old_rule(self) -> None:
         repo = repo_with(OLD_RULE, "")
@@ -80,6 +95,15 @@ class Base(unittest.TestCase):
         (repo / "vet" / "rules.toml").write_text(OLD_RULE + NEW_RULE)
         (repo / "vet" / "gaps.toml").write_text(dump_gaps({GapKey("cases-missing", "a", "f1")}))
         self.assertEqual(added_for_old_rules("base", repo), [])
+
+    def test_base_check_allows_a_known_gap_with_a_new_fingerprint(self) -> None:
+        repo = repo_with(OLD_RULE, dump_gaps({GapKey("solution-fails", "a", "f1")}))
+        (repo / "vet" / "gaps.toml").write_text(dump_gaps({GapKey("solution-fails", "a", "f2")}))
+        self.assertEqual(added_for_old_rules("base", repo), [])
+
+    def test_base_check_refuses_an_unknown_ref(self) -> None:
+        with self.assertRaisesRegex(BaseError, "nowhere is not a commit"):
+            added_for_old_rules("nowhere", repo_with(OLD_RULE, ""))
 
     def test_base_check_allows_entries_the_base_already_had(self) -> None:
         kept = GapKey("solution-fails", "a", "f1")

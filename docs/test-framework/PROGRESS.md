@@ -5,7 +5,7 @@ Each session reads this first and updates it last. Newest entries at the top of 
 ## Done
 - Session 1 (2026-11-03, cloud): Tasks 1.1 to 1.5, committed locally on `test-framework`. Not pushed: see
   Open. `pnpm lint:py` (ruff, vulture) and `pnpm typecheck:py` (mypy strict over `tools/vet`,
-  `tools/content_check.py`, `py/`) pass; `pnpm test:py` runs 92 tests under a 90 percent coverage floor on
+  `tools/content_check.py`, `py/`) pass; `pnpm test:py` runs 98 tests under a 90 percent coverage floor on
   `tools/vet` (92 percent today). The checks live in `tools/vet` (one module per rule group in
   `tools/vet/checks/`, 28 rule ids in `vet/rules.toml`), `vet/gaps.toml` is the empty gap list, and every
   rule has a canary in `tools/fixtures/canaries/`. `pnpm content` builds the same bundle as before
@@ -14,6 +14,14 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 1 review (fresh subagent on the session diff): fixed all eight findings. `--base` compares rule
+  and item, not the fingerprint, so editing an item with a known gap does not count as a new gap.
+  Fingerprints skip dot files (`.DS_Store`, swap files) that never reach CI. `file-unreadable`,
+  `field-missing` and `field-invalid` can never be listed, because the bundle writer needs those fields.
+  `pnpm gaps` runs the CLI under the content pins, checks the machine first, and only writes for
+  `content/`. A broken linter no longer hides the other checks' findings. The job summary is written only
+  for the real content. An unknown `--base` ref fails instead of passing. Tests cover the summary and the
+  broken-tool path.
 - Session 1: `LanguageAdapter` gains `run(codes) -> list[RunOutcome | None]`, which the plan's protocol
   lacks. Claims, examples and predicts run code without tests, and spec 23 names "run code and tests" as
   the adapter's first job.
@@ -69,5 +77,4 @@ Each session reads this first and updates it last. Newest entries at the top of 
 - Before Session 2: push `test-framework`, open the draft pull request into `dev`, and read the first CI run
   (Task 1.1 Step 5). Fix anything red before starting Task 2.1.
 - Session 2 (cloud): Tasks 2.1 to 2.4 in `PLAN.md`. New rules go in `vet/rules.toml` with a canary in
-  `tools/fixtures/canaries/<rule>/` in the same commit; `python -m tools.vet.gaps --write` (run under the
-  `pnpm content` pins) records today's content as gaps. Track B runs in parallel on `report-button`.
+  `tools/fixtures/canaries/<rule>/` in the same commit; `pnpm gaps --write` records today's content as gaps. Track B runs in parallel on `report-button`.

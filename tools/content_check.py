@@ -17,7 +17,6 @@ from pathlib import Path
 
 from vet.adapter import LanguageAdapter
 from vet.checks.libraries import PYODIDE_LOCK, build_python, environment_problems
-from vet.checks.style import ToolError
 from vet.finding import Finding, GapKey
 from vet.gaps import GAPS_PATH, GapDiff, compare, load_gaps, world_summary
 from vet.load import LESSON_FIELDS, STAGE_FIELDS, TASK_FIELDS, VARIANT_FIELDS, Fields, load_content
@@ -93,12 +92,12 @@ def bundle(content: Content, adapter: LanguageAdapter) -> Json:
             "lessons": [lesson_entry(lesson, adapter) for lesson in lessons], "bosses": [boss_entry(b) for b in bosses]}
 
 
-def fingerprint(content: Path) -> str:
+def fingerprint(content: Path, gaps: Path) -> str:
     """A hash of everything the bundle is built from: the content, the checks, the harness and the pins."""
     digest = hashlib.sha256(sys.version.encode())
     files = sorted(p for p in content.rglob("*") if p.is_file() and "__pycache__" not in p.parts)
     checks = sorted(p for p in (ROOT / "tools" / "vet").rglob("*.py") if "__pycache__" not in p.parts)
-    inputs = [ROOT / "py" / "harness.py", Path(__file__), *checks, ROOT / "vet" / "rules.toml", GAPS_PATH,
+    inputs = [ROOT / "py" / "harness.py", Path(__file__), *checks, ROOT / "vet" / "rules.toml", gaps,
               ROOT / "package.json", PYODIDE_LOCK]
     for path in [*files, *inputs]:
         if path.exists():
@@ -106,36 +105,30 @@ def fingerprint(content: Path) -> str:
     return digest.hexdigest()
 
 
-def problems(content: Content, load_findings: list[Finding], adapter: LanguageAdapter,
-             version_check: bool) -> tuple[list[str], list[Finding]]:
-    """Problems with the machine, which always fail the build, and every finding on the content."""
-    machine = environment_problems() if version_check else []
-    try:
-        return machine, load_findings + vet_content(content, adapter)
-    except ToolError as e:
-        return [*machine, f"lint: {e}"], load_findings
-
-
 def gap_failures(diff: GapDiff) -> list[str]:
-    stale = [f"gap list: {k.rule} {k.item} {k.fingerprint} no longer happens: run python -m tools.vet.gaps --write"
+    stale = [f"gap list: {k.rule} {k.item} {k.fingerprint} no longer happens: run pnpm gaps --write"
              for k in diff.stale]
     return [f"{f.item}: {f.message}" for f in diff.new] + stale
 
 
-def report_known(known: list[Finding]) -> None:
+def report_known(known: list[Finding], to_job_summary: bool) -> None:
     for rule, count in sorted(Counter(f.rule for f in known).items()):
         print(f"known gap: {rule} x{count}")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
-    if summary:
+    if summary and to_job_summary:
         with Path(summary).open("a") as out:
             out.write(world_summary(known))
+
+
+def is_real_content(opts: argparse.Namespace) -> bool:
+    return Path(opts.content).resolve() == (ROOT / "content").resolve()
 
 
 def gaps_for(opts: argparse.Namespace) -> set[GapKey]:
     """--gaps, else vet/gaps.toml for the real content; other content (fixtures) has no known gaps."""
     if opts.gaps:
         return load_gaps(Path(opts.gaps))
-    return load_gaps(GAPS_PATH) if Path(opts.content).resolve() == (ROOT / "content").resolve() else set()
+    return load_gaps(GAPS_PATH) if is_real_content(opts) else set()
 
 
 def main() -> None:
@@ -148,16 +141,21 @@ def main() -> None:
     opts = args.parse_args()
     out = Path(opts.out)
     stamp = out.with_name(out.name + ".sha256")
-    source = fingerprint(Path(opts.content))
+    source = fingerprint(Path(opts.content), Path(opts.gaps) if opts.gaps else GAPS_PATH)
     if opts.if_changed and out.exists() and stamp.exists() and stamp.read_text() == source:
         print(f"content unchanged: kept {out}")
         return
     content, load_findings = load_content(Path(opts.content))
     adapter = PythonAdapter()
-    machine, findings = problems(content, load_findings, adapter, not opts.no_version_check)
-    diff = compare(findings, gaps_for(opts))
-    report_known(diff.known)
-    failures = machine + gap_failures(diff)
+    checked, broken = vet_content(content, adapter)
+    findings = load_findings + checked
+    machine = (environment_problems() if not opts.no_version_check else []) + [f"lint: {e}" for e in broken]
+    if machine:  # a broken machine says nothing about which gaps went stale, so every finding is listed
+        failures = machine + [f"{f.item}: {f.message}" for f in findings]
+    else:
+        diff = compare(findings, gaps_for(opts))
+        report_known(diff.known, to_job_summary=is_real_content(opts))
+        failures = gap_failures(diff)
     if failures:
         print("\n".join(sorted(failures)))
         print(f"content check FAILED: {len(failures)} problem(s)")

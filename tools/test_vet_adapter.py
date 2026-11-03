@@ -1,3 +1,4 @@
+import shutil
 import tempfile
 import time
 import tomllib
@@ -6,10 +7,13 @@ from pathlib import Path
 from unittest import mock
 
 from vet import Finding, GapKey
-from vet.adapter import CheckJob
+from vet.adapter import CheckJob, ToolError
+from vet.checks import style
+from vet.load import load_content
 from vet.python import adapter as python_adapter
 from vet.python.adapter import PythonAdapter
 from vet.rules import RULES, SEVERITIES, RulesError, load_rules
+from vet.run import vet_content
 
 TESTS = 'def test_double():\n    expect_equal(learner["double"](2), 4, "double(2)")\n'
 
@@ -51,6 +55,17 @@ class Check(unittest.TestCase):
     def test_unbuilt_methods_say_so(self) -> None:
         with self.assertRaises(NotImplementedError):
             PythonAdapter().mutants("x = 1")
+
+
+class BrokenTool(unittest.TestCase):
+    def test_a_broken_linter_keeps_the_other_findings(self) -> None:
+        root = Path(tempfile.mkdtemp()) / "content"
+        shutil.copytree(python_adapter.ROOT / "tools" / "fixtures" / "good", root)
+        (root / "w1/a/basics/tasks/half/solution.py").write_text("def half(n):\n    return n\n")
+        content, _ = load_content(root)
+        with mock.patch.object(style, "_ruff", side_effect=ToolError("ruff is missing")):
+            findings, broken = vet_content(content, PythonAdapter())
+        self.assertEqual(([f.rule for f in findings], broken), (["solution-fails"], ["ruff is missing"]))
 
 
 class Findings(unittest.TestCase):

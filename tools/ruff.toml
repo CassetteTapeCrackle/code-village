@@ -1,5 +1,5 @@
 # Framework code in tools/ and py/ (py/ruff.toml extends this). Lesson solutions keep LINT_RULES in
-# content_check.py, run with --isolated, so this file never reaches content/.
+# tools/vet/checks/style.py, run with --isolated, so this file never reaches content/.
 target-version = "py312"
 line-length = 120
 # fixtures are lesson code: tests.py uses names the harness injects

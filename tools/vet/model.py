@@ -18,10 +18,17 @@ def fingerprint_bytes(parts: Iterable[bytes]) -> str:
 
 
 def fingerprint_files(folder: Path, extra: str = "") -> str:
-    """Every file under folder (path and bytes), plus extra text such as the lesson the item sits in."""
-    files = sorted(p for p in folder.rglob("*") if p.is_file() and "__pycache__" not in p.parts)
+    """Every file under folder (path and bytes), plus extra text such as the lesson the item sits in.
+
+    Dot files (.DS_Store, editor swap files) and caches are skipped: they exist on one machine and not on CI.
+    """
+    files = sorted(p for p in folder.rglob("*") if p.is_file() and not _local_only(p.relative_to(folder)))
     return fingerprint_bytes([*(str(p.relative_to(folder)).encode() + b"\0" + p.read_bytes() for p in files),
                               extra.encode()])
+
+
+def _local_only(path: Path) -> bool:
+    return any(part.startswith(".") or part == "__pycache__" for part in path.parts)
 
 
 def fingerprint_text(text: str) -> str:

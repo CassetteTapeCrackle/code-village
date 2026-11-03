@@ -42,6 +42,8 @@ BUILDING_FIELDS: Fields = {"name": str, "place": str}
 TEACHER_FIELDS: Fields = {"name": str, "portrait": str}
 KEY_FIELDS: Fields = {"boss": str, "trophy": str, "trophy_name": str, "opens": str, "gate_hint": str}
 CODE_FILES = ("starter", "solution", "tests")
+FRONT_MATTER_PARTS = 3  # nothing before the first +++, the TOML, then the body
+MIN_STAGES, MAX_STAGES = 3, 5  # the game's boss screen is drawn for 3 to 5 stages
 KINDS = {"write", "fix", "complete"}
 FENCE = re.compile(r"^```python (example|predict|claim)\n(.*?)^```\n", re.S | re.M)
 TASK_LINE = re.compile(r"^::task ([\w-]+)\s*$", re.M)
@@ -139,7 +141,7 @@ def _load_task(folder: Path, lesson_text: str, root: Path) -> tuple[Task | None,
 def front_matter(text: str, where: str, fields: Fields, report: Report, path: Path) -> tuple[Meta, str] | None:
     """The +++ TOML header and the body after it, or None after reporting why not."""
     parts = text.split("+++\n")
-    if len(parts) < len(("", "front matter", "body")) or parts[0] != "":
+    if len(parts) < FRONT_MATTER_PARTS or parts[0] != "":
         report.add("file-unreadable", where, "must start with +++ front matter", path)
         return None
     try:
@@ -223,7 +225,7 @@ def _load_boss(boss_md: Path, root: Path) -> tuple[Boss | None, list[Finding]]:
         report.add("file-unreadable", where, f"unreadable boss files: {e}", folder)
         return None, report.findings
     stages = tuple(s for d in subfolders(folder / "stages") if (s := _load_stage(d, where, report)))
-    if not 3 <= len(stages) <= 5:  # noqa: PLR2004 - the game's boss screen is drawn for 3 to 5 stages
+    if not MIN_STAGES <= len(stages) <= MAX_STAGES:
         report.add("boss-stage-count", where, f"a boss needs 3 to 5 stages, found {len(stages)}", folder / "stages")
     boss = Boss(str(meta.get("id", where)), where, folder, meta, intro.strip(), files["starter"], files["solution"],
                 files["hard_tests"], stages, _wrong_files(folder), report.fingerprint)
