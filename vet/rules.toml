@@ -18,6 +18,10 @@ severity = "wrong-accepted"
 summary = "A broken version of the model solution (a mutant) passes the visible tests and hidden cases."
 severity = "wrong-accepted"
 
+[rule.wrong-too-few]
+summary = "An item writes out fewer than 2 wrong/*.py answers."
+severity = "wrong-accepted"
+
 [rule.cases-too-few]
 summary = "Fewer than 20 hidden cases are left after dropping inputs the solution raises on."
 severity = "wrong-accepted"
@@ -33,6 +37,18 @@ severity = "right-refused"
 
 [rule.right-refused]
 summary = "A rewrite of the model solution that behaves the same fails a test: the test checks how code is written."
+severity = "right-refused"
+
+[rule.right-fails]
+summary = "A right/*.py answer fails a test or hidden case: Check refuses a correct answer."
+severity = "right-refused"
+
+[rule.right-missing]
+summary = "An item has no right/*.py answer, so nothing shows Check accepts another correct way."
+severity = "right-refused"
+
+[rule.test-inspects-code]
+summary = "A test reads the code itself (inspect, ast, __code__, the source file) instead of what it does."
 severity = "right-refused"
 
 # Lessons that teach something false

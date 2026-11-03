@@ -92,8 +92,9 @@ def _read_folder(folder: Path, toml_name: str, code_names: tuple[str, ...], wher
     return meta, files
 
 
-def _wrong_files(folder: Path) -> tuple[Path, ...]:
-    return tuple(sorted((folder / "wrong").glob("*.py")))
+def _answers(folder: Path, kind: str) -> tuple[Path, ...]:
+    """The wrong/ or right/ answers in an item folder."""
+    return tuple(sorted((folder / kind).glob("*.py")))
 
 
 def _load_variant(folder: Path, lesson_text: str, root: Path) -> tuple[Variant | None, list[Finding]]:
@@ -107,7 +108,7 @@ def _load_variant(folder: Path, lesson_text: str, root: Path) -> tuple[Variant |
     report.require(meta, VARIANT_FIELDS, where, "variant.toml", toml)
     strict = _strict(meta, where, report, toml)
     variant = Variant(str(meta.get("id", where)), where, folder, meta, files["starter"], files["solution"],
-                      files["tests"], strict, _wrong_files(folder), report.fingerprint)
+                      files["tests"], strict, _answers(folder, "wrong"), _answers(folder, "right"), report.fingerprint)
     return variant, report.findings
 
 
@@ -133,7 +134,8 @@ def _load_task(folder: Path, lesson_text: str, root: Path) -> tuple[Task | None,
         if variant:
             variants.append(variant)
     task = Task(str(meta.get("id", where)), where, folder, meta, files["starter"], files["solution"], files["tests"],
-                strict, tuple(hints) if isinstance(hints, list) else (), _wrong_files(folder), tuple(variants),
+                strict, tuple(hints) if isinstance(hints, list) else (), _answers(folder, "wrong"),
+                _answers(folder, "right"), tuple(variants),
                 report.fingerprint)
     return task, report.findings
 
@@ -228,7 +230,7 @@ def _load_boss(boss_md: Path, root: Path) -> tuple[Boss | None, list[Finding]]:
     if not MIN_STAGES <= len(stages) <= MAX_STAGES:
         report.add("boss-stage-count", where, f"a boss needs 3 to 5 stages, found {len(stages)}", folder / "stages")
     boss = Boss(str(meta.get("id", where)), where, folder, meta, intro.strip(), files["starter"], files["solution"],
-                files["hard_tests"], stages, _wrong_files(folder), report.fingerprint)
+                files["hard_tests"], stages, _answers(folder, "wrong"), _answers(folder, "right"), report.fingerprint)
     return boss, report.findings
 
 

@@ -167,7 +167,7 @@ class Guarantees(unittest.TestCase):
 
 
 def item(prompt: str, tests: str) -> Item:
-    return Item("t", "task", "the solution", Path("."), "", "", tests, False, "fp", "t", None, prompt)
+    return Item("t", "task", "the solution", Path("."), "", "", tests, False, "fp", "t", None, (), prompt)
 
 
 class Check(unittest.TestCase):

@@ -226,7 +226,7 @@ class ContentCheck(unittest.TestCase):
     def test_wrong_boss_solution_the_tests_miss_fails(self) -> None:
         def edit(d: Path) -> None:
             boss = d.parent / "boss"
-            (boss / "wrong").mkdir()
+            (boss / "wrong").mkdir(exist_ok=True)
             (boss / "wrong" / "same.py").write_text((boss / "solution.py").read_text())
         done, _ = check(broken_copy(edit))
         self.assertIn("calc: wrong/same.py passes every test", done.stdout)

@@ -46,6 +46,7 @@ class Variant:
     tests: str
     strict: bool
     wrong: tuple[Path, ...]
+    right: tuple[Path, ...]
     fingerprint: str
 
 
@@ -61,6 +62,7 @@ class Task:
     strict: bool
     hints: tuple[object, ...]
     wrong: tuple[Path, ...]
+    right: tuple[Path, ...]
     variants: tuple[Variant, ...]
     fingerprint: str
 
@@ -120,6 +122,7 @@ class Boss:
     hard_tests: str
     stages: tuple[Stage, ...]
     wrong: tuple[Path, ...]
+    right: tuple[Path, ...]
     fingerprint: str
 
 
@@ -150,6 +153,7 @@ class Item:
     fingerprint: str
     seed: str  # the item's own id, which seeds its hidden inputs: the stage id for a stage, "<boss>:hard"
     cases: object  # the raw [cases] table, None when the item declares none
+    right: tuple[Path, ...]  # correct answers written another way, which must pass like the solution
     prompt: str  # what the learner reads: the task, variant or stage prompt, the boss intro for hard mode
 
 
@@ -168,17 +172,19 @@ class Content:
     def items(self) -> Iterator[Item]:
         for task in self.tasks:
             yield Item(task.id, "task", "the solution", task.folder, task.starter, task.solution, task.tests,
-                       task.strict, task.fingerprint, task.id, task.meta.get("cases"), str(task.meta.get("prompt", "")))
+                       task.strict, task.fingerprint, task.id, task.meta.get("cases"), task.right,
+                       str(task.meta.get("prompt", "")))
             for v in task.variants:
                 yield Item(v.id, "variant", "the solution", v.folder, v.starter, v.solution, v.tests, v.strict,
-                           v.fingerprint, v.id, v.meta.get("cases"), str(v.meta.get("prompt", "")))
+                           v.fingerprint, v.id, v.meta.get("cases"), v.right, str(v.meta.get("prompt", "")))
         for boss in self.bosses:
             for stage in boss.stages:
                 yield Item(boss.id, "stage", f"the solution (stage {stage.id})", boss.folder, boss.starter,
                            boss.solution, stage.tests, False, boss.fingerprint, stage.id, stage.meta.get("cases"),
-                           str(stage.meta.get("prompt", "")))
+                           boss.right, str(stage.meta.get("prompt", "")))
             yield Item(boss.id, "hard", "the solution (hard mode)", boss.folder, boss.starter, boss.solution,
-                       boss.hard_tests, False, boss.fingerprint, f"{boss.id}:hard", boss.meta.get("cases"), boss.intro)
+                       boss.hard_tests, False, boss.fingerprint, f"{boss.id}:hard", boss.meta.get("cases"),
+                       boss.right, boss.intro)
 
     def solution_groups(self) -> list[list[Item]]:
         """Items that share one model solution: a task or variant alone, a boss's stages with its hard mode."""

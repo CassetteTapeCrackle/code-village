@@ -114,6 +114,28 @@ empty and one-item containers, duplicates and ties. The build fails when an item
    the mistake must fail at least one stage or the hard tests.
 3. **Lint**: every `solution.py` passes ruff (rules in `LINT_RULES`). Model answers are what learners copy.
 
+## Wrong answers must fail, right answers must pass
+
+The build also checks the tests themselves, on every task, variant and boss (a boss counts its stages and hard
+mode together):
+
+- **`right/*.py`**: a correct answer written differently from the solution (another loop, other names,
+  another library call). It must pass the visible tests and the hidden cases (`right-fails`). Every item needs at
+  least one (`right-missing`) and at least two `wrong/*.py` (`wrong-too-few`).
+- **Mutants**: the build breaks the solution one small change at a time (a comparison or operator swapped, a
+  constant off by one, a statement deleted, a bound shifted, two arguments swapped...). Each broken version must
+  fail a visible test or a hidden case. A survivor that differs from the solution on 2000 extra inputs from
+  `[cases]` is `weak-tests`, with the input where it differs: add a test for it. A survivor that agrees
+  everywhere is equivalent and only counted. Without `[cases]` every survivor is `weak-tests`, so declare them.
+  Results are cached in `.vet-cache/mutation/`, one file per item, keyed by the item's files.
+- **Rewrites**: the build rewrites the solution in ways that keep its behaviour (renamed variables or
+  parameters, loop and comprehension, `for` and `while`, f-string and `+`, `x += 1` and `x = x + 1`, `if` and a
+  conditional expression, one `return`, a helper function, a docstring, a debug `print`). Each must pass
+  (`right-refused`): a test that refuses one checks how the code is written. A parameter keeps its name when the
+  prompt names it, and the debug `print` is left out when the tests read printed output.
+- **Tests compare results only** (`test-inspects-code`): no `inspect`, `ast`, `dis`, `tokenize` or `linecache`,
+  no `__code__`, no `open()` on a `.py` file.
+
 ## Review checklist
 
 Before a world is done, read every lesson, prompt, hint, starter, solution and test, and ask:

@@ -21,3 +21,10 @@ def test_positive():
 def test_negative():
     expect_equal(learner["triple"](-2), 0, "triple(-2)")
 '''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/right/added-three-times.py"
+text = '''
+def triple(n):
+    return max(n, 0) * 3
+'''

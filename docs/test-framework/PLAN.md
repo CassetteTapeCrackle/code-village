@@ -465,7 +465,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - Rule `right-missing`: an item with fewer than 1 `right/` file. Rule `wrong-too-few`: fewer than 2 `wrong/`
   files.
 
-- [ ] **Step 1 to 4:** Canaries, fail, implement, pass. `gaps --write`. Commit, push. End of Session 3.
+- [x] **Step 1 to 4:** Canaries, fail, implement, pass. `gaps --write`. Commit, push. End of Session 3.
 
 ---
 

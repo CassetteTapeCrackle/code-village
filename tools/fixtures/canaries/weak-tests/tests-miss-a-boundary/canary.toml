@@ -35,3 +35,10 @@ gotcha = false
 [cases]
 none = "the canary needs a task without hidden cases"
 '''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/right/added-three-times.py"
+text = '''
+def triple(n):
+    return 0 if n > 10 else n * 3
+'''

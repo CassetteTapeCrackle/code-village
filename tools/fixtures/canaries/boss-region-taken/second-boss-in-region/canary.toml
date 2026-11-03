@@ -103,3 +103,24 @@ text = '''
 def test_one():
     expect_equal(learner["one"](), 1, "one()")
 '''
+
+[[file]]
+path = "w1/b/boss/right/plus-zero.py"
+text = '''
+def one():
+    return 1 + 0
+'''
+
+[[file]]
+path = "w1/b/boss/wrong/zero.py"
+text = '''
+def one():
+    return 0
+'''
+
+[[file]]
+path = "w1/b/boss/wrong/two.py"
+text = '''
+def one():
+    return 2
+'''
