@@ -10,12 +10,16 @@ Usage: python3 tools/content_check.py [--content DIR] [--out FILE] [--no-version
 import argparse
 import hashlib
 import json
+import os
 import sys
+from collections import Counter
 from pathlib import Path
 
 from vet.adapter import LanguageAdapter
 from vet.checks.libraries import PYODIDE_LOCK, build_python, environment_problems
 from vet.checks.style import ToolError
+from vet.finding import Finding, GapKey
+from vet.gaps import GAPS_PATH, GapDiff, compare, load_gaps, world_summary
 from vet.load import LESSON_FIELDS, STAGE_FIELDS, TASK_FIELDS, VARIANT_FIELDS, Fields, load_content
 from vet.model import Boss, CodeBlock, Content, Lesson, Meta, Task, TaskBlock, TextBlock, World
 from vet.python.adapter import PythonAdapter
@@ -94,29 +98,51 @@ def fingerprint(content: Path) -> str:
     digest = hashlib.sha256(sys.version.encode())
     files = sorted(p for p in content.rglob("*") if p.is_file() and "__pycache__" not in p.parts)
     checks = sorted(p for p in (ROOT / "tools" / "vet").rglob("*.py") if "__pycache__" not in p.parts)
-    inputs = [ROOT / "py" / "harness.py", Path(__file__), *checks, ROOT / "vet" / "rules.toml", ROOT / "package.json",
-              PYODIDE_LOCK]
+    inputs = [ROOT / "py" / "harness.py", Path(__file__), *checks, ROOT / "vet" / "rules.toml", GAPS_PATH,
+              ROOT / "package.json", PYODIDE_LOCK]
     for path in [*files, *inputs]:
         if path.exists():
             digest.update(str(path).encode() + b"\0" + path.read_bytes())
     return digest.hexdigest()
 
 
-def problems(content: Content, load_findings: list[str], adapter: LanguageAdapter, version_check: bool) -> list[str]:
-    found = list(load_findings)
-    if version_check:
-        found += environment_problems()
+def problems(content: Content, load_findings: list[Finding], adapter: LanguageAdapter,
+             version_check: bool) -> tuple[list[str], list[Finding]]:
+    """Problems with the machine, which always fail the build, and every finding on the content."""
+    machine = environment_problems() if version_check else []
     try:
-        found += [f"{f.item}: {f.message}" for f in vet_content(content, adapter)]
+        return machine, load_findings + vet_content(content, adapter)
     except ToolError as e:
-        found.append(f"lint: {e}")
-    return found
+        return [*machine, f"lint: {e}"], load_findings
+
+
+def gap_failures(diff: GapDiff) -> list[str]:
+    stale = [f"gap list: {k.rule} {k.item} {k.fingerprint} no longer happens: run python -m tools.vet.gaps --write"
+             for k in diff.stale]
+    return [f"{f.item}: {f.message}" for f in diff.new] + stale
+
+
+def report_known(known: list[Finding]) -> None:
+    for rule, count in sorted(Counter(f.rule for f in known).items()):
+        print(f"known gap: {rule} x{count}")
+    summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary:
+        with Path(summary).open("a") as out:
+            out.write(world_summary(known))
+
+
+def gaps_for(opts: argparse.Namespace) -> set[GapKey]:
+    """--gaps, else vet/gaps.toml for the real content; other content (fixtures) has no known gaps."""
+    if opts.gaps:
+        return load_gaps(Path(opts.gaps))
+    return load_gaps(GAPS_PATH) if Path(opts.content).resolve() == (ROOT / "content").resolve() else set()
 
 
 def main() -> None:
     args = argparse.ArgumentParser()
     args.add_argument("--content", default=str(ROOT / "content"))
     args.add_argument("--out", default=str(ROOT / "src" / "content" / "bundle.json"))
+    args.add_argument("--gaps", help="known gaps file (default: vet/gaps.toml for the real content, none otherwise)")
     args.add_argument("--no-version-check", action="store_true")
     args.add_argument("--if-changed", action="store_true")
     opts = args.parse_args()
@@ -128,10 +154,13 @@ def main() -> None:
         return
     content, load_findings = load_content(Path(opts.content))
     adapter = PythonAdapter()
-    found = problems(content, [f"{f.item}: {f.message}" for f in load_findings], adapter, not opts.no_version_check)
-    if found:
-        print("\n".join(sorted(found)))
-        print(f"content check FAILED: {len(found)} problem(s)")
+    machine, findings = problems(content, load_findings, adapter, not opts.no_version_check)
+    diff = compare(findings, gaps_for(opts))
+    report_known(diff.known)
+    failures = machine + gap_failures(diff)
+    if failures:
+        print("\n".join(sorted(failures)))
+        print(f"content check FAILED: {len(failures)} problem(s)")
         sys.exit(1)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(bundle(content, adapter), indent=1))

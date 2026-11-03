@@ -40,6 +40,13 @@ jobs:
       - run: pnpm exec prettier --check .
       # pnpm test generates src/content/bundle.json (git-ignored), which svelte-check reads, so it runs first
       - run: pnpm test
+      # a pull request may add vet/gaps.toml entries only for a rule it introduces
+      - if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$BASE_REF"
+          python -m tools.vet.gaps --base "origin/$BASE_REF"
       - run: pnpm typecheck
       # the root tsconfig excludes worker/, so its types need their own pass
       - run: pnpm typecheck:worker

@@ -257,9 +257,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - `content_check.py` fails on `new` or `stale`, prints `known` as a count per rule, and writes a markdown
   summary per world to `$GITHUB_STEP_SUMMARY` when set.
 
-- [ ] **Step 1:** Tests: `test_new_finding_fails`, `test_stale_gap_fails`, `test_known_gap_passes`,
+- [x] **Step 1:** Tests: `test_new_finding_fails`, `test_stale_gap_fails`, `test_known_gap_passes`,
   `test_base_check_rejects_added_entry_for_old_rule`, `test_base_check_allows_entry_for_new_rule`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Add the `--base` check to the `check` job for pull requests.
+- [x] **Step 2 to 4:** Fail, implement, pass. Add the `--base` check to the `check` job for pull requests.
   Commit.
 
 ### Task 1.5: Canary harness and canaries for every existing rule

@@ -8,17 +8,19 @@ from collections.abc import Callable
 from pathlib import Path
 from unittest import mock
 
+from vet import GapKey, vet
 from vet.checks.hints import hint_code_compiles, hint_problems, looks_like_code
 from vet.checks.libraries import library_problems
+from vet.gaps import dump_gaps
 
 ROOT = Path(__file__).resolve().parent.parent
 GOOD = ROOT / "tools" / "fixtures" / "good"
 
 
-def check(content_dir: Path) -> tuple[subprocess.CompletedProcess[str], Path]:
+def check(content_dir: Path, *extra: str) -> tuple[subprocess.CompletedProcess[str], Path]:
     out = Path(tempfile.mkdtemp()) / "bundle.json"
     command = [sys.executable, "tools/content_check.py", "--content", str(content_dir), "--out", str(out),
-               "--no-version-check"]
+               "--no-version-check", *extra]
     done = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=180, check=False)
     return done, out
 
@@ -302,6 +304,23 @@ class ContentCheck(unittest.TestCase):
             self.assertFalse(hint_code_compiles(broken), broken)
         for prose in ["if", "tests.py", "None"]:
             self.assertFalse(looks_like_code(prose) and not hint_code_compiles(prose), prose)
+
+
+class GapList(unittest.TestCase):
+    def test_a_listed_gap_passes_and_is_counted(self) -> None:
+        content = broken_copy(lambda d: (d / "tasks/double/solution.py").write_text("def double(n):\n    return n\n"))
+        gaps = Path(tempfile.mkdtemp()) / "gaps.toml"
+        gaps.write_text(dump_gaps(f.key for f in vet(content)))
+        done, _ = check(content, "--gaps", str(gaps))
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        self.assertIn("known gap: solution-fails x1", done.stdout)
+
+    def test_a_stale_gap_fails(self) -> None:
+        gaps = Path(tempfile.mkdtemp()) / "gaps.toml"
+        gaps.write_text(dump_gaps([GapKey("solution-fails", "basics-double", "000000000000")]))
+        done, _ = check(GOOD, "--gaps", str(gaps))
+        self.assertEqual(done.returncode, 1)
+        self.assertIn("gap list: solution-fails basics-double 000000000000 no longer happens", done.stdout)
 
 
 class Libraries(unittest.TestCase):
