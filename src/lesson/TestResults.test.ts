@@ -38,7 +38,7 @@ test("a failed hidden case is its own line with the harness message, outside the
       },
     },
   });
-  expect(screen.getByText("1 of 1 tests passed")).toBeTruthy();
+  expect(screen.getByText("1 of 1 tests passed").classList.contains("good")).toBe(false);
   expect(screen.getByText(message)).toBeTruthy();
   expect(screen.queryByText("100 more inputs")).toBeNull();
 });
@@ -56,7 +56,7 @@ test("passed hidden cases show as one line", () => {
       },
     },
   });
-  expect(screen.getByText("1 of 1 tests passed")).toBeTruthy();
+  expect(screen.getByText("1 of 1 tests passed").classList.contains("good")).toBe(true);
   expect(screen.getByText("Also passed 100 more inputs")).toBeTruthy();
 });
 

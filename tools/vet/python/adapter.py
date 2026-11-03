@@ -89,4 +89,4 @@ def _case_values(out: dict[str, object] | None) -> list[CaseValue] | None:
     values = out.get("values") if out else None
     if not isinstance(values, list):
         return None
-    return [CaseValue(str(v["repr"]), v["raises"]) for v in cast(list[dict[str, str | None]], values)]
+    return [CaseValue(v["repr"], v["raises"]) for v in cast(list[dict[str, str | None]], values)]

@@ -40,9 +40,10 @@ CaseInput = ExprInput | ProgramInput
 
 @dataclass(frozen=True)
 class CaseValue:
-    """What the model solution gave for one input: a repr, or the type of the exception it raised."""
+    """What the model solution gave for one input: source for its answer, or the type of the exception it raised.
+    repr is None when the answer has no source that evaluates back to it (an object with the default repr)."""
 
-    repr: str
+    repr: str | None
     raises: str | None
 
 

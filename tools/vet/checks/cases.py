@@ -56,7 +56,10 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
         if outcome is None:
             yield about.finding("solution-fails-cases", f"{item.label} ran longer than {LIMIT} s on its hidden cases")
             continue
-        failed = [r["message"] for r in outcome["results"] if r["hidden"] and not r["passed"]]
-        if failed:  # the very solution that gave the expected values now gives others: it is not deterministic
+        hidden = [r for r in outcome["results"] if r["hidden"]]
+        if not hidden:  # the cases never ran: the harness crashed, or the solution did not load
+            yield about.finding("solution-fails-cases", f"{item.label} could not run its hidden cases: "
+                                                        f"{outcome['error'] or 'no result came back'}")
+        elif not hidden[0]["passed"]:  # the solution that gave the expected values now gives others
             yield about.finding("solution-fails-cases", f"{item.label} disagrees with its own expected values: "
-                                                        f"{failed[0]}")
+                                                        f"{hidden[0]['message']}")

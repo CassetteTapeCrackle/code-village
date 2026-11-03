@@ -304,8 +304,57 @@ class HiddenCases(unittest.TestCase):
         case: harness.Case = {"kind": "program", "show": "typing 1", "stdin": ["1"], "expect": "'2\\n'",
                               "compare": "text"}
         out = harness.run_tests("a = input()\nb = input()\nprint(a, b)\n", "PROGRAM = True\n", cases=[case])
-        self.assertEqual(hidden(out)[0]["message"], "We also tried typing 1: expected '2\\n', but input() was "
-                                                    "called more times than this test gives answers.")
+        self.assertEqual(hidden(out)[0]["message"], "We also tried typing 1: expected '2\\n', your code stopped: "
+                                                    "input() was called more times than this test gives answers.")
+
+
+class HiddenCasesNeverCrash(unittest.TestCase):
+    """Learner code and odd task data give a message; the harness itself never raises."""
+
+    def test_expected_value_may_need_a_setup_import(self) -> None:
+        case = expr_case("half(1)", "Fraction(1, 2)", setup="from fractions import Fraction")
+        code = "from fractions import Fraction\ndef half(n):\n    return Fraction(n, 2)\n"
+        self.assertTrue(hidden(harness.run_tests(code, "", cases=[case]))[0]["passed"])
+
+    def test_unreadable_expected_value_is_reported(self) -> None:
+        out = harness.run_tests("def f():\n    return 1\n", "", cases=[expr_case("f()", "Nope(1)")])
+        self.assertEqual(hidden(out)[0]["message"], "We also tried f(), but its expected value could not be read "
+                                                    "(NameError): please report this task.")
+
+    def test_learner_repr_that_raises(self) -> None:
+        code = "class Odd:\n    def __repr__(self):\n        raise ValueError('no')\ndef f():\n    return Odd()\n"
+        out = harness.run_tests(code, "", cases=[expr_case("f()", "1")])
+        self.assertEqual(hidden(out)[0]["message"], "We also tried f(): expected 1, your code returned a Odd that "
+                                                    "cannot be shown.")
+
+    def test_learner_eq_that_raises(self) -> None:
+        code = "class Odd:\n    def __eq__(self, other):\n        raise ValueError('no')\ndef f():\n    return Odd()\n"
+        out = harness.run_tests(code, "", cases=[expr_case("f()", "1", "text")])
+        self.assertFalse(hidden(out)[0]["passed"])
+
+    def test_validity_function_that_raises_refuses_the_answer(self) -> None:
+        tests = "def is_long(inputs, answer):\n    return len(answer) > 2\n"
+        case: harness.Case = {**expr_case("f(1)", "(1,)", "valid"), "valid": "is_long"}
+        out = harness.run_tests("def f(n):\n    return None\n", tests, cases=[case])
+        self.assertEqual(hidden(out)[0]["message"],
+                         "We also tried f(1): expected an answer is_long accepts, your code returned None.")
+
+    def test_input_in_a_function_task(self) -> None:
+        out = harness.run_tests("def f():\n    return input()\n", "", cases=[expr_case("f()", "1")])
+        self.assertEqual(hidden(out)[0]["message"], "We also tried f(): expected 1, your code stopped: input() was "
+                                                    "called, but this task gives no input.")
+
+    def test_raise_without_a_message(self) -> None:
+        out = harness.run_tests("def f():\n    raise ValueError\n", "", cases=[expr_case("f()", "1")])
+        self.assertEqual(hidden(out)[0]["message"], "We also tried f(): expected 1, your code raised ValueError.")
+
+    def test_one_case_summary_is_singular(self) -> None:
+        out = harness.run_tests("def f():\n    return 1\n", "", cases=[expr_case("f()", "1")])
+        self.assertEqual(hidden(out)[0]["name"], "1 more input")
+
+    def test_nan_equals_nan(self) -> None:
+        out = harness.run_tests("def f():\n    return float('nan')\n", "", cases=[expr_case("f()", "float('nan')")])
+        self.assertTrue(hidden(out)[0]["passed"])
 
 
 class ExpectMode(unittest.TestCase):
@@ -318,11 +367,38 @@ class ExpectMode(unittest.TestCase):
 
     def test_expect_mode_writes_library_values_as_source(self) -> None:
         code = "import numpy as np\nimport pandas as pd\ndef f():\n    return np.array([1, 2])\n" \
-               "def g():\n    return pd.DataFrame({'a': [1]})\ndef h():\n    return np.int64(3)\n"
-        inputs: list[harness.CaseInput] = [{"show": n, "setup": "", "expr": n} for n in ("f()", "g()", "h()")]
+               "def g():\n    return pd.DataFrame({'a': [1]})\ndef h():\n    return np.int64(3)\n" \
+               "def k():\n    a = np.array([1, 2])\n    return a.min(), a.max()\n"
+        inputs: list[harness.CaseInput] = [{"show": n, "setup": "", "expr": n} for n in ("f()", "g()", "h()", "k()")]
         reprs = [v["repr"] for v in harness.expect_values(code, inputs)["values"]]
-        self.assertEqual(reprs, ["__import__('numpy').array([1, 2])", "__import__('pandas').DataFrame({'a': [1]})",
-                                 "3"])
+        self.assertEqual(reprs, ["__import__('numpy').array([1, 2], dtype='int64')",
+                                 "__import__('pandas').DataFrame({'a': [1]}, index=[0]).astype({'a': 'int64'})",
+                                 "3", "(1, 2)"])
+
+    def answers_pass_their_own_cases(self, code: str, compare: str) -> None:
+        """Every answer the expect mode writes comes back equal when a Check reads it."""
+        inputs: list[harness.CaseInput] = [{"show": "f()", "setup": "", "expr": "f()"}]
+        [value] = harness.expect_values(code, inputs)["values"]
+        assert value["repr"] is not None
+        out = harness.run_tests(code, "", cases=[expr_case("f()", value["repr"], compare)])
+        self.assertTrue(hidden(out)[0]["passed"], hidden(out)[0]["message"])
+
+    def test_pandas_index_and_dtype_survive(self) -> None:
+        self.answers_pass_their_own_cases("import pandas as pd\ndef f():\n    s = pd.Series([1, 2, 3])\n"
+                                          "    return s[s > 1]\n", "exact")
+        self.answers_pass_their_own_cases("import pandas as pd\ndef f():\n    d = pd.DataFrame({'a': [1, 2]})\n"
+                                          "    return d[d['a'] > 5]\n", "frame")
+
+    def test_infinity_and_sets_are_written_as_source(self) -> None:
+        code = "def f():\n    return float('inf')\ndef g():\n    return {'tree', 'cat', 'sun', 'dog'}\n"
+        inputs: list[harness.CaseInput] = [{"show": n, "setup": "", "expr": n} for n in ("f()", "g()")]
+        reprs = [v["repr"] for v in harness.expect_values(code, inputs)["values"]]
+        self.assertEqual(reprs, ["float('inf')", "{'cat', 'dog', 'sun', 'tree'}"])
+
+    def test_answer_without_source_has_no_repr(self) -> None:
+        code = "class Point:\n    pass\ndef f():\n    return Point()\n"
+        [value] = harness.expect_values(code, [{"show": "f()", "setup": "", "expr": "f()"}])["values"]
+        self.assertEqual(value, {"repr": None, "raises": None})
 
     def test_expect_mode_runs_programs(self) -> None:
         inputs: list[harness.CaseInput] = [{"show": "typing 2", "stdin": ["2"]}]

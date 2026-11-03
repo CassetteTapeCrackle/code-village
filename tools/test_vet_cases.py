@@ -3,7 +3,7 @@ import unittest
 from collections.abc import Sequence
 from pathlib import Path
 
-from vet.adapter import CaseInput, CaseValue, ExprCase, ExprInput, ProgramCase, ProgramInput
+from vet.adapter import CaseInput, CaseValue, CheckJob, CheckOutcome, ExprCase, ExprInput, ProgramCase, ProgramInput
 from vet.cases.expect import CasesProblem, hidden_cases
 from vet.cases.generate import generate_inputs
 from vet.cases.spec import (
@@ -17,6 +17,8 @@ from vet.cases.spec import (
     parse_decl,
     parse_type,
 )
+from vet.checks.cases import check as cases_check
+from vet.load import load_content
 from vet.model import Item
 from vet.python.adapter import PythonAdapter
 
@@ -152,6 +154,7 @@ class Generate(unittest.TestCase):
         self.assertEqual(generate_inputs(parse_decl({"none": "random"}, "here"), "s", 100), [])
 
 
+GOOD = Path(__file__).resolve().parent / "fixtures" / "good"
 ROOT_CODE = "def root(n):\n    if n < 0:\n        raise ValueError('negative')\n    return n * 2\n"
 
 
@@ -194,6 +197,31 @@ class HiddenCases(unittest.TestCase):
         first = cases[0]
         assert isinstance(first, ProgramCase)
         self.assertEqual((first.show, first.stdin, first.expect, first.compare), ("typing 0", ("0",), "'0\\n'", "text"))
+
+    def test_answer_without_source_is_a_problem(self) -> None:
+        code = "class Point:\n    pass\ndef f(n):\n    return Point()\n"
+        with self.assertRaises(CasesProblem) as caught:
+            hidden_cases(item(code, {"call": "f", "args": ["int 0..9"]}), PythonAdapter())
+        self.assertEqual(caught.exception.rule, "solution-fails-cases")
+
+    def test_valid_case_with_array_input_reads_its_input(self) -> None:
+        decl = {"call": "first", "args": ["array<int 0..9> 1..3"], "valid": "is_item"}
+        cases = hidden_cases(item("def first(a):\n    return int(a[0])\n", decl), PythonAdapter())
+        tests = "def is_item(inputs, answer):\n    return answer in inputs[0].tolist()\n"
+        [outcome] = PythonAdapter().check([CheckJob("def first(a):\n    return int(a[-1])\n", tests, False,
+                                                    tuple(cases))])
+        assert outcome is not None
+        self.assertTrue(outcome["results"][-1]["passed"], outcome["results"][-1]["message"])
+
+    def test_crashed_check_is_a_finding(self) -> None:
+        class Crashing(PythonAdapter):
+            def check(self, jobs: Sequence[CheckJob]) -> list[CheckOutcome | None]:
+                return [{"error": "the harness crashed: boom", "results": []} for _ in jobs]
+
+        content, _ = load_content(GOOD)
+        found = list(cases_check(content, Crashing()))
+        self.assertEqual({f.rule for f in found}, {"solution-fails-cases"})
+        self.assertIn("could not run its hidden cases: the harness crashed: boom", found[0].message)
 
     def test_none_and_missing_give_no_cases(self) -> None:
         self.assertEqual(hidden_cases(item("", {"none": "random"}), TimesOut()), [])

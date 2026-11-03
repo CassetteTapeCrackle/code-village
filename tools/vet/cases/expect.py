@@ -51,6 +51,10 @@ def _case(decl: CasesDecl, case: CaseInput, value: CaseValue) -> HiddenCase | No
     if raises and raises not in decl.raises:
         return None
     expect = _valid_input(decl, case) if decl.valid else value.repr
+    if expect is None:
+        raise CasesProblem("solution-fails-cases", f"the answer for {case.show} has no Python source that gives it "
+                                                   "back (an object with the default repr): return plain values, "
+                                                   "NumPy arrays or pandas values, or declare reads")
     if isinstance(case, ExprInput):
         return ExprCase(case.show, case.setup, case.expr, expect, raises, decl.compare, decl.valid)
     if raises:  # a program has no way to expect an error, so the input is left out
@@ -66,6 +70,7 @@ def hidden_cases(item: Item, adapter: LanguageAdapter) -> list[HiddenCase]:
     inputs = generate_inputs(decl, item.seed, decl.count)
     values = adapter.expect(item.solution, inputs)
     if values is None:
-        raise CasesProblem("solution-fails-cases", f"{item.label} ran out of time on its hidden inputs")
+        raise CasesProblem("solution-fails-cases", f"{item.label} ran out of time, or the harness crashed, while "
+                                                   "giving the expected values")
     return [case for case_input, value in zip(inputs, values, strict=True)
             if (case := _case(decl, case_input, value)) is not None]

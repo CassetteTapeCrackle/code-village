@@ -20,7 +20,9 @@
   {:else if outcome?.kind === "ok" && outcome.result.error}
     <pre class="bad">{outcome.result.error}</pre>
   {:else if outcome?.kind === "ok"}
-    <p class:good={nPassed === results.length}>{nPassed} of {results.length} tests passed</p>
+    <p class:good={nPassed === results.length && hidden?.passed !== false}>
+      {nPassed} of {results.length} tests passed
+    </p>
     <ul>
       {#each results as r (r.name)}
         <li class:good={r.passed}>
