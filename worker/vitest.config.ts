@@ -11,7 +11,7 @@ export default defineConfig(async () => {
         // must not open a remote proxy session (that would demand a CLOUDFLARE_API_TOKEN).
         remoteBindings: false,
         // a test-only binding, so the setup file can apply the migrations inside the Workers runtime
-        miniflare: { bindings: { TEST_MIGRATIONS: migrations } },
+        miniflare: { bindings: { TEST_MIGRATIONS: migrations, GITHUB_ISSUES_TOKEN: "fake-token-for-tests" } },
       }),
     ],
     test: { include: ["worker/test/**/*.test.ts"], setupFiles: ["worker/test/apply-migrations.ts"] },

@@ -17,17 +17,30 @@ export const LIMITS = {
   newPlayerHours: 24,
   maxOutputTokens: 300,
   tutorDeadlineMs: 30_000,
+  reportPerIpPerDay: 10,
+  autoReportPerIpPerDay: 20,
+  issuesPerDay: 20,
+  maxReportMessageChars: 1_000,
 } as const;
+
+type IpAction = "register" | "recover" | "report" | "auto-report";
+
+const MAX_PER_IP_PER_DAY: Record<IpAction, number> = {
+  register: LIMITS.registerPerIpPerDay,
+  recover: LIMITS.recoverPerIpPerDay,
+  report: LIMITS.reportPerIpPerDay,
+  "auto-report": LIMITS.autoReportPerIpPerDay,
+};
 
 // The rate limiting binding only counts per 10 or 60 seconds, so the per-day IP limit lives in D1
 // as a salted hash bucket: the IP itself is never written anywhere.
 export async function takeIpSlot(
   env: Env,
   ip: string | null,
-  action: "register" | "recover",
+  action: IpAction,
   day: string,
 ): Promise<boolean> {
-  const max = action === "register" ? LIMITS.registerPerIpPerDay : LIMITS.recoverPerIpPerDay;
+  const max = MAX_PER_IP_PER_DAY[action];
   const bucket = await sha256Hex(`${env.IP_SALT}|${day}|${action}|${ip ?? "unknown"}`);
   await env.DB.prepare("DELETE FROM ip_buckets WHERE day < ?").bind(day).run();
   const row = await env.DB.prepare(
