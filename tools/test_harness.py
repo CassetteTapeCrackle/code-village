@@ -478,5 +478,47 @@ class DetectFeatures(unittest.TestCase):
         self.assertEqual(json.loads(done.stdout), {"features": [["fn-len"], ["math"]]})
 
 
+PROPERTY: list[harness.Required] = [{"id": "property-decorator", "detect": ["decorator:property"],
+                                     "say": "put @property above the method"}]
+PROPERTY_TESTS = "def test_area():\n    expect_equal(learner['Box'](2).area, 4, 'Box(2).area')\n"
+WITH_PROPERTY = ("class Box:\n    def __init__(self, s):\n        self.s = s\n    @property\n    def area(self):\n"
+                 "        return self.s ** 2\n")
+WITHOUT_PROPERTY = "class Box:\n    def __init__(self, s):\n        self.area = s ** 2\n"
+
+
+class RequiredConstructs(unittest.TestCase):
+    def test_required_feature_message(self) -> None:
+        out = harness.run_tests(WITHOUT_PROPERTY, PROPERTY_TESTS, requires=PROPERTY)
+        self.assertEqual([r["passed"] for r in out["results"]], [True, False])
+        self.assertEqual(out["results"][1]["message"], "Your code works, but this task asks you to put @property "
+                                                       "above the method.")
+        self.assertFalse(out["results"][1]["hidden"])
+
+    def test_code_with_the_feature_passes(self) -> None:
+        out = harness.run_tests(WITH_PROPERTY, PROPERTY_TESTS, requires=PROPERTY)
+        self.assertEqual([r["passed"] for r in out["results"]], [True])
+
+    def test_no_requirements_change_nothing(self) -> None:
+        out = harness.run_tests(WITHOUT_PROPERTY, PROPERTY_TESTS)
+        self.assertEqual([r["passed"] for r in out["results"]], [True])
+
+    def test_behaviour_failures_come_first_and_alone(self) -> None:
+        out = harness.run_tests("class Box:\n    def __init__(self, s):\n        self.area = 0\n", PROPERTY_TESTS,
+                                requires=PROPERTY)
+        self.assertEqual([r["passed"] for r in out["results"]], [False])
+
+    def test_only_the_first_missing_feature_is_named(self) -> None:
+        both: list[harness.Required] = [*PROPERTY, {"id": "lambda", "detect": ["node:Lambda"], "say": "use a lambda"}]
+        out = harness.run_tests(WITHOUT_PROPERTY, PROPERTY_TESTS, requires=both)
+        self.assertEqual(len(out["results"]), 2)
+        self.assertIn("@property", out["results"][1]["message"])
+
+    def test_required_job_through_the_cli(self) -> None:
+        payload = json.dumps({"mode": "check", "code": WITHOUT_PROPERTY, "tests": PROPERTY_TESTS, "requires": PROPERTY})
+        done = subprocess.run([sys.executable, "py/harness.py"], input=payload, capture_output=True, text=True,
+                              cwd=Path(__file__).resolve().parent.parent, timeout=20, check=False)
+        self.assertFalse(json.loads(done.stdout)["results"][1]["passed"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -95,7 +95,7 @@
     update((p) => recordHardCheck(p, boss));
     const passed = await runSuites(code, [
       ...boss.stages,
-      { title: "Hard mode tests", tests: boss.hardTests, cases: boss.hardCases },
+      { title: "Hard mode tests", tests: boss.hardTests, cases: boss.hardCases, requires: boss.hardRequires },
     ]);
     if (passed.every(Boolean)) update((p) => winHard(p, boss, today()));
   }

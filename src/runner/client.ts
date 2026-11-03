@@ -118,8 +118,8 @@ export function createRunner({
   start();
   return {
     run: (code, inputs = []) => submit<RunResult>({ id: nextId++, mode: "run", code, inputs }),
-    check: (code, { tests, strict = false, cases }) =>
-      // cases from Svelte $state are proxies, which postMessage cannot clone; JSON gives plain copies
+    check: (code, { tests, strict = false, cases, requires }) =>
+      // cases and requires from Svelte $state are proxies, which postMessage cannot clone; JSON gives plain copies
       submit<CheckResult>({
         id: nextId++,
         mode: "check",
@@ -127,6 +127,7 @@ export function createRunner({
         tests,
         strict,
         cases: JSON.parse(JSON.stringify(cases)),
+        requires: JSON.parse(JSON.stringify(requires)),
       }),
     status: () => state,
     retry: () => {

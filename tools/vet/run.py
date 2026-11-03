@@ -14,6 +14,7 @@ from .checks import (
     ids,
     mutation,
     progression,
+    required,
     rewrites,
     right,
     solutions,
@@ -58,6 +59,8 @@ CHECKS: list[Check] = [
     Check(right.check_missing, frozenset({"right-missing"})),
     Check(test_shape.check, frozenset({"test-inspects-code"})),
     Check(progression.check, frozenset({"untaught-feature", "unknown-feature", "teaches-missing"})),
+    Check(required.check, frozenset({"required-untaught", "required-not-in-prompt", "prompt-asks-construct",
+                                     "unknown-feature", "field-missing"})),
     Check(versions.check, frozenset({"version-differs"})),
     Check(versions.check_min, frozenset({"min-unexplained"})),
 ]

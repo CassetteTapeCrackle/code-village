@@ -2,9 +2,11 @@
 
 import hashlib
 from collections.abc import Iterable, Iterator
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Literal
+
+from .adapter import Required
 
 Meta = dict[str, object]
 
@@ -98,6 +100,7 @@ class Feature:
     summary: str
     detect: tuple[str, ...]
     words: tuple[str, ...]  # how a prompt names it, for the checks on required constructs
+    say: str  # what Check tells the learner to do when a task requires it: "put @property above the method"
 
 
 @dataclass(frozen=True)
@@ -174,6 +177,9 @@ class Item:
     wrong: tuple[Path, ...]  # mistakes a learner could make, which must fail
     prompt: str  # what the learner reads: the task, variant or stage prompt, the boss intro for hard mode
     min: str | None  # the oldest Python the item holds on (`min` in its TOML or the boss front matter)
+    requires_ids: tuple[str, ...] = ()  # feature ids the task requires (`requires` in its TOML), as declared
+    requires: tuple[Required, ...] = ()  # the same, for the listed features, as Check reads them
+    words_ok: str | None = None  # why the prompt may name a construct without requiring it (`construct_words_ok`)
 
 
 def _min(meta: Meta) -> str | None:
@@ -201,21 +207,33 @@ class Content:
 
     def items(self) -> Iterator[Item]:
         for task in self.tasks:
-            yield Item(task.id, "task", "the solution", task.folder, task.starter, task.solution, task.tests,
-                       task.strict, task.fingerprint, task.id, task.meta.get("cases"), task.right,
-                       task.wrong, str(task.meta.get("prompt", "")), _min(task.meta))
+            yield self._item(task.meta, Item(task.id, "task", "the solution", task.folder, task.starter, task.solution,
+                                             task.tests, task.strict, task.fingerprint, task.id,
+                                             task.meta.get("cases"), task.right, task.wrong,
+                                             str(task.meta.get("prompt", "")), _min(task.meta)))
             for v in task.variants:
-                yield Item(v.id, "variant", "the solution", v.folder, v.starter, v.solution, v.tests, v.strict,
-                           v.fingerprint, v.id, v.meta.get("cases"), v.right, v.wrong,
-                           str(v.meta.get("prompt", "")), _min(v.meta))
+                yield self._item(v.meta, Item(v.id, "variant", "the solution", v.folder, v.starter, v.solution,
+                                              v.tests, v.strict, v.fingerprint, v.id, v.meta.get("cases"), v.right,
+                                              v.wrong, str(v.meta.get("prompt", "")), _min(v.meta)))
         for boss in self.bosses:
             for stage in boss.stages:
-                yield Item(boss.id, "stage", f"the solution (stage {stage.id})", boss.folder, boss.starter,
-                           boss.solution, stage.tests, False, boss.fingerprint, stage.id, stage.meta.get("cases"),
-                           boss.right, boss.wrong, str(stage.meta.get("prompt", "")), _min(boss.meta))
-            yield Item(boss.id, "hard", "the solution (hard mode)", boss.folder, boss.starter, boss.solution,
-                       boss.hard_tests, False, boss.fingerprint, f"{boss.id}:hard", boss.meta.get("cases"),
-                       boss.right, boss.wrong, boss.intro, _min(boss.meta))
+                yield self._item(stage.meta, Item(boss.id, "stage", f"the solution (stage {stage.id})", boss.folder,
+                                                  boss.starter, boss.solution, stage.tests, False, boss.fingerprint,
+                                                  stage.id, stage.meta.get("cases"), boss.right, boss.wrong,
+                                                  str(stage.meta.get("prompt", "")), _min(boss.meta)))
+            yield self._item(boss.meta, Item(boss.id, "hard", "the solution (hard mode)", boss.folder, boss.starter,
+                                             boss.solution, boss.hard_tests, False, boss.fingerprint,
+                                             f"{boss.id}:hard", boss.meta.get("cases"), boss.right, boss.wrong,
+                                             boss.intro, _min(boss.meta)))
+
+    def _item(self, meta: Meta, item: Item) -> Item:
+        """The item with what its TOML (or a boss's front matter, for hard mode) says it requires."""
+        declared = meta.get("requires")
+        ids = tuple(str(i) for i in declared) if isinstance(declared, list) else ()
+        known = [self.features[i] for i in ids if i in self.features]
+        words_ok = meta.get("construct_words_ok")
+        return replace(item, requires_ids=ids, requires=tuple(Required(f.id, f.detect, f.say) for f in known),
+                       words_ok=words_ok if isinstance(words_ok, str) else None)
 
     def solution_groups(self) -> list[list[Item]]:
         """Items that share one model solution: a task or variant alone, a boss's stages with its hard mode."""

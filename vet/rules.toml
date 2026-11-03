@@ -170,6 +170,18 @@ severity = "progression"
 summary = "A lesson declares no `teaches` list, so what it introduces cannot be checked."
 severity = "progression"
 
+[rule.required-untaught]
+summary = "A task requires a construct that no lesson up to it teaches."
+severity = "progression"
+
+[rule.required-not-in-prompt]
+summary = "A task requires a construct that its prompt never names, so the learner cannot know to use it."
+severity = "ambiguous"
+
+[rule.prompt-asks-construct]
+summary = "A prompt names a way of writing the code, but the task does not require it, so Check would not notice."
+severity = "ambiguous"
+
 # Data: files the loader cannot use
 [rule.file-unreadable]
 summary = "A content file is missing, cannot be parsed, or lacks its +++ front matter."

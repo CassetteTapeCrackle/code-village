@@ -17,6 +17,7 @@ import json
 import os
 import sys
 from collections import Counter
+from dataclasses import asdict
 from pathlib import Path
 
 from vet.adapter import LanguageAdapter, case_json
@@ -34,7 +35,7 @@ from vet.rules import RULES
 from vet.run import SLOW_RULES, vet_content
 
 ROOT = Path(__file__).resolve().parent.parent
-BUNDLE_VERSION = 4
+BUNDLE_VERSION = 5
 Json = dict[str, object]
 
 
@@ -57,20 +58,27 @@ def bundle_cases(content: Content, adapter: LanguageAdapter) -> CasesBySeed:
     return found
 
 
-def task_entry(task: Task, cases: CasesBySeed) -> Json:
+def bundle_requires(content: Content) -> dict[str, list[Json]]:
+    """The constructs each item requires, by its seed id: what Check verifies after the behaviour passes."""
+    return {item.seed: [asdict(need) for need in item.requires] for item in content.items()}
+
+
+def task_entry(task: Task, cases: CasesBySeed, requires: dict[str, list[Json]]) -> Json:
     variants = [{**pick(v.meta, VARIANT_FIELDS), "concept": task.meta.get("concept"), "strict": v.strict,
-                 "starter": v.starter, "tests": v.tests, "cases": cases[v.id]} for v in task.variants]
+                 "starter": v.starter, "tests": v.tests, "cases": cases[v.id], "requires": requires[v.id]}
+                for v in task.variants]
     return {**pick(task.meta, TASK_FIELDS), "strict": task.strict, "starter": task.starter, "tests": task.tests,
-            "cases": cases[task.id], "variants": variants}
+            "cases": cases[task.id], "requires": requires[task.id], "variants": variants}
 
 
-def lesson_entry(lesson: Lesson, adapter: LanguageAdapter, cases: CasesBySeed) -> Json:
+def lesson_entry(lesson: Lesson, adapter: LanguageAdapter, cases: CasesBySeed,
+                 requires: dict[str, list[Json]]) -> Json:
     blocks: list[Json] = []
     for block in lesson.blocks:
         if isinstance(block, TextBlock):
             blocks.append({"type": "text", "markdown": block.markdown})
         elif isinstance(block, TaskBlock):
-            blocks.append({"type": "task", "task": task_entry(block.task, cases)})
+            blocks.append({"type": "task", "task": task_entry(block.task, cases, requires)})
         elif isinstance(block, CodeBlock) and block.kind != "claim":  # claims back a sentence and are never shown
             [ran] = adapter.run([block.code])  # already run by the checks, so this reads the same outcome
             blocks.append({"type": block.kind, "code": block.code, "output": ran["stdout"] if ran else ""})
@@ -80,13 +88,15 @@ def lesson_entry(lesson: Lesson, adapter: LanguageAdapter, cases: CasesBySeed) -
     return entry
 
 
-def boss_entry(boss: Boss, cases: CasesBySeed) -> Json:
+def boss_entry(boss: Boss, cases: CasesBySeed, requires: dict[str, list[Json]]) -> Json:
     meta = boss.meta
     return {"id": boss.id, "title": meta.get("title"), "world": meta.get("world"), "region": meta.get("region"),
             "intro": boss.intro, "starter": boss.starter, "hardTests": boss.hard_tests,
-            "hardCases": cases[f"{boss.id}:hard"], "hardChecks": meta.get("hard_checks"), "trophy": meta.get("trophy"),
+            "hardCases": cases[f"{boss.id}:hard"], "hardRequires": requires[f"{boss.id}:hard"],
+            "hardChecks": meta.get("hard_checks"), "trophy": meta.get("trophy"),
             "hardTrophy": meta.get("hard_trophy"),
-            "stages": [{**pick(s.meta, STAGE_FIELDS), "tests": s.tests, "cases": cases[s.id]} for s in boss.stages]}
+            "stages": [{**pick(s.meta, STAGE_FIELDS), "tests": s.tests, "cases": cases[s.id],
+                        "requires": requires[s.id]} for s in boss.stages]}
 
 
 def world_entry(world: World) -> Json:
@@ -113,10 +123,11 @@ def bundle(content: Content, adapter: LanguageAdapter) -> Json:
     bosses = sorted(content.bosses, key=lambda boss: (str(boss.meta["world"]), str(boss.meta["region"])))
     worlds = sorted(content.worlds, key=lambda world: int(str(world.meta["order"])))
     cases = bundle_cases(content, adapter)
+    requires = bundle_requires(content)
     return {"version": BUNDLE_VERSION, "python": build_python(), "concepts": dict(sorted(content.concepts.items())),
             "worlds": [world_entry(w) for w in worlds],
-            "lessons": [lesson_entry(lesson, adapter, cases) for lesson in lessons],
-            "bosses": [boss_entry(b, cases) for b in bosses]}
+            "lessons": [lesson_entry(lesson, adapter, cases, requires) for lesson in lessons],
+            "bosses": [boss_entry(b, cases, requires) for b in bosses]}
 
 
 def fingerprint(content: Path, gaps: Path) -> str:

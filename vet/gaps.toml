@@ -1041,6 +1041,131 @@ item = "values-total-price"
 fingerprint = "c8f72de18c4e"
 
 [[gap]]
+rule = "prompt-asks-construct"
+item = "comprehensions-odd-squares"
+fingerprint = "33993c37710a"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "dataclasses-mushroom-spots"
+fingerprint = "2656c9377ccc"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "dataclasses-quiver-default"
+fingerprint = "ca7c98bab22d"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "dataclasses-races"
+fingerprint = "33d9fe4c7505"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "dataclasses-sapling"
+fingerprint = "3ccadbcd986c"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "functions-as-values-keep-long"
+fingerprint = "88c46f9cb75a"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "functions-as-values-oldest"
+fingerprint = "fb2060f0c132"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "functions-as-values-prices"
+fingerprint = "93be12f3e54e"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "generators-count-down"
+fingerprint = "c74b48613949"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "generators-count-long"
+fingerprint = "0a65ab30efa8"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "generators-evens"
+fingerprint = "7b58b43f81a9"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "generators-letters"
+fingerprint = "16380fb556cc"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "gradebook"
+fingerprint = "ebe8801cb395"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "inheritance-bat"
+fingerprint = "accf2d41e5eb"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "inheritance-canoe-boat"
+fingerprint = "96191d6b14a1"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "properties-fuel"
+fingerprint = "3297ad9c2699"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "properties-ranger-age"
+fingerprint = "703365763ab3"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "properties-volume"
+fingerprint = "6e712774cd5d"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "properties-window"
+fingerprint = "b917c3b9c682"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "properties-wingspan"
+fingerprint = "d02454b6c8ac"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "ranger-registry"
+fingerprint = "8ddcf3d359df"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "songbird-playlist"
+fingerprint = "40a435d0e3c4"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "sortable-by-height"
+fingerprint = "78a28b00243c"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "sortable-by-name"
+fingerprint = "94fa0afcc945"
+
+[[gap]]
+rule = "prompt-asks-construct"
+item = "sortable-oldest"
+fingerprint = "b0c1651f4127"
+
+[[gap]]
 rule = "right-missing"
 item = "class-attributes-cabin"
 fingerprint = "d6534a3c2959"

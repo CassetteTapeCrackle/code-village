@@ -38,12 +38,12 @@ class Unit:
 
 
 def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
-    order = _lesson_order(content)
+    order = lesson_order(content)
     yield from _teaches_findings(content, order)
     units = list(_units(content, order))
     queries = [FeatureQuery(s.code, own) for unit, own in units for s in unit.sources]
     found = iter(adapter.features(queries, content.vocabulary))
-    judged = _judged(order)
+    judged = judged_count(order)
     first_taught = _first_taught(order)
     for unit, _ in units:
         features = _by_name((s.name, next(found)) for s in unit.sources)
@@ -52,7 +52,7 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
             yield from _untaught(unit, features, order, first_taught)
 
 
-def _lesson_order(content: Content) -> list[Lesson]:
+def lesson_order(content: Content) -> list[Lesson]:
     world_order = {w.id: w.meta.get("order") for w in content.worlds}
 
     def key(lesson: Lesson) -> tuple[int, int]:
@@ -62,12 +62,30 @@ def _lesson_order(content: Content) -> list[Lesson]:
     return sorted(content.lessons, key=key)
 
 
-def _judged(order: Sequence[Lesson]) -> int:
+def judged_count(order: Sequence[Lesson]) -> int:
     """How many lessons from the start all declare `teaches`: the code up to there can be judged."""
     for count, lesson in enumerate(order):
         if lesson.teaches is None:
             return count
     return len(order)
+
+
+def taught_at(order: Sequence[Lesson], position: int) -> set[str]:
+    """The feature ids taught by the first `position` lessons of the order."""
+    return {feature for lesson in order[:position] for feature in lesson.teaches or ()}
+
+
+def item_positions(content: Content, order: Sequence[Lesson]) -> dict[str, int]:
+    """For each task, variant and boss id: how many lessons are taught when a learner meets it."""
+    positions: dict[str, int] = {}
+    for position, lesson in enumerate(order, start=1):
+        for task in lesson.tasks:
+            positions.update({task.id: position, **{v.id: position for v in task.variants}})
+    for boss in content.bosses:
+        after = after_region(order, boss)
+        if after is not None:
+            positions[boss.id] = after
+    return positions
 
 
 def _first_taught(order: Sequence[Lesson]) -> dict[str, Lesson]:
@@ -101,11 +119,11 @@ def _units(content: Content, order: Sequence[Lesson]) -> Iterable[tuple[Unit, tu
         for task in lesson.tasks:
             yield from _task_units(task, position, own, content.root)
     for boss in content.bosses:
-        after_region = _after_region(order, boss)
-        if after_region is not None:
+        taught_by = after_region(order, boss)
+        if taught_by is not None:
             about = subject(boss.id, boss.fingerprint, boss.folder / "boss.md", content.root)
             sources = _answers(boss.starter, boss.solution, boss.wrong, boss.right, boss.folder)
-            yield Unit(about, sources, after_region), tuple(sorted(_defined_names_in([boss.starter, boss.solution])))
+            yield Unit(about, sources, taught_by), tuple(sorted(_defined_names_in([boss.starter, boss.solution])))
 
 
 def _task_units(task: Task, position: int, own: tuple[str, ...],
@@ -139,7 +157,7 @@ def _hint_code(task: Task) -> Iterable[Source]:
                 yield Source(f"hint {number}", span)
 
 
-def _after_region(order: Sequence[Lesson], boss: Boss) -> int | None:
+def after_region(order: Sequence[Lesson], boss: Boss) -> int | None:
     """How many lessons come up to the last one of the boss's region; None for a region with no lessons."""
     in_region = [i for i, lesson in enumerate(order, start=1)
                  if (lesson.meta.get("world"), lesson.meta.get("region")) == (boss.meta.get("world"),
@@ -185,7 +203,7 @@ def _unknown(unit: Unit, features: dict[str, set[str]]) -> Iterable[Finding]:
 
 def _untaught(unit: Unit, features: dict[str, set[str]], order: Sequence[Lesson],
               first_taught: dict[str, Lesson]) -> Iterable[Finding]:
-    taught = {feature for lesson in order[:unit.taught_by] for feature in lesson.teaches or ()}
+    taught = taught_at(order, unit.taught_by)
     used: dict[str, list[str]] = {}
     for name, found in features.items():
         for feature in sorted(found - taught):

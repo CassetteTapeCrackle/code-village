@@ -38,12 +38,14 @@ def block_jobs(content: Content, adapter: LanguageAdapter) -> Iterable[Job]:
 
 def check_jobs(content: Content, adapter: LanguageAdapter) -> Iterable[Job]:
     """The solution, starter, wrong/ and right/ answers of every item on its tests and hidden cases."""
-    named = [(f"{item.seed}:{name}", CheckJob(code, item.tests, item.strict, buildable_cases(item, adapter)))
+    named = [(f"{item.seed}:{name}",
+              CheckJob(code, item.tests, item.strict, buildable_cases(item, adapter), item.requires))
              for group in content.solution_groups() for name, code in answers(group) for item in group]
     for (job_id, job), outcome in zip(named, adapter.check([job for _, job in named]), strict=True):
         if outcome is not None:
             yield {"id": job_id, "kind": "check", "code": job.code, "tests": job.tests, "strict": job.strict,
-                   "cases": [case_json(case) for case in job.cases], "expect": _verdict(outcome)}
+                   "cases": [case_json(case) for case in job.cases],
+                   "requires": [asdict(need) for need in job.requires], "expect": _verdict(outcome)}
 
 
 def expect_jobs(content: Content, adapter: LanguageAdapter) -> Iterable[Job]:

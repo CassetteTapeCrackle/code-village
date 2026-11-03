@@ -56,7 +56,8 @@ class PythonAdapter:
         if not new:
             return [self._checked[job] for job in jobs]
         harness_jobs: list[Job] = [{"mode": "check", "code": job.code, "tests": job.tests, "strict": job.strict,
-                                    "cases": [case_json(case) for case in job.cases]} for job in new]
+                                    "cases": [case_json(case) for case in job.cases],
+                                    "requires": [asdict(need) for need in job.requires]} for job in new]
         outcomes = self._harness_all(harness_jobs, [job.limit for job in new])
         self._checked.update(zip(new, (cast(CheckOutcome | None, outcome) for outcome in outcomes), strict=True))
         return [self._checked[job] for job in jobs]

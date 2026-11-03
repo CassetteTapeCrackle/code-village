@@ -14,7 +14,8 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
 
 def _solutions(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
     items = list(content.items())
-    outcomes = adapter.check([CheckJob(item.solution, item.tests, item.strict) for item in items])
+    jobs = [CheckJob(item.solution, item.tests, item.strict, requires=item.requires) for item in items]
+    outcomes = adapter.check(jobs)
     for item, outcome in zip(items, outcomes, strict=True):
         about = subject(item.id, item.fingerprint, item.folder / "solution.py", content.root)
         if outcome is None:

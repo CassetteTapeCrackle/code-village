@@ -563,7 +563,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   it; an item may silence it with `construct_words_ok = "reason"`).
 - Rewrites drop a rewrite whose features lose a required id.
 
-- [ ] **Step 1 to 4:** Canaries and harness tests (`test_required_feature_message`), fail, implement, pass.
+- [x] **Step 1 to 4:** Canaries and harness tests (`test_required_feature_message`), fail, implement, pass.
   Commit.
 
 ### Task 5.4: Wiring invariants

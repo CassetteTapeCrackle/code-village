@@ -177,6 +177,23 @@ comes after the last lesson of its region. The rules:
 A method the lesson's own code defines (`def feed(self)`) is the learner's own and not a feature. A code span in a
 hint that is only half a statement is not read.
 
+## Required constructs
+
+Some prompts ask for a way of writing the code, not only a behaviour ("put `@property` above the method"). Such a
+task lists the feature ids in its TOML (`requires = ["property-decorator"]`; for a boss stage in `stage.toml`, for
+hard mode in the `boss.md` front matter). Check first judges the behaviour. When that passes, it looks for the
+construct with the feature's detectors and says what is missing, using the feature's `say`: "Your code works, but
+this task asks you to put @property above the method." The rules:
+
+- `required-not-in-prompt`: none of the feature's `words` appears in the prompt. Name the construct there.
+- `required-untaught`: no lesson up to the task teaches the feature.
+- `prompt-asks-construct`: the prompt contains a feature's `words` but the task does not require it, so Check would
+  accept code that ignores the ask. Either add it to `requires`, or give `construct_words_ok = "why not"` (a
+  suggestion such as "Try a list comprehension" is a reason).
+
+The solution must use every required construct, and `right/` answers too. The equivalent rewrites that remove a
+required construct are skipped.
+
 ## Review checklist
 
 Before a world is done, read every lesson, prompt, hint, starter, solution and test, and ask:

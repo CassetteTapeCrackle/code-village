@@ -112,10 +112,24 @@ def _load_variant(folder: Path, lesson_text: str, root: Path) -> tuple[Variant |
     toml = folder / "variant.toml"
     report.require(meta, VARIANT_FIELDS, where, "variant.toml", toml)
     strict = _strict(meta, where, report, toml)
-    _check_min(meta.get("min"), where, report, toml)
+    _check_item_fields(meta, where, report, toml)
     variant = Variant(str(meta.get("id", where)), where, folder, meta, files["starter"], files["solution"],
                       files["tests"], strict, _answers(folder, "wrong"), _answers(folder, "right"), report.fingerprint)
     return variant, report.findings
+
+
+def _check_construct_fields(meta: Meta, where: str, report: Report, path: Path) -> None:
+    """`requires` (feature ids) and `construct_words_ok` (a reason) in an item's TOML."""
+    if "requires" in meta and _strings(meta["requires"]) is None:
+        report.add("field-invalid", where, "requires must be a list of feature ids (strings)", path)
+    words_ok = meta.get("construct_words_ok")
+    if "construct_words_ok" in meta and not (isinstance(words_ok, str) and words_ok.strip()):
+        report.add("field-invalid", where, "construct_words_ok must say why, as text", path)
+
+
+def _check_item_fields(meta: Meta, where: str, report: Report, path: Path) -> None:
+    _check_min(meta.get("min"), where, report, path)
+    _check_construct_fields(meta, where, report, path)
 
 
 def _check_min(value: object, where: str, report: Report, path: Path) -> None:
@@ -138,7 +152,7 @@ def _load_task(folder: Path, lesson_text: str, root: Path) -> tuple[Task | None,
     if not hints:
         report.add("field-missing", where, "a task needs at least one hint", toml)
     strict = _strict(meta, where, report, toml)
-    _check_min(meta.get("min"), where, report, toml)
+    _check_item_fields(meta, where, report, toml)
     variants = []
     for variant_folder in subfolders(folder / "variants"):
         variant, found = _load_variant(variant_folder, lesson_text, root)
@@ -230,6 +244,7 @@ def _load_stage(folder: Path, where: str, report: Report) -> Stage | None:
         return None
     meta, files = read
     report.require(meta, STAGE_FIELDS, stage_where, "stage.toml", folder / "stage.toml")
+    _check_construct_fields(meta, stage_where, report, folder / "stage.toml")
     return Stage(str(meta.get("id")), stage_where, meta, files["tests"])
 
 
@@ -241,7 +256,7 @@ def _load_boss(boss_md: Path, root: Path) -> tuple[Boss | None, list[Finding]]:
     if parsed is None:
         return None, report.findings
     meta, intro = parsed
-    _check_min(meta.get("min"), where, report, boss_md)
+    _check_item_fields(meta, where, report, boss_md)
     try:
         files = {name: (folder / f"{name}.py").read_text() for name in ("starter", "solution", "hard_tests")}
     except OSError as e:
@@ -299,7 +314,11 @@ def _load_feature(feature_id: str, table: object, seen: dict[str, str], report: 
         elif detector in seen:
             report.add("field-invalid", where, f"detector {detector} already belongs to feature {seen[detector]}", path)
         seen[detector] = seen.get(detector, feature_id)
-    return Feature(feature_id, str(table.get("summary", "")), tuple(detect), tuple(words))
+    say = table.get("say", "")
+    if not isinstance(say, str):
+        report.add("field-invalid", where, "say must be text", path)
+    return Feature(feature_id, str(table.get("summary", "")), tuple(detect), tuple(words),
+                   say if isinstance(say, str) else "")
 
 
 def _load_features(root: Path) -> tuple[dict[str, Feature], list[Finding]]:

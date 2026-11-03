@@ -107,7 +107,7 @@ def _verdict(outcome: CheckOutcome | None) -> str:
 
 
 def _group_differences(adapter: LanguageAdapter, groups: list[Group]) -> list[Computed]:
-    jobs_of = [[CheckJob(code, item.tests, item.strict, cases) for _, code in answers(group)
+    jobs_of = [[CheckJob(code, item.tests, item.strict, cases, item.requires) for _, code in answers(group)
                 for item, cases in [(i, buildable_cases(i, adapter)) for i in group]] for group in groups]
     base = adapter.check([job for jobs in jobs_of for job in jobs])
     starts = [sum(map(len, jobs_of[:g])) for g in range(len(groups))]

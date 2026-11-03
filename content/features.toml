@@ -2,6 +2,8 @@
 # code in a lesson, task, hint or boss may use only what that lesson or an earlier one teaches.
 # detect: node:<AstClass>, call:<builtin>, method:<name>, import:<module>, decorator:<name>, kwarg:<call>.<name>
 # words: how a task prompt names a construct it requires (matched in the prompt, lower case)
+# say: what Check tells the learner to do when a task requires the feature, as the end of
+#   "Your code works, but this task asks you to <say>."
 # Code that uses a builtin call, method call, import, decorator or tracked syntax listed nowhere here fails the
 # build as unknown-feature: add it here, then to the `teaches` of the lesson that introduces it.
 
@@ -10,11 +12,13 @@
 summary = "for loops"
 detect = ["node:For"]
 words = ["for loop"]
+say = "write a for loop"
 
 [feature.while-loop]
 summary = "while loops"
 detect = ["node:While"]
 words = ["while loop"]
+say = "write a while loop"
 
 [feature.break-continue]
 summary = "break and continue"
@@ -28,11 +32,13 @@ detect = ["node:If"]
 summary = "a if condition else b"
 detect = ["node:IfExp"]
 words = ["conditional expression", "one-line if"]
+say = "use a conditional expression (a if condition else b)"
 
 [feature.match-statement]
 summary = "match and case"
 detect = ["node:Match"]
 words = ["match statement"]
+say = "use a match statement"
 
 [feature.function-def]
 summary = "def"
@@ -46,6 +52,7 @@ detect = ["node:Return"]
 summary = "lambda expressions"
 detect = ["node:Lambda"]
 words = ["lambda"]
+say = "use a lambda"
 
 [feature.class-def]
 summary = "class"
@@ -55,6 +62,7 @@ detect = ["node:ClassDef"]
 summary = "try, except, else and finally"
 detect = ["node:Try"]
 words = ["try/except", "try and except", "try block"]
+say = "use try and except"
 
 [feature.raise-statement]
 summary = "raise"
@@ -68,56 +76,67 @@ detect = ["node:Assert"]
 summary = "with"
 detect = ["node:With"]
 words = ["with statement", "with block"]
+say = "use a with statement"
 
 [feature.global-nonlocal]
 summary = "global and nonlocal"
 detect = ["node:Global", "node:Nonlocal"]
 words = ["global statement", "nonlocal"]
+say = "use global or nonlocal"
 
 [feature.generator-yield]
 summary = "yield and yield from"
 detect = ["node:Yield", "node:YieldFrom"]
 words = ["yield"]
+say = "use yield"
 
 [feature.unpack-star]
 summary = "starred unpacking, *rest and *args"
 detect = ["node:Starred"]
 words = ["starred", "*args"]
+say = "use starred unpacking"
 
 [feature.list-comprehension]
 summary = "list comprehensions"
 detect = ["node:ListComp"]
 words = ["list comprehension", "comprehension"]
+say = "use a list comprehension"
 
 [feature.set-comprehension]
 summary = "set comprehensions"
 detect = ["node:SetComp"]
 words = ["set comprehension"]
+say = "use a set comprehension"
 
 [feature.dict-comprehension]
 summary = "dict comprehensions"
 detect = ["node:DictComp"]
 words = ["dict comprehension"]
+say = "use a dict comprehension"
 
 [feature.generator-expression]
 summary = "generator expressions"
 detect = ["node:GeneratorExp"]
 words = ["generator expression"]
+say = "use a generator expression"
 
 [feature.f-string]
 summary = "f-strings"
 detect = ["node:JoinedStr"]
 words = ["f-string"]
+say = "build the text with an f-string"
 
 [feature.augmented-assignment]
 summary = "+=, -= and the other augmented assignments"
 detect = ["node:AugAssign"]
 words = ["augmented assignment"]
+say = "use an augmented assignment such as +="
 
 [feature.slicing]
 summary = "slices such as items[1:3]"
 detect = ["node:Slice"]
 words = ["slice", "slicing"]
+say = "use a slice"
 
 [feature.delete]
 summary = "del"
@@ -127,6 +146,7 @@ detect = ["node:Delete"]
 summary = "the := operator"
 detect = ["node:NamedExpr"]
 words = ["walrus"]
+say = "use the := operator"
 
 # Builtins
 [feature.fn-print]
@@ -213,6 +233,7 @@ detect = ["call:type"]
 summary = "super()"
 detect = ["call:super"]
 words = ["super()"]
+say = "call super()"
 
 [feature.fn-open]
 summary = "open()"
@@ -226,6 +247,7 @@ detect = ["call:ValueError"]
 summary = "a key function for sorted(), sort(), min() and max()"
 detect = ["kwarg:sorted.key", "kwarg:sort.key", "kwarg:min.key", "kwarg:max.key"]
 words = ["key function", "key="]
+say = "pass a key function (key=...)"
 
 # Methods of the core types
 [feature.str-case]
@@ -313,16 +335,19 @@ detect = ["import:io", "method:StringIO"]
 summary = "dataclasses and @dataclass"
 detect = ["import:dataclasses", "decorator:dataclass"]
 words = ["@dataclass", "dataclass"]
+say = "put @dataclass above the class"
 
 [feature.property-decorator]
 summary = "@property"
 detect = ["decorator:property"]
 words = ["@property", "property"]
+say = "put @property above the method"
 
 [feature.property-setter]
 summary = "@name.setter"
 detect = ["decorator:setter"]
 words = [".setter", "setter"]
+say = "put @<name>.setter above the setter"
 
 [feature.numpy-arrays]
 summary = "NumPy arrays"

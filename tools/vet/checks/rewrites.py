@@ -7,7 +7,7 @@ import re
 from collections.abc import Callable, Iterable, Sequence
 from typing import cast
 
-from ..adapter import CheckJob, CheckOutcome, LanguageAdapter, Rewrite, passes
+from ..adapter import CheckJob, CheckOutcome, FeatureQuery, LanguageAdapter, Rewrite, passes
 from ..cache import Computed, Group, cache_for, per_group
 from ..cases.expect import CasesProblem, buildable_cases, item_decl
 from ..cases.spec import ProgramShape
@@ -34,6 +34,16 @@ def kept(rewrite: Rewrite, group: Sequence[Item]) -> bool:
     if rewrite.transform == "add-debug-print":
         return not any(_checks_printing(item) for item in group)
     return True
+
+
+def keeping_required(rewrites: list[Rewrite], group: Sequence[Item], adapter: LanguageAdapter) -> list[Rewrite]:
+    """The rewrites that still use every construct the group's tasks require: one that drops a required
+    construct is expected to fail, so it says nothing about the tests."""
+    needs = {need.id: list(need.detect) for item in group for need in item.requires}
+    if not needs:
+        return rewrites
+    found = adapter.features([FeatureQuery(r.code) for r in rewrites], needs)
+    return [r for r, features in zip(rewrites, found, strict=True) if needs.keys() <= features]
 
 
 def first_failure(outcomes: Sequence[CheckOutcome | None]) -> str | None:
@@ -69,8 +79,8 @@ def answer_jobs(groups: Sequence[Group], codes: Sequence[Sequence[str]],
                 adapter: LanguageAdapter) -> list[CheckJob]:
     """The solution, then each answer, on every suite of its group (visible tests and hidden cases)."""
     suites = [[(item, buildable_cases(item, adapter)) for item in group] for group in groups]
-    return [CheckJob(code, item.tests, item.strict, cases) for group, suite, answers in zip(groups, suites, codes,
-                                                                                            strict=True)
+    return [CheckJob(code, item.tests, item.strict, cases, item.requires)
+            for group, suite, answers in zip(groups, suites, codes, strict=True)
             for code in [group[0].solution, *answers] for item, cases in suite]
 
 
@@ -92,7 +102,8 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
     groups = content.solution_groups()
 
     def answers(group: Group) -> list[tuple[str, str]]:
-        return [(r.id, r.code) for r in adapter.rewrites(group[0].solution) if kept(r, group)]
+        wanted = [r for r in adapter.rewrites(group[0].solution) if kept(r, group)]
+        return [(r.id, r.code) for r in keeping_required(wanted, group, adapter)]
 
     for group, failures in zip(groups, refused(content, "rewrites", groups, answers, adapter), strict=True):
         first = group[0]

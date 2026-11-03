@@ -49,7 +49,14 @@ async function loadLibraries(source) {
 
 function harnessJob(job) {
   if (job.kind === "check")
-    return { mode: "check", code: job.code, tests: job.tests, strict: job.strict, cases: job.cases };
+    return {
+      mode: "check",
+      code: job.code,
+      tests: job.tests,
+      strict: job.strict,
+      cases: job.cases,
+      requires: job.requires ?? [],
+    };
   if (job.kind === "expect") return { mode: "expect", code: job.code, cases: job.cases };
   return { mode: "run", code: job.code, inputs: [] };
 }

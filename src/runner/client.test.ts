@@ -42,7 +42,7 @@ describe("runner client", () => {
     const w = fakeWorker();
     const runner = createRunner({ makeWorker: () => w });
     w.send({ type: "ready" });
-    const pending = runner.check("a", { tests: "t", strict: true, cases: [] });
+    const pending = runner.check("a", { tests: "t", strict: true, cases: [], requires: [] });
     await Promise.resolve();
     expect(w.jobs[0]).toMatchObject({ mode: "check", strict: true });
     w.send({ type: "done", id: w.jobs[0].id, result: { error: null, results: [] } });
@@ -64,7 +64,7 @@ describe("runner client", () => {
     };
     // $state wraps arrays and objects in proxies, which postMessage refuses (the daily review hung on this)
     const reactive = new Proxy([new Proxy(plain, {})], {});
-    const pending = runner.check("a", { tests: "t", cases: reactive });
+    const pending = runner.check("a", { tests: "t", cases: reactive, requires: [] });
     await Promise.resolve();
     expect(w.jobs[0]).toMatchObject({ cases: [plain] });
     w.send({ type: "done", id: w.jobs[0].id, result: { error: null, results: [] } });
@@ -86,7 +86,7 @@ describe("runner client", () => {
         compare: "exact",
       },
     ];
-    const pending = runner.check("a", { tests: "t", cases });
+    const pending = runner.check("a", { tests: "t", cases, requires: [] });
     await Promise.resolve();
     expect(w.jobs[0]).toEqual({
       id: w.jobs[0].id,
@@ -95,7 +95,28 @@ describe("runner client", () => {
       tests: "t",
       strict: false,
       cases,
+      requires: [],
     });
+    w.send({ type: "done", id: w.jobs[0].id, result: { error: null, results: [] } });
+    await pending;
+  });
+
+  test("a check sends the constructs the task requires as plain data", async () => {
+    const w = fakeWorker();
+    const runner = createRunner({ makeWorker: () => w });
+    w.send({ type: "ready" });
+    const need = {
+      id: "property-decorator",
+      detect: ["decorator:property"],
+      say: "put @property above the method",
+    };
+    const pending = runner.check("a", {
+      tests: "t",
+      cases: [],
+      requires: new Proxy([new Proxy(need, {})], {}),
+    });
+    await Promise.resolve();
+    expect(w.jobs[0]).toMatchObject({ requires: [need] });
     w.send({ type: "done", id: w.jobs[0].id, result: { error: null, results: [] } });
     await pending;
   });
@@ -104,7 +125,7 @@ describe("runner client", () => {
     const w = fakeWorker();
     const runner = createRunner({ makeWorker: () => w });
     w.send({ type: "ready" });
-    const first = runner.check("a", { tests: "t", cases: [] });
+    const first = runner.check("a", { tests: "t", cases: [], requires: [] });
     const second = runner.run("b");
     await Promise.resolve();
     expect(w.jobs).toHaveLength(1);

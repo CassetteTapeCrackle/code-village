@@ -3,11 +3,13 @@
 import contextlib
 import io
 import unittest
+from dataclasses import replace
 from pathlib import Path
 
-from vet.adapter import CheckOutcome, Rewrite
-from vet.checks.rewrites import first_failure, kept
+from vet.adapter import CheckOutcome, Required, Rewrite
+from vet.checks.rewrites import first_failure, keeping_required, kept
 from vet.model import Item
+from vet.python.adapter import PythonAdapter
 from vet.python.rewrite import TRANSFORMS, rewrites
 
 
@@ -209,6 +211,15 @@ class Check(unittest.TestCase):
         rename = Rewrite("rename-params:n", "rename-params", "")
         self.assertFalse(kept(rename, [item("Write `double(n)`.", "")]))
         self.assertTrue(kept(rename, [item("Write `double`, given a number.", "")]))
+
+    def test_a_rewrite_that_drops_a_required_construct_is_left_out(self) -> None:
+        needs = replace(item("", ""), requires=(Required("list-comprehension", ("node:ListComp",), "use one"),))
+        code = "def f(xs):\n    return [x + 1 for x in xs]\n"
+        found = [r for r in rewrites(code) if r.transform in ("comprehension-to-loop", "add-docstring")]
+        self.assertEqual({r.transform for r in found}, {"comprehension-to-loop", "add-docstring"})
+        kept_ones = keeping_required(found, [needs], PythonAdapter())
+        self.assertEqual({r.transform for r in kept_ones}, {"add-docstring"})
+        self.assertEqual(keeping_required(found, [item("", "")], PythonAdapter()), found)
 
     def test_no_debug_print_where_tests_read_the_output(self) -> None:
         debug = Rewrite("add-debug-print", "add-debug-print", "")

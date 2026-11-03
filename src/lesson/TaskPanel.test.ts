@@ -44,6 +44,7 @@ const task: Task = {
   gotcha: false,
   variants: [],
   cases: [{ kind: "program", show: "typing 2", stdin: ["2"], expect: "'2\\n'", compare: "text" }],
+  requires: [],
 };
 
 beforeEach(() => {
