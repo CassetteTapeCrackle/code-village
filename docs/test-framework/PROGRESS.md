@@ -3,6 +3,15 @@
 Each session reads this first and updates it last. Newest entries at the top of each section.
 
 ## Done
+- Session 3 (2026-11-03, cloud): Tasks 3.1 to 3.4, pushed to `test-framework`. `mutants()` with the plan's 18
+  operators (`tools/vet/python/mutate.py`), the mutation check with fuzz equivalence and a results cache
+  (`tools/vet/checks/mutation.py`, rule `weak-tests`), `rewrites()` with the plan's 13 transforms
+  (`tools/vet/python/rewrite.py`) and rule `right-refused`, `right/*.py` answers with `right-fails` and
+  `right-missing`, `wrong-too-few`, and `test-inspects-code`. Today's content: 2927 mutants, 290 survivors on 87
+  items (`weak-tests`, none of them with `[cases]` yet), 1043 rewrites of which 719 are kept and none refused, no
+  test that inspects code. The gap list holds 707 entries: 208 `cases-missing`, 208 `right-missing`, 204
+  `wrong-too-few`, 87 `weak-tests`. Format in `content/README.md`, "Wrong answers must fail, right answers must
+  pass".
 - Session 2 (2026-11-03, cloud): Tasks 2.1 to 2.4, committed locally on `test-framework` and exported as a
   patch (not pushed: see Open). `[cases]` declarations (`tools/vet/cases/spec.py`), the seeded input
   generator (`generate.py`), hidden cases with seven comparators and an `expect` job mode in `py/harness.py`,
