@@ -5,7 +5,7 @@ features it uses. Rules call it by file extension and never touch the language d
 """
 
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import Literal, Protocol, TypedDict
 
 # seconds a run may take: a guard against runaway loops, not a speed budget (World 3 runs take ~2 s alone but
@@ -48,12 +48,15 @@ class CaseValue:
 
 @dataclass(frozen=True)
 class ExprCase:
+    """A hidden case. With compare "valid", `expect` is the input, which the tests.py function `valid` judges."""
+
     show: str
     setup: str
     expr: str
     expect: str
     raises: str | None
     compare: Compare
+    valid: str | None = None
 
 
 @dataclass(frozen=True)
@@ -62,9 +65,17 @@ class ProgramCase:
     stdin: tuple[str, ...]
     expect: str
     compare: Compare
+    valid: str | None = None
 
 
 HiddenCase = ExprCase | ProgramCase
+
+
+def case_json(case: HiddenCase) -> dict[str, object]:
+    """A case as the harness and the bundle read it: tagged with its kind, `valid` only when set."""
+    fields = {k: list(v) if isinstance(v, tuple) else v for k, v in asdict(case).items()
+              if k != "valid" or v is not None}
+    return {"kind": "expr" if isinstance(case, ExprCase) else "program", **fields}
 
 
 @dataclass(frozen=True)
@@ -129,7 +140,9 @@ class LanguageAdapter(Protocol):
         """Run each job's code against its tests; None means it ran out of time."""
         ...
 
-    def expect(self, code: str, cases: Sequence[CaseInput]) -> list[CaseValue]: ...
+    def expect(self, code: str, cases: Sequence[CaseInput]) -> list[CaseValue] | None:
+        """The code's answer for each input; None means it ran out of time."""
+        ...
 
     def mutants(self, code: str) -> list[Mutant]: ...
 

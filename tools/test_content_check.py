@@ -42,7 +42,7 @@ class ContentCheck(unittest.TestCase):
         done, out = check(GOOD)
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
         bundle = json.loads(out.read_text())
-        self.assertEqual(bundle["version"], 3)
+        self.assertEqual(bundle["version"], 4)
         self.assertEqual(bundle["concepts"], {"numbers": "numbers"})
         self.assertEqual(bundle["worlds"][0]["building"], {"name": "School", "placeId": "school"})
         self.assertIsNone(bundle["worlds"][0]["key"])
@@ -59,6 +59,33 @@ class ContentCheck(unittest.TestCase):
         self.assertEqual([s["id"] for s in boss["stages"]], ["calc-add", "calc-sub", "calc-mul"])
         self.assertEqual((boss["hardChecks"], boss["intro"]), (3, "Build a tiny calculator."))
         self.assertNotIn("solution", json.dumps(bundle))
+
+    def test_bundle_ships_hidden_cases(self) -> None:
+        done, out = check(GOOD)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        bundle = json.loads(out.read_text())
+        double = bundle["lessons"][0]["blocks"][3]["task"]
+        self.assertEqual(len(double["cases"]), 100)
+        self.assertEqual(double["cases"][0], {"kind": "expr", "show": "double(-50)", "setup": "",
+                                              "expr": "double(-50)", "expect": "-100", "raises": None,
+                                              "compare": "exact"})
+        self.assertEqual(len(double["variants"][0]["cases"]), 100)
+        boss = bundle["bosses"][0]
+        self.assertEqual(boss["stages"][0]["cases"][0]["show"], "add(-50, -50)")
+        self.assertEqual(boss["hardCases"][0]["expect"], "0")
+
+    def test_bundle_holds_no_solution_text(self) -> None:
+        done, out = check(GOOD)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        bundle = out.read_text()
+        for solution in GOOD.rglob("solution.py"):
+            starter = (solution.parent / "starter.py").read_text()
+            distinctive = [line.strip() for line in solution.read_text().splitlines()
+                           if line.strip() and line.strip() not in starter]
+            self.assertTrue(distinctive, solution)
+            for line in distinctive:
+                with self.subTest(solution=str(solution.relative_to(GOOD)), line=line):
+                    self.assertNotIn(line, bundle)
 
     def test_strict_must_be_a_bool(self) -> None:
         def edit(d: Path) -> None:

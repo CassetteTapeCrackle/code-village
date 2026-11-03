@@ -2,3 +2,7 @@ id = "calc-mul"
 title = "Multiply"
 prompt = "Write `mul(a, b)`."
 hp = 10
+
+[cases]
+call = "mul"
+args = ["int -50..50", "int -50..50"]

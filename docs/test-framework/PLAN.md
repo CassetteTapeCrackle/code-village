@@ -357,8 +357,8 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - `bundle.json` `version` becomes 4. No solution text enters the bundle: test
   `test_bundle_holds_no_solution_text` searches the bundle for each solution's distinctive lines.
 
-- [ ] **Step 1:** Tests for each rule via canaries, plus `test_bundle_holds_no_solution_text`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Run `vet.gaps --write`: today's content lands as
+- [x] **Step 1:** Tests for each rule via canaries, plus `test_bundle_holds_no_solution_text`.
+- [x] **Step 2 to 4:** Fail, implement, pass. Run `vet.gaps --write`: today's content lands as
   `cases-missing` gaps. Commit.
 
 ### Task 2.4: Check sends cases in the browser

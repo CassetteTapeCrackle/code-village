@@ -148,6 +148,8 @@ class Item:
     tests: str
     strict: bool
     fingerprint: str
+    seed: str  # the item's own id, which seeds its hidden inputs: the stage id for a stage, "<boss>:hard"
+    cases: object  # the raw [cases] table, None when the item declares none
 
 
 @dataclass(frozen=True)
@@ -165,13 +167,13 @@ class Content:
     def items(self) -> Iterator[Item]:
         for task in self.tasks:
             yield Item(task.id, "task", "the solution", task.folder, task.starter, task.solution, task.tests,
-                       task.strict, task.fingerprint)
+                       task.strict, task.fingerprint, task.id, task.meta.get("cases"))
             for v in task.variants:
                 yield Item(v.id, "variant", "the solution", v.folder, v.starter, v.solution, v.tests, v.strict,
-                           v.fingerprint)
+                           v.fingerprint, v.id, v.meta.get("cases"))
         for boss in self.bosses:
             for stage in boss.stages:
                 yield Item(boss.id, "stage", f"the solution (stage {stage.id})", boss.folder, boss.starter,
-                           boss.solution, stage.tests, False, boss.fingerprint)
+                           boss.solution, stage.tests, False, boss.fingerprint, stage.id, stage.meta.get("cases"))
             yield Item(boss.id, "hard", "the solution (hard mode)", boss.folder, boss.starter, boss.solution,
-                       boss.hard_tests, False, boss.fingerprint)
+                       boss.hard_tests, False, boss.fingerprint, f"{boss.id}:hard", boss.meta.get("cases"))

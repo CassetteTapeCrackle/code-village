@@ -418,7 +418,7 @@ def _mutates(t: _Table, shape: Shape) -> tuple[int, ...]:
 
 def _options(t: _Table, shape: Shape) -> CasesDecl:
     table = t.table
-    compare = table.get("compare", "exact")
+    compare = table.get("compare", "text" if isinstance(shape, ProgramShape) else "exact")
     if compare not in get_args(Compare):
         raise t.fail("compare", f"must be one of {', '.join(get_args(Compare))}")
     setup = table.get("setup", "")
@@ -428,6 +428,8 @@ def _options(t: _Table, shape: Shape) -> CasesDecl:
     if not isinstance(count, int) or not 1 <= count <= MAX_COUNT:
         raise t.fail("count", f"must be a whole number from 1 to {MAX_COUNT}")
     valid = t.name("valid") if "valid" in table else None
+    if valid and isinstance(shape, ObjectShape):
+        raise t.fail("valid", "works for a call or a program, not a class")
     return CasesDecl(shape, cast(Compare, "valid" if valid else compare), valid, setup, _mutates(t, shape),
                      t.names("raises"), count)
 

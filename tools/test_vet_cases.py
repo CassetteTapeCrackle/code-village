@@ -1,7 +1,10 @@
 import ast
 import unittest
+from collections.abc import Sequence
+from pathlib import Path
 
-from vet.adapter import ExprInput, ProgramInput
+from vet.adapter import CaseInput, CaseValue, ExprCase, ExprInput, ProgramCase, ProgramInput
+from vet.cases.expect import CasesProblem, hidden_cases
 from vet.cases.generate import generate_inputs
 from vet.cases.spec import (
     CallShape,
@@ -14,6 +17,8 @@ from vet.cases.spec import (
     parse_decl,
     parse_type,
 )
+from vet.model import Item
+from vet.python.adapter import PythonAdapter
 
 LARGER = {"call": "larger", "args": ["int -50..50", "int -50..50"]}
 ACCOUNT = {"class": "Account", "init": ["int 0..500"], "methods": {"deposit": ["int 1..200"]},
@@ -145,6 +150,62 @@ class Generate(unittest.TestCase):
 
     def test_none_decl_generates_nothing(self) -> None:
         self.assertEqual(generate_inputs(parse_decl({"none": "random"}, "here"), "s", 100), [])
+
+
+ROOT_CODE = "def root(n):\n    if n < 0:\n        raise ValueError('negative')\n    return n * 2\n"
+
+
+def item(solution: str, cases: object) -> Item:
+    return Item("t", "task", "the solution", Path("."), "", solution, "", False, "fp", "t", cases)
+
+
+class TimesOut:
+    extension = ".py"
+
+    def expect(self, code: str, cases: Sequence[CaseInput]) -> list[CaseValue] | None:
+        return None
+
+
+class HiddenCases(unittest.TestCase):
+    def test_inputs_that_raise_an_unnamed_error_are_dropped(self) -> None:
+        cases = hidden_cases(item(ROOT_CODE, {"call": "root", "args": ["int -5..5"]}), PythonAdapter())
+        self.assertEqual({c.show for c in cases}, {f"root({n})" for n in range(6)})
+        self.assertEqual({c.expect for c in cases if c.show == "root(5)"}, {"10"})
+
+    def test_named_errors_become_expected_raises(self) -> None:
+        decl = {"call": "root", "args": ["int -5..5"], "raises": ["ValueError"]}
+        cases = hidden_cases(item(ROOT_CODE, decl), PythonAdapter())
+        self.assertEqual(len(cases), 11)
+        raised = [c for c in cases if isinstance(c, ExprCase) and c.raises]
+        self.assertEqual({c.show for c in raised}, {f"root({n})" for n in range(-5, 0)})
+        self.assertEqual({c.raises for c in raised}, {"ValueError"})
+
+    def test_valid_cases_carry_the_input(self) -> None:
+        decl = {"call": "pair", "args": ["int 0..3", "int 0..3"], "valid": "is_pair"}
+        cases = hidden_cases(item("def pair(a, b):\n    return a\n", decl), PythonAdapter())
+        first = cases[0]
+        assert isinstance(first, ExprCase)
+        self.assertEqual((first.show, first.expect, first.compare, first.valid), ("pair(0, 0)", "(0, 0,)", "valid",
+                                                                                  "is_pair"))
+
+    def test_program_cases_compare_text(self) -> None:
+        decl = {"stdin": ["int 0..9"]}
+        cases = hidden_cases(item("print(int(input()) * 2)\n", decl), PythonAdapter())
+        first = cases[0]
+        assert isinstance(first, ProgramCase)
+        self.assertEqual((first.show, first.stdin, first.expect, first.compare), ("typing 0", ("0",), "'0\\n'", "text"))
+
+    def test_none_and_missing_give_no_cases(self) -> None:
+        self.assertEqual(hidden_cases(item("", {"none": "random"}), TimesOut()), [])
+        self.assertEqual(hidden_cases(item("", None), TimesOut()), [])
+
+    def test_problems_name_their_rule(self) -> None:
+        for cases, rule in [({"call": "f", "args": ["int 0..9"]}, "solution-fails-cases"),
+                            ({"call": "f", "args": ["nope"]}, "cases-decl-invalid"),
+                            ("not a table", "cases-decl-invalid")]:
+            with self.subTest(rule=rule), self.assertRaises(CasesProblem) as caught:
+                hidden_cases(item("", cases), TimesOut())
+            self.assertEqual(caught.exception.rule, rule)
 
 
 if __name__ == "__main__":

@@ -10,7 +10,17 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import cast
 
-from ..adapter import LIMIT, CaseInput, CaseValue, CheckJob, CheckOutcome, Mutant, Rewrite, RunOutcome
+from ..adapter import (
+    LIMIT,
+    CaseInput,
+    CaseValue,
+    CheckJob,
+    CheckOutcome,
+    Mutant,
+    Rewrite,
+    RunOutcome,
+    case_json,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 HARNESS = ROOT / "py" / "harness.py"
@@ -27,6 +37,7 @@ class PythonAdapter:
         self.python = str(python) if python else sys.executable
         # the bundle shows the very runs the checks judged, and nothing runs twice
         self._runs: dict[str, RunOutcome | None] = {}
+        self._expected: dict[tuple[str, tuple[CaseInput, ...]], list[CaseValue] | None] = {}
 
     def run(self, codes: Sequence[str]) -> list[RunOutcome | None]:
         new = list(dict.fromkeys(code for code in codes if code not in self._runs))
@@ -35,11 +46,16 @@ class PythonAdapter:
         return [self._runs[code] for code in codes]
 
     def check(self, jobs: Sequence[CheckJob]) -> list[CheckOutcome | None]:
-        harness_jobs: list[Job] = [{"mode": "check", **asdict(job)} for job in jobs]
+        harness_jobs: list[Job] = [{"mode": "check", "code": job.code, "tests": job.tests, "strict": job.strict,
+                                    "cases": [case_json(case) for case in job.cases]} for job in jobs]
         return [cast(CheckOutcome | None, outcome) for outcome in self._harness_all(harness_jobs)]
 
-    def expect(self, code: str, cases: Sequence[CaseInput]) -> list[CaseValue]:
-        raise NotImplementedError(f"hidden cases arrive in Task 2.3 (asked for {len(cases)})")
+    def expect(self, code: str, cases: Sequence[CaseInput]) -> list[CaseValue] | None:
+        key = (code, tuple(cases))
+        if key not in self._expected:
+            [out] = self._harness_all([{"mode": "expect", "code": code, "cases": [asdict(c) for c in cases]}])
+            self._expected[key] = _case_values(out)
+        return self._expected[key]
 
     def mutants(self, code: str) -> list[Mutant]:
         raise NotImplementedError("mutants arrive in Task 3.1")
@@ -66,3 +82,11 @@ class PythonAdapter:
             return {"stdout": "", "error": f"the harness crashed: {last}", "results": []}
         result: dict[str, object] = json.loads(done.stdout)
         return result
+
+
+def _case_values(out: dict[str, object] | None) -> list[CaseValue] | None:
+    """The expect job's values; None when it ran out of time or the harness crashed (that gives no values)."""
+    values = out.get("values") if out else None
+    if not isinstance(values, list):
+        return None
+    return [CaseValue(str(v["repr"]), v["raises"]) for v in cast(list[dict[str, str | None]], values)]

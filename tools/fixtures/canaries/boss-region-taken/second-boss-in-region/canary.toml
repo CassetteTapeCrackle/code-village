@@ -17,6 +17,10 @@ name = "Calc Trophy"
 [hard_trophy]
 id = "calc2-gold"
 name = "Gold Calc"
+
+[cases]
+none = "one() takes no input, so there is nothing to vary"
+
 +++
 
 Build a tiny calculator.
@@ -50,6 +54,9 @@ id = "calc2-1"
 title = "One"
 prompt = "Write `one()`."
 hp = 10
+
+[cases]
+none = "one() takes no input, so there is nothing to vary"
 '''
 
 [[file]]
@@ -66,6 +73,9 @@ id = "calc2-2"
 title = "One"
 prompt = "Write `one()`."
 hp = 10
+
+[cases]
+none = "one() takes no input, so there is nothing to vary"
 '''
 
 [[file]]
@@ -82,6 +92,9 @@ id = "calc2-3"
 title = "One"
 prompt = "Write `one()`."
 hp = 10
+
+[cases]
+none = "one() takes no input, so there is nothing to vary"
 '''
 
 [[file]]

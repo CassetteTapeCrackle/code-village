@@ -89,10 +89,11 @@ at most 12 and default to `0..12`. Set items, dict keys, frame columns and `stdi
 
 Optional fields:
 
-- `compare`: `exact` (default), `unordered`, `float` (tolerates rounding), `text` (forgiving, like the visible
-  tests), `array`, `frame`.
+- `compare`: `exact` (the default for calls and classes), `unordered`, `float` (tolerates rounding), `text`
+  (forgiving, like the visible tests; the default for programs), `array`, `frame`.
 - `valid = "is_valid"`: for tasks with several right answers, a function in `tests.py` that takes the input
-  and the answer and says whether the answer is right.
+  (the call's arguments as a tuple, or a program's typed lines) and the answer, and says whether the answer
+  is right. Calls and programs only.
 - `setup`: import lines the inputs need. `array` and `frame` inputs import NumPy and pandas on their own.
 - `mutates = [0]`: argument positions the function changes; they are compared after the call too.
 - `raises = ["ValueError"]`: errors the prompt names. Inputs that make the solution raise any other error
@@ -100,7 +101,9 @@ Optional fields:
 - `count`: how many inputs, default 100.
 
 The inputs are seeded by the item id, so every build ships the same ones. Edge cases come first: the bounds, 0,
-empty and one-item containers, duplicates and ties.
+empty and one-item containers, duplicates and ties. The build fails when an item has no `[cases]`
+(`cases-missing`), when the table cannot be read (`cases-decl-invalid`), when fewer than 20 cases are left
+(`cases-too-few`), or when the solution does not reproduce its own expected values (`solution-fails-cases`).
 
 ## The three guards
 

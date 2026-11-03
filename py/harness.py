@@ -419,8 +419,9 @@ def _answer(code: str, case: CaseInput) -> object:
 
 
 def _expected_text(case: Case, expected: object) -> str:
-    if "valid" in case:
-        return f"an answer {case['valid']} accepts"
+    valid = case.get("valid")
+    if valid:
+        return f"an answer {valid} accepts"
     raises = case.get("raises")
     return str(raises) if raises else _cut(repr(expected))
 

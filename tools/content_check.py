@@ -15,7 +15,8 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-from vet.adapter import LanguageAdapter
+from vet.adapter import LanguageAdapter, case_json
+from vet.cases.expect import CasesProblem, hidden_cases
 from vet.checks.libraries import PYODIDE_LOCK, build_python, environment_problems
 from vet.finding import Finding, GapKey
 from vet.gaps import GAPS_PATH, GapDiff, compare, load_gaps, world_summary
@@ -25,7 +26,7 @@ from vet.python.adapter import PythonAdapter
 from vet.run import vet_content
 
 ROOT = Path(__file__).resolve().parent.parent
-BUNDLE_VERSION = 3
+BUNDLE_VERSION = 4
 Json = dict[str, object]
 
 
@@ -33,20 +34,35 @@ def pick(meta: Meta, fields: Fields) -> Json:
     return {k: meta.get(k) for k in fields}
 
 
-def task_entry(task: Task) -> Json:
+CasesBySeed = dict[str, list[Json]]
+
+
+def bundle_cases(content: Content, adapter: LanguageAdapter) -> CasesBySeed:
+    """Every item's hidden cases by its seed id. The checks built them already, so this reads the same runs;
+    an item whose cases cannot be built (a known gap) ships none."""
+    found: CasesBySeed = {}
+    for item in content.items():
+        try:
+            found[item.seed] = [case_json(case) for case in hidden_cases(item, adapter)]
+        except CasesProblem:
+            found[item.seed] = []
+    return found
+
+
+def task_entry(task: Task, cases: CasesBySeed) -> Json:
     variants = [{**pick(v.meta, VARIANT_FIELDS), "concept": task.meta.get("concept"), "strict": v.strict,
-                 "starter": v.starter, "tests": v.tests} for v in task.variants]
+                 "starter": v.starter, "tests": v.tests, "cases": cases[v.id]} for v in task.variants]
     return {**pick(task.meta, TASK_FIELDS), "strict": task.strict, "starter": task.starter, "tests": task.tests,
-            "variants": variants}
+            "cases": cases[task.id], "variants": variants}
 
 
-def lesson_entry(lesson: Lesson, adapter: LanguageAdapter) -> Json:
+def lesson_entry(lesson: Lesson, adapter: LanguageAdapter, cases: CasesBySeed) -> Json:
     blocks: list[Json] = []
     for block in lesson.blocks:
         if isinstance(block, TextBlock):
             blocks.append({"type": "text", "markdown": block.markdown})
         elif isinstance(block, TaskBlock):
-            blocks.append({"type": "task", "task": task_entry(block.task)})
+            blocks.append({"type": "task", "task": task_entry(block.task, cases)})
         elif isinstance(block, CodeBlock) and block.kind != "claim":  # claims back a sentence and are never shown
             [ran] = adapter.run([block.code])  # already run by the checks, so this reads the same outcome
             blocks.append({"type": block.kind, "code": block.code, "output": ran["stdout"] if ran else ""})
@@ -56,12 +72,13 @@ def lesson_entry(lesson: Lesson, adapter: LanguageAdapter) -> Json:
     return entry
 
 
-def boss_entry(boss: Boss) -> Json:
+def boss_entry(boss: Boss, cases: CasesBySeed) -> Json:
     meta = boss.meta
     return {"id": boss.id, "title": meta.get("title"), "world": meta.get("world"), "region": meta.get("region"),
             "intro": boss.intro, "starter": boss.starter, "hardTests": boss.hard_tests,
-            "hardChecks": meta.get("hard_checks"), "trophy": meta.get("trophy"), "hardTrophy": meta.get("hard_trophy"),
-            "stages": [{**pick(s.meta, STAGE_FIELDS), "tests": s.tests} for s in boss.stages]}
+            "hardCases": cases[f"{boss.id}:hard"], "hardChecks": meta.get("hard_checks"), "trophy": meta.get("trophy"),
+            "hardTrophy": meta.get("hard_trophy"),
+            "stages": [{**pick(s.meta, STAGE_FIELDS), "tests": s.tests, "cases": cases[s.id]} for s in boss.stages]}
 
 
 def world_entry(world: World) -> Json:
@@ -87,9 +104,11 @@ def bundle(content: Content, adapter: LanguageAdapter) -> Json:
     lessons = sorted(content.lessons, key=lambda lesson: (str(lesson.meta["world"]), int(str(lesson.meta["order"]))))
     bosses = sorted(content.bosses, key=lambda boss: (str(boss.meta["world"]), str(boss.meta["region"])))
     worlds = sorted(content.worlds, key=lambda world: int(str(world.meta["order"])))
+    cases = bundle_cases(content, adapter)
     return {"version": BUNDLE_VERSION, "python": build_python(), "concepts": dict(sorted(content.concepts.items())),
             "worlds": [world_entry(w) for w in worlds],
-            "lessons": [lesson_entry(lesson, adapter) for lesson in lessons], "bosses": [boss_entry(b) for b in bosses]}
+            "lessons": [lesson_entry(lesson, adapter, cases) for lesson in lessons],
+            "bosses": [boss_entry(b, cases) for b in bosses]}
 
 
 def fingerprint(content: Path, gaps: Path) -> str:

@@ -7,3 +7,7 @@ hints = ["Multiply by 2."]
 gotcha = true
 
 strict = true
+
+[cases]
+call = "double"
+args = ["int -50..50"]

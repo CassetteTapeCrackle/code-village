@@ -10,9 +10,21 @@ severity = "wrong-accepted"
 summary = "A wrong/*.py answer passes every test: the tests miss that mistake."
 severity = "wrong-accepted"
 
+[rule.cases-missing]
+summary = "An item has no [cases] table, so Check tries only the visible tests' inputs."
+severity = "wrong-accepted"
+
+[rule.cases-too-few]
+summary = "Fewer than 20 hidden cases are left after dropping inputs the solution raises on."
+severity = "wrong-accepted"
+
 # Check refuses a right answer
 [rule.solution-fails]
 summary = "The model solution fails its tests or runs out of time."
+severity = "right-refused"
+
+[rule.solution-fails-cases]
+summary = "The model solution fails its own hidden cases or runs out of time on them: it is not deterministic."
 severity = "right-refused"
 
 # Lessons that teach something false
@@ -112,6 +124,10 @@ severity = "data"
 
 [rule.field-missing]
 summary = "A required field is missing or has the wrong type."
+severity = "data"
+
+[rule.cases-decl-invalid]
+summary = "A [cases] table cannot be read: an unknown field or type, or a range that is too big."
 severity = "data"
 
 [rule.field-invalid]

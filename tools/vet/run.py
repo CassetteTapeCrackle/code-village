@@ -4,7 +4,7 @@ from collections.abc import Callable, Iterable
 from pathlib import Path
 
 from .adapter import LanguageAdapter, ToolError
-from .checks import bosses, claims, concepts, hints, ids, solutions, style, worlds, wrong
+from .checks import bosses, cases, claims, concepts, hints, ids, solutions, style, worlds, wrong
 from .finding import Finding
 from .load import load_content
 from .model import Content
@@ -13,7 +13,7 @@ from .python.adapter import PythonAdapter
 CheckFn = Callable[[Content, LanguageAdapter], Iterable[Finding]]
 CHECKS: list[CheckFn] = [
     solutions.check, wrong.check, hints.check, claims.check, style.check,
-    concepts.check, ids.check, bosses.check, worlds.check,
+    concepts.check, ids.check, bosses.check, worlds.check, cases.check,
 ]
 
 

@@ -10,6 +10,10 @@ name = "Calc Trophy"
 [hard_trophy]
 id = "calc-gold"
 name = "Gold Calc"
+
+[cases]
+call = "sub"
+args = ["int -50..50", "int -50..50"]
 +++
 
 Build a tiny calculator.

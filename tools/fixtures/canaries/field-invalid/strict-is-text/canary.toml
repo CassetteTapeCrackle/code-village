@@ -14,4 +14,8 @@ hints = ["Multiply by 2."]
 gotcha = true
 
 strict = "yes"
+
+[cases]
+call = "double"
+args = ["int -50..50"]
 '''

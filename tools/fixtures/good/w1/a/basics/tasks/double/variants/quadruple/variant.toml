@@ -1,3 +1,7 @@
 id = "basics-double-quadruple"
 title = "Four times"
 prompt = "Write `quadruple(n)`."
+
+[cases]
+call = "quadruple"
+args = ["int -50..50"]
