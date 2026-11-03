@@ -8,6 +8,9 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal, NotRequired, Protocol, TypedDict
 
+# seconds a run may take: a guard against runaway loops, not a speed budget (World 3 runs take ~2 s alone but
+# 10+ s on a loaded machine)
+LIMIT = 30
 Compare = Literal["exact", "unordered", "float", "text", "array", "frame", "valid"]
 
 
@@ -130,3 +133,10 @@ class LanguageAdapter(Protocol):
 
     def features(self, code: str) -> frozenset[str]: ...
 
+
+
+def passes(outcome: CheckOutcome | None) -> bool:
+    """True when the code ran in time, loaded, and every test passed."""
+    if outcome is None or outcome["error"] or not outcome["results"]:
+        return False
+    return all(r["passed"] for r in outcome["results"])

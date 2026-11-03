@@ -12,7 +12,5 @@ select = ["E", "F", "W", "B", "SIM", "I", "UP", "C90", "PL", "RUF", "ANN"]
 max-complexity = 10
 
 [lint.per-file-ignores]
-# shortcut: content_check.py is moved into tools/vet in Task 1.3 and typed there; drop this line once it is thin
-"content_check.py" = ["ANN", "C901", "PLR0912", "PLR0913", "PLR0917", "E501", "PLR2004", "PLW1510", "PLW0603"]
 # tests compare against literal expected values
 "test_*.py" = ["PLR2004"]

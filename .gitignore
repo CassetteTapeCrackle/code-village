@@ -23,6 +23,7 @@ worker/.dev.vars
 # Python bytecode and test coverage data
 __pycache__/
 .coverage
+.coverage.*
 
 # Local-only notes, plans and agent scratch: kept on disk, never in the repo.
 # Project rules, skills and hooks are committed so cloud sessions get them.

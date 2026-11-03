@@ -8,8 +8,8 @@ from collections.abc import Callable
 from pathlib import Path
 from unittest import mock
 
-import content_check
-from content_check import Problems, check_hints, hint_code_compiles, looks_like_code
+from vet.checks.hints import hint_code_compiles, hint_problems, looks_like_code
+from vet.checks.libraries import library_problems
 
 ROOT = Path(__file__).resolve().parent.parent
 GOOD = ROOT / "tools" / "fixtures" / "good"
@@ -21,6 +21,10 @@ def check(content_dir: Path) -> tuple[subprocess.CompletedProcess[str], Path]:
                "--no-version-check"]
     done = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=180, check=False)
     return done, out
+
+
+def messages(hints: list[object], solution: str, starter: str) -> list[str]:
+    return [message for _, message in hint_problems(hints, solution, starter)]
 
 
 def broken_copy(edit: Callable[[Path], object]) -> Path:
@@ -248,28 +252,24 @@ class ContentCheck(unittest.TestCase):
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
 
     def test_hint_with_swapped_attributes_strings_and_numbers_fails(self) -> None:
-        problems = Problems()
-        check_hints("x", ['Try `return frame.sort_values("age").iloc[-1]["name"]`.'],
-                    'return df.sort_values("height").iloc[-1]["name"]', "", problems)
+        problems = messages(['Try `return frame.sort_values("age").iloc[-1]["name"]`.'],
+                            'return df.sort_values("height").iloc[-1]["name"]', "")
         self.assertEqual(len(problems), 1)
         self.assertIn("hint 1 gives away the solution", problems[0])
         self.assertIn("with names, strings or numbers changed", problems[0])
 
     def test_generic_hint_mentioning_a_builtin_or_attribute_passes(self) -> None:
-        problems = Problems()
-        check_hints("x", ["`len()` counts the items in a list.", "Store the value in `self.x`."],
-                    "return len(self.items)", "", problems)
+        problems = messages(["`len()` counts the items in a list.", "Store the value in `self.x`."],
+                            "return len(self.items)", "")
         self.assertEqual(problems, [])
 
     def test_a_different_message_passes(self) -> None:
-        problems = Problems()
-        check_hints("x", ['Try `print(f"Hi, {city}!")`.'], 'return print(f"Hello, {name}!")', "", problems)
+        problems = messages(['Try `print(f"Hi, {city}!")`.'], 'return print(f"Hello, {name}!")', "")
         self.assertEqual(problems, [])
 
     def test_a_different_comprehension_passes(self) -> None:
-        problems = Problems()
-        check_hints("x", ["Try `[w.upper() for w in words if len(w) > 3]`."],
-                    "return [n * n for n in numbers if n % 2 == 1]", "", problems)
+        problems = messages(["Try `[w.upper() for w in words if len(w) > 3]`."],
+                            "return [n * n for n in numbers if n % 2 == 1]", "")
         self.assertEqual(problems, [])
 
     def test_starter_line_and_short_line_in_a_hint_pass(self) -> None:
@@ -307,9 +307,8 @@ class ContentCheck(unittest.TestCase):
 class Libraries(unittest.TestCase):
     def test_library_versions_must_match_pyodide(self) -> None:
         versions = {"numpy": "2.4.6", "pandas": "3.0.0", "scikit-learn": "1.8.0"}
-        problems = content_check.Problems()
         with mock.patch("importlib.metadata.version", side_effect=lambda name: versions[name]):
-            content_check.check_libraries(problems)
+            problems = library_problems()
         expected = "libraries: pandas is 3.0.0 here, Pyodide ships 3.0.2: run the check with pnpm content"
         self.assertEqual(problems, [expected])
 

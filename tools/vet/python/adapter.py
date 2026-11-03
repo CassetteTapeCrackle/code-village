@@ -10,12 +10,10 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import cast
 
-from ..adapter import CaseInput, CaseValue, CheckJob, CheckOutcome, Mutant, Rewrite, RunOutcome
+from ..adapter import LIMIT, CaseInput, CaseValue, CheckJob, CheckOutcome, Mutant, Rewrite, RunOutcome
 
 ROOT = Path(__file__).resolve().parents[3]
 HARNESS = ROOT / "py" / "harness.py"
-# a guard against runaway loops, not a speed budget: World 3 runs take ~2 s alone but 10+ s on a loaded machine
-LIMIT = 30
 # one maths thread per job: the jobs already run side by side, one per CPU
 ONE_THREAD = {"OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1"}
 
@@ -27,10 +25,14 @@ class PythonAdapter:
 
     def __init__(self, python: Path | None = None) -> None:
         self.python = str(python) if python else sys.executable
+        # the bundle shows the very runs the checks judged, and nothing runs twice
+        self._runs: dict[str, RunOutcome | None] = {}
 
     def run(self, codes: Sequence[str]) -> list[RunOutcome | None]:
-        jobs: list[Job] = [{"mode": "run", "code": code, "inputs": []} for code in codes]
-        return [cast(RunOutcome | None, outcome) for outcome in self._harness_all(jobs)]
+        new = list(dict.fromkeys(code for code in codes if code not in self._runs))
+        outcomes = self._harness_all([{"mode": "run", "code": code, "inputs": []} for code in new])
+        self._runs.update(zip(new, (cast(RunOutcome | None, outcome) for outcome in outcomes), strict=True))
+        return [self._runs[code] for code in codes]
 
     def check(self, jobs: Sequence[CheckJob]) -> list[CheckOutcome | None]:
         harness_jobs: list[Job] = [{"mode": "check", **asdict(job)} for job in jobs]

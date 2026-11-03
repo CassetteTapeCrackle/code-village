@@ -235,10 +235,10 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - Every existing problem string becomes a Finding with a rule id in `vet/rules.toml` (for example
   `solution-fails`, `starter-passes`, `wrong-passes`, `hint-giveaway`, `claim-fails`, `field-missing`).
 
-- [ ] **Step 1:** Before moving anything, run `pnpm content` and save its output and `bundle.json` hash.
-- [ ] **Step 2:** Move one check at a time; after each, `pnpm test:py` and `pnpm content` give the same
+- [x] **Step 1:** Before moving anything, run `pnpm content` and save its output and `bundle.json` hash.
+- [x] **Step 2:** Move one check at a time; after each, `pnpm test:py` and `pnpm content` give the same
   output and the same bundle hash. Commit after each move.
-- [ ] **Step 3:** `content_check.py` keeps its CLI (`--content`, `--out`, `--no-version-check`,
+- [x] **Step 3:** `content_check.py` keeps its CLI (`--content`, `--out`, `--no-version-check`,
   `--if-changed`) and output lines, and joins the `typecheck:py` scope (mypy strict) once it is thin.
 
 ### Task 1.4: The gap list
