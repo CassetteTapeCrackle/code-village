@@ -1,0 +1,31 @@
+# The test calls double(n=2), but the prompt never names the parameter, so a learner who calls it x is refused.
+base = "good"
+expect = ["right-refused"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/task.toml"
+text = '''
+id = "basics-double"
+concept = "numbers"
+kind = "write"
+title = "Double it"
+prompt = "Write a function `double` that gives twice the number it gets."
+hints = ["Multiply by 2."]
+gotcha = true
+
+strict = true
+
+[cases]
+call = "double"
+args = ["int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/double/tests.py"
+text = '''
+def test_four():
+    expect_equal(learner["double"](n=2), 4, "double(2)")
+
+def test_zero():
+    expect_equal(learner["double"](0), 0, "double(0)")
+'''

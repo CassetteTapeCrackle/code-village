@@ -1,0 +1,159 @@
+# Every rule the content checks report. Each finding names one of these ids; vet/gaps.toml lists the known ones.
+# severity, worst first: wrong-accepted, right-refused, false-claim, ambiguous, progression, wiring, data.
+
+# Check accepts a wrong answer
+[rule.starter-passes]
+summary = "The starter already passes every test, so the task is trivial."
+severity = "wrong-accepted"
+
+[rule.wrong-passes]
+summary = "A wrong/*.py answer passes every test: the tests miss that mistake."
+severity = "wrong-accepted"
+
+[rule.cases-missing]
+summary = "An item has no [cases] table, so Check tries only the visible tests' inputs."
+severity = "wrong-accepted"
+
+[rule.weak-tests]
+summary = "A broken version of the model solution (a mutant) passes the visible tests and hidden cases."
+severity = "wrong-accepted"
+
+[rule.wrong-too-few]
+summary = "An item writes out fewer than 2 wrong/*.py answers."
+severity = "wrong-accepted"
+
+[rule.cases-too-few]
+summary = "Fewer than 20 hidden cases are left after dropping inputs the solution raises on."
+severity = "wrong-accepted"
+
+# Check refuses a right answer
+[rule.solution-fails]
+summary = "The model solution fails its tests or runs out of time."
+severity = "right-refused"
+
+[rule.solution-fails-cases]
+summary = "The model solution fails its own hidden cases or runs out of time on them: it is not deterministic."
+severity = "right-refused"
+
+[rule.right-refused]
+summary = "A rewrite of the model solution that behaves the same fails a test: the test checks how code is written."
+severity = "right-refused"
+
+[rule.right-fails]
+summary = "A right/*.py answer fails a test or hidden case: Check refuses a correct answer."
+severity = "right-refused"
+
+[rule.right-missing]
+summary = "An item has no right/*.py answer, so nothing shows Check accepts another correct way."
+severity = "right-refused"
+
+[rule.test-inspects-code]
+summary = "A test reads the code itself (inspect, ast, __code__, the source file) instead of what it does."
+severity = "right-refused"
+
+# Lessons that teach something false
+[rule.claim-fails]
+summary = "A claim block raises or runs out of time: the sentence it backs is false."
+severity = "false-claim"
+
+[rule.claim-no-assert]
+summary = "A claim block has no assert, so it backs nothing."
+severity = "false-claim"
+
+[rule.example-fails]
+summary = "An example or predict block raises or runs out of time."
+severity = "false-claim"
+
+[rule.predict-silent]
+summary = "A predict block prints nothing, so there is nothing to predict."
+severity = "false-claim"
+
+[rule.hint-code-invalid]
+summary = "Code in a hint is not valid Python."
+severity = "false-claim"
+
+[rule.hint-giveaway]
+summary = "A hint quotes a solution line, renamed or not."
+severity = "data"
+
+[rule.solution-lint]
+summary = "A model solution breaks a lint rule (LINT_RULES); learners copy it."
+severity = "data"
+
+# Wiring: the game can reach every item
+[rule.task-folder-missing]
+summary = "A ::task line names a folder that does not exist."
+severity = "wiring"
+
+[rule.task-unplaced]
+summary = "A task folder is never placed in its lesson with ::task."
+severity = "wiring"
+
+[rule.boss-stage-count]
+summary = "A boss has fewer than 3 or more than 5 stages."
+severity = "wiring"
+
+[rule.boss-region-empty]
+summary = "A boss sits in a region with no lessons, so it can never open."
+severity = "wiring"
+
+[rule.boss-region-taken]
+summary = "A region has two bosses."
+severity = "wiring"
+
+[rule.item-id-duplicate]
+summary = "Two lessons, tasks, variants, bosses or stages share an id."
+severity = "wiring"
+
+[rule.world-id-mismatch]
+summary = "A world.toml id is not its folder name."
+severity = "wiring"
+
+[rule.world-order-duplicate]
+summary = "Two worlds share an order."
+severity = "wiring"
+
+[rule.world-unknown]
+summary = "A lesson names a world that has no world.toml."
+severity = "wiring"
+
+[rule.region-unnamed]
+summary = "A lesson's region has no name in its world.toml."
+severity = "wiring"
+
+[rule.world-key-invalid]
+summary = "A world's [key] is missing, present on the first world, or not the trophy of an earlier boss."
+severity = "wiring"
+
+[rule.concept-unnamed]
+summary = "A concept used by a lesson or task has no name in concepts.toml."
+severity = "wiring"
+
+[rule.concept-name-unused]
+summary = "concepts.toml names a concept no lesson or task uses."
+severity = "wiring"
+
+[rule.concept-too-few-tasks]
+summary = "A concept has fewer than 3 tasks."
+severity = "wiring"
+
+[rule.concept-no-gotcha]
+summary = "A concept has no gotcha task."
+severity = "wiring"
+
+# Data: files the loader cannot use
+[rule.file-unreadable]
+summary = "A content file is missing, cannot be parsed, or lacks its +++ front matter."
+severity = "data"
+
+[rule.field-missing]
+summary = "A required field is missing or has the wrong type."
+severity = "data"
+
+[rule.cases-decl-invalid]
+summary = "A [cases] table cannot be read: an unknown field or type, or a range that is too big."
+severity = "data"
+
+[rule.field-invalid]
+summary = "A field holds a value outside what it allows."
+severity = "data"

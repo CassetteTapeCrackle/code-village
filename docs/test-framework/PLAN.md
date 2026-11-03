@@ -170,14 +170,14 @@ e2e/generated.spec.ts, e2e/generated-bosses.spec.ts
   `lint:py`, `typecheck:py`), `.github/workflows/ci.yml` (new `secrets` job, `lint:py` and `typecheck:py` in
   `check`)
 
-- [ ] **Step 1:** Ruff config for `tools/` and `py/`: select `E,F,W,B,SIM,I,UP,C90,PL,RUF,ANN`, max complexity
+- [x] **Step 1:** Ruff config for `tools/` and `py/`: select `E,F,W,B,SIM,I,UP,C90,PL,RUF,ANN`, max complexity
   10. Solution lint keeps `LINT_RULES` (content folder has no config, so nothing changes there; assert this by
   running `pnpm content` unchanged).
-- [ ] **Step 2:** `secrets` job: checkout with `fetch-depth: 0`, pinned gitleaks binary, `gitleaks git
+- [x] **Step 2:** `secrets` job: checkout with `fetch-depth: 0`, pinned gitleaks binary, `gitleaks git
   --redact --config .gitleaks.toml`. Runs on every pull request and push.
-- [ ] **Step 3:** `pnpm lint:py` and `pnpm typecheck:py` (mypy strict over `tools/vet` and `py/`) pass. Bring
+- [x] **Step 3:** `pnpm lint:py` and `pnpm typecheck:py` (mypy strict over `tools/vet` and `py/`) pass. Bring
   `py/harness.py` up to strict types now; `tools/content_check.py` is shrunk in Task 1.3 instead of typed.
-- [ ] **Step 4:** Coverage: `test:py` runs under `coverage` and fails under 90 percent line coverage for
+- [x] **Step 4:** Coverage: `test:py` runs under `coverage` and fails under 90 percent line coverage for
   `tools/vet`. Dead code: `vulture tools/vet py --min-confidence 80` in `lint:py`.
 - [ ] **Step 5:** Push, confirm the CI run is green, commit any fixes.
 
@@ -208,12 +208,12 @@ e2e/generated.spec.ts, e2e/generated-bosses.spec.ts
     subprocesses (the current `harness()` moved here, `LIMIT = 30` seconds). Unimplemented methods raise
     `NotImplementedError` until their tasks land.
 
-- [ ] **Step 1:** Tests: `test_check_passes_solution`, `test_check_reports_timeout_as_none`,
+- [x] **Step 1:** Tests: `test_check_passes_solution`, `test_check_reports_timeout_as_none`,
   `test_check_runs_jobs_in_parallel` (two 1-second sleeps finish in under 1.8 seconds),
   `test_rules_toml_has_severity_for_every_rule`.
-- [ ] **Step 2:** Run `pnpm test:py`: they fail.
-- [ ] **Step 3:** Implement the files above.
-- [ ] **Step 4:** Run: pass. Commit.
+- [x] **Step 2:** Run `pnpm test:py`: they fail.
+- [x] **Step 3:** Implement the files above.
+- [x] **Step 4:** Run: pass. Commit.
 
 ### Task 1.3: Move today's checks into the engine, behavior unchanged
 
@@ -235,10 +235,10 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - Every existing problem string becomes a Finding with a rule id in `vet/rules.toml` (for example
   `solution-fails`, `starter-passes`, `wrong-passes`, `hint-giveaway`, `claim-fails`, `field-missing`).
 
-- [ ] **Step 1:** Before moving anything, run `pnpm content` and save its output and `bundle.json` hash.
-- [ ] **Step 2:** Move one check at a time; after each, `pnpm test:py` and `pnpm content` give the same
+- [x] **Step 1:** Before moving anything, run `pnpm content` and save its output and `bundle.json` hash.
+- [x] **Step 2:** Move one check at a time; after each, `pnpm test:py` and `pnpm content` give the same
   output and the same bundle hash. Commit after each move.
-- [ ] **Step 3:** `content_check.py` keeps its CLI (`--content`, `--out`, `--no-version-check`,
+- [x] **Step 3:** `content_check.py` keeps its CLI (`--content`, `--out`, `--no-version-check`,
   `--if-changed`) and output lines, and joins the `typecheck:py` scope (mypy strict) once it is thin.
 
 ### Task 1.4: The gap list
@@ -257,9 +257,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - `content_check.py` fails on `new` or `stale`, prints `known` as a count per rule, and writes a markdown
   summary per world to `$GITHUB_STEP_SUMMARY` when set.
 
-- [ ] **Step 1:** Tests: `test_new_finding_fails`, `test_stale_gap_fails`, `test_known_gap_passes`,
+- [x] **Step 1:** Tests: `test_new_finding_fails`, `test_stale_gap_fails`, `test_known_gap_passes`,
   `test_base_check_rejects_added_entry_for_old_rule`, `test_base_check_allows_entry_for_new_rule`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Add the `--base` check to the `check` job for pull requests.
+- [x] **Step 2 to 4:** Fail, implement, pass. Add the `--base` check to the `check` job for pull requests.
   Commit.
 
 ### Task 1.5: Canary harness and canaries for every existing rule
@@ -274,9 +274,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   `tools/fixtures/<base>` and applies the patch. Later tasks add one canary per new rule; a rule without a
   canary fails `test_every_rule_has_a_canary`.
 
-- [ ] **Step 1:** Tests: `test_good_fixture_has_no_findings`, `test_each_canary_finds_exactly_its_rules`
+- [x] **Step 1:** Tests: `test_good_fixture_has_no_findings`, `test_each_canary_finds_exactly_its_rules`
   (parametrized over folders), `test_every_rule_has_a_canary`.
-- [ ] **Step 2:** Write one canary for each rule from Task 1.3.
+- [x] **Step 2:** Write one canary for each rule from Task 1.3.
 - [ ] **Step 3:** Run, pass, commit, push. End of Session 1 (reviewer, PROGRESS, push).
 
 ---
@@ -308,10 +308,10 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   Output sorted by size (length of `show`), edge cases first: bounds, 0 when in range, empty and single-item
   containers, duplicates, ties. Deterministic for a given seed.
 
-- [ ] **Step 1:** Tests: `test_same_seed_same_inputs`, `test_edges_come_first` (for `int -50..50`: -50, 50
+- [x] **Step 1:** Tests: `test_same_seed_same_inputs`, `test_edges_come_first` (for `int -50..50`: -50, 50
   and 0 are among the first five), `test_generated_sizes_stay_small` (no container over 12, no string over
   20), `test_bad_decl_names_the_field`, `test_object_steps_are_valid_python`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Document the format in `content/README.md`. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. Document the format in `content/README.md`. Commit.
 
 ### Task 2.2: Hidden cases and comparators in the harness
 
@@ -335,12 +335,12 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   (calls the named function from `tests.py` with the input and the answer).
 - Message: exactly the shape in Global Constraints. `actual` uses `repr`, cut to 80 characters with `...`.
 
-- [ ] **Step 1:** Tests: `test_hidden_case_message_shape` (expects the exact `larger` sentence),
+- [x] **Step 1:** Tests: `test_hidden_case_message_shape` (expects the exact `larger` sentence),
   `test_hidden_raise_message`, `test_hidden_case_ignores_learner_prints`,
   `test_float_compare_tolerates_rounding`, `test_each_hidden_case_gets_fresh_arguments`,
   `test_missing_function_reported_once`, `test_unordered_compare`, `test_valid_function_compare`,
   `test_expect_mode_returns_reprs`, `test_program_case_compares_output`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. Commit.
 
 ### Task 2.3: Cases in the bundle
 
@@ -357,8 +357,8 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - `bundle.json` `version` becomes 4. No solution text enters the bundle: test
   `test_bundle_holds_no_solution_text` searches the bundle for each solution's distinctive lines.
 
-- [ ] **Step 1:** Tests for each rule via canaries, plus `test_bundle_holds_no_solution_text`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Run `vet.gaps --write`: today's content lands as
+- [x] **Step 1:** Tests for each rule via canaries, plus `test_bundle_holds_no_solution_text`.
+- [x] **Step 2 to 4:** Fail, implement, pass. Run `vet.gaps --write`: today's content lands as
   `cases-missing` gaps. Commit.
 
 ### Task 2.4: Check sends cases in the browser
@@ -381,9 +381,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - `TestResult` gains `hidden: boolean`. `TestResults.svelte` shows the hidden failure as its own line with the
   harness message.
 
-- [ ] **Step 1:** Tests: `client.test.ts` sends `cases` in the job; `TestResults.test.ts` renders the hidden
+- [x] **Step 1:** Tests: `client.test.ts` sends `cases` in the job; `TestResults.test.ts` renders the hidden
   line; `TaskPanel.test.ts` passes the suite through.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Measure Check time on the `larger` canary task with 100 cases in
+- [x] **Step 2 to 4:** Fail, implement, pass. Measure Check time on the `larger` canary task with 100 cases in
   Pyodide in Node (`scripts/vet-pyodide.mjs` arrives in Task 4.2, so time it with a short Node script now)
   and record it in PROGRESS. Over one second extra: reduce `count` default and record why. Commit, push. End
   of Session 2.
@@ -408,9 +408,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   `method-swap` (`append`/`extend`, `strip`/`lstrip`/`rstrip`, `lower`/`upper`, `sort`/`reverse`),
   `index-shift`. Only mutants that still compile are returned.
 
-- [ ] **Step 1:** Tests: one per operator on a small source (for example `cmp-swap` on `if a < b:` yields
+- [x] **Step 1:** Tests: one per operator on a small source (for example `cmp-swap` on `if a < b:` yields
   `<=`, `>`, `>=`, `==`, `!=`), `test_mutants_compile`, `test_order_is_stable`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. Commit.
 
 ### Task 3.2: Mutation check
 
@@ -428,9 +428,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - Results cache: `.vet-cache/mutation/<item fingerprint>.json`, skipped when present.
 - Budget: the whole content in under 8 minutes on CI's 4 cores with a warm harness. Measure and record.
 
-- [ ] **Step 1:** Canaries: `weak-tests` (a task whose tests miss `<=`), an equivalent mutant that must not be
+- [x] **Step 1:** Canaries: `weak-tests` (a task whose tests miss `<=`), an equivalent mutant that must not be
   a finding.
-- [ ] **Step 2 to 4:** Fail, implement, pass. `gaps --write`. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. `gaps --write`. Commit.
 
 ### Task 3.3: Equivalent rewrites
 
@@ -448,9 +448,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - Check: every rewrite passes visible tests plus hidden cases, else rule `right-refused` naming the transform
   and the failing test. Rewrites that remove a required feature are skipped (Task 5.3 fills `requires`).
 
-- [ ] **Step 1:** Tests per transform; canary `right-refused` (tests that compare `str(result)` with spacing
+- [x] **Step 1:** Tests per transform; canary `right-refused` (tests that compare `str(result)` with spacing
   that a rewrite changes).
-- [ ] **Step 2 to 4:** Fail, implement, pass. `gaps --write`. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. `gaps --write`. Commit.
 
 ### Task 3.4: `right/` answers and tests that inspect code
 
@@ -465,7 +465,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - Rule `right-missing`: an item with fewer than 1 `right/` file. Rule `wrong-too-few`: fewer than 2 `wrong/`
   files.
 
-- [ ] **Step 1 to 4:** Canaries, fail, implement, pass. `gaps --write`. Commit, push. End of Session 3.
+- [x] **Step 1 to 4:** Canaries, fail, implement, pass. `gaps --write`. Commit, push. End of Session 3.
 
 ---
 

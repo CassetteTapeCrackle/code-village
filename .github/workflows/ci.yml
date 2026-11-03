@@ -34,16 +34,49 @@ jobs:
         with:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
+      # mutation results per item, valid while the framework source is unchanged; a cold run takes about 7 minutes
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .vet-cache
+          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-${{ github.run_id }}
+          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-
       - run: pnpm lint
+      - run: pnpm lint:py
+      - run: pnpm typecheck:py
       - run: pnpm exec prettier --check .
       # pnpm test generates src/content/bundle.json (git-ignored), which svelte-check reads, so it runs first
       - run: pnpm test
+      # a pull request may add vet/gaps.toml entries only for a rule it introduces
+      - if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$BASE_REF"
+          python -m tools.vet.gaps --base "origin/$BASE_REF"
       - run: pnpm typecheck
       # the root tsconfig excludes worker/, so its types need their own pass
       - run: pnpm typecheck:worker
       - run: pnpm test:py
       - run: pnpm test:worker
       - run: pnpm build
+
+  # GitHub secret scanning is off for a private repo on GitHub Free, so gitleaks scans the whole history here
+  secrets:
+    runs-on: ubuntu-latest
+    env:
+      GITLEAKS_VERSION: 8.30.1
+      GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - run: |
+          curl -fsSL -o gitleaks.tar.gz \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check
+          tar -xzf gitleaks.tar.gz -C "$RUNNER_TEMP" gitleaks
+          rm gitleaks.tar.gz
+      - run: '"$RUNNER_TEMP/gitleaks" git --redact --config .gitleaks.toml'
 
   e2e:
     runs-on: ubuntu-latest
@@ -72,7 +105,15 @@ jobs:
         with:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
+      # mutation results per item, valid while the framework source is unchanged; a cold run takes about 7 minutes
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .vet-cache
+          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-${{ github.run_id }}
+          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-
       - run: pnpm exec playwright install --with-deps chromium
+      # built before Playwright starts the dev server, whose start timeout a cold content check would pass
+      - run: pnpm content
       - run: pnpm e2e
       # always: the report and traces are the evidence this job exists to collect, success or failure
       - if: always()

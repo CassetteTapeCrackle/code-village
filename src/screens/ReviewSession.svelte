@@ -20,7 +20,7 @@
   const item = $derived(items[index]);
 
   async function check(code: string): Promise<void> {
-    checked = await getRunner().check(code, item.exercise.tests, item.exercise.strict);
+    checked = await getRunner().check(code, item.exercise);
     if (checked.kind === "unavailable") return; // Python not loading is not the learner's miss
     checks += 1;
     const v = reviewVerdict(checks, passedAll(checked));

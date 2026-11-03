@@ -1,0 +1,15 @@
+# The triple task declares no hidden cases.
+base = "good"
+expect = ["cases-missing"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)`."
+hints = ["Multiply by 3."]
+gotcha = false
+'''

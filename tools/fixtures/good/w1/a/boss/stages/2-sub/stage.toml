@@ -2,3 +2,7 @@ id = "calc-sub"
 title = "Subtract"
 prompt = "Write `sub(a, b)`."
 hp = 10
+
+[cases]
+call = "sub"
+args = ["int -50..50", "int -50..50"]

@@ -1,0 +1,17 @@
+# The extra test passes, so only the inspection itself is reported.
+base = "good"
+expect = ["test-inspects-code"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+import inspect
+
+
+def test_triple():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+
+
+def test_is_a_function():
+    assert inspect.isfunction(learner["triple"])
+'''

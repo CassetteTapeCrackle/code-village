@@ -1,7 +1,7 @@
 import type { Boss, Bundle, Exercise, Lesson, Task } from "../content/types";
 
 function exercise(id: string, concept: string): Exercise {
-  return { id, concept, title: id, prompt: "", starter: "", tests: "" };
+  return { id, concept, title: id, prompt: "", starter: "", tests: "", cases: [] };
 }
 
 export function task(id: string, concept: string, variants: string[] = []): Task {
@@ -37,17 +37,18 @@ function boss(id: string, region: string, stageIds: string[]): Boss {
     intro: "",
     starter: "",
     hardTests: "",
+    hardCases: [],
     hardChecks: 2,
     trophy: { id: `${id}-trophy`, name: "Trophy" },
     hardTrophy: { id: `${id}-gold`, name: "Gold" },
-    stages: stageIds.map((s) => ({ id: s, title: s, prompt: "", hp: 10, tests: "" })),
+    stages: stageIds.map((s) => ({ id: s, title: s, prompt: "", hp: 10, tests: "", cases: [] })),
   };
 }
 
 // Region a teaches vars and loops; region b teaches lists and has the gradebook boss.
 export function testBundle(): Bundle {
   return {
-    version: 3,
+    version: 4,
     python: "3.14",
     concepts: { vars: "values and variables", io: "input and output", loops: "loops", lists: "lists" },
     worlds: [

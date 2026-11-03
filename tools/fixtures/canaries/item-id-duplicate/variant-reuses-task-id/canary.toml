@@ -1,0 +1,15 @@
+# The variant reuses its task's id.
+base = "good"
+expect = ["item-id-duplicate"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/variants/quadruple/variant.toml"
+text = '''
+id = "basics-double"
+title = "Four times"
+prompt = "Write `quadruple(n)`."
+
+[cases]
+call = "quadruple"
+args = ["int -50..50"]
+'''

@@ -1,0 +1,44 @@
+# The tests never try 10, so `n <= 10` changed to `n < 10` passes them, and the task has no hidden cases.
+base = "good"
+expect = ["weak-tests"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/solution.py"
+text = '''
+def triple(n):
+    if n <= 10:
+        return n * 3
+    return 0
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_small():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+
+def test_big():
+    expect_equal(learner["triple"](20), 0, "triple(20)")
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)`: three times n up to 10, and 0 above."
+hints = ["Compare n with 10 first."]
+gotcha = false
+
+[cases]
+none = "the canary needs a task without hidden cases"
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/right/added-three-times.py"
+text = '''
+def triple(n):
+    return 0 if n > 10 else n * 3
+'''

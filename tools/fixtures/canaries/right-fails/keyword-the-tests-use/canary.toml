@@ -1,0 +1,17 @@
+# The test calls triple(n=2), so a correct answer whose parameter is called x is refused.
+base = "good"
+expect = ["right-fails"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_triple():
+    expect_equal(learner["triple"](n=2), 6, "triple(2)")
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/right/added-three-times.py"
+text = '''
+def triple(x):
+    return x + x + x
+'''

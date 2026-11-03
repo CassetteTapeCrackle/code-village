@@ -1,0 +1,6 @@
+# The boss has only two stages. The add stage goes, since each wrong/ answer is caught by the sub or mul stage.
+base = "good"
+expect = ["boss-stage-count"]
+
+[[delete]]
+path = "w1/a/boss/stages/1-add"

@@ -7,18 +7,91 @@ so a task that passes the build passes in the browser. Messages are written for 
 import ast
 import builtins
 import contextlib
+import functools
 import importlib
 import io
 import json
+import math
 import os
 import shutil
 import sys
 import tempfile
 import traceback
+from collections.abc import Callable, Iterable, Iterator, Sequence
+from typing import NotRequired, TypedDict, TypeGuard, cast
 
 MAX_OUTPUT = 10_000
 LEARNER_FILE = "your_code.py"
 HEAVY_LIBRARIES = {"numpy", "pandas", "sklearn", "scipy"}
+NO_INPUT = "input() was called, but this task gives no input"
+TOO_MANY_INPUTS = "input() was called more times than this test gives answers"
+SHOWN_LENGTH = 80  # a value in a hidden-case message is cut to this many characters
+REL_TOL = ABS_TOL = 1e-9
+
+
+class RunResult(TypedDict):
+    stdout: str
+    error: str | None
+
+
+class TestResult(TypedDict):
+    name: str
+    passed: bool
+    message: str
+    hidden: bool
+
+
+class CheckResult(TypedDict):
+    error: str | None
+    results: list[TestResult]
+
+
+class ExprInput(TypedDict):
+    """A generated input: run `setup`, then evaluate `expr`; `show` is what the learner reads."""
+
+    show: str
+    setup: str
+    expr: str
+
+
+class ProgramInput(TypedDict):
+    """A generated input for a whole program: one line per input() call."""
+
+    show: str
+    stdin: list[str]
+
+
+CaseInput = ExprInput | ProgramInput
+
+
+class ExprCase(ExprInput):
+    """A hidden case. `expect` is Python source for the expected value; with compare "valid" it is the
+    input instead, which the tests.py function named by `valid` judges together with the answer."""
+
+    expect: str
+    raises: str | None
+    compare: str
+    valid: NotRequired[str]
+
+
+class ProgramCase(ProgramInput):
+    expect: str
+    compare: str
+    valid: NotRequired[str]
+
+
+Case = ExprCase | ProgramCase
+
+
+class ExpectedValue(TypedDict):
+    """repr is Python source that evaluates back to the answer; None when the answer has no such source."""
+
+    repr: str | None
+    raises: str | None
+
+
+class ExpectResult(TypedDict):
+    values: list[ExpectedValue]
 
 
 class Failure(Exception):
@@ -26,7 +99,7 @@ class Failure(Exception):
 
 
 class _CappedOutput(io.StringIO):
-    def write(self, s):
+    def write(self, s: str) -> int:
         room = MAX_OUTPUT - self.tell()
         if room <= 0:
             return len(s)
@@ -37,13 +110,13 @@ class _CappedOutput(io.StringIO):
 
 
 @contextlib.contextmanager
-def _fake_input(answers, message, echo=False):
+def _fake_input(answers: Iterable[str], message: str, echo: bool = False) -> Iterator[None]:
     """echo=True prints prompt and answer like a terminal (Run); checks leave prompts out of the output,
     so `input("Name: ")` passes the same tests as `input()`."""
     feed = iter(answers)
     original = builtins.input
 
-    def fake(prompt=""):
+    def fake(prompt: object = "") -> str:
         try:
             answer = next(feed)
         except StopIteration:
@@ -61,7 +134,7 @@ def _fake_input(answers, message, echo=False):
         builtins.input = original
 
 
-def _learner_error(error):
+def _learner_error(error: BaseException) -> str:
     """The error as the learner should see it: only frames from their own file."""
     if isinstance(error, Failure):
         return str(error)
@@ -73,7 +146,7 @@ def _learner_error(error):
 
 
 @contextlib.contextmanager
-def _fresh_dir():
+def _fresh_dir() -> Iterator[None]:
     """Every job starts in an empty folder, so files one run writes never reach the next (or the repo)."""
     home = os.getcwd()
     folder = tempfile.mkdtemp(prefix="job-")
@@ -85,13 +158,13 @@ def _fresh_dir():
         shutil.rmtree(folder, ignore_errors=True)
 
 
-def heavy_imports(source):
+def heavy_imports(source: str) -> list[str]:
     """The big-library modules this code imports, so they can load before the timed run starts."""
     try:
         tree = ast.parse(source)
     except SyntaxError:
         return []
-    found = []
+    found: list[str] = []
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             names = [a.name for a in node.names]
@@ -103,35 +176,34 @@ def heavy_imports(source):
     return found
 
 
-def preimport(modules):
+def preimport(modules: Iterable[str]) -> None:
     for name in modules:
-        try:
+        # not a module (a class), or a typo the timed run will report
+        with contextlib.suppress(Exception):
             importlib.import_module(name)
-        except Exception:  # noqa: BLE001 - not a module (a class), or a typo the timed run will report
-            pass
 
 
-def _execute(code, namespace):
+def _execute(code: str, namespace: dict[str, object]) -> None:
     exec(compile(code, LEARNER_FILE, "exec"), namespace)
 
 
-def run_code(code, inputs):
+def run_code(code: str, inputs: Sequence[str]) -> RunResult:
     out = _CappedOutput()
     error = None
-    with _fresh_dir(), contextlib.redirect_stdout(out), _fake_input(inputs, "input() is waiting for an answer: type it in the input box, one line per input()", echo=True):
+    waiting = "input() is waiting for an answer: type it in the input box, one line per input()"
+    with _fresh_dir(), contextlib.redirect_stdout(out), _fake_input(inputs, waiting, echo=True):
         try:
             _execute(code, {"__name__": "__main__"})
-        except BaseException as e:  # noqa: BLE001 - every learner error is reported, never raised
+        except BaseException as e:  # every learner error is reported, never raised
             error = _learner_error(e)
     return {"stdout": out.getvalue(), "error": error}
 
 
-_STRICT = False
 # The punctuation beginners are allowed to get wrong: only a dot or comma between two digits is kept.
 _IGNORED_PUNCTUATION = ",.!?;:'\""
 
 
-def _lenient_text(text):
+def _lenient_text(text: str) -> str:
     text = " ".join(text.casefold().split())
     kept = []
     for i, char in enumerate(text):
@@ -143,7 +215,7 @@ def _lenient_text(text):
     return "".join(kept)
 
 
-def _forgiving(value):
+def _forgiving(value: object) -> object:
     """What a str, or a container of str, compares as when the task does not teach exact formatting."""
     if isinstance(value, str):
         return _lenient_text(value)
@@ -156,14 +228,14 @@ def _forgiving(value):
     return value
 
 
-def _first_difference(actual, expected):
-    for i, (a, e) in enumerate(zip(actual, expected)):
+def _first_difference(actual: str, expected: str) -> int:
+    for i, (a, e) in enumerate(zip(actual, expected, strict=False)):
         if a != e:
             return i
     return min(len(actual), len(expected))
 
 
-def _mismatch(actual, expected, call):
+def _mismatch(actual: object, expected: object, call: str) -> str:
     shown_actual, shown_expected = repr(actual), repr(expected)
     if call:
         head = f"{call} returned {shown_actual}, expected {shown_expected}"
@@ -175,79 +247,334 @@ def _mismatch(actual, expected, call):
     return f"{head}\n{caret}"
 
 
-def expect_equal(actual, expected, call=""):
-    same = actual == expected if _STRICT else _forgiving(actual) == _forgiving(expected)
+def expect_equal(actual: object, expected: object, call: str = "", *, strict: bool = False) -> None:
+    same = actual == expected if strict else _forgiving(actual) == _forgiving(expected)
     if not same:
         raise Failure(_mismatch(actual, expected, call))
 
 
-class _Learner(dict):
+class _Learner(dict[str, object]):
     """The learner's names, as tests see them; a missing name is a readable failure."""
 
-    def __missing__(self, name):
+    def __missing__(self, name: str) -> object:
         raise Failure(f"{name} is not defined in your code")
 
 
-def run_tests(code, tests, strict=False):
-    global _STRICT
-    previous = _STRICT
-    _STRICT = strict
+def run_tests(code: str, tests: str, strict: bool = False, cases: Sequence[Case] = ()) -> CheckResult:
+    """The visible tests, then the hidden cases (even when a visible test failed: a learner whose code passes
+    every hidden case but fails a visible test is how a too strict test shows itself)."""
+    with _fresh_dir():
+        return _run_tests(code, tests, strict, cases)
+
+
+def _test_label(name: str, fn: Callable[[], object]) -> str:
+    if fn.__doc__:
+        return fn.__doc__.strip().splitlines()[0]
+    return name.removeprefix("test_").replace("_", " ")
+
+
+def _run_one_test(label: str, fn: Callable[[], object]) -> TestResult:
     try:
-        with _fresh_dir():
-            return _run_tests(code, tests)
-    finally:
-        _STRICT = previous
+        with contextlib.redirect_stdout(_CappedOutput()), _fake_input([], NO_INPUT):
+            fn()
+    except Failure as f:
+        return {"name": label, "passed": False, "message": str(f), "hidden": False}
+    except AssertionError as a:
+        return {"name": label, "passed": False, "message": str(a) or "a check did not hold", "hidden": False}
+    except Exception as e:  # a learner bug inside a test is a failed test, not a crash
+        return {"name": label, "passed": False, "message": f"your code raised {type(e).__name__}: {e}",
+                "hidden": False}
+    return {"name": label, "passed": True, "message": "", "hidden": False}
 
 
-def _run_tests(code, tests):
+def _run_tests(code: str, tests: str, strict: bool, cases: Sequence[Case]) -> CheckResult:
     """Tests that set PROGRAM = True run the whole program with run_program(inputs) instead of
     importing the learner's functions, so top-level input() is allowed there and nowhere else."""
     learner = _Learner()
 
-    def run_program(inputs=()):
+    def run_program(inputs: Iterable[str] = ()) -> str:
         out = _CappedOutput()
-        with contextlib.redirect_stdout(out), _fake_input(list(inputs), "input() was called more times than this test gives answers"):
+        with contextlib.redirect_stdout(out), _fake_input(list(inputs), TOO_MANY_INPUTS):
             _execute(code, {"__name__": "__main__"})
         return out.getvalue()
 
-    scope = {"learner": learner, "expect_equal": expect_equal, "run_program": run_program, "Failure": Failure}
+    scope: dict[str, object] = {
+        "learner": learner,
+        "expect_equal": functools.partial(expect_equal, strict=strict),
+        "run_program": run_program,
+        "Failure": Failure,
+    }
     exec(compile(tests, "tests.py", "exec"), scope)
     if not scope.get("PROGRAM"):
-        namespace = {"__name__": "learner"}  # exec needs a plain dict, not the _Learner subclass
+        namespace: dict[str, object] = {"__name__": "learner"}  # exec needs a plain dict, not the _Learner subclass
         try:
-            with contextlib.redirect_stdout(_CappedOutput()), _fake_input([], "input() was called, but this task gives no input"):
+            with contextlib.redirect_stdout(_CappedOutput()), _fake_input([], NO_INPUT):
                 _execute(code, namespace)
-        except BaseException as e:  # noqa: BLE001
+        except BaseException as e:  # every learner error is reported, never raised
             return {"error": _learner_error(e), "results": []}
         learner.update(namespace)
-    results = []
-    for name, fn in list(scope.items()):
-        if not (name.startswith("test_") and callable(fn)):
-            continue
-        label = (fn.__doc__ or "").strip().splitlines()[0] if fn.__doc__ else name.removeprefix("test_").replace("_", " ")
-        try:
-            with contextlib.redirect_stdout(_CappedOutput()), _fake_input([], "input() was called, but this task gives no input"):
-                fn()
-            results.append({"name": label, "passed": True, "message": ""})
-        except Failure as f:
-            results.append({"name": label, "passed": False, "message": str(f)})
-        except AssertionError as a:
-            results.append({"name": label, "passed": False, "message": str(a) or "a check did not hold"})
-        except Exception as e:  # noqa: BLE001
-            results.append({"name": label, "passed": False, "message": f"your code raised {type(e).__name__}: {e}"})
+    tests_found = [(name, fn) for name, fn in list(scope.items()) if name.startswith("test_") and callable(fn)]
+    results = [_run_one_test(_test_label(name, fn), fn) for name, fn in tests_found]
+    if cases:
+        results.append(_run_cases(code, cases, strict, scope))
     return {"error": None, "results": results}
 
 
-def run_code_json(code, inputs_json):
-    return json.dumps(run_code(code, json.loads(inputs_json)))
+def _plain(value: object) -> object:
+    """A NumPy scalar as the Python number it holds, so np.int64(3) and 3 compare alike."""
+    item = getattr(value, "item", None)
+    if type(value).__module__ == "numpy" and getattr(value, "ndim", None) == 0 and callable(item):
+        return item()
+    return value
 
 
-def run_tests_json(code, tests, strict=False):
-    return json.dumps(run_tests(code, tests, strict))
+def _equal(actual: object, expected: object) -> bool:
+    if isinstance(actual, float) and isinstance(expected, float) and math.isnan(actual) and math.isnan(expected):
+        return True
+    equals = getattr(actual, "equals", None)  # pandas
+    if callable(equals):
+        return bool(equals(expected))
+    shape, tolist = getattr(actual, "shape", None), getattr(actual, "tolist", None)
+    if shape is not None and callable(tolist):  # NumPy array; _same already made sure both have its type
+        expected_list = getattr(expected, "tolist", None)
+        return callable(expected_list) and shape == getattr(expected, "shape", None) and tolist() == expected_list()
+    return bool(actual == expected)
+
+
+def _same(actual: object, expected: object) -> bool:
+    """== that also wants the same types all the way down, so True is not 1 and 2.0 is not 2."""
+    actual, expected = _plain(actual), _plain(expected)
+    if type(actual) is not type(expected):
+        return False
+    if isinstance(actual, list | tuple) and isinstance(expected, list | tuple):
+        return len(actual) == len(expected) and all(map(_same, actual, expected))
+    if isinstance(actual, dict) and isinstance(expected, dict):
+        return actual.keys() == expected.keys() and all(_same(actual[k], expected[k]) for k in actual)
+    return _equal(actual, expected)
+
+
+def _close(actual: object, expected: object) -> bool:
+    """_same, but numbers only need to agree to about nine digits."""
+    actual, expected = _plain(actual), _plain(expected)
+    numbers = int | float
+    if isinstance(actual, numbers) and isinstance(expected, numbers) and not isinstance(actual, bool) \
+            and not isinstance(expected, bool):
+        return math.isclose(actual, expected, rel_tol=REL_TOL, abs_tol=ABS_TOL)
+    if isinstance(actual, list | tuple) and isinstance(expected, list | tuple):
+        return type(actual) is type(expected) and len(actual) == len(expected) and all(map(_close, actual, expected))
+    if isinstance(actual, dict) and isinstance(expected, dict):
+        return actual.keys() == expected.keys() and all(_close(actual[k], expected[k]) for k in actual)
+    return _same(actual, expected)
+
+
+def _unordered(actual: object, expected: object) -> bool:
+    if isinstance(actual, list | tuple) and isinstance(expected, list | tuple):
+        return type(actual) is type(expected) and _same(sorted(actual, key=repr), sorted(expected, key=repr))
+    return _same(actual, expected)
+
+
+def _array(actual: object, expected: object) -> bool:
+    np = importlib.import_module("numpy")  # loaded here, so only array tasks pay for NumPy
+    try:
+        got, want = np.asarray(actual), np.asarray(expected)
+        return got.shape == want.shape and bool(np.allclose(got, want, rtol=REL_TOL, atol=ABS_TOL))
+    except (TypeError, ValueError):
+        return False
+
+
+def _frame(actual: object, expected: object) -> bool:
+    reset, expected_reset = getattr(actual, "reset_index", None), getattr(expected, "reset_index", None)
+    if not callable(reset) or not callable(expected_reset):
+        return False
+    return bool(reset(drop=True).equals(expected_reset(drop=True)))
+
+
+def _matches(compare: str, actual: object, expected: object, strict: bool) -> bool:
+    comparators: dict[str, Callable[[object, object], bool]] = {
+        "exact": _same, "float": _close, "unordered": _unordered, "array": _array, "frame": _frame}
+    try:
+        if compare == "text":
+            return bool(actual == expected) if strict else bool(_forgiving(actual) == _forgiving(expected))
+        return comparators[compare](actual, expected)
+    except Exception:  # a learner value whose == raises is simply not the expected one
+        return False
+
+
+def _cut(text: str) -> str:
+    return text if len(text) <= SHOWN_LENGTH else text[:SHOWN_LENGTH - 3] + "..."
+
+
+def _shown(value: object) -> str:
+    try:
+        return _cut(repr(value))
+    except Exception:  # the learner's own __repr__ may raise
+        return f"a {type(value).__name__} that cannot be shown"
+
+
+def _setup_imports(case: Case) -> dict[str, object]:
+    """A namespace holding only the imports of the case's setup: what its expected value may need."""
+    tree = ast.parse(str(case.get("setup", "")))
+    imports = ast.Module([node for node in tree.body if isinstance(node, ast.Import | ast.ImportFrom)], [])
+    namespace: dict[str, object] = {}
+    exec(compile(imports, "setup", "exec"), namespace)
+    return namespace
+
+
+def _is_program(case: CaseInput) -> TypeGuard[ProgramInput]:
+    return "stdin" in case
+
+
+def _answer(code: str, case: CaseInput) -> object:
+    """What the code gives for one input, run from scratch so no case sees what an earlier one changed.
+    Printing is dropped, except a program's output, which is its answer."""
+    out = _CappedOutput()
+    with contextlib.redirect_stdout(out):
+        if _is_program(case):
+            with _fake_input(case["stdin"], TOO_MANY_INPUTS):
+                _execute(code, {"__name__": "__main__"})
+            return out.getvalue()
+        expr = cast(ExprInput, case)
+        namespace: dict[str, object] = {"__name__": "learner"}
+        with _fake_input([], NO_INPUT):
+            _execute(code, namespace)
+            exec(expr["setup"], namespace)
+            return eval(expr["expr"], namespace)
+
+
+def _expected_text(case: Case, expected: object) -> str:
+    valid = case.get("valid")
+    if valid:
+        return f"an answer {valid} accepts"
+    raises = case.get("raises")
+    return str(raises) if raises else _shown(expected)
+
+
+def _accepted(judge: object, inputs: object, answer: object) -> bool:
+    try:
+        return callable(judge) and bool(judge(inputs, answer))
+    except Exception:  # a validity function that chokes on the answer does not accept it
+        return False
+
+
+def _raised(error: BaseException) -> str:
+    message = _cut(str(error))
+    return f"your code raised {type(error).__name__}" + (f": {message}" if message else "")
+
+
+def _case_failure(code: str, case: Case, strict: bool, scope: dict[str, object]) -> str | None:
+    """The learner's message for a case the code gets wrong, or None when it gets it right."""
+    try:
+        expected = eval(case["expect"], _setup_imports(case))
+    except Exception as e:  # the task's own data is broken; say so instead of crashing the Check
+        return f"We also tried {case['show']}, but its expected value could not be read ({type(e).__name__}): " \
+               "please report this task."
+    tried = f"We also tried {case['show']}: expected {_expected_text(case, expected)}"
+    try:
+        answer = _answer(code, case)
+    except Failure as f:
+        return f"{tried}, your code stopped: {f}."
+    except (Exception, SystemExit) as e:  # the learner's error is the answer, never a crash
+        return None if case.get("raises") == type(e).__name__ else f"{tried}, {_raised(e)}."
+    returned = f"{tried}, your code returned {_shown(answer)}."
+    if case.get("raises"):
+        return returned
+    valid = case.get("valid")
+    if valid:
+        return None if _accepted(scope.get(valid), expected, answer) else returned
+    return None if _matches(case["compare"], answer, expected, strict) else returned
+
+
+def _run_cases(code: str, cases: Sequence[Case], strict: bool, scope: dict[str, object]) -> TestResult:
+    """One result: the first case the code gets wrong, or a summary when it gets them all right."""
+    name = f"{len(cases)} more input{'' if len(cases) == 1 else 's'}"
+    for case in cases:
+        failure = _case_failure(code, case, strict, scope)
+        if failure:
+            return {"name": name, "passed": False, "message": failure, "hidden": True}
+    return {"name": name, "passed": True, "message": "", "hidden": True}
+
+
+def _library_source(value: object) -> str | None:
+    """NumPy and pandas values as source that evaluates without the learner's imports, dtype and index kept."""
+    module, kind = type(value).__module__.split(".")[0], type(value).__name__
+    tolist, dtype = getattr(value, "tolist", None), getattr(value, "dtype", None)
+    index = getattr(getattr(value, "index", None), "tolist", None)
+    if module == "numpy" and callable(tolist):
+        return f"__import__('numpy').array({tolist()!r}, dtype={str(dtype)!r})"
+    if module != "pandas" or not callable(index):
+        return None
+    if kind == "Series" and callable(tolist):
+        return f"__import__('pandas').Series({tolist()!r}, index={index()!r}, dtype={str(dtype)!r}, " \
+               f"name={getattr(value, 'name', None)!r})"
+    to_dict, dtypes = getattr(value, "to_dict", None), getattr(value, "dtypes", None)
+    if kind == "DataFrame" and callable(to_dict) and dtypes is not None:
+        types = {column: str(t) for column, t in dtypes.items()}
+        return f"__import__('pandas').DataFrame({to_dict('list')!r}, index={index()!r}).astype({types!r})"
+    return None
+
+
+def _source(value: object) -> str:
+    """Python source for an answer. Sets are written sorted, so the bundle is the same on every build."""
+    value = _plain(value)
+    if type(value) is float and not math.isfinite(value):
+        return f"float({str(value)!r})"
+    if type(value) is list or type(value) is tuple:
+        items = ", ".join(map(_source, value))
+        return f"[{items}]" if type(value) is list else f"({items},)" if len(value) == 1 else f"({items})"
+    if type(value) is dict:
+        return "{" + ", ".join(f"{_source(k)}: {_source(v)}" for k, v in value.items()) + "}"
+    if type(value) is set or type(value) is frozenset:
+        items = ", ".join(sorted(map(_source, value)))
+        if type(value) is frozenset:
+            return f"frozenset({{{items}}})" if items else "frozenset()"
+        return f"{{{items}}}" if items else "set()"
+    return _library_source(value) or repr(value)
+
+
+def _written(value: object) -> str | None:
+    """The answer's source, or None when that source does not evaluate back to the same value."""
+    try:
+        source = _source(value)
+        return source if _same(eval(source, {}), value) else None
+    except Exception:  # a repr that is not Python, or one that raises: the answer cannot ship
+        return None
+
+
+def expect_values(code: str, inputs: Sequence[CaseInput]) -> ExpectResult:
+    """The model solution's answer for each input: what hidden cases expect."""
+    values: list[ExpectedValue] = []
+    with _fresh_dir():
+        for case in inputs:
+            try:
+                answer = _answer(code, case)
+            except (Exception, SystemExit) as e:  # a raise is an answer too
+                values.append({"repr": "None", "raises": type(e).__name__})
+                continue
+            values.append({"repr": _written(answer), "raises": None})
+    return {"values": values}
+
+
+def run_code_json(code: str, inputs_json: str) -> str:
+    inputs: list[str] = json.loads(inputs_json)
+    return json.dumps(run_code(code, inputs))
+
+
+def run_tests_json(code: str, tests: str, strict: bool = False, cases_json: str = "[]") -> str:
+    cases: list[Case] = json.loads(cases_json)
+    return json.dumps(run_tests(code, tests, strict, cases))
+
+
+def _run_job(job: dict[str, object]) -> RunResult | CheckResult | ExpectResult:
+    code = str(job["code"])
+    if job["mode"] == "run":
+        inputs = job.get("inputs", [])
+        return run_code(code, [str(answer) for answer in inputs] if isinstance(inputs, list) else [])
+    cases = job.get("cases", [])
+    if job["mode"] == "expect":
+        return expect_values(code, cases if isinstance(cases, list) else [])
+    return run_tests(code, str(job["tests"]), bool(job.get("strict", False)), cases if isinstance(cases, list) else [])
 
 
 # Pyodide runs this file as __main__ too, but has no stdin job to read.
 if __name__ == "__main__" and sys.platform != "emscripten":
-    job = json.load(sys.stdin)
-    result = run_code(job["code"], job.get("inputs", [])) if job["mode"] == "run" else run_tests(job["code"], job["tests"], job.get("strict", False))
-    print(json.dumps(result))
+    print(json.dumps(_run_job(json.load(sys.stdin))))
