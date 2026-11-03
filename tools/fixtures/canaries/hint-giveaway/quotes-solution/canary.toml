@@ -1,0 +1,17 @@
+# A hint quotes the solution line.
+base = "good"
+expect = ["hint-giveaway"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/task.toml"
+text = '''
+id = "basics-double"
+concept = "numbers"
+kind = "write"
+title = "Double it"
+prompt = "Write `double(n)`."
+hints = ["Try `return n * 2`."]
+gotcha = true
+
+strict = true
+'''

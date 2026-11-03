@@ -1,0 +1,6 @@
+# The boss has only two stages.
+base = "good"
+expect = ["boss-stage-count"]
+
+[[delete]]
+path = "w1/a/boss/stages/3-mul"

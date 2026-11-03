@@ -1,0 +1,10 @@
+# A wrong answer the tests cannot tell from the solution.
+base = "good"
+expect = ["wrong-passes"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/wrong/same.py"
+text = '''
+def double(n):
+    return n * 2
+'''

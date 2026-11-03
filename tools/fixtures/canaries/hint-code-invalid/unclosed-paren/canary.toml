@@ -1,0 +1,17 @@
+# A hint shows code with an unclosed parenthesis.
+base = "good"
+expect = ["hint-code-invalid"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/task.toml"
+text = '''
+id = "basics-double"
+concept = "numbers"
+kind = "write"
+title = "Double it"
+prompt = "Write `double(n)`."
+hints = ["Try `print(n * 2`."]
+gotcha = true
+
+strict = true
+'''

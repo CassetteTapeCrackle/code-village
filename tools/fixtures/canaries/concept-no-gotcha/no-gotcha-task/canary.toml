@@ -1,0 +1,17 @@
+# No task of concept numbers is a gotcha.
+base = "good"
+expect = ["concept-no-gotcha"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/task.toml"
+text = '''
+id = "basics-double"
+concept = "numbers"
+kind = "write"
+title = "Double it"
+prompt = "Write `double(n)`."
+hints = ["Multiply by 2."]
+gotcha = false
+
+strict = true
+'''

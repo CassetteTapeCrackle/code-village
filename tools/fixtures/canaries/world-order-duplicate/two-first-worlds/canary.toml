@@ -1,0 +1,22 @@
+# A second world w2 also takes order 1.
+base = "good"
+expect = ["world-order-duplicate"]
+
+[[file]]
+path = "w2/world.toml"
+text = '''
+# The world's words and wiring. Its look lives in code (src/village/areas.ts, terrain.ts).
+id = "w2"
+order = 1
+name = "The Village"
+area = "village"
+regions = { a = "Basics" }
+
+[building]
+name = "School"
+place = "school"
+
+[teacher]
+name = "Ms. Juniper"
+portrait = "teacher"
+'''

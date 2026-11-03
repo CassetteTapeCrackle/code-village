@@ -1,0 +1,23 @@
+# The boss guards region z, which has no lessons.
+base = "good"
+expect = ["boss-region-empty"]
+
+[[file]]
+path = "w1/a/boss/boss.md"
+text = '''
++++
+id = "calc"
+title = "Calculator"
+world = "w1"
+region = "z"
+hard_checks = 3
+[trophy]
+id = "calc-trophy"
+name = "Calc Trophy"
+[hard_trophy]
+id = "calc-gold"
+name = "Gold Calc"
++++
+
+Build a tiny calculator.
+'''

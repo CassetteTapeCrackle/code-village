@@ -274,9 +274,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   `tools/fixtures/<base>` and applies the patch. Later tasks add one canary per new rule; a rule without a
   canary fails `test_every_rule_has_a_canary`.
 
-- [ ] **Step 1:** Tests: `test_good_fixture_has_no_findings`, `test_each_canary_finds_exactly_its_rules`
+- [x] **Step 1:** Tests: `test_good_fixture_has_no_findings`, `test_each_canary_finds_exactly_its_rules`
   (parametrized over folders), `test_every_rule_has_a_canary`.
-- [ ] **Step 2:** Write one canary for each rule from Task 1.3.
+- [x] **Step 2:** Write one canary for each rule from Task 1.3.
 - [ ] **Step 3:** Run, pass, commit, push. End of Session 1 (reviewer, PROGRESS, push).
 
 ---
