@@ -130,7 +130,15 @@ summary = "A lesson's region has no name in its world.toml."
 severity = "wiring"
 
 [rule.world-key-invalid]
-summary = "A world's [key] is missing, present on the first world, or not the trophy of an earlier boss."
+summary = "A world's [key] is missing, present on the first world, or names a boss that is not in an earlier world."
+severity = "wiring"
+
+[rule.gate-boss-missing]
+summary = "A world's [key] names a boss that does not exist, so nothing can open the world."
+severity = "wiring"
+
+[rule.trophy-mismatch]
+summary = "A world's [key] trophy is not the trophy (id and name) of the boss it names."
 severity = "wiring"
 
 [rule.concept-unnamed]
@@ -148,6 +156,19 @@ severity = "wiring"
 [rule.concept-no-gotcha]
 summary = "A concept has no gotcha task."
 severity = "wiring"
+
+# Progression: nothing is used before it is taught
+[rule.untaught-feature]
+summary = "Code uses a feature that no lesson up to this point teaches."
+severity = "progression"
+
+[rule.unknown-feature]
+summary = "Code uses a builtin, method, import, decorator or syntax that content/features.toml does not list."
+severity = "progression"
+
+[rule.teaches-missing]
+summary = "A lesson declares no `teaches` list, so what it introduces cannot be checked."
+severity = "progression"
 
 # Data: files the loader cannot use
 [rule.file-unreadable]

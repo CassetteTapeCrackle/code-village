@@ -542,7 +542,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   starter and solution. Rules: `untaught-feature` (names the feature, the file and the lesson that teaches it
   if any), `unknown-feature`, `teaches-missing` (a lesson without `teaches`).
 
-- [ ] **Step 1 to 4:** Canaries (a W1 solution using a class), fail, implement, pass. `gaps --write`.
+- [x] **Step 1 to 4:** Canaries (a W1 solution using a class), fail, implement, pass. `gaps --write`.
   Commit.
 
 ### Task 5.3: Required constructs (S11b)
@@ -577,7 +577,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   `src/learning/curve.test.ts`; add a Vitest test there that reads the built bundle and recomputes the XP
   totals, so new content cannot break the cap silently.
 
-- [ ] **Step 1 to 4:** Canaries, fail, implement, pass. Commit, push. End of Session 5.
+- [x] **Step 1 to 4:** Canaries, fail, implement, pass. Commit, push. End of Session 5.
 
 ---
 

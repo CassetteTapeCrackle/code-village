@@ -1,0 +1,29 @@
+# The key's trophy id is right and its trophy name is not.
+base = "good"
+expect = ["trophy-mismatch"]
+
+[[file]]
+path = "w2/world.toml"
+text = '''
+# The world's words and wiring. Its look lives in code (src/village/areas.ts, terrain.ts).
+id = "w2"
+order = 2
+name = "The Forest"
+area = "forest"
+regions = { a = "Classes" }
+
+[building]
+name = "Cabin"
+place = "cabin"
+
+[teacher]
+name = "Ranger Noa"
+portrait = "ranger"
+
+[key]
+boss = "calc"
+trophy = "calc-trophy"
+trophy_name = "Calculator Trophy"
+opens = "o"
+gate_hint = "h"
+'''

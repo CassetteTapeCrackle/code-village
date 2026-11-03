@@ -5,6 +5,7 @@ world = "w1"
 region = "a"
 order = 1
 concepts = ["numbers"]
+teaches = ["fn-print", "function-def", "return-statement", "fn-sum"]
 remember = ["Multiplying by 2 doubles a number."]
 [loot]
 id = "test-coin"
