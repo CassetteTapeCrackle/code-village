@@ -223,3 +223,26 @@ test("openGithubIssue returns null when GitHub refuses or the network fails", as
   };
   expect(await openGithubIssue("tok", "T", "B", [], broken)).toBeNull();
 });
+
+test("code at the cap that JSON escaping doubles is still accepted", async () => {
+  const res = await handle(report(button("\n".repeat(MAX_CODE_CHARS))), env, fakeDeps([]));
+  expect(res.status).toBe(201);
+});
+
+test("the daily issue cap starts over the next day", async () => {
+  const opened: OpenedIssue[] = [];
+  const today = fakeDeps(opened);
+  for (let i = 0; i < LIMITS.issuesPerDay; i++)
+    await handle(report(auto(`x = ${i}`), `10.4.0.${i}`), env, today);
+  const tomorrow = { ...fakeDeps(opened), now: () => new Date("2026-10-16T12:00:00Z") };
+  await handle(report(auto("x = new"), "10.4.1.1"), env, tomorrow);
+  expect(opened).toHaveLength(LIMITS.issuesPerDay + 1);
+});
+
+test("a failed human check does not use up the IP's report slots", async () => {
+  const refused = fakeDeps([]);
+  for (let i = 0; i < LIMITS.reportPerIpPerDay + 2; i++) {
+    await handle(report(button("x", { turnstile: "bad" })), env, refused);
+  }
+  expect((await handle(report(button("x")), env, fakeDeps([]))).status).toBe(201);
+});

@@ -98,7 +98,8 @@ async function linkIssue(
 }
 
 export async function postReport(request: Request, env: Env, deps: Deps): Promise<Response> {
-  const raw = await readBody(request, MAX_CODE_CHARS + LIMITS.maxReportMessageChars + 4_000);
+  // escaping can turn one character into six (\u0000); the schema bounds the decoded text
+  const raw = await readBody(request, 6 * (MAX_CODE_CHARS + LIMITS.maxReportMessageChars) + 1_000);
   if (raw instanceof Response) return raw;
   const parsed = ReportBody.safeParse(raw);
   if (!parsed.success) return fail(400, "That report is not valid.");

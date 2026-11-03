@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { tick } from "svelte";
   import { sendReport, type ReportRequest } from "../net/api";
   import { MAX_REPORT_MESSAGE_CHARS } from "../sync/events";
   import { renderTurnstile } from "./turnstile";
@@ -13,27 +14,58 @@
   let message = $state("");
   let notice = $state("");
   let token = $state("");
+  let checkFailed = $state(false);
   let attempt = $state(0);
   let widget: HTMLElement | undefined = $state(undefined);
+  let openButton: HTMLButtonElement | undefined = $state(undefined);
+  let field: HTMLTextAreaElement | undefined = $state(undefined);
+  let renders = 0;
 
   $effect(() => {
     const element = widget;
     if (!element) return;
+    // a widget replaced by a newer one must not hand in its token late
+    const mine = ++renders;
     renderTurnstile(element)
-      .then((t) => (token = t))
+      .then((t) => {
+        if (mine === renders) token = t;
+      })
       .catch((error: unknown) => {
+        if (mine !== renders) return;
+        checkFailed = true;
         notice = error instanceof Error ? error.message : "The human check failed. Try again.";
       });
   });
 
-  function open(): void {
+  // a Turnstile token works once, so every new try needs a fresh widget
+  function freshCheck(): void {
+    token = "";
+    checkFailed = false;
+    attempt += 1;
+  }
+
+  async function open(): Promise<void> {
     stage = "open";
     notice = "";
+    await tick();
+    field?.focus();
+  }
+
+  async function close(next: "closed" | "sent"): Promise<void> {
+    stage = next;
+    freshCheck();
+    await tick();
+    openButton?.focus();
+  }
+
+  function retryCheck(): void {
+    notice = "";
+    freshCheck();
   }
 
   async function send(): Promise<void> {
     if (!token) {
-      notice = "The human check is still loading. Give it a second and try again.";
+      if (!checkFailed) notice = "The human check is still loading. Give it a second and try again.";
       return;
     }
     stage = "sending";
@@ -42,13 +74,11 @@
     if (trimmed) report.message = trimmed;
     const res = await sendReport(report);
     if (res.ok) {
-      stage = "sent";
       message = "";
+      await close("sent");
       return;
     }
-    // a Turnstile token works once, so a retry needs a fresh widget
-    token = "";
-    attempt += 1;
+    freshCheck();
     stage = "open";
     notice = res.error;
   }
@@ -56,21 +86,28 @@
 
 <div class="report">
   {#if stage === "closed" || stage === "sent"}
-    <button type="button" class="report-open" onclick={open}>Report a problem</button>
-    {#if stage === "sent"}<p class="sent" role="status">Thanks. We will look at it.</p>{/if}
+    <button type="button" class="report-open" bind:this={openButton} onclick={open}>Report a problem</button>
   {:else}
     <label class="field">
       <span>What looks wrong? (optional)</span>
-      <textarea rows="3" maxlength={MAX_REPORT_MESSAGE_CHARS} bind:value={message}></textarea>
+      <textarea rows="3" maxlength={MAX_REPORT_MESSAGE_CHARS} bind:this={field} bind:value={message}
+      ></textarea>
     </label>
-    <p class="what">We send this page's id, your code and your message. No nickname.</p>
+    <p class="what">
+      We send this page's id{code ? ", your code" : ""} and your message, with no nickname. Please leave out personal
+      details.
+    </p>
     {#key attempt}<div bind:this={widget}></div>{/key}
     <div class="actions">
       <button type="button" class="primary" onclick={send} disabled={stage === "sending"}>Send report</button>
-      <button type="button" onclick={() => (stage = "closed")}>Cancel</button>
+      {#if checkFailed}
+        <button type="button" onclick={retryCheck}>Try the human check again</button>
+      {/if}
+      <button type="button" onclick={() => close("closed")} disabled={stage === "sending"}>Cancel</button>
     </div>
     {#if notice}<p class="notice" role="alert">{notice}</p>{/if}
   {/if}
+  <p class="sent" role="status">{stage === "sent" ? "Thanks. We will look at it." : ""}</p>
 </div>
 
 <style>
@@ -103,7 +140,7 @@
       inset 0 0 0 4px var(--butter);
   }
   .what,
-  .sent {
+  .sent:not(:empty) {
     margin: 6px 0;
     color: var(--dim);
     font-size: 14px;
