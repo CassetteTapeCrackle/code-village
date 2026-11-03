@@ -1,10 +1,15 @@
 # Checks every pull request and every push to main or dev: lint, formatting, unit, Python, Worker and browser tests.
+# The check job runs every content rule. Pull requests and dev reuse .vet-cache; main, manual runs and the nightly
+# run compute everything afresh, so a result the cache key should have invalidated is caught within a day.
 name: CI
 
 on:
   pull_request:
   push:
     branches: [main, dev]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
 
 permissions:
   contents: read
@@ -34,12 +39,14 @@ jobs:
         with:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
-      # mutation results per item, valid while the framework and the pins are unchanged; a cold run is slow
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      # mutation, rewrite and right/ results per item: each file records the hash of the code, pins and Python it
+      # was computed under (tools/vet/cache.py), so the latest cache is restored whatever changed since
+      - if: github.event_name == 'pull_request' || github.ref == 'refs/heads/dev'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .vet-cache
-          key: vet-cache-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-${{ github.run_id }}-${{ github.job }}
-          restore-keys: vet-cache-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-
+          key: vet-cache-${{ github.run_id }}
+          restore-keys: vet-cache-
       - run: pnpm lint
       - run: pnpm lint:py
       - run: pnpm typecheck:py
@@ -105,15 +112,9 @@ jobs:
         with:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
-      # mutation results per item, valid while the framework and the pins are unchanged; a cold run is slow
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: .vet-cache
-          key: vet-cache-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-${{ github.run_id }}-${{ github.job }}
-          restore-keys: vet-cache-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-
       - run: pnpm exec playwright install --with-deps chromium
-      # built before Playwright starts the dev server, whose start timeout a cold content check would pass
-      - run: pnpm content
+      # the quick build (the check job runs every rule); built here so the dev server's start stays short
+      - run: pnpm content --quick
       - run: pnpm e2e
       # always: the report and traces are the evidence this job exists to collect, success or failure
       - if: always()

@@ -3,8 +3,10 @@
 The checks live in tools/vet (one module per rule group, rule ids in vet/rules.toml); this script runs them,
 prints every finding as one line and fails the build on any. World 3 needs NumPy, pandas and scikit-learn at the
 versions Pyodide ships: `pnpm content` runs this under uv. content/README.md explains how to write content.
-With --if-changed it skips everything when the bundle was built from these exact inputs (what `pnpm dev` uses).
-Usage: python3 tools/content_check.py [--content DIR] [--out FILE] [--no-version-check] [--if-changed]
+With --quick it leaves out the slow checks (mutation, rewrites, right/ answers) and judges only the gaps of the
+rules it ran: `pnpm dev` and `pnpm build` use it, and `pnpm test` (CI) runs everything. With --if-changed it skips
+everything when the bundle was built from these exact inputs, by a run at least as thorough.
+Usage: python3 tools/content_check.py [--content DIR] [--out FILE] [--no-version-check] [--quick] [--if-changed]
 """
 
 import argparse
@@ -25,7 +27,8 @@ from vet.gaps import GAPS_PATH, GapDiff, compare, load_gaps, world_summary
 from vet.load import LESSON_FIELDS, STAGE_FIELDS, TASK_FIELDS, VARIANT_FIELDS, Fields, load_content
 from vet.model import Boss, CodeBlock, Content, Lesson, Meta, Task, TaskBlock, TextBlock, World
 from vet.python.adapter import PythonAdapter
-from vet.run import vet_content
+from vet.rules import RULES
+from vet.run import SLOW_RULES, vet_content
 
 ROOT = Path(__file__).resolve().parent.parent
 BUNDLE_VERSION = 4
@@ -153,11 +156,17 @@ def is_real_content(opts: argparse.Namespace) -> bool:
     return Path(opts.content).resolve() == (ROOT / "content").resolve()
 
 
-def gaps_for(opts: argparse.Namespace) -> set[GapKey]:
-    """--gaps, else vet/gaps.toml for the real content; other content (fixtures) has no known gaps."""
-    if opts.gaps:
-        return load_gaps(Path(opts.gaps))
-    return load_gaps(GAPS_PATH) if is_real_content(opts) else set()
+def gaps_for(opts: argparse.Namespace, rules: frozenset[str]) -> set[GapKey]:
+    """The known gaps of the rules that ran: --gaps, else vet/gaps.toml for the real content; other content
+    (fixtures) has no known gaps."""
+    path = Path(opts.gaps) if opts.gaps else GAPS_PATH if is_real_content(opts) else None
+    return {gap for gap in (load_gaps(path) if path else set()) if gap.rule in rules}
+
+
+def stamps(source: str, quick: bool) -> tuple[str, set[str]]:
+    """The stamp this run writes, and the stamps that let --if-changed skip it: a full run serves a quick one."""
+    full, fast = source, f"{source} quick"
+    return (fast, {full, fast}) if quick else (full, {full})
 
 
 def main() -> None:
@@ -166,25 +175,27 @@ def main() -> None:
     args.add_argument("--out", default=str(ROOT / "src" / "content" / "bundle.json"))
     args.add_argument("--gaps", help="known gaps file (default: vet/gaps.toml for the real content, none otherwise)")
     args.add_argument("--no-version-check", action="store_true")
+    args.add_argument("--quick", action="store_true", help=f"leave out the slow rules: {', '.join(sorted(SLOW_RULES))}")
     args.add_argument("--if-changed", action="store_true")
     opts = args.parse_args()
     out = Path(opts.out)
     stamp = out.with_name(out.name + ".sha256")
-    source = fingerprint(Path(opts.content), Path(opts.gaps) if opts.gaps else GAPS_PATH)
-    if opts.if_changed and out.exists() and stamp.exists() and stamp.read_text() == source:
+    writes, skips_on = stamps(fingerprint(Path(opts.content), Path(opts.gaps) if opts.gaps else GAPS_PATH), opts.quick)
+    if opts.if_changed and out.exists() and stamp.exists() and stamp.read_text() in skips_on:
         print(f"content unchanged: kept {out}")
         return
+    rules = frozenset(RULES) - SLOW_RULES if opts.quick else frozenset(RULES)
     content, load_findings = load_content(Path(opts.content))
     adapter = PythonAdapter()
-    checked, broken = vet_content(content, adapter)
+    checked, broken = vet_content(content, adapter, rules)
     findings = load_findings + checked
     machine = (environment_problems() if not opts.no_version_check else []) + [f"lint: {e}" for e in broken]
     if machine:  # a broken machine says nothing about which gaps went stale, so every finding is listed
         failures = machine + [f"{f.item}: {f.message}" for f in findings]
     else:
-        diff = compare(findings, gaps_for(opts))
-        report_known(diff.known, to_job_summary=is_real_content(opts))
-        if is_real_content(opts):
+        diff = compare(findings, gaps_for(opts, rules))
+        report_known(diff.known, to_job_summary=is_real_content(opts) and not opts.quick)
+        if is_real_content(opts) and not opts.quick:
             report_mutation(mutation.summary(content, CACHE_ROOT / mutation.KIND))
         failures = gap_failures(diff)
     if failures:
@@ -193,9 +204,10 @@ def main() -> None:
         sys.exit(1)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(bundle(content, adapter), indent=1))
-    stamp.write_text(source)
+    stamp.write_text(writes)
+    skipped = f" (quick: {', '.join(sorted(SLOW_RULES))} not checked)" if opts.quick else ""
     print(f"content ok: {len(content.lessons)} lesson(s), {len(content.tasks)} task(s), {len(content.bosses)} boss(es)"
-          f" -> {out}")
+          f" -> {out}{skipped}")
 
 
 if __name__ == "__main__":

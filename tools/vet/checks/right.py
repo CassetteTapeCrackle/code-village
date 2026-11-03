@@ -10,7 +10,8 @@ from ..model import Content
 from .rewrites import refused
 
 
-def _missing(content: Content) -> Iterable[Finding]:
+def check_missing(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
+    """right-missing on its own, since it needs no run and a quick build keeps it."""
     owners = [(t.id, t.fingerprint, t.folder, t.right) for t in content.tasks]
     owners += [(v.id, v.fingerprint, v.folder, v.right) for t in content.tasks for v in t.variants]
     owners += [(b.id, b.fingerprint, b.folder, b.right) for b in content.bosses]
@@ -32,4 +33,3 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
             about = subject(group[0].id, group[0].fingerprint, group[0].folder / "right" / name, content.root)
             yield about.finding("right-fails", f"right/{name} is a correct answer, but Check refuses it "
                                                f"({failure}): loosen the test, or fix the answer")
-    yield from _missing(content)

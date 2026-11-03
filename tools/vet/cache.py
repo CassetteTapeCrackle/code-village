@@ -1,8 +1,9 @@
 """Results kept per solution group and fingerprint in .vet-cache/<kind>/, so a run recomputes only what changed.
 
 The cache serves the real content, and the folder named by VET_CACHE for other content: the Python tests set
-it, so canaries share the results of the items they leave unchanged. A result also depends on the framework's
-source, the pins and the Python version, so each file records a hash of them and a different hash is a miss.
+it, so canaries share the results of the items they leave unchanged. A result also depends on part of the
+framework's source, the pins and the Python version (framework_hash), so each file records a hash of them and a
+different hash is a miss. CI restores the latest cache whatever its hash and relies on this check alone.
 """
 
 import hashlib
@@ -29,10 +30,29 @@ def cache_for(content: Content, kind: str) -> Path | None:
     return Path(shared) / kind if shared else None
 
 
+VET = ROOT / "tools" / "vet"
+# the code a cached result depends on: how jobs run, how hidden cases are built, how code is mutated and rewritten,
+# and the checks that judge the runs; an edit anywhere else in tools/vet keeps the cache
+RESULT_SOURCES = (ROOT / "py" / "harness.py", VET / "adapter.py", VET / "cache.py", VET / "python", VET / "cases",
+                  VET / "checks" / "mutation.py", VET / "checks" / "rewrites.py", VET / "checks" / "right.py")
+
+
+def library_pins() -> str:
+    """The `pnpm content` command, which holds the Python and library pins the results were computed under."""
+    scripts = json.loads((ROOT / "package.json").read_text())["scripts"]
+    return str(scripts["content"])
+
+
+def result_files() -> list[Path]:
+    return sorted(f for path in RESULT_SOURCES for f in ([path] if path.is_file() else path.rglob("*.py")))
+
+
 def framework_hash() -> str:
-    digest = hashlib.sha256(sys.version.encode())
-    for path in [ROOT / "py" / "harness.py", ROOT / "package.json", *sorted((ROOT / "tools" / "vet").rglob("*.py"))]:
-        digest.update(path.read_bytes())
+    """Everything besides an item's own files that can change a cached result: the result files, the pins and the
+    exact Python version."""
+    digest = hashlib.sha256(f"{sys.version}\0{library_pins()}".encode())
+    for path in result_files():
+        digest.update(str(path.relative_to(ROOT)).encode() + b"\0" + path.read_bytes())
     return digest.hexdigest()[:12]
 
 

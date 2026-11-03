@@ -349,6 +349,15 @@ class GapList(unittest.TestCase):
         self.assertEqual(done.returncode, 1)
         self.assertIn("gap list: solution-fails basics-double 000000000000 no longer happens", done.stdout)
 
+    def test_a_quick_build_keeps_the_gaps_of_the_checks_it_skips(self) -> None:
+        gaps = Path(tempfile.mkdtemp()) / "gaps.toml"
+        gaps.write_text(dump_gaps([GapKey("weak-tests", "basics-double", "000000000000")]))
+        quick, _ = check(GOOD, "--gaps", str(gaps), "--quick")
+        self.assertEqual(quick.returncode, 0, quick.stdout + quick.stderr)
+        self.assertIn("quick: right-fails, right-refused, weak-tests not checked", quick.stdout)
+        full, _ = check(GOOD, "--gaps", str(gaps))
+        self.assertIn("gap list: weak-tests basics-double 000000000000 no longer happens", full.stdout)
+
 
 class Libraries(unittest.TestCase):
     def test_library_versions_must_match_pyodide(self) -> None:
@@ -371,6 +380,19 @@ class Libraries(unittest.TestCase):
         lesson.write_text(lesson.read_text() + "\nOne more line.\n")
         edited = subprocess.run(run, cwd=ROOT, capture_output=True, text=True, timeout=180, check=False)
         self.assertIn("content ok", edited.stdout, edited.stdout + edited.stderr)
+
+    def test_if_changed_lets_a_full_build_serve_a_quick_one_and_not_the_reverse(self) -> None:
+        out = Path(tempfile.mkdtemp()) / "bundle.json"
+        run = [sys.executable, "tools/content_check.py", "--content", str(GOOD), "--out", str(out),
+               "--no-version-check", "--if-changed"]
+
+        def said(*extra: str) -> str:
+            done = subprocess.run([*run, *extra], cwd=ROOT, capture_output=True, text=True, timeout=180, check=False)
+            return done.stdout.splitlines()[-1]
+
+        self.assertTrue(said("--quick").startswith("content ok"))
+        self.assertTrue(said().startswith("content ok"))
+        self.assertTrue(said("--quick").startswith("content unchanged"))
 
 
 if __name__ == "__main__":

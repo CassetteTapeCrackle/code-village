@@ -15,5 +15,5 @@ if ! sha256sum --check --status "$stamp" 2>/dev/null; then
     exit 0
   fi
 fi
-pnpm -s content --if-changed >>"$log" 2>&1 || echo "pnpm content failed (typecheck needs its bundle); see $log and run it again."
+pnpm -s content --quick --if-changed >>"$log" 2>&1 || echo "pnpm content failed (typecheck needs its bundle); see $log and run it again."
 exit 0

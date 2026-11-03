@@ -10,7 +10,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from vet import Finding, GapKey
+from vet import Finding, GapKey, run
 from vet.adapter import LIMIT, CheckJob, ToolError
 from vet.checks import style
 from vet.load import load_content
@@ -18,7 +18,7 @@ from vet.python import adapter as python_adapter
 from vet.python import capped
 from vet.python.adapter import PythonAdapter
 from vet.rules import RULES, SEVERITIES, RulesError, load_rules
-from vet.run import vet_content
+from vet.run import CHECKS, UndeclaredRule, vet_content
 
 TESTS = 'def test_double():\n    expect_equal(learner["double"](2), 4, "double(2)")\n'
 
@@ -98,6 +98,39 @@ class BrokenTool(unittest.TestCase):
         with mock.patch.object(style, "_ruff", side_effect=ToolError("ruff is missing")):
             findings, broken = vet_content(content, PythonAdapter())
         self.assertEqual(([f.rule for f in findings], broken), (["solution-fails"], ["ruff is missing"]))
+
+
+LOADER_RULES = {"boss-stage-count", "concept-unnamed", "field-invalid", "field-missing", "file-unreadable",
+                "task-folder-missing", "task-unplaced", "world-id-mismatch"}
+
+
+class PickedRules(unittest.TestCase):
+    def setUp(self) -> None:
+        self.content, _ = load_content(python_adapter.ROOT / "tools" / "fixtures" / "good")
+        self.ran: list[str] = []
+
+    def fake(self, name: str, rules: set[str], reports: str | None = None) -> run.Check:
+        def ran(content: object, adapter: object) -> list[Finding]:
+            self.ran.append(name)
+            return [Finding(reports, "item", "0", "m", "p")] if reports else []
+        return run.Check(ran, frozenset(rules))
+
+    def test_only_the_checks_behind_the_asked_rules_run(self) -> None:
+        checks = [self.fake("cheap", {"solution-fails"}), self.fake("slow", {"weak-tests"})]
+        with mock.patch("vet.run.CHECKS", checks):
+            vet_content(self.content, PythonAdapter(), frozenset({"solution-fails"}))
+            vet_content(self.content, PythonAdapter())
+        self.assertEqual(self.ran, ["cheap", "cheap", "slow"])
+
+    def test_a_rule_missing_from_its_check_entry_fails(self) -> None:
+        with mock.patch("vet.run.CHECKS", [self.fake("liar", {"solution-fails"}, reports="weak-tests")]), \
+                self.assertRaisesRegex(UndeclaredRule, "weak-tests"):
+            vet_content(self.content, PythonAdapter())
+
+    def test_every_rule_belongs_to_a_check_or_the_loader(self) -> None:
+        from_checks = set().union(*(check.rules for check in CHECKS))
+        self.assertEqual(sorted(from_checks - RULES.keys()), [])
+        self.assertEqual(sorted(RULES.keys() - from_checks), sorted(LOADER_RULES - from_checks))
 
 
 class Findings(unittest.TestCase):
