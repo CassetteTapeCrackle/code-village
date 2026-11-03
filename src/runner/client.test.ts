@@ -11,7 +11,8 @@ function fakeWorker(startsAtOnce = true): Fake {
     terminated: false,
     onmessage: null,
     postMessage(job) {
-      w.jobs.push(job);
+      // a real worker gets a structured clone, which throws on anything postMessage cannot send
+      w.jobs.push(structuredClone(job));
       if (startsAtOnce) queueMicrotask(() => w.send({ type: "running", id: job.id }));
     },
     terminate() {
@@ -44,6 +45,28 @@ describe("runner client", () => {
     const pending = runner.check("a", { tests: "t", strict: true, cases: [] });
     await Promise.resolve();
     expect(w.jobs[0]).toMatchObject({ mode: "check", strict: true });
+    w.send({ type: "done", id: w.jobs[0].id, result: { error: null, results: [] } });
+    await pending;
+  });
+
+  test("a check sends plain cases even when they come from Svelte state", async () => {
+    const w = fakeWorker();
+    const runner = createRunner({ makeWorker: () => w });
+    w.send({ type: "ready" });
+    const plain: HiddenCase = {
+      kind: "expr",
+      show: "last_item([1, 2])",
+      setup: "",
+      expr: "last_item([1, 2])",
+      expect: "2",
+      raises: null,
+      compare: "exact",
+    };
+    // $state wraps arrays and objects in proxies, which postMessage refuses (the daily review hung on this)
+    const reactive = new Proxy([new Proxy(plain, {})], {});
+    const pending = runner.check("a", { tests: "t", cases: reactive });
+    await Promise.resolve();
+    expect(w.jobs[0]).toMatchObject({ cases: [plain] });
     w.send({ type: "done", id: w.jobs[0].id, result: { error: null, results: [] } });
     await pending;
   });
