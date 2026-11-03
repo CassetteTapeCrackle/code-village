@@ -5,8 +5,9 @@ src/content/bundle.json
 worker/worker-configuration.d.ts
 pnpm-lock.yaml
 
-# local scratch and worktrees
+# local scratch, worktrees and agent notes
 .claude/
+docs/
 .superpowers/
 .handoff/
 test-results/
