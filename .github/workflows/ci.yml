@@ -38,8 +38,8 @@ jobs:
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .vet-cache
-          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-${{ github.run_id }}
-          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-
+          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-${{ github.run_id }}
+          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-
       - run: pnpm lint
       - run: pnpm lint:py
       - run: pnpm typecheck:py
@@ -109,8 +109,8 @@ jobs:
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .vet-cache
-          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-${{ github.run_id }}
-          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-
+          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-${{ github.run_id }}
+          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-
       - run: pnpm exec playwright install --with-deps chromium
       # built before Playwright starts the dev server, whose start timeout a cold content check would pass
       - run: pnpm content

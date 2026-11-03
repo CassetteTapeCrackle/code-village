@@ -7,20 +7,30 @@ import re
 from collections.abc import Iterable, Sequence
 
 from ..adapter import CheckJob, CheckOutcome, LanguageAdapter, Rewrite, passes
-from ..cases.expect import buildable_cases
+from ..cases.expect import CasesProblem, buildable_cases, item_decl
+from ..cases.spec import ProgramShape
 from ..finding import Finding, subject
 from ..model import Content, Item
 
 PRINT_CHECKS = ("run_program", "PROGRAM", "stdout")  # tests that read what the code prints
 
 
+def _checks_printing(item: Item) -> bool:
+    try:
+        decl = item_decl(item)
+    except CasesProblem:  # cases-decl-invalid reports it
+        decl = None
+    return any(word in item.tests for word in PRINT_CHECKS) or (decl is not None and isinstance(decl.shape,
+                                                                                                ProgramShape))
+
+
 def kept(rewrite: Rewrite, group: Sequence[Item]) -> bool:
-    """Leave out a renamed parameter that a prompt names, and a debug print where the tests read printed output."""
+    """Leave out a renamed parameter that a prompt names, and a debug print where printed output is checked."""
     if rewrite.transform == "rename-params":
         name = rewrite.id.split(":", 1)[1]
         return not any(re.search(rf"\b{re.escape(name)}\b", item.prompt) for item in group)
     if rewrite.transform == "add-debug-print":
-        return not any(word in item.tests for item in group for word in PRINT_CHECKS)
+        return not any(_checks_printing(item) for item in group)
     return True
 
 

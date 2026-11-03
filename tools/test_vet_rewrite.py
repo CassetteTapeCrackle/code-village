@@ -61,6 +61,27 @@ class Transforms(unittest.TestCase):
         new = self.assert_same(code, "rename-params:width", "area", [(2, 3)])
         self.assertIn("def area(my_width, height)", new)
 
+    def test_rename_params_skips_a_name_called_by_keyword(self) -> None:
+        code = "def f(n, acc):\n    if n == 0:\n        return acc\n    return f(n=n - 1, acc=acc + n)\n"
+        self.assertEqual([r for r in rewrites(code) if r.transform == "rename-params"], [])
+
+    def test_renames_and_helpers_skip_other_bindings(self) -> None:
+        sources = [
+            "def f(v):\n    e = 1\n    try:\n        return int(v)\n"
+            "    except ValueError as e:\n        return str(e)\n",
+            "def f(v):\n    a = 0\n    match v:\n        case [a, b]:\n            return a + b\n    return a\n",
+            "def f(x):\n    import math\n    y = 1\n    return math.floor(x) + y\n",
+            "def f(x):\n    def sq(y):\n        return y * y\n    z = 1\n    return sq(x) + z\n",
+        ]
+        for code in sources:
+            with self.subTest(code=code):
+                found = {r.transform for r in rewrites(code)}
+                self.assertFalse({"rename-locals", "extract-helper"} & found)
+
+    def test_extract_helper_skips_recursion(self) -> None:
+        code = "def fact(n):\n    if n < 2:\n        return 1\n    return n * fact(n - 1)\n"
+        self.assertEqual([r for r in rewrites(code) if r.transform == "extract-helper"], [])
+
     def test_rename_params_keeps_self(self) -> None:
         code = "class A:\n    def f(self):\n        return self\n"
         self.assertEqual([r.id for r in rewrites(code) if r.transform == "rename-params"], [])
@@ -90,12 +111,25 @@ class Transforms(unittest.TestCase):
         code = ("def f(xs):\n    total = 0\n    for x in xs:\n        if x < 0:\n            continue\n"
                 "        if x > 9:\n            break\n        total += x\n    return total\n")
         new = self.assert_same(code, "for-to-while", "f", [([1, -2, 3, 10, 4],), ([],), (range(5),)])
-        self.assertIn("while index < len(items)", new)
+        self.assertIn("next(items)", new)
+
+    def test_for_to_while_stays_lazy(self) -> None:
+        endless = ("import itertools\ndef root(n):\n    for i in itertools.count():\n        if i * i >= n:\n"
+                   "            return i\n")
+        self.assert_same(endless, "for-to-while", "root", [(50,)])
+        growing = ("def f(xs):\n    xs = list(xs)\n    for x in xs:\n        if x > 0 and len(xs) < 10:\n"
+                   "            xs.append(x - 1)\n    return len(xs)\n")
+        self.assert_same(growing, "for-to-while", "f", [([3],)])
 
     def test_fstring_to_concat(self) -> None:
         code = "def show(name, n):\n    return f'{name!r} has {n:>3} and {n}'\n"
         new = self.assert_same(code, "fstring-to-concat", "show", [("Bo", 7)])
-        self.assertIn("repr(name) + ' has ' + format(n, '>3') + ' and ' + str(n)", new)
+        self.assertIn("format(repr(name), '') + ' has ' + format(n, '>3') + ' and ' + format(n, '')", new)
+
+    def test_fstring_to_concat_keeps_format_over_str(self) -> None:
+        code = ("class Odd:\n    def __format__(self, spec):\n        return 'F'\n    def __str__(self):\n"
+                "        return 'S'\ndef show():\n    return f'{Odd()}'\n")
+        self.assert_same(code, "fstring-to-concat", "show", [()])
 
     def test_augassign_expand(self) -> None:
         code = "def f(n):\n    n += 1\n    n -= 0.5\n    return n\n"
@@ -180,6 +214,9 @@ class Check(unittest.TestCase):
         debug = Rewrite("add-debug-print", "add-debug-print", "")
         self.assertFalse(kept(debug, [item("", "PROGRAM = True")]))
         self.assertTrue(kept(debug, [item("", "def test_a(): pass")]))
+        program = Item("t", "task", "the solution", Path("."), "", "", "def test_a(): pass", False, "fp", "t",
+                       {"stdin": ["int 0..9"]}, (), "")
+        self.assertFalse(kept(debug, [program]))
 
     def test_first_failure_names_the_test(self) -> None:
         failed: CheckOutcome = {"error": None, "results": [

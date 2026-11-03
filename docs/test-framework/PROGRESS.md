@@ -30,6 +30,47 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 3, owner's supervisor: the memory cap broke `pnpm content` on macOS (`setrlimit(RLIMIT_AS)` raises
+  `ValueError` there, so every harness job crashed: 550 problems). The cap now lives in
+  `tools/vet/python/capped.py`, which runs the harness capped where the platform accepts it and uncapped (the
+  30 s limit still applies) where `setrlimit` raises `ValueError` or `OSError`. Test
+  `test_harness_runs_uncapped_where_the_cap_is_refused` patches `setrlimit` to raise and runs a job.
+- Session 3 review (fresh subagent on the session diff): fixed findings 1 to 8 and 11 to 12, each with a
+  regression test. `rename-params` skips a name the code passes by keyword; `for-to-while` stays lazy
+  (`iter()` and `next()`), so endless iterators and lists that grow while walked behave the same;
+  `rename-locals`, `rename-params` and `extract-helper` skip functions that bind names through `except ... as`,
+  `match`, a local import or an inner function or class; `extract-helper` skips a recursive return;
+  `fstring-to-concat` writes `format(x, "")`, since an f-string uses `__format__`. Mutation results that met a
+  timeout or a fuzz set that could not be built are never cached, and a fuzz set that cannot be built is said in
+  the finding. The cache key (file and CI) includes `package.json` and the Python version. The memory cap never
+  raises a lower existing limit. `add-debug-print` is skipped for program declarations too.
+  `test-inspects-code` also catches `Path("x.py").read_text()`.
+- Session 3: the `right-refused` canary calls `double(n=2)` by keyword while the prompt never names the
+  parameter, instead of the plan's `str(result)` spacing example. No rewrite in the list changes a result's
+  text, so a spacing canary could not fail; the keyword case is the real way a test refuses a right answer
+  (spec 11, parameter names count only when the prompt names them).
+- Session 3: mutation budget (plan: whole content under 8 minutes on 4 cores). Measured in the VM (4 cores): a
+  cold `pnpm content` takes 6 min 27 s to 7 min 20 s with mutants, rewrites and right answers, warm about 30 s.
+  CI caches `.vet-cache/` per job, keyed by the framework source, `py/harness.py` and `package.json`, with the
+  run id so each run saves its new results. The e2e job runs `pnpm content` as its own step before Playwright,
+  because a cold check passes the dev server's 300 s start timeout.
+- Session 3: the cache serves the real content (`.vet-cache/mutation/`) and, through `VET_CACHE`, the Python
+  tests, which share one temporary cache per run so each canary recomputes only the item it changes
+  (without it `pnpm test:py` took 8 min, with it about 6). Fixture runs without `VET_CACHE` always
+  compute everything.
+- Session 3: each harness process gets at most 2 GiB of address space. Two `generators` mutants grew a list to
+  7 GB and 5 GB in their 30 s, and the first Session 3 CI run lost both runners to it. Real jobs peak at 160 MB.
+- Session 3: mutants are spliced into the original text (comments and layout kept, for "Spot the bug"); rewrites
+  are unparsed whole, since they are only run.
+- Session 3: a boss's stages and hard mode form one group with the shared solution: a mutant counts as killed
+  when any stage or hard mode fails it, and a rewrite or `right/` answer must pass all of them, as `wrong/` does.
+- Session 3: `rename-params` gives one rewrite per parameter (`rename-params:<name>`), so the check can skip
+  exactly the names a prompt mentions. `Item` gains `prompt` (the boss intro for hard mode) and `right`.
+- Session 3: `right-fails` and `right-refused` stay quiet while the solution itself fails its suite;
+  `solution-fails` reports that, and the tests may be what is wrong.
+- Session 3: severities: `weak-tests` and `wrong-too-few` are `wrong-accepted`; `right-fails`, `right-missing`
+  and `test-inspects-code` are `right-refused`. `open()` stays allowed in tests except on a `.py` file or
+  `__file__`, because the file tasks write data files with it.
 - Session 2 review (fresh subagent on the session diff): fixed all seven findings. Learner code and odd task
   data can no longer crash the harness: a raising `__repr__`, `__eq__` or validity function, and an `expect`
   that does not evaluate, each give a message instead of a browser timeout. `expect` is evaluated with the
@@ -103,6 +144,18 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
+- Session 3: the GitHub access problems of Sessions 1 and 2 are gone: `origin` pushes and CI runs on every
+  push.
+- Session 3: mutation runs with a timeout are not cached, so a timeout repeats on every run; the build summary
+  counts cached results only (2862 of 2927 mutants today). A fuzz timeout still reports `weak-tests`, which
+  could flicker on a slow runner; no item has `[cases]` yet, so it cannot happen today. Session 4 owns timing.
+- Session 3: `test-inspects-code` allows `open(name)` with a variable (shortcut comment in
+  `tools/vet/checks/test_shape.py`).
+- Session 3: some of today's 290 `weak-tests` survivors look equivalent, not weak: `random_state=1` changed to 2
+  in W3 train-test tasks, `t == g` to `t is g` on small ints. They stop being findings once those items declare
+  `[cases]` (fuzz equivalence), or Session 9 (flags are real) decides.
+- Session 3: `pnpm test` in the VM still fails only `src/village/terrainCache.test.ts` (575 of 576 pass, CI
+  passes it); `pnpm test:worker` passes (89 tests).
 - Session 2: still no GitHub access in the cloud session. No `origin`; `gh api` answers "GitHub access to
   this repository is not enabled for this session", and the session has no tool to request it. Nothing from
   Session 1 or 2 is pushed and CI has never run on either. The Session 2 commits went out as a patch from
@@ -139,8 +192,7 @@ Each session reads this first and updates it last. Newest entries at the top of 
   warms the cache, but the framework should not let a cold machine flake a check (Session 4 owns timing).
 
 ## Next
-- Before Session 3: apply and push Sessions 1 and 2 (see Open), open the draft pull request into `dev` if
-  it is missing, and read the first CI run. Fix anything red before starting Task 3.1.
-- Session 3 (cloud): Tasks 3.1 to 3.4 in `PLAN.md`. The mutation check runs survivors against hidden cases;
-  items still lack `[cases]`, so survivors report `weak-tests` with the plan's hint. Track B Task B.3 can now
-  merge `test-framework` into `report-button`.
+- Session 4 (cloud): Tasks 4.1 and 4.2 in `PLAN.md`. Read CI on the last Session 3 push first and fix anything
+  red. The mutation, rewrite and `right/` checks run through `PythonAdapter`, so the interpreters of Task 4.1
+  plug in there.
+- Track B Task B.3 can merge `test-framework` into `report-button`.

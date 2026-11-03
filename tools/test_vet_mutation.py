@@ -10,7 +10,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from test_canaries import CANARIES, FIXTURES, materialize
-from vet.adapter import CheckJob, CheckOutcome
+from vet.adapter import CaseInput, CaseValue, CheckJob, CheckOutcome
 from vet.checks.mutation import CACHE, cache_for, group_results, summary
 from vet.load import load_content
 from vet.model import Content
@@ -34,6 +34,24 @@ class NoChecks(PythonAdapter):
         if jobs:
             raise AssertionError("the cache should have answered")
         return []
+
+
+class TimesOut(PythonAdapter):
+    """An adapter on a machine so loaded that every Check runs out of time."""
+
+    def check(self, jobs: Sequence[CheckJob]) -> list[CheckOutcome | None]:
+        return [None for _ in jobs]
+
+
+HIDDEN = 20
+
+
+class NoFuzzValues(PythonAdapter):
+    """An adapter whose solution runs out of time on the large fuzz set, but not on the hidden cases."""
+
+    def expect(self, code: str, cases: Sequence[CaseInput]) -> list[CaseValue] | None:
+        # the canary's hidden cases are 20 inputs, its fuzz set all 201 in int -100..100
+        return None if len(cases) > HIDDEN else super().expect(code, cases)
 
 
 class Verdicts(unittest.TestCase):
@@ -60,6 +78,23 @@ class Cache(unittest.TestCase):
         again = group_results(good, NoChecks(), cache)
         self.assertEqual([rs for _, rs in first], [rs for _, rs in again])
         self.assertIn("mutants: 65, killed by visible tests 62, only by hidden cases 3", summary(good, cache))
+
+    def test_results_with_a_timeout_are_not_cached(self) -> None:
+        good, _ = load_content(FIXTURES / "good")
+        cache = Path(tempfile.mkdtemp())
+        results = group_results(good, TimesOut(), cache)
+        self.assertTrue(all(r.verdict == "visible" for _, rs in results for r in rs))
+        self.assertEqual(list(cache.glob("*.json")), [])
+
+    def test_a_fuzz_set_that_cannot_be_built_is_said_and_not_cached(self) -> None:
+        content = canary_content("fuzz-finds-a-difference")
+        cache = Path(tempfile.mkdtemp())
+        [(group, results)] = [(g, rs) for g, rs in group_results(content, NoFuzzValues(), cache)
+                              if g[0].id == "basics-triple"]
+        survived = [r for r in results if r.verdict == "survived"]
+        self.assertTrue(survived)
+        self.assertTrue(all("fuzz inputs could not be built" in r.differs for r in survived))
+        self.assertFalse((cache / f"{group[0].fingerprint}.json").exists())
 
     def test_a_cache_from_another_framework_is_ignored(self) -> None:
         good, _ = load_content(FIXTURES / "good")

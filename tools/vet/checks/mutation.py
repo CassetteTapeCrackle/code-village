@@ -8,6 +8,7 @@ content; the stored broken versions are what a later "Spot the bug" mode reuses.
 import hashlib
 import json
 import os
+import sys
 import tempfile
 from collections import Counter
 from collections.abc import Iterable, Sequence
@@ -91,45 +92,61 @@ class _Run:
     def __init__(self, adapter: LanguageAdapter) -> None:
         self.adapter = adapter
 
-    def results(self, groups: Sequence[Group]) -> list[list[MutantResult]]:
+    def results(self, groups: Sequence[Group]) -> list[tuple[list[MutantResult], bool]]:
+        """Each group's results, and whether they are settled: a timeout or a fuzz set that could not be built
+        may come out differently on a less loaded machine, so such results are never cached."""
         mutants = [self.adapter.mutants(group[0].solution) for group in groups]
-        verdicts = self._verdicts(groups, mutants)
+        verdicts, settled = self._verdicts(groups, mutants)
         survivors = [(g, m) for g, vs in enumerate(verdicts) for m, v in enumerate(vs) if v is None]
         fuzzed = self._fuzz([(groups[g], mutants[g][m]) for g, m in survivors])
-        differs = dict(zip(survivors, fuzzed, strict=True))
-        return [[_result(m, verdicts[g][i] or _fuzz_verdict(differs[g, i]), differs.get((g, i)) or "")
-                 for i, m in enumerate(ms)] for g, ms in enumerate(mutants)]
+        differs = {key: difference for key, (difference, _) in zip(survivors, fuzzed, strict=True)}
+        for (g, _), (_, sure) in zip(survivors, fuzzed, strict=True):
+            settled[g] = settled[g] and sure
+        return [([_result(m, verdicts[g][i] or _fuzz_verdict(differs[g, i]), differs.get((g, i)) or "")
+                  for i, m in enumerate(ms)], settled[g]) for g, ms in enumerate(mutants)]
 
-    def _verdicts(self, groups: Sequence[Group], mutants: Sequence[list[Mutant]]) -> list[list[Verdict | None]]:
+    def _verdicts(self, groups: Sequence[Group],
+                  mutants: Sequence[list[Mutant]]) -> tuple[list[list[Verdict | None]], list[bool]]:
         suites = [[(item, buildable_cases(item, self.adapter)) for item in group] for group in groups]
         jobs = [CheckJob(m.code, item.tests, item.strict, cases)
                 for ms, suite in zip(mutants, suites, strict=True) for m in ms for item, cases in suite]
         outcomes = iter(self.adapter.check(jobs))
-        return [[_first_verdict([next(outcomes) for _ in suite]) for _ in ms]
-                for ms, suite in zip(mutants, suites, strict=True)]
+        verdicts, settled = [], []
+        for ms, suite in zip(mutants, suites, strict=True):
+            per_mutant = [[next(outcomes) for _ in suite] for _ in ms]
+            verdicts.append([_first_verdict(found) for found in per_mutant])
+            settled.append(all(o is not None for found in per_mutant for o in found))
+        return verdicts, settled
 
-    def _fuzz(self, survivors: Sequence[tuple[Group, Mutant]]) -> list[str | None]:
-        """For each survivor: how it differs on the fuzz set, "" when it agrees, None when there is no fuzz set."""
+    def _fuzz(self, survivors: Sequence[tuple[Group, Mutant]]) -> list[tuple[str | None, bool]]:
+        """For each survivor: how it differs on the fuzz set ("" when it agrees, None when there is no fuzz set),
+        and whether that answer is settled."""
         items = list({id(item): item for group, _ in survivors for item in group}.values())
         # each item's fuzz values come from its own harness run, so threads run them side by side
         with ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as pool:
             built = pool.map(lambda i: buildable_cases(i, self.adapter, fuzz=FUZZ_COUNT), items)
             fuzz = dict(zip(map(id, items), built, strict=True))
+        unbuilt = {id(i) for i in items if not fuzz[id(i)] and (d := _decl(i)) and not isinstance(d.shape, NoCases)}
         per_survivor = [[(item, fuzz[id(item)]) for item in group if fuzz[id(item)]] for group, _ in survivors]
         jobs = [CheckJob(m.code, item.tests, item.strict, cases)
                 for (_, m), suite in zip(survivors, per_survivor, strict=True) for item, cases in suite]
         outcomes = iter(self.adapter.check(jobs))
-        found: list[str | None] = []
-        for suite in per_survivor:
-            differences = [d for d in [_difference(next(outcomes)) for _ in suite] if d]
-            found.append(None if not suite else (differences[0] if differences else ""))
+        found: list[tuple[str | None, bool]] = []
+        for (group, _), suite in zip(survivors, per_survivor, strict=True):
+            ran = [next(outcomes) for _ in suite]
+            differences = [d for d in map(_difference, ran) if d]
+            if any(id(item) in unbuilt for item in group):
+                differences.append(f"its {FUZZ_COUNT} fuzz inputs could not be built (the solution ran out of time "
+                                   "or crashed on them), so it cannot be told apart from an equivalent mutant")
+            sure = all(o is not None for o in ran) and not any(id(item) in unbuilt for item in group)
+            found.append((None if not suite and not differences else (differences[0] if differences else ""), sure))
         return found
 
 
 def _framework_hash() -> str:
-    """What every cached result depends on besides the item: the framework's own source."""
-    digest = hashlib.sha256()
-    for path in [ROOT / "py" / "harness.py", *sorted((ROOT / "tools" / "vet").rglob("*.py"))]:
+    """What every cached result depends on besides the item: the framework's source, the pins, the Python."""
+    digest = hashlib.sha256(sys.version.encode())
+    for path in [ROOT / "py" / "harness.py", ROOT / "package.json", *sorted((ROOT / "tools" / "vet").rglob("*.py"))]:
         digest.update(path.read_bytes())
     return digest.hexdigest()[:12]
 
@@ -168,8 +185,8 @@ def group_results(content: Content, adapter: LanguageAdapter, cache: Path | None
     fresh = iter(_Run(adapter).results([g for g, c in zip(groups, cached, strict=True) if c is None]))
     out = []
     for group, stored in zip(groups, cached, strict=True):
-        results = stored if stored is not None else next(fresh)
-        if cache and stored is None:
+        results, settled = (stored, False) if stored is not None else next(fresh)
+        if cache and settled:
             _store(cache / f"{group[0].fingerprint}.json", {"framework": framework, "item": group[0].id,
                                                             "mutants": [asdict(r) for r in results]})
         out.append((group, results))
