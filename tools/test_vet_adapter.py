@@ -81,6 +81,13 @@ class Check(unittest.TestCase):
             with self.subTest(error=type(error).__name__), mock.patch("resource.setrlimit", side_effect=error):
                 self.assertFalse(capped.cap_memory())
 
+    def test_a_job_checked_before_is_not_run_again(self) -> None:
+        adapter = PythonAdapter()
+        job = CheckJob(code="def double(n):\n    return n * 2\n", tests=TESTS)
+        first = adapter.check([job, job])
+        with mock.patch.object(adapter, "_harness_all", side_effect=AssertionError("ran again")):
+            self.assertEqual(adapter.check([job]), first[:1])
+
     def test_unbuilt_methods_say_so(self) -> None:
         with self.assertRaises(NotImplementedError):
             PythonAdapter().features("x = 1")

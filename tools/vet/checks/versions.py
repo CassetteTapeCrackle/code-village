@@ -86,7 +86,7 @@ def _lessons(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
 
 # items: each answer's verdict on each suite, on every version
 
-def _answers(group: Group) -> list[tuple[str, str]]:
+def answers(group: Group) -> list[tuple[str, str]]:
     first = group[0]
     return [("the solution", first.solution), ("the starter", first.starter),
             *((f"wrong/{p.name}", p.read_text()) for p in first.wrong),
@@ -98,7 +98,7 @@ def _verdict(outcome: CheckOutcome | None) -> str:
 
 
 def _group_differences(adapter: LanguageAdapter, groups: list[Group]) -> list[Computed]:
-    jobs_of = [[CheckJob(code, item.tests, item.strict, cases) for _, code in _answers(group)
+    jobs_of = [[CheckJob(code, item.tests, item.strict, cases) for _, code in answers(group)
                 for item, cases in [(i, buildable_cases(i, adapter)) for i in group]] for group in groups]
     base = adapter.check([job for jobs in jobs_of for job in jobs])
     starts = [sum(map(len, jobs_of[:g])) for g in range(len(groups))]
@@ -109,7 +109,7 @@ def _group_differences(adapter: LanguageAdapter, groups: list[Group]) -> list[Co
     found: list[Computed] = []
     for group, jobs, others, at in zip(groups, jobs_of, older, starts, strict=True):
         here = base[at:at + len(jobs)]
-        labels = [(name, item) for name, _ in _answers(group) for item in group]
+        labels = [(name, item) for name, _ in answers(group) for item in group]
         messages, settled = [], all(o is not None for o in here)
         for version, there in others:
             outcomes = cast(list[CheckOutcome | None], there)

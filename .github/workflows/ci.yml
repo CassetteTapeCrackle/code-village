@@ -56,6 +56,9 @@ jobs:
       - run: pnpm exec prettier --check .
       # pnpm test generates src/content/bundle.json (git-ignored), which svelte-check reads, so it runs first
       - run: pnpm test
+      # every runtime verdict of pnpm test, repeated in Pyodide (the browser's Python) through the same harness
+      - run: pnpm vet:pyodide
+        timeout-minutes: 15
       # a pull request may add vet/gaps.toml entries only for a rule it introduces
       - if: github.event_name == 'pull_request'
         env:

@@ -40,6 +40,7 @@ class PythonAdapter:
         self.python = str(python) if python else sys.executable
         # the bundle shows the very runs the checks judged, and nothing runs twice
         self._runs: dict[str, RunOutcome | None] = {}
+        self._checked: dict[CheckJob, CheckOutcome | None] = {}
         self._expected: dict[tuple[str, tuple[CaseInput, ...]], list[CaseValue] | None] = {}
 
     def run(self, codes: Sequence[str]) -> list[RunOutcome | None]:
@@ -49,10 +50,14 @@ class PythonAdapter:
         return [self._runs[code] for code in codes]
 
     def check(self, jobs: Sequence[CheckJob]) -> list[CheckOutcome | None]:
+        new = list(dict.fromkeys(job for job in jobs if job not in self._checked))
+        if not new:
+            return [self._checked[job] for job in jobs]
         harness_jobs: list[Job] = [{"mode": "check", "code": job.code, "tests": job.tests, "strict": job.strict,
-                                    "cases": [case_json(case) for case in job.cases]} for job in jobs]
-        outcomes = self._harness_all(harness_jobs, [job.limit for job in jobs])
-        return [cast(CheckOutcome | None, outcome) for outcome in outcomes]
+                                    "cases": [case_json(case) for case in job.cases]} for job in new]
+        outcomes = self._harness_all(harness_jobs, [job.limit for job in new])
+        self._checked.update(zip(new, (cast(CheckOutcome | None, outcome) for outcome in outcomes), strict=True))
+        return [self._checked[job] for job in jobs]
 
     def expect(self, code: str, cases: Sequence[CaseInput]) -> list[CaseValue] | None:
         key = (code, tuple(cases))

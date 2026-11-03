@@ -6,7 +6,9 @@ versions Pyodide ships: `pnpm content` runs this under uv. content/README.md exp
 With --quick it leaves out the slow checks (mutation, rewrites, right/ answers) and judges only the gaps of the
 rules it ran: `pnpm dev` and `pnpm build` use it, and `pnpm test` (CI) runs everything. With --if-changed it skips
 everything when the bundle was built from these exact inputs, by a run at least as thorough.
+With --jobs-out FILE it also writes every runtime verdict for scripts/vet-pyodide.mjs (`pnpm vet:pyodide`).
 Usage: python3 tools/content_check.py [--content DIR] [--out FILE] [--no-version-check] [--quick] [--if-changed]
+       [--jobs-out FILE]
 """
 
 import argparse
@@ -24,6 +26,7 @@ from vet.checks import mutation
 from vet.checks.libraries import PYODIDE_LOCK, build_python, environment_problems
 from vet.finding import Finding, GapKey
 from vet.gaps import GAPS_PATH, GapDiff, compare, load_gaps, world_summary
+from vet.jobs import write_jobs
 from vet.load import LESSON_FIELDS, STAGE_FIELDS, TASK_FIELDS, VARIANT_FIELDS, Fields, load_content
 from vet.model import Boss, CodeBlock, Content, Lesson, Meta, Task, TaskBlock, TextBlock, World
 from vet.python.adapter import PythonAdapter
@@ -177,6 +180,7 @@ def main() -> None:
     args.add_argument("--no-version-check", action="store_true")
     args.add_argument("--quick", action="store_true", help=f"leave out the slow rules: {', '.join(sorted(SLOW_RULES))}")
     args.add_argument("--if-changed", action="store_true")
+    args.add_argument("--jobs-out", help="also write every runtime verdict here, for pnpm vet:pyodide")
     opts = args.parse_args()
     out = Path(opts.out)
     stamp = out.with_name(out.name + ".sha256")
@@ -205,6 +209,8 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(bundle(content, adapter), indent=1))
     stamp.write_text(writes)
+    if opts.jobs_out:
+        print(f"pyodide jobs: {write_jobs(content, adapter, Path(opts.jobs_out))} -> {opts.jobs_out}")
     skipped = f" (quick: {', '.join(sorted(SLOW_RULES))} not checked)" if opts.quick else ""
     print(f"content ok: {len(content.lessons)} lesson(s), {len(content.tasks)} task(s), {len(content.bosses)} boss(es)"
           f" -> {out}{skipped}")

@@ -504,9 +504,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   needs, runs each job, and exits 1 listing every mismatch. It also compares the Pyodide package versions with
   the pins and fails on a difference.
 
-- [ ] **Step 1:** Canary: a claim that holds in CPython but not in Pyodide (starting a `threading.Thread`
+- [x] **Step 1:** Canary: a claim that holds in CPython but not in Pyodide (starting a `threading.Thread`
   works in CPython and raises in Pyodide; verify it first).
-- [ ] **Step 2 to 4:** Fail, implement, pass. Commit, push. End of Session 4.
+- [x] **Step 2 to 4:** Fail, implement, pass. Commit, push. End of Session 4.
 
 ---
 

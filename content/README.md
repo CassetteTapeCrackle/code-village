@@ -151,6 +151,10 @@ A `min` the text never names is `min-unexplained`. The older Pythons live in `.v
 `.vet-cache/py3.13` (made by uv with the library pins), and results are cached in `.vet-cache/versions/`.
 `pnpm dev` and `pnpm build` skip this check (and mutants, rewrites and `right/`); `pnpm test` runs it.
 
+CI also repeats every output and verdict in Pyodide, the browser's Python, through the same harness
+(`pnpm vet:pyodide`, after `pnpm test`). Something that works in CPython and not in the browser (starting a
+thread, for one) fails the build there; rewrite it so it works in both.
+
 ## Review checklist
 
 Before a world is done, read every lesson, prompt, hint, starter, solution and test, and ask:
