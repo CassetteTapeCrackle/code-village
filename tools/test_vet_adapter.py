@@ -11,7 +11,7 @@ from pathlib import Path
 from unittest import mock
 
 from vet import Finding, GapKey, run
-from vet.adapter import LIMIT, CheckJob, ToolError
+from vet.adapter import LIMIT, CheckJob, FeatureQuery, ToolError
 from vet.checks import style
 from vet.load import load_content
 from vet.python import adapter as python_adapter
@@ -88,9 +88,19 @@ class Check(unittest.TestCase):
         with mock.patch.object(adapter, "_harness_all", side_effect=AssertionError("ran again")):
             self.assertEqual(adapter.check([job]), first[:1])
 
-    def test_unbuilt_methods_say_so(self) -> None:
-        with self.assertRaises(NotImplementedError):
-            PythonAdapter().features("x = 1")
+    def test_features_come_from_the_harness_vocabulary(self) -> None:
+        vocabulary = {"fn-len": ["call:len"], "for-loop": ["node:For"]}
+        queries = [FeatureQuery("for x in []:\n    len(x)\n"), FeatureQuery("x = 1\n"), FeatureQuery("len([")]
+        found = PythonAdapter().features(queries, vocabulary)
+        self.assertEqual(found, [frozenset({"fn-len", "for-loop"}), frozenset(), frozenset()])
+
+    def test_features_of_no_code_run_nothing(self) -> None:
+        with mock.patch.object(PythonAdapter, "_harness_all", side_effect=AssertionError("ran")):
+            self.assertEqual(PythonAdapter().features([], {}), [])
+
+    def test_features_job_that_cannot_run_is_a_tool_error(self) -> None:
+        with mock.patch.object(PythonAdapter, "_harness_all", return_value=[None]), self.assertRaises(ToolError):
+            PythonAdapter().features([FeatureQuery("x = 1\n")], {})
 
     def test_mutants_come_from_the_python_operators(self) -> None:
         self.assertEqual([m.code for m in PythonAdapter().mutants("x = 1\n")], ["x = 2\n", "x = 0\n"])

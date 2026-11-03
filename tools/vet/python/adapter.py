@@ -4,7 +4,7 @@ import json
 import os
 import subprocess
 import sys
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from pathlib import Path
@@ -16,9 +16,11 @@ from ..adapter import (
     CaseValue,
     CheckJob,
     CheckOutcome,
+    FeatureQuery,
     Mutant,
     Rewrite,
     RunOutcome,
+    ToolError,
     case_json,
 )
 from .mutate import mutants
@@ -72,8 +74,17 @@ class PythonAdapter:
     def rewrites(self, code: str) -> list[Rewrite]:
         return rewrites(code)
 
-    def features(self, code: str) -> frozenset[str]:
-        raise NotImplementedError("feature detection arrives in Task 5.1")
+    def features(self, queries: Sequence[FeatureQuery], vocabulary: Mapping[str, Sequence[str]]
+                 ) -> list[frozenset[str]]:
+        if not queries:
+            return []
+        job: Job = {"mode": "features", "vocabulary": {k: list(v) for k, v in vocabulary.items()},
+                    "queries": [{"code": q.code, "own_names": list(q.own_names)} for q in queries]}
+        [out] = self._harness_all([job])
+        found = out.get("features") if out else None
+        if not isinstance(found, list):
+            raise ToolError("the feature detector could not run")
+        return [frozenset(features) for features in cast(list[list[str]], found)]
 
     def _harness_all(self, jobs: Sequence[Job], limits: Sequence[float] = ()) -> list[dict[str, object] | None]:
         # the jobs are subprocesses, so threads run them side by side

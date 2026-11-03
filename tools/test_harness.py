@@ -413,5 +413,70 @@ class ExpectMode(unittest.TestCase):
         self.assertEqual(json.loads(done.stdout), {"values": [{"repr": "2", "raises": None}]})
 
 
+VOCABULARY = {
+    "for-loop": ["node:For"],
+    "list-comprehension": ["node:ListComp"],
+    "fn-len": ["call:len"],
+    "append": ["method:append"],
+    "math": ["import:math"],
+    "property": ["decorator:property"],
+    "sorted-key": ["kwarg:sorted.key"],
+}
+
+
+class DetectFeatures(unittest.TestCase):
+    def detect(self, code: str, own_names: tuple[str, ...] = ()) -> set[str]:
+        return harness.detect_features(code, VOCABULARY, own_names)
+
+    def test_node_detector(self) -> None:
+        self.assertEqual(self.detect("for x in []:\n    pass\n"), {"for-loop"})
+
+    def test_call_detector_names_a_builtin(self) -> None:
+        self.assertEqual(self.detect("len([])"), {"fn-len"})
+
+    def test_method_detector(self) -> None:
+        self.assertEqual(self.detect("xs = []\nxs.append(1)\n"), {"append"})
+
+    def test_import_detector_for_both_import_forms(self) -> None:
+        self.assertEqual(self.detect("import math\n"), {"math"})
+        self.assertEqual(self.detect("from math import sqrt\n"), {"math"})
+
+    def test_decorator_detector_strips_call_and_owner(self) -> None:
+        code = "class A:\n    @property\n    def x(self): ...\n    @x.setter\n    def x(self, v): ...\n"
+        self.assertEqual(self.detect(code), {"property", "unknown:decorator:setter", "unknown:node:FunctionDef",
+                                             "unknown:node:ClassDef"})
+
+    def test_kwarg_detector_names_the_call(self) -> None:
+        self.assertEqual(self.detect("sorted([], key=len)\n"), {"sorted-key", "unknown:call:sorted"})
+        self.assertEqual(self.detect("max([], key=len)\n"), {"unknown:call:max"})
+
+    def test_unknown_feature_reported(self) -> None:
+        found = self.detect("print(1)\nx = [i for i in 'ab']\n'ab'.title()\nimport os\n")
+        self.assertEqual(found, {"unknown:call:print", "list-comprehension", "unknown:method:title",
+                                 "unknown:import:os"})
+
+    def test_a_kwarg_the_vocabulary_lacks_is_not_unknown(self) -> None:
+        self.assertEqual(self.detect("len(x=1)\n"), {"fn-len"})
+
+    def test_the_codes_own_names_are_not_builtins_or_methods(self) -> None:
+        code = "def len(x):\n    return 0\nclass C:\n    def append(self):\n        pass\nlen(1)\nC().append()\n"
+        self.assertEqual(self.detect(code), {"unknown:node:FunctionDef", "unknown:node:ClassDef",
+                                             "unknown:node:Return"})
+
+    def test_own_names_come_from_outside_the_code_too(self) -> None:
+        self.assertEqual(self.detect("pet.feed()\n"), {"unknown:method:feed"})
+        self.assertEqual(self.detect("pet.feed()\n", own_names=("feed",)), set())
+
+    def test_code_that_does_not_parse_has_no_features(self) -> None:
+        self.assertEqual(self.detect("for x in\n"), set())
+
+    def test_features_job_through_the_cli(self) -> None:
+        payload = json.dumps({"mode": "features", "vocabulary": VOCABULARY,
+                              "queries": [{"code": "len([])", "own_names": []}, {"code": "import math"}]})
+        done = subprocess.run([sys.executable, "py/harness.py"], input=payload, capture_output=True, text=True,
+                              cwd=Path(__file__).resolve().parent.parent, timeout=20, check=False)
+        self.assertEqual(json.loads(done.stdout), {"features": [["fn-len"], ["math"]]})
+
+
 if __name__ == "__main__":
     unittest.main()

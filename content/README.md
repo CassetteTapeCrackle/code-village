@@ -25,7 +25,7 @@ Any task, variant or boss folder may also hold `wrong/*.py` (see below).
 ## A lesson
 
 `lesson.md` starts with `+++` TOML front matter (`id`, `title`, `world`, `region`, `order`, `concepts`,
-`remember`, `[loot]`), then Markdown with four kinds of block:
+`teaches`, `remember`, `[loot]`), then Markdown with four kinds of block:
 
 - ` ```python example ` runs at build time; the app shows its real output, never a typed one.
 - ` ```python predict ` is the same, but the learner guesses the output first. It must print something.
@@ -154,6 +154,28 @@ A `min` the text never names is `min-unexplained`. The older Pythons live in `.v
 CI also repeats every output and verdict in Pyodide, the browser's Python, through the same harness
 (`pnpm vet:pyodide`, after `pnpm test`). Something that works in CPython and not in the browser (starting a
 thread, for one) fails the build there; rewrite it so it works in both.
+
+## Nothing is used before it is taught
+
+`content/features.toml` lists every feature code can use and a lesson can teach: syntax (`node:For`,
+`node:ListComp`, `node:Lambda`), builtins (`call:len`), methods (`method:append`), imports (`import:math`),
+decorators (`decorator:property`) and keyword arguments (`kwarg:sorted.key`). One `[feature.<id>]` table holds a
+`summary`, the `detect` list of detectors that find it (a detector belongs to one feature) and, optionally,
+`words`: how a task prompt names the construct, lower case.
+
+Each lesson lists in `teaches` (front matter) the feature ids it introduces: `teaches = ["fn-len", "for-loop"]`.
+Starters, solutions, `wrong/` and `right/` answers, examples, predicts, code in backticks inside hints and a boss's
+files may use only what the lesson or an earlier one teaches. Lessons run in world order, then `order`; a boss
+comes after the last lesson of its region. The rules:
+
+- `unknown-feature`: code (or a `teaches` list) uses something `features.toml` does not list. Add it there.
+- `untaught-feature`: code uses a feature no lesson up to that point teaches. The message names the file and the
+  lesson that teaches it later, if any. Teach it earlier, or write the code without it.
+- `teaches-missing`: a lesson has no `teaches`. Code is judged only up to the first lesson without one, so add
+  `teaches` from the first lesson on. `claim` blocks and `tests.py` are never judged: learners do not read them.
+
+A method the lesson's own code defines (`def feed(self)`) is the learner's own and not a feature. A code span in a
+hint that is only half a statement is not read.
 
 ## Review checklist
 

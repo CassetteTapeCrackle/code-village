@@ -4,7 +4,7 @@ A language adapter runs code and tests, breaks code (mutants), rewrites it (equi
 features it uses. Rules call it by file extension and never touch the language directly.
 """
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
 from typing import Literal, Protocol, TypedDict
 
@@ -105,6 +105,15 @@ class Rewrite:
 
 
 @dataclass(frozen=True)
+class FeatureQuery:
+    """Code to list the features of. `own_names` are methods defined elsewhere (a hint names a method of the
+    task's class), which are the learner's own and no feature."""
+
+    code: str
+    own_names: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
 class CheckJob:
     code: str
     tests: str
@@ -150,7 +159,10 @@ class LanguageAdapter(Protocol):
 
     def rewrites(self, code: str) -> list[Rewrite]: ...
 
-    def features(self, code: str) -> frozenset[str]: ...
+    def features(self, queries: Sequence[FeatureQuery], vocabulary: Mapping[str, Sequence[str]]
+                 ) -> list[frozenset[str]]:
+        """The feature ids each piece of code uses (`unknown:<detector>` for what the vocabulary lacks)."""
+        ...
 
 
 def passes(outcome: CheckOutcome | None) -> bool:

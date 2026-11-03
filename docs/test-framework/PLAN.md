@@ -528,7 +528,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   needs it in Task 5.3). Any builtin call, method call, import or listed node with no feature id is reported
   as `unknown:<detector>`.
 
-- [ ] **Step 1 to 4:** Tests per detector kind, `test_unknown_feature_reported`; fail, implement, pass.
+- [x] **Step 1 to 4:** Tests per detector kind, `test_unknown_feature_reported`; fail, implement, pass.
   Commit.
 
 ### Task 5.2: Nothing used before it is taught

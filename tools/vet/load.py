@@ -15,6 +15,7 @@ from .model import (
     CodeBlock,
     CodeKind,
     Content,
+    Feature,
     Lesson,
     Meta,
     Stage,
@@ -40,6 +41,8 @@ WORLD_FIELDS: Fields = {"id": str, "order": int, "name": str, "area": str, "regi
                         "teacher": dict}
 BUILDING_FIELDS: Fields = {"name": str, "place": str}
 TEACHER_FIELDS: Fields = {"name": str, "portrait": str}
+FEATURE_FIELDS: Fields = {"summary": str, "detect": list}
+DETECTOR_KINDS = ("node", "call", "method", "import", "decorator", "kwarg")
 KEY_FIELDS: Fields = {"boss": str, "trophy": str, "trophy_name": str, "opens": str, "gate_hint": str}
 CODE_FILES = ("starter", "solution", "tests")
 FRONT_MATTER_PARTS = 3  # nothing before the first +++, the TOML, then the body
@@ -181,6 +184,13 @@ def split_body(body: str) -> list[TextBlock | CodeBlock | str]:
     return blocks
 
 
+def _check_optional_lesson_fields(meta: Meta, where: str, report: Report, path: Path) -> None:
+    if "tour" in meta and not isinstance(meta["tour"], bool):
+        report.add("field-invalid", where, "tour must be true or false", path)
+    if "teaches" in meta and _strings(meta["teaches"]) is None:
+        report.add("field-invalid", where, "teaches must be a list of feature ids (strings)", path)
+
+
 def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Finding]]:
     where = str(lesson_md.parent.relative_to(root))
     text = lesson_md.read_text()
@@ -189,8 +199,7 @@ def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Findi
     if parsed is None:
         return None, report.findings
     meta, body = parsed
-    if "tour" in meta and not isinstance(meta["tour"], bool):
-        report.add("field-invalid", where, "tour must be true or false", lesson_md)
+    _check_optional_lesson_fields(meta, where, report, lesson_md)
     blocks: list[Block] = []
     placed = set()
     for block in split_body(body):
@@ -268,6 +277,56 @@ def _load_concepts(root: Path) -> tuple[dict[str, str], list[Finding]]:
     return {c: n for c, n in names.items() if isinstance(n, str) and n.strip()}, report.findings
 
 
+def _strings(value: object) -> list[str] | None:
+    """The value when it is a list of strings, else None."""
+    return value if isinstance(value, list) and all(isinstance(v, str) for v in value) else None
+
+
+def _load_feature(feature_id: str, table: object, seen: dict[str, str], report: Report, path: Path) -> Feature | None:
+    where = f"features.toml:{feature_id}"
+    if not isinstance(table, dict):
+        report.add("field-invalid", where, "a feature is a table: [feature.<id>]", path)
+        return None
+    report.require(table, FEATURE_FIELDS, where, "feature", path)
+    detect, words = _strings(table.get("detect")), _strings(table.get("words", []))
+    if not detect or words is None:
+        report.add("field-invalid", where, "detect needs a list of detector strings and words a list of strings", path)
+        return None
+    for detector in detect:
+        if detector.partition(":")[0] not in DETECTOR_KINDS or not detector.partition(":")[2]:
+            report.add("field-invalid", where, f"detector {detector} must be <kind>:<name>, kind one of "
+                                               f"{', '.join(DETECTOR_KINDS)}", path)
+        elif detector in seen:
+            report.add("field-invalid", where, f"detector {detector} already belongs to feature {seen[detector]}", path)
+        seen[detector] = seen.get(detector, feature_id)
+    return Feature(feature_id, str(table.get("summary", "")), tuple(detect), tuple(words))
+
+
+def _load_features(root: Path) -> tuple[dict[str, Feature], list[Finding]]:
+    """content/features.toml: every feature a lesson can teach and the detectors that find it."""
+    where = "features.toml"
+    path = root / where
+    try:
+        text = path.read_text()
+    except OSError:
+        report = Report(root, fingerprint_text(""))
+        report.add("file-unreadable", where, "missing: the feature vocabulary", path)
+        return {}, report.findings
+    report = Report(root, fingerprint_text(text))
+    try:
+        tables = tomllib.loads(text).get("feature", {})
+    except tomllib.TOMLDecodeError as e:
+        report.add("file-unreadable", where, f"unreadable: {e}", path)
+        return {}, report.findings
+    seen: dict[str, str] = {}
+    features = {}
+    for feature_id, table in (tables.items() if isinstance(tables, dict) else ()):
+        feature = _load_feature(feature_id, table, seen, report, path)
+        if feature:
+            features[feature_id] = feature
+    return features, report.findings
+
+
 def _load_world(folder: Path, root: Path) -> tuple[World | None, list[Finding]]:
     """A world folder's world.toml: its words and wiring (the look lives in code)."""
     where = f"{folder.name}/world.toml"
@@ -310,10 +369,12 @@ def load_content(root: Path) -> tuple[Content, list[Finding]]:
             bosses.append(boss)
     concepts, found = _load_concepts(root)
     findings += found
+    features, found = _load_features(root)
+    findings += found
     worlds = []
     for folder in subfolders(root):
         world, found = _load_world(folder, root)
         findings += found
         if world:
             worlds.append(world)
-    return Content(root, tuple(worlds), tuple(lessons), tuple(bosses), concepts), findings
+    return Content(root, tuple(worlds), tuple(lessons), tuple(bosses), concepts, features), findings

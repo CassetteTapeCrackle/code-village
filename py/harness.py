@@ -17,7 +17,7 @@ import shutil
 import sys
 import tempfile
 import traceback
-from collections.abc import Callable, Iterable, Iterator, Sequence
+from collections.abc import Callable, Collection, Iterable, Iterator, Mapping, Sequence
 from typing import NotRequired, TypedDict, TypeGuard, cast
 
 MAX_OUTPUT = 10_000
@@ -27,6 +27,14 @@ NO_INPUT = "input() was called, but this task gives no input"
 TOO_MANY_INPUTS = "input() was called more times than this test gives answers"
 SHOWN_LENGTH = 80  # a value in a hidden-case message is cut to this many characters
 REL_TOL = ABS_TOL = 1e-9
+# the syntax a feature can be named after (node:<class>); any other node class is plain Python everywhere
+TRACKED_NODES = frozenset({
+    "For", "While", "Break", "Continue", "If", "IfExp", "Match", "FunctionDef", "Return", "Lambda", "ClassDef",
+    "Try", "Raise", "Assert", "With", "Global", "Nonlocal", "Yield", "YieldFrom", "Starred", "ListComp", "SetComp",
+    "DictComp", "GeneratorExp", "JoinedStr", "AugAssign", "Slice", "Delete", "NamedExpr",
+})
+BUILTIN_NAMES = frozenset(name for name in dir(builtins) if not name.startswith("_"))
+KWARG_PREFIX = "kwarg:"  # a keyword argument names a construct only when the vocabulary lists it
 
 
 class RunResult(TypedDict):
@@ -92,6 +100,15 @@ class ExpectedValue(TypedDict):
 
 class ExpectResult(TypedDict):
     values: list[ExpectedValue]
+
+
+class FeatureQuery(TypedDict):
+    code: str
+    own_names: NotRequired[list[str]]
+
+
+class FeaturesResult(TypedDict):
+    features: list[list[str]]
 
 
 class Failure(Exception):
@@ -554,6 +571,84 @@ def expect_values(code: str, inputs: Sequence[CaseInput]) -> ExpectResult:
     return {"values": values}
 
 
+def _owned_names(tree: ast.AST) -> tuple[set[str], set[str]]:
+    """The names the code defines itself: (every name it binds, the functions and classes it defines)."""
+    bound: set[str] = set()
+    defined: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef):
+            bound.add(node.name)
+            defined.add(node.name)
+        elif isinstance(node, ast.Name) and isinstance(node.ctx, ast.Store):
+            bound.add(node.id)
+        elif isinstance(node, ast.arg):
+            bound.add(node.arg)
+    return bound, defined
+
+
+def _decorator_name(expr: ast.expr) -> str:
+    """`property` for @property, `dataclass` for @dataclass(order=True), `setter` for @age.setter."""
+    if isinstance(expr, ast.Call):
+        return _decorator_name(expr.func)
+    if isinstance(expr, ast.Attribute):
+        return expr.attr
+    return expr.id if isinstance(expr, ast.Name) else ast.unparse(expr)
+
+
+def _call_detectors(node: ast.Call, bound: set[str], defined: set[str]) -> Iterator[str]:
+    func = node.func
+    if isinstance(func, ast.Name) and func.id in BUILTIN_NAMES and func.id not in bound:
+        yield f"call:{func.id}"
+    elif isinstance(func, ast.Attribute) and func.attr not in defined:
+        yield f"method:{func.attr}"
+    callee = func.id if isinstance(func, ast.Name) else func.attr if isinstance(func, ast.Attribute) else None
+    if callee:
+        yield from (f"{KWARG_PREFIX}{callee}.{kw.arg}" for kw in node.keywords if kw.arg)
+
+
+def _found_detectors(tree: ast.AST, own_names: Collection[str]) -> set[str]:
+    bound, defined = _owned_names(tree)
+    bound |= set(own_names)
+    defined |= set(own_names)
+    found: set[str] = set()
+    for node in ast.walk(tree):
+        if type(node).__name__ in TRACKED_NODES:
+            found.add(f"node:{type(node).__name__}")
+        if isinstance(node, ast.Call):
+            found.update(_call_detectors(node, bound, defined))
+        elif isinstance(node, ast.Import):
+            found.update(f"import:{alias.name}" for alias in node.names)
+        elif isinstance(node, ast.ImportFrom):
+            found.add(f"import:{'.' * node.level}{node.module or ''}")
+        if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef):
+            found.update(f"decorator:{_decorator_name(d)}" for d in node.decorator_list)
+    return found
+
+
+def detect_features(code: str, vocabulary: Mapping[str, Sequence[str]], own_names: Collection[str] = ()) -> set[str]:
+    """The feature ids the code uses. `vocabulary` maps a feature id to its detectors (node:<AstClass>,
+    call:<builtin>, method:<name>, import:<module>, decorator:<name>, kwarg:<call>.<name>). A builtin call, method
+    call, import, decorator or tracked node with no feature gives `unknown:<detector>`. A method the code defines
+    (or `own_names` lists, for a snippet whose class lives elsewhere) is the learner's own, not a feature.
+    Code that does not parse uses none."""
+    try:
+        tree = ast.parse(code)
+    except SyntaxError:
+        return set()
+    feature_of = {detector: feature for feature, detectors in vocabulary.items() for detector in detectors}
+    features: set[str] = set()
+    for detector in _found_detectors(tree, own_names):
+        if detector in feature_of:
+            features.add(feature_of[detector])
+        elif not detector.startswith(KWARG_PREFIX):
+            features.add(f"unknown:{detector}")
+    return features
+
+
+def features_job(queries: Sequence[FeatureQuery], vocabulary: Mapping[str, Sequence[str]]) -> FeaturesResult:
+    return {"features": [sorted(detect_features(q["code"], vocabulary, q.get("own_names", ()))) for q in queries]}
+
+
 def run_code_json(code: str, inputs_json: str) -> str:
     inputs: list[str] = json.loads(inputs_json)
     return json.dumps(run_code(code, inputs))
@@ -564,7 +659,9 @@ def run_tests_json(code: str, tests: str, strict: bool = False, cases_json: str 
     return json.dumps(run_tests(code, tests, strict, cases))
 
 
-def _run_job(job: dict[str, object]) -> RunResult | CheckResult | ExpectResult:
+def _run_job(job: dict[str, object]) -> RunResult | CheckResult | ExpectResult | FeaturesResult:
+    if job["mode"] == "features":
+        return features_job(cast(list[FeatureQuery], job["queries"]), cast(dict[str, list[str]], job["vocabulary"]))
     code = str(job["code"])
     if job["mode"] == "run":
         inputs = job.get("inputs", [])

@@ -91,12 +91,28 @@ Block = TextBlock | CodeBlock | TaskBlock
 
 
 @dataclass(frozen=True)
+class Feature:
+    """Something code can use and a lesson can teach, with the detectors that find it (content/features.toml)."""
+
+    id: str
+    summary: str
+    detect: tuple[str, ...]
+    words: tuple[str, ...]  # how a prompt names it, for the checks on required constructs
+
+
+@dataclass(frozen=True)
 class Lesson:
     where: str
     path: Path
     meta: Meta
     blocks: tuple[Block, ...]
     fingerprint: str
+
+    @property
+    def teaches(self) -> tuple[str, ...] | None:
+        """The feature ids the lesson declares, None when it declares none."""
+        teaches = self.meta.get("teaches")
+        return tuple(str(f) for f in teaches) if isinstance(teaches, list) else None
 
     @property
     def tasks(self) -> list[Task]:
@@ -172,6 +188,12 @@ class Content:
     lessons: tuple[Lesson, ...]
     bosses: tuple[Boss, ...]
     concepts: dict[str, str]
+    features: dict[str, Feature]
+
+    @property
+    def vocabulary(self) -> dict[str, list[str]]:
+        """Feature id to detectors, as the harness reads it."""
+        return {feature.id: list(feature.detect) for feature in self.features.values()}
 
     @property
     def tasks(self) -> list[Task]:
