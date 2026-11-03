@@ -102,6 +102,14 @@ class ExpectResult(TypedDict):
     values: list[ExpectedValue]
 
 
+class Required(TypedDict):
+    """A construct a task asks for: the feature id, its detectors and what to tell the learner to do."""
+
+    id: str
+    detect: list[str]
+    say: str
+
+
 class FeatureQuery(TypedDict):
     code: str
     own_names: NotRequired[list[str]]
@@ -277,11 +285,27 @@ class _Learner(dict[str, object]):
         raise Failure(f"{name} is not defined in your code")
 
 
-def run_tests(code: str, tests: str, strict: bool = False, cases: Sequence[Case] = ()) -> CheckResult:
+def run_tests(code: str, tests: str, strict: bool = False, cases: Sequence[Case] = (),
+              requires: Sequence[Required] = ()) -> CheckResult:
     """The visible tests, then the hidden cases (even when a visible test failed: a learner whose code passes
-    every hidden case but fails a visible test is how a too strict test shows itself)."""
+    every hidden case but fails a visible test is how a too strict test shows itself). Then, only when all of that
+    passed, the constructs the task requires."""
     with _fresh_dir():
-        return _run_tests(code, tests, strict, cases)
+        out = _run_tests(code, tests, strict, cases)
+    if requires and not out["error"] and all(r["passed"] for r in out["results"]):
+        missing = _missing_construct(code, requires)
+        if missing:
+            out["results"].append(missing)
+    return out
+
+
+def _missing_construct(code: str, requires: Sequence[Required]) -> TestResult | None:
+    """A failing result for the first required construct the code does not use, None when it uses them all."""
+    for need in requires:
+        if need["id"] not in detect_features(code, {need["id"]: need["detect"]}):
+            return {"name": "Uses what the task asks", "passed": False, "hidden": False,
+                    "message": f"Your code works, but this task asks you to {need['say']}."}
+    return None
 
 
 def _test_label(name: str, fn: Callable[[], object]) -> str:
@@ -654,9 +678,11 @@ def run_code_json(code: str, inputs_json: str) -> str:
     return json.dumps(run_code(code, inputs))
 
 
-def run_tests_json(code: str, tests: str, strict: bool = False, cases_json: str = "[]") -> str:
+def run_tests_json(code: str, tests: str, strict: bool = False, cases_json: str = "[]",
+                   requires_json: str = "[]") -> str:
     cases: list[Case] = json.loads(cases_json)
-    return json.dumps(run_tests(code, tests, strict, cases))
+    requires: list[Required] = json.loads(requires_json)
+    return json.dumps(run_tests(code, tests, strict, cases, requires))
 
 
 def _run_job(job: dict[str, object]) -> RunResult | CheckResult | ExpectResult | FeaturesResult:
@@ -669,7 +695,9 @@ def _run_job(job: dict[str, object]) -> RunResult | CheckResult | ExpectResult |
     cases = job.get("cases", [])
     if job["mode"] == "expect":
         return expect_values(code, cases if isinstance(cases, list) else [])
-    return run_tests(code, str(job["tests"]), bool(job.get("strict", False)), cases if isinstance(cases, list) else [])
+    requires = job.get("requires", [])
+    return run_tests(code, str(job["tests"]), bool(job.get("strict", False)), cases if isinstance(cases, list) else [],
+                     cast(list[Required], requires) if isinstance(requires, list) else [])
 
 
 # Pyodide runs this file as __main__ too, but has no stdin job to read.
