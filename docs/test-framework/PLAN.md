@@ -428,9 +428,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - Results cache: `.vet-cache/mutation/<item fingerprint>.json`, skipped when present.
 - Budget: the whole content in under 8 minutes on CI's 4 cores with a warm harness. Measure and record.
 
-- [ ] **Step 1:** Canaries: `weak-tests` (a task whose tests miss `<=`), an equivalent mutant that must not be
+- [x] **Step 1:** Canaries: `weak-tests` (a task whose tests miss `<=`), an equivalent mutant that must not be
   a finding.
-- [ ] **Step 2 to 4:** Fail, implement, pass. `gaps --write`. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. `gaps --write`. Commit.
 
 ### Task 3.3: Equivalent rewrites
 

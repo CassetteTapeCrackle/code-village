@@ -34,6 +34,12 @@ jobs:
         with:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
+      # mutation results per item, valid while the framework source is unchanged; a cold run takes about 7 minutes
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .vet-cache
+          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-${{ github.run_id }}
+          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-
       - run: pnpm lint
       - run: pnpm lint:py
       - run: pnpm typecheck:py
@@ -99,7 +105,15 @@ jobs:
         with:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
+      # mutation results per item, valid while the framework source is unchanged; a cold run takes about 7 minutes
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .vet-cache
+          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-${{ github.run_id }}
+          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py') }}-
       - run: pnpm exec playwright install --with-deps chromium
+      # built before Playwright starts the dev server, whose start timeout a cold content check would pass
+      - run: pnpm content
       - run: pnpm e2e
       # always: the report and traces are the evidence this job exists to collect, success or failure
       - if: always()

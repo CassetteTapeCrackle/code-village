@@ -14,6 +14,10 @@ severity = "wrong-accepted"
 summary = "An item has no [cases] table, so Check tries only the visible tests' inputs."
 severity = "wrong-accepted"
 
+[rule.weak-tests]
+summary = "A broken version of the model solution (a mutant) passes the visible tests and hidden cases."
+severity = "wrong-accepted"
+
 [rule.cases-too-few]
 summary = "Fewer than 20 hidden cases are left after dropping inputs the solution raises on."
 severity = "wrong-accepted"

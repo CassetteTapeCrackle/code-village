@@ -17,6 +17,7 @@ from pathlib import Path
 
 from vet.adapter import LanguageAdapter, case_json
 from vet.cases.expect import CasesProblem, hidden_cases
+from vet.checks import mutation
 from vet.checks.libraries import PYODIDE_LOCK, build_python, environment_problems
 from vet.finding import Finding, GapKey
 from vet.gaps import GAPS_PATH, GapDiff, compare, load_gaps, world_summary
@@ -139,6 +140,14 @@ def report_known(known: list[Finding], to_job_summary: bool) -> None:
             out.write(world_summary(known))
 
 
+def report_mutation(line: str) -> None:
+    print(line)
+    summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary:
+        with Path(summary).open("a") as out:
+            out.write(f"\n{line}\n")
+
+
 def is_real_content(opts: argparse.Namespace) -> bool:
     return Path(opts.content).resolve() == (ROOT / "content").resolve()
 
@@ -174,6 +183,8 @@ def main() -> None:
     else:
         diff = compare(findings, gaps_for(opts))
         report_known(diff.known, to_job_summary=is_real_content(opts))
+        if is_real_content(opts):
+            report_mutation(mutation.summary(content, mutation.CACHE))
         failures = gap_failures(diff)
     if failures:
         print("\n".join(sorted(failures)))

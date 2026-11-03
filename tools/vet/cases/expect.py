@@ -62,12 +62,14 @@ def _case(decl: CasesDecl, case: CaseInput, value: CaseValue) -> HiddenCase | No
     return ProgramCase(case.show, case.stdin, expect, decl.compare, decl.valid)
 
 
-def hidden_cases(item: Item, adapter: LanguageAdapter) -> list[HiddenCase]:
-    """The item's hidden cases; none when it declares none. Raises CasesProblem."""
+def hidden_cases(item: Item, adapter: LanguageAdapter, *, fuzz: int = 0) -> list[HiddenCase]:
+    """The item's hidden cases; none when it declares none. Raises CasesProblem.
+    With fuzz, that many cases from another seed instead: the large set the mutation check compares on."""
     decl = item_decl(item)
     if decl is None or isinstance(decl.shape, NoCases):
         return []
-    inputs = generate_inputs(decl, item.seed, decl.count)
+    inputs = generate_inputs(decl, f"{item.seed}:fuzz", fuzz) if fuzz else generate_inputs(decl, item.seed,
+                                                                                            decl.count)
     values = adapter.expect(item.solution, inputs)
     if values is None:
         raise CasesProblem("solution-fails-cases", f"{item.label} ran out of time, or the harness crashed, while "

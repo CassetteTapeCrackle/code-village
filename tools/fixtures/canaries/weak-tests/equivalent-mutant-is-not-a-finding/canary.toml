@@ -1,0 +1,23 @@
+# `n < 0` changed to `n <= 0` or `n < 1` gives the same answers (both branches give 0 at n = 0), so those
+# mutants survive every test and hidden case but agree with the solution on the fuzz set: no finding.
+base = "good"
+expect = []
+
+[[file]]
+path = "w1/a/basics/tasks/triple/solution.py"
+text = '''
+def triple(n):
+    if n < 0:
+        return 0
+    return n * 3
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_positive():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+
+def test_negative():
+    expect_equal(learner["triple"](-2), 0, "triple(-2)")
+'''

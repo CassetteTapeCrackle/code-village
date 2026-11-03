@@ -1039,3 +1039,438 @@ fingerprint = "d79188e3a83d"
 rule = "cases-missing"
 item = "values-total-price"
 fingerprint = "c8f72de18c4e"
+
+[[gap]]
+rule = "weak-tests"
+item = "class-attributes-cabin"
+fingerprint = "d6534a3c2959"
+
+[[gap]]
+rule = "weak-tests"
+item = "class-attributes-camp"
+fingerprint = "1e2d65448685"
+
+[[gap]]
+rule = "weak-tests"
+item = "class-attributes-canoe-seats"
+fingerprint = "4527c1ac5160"
+
+[[gap]]
+rule = "weak-tests"
+item = "class-attributes-lanterns"
+fingerprint = "a2fdb144ef77"
+
+[[gap]]
+rule = "weak-tests"
+item = "class-attributes-rangers"
+fingerprint = "ea9b92d3e9df"
+
+[[gap]]
+rule = "weak-tests"
+item = "classes-backpack"
+fingerprint = "ae38fdea533a"
+
+[[gap]]
+rule = "weak-tests"
+item = "composition-cook-pantry"
+fingerprint = "60674e64d928"
+
+[[gap]]
+rule = "weak-tests"
+item = "composition-keeper"
+fingerprint = "55269961bd1f"
+
+[[gap]]
+rule = "weak-tests"
+item = "composition-lamp"
+fingerprint = "10ecfb7e982e"
+
+[[gap]]
+rule = "weak-tests"
+item = "composition-radio"
+fingerprint = "9c5f1d8688d4"
+
+[[gap]]
+rule = "weak-tests"
+item = "comprehensions-add-lists"
+fingerprint = "b85562443269"
+
+[[gap]]
+rule = "weak-tests"
+item = "comprehensions-odd-squares"
+fingerprint = "33993c37710a"
+
+[[gap]]
+rule = "weak-tests"
+item = "comprehensions-pair-up"
+fingerprint = "de81e5cfc008"
+
+[[gap]]
+rule = "weak-tests"
+item = "conditions-larger"
+fingerprint = "a2909f08cae4"
+
+[[gap]]
+rule = "weak-tests"
+item = "conditions-letter"
+fingerprint = "06c1bcc6608a"
+
+[[gap]]
+rule = "weak-tests"
+item = "conditions-sign"
+fingerprint = "97afed50d365"
+
+[[gap]]
+rule = "weak-tests"
+item = "conditions-ticket-price"
+fingerprint = "a972935e4e37"
+
+[[gap]]
+rule = "weak-tests"
+item = "conditions-vowel"
+fingerprint = "37abb6ffccd9"
+
+[[gap]]
+rule = "weak-tests"
+item = "conditions-weekend"
+fingerprint = "a959953a2db9"
+
+[[gap]]
+rule = "weak-tests"
+item = "data-summary"
+fingerprint = "5c445ef34649"
+
+[[gap]]
+rule = "weak-tests"
+item = "dunders-feather"
+fingerprint = "efbdd87606f7"
+
+[[gap]]
+rule = "weak-tests"
+item = "dunders-mushroom"
+fingerprint = "4c7e0d11cd2b"
+
+[[gap]]
+rule = "weak-tests"
+item = "errors-safe-divide"
+fingerprint = "bdc5796225cc"
+
+[[gap]]
+rule = "weak-tests"
+item = "errors-set-volume"
+fingerprint = "269d65fa3555"
+
+[[gap]]
+rule = "weak-tests"
+item = "errors-withdraw"
+fingerprint = "8f4ca1b4992f"
+
+[[gap]]
+rule = "weak-tests"
+item = "functions-add-item"
+fingerprint = "8ed8007d011b"
+
+[[gap]]
+rule = "weak-tests"
+item = "functions-log"
+fingerprint = "70718c2a0d1d"
+
+[[gap]]
+rule = "weak-tests"
+item = "generators-average"
+fingerprint = "c36b7947acb8"
+
+[[gap]]
+rule = "weak-tests"
+item = "generators-count-down"
+fingerprint = "c74b48613949"
+
+[[gap]]
+rule = "weak-tests"
+item = "gradebook"
+fingerprint = "ebe8801cb395"
+
+[[gap]]
+rule = "weak-tests"
+item = "guessing-stone"
+fingerprint = "0acf1cf27bf9"
+
+[[gap]]
+rule = "weak-tests"
+item = "identity-maps"
+fingerprint = "e0c7dba53638"
+
+[[gap]]
+rule = "weak-tests"
+item = "identity-trails"
+fingerprint = "c95aa972b1ce"
+
+[[gap]]
+rule = "weak-tests"
+item = "knn-sklearn-height"
+fingerprint = "97c19d41c44b"
+
+[[gap]]
+rule = "weak-tests"
+item = "knn-sklearn-k3"
+fingerprint = "2c87df4bb4bd"
+
+[[gap]]
+rule = "weak-tests"
+item = "knn-sklearn-one-point"
+fingerprint = "627a6c577451"
+
+[[gap]]
+rule = "weak-tests"
+item = "knn-sklearn-predict"
+fingerprint = "d6ac6fbd7d6c"
+
+[[gap]]
+rule = "weak-tests"
+item = "loops-count-evens"
+fingerprint = "e03e2d0b6229"
+
+[[gap]]
+rule = "weak-tests"
+item = "loops-first-even"
+fingerprint = "f5a28971864c"
+
+[[gap]]
+rule = "weak-tests"
+item = "loops-first-over"
+fingerprint = "ed668859e065"
+
+[[gap]]
+rule = "weak-tests"
+item = "loops-sum-to"
+fingerprint = "c8fe3083e600"
+
+[[gap]]
+rule = "weak-tests"
+item = "lost-satchel"
+fingerprint = "91ff482cc828"
+
+[[gap]]
+rule = "weak-tests"
+item = "methods-bucket"
+fingerprint = "b4d067d8a99d"
+
+[[gap]]
+rule = "weak-tests"
+item = "methods-kettle"
+fingerprint = "3e0f9306c817"
+
+[[gap]]
+rule = "weak-tests"
+item = "methods-oven"
+fingerprint = "611305794a0a"
+
+[[gap]]
+rule = "weak-tests"
+item = "methods-torch"
+fingerprint = "f20a9447d346"
+
+[[gap]]
+rule = "weak-tests"
+item = "nearest-neighbour-classify"
+fingerprint = "a1c5a8bfac89"
+
+[[gap]]
+rule = "weak-tests"
+item = "nearest-neighbour-closest"
+fingerprint = "7a829eb5f888"
+
+[[gap]]
+rule = "weak-tests"
+item = "nearest-neighbour-farthest"
+fingerprint = "20d5d944380a"
+
+[[gap]]
+rule = "weak-tests"
+item = "nearest-neighbour-hike"
+fingerprint = "3ec9e6a1b608"
+
+[[gap]]
+rule = "weak-tests"
+item = "nearest-neighbour-one"
+fingerprint = "6a3a716e1a00"
+
+[[gap]]
+rule = "weak-tests"
+item = "nearest-neighbour-similar"
+fingerprint = "96edbeba5509"
+
+[[gap]]
+rule = "weak-tests"
+item = "numpy-arrays-fahrenheit"
+fingerprint = "70996809d12a"
+
+[[gap]]
+rule = "weak-tests"
+item = "pandas-tables-taller"
+fingerprint = "e7b2b3b8d0c5"
+
+[[gap]]
+rule = "weak-tests"
+item = "properties-ranger-age"
+fingerprint = "703365763ab3"
+
+[[gap]]
+rule = "weak-tests"
+item = "properties-wingspan"
+fingerprint = "d02454b6c8ac"
+
+[[gap]]
+rule = "weak-tests"
+item = "ranger-registry"
+fingerprint = "8ddcf3d359df"
+
+[[gap]]
+rule = "weak-tests"
+item = "recursion-countdown-list"
+fingerprint = "cba7c433b75d"
+
+[[gap]]
+rule = "weak-tests"
+item = "recursion-power"
+fingerprint = "cc4febb2d05c"
+
+[[gap]]
+rule = "weak-tests"
+item = "recursion-repeat"
+fingerprint = "a74fbeadc0a0"
+
+[[gap]]
+rule = "weak-tests"
+item = "recursion-sum-to"
+fingerprint = "f2447d54b6b2"
+
+[[gap]]
+rule = "weak-tests"
+item = "search-sort-find-all"
+fingerprint = "8b0daf50e502"
+
+[[gap]]
+rule = "weak-tests"
+item = "search-sort-last"
+fingerprint = "463528fd4be0"
+
+[[gap]]
+rule = "weak-tests"
+item = "search-sort-member"
+fingerprint = "d37d683aea12"
+
+[[gap]]
+rule = "weak-tests"
+item = "search-sort-score"
+fingerprint = "f0de2dac5d26"
+
+[[gap]]
+rule = "weak-tests"
+item = "sortable-acorns"
+fingerprint = "c40dda75adac"
+
+[[gap]]
+rule = "weak-tests"
+item = "sortable-pebbles"
+fingerprint = "13cb9b2a5173"
+
+[[gap]]
+rule = "weak-tests"
+item = "squirrel-storehouse"
+fingerprint = "3b869168b3eb"
+
+[[gap]]
+rule = "weak-tests"
+item = "star-classifier"
+fingerprint = "a3efee858cb3"
+
+[[gap]]
+rule = "weak-tests"
+item = "statistics-median"
+fingerprint = "d5d7b83d8861"
+
+[[gap]]
+rule = "weak-tests"
+item = "statistics-spread"
+fingerprint = "be04969757bd"
+
+[[gap]]
+rule = "weak-tests"
+item = "statistics-trimmed"
+fingerprint = "64a0edbe9839"
+
+[[gap]]
+rule = "weak-tests"
+item = "strings-clean-tag"
+fingerprint = "faa11831faae"
+
+[[gap]]
+rule = "weak-tests"
+item = "strings-file-name"
+fingerprint = "25dd2fa8f526"
+
+[[gap]]
+rule = "weak-tests"
+item = "strings-initials"
+fingerprint = "41878cc18f63"
+
+[[gap]]
+rule = "weak-tests"
+item = "testing-average-test"
+fingerprint = "538f0f71b6f4"
+
+[[gap]]
+rule = "weak-tests"
+item = "testing-clamp-test"
+fingerprint = "e01ea90f04b7"
+
+[[gap]]
+rule = "weak-tests"
+item = "testing-even-test"
+fingerprint = "804f875e473b"
+
+[[gap]]
+rule = "weak-tests"
+item = "testing-first-test"
+fingerprint = "42570b4d5464"
+
+[[gap]]
+rule = "weak-tests"
+item = "testing-shout-test"
+fingerprint = "347129951597"
+
+[[gap]]
+rule = "weak-tests"
+item = "testing-total-test"
+fingerprint = "3623d4efee6c"
+
+[[gap]]
+rule = "weak-tests"
+item = "train-test-accuracy"
+fingerprint = "af8a289238a9"
+
+[[gap]]
+rule = "weak-tests"
+item = "train-test-evaluate"
+fingerprint = "7807072f109d"
+
+[[gap]]
+rule = "weak-tests"
+item = "train-test-honest"
+fingerprint = "26b6873d0ea3"
+
+[[gap]]
+rule = "weak-tests"
+item = "train-test-mistakes"
+fingerprint = "f84ac8f8d6b3"
+
+[[gap]]
+rule = "weak-tests"
+item = "train-test-peek"
+fingerprint = "fc51504a400a"
+
+[[gap]]
+rule = "weak-tests"
+item = "train-test-score-line"
+fingerprint = "e76f6dfb3e40"
