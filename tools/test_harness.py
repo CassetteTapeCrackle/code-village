@@ -447,8 +447,26 @@ class DetectFeatures(unittest.TestCase):
                                              "unknown:node:ClassDef"})
 
     def test_kwarg_detector_names_the_call(self) -> None:
-        self.assertEqual(self.detect("sorted([], key=len)\n"), {"sorted-key", "unknown:call:sorted"})
-        self.assertEqual(self.detect("max([], key=len)\n"), {"unknown:call:max"})
+        self.assertEqual(self.detect("sorted([], key=len)\n"), {"sorted-key", "unknown:call:sorted", "fn-len"})
+        self.assertEqual(self.detect("max([], key=len)\n"), {"unknown:call:max", "fn-len"})
+
+    def test_a_builtin_passed_as_a_value_counts(self) -> None:
+        self.assertEqual(self.detect("xs = [1]\nxs.append(len)\n"), {"append", "fn-len"})
+        self.assertEqual(self.detect("try:\n    pass\nexcept ValueError:\n    pass\n"),
+                         {"unknown:node:Try", "unknown:call:ValueError"})
+
+    def test_a_decorator_the_code_defines_is_not_unknown(self) -> None:
+        code = "def deco(f):\n    return f\n@deco\ndef g():\n    pass\n"
+        self.assertEqual(self.detect(code), {"unknown:node:FunctionDef", "unknown:node:Return"})
+        self.assertEqual(self.detect("@functools.wraps(f)\ndef g():\n    pass\n"),
+                         {"unknown:node:FunctionDef", "unknown:decorator:wraps"})
+
+    def test_a_defined_method_name_hides_only_calls_on_names_and_objects(self) -> None:
+        code = "class S:\n    def pop(self):\n        return self.items.pop()\nS().pop()\n"
+        found = self.detect(code)
+        self.assertIn("unknown:method:pop", found)
+        self.assertEqual(self.detect("class S:\n    def pop(self):\n        pass\nS().pop()\n"),
+                         {"unknown:node:ClassDef", "unknown:node:FunctionDef"})
 
     def test_unknown_feature_reported(self) -> None:
         found = self.detect("print(1)\nx = [i for i in 'ab']\n'ab'.title()\nimport os\n")
@@ -469,6 +487,7 @@ class DetectFeatures(unittest.TestCase):
 
     def test_code_that_does_not_parse_has_no_features(self) -> None:
         self.assertEqual(self.detect("for x in\n"), set())
+        self.assertEqual(self.detect("x = 1\x00\n"), set())
 
     def test_features_job_through_the_cli(self) -> None:
         payload = json.dumps({"mode": "features", "vocabulary": VOCABULARY,

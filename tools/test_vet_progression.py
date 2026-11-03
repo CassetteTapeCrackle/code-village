@@ -97,6 +97,13 @@ class Progression(unittest.TestCase):
             (content / "w1/a/boss/right/with-class.py").write_text(CLASS_CODE)
             self.assertEqual(findings(content), [])
 
+    def test_boss_code_is_judged_too(self) -> None:
+        with content_copy() as content:
+            add_class_feature(content)
+            (content / "w1/a/boss/right/with-class.py").write_text(CLASS_CODE)
+            [found] = findings(content)
+        self.assertEqual((found.rule, found.item), ("untaught-feature", "calc"))
+
     def test_a_method_the_lesson_defines_is_not_a_feature(self) -> None:
         with content_copy() as content:
             add_class_feature(content)

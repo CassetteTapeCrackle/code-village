@@ -303,7 +303,8 @@ def _load_feature(feature_id: str, table: object, seen: dict[str, str], report: 
         report.add("field-invalid", where, "a feature is a table: [feature.<id>]", path)
         return None
     report.require(table, FEATURE_FIELDS, where, "feature", path)
-    detect, words = _strings(table.get("detect")), _strings(table.get("words", []))
+    detect, listed = _strings(table.get("detect")), _strings(table.get("words", []))
+    words = [w.lower() for w in listed] if listed is not None else None
     if not detect or words is None:
         report.add("field-invalid", where, "detect needs a list of detector strings and words a list of strings", path)
         return None

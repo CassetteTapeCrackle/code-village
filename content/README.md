@@ -174,7 +174,9 @@ comes after the last lesson of its region. The rules:
 - `teaches-missing`: a lesson has no `teaches`. Code is judged only up to the first lesson without one, so add
   `teaches` from the first lesson on. `claim` blocks and `tests.py` are never judged: learners do not read them.
 
-A method the lesson's own code defines (`def feed(self)`) is the learner's own and not a feature. A code span in a
+`call:<builtin>` also counts a builtin passed as a value (`key=len`, `except ValueError`). Operators (`//`, `%`, `**`) and
+list, tuple, dict and set displays are not tracked. A method the lesson's own code defines (`def feed(self)`) is the
+learner's own and not a feature, unless it is called through an attribute (`self.items.pop()`). A code span in a
 hint that is only half a statement is not read.
 
 ## Required constructs

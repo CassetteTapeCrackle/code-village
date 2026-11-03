@@ -107,7 +107,8 @@ class _Run:
 
     def _verdicts(self, groups: Sequence[Group], mutants: Sequence[list[Mutant]]) -> list[list[Verdict | None]]:
         suites = [[(item, buildable_cases(item, self.adapter)) for item in group] for group in groups]
-        jobs = [CheckJob(m.code, item.tests, item.strict, cases, item.requires, limit=MUTANT_LIMIT)
+        # no `requires` here: a mutant that loses a required construct must not count as killed by the tests
+        jobs = [CheckJob(m.code, item.tests, item.strict, cases, limit=MUTANT_LIMIT)
                 for ms, suite in zip(mutants, suites, strict=True) for m in ms for item, cases in suite]
         outcomes = iter(self.adapter.check(jobs))
         return [[_first_verdict([next(outcomes) for _ in suite]) for _ in ms]
@@ -123,7 +124,7 @@ class _Run:
             fuzz = dict(zip(map(id, items), built, strict=True))
         unbuilt = {id(i) for i in items if not fuzz[id(i)] and (d := _decl(i)) and not isinstance(d.shape, NoCases)}
         per_survivor = [[(item, fuzz[id(item)]) for item in group if fuzz[id(item)]] for group, _ in survivors]
-        jobs = [CheckJob(m.code, item.tests, item.strict, cases, item.requires)
+        jobs = [CheckJob(m.code, item.tests, item.strict, cases)
                 for (_, m), suite in zip(survivors, per_survivor, strict=True) for item, cases in suite]
         outcomes = iter(self.adapter.check(jobs))
         found: list[tuple[str | None, bool]] = []

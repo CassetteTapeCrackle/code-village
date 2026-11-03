@@ -14,7 +14,7 @@ from vet.adapter import CaseInput, CaseValue, CheckJob, CheckOutcome
 from vet.cache import CACHE_ROOT, cache_for
 from vet.checks.mutation import group_results, summary
 from vet.load import load_content
-from vet.model import Content
+from vet.model import Content, Feature
 from vet.python.adapter import PythonAdapter
 
 
@@ -64,6 +64,15 @@ class Verdicts(unittest.TestCase):
     def test_mutants_killed_only_by_hidden_cases_are_counted(self) -> None:
         good, _ = load_content(FIXTURES / "good")
         self.assertEqual(verdicts(good, "basics-half")["hidden"], 2)
+
+    def test_a_required_construct_does_not_kill_mutants(self) -> None:
+        # a mutant that loses the construct must stay a survivor: the tests, not the construct check, should catch it
+        content = canary_content("tests-miss-a-boundary")
+        before = verdicts(content, "basics-triple")
+        next(t for t in content.tasks if t.id == "basics-triple").meta["requires"] = ["use-abs"]
+        content.features["use-abs"] = Feature("use-abs", "", ("call:abs",), (), "use abs")
+        self.assertEqual(verdicts(content, "basics-triple"), before)
+        self.assertGreater(before["survived"], 0)
 
     def test_boss_mutants_count_every_stage(self) -> None:
         # a mutant of mul survives the add and sub stages, so only the stage that tests mul can kill it

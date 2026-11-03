@@ -42,7 +42,8 @@ VET = ROOT / "tools" / "vet"
 RESULT_SOURCES = (ROOT / "py" / "harness.py", VET / "adapter.py", VET / "cache.py", VET / "load.py",
                   VET / "model.py", VET / "python", VET / "cases", VET / "checks" / "claims.py",
                   VET / "checks" / "libraries.py", VET / "checks" / "mutation.py", VET / "checks" / "rewrites.py",
-                  VET / "checks" / "right.py", VET / "checks" / "versions.py")
+                  VET / "checks" / "right.py", VET / "checks" / "versions.py",
+                  ROOT / "content" / "features.toml")
 
 
 def library_pins() -> str:

@@ -1,0 +1,28 @@
+# A world that sorts before World 1 is opened by calc, a boss of World 1: not an earlier world.
+base = "good"
+expect = ["world-key-invalid"]
+
+[[file]]
+path = "w2/world.toml"
+text = '''
+id = "w2"
+order = 0
+name = "The Forest"
+area = "forest"
+regions = { a = "Classes" }
+
+[building]
+name = "Cabin"
+place = "cabin"
+
+[teacher]
+name = "Ranger Noa"
+portrait = "ranger"
+
+[key]
+boss = "calc"
+trophy = "calc-trophy"
+trophy_name = "Calc Trophy"
+opens = "o"
+gate_hint = "h"
+'''

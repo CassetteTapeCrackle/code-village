@@ -1,6 +1,6 @@
 # Everything code can use that a lesson can teach. A lesson lists the ids it teaches in `teaches` (front matter);
 # code in a lesson, task, hint or boss may use only what that lesson or an earlier one teaches.
-# detect: node:<AstClass>, call:<builtin>, method:<name>, import:<module>, decorator:<name>, kwarg:<call>.<name>
+# detect: node:<AstClass>, call:<builtin> (called, or passed as a value), method:<name>, import:<module>, decorator:<name>, kwarg:<call>.<name>
 # words: how a task prompt names a construct it requires (matched in the prompt, lower case)
 # say: what Check tells the learner to do when a task requires the feature, as the end of
 #   "Your code works, but this task asks you to <say>."
@@ -138,6 +138,18 @@ detect = ["node:Slice"]
 words = ["slice", "slicing"]
 say = "use a slice"
 
+[feature.annotation]
+summary = "variable annotations such as name: str"
+detect = ["node:AnnAssign"]
+words = ["annotation"]
+say = "annotate the variable (name: type)"
+
+[feature.async-await]
+summary = "async def, await, async for and async with"
+detect = ["node:AsyncFunctionDef", "node:Await", "node:AsyncFor", "node:AsyncWith"]
+words = ["async", "await"]
+say = "use async and await"
+
 [feature.delete]
 summary = "del"
 detect = ["node:Delete"]
@@ -243,6 +255,22 @@ detect = ["call:open"]
 summary = "ValueError(...)"
 detect = ["call:ValueError"]
 
+[feature.exception-zero-division]
+summary = "ZeroDivisionError"
+detect = ["call:ZeroDivisionError"]
+
+[feature.exception-index-error]
+summary = "IndexError"
+detect = ["call:IndexError"]
+
+[feature.exception-type-error]
+summary = "TypeError"
+detect = ["call:TypeError"]
+
+[feature.exception-assertion-error]
+summary = "AssertionError"
+detect = ["call:AssertionError"]
+
 [feature.sort-key]
 summary = "a key function for sorted(), sort(), min() and max()"
 detect = ["kwarg:sorted.key", "kwarg:sort.key", "kwarg:min.key", "kwarg:max.key"]
@@ -331,9 +359,13 @@ detect = ["import:json", "method:load", "method:loads", "method:dump", "method:d
 summary = "io.StringIO"
 detect = ["import:io", "method:StringIO"]
 
-[feature.dataclasses-module]
-summary = "dataclasses and @dataclass"
-detect = ["import:dataclasses", "decorator:dataclass"]
+[feature.dataclasses-import]
+summary = "the dataclasses module"
+detect = ["import:dataclasses"]
+
+[feature.dataclass-decorator]
+summary = "@dataclass"
+detect = ["decorator:dataclass"]
 words = ["@dataclass", "dataclass"]
 say = "put @dataclass above the class"
 

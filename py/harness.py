@@ -31,7 +31,8 @@ REL_TOL = ABS_TOL = 1e-9
 TRACKED_NODES = frozenset({
     "For", "While", "Break", "Continue", "If", "IfExp", "Match", "FunctionDef", "Return", "Lambda", "ClassDef",
     "Try", "Raise", "Assert", "With", "Global", "Nonlocal", "Yield", "YieldFrom", "Starred", "ListComp", "SetComp",
-    "DictComp", "GeneratorExp", "JoinedStr", "AugAssign", "Slice", "Delete", "NamedExpr",
+    "DictComp", "GeneratorExp", "JoinedStr", "AugAssign", "Slice", "Delete", "NamedExpr", "AnnAssign",
+    "AsyncFunctionDef", "Await", "AsyncFor", "AsyncWith",
 })
 BUILTIN_NAMES = frozenset(name for name in dir(builtins) if not name.startswith("_"))
 KWARG_PREFIX = "kwarg:"  # a keyword argument names a construct only when the vocabulary lists it
@@ -596,7 +597,9 @@ def expect_values(code: str, inputs: Sequence[CaseInput]) -> ExpectResult:
 
 
 def _owned_names(tree: ast.AST) -> tuple[set[str], set[str]]:
-    """The names the code defines itself: (every name it binds, the functions and classes it defines)."""
+    """The names the code defines itself: (every name it binds, the functions and classes it defines).
+    shortcut: scope is ignored, so a parameter called `type` hides every call to `type` in the code. Upgrade to
+    per-scope names if a lesson ever shadows a builtin on purpose."""
     bound: set[str] = set()
     defined: set[str] = set()
     for node in ast.walk(tree):
@@ -619,45 +622,72 @@ def _decorator_name(expr: ast.expr) -> str:
     return expr.id if isinstance(expr, ast.Name) else ast.unparse(expr)
 
 
-def _call_detectors(node: ast.Call, bound: set[str], defined: set[str]) -> Iterator[str]:
+class _Scope:
+    """What the code and its caller say is the learner's own, so it is no feature."""
+
+    def __init__(self, tree: ast.AST, own_names: Collection[str]) -> None:
+        self.bound, self.defined = _owned_names(tree)
+        self.outside = set(own_names)
+
+    def owns_builtin(self, name: str) -> bool:
+        return name in self.bound or name in self.outside
+
+    def owns_method(self, call_func: ast.Attribute) -> bool:
+        """A method the code defines is its own when called on a name or an object, but a call through an
+        attribute (`self.items.pop()`) may still be the builtin's."""
+        name = call_func.attr
+        return name in self.outside or (name in self.defined and not isinstance(call_func.value, ast.Attribute))
+
+
+def _call_detectors(node: ast.Call, scope: _Scope, decorator: bool) -> Iterator[str]:
     func = node.func
-    if isinstance(func, ast.Name) and func.id in BUILTIN_NAMES and func.id not in bound:
-        yield f"call:{func.id}"
-    elif isinstance(func, ast.Attribute) and func.attr not in defined:
+    if isinstance(func, ast.Attribute) and not decorator and not scope.owns_method(func):
         yield f"method:{func.attr}"
     callee = func.id if isinstance(func, ast.Name) else func.attr if isinstance(func, ast.Attribute) else None
     if callee:
         yield from (f"{KWARG_PREFIX}{callee}.{kw.arg}" for kw in node.keywords if kw.arg)
 
 
+def _node_detectors(node: ast.AST, scope: _Scope, decorators: set[int]) -> Iterator[str]:
+    if type(node).__name__ in TRACKED_NODES:
+        yield f"node:{type(node).__name__}"
+    if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
+        if node.id in BUILTIN_NAMES and not scope.owns_builtin(node.id) and id(node) not in decorators:
+            yield f"call:{node.id}"
+    elif isinstance(node, ast.Call):
+        yield from _call_detectors(node, scope, id(node) in decorators)
+    elif isinstance(node, ast.Import):
+        yield from (f"import:{alias.name}" for alias in node.names)
+    elif isinstance(node, ast.ImportFrom):
+        yield f"import:{'.' * node.level}{node.module or ''}"
+
+
 def _found_detectors(tree: ast.AST, own_names: Collection[str]) -> set[str]:
-    bound, defined = _owned_names(tree)
-    bound |= set(own_names)
-    defined |= set(own_names)
+    scope = _Scope(tree, own_names)
+    definitions = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef)]
+    decorator_nodes = [d for definition in definitions for d in definition.decorator_list]
+    # a decorator's call and its name (`property`, `wraps`) are read as decorators below, not as a call or a builtin
+    decorators = {id(d) for d in decorator_nodes}
+    decorators |= {id(d.func) for d in decorator_nodes if isinstance(d, ast.Call)}
     found: set[str] = set()
     for node in ast.walk(tree):
-        if type(node).__name__ in TRACKED_NODES:
-            found.add(f"node:{type(node).__name__}")
-        if isinstance(node, ast.Call):
-            found.update(_call_detectors(node, bound, defined))
-        elif isinstance(node, ast.Import):
-            found.update(f"import:{alias.name}" for alias in node.names)
-        elif isinstance(node, ast.ImportFrom):
-            found.add(f"import:{'.' * node.level}{node.module or ''}")
-        if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef):
-            found.update(f"decorator:{_decorator_name(d)}" for d in node.decorator_list)
+        found.update(_node_detectors(node, scope, decorators))
+    for d in decorator_nodes:
+        name = _decorator_name(d)
+        if name not in scope.defined and name not in scope.outside:
+            found.add(f"decorator:{name}")
     return found
 
 
 def detect_features(code: str, vocabulary: Mapping[str, Sequence[str]], own_names: Collection[str] = ()) -> set[str]:
     """The feature ids the code uses. `vocabulary` maps a feature id to its detectors (node:<AstClass>,
-    call:<builtin>, method:<name>, import:<module>, decorator:<name>, kwarg:<call>.<name>). A builtin call, method
-    call, import, decorator or tracked node with no feature gives `unknown:<detector>`. A method the code defines
-    (or `own_names` lists, for a snippet whose class lives elsewhere) is the learner's own, not a feature.
-    Code that does not parse uses none."""
+    call:<builtin>, method:<name>, import:<module>, decorator:<name>, kwarg:<call>.<name>). A builtin used (called
+    or passed as a value), method call, import, decorator or tracked node with no feature gives
+    `unknown:<detector>`. A method the code defines (or `own_names` lists, for a snippet whose class lives
+    elsewhere) is the learner's own, not a feature. Code that does not parse uses none."""
     try:
         tree = ast.parse(code)
-    except SyntaxError:
+    except (SyntaxError, ValueError):  # ValueError: null bytes or a lone surrogate
         return set()
     feature_of = {detector: feature for feature, detectors in vocabulary.items() for detector in detectors}
     features: set[str] = set()
