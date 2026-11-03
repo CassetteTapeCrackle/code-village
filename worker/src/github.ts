@@ -1,4 +1,5 @@
-const ISSUES_URL = "https://api.github.com/repos/CassetteTapeCrackle/code-village/issues";
+// Reports go to a private repo: learner code and messages can hold personal text, and code-village is public.
+const ISSUES_URL = "https://api.github.com/repos/CassetteTapeCrackle/code-village-reports/issues";
 
 type Fetch = (url: string, init: RequestInit) => Promise<Response>;
 

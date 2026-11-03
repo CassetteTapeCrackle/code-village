@@ -2,5 +2,5 @@
 TURNSTILE_SECRET=1x0000000000000000000000000000000AA
 # A throwaway salt for hashing IPs. Local use only.
 IP_SALT=dev-salt
-# A fine-grained GitHub token with issues write access on code-village. Empty: reports are stored only.
+# A fine-grained GitHub token with issues write access on code-village-reports (private). Empty: reports are stored only.
 GITHUB_ISSUES_TOKEN=

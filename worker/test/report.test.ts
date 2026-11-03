@@ -210,7 +210,7 @@ test("openGithubIssue posts to the repo issues endpoint and returns the number",
   };
   const issue = await openGithubIssue("tok", "T", "B", ["report"], fakeFetch);
   expect(issue).toBe(42);
-  expect(calls[0].url).toBe("https://api.github.com/repos/CassetteTapeCrackle/code-village/issues");
+  expect(calls[0].url).toBe("https://api.github.com/repos/CassetteTapeCrackle/code-village-reports/issues");
   expect(new Headers(calls[0].init.headers).get("authorization")).toBe("Bearer tok");
   expect(JSON.parse(String(calls[0].init.body))).toEqual({ title: "T", body: "B", labels: ["report"] });
 });
