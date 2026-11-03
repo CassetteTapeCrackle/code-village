@@ -170,14 +170,14 @@ e2e/generated.spec.ts, e2e/generated-bosses.spec.ts
   `lint:py`, `typecheck:py`), `.github/workflows/ci.yml` (new `secrets` job, `lint:py` and `typecheck:py` in
   `check`)
 
-- [ ] **Step 1:** Ruff config for `tools/` and `py/`: select `E,F,W,B,SIM,I,UP,C90,PL,RUF,ANN`, max complexity
+- [x] **Step 1:** Ruff config for `tools/` and `py/`: select `E,F,W,B,SIM,I,UP,C90,PL,RUF,ANN`, max complexity
   10. Solution lint keeps `LINT_RULES` (content folder has no config, so nothing changes there; assert this by
   running `pnpm content` unchanged).
-- [ ] **Step 2:** `secrets` job: checkout with `fetch-depth: 0`, pinned gitleaks binary, `gitleaks git
+- [x] **Step 2:** `secrets` job: checkout with `fetch-depth: 0`, pinned gitleaks binary, `gitleaks git
   --redact --config .gitleaks.toml`. Runs on every pull request and push.
-- [ ] **Step 3:** `pnpm lint:py` and `pnpm typecheck:py` (mypy strict over `tools/vet` and `py/`) pass. Bring
+- [x] **Step 3:** `pnpm lint:py` and `pnpm typecheck:py` (mypy strict over `tools/vet` and `py/`) pass. Bring
   `py/harness.py` up to strict types now; `tools/content_check.py` is shrunk in Task 1.3 instead of typed.
-- [ ] **Step 4:** Coverage: `test:py` runs under `coverage` and fails under 90 percent line coverage for
+- [x] **Step 4:** Coverage: `test:py` runs under `coverage` and fails under 90 percent line coverage for
   `tools/vet`. Dead code: `vulture tools/vet py --min-confidence 80` in `lint:py`.
 - [ ] **Step 5:** Push, confirm the CI run is green, commit any fixes.
 
@@ -208,12 +208,12 @@ e2e/generated.spec.ts, e2e/generated-bosses.spec.ts
     subprocesses (the current `harness()` moved here, `LIMIT = 30` seconds). Unimplemented methods raise
     `NotImplementedError` until their tasks land.
 
-- [ ] **Step 1:** Tests: `test_check_passes_solution`, `test_check_reports_timeout_as_none`,
+- [x] **Step 1:** Tests: `test_check_passes_solution`, `test_check_reports_timeout_as_none`,
   `test_check_runs_jobs_in_parallel` (two 1-second sleeps finish in under 1.8 seconds),
   `test_rules_toml_has_severity_for_every_rule`.
-- [ ] **Step 2:** Run `pnpm test:py`: they fail.
-- [ ] **Step 3:** Implement the files above.
-- [ ] **Step 4:** Run: pass. Commit.
+- [x] **Step 2:** Run `pnpm test:py`: they fail.
+- [x] **Step 3:** Implement the files above.
+- [x] **Step 4:** Run: pass. Commit.
 
 ### Task 1.3: Move today's checks into the engine, behavior unchanged
 

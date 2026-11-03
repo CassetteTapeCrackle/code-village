@@ -20,8 +20,9 @@ src/content/bundle.json.sha256
 !.env.example
 worker/.dev.vars
 
-# Python bytecode
+# Python bytecode and test coverage data
 __pycache__/
+.coverage
 
 # Local-only notes, plans and agent scratch: kept on disk, never in the repo.
 # Project rules, skills and hooks are committed so cloud sessions get them.
