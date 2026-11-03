@@ -1,4 +1,5 @@
 import shutil
+import sys
 import tempfile
 import time
 import tomllib
@@ -7,7 +8,7 @@ from pathlib import Path
 from unittest import mock
 
 from vet import Finding, GapKey
-from vet.adapter import CheckJob, ToolError
+from vet.adapter import LIMIT, CheckJob, ToolError
 from vet.checks import style
 from vet.load import load_content
 from vet.python import adapter as python_adapter
@@ -52,6 +53,14 @@ class Check(unittest.TestCase):
         self.assertEqual(printed, {"stdout": "42\n", "error": None})
         assert raised is not None
         self.assertIn("ZeroDivisionError", raised["error"] or "")
+
+    @unittest.skipUnless(sys.platform == "linux", "only Linux enforces the address space cap")
+    def test_a_job_that_fills_memory_stops_early(self) -> None:
+        start = time.monotonic()
+        [outcome] = PythonAdapter().run(["xs = []\nwhile True:\n    xs.append(bytearray(10**7))\n"])
+        self.assertLess(time.monotonic() - start, LIMIT / 2)
+        assert outcome is not None
+        self.assertIn("MemoryError", outcome["error"] or "")
 
     def test_unbuilt_methods_say_so(self) -> None:
         with self.assertRaises(NotImplementedError):
