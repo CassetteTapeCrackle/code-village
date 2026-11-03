@@ -3,6 +3,15 @@
 Each session reads this first and updates it last. Newest entries at the top of each section.
 
 ## Done
+- Session 4 (2026-11-03, cloud): Task 0 (CI speed) and Tasks 4.1 and 4.2, pushed to `test-framework`, CI green
+  on each push. `pnpm content --quick` for `pnpm dev`, `pnpm build`, the SessionStart hook and the e2e job; each
+  check lists its rules (`tools/vet/run.py`) and canaries run only theirs; a narrower cache key and uncached CI
+  runs on main, manual dispatch and nightly. Rules `version-differs` and `min-unexplained`
+  (`tools/vet/checks/versions.py`, `tools/vet/python/interpreters.py`, `min` on fences and item TOML). `pnpm
+  test` writes every CPython verdict (`tools/vet/jobs.py`) and `pnpm vet:pyodide`
+  (`scripts/vet-pyodide.mjs`) repeats them in Pyodide; CI runs it after `pnpm test`. Today's content: no
+  `version-differs`, and all 695 Pyodide jobs agree on CI. The gap list is unchanged (no new findings). Format in
+  `content/README.md`, "Python 3.12 and newer".
 - Session 3 (2026-11-03, cloud): Tasks 3.1 to 3.4, pushed to `test-framework`. `mutants()` with the plan's 18
   operators (`tools/vet/python/mutate.py`), the mutation check with fuzz equivalence and a results cache
   (`tools/vet/checks/mutation.py`, rule `weak-tests`), `rewrites()` with the plan's 13 transforms
@@ -30,6 +39,39 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 4 review (fresh subagent on the session diff): fixed findings 1 to 4, 6 and 9 with a regression test
+  each where code changed. A block or job that times out on 3.14 leaves its unit uncached, a timeout on 3.12 or
+  3.13 is not a `version-differs`, an unknown `min` is only `field-invalid` (it crashed the run), and the cache
+  key now covers `load.py`, `model.py`, `claims.py` and `libraries.py`. Findings 5, 7 and 8 are under Open.
+- Session 4: canaries run only the checks behind their folder's rule and their `expect` list
+  (`vet(only=...)`); the `good` fixture runs every check. Owner's Task 0 requirement. The cost: a canary whose
+  defect also trips an unrelated rule is no longer seen; false positives on clean content stay covered by the
+  `good` fixture. `test:py` went from 5 min 21 s to about 4 min in the VM before Task 4.1 added its tests.
+- Session 4: `--quick` leaves out `weak-tests`, `right-refused`, `right-fails` and `version-differs`
+  (`SLOW_RULES`), and compares only gap entries of rules that ran. A quick bundle is identical to a full one;
+  `--if-changed` lets a full build's stamp serve a quick run, never the reverse. The quick build takes 54 s in
+  the VM.
+- Session 4: the cache key (`framework_hash`) is the Python version, the `pnpm content` pins and the files in
+  `RESULT_SOURCES` (harness, adapter, cache, load, model, `python/`, `cases/`, and the claims, libraries,
+  mutation, rewrites, right and versions checks). CI's key is just the run id with restore-keys `vet-cache-`:
+  each cached file carries its own hash, so one key cannot drift from the code. A mistake in the list is caught
+  by the uncached runs (push to main, dispatch, nightly at 03:17 UTC). The older Pythons and the jobs file are
+  kept out of the Actions cache.
+- Session 4: the versions check compares example and predict output (stdout and error), claim pass or fail,
+  and the pass or fail of the solution, starter, `wrong/` and `right/` answers on every suite with its hidden
+  cases (3.14's expected values, so the cases are cross-checked too). It is cached per lesson and per solution
+  group (`cache.per_unit`). `min` on a block or item skips the older Pythons below it, and needs "Python 3.13"
+  (for example) in the text right before or after the block, or in an item's prompt.
+- Session 4: the plan's canary for 4.1 is a docstring: Python 3.13 strips its common indentation, so `print(repr(
+  f.__doc__))` differs on 3.12. Verified on 3.12.13, 3.13.14 and 3.14.6.
+- Session 4: the Pyodide parity check is a test (`tools/test_vet_jobs.py`), not a gap-listed rule, since it
+  runs in Node outside the rule engine and a difference must fail the build. Its canary plants a claim that
+  starts a thread (works in CPython, `RuntimeError` in Pyodide, verified). Example and predict jobs compare
+  stdout and error (the plan's `{"output": ...}` plus the error).
+- Session 4: `pnpm vet:pyodide` runs Node with `--stack-size=4000`. The `w2/b/properties` claim that recurses
+  until `RecursionError` aborted Pyodide with Node's default stack; 2000 KB was enough, 4000 leaves room.
+- Session 4: `PythonAdapter.check` remembers outcomes per job like `run`, so writing the jobs file runs nothing
+  twice. `Item` gains `wrong` and `min`; `CodeBlock` gains `min`.
 - Session 3, owner's supervisor: the memory cap broke `pnpm content` on macOS (`setrlimit(RLIMIT_AS)` raises
   `ValueError` there, so every harness job crashed: 550 problems). The cap now lives in
   `tools/vet/python/capped.py`, which runs the harness capped where the platform accepts it and uncapped (the
@@ -155,6 +197,21 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
+- Session 4: CI timing. Cold runs (a framework change): `check` 18 to 22 min, e2e 4 min (was 9). A warm pull
+  request run: see the Session 4 timing entry below. `pnpm test:py` takes about 8 min on GitHub and never
+  uses the Actions cache (each run has a fresh `VET_CACHE`), so it bounds the `check` job.
+- Session 4 review finding 5: `vet-pyodide.mjs` compares hidden expected values as exact repr text, not with
+  the case's comparison (`float`, `array`, `frame`). A last-bit float difference between wasm and native maths
+  would fail. No item declares `[cases]` yet; fix when World 3 items do (shortcut comment in the script).
+- Session 4 review finding 7: spec 15 says the Node job runs from the built bundle; it reads a separate jobs
+  file instead, because the bundle holds no solutions. Mutant and rewrite verdicts are not repeated in Pyodide.
+  A library version difference cannot be recorded, only fixed. The site note "Written for Python 3.12 and
+  newer" is Track B's Task B.2.
+- Session 4: the VM cannot reach the Pyodide wheel CDN (jsdelivr answers 403 through the proxy), so locally
+  `pnpm vet:pyodide` reports the 129 World 3 jobs as "could not load"; CI runs all 695.
+- Session 4: `test_a_job_that_fills_memory_stops_early` took 15.04 s once in the VM against its 15 s bound
+  while other work ran (13.9 s alone). It passes on CI; a slower runner could flake it.
+- Session 4: the older Pythons' patch versions are not in the cache key (shortcut comment in `cache.py`).
 - Session 3: the GitHub access problems of Sessions 1 and 2 are gone: `origin` pushes and CI runs on every
   push.
 - Session 3: CI time. A framework change still means a cold run of the new checks in both jobs (about 7 min each
@@ -208,7 +265,7 @@ Each session reads this first and updates it last. Newest entries at the top of 
   warms the cache, but the framework should not let a cold machine flake a check (Session 4 owns timing).
 
 ## Next
-- Session 4 (cloud): Tasks 4.1 and 4.2 in `PLAN.md`. CI was green on 160ed08; read the run on the last Session 3
-  push (this PROGRESS update) first and fix anything red. The mutation, rewrite and `right/` checks run through `PythonAdapter`, so the interpreters of Task 4.1
-  plug in there.
+- Session 5 (cloud): Tasks 5.1 to 5.4 in `PLAN.md`. Read CI on the last Session 4 push first. A new rule's
+  check goes in `CHECKS` with its rules (`tools/vet/run.py`); a check that reruns code many times belongs in
+  `SLOW_RULES`, and code that shapes a cached result belongs in `RESULT_SOURCES`.
 - Track B Task B.3 can merge `test-framework` into `report-button`.
