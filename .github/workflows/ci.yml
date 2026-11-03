@@ -34,12 +34,12 @@ jobs:
         with:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
-      # mutation results per item, valid while the framework source is unchanged; a cold run takes about 7 minutes
+      # mutation results per item, valid while the framework and the pins are unchanged; a cold run is slow
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .vet-cache
-          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-${{ github.run_id }}
-          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-
+          key: vet-cache-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-${{ github.run_id }}-${{ github.job }}
+          restore-keys: vet-cache-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-
       - run: pnpm lint
       - run: pnpm lint:py
       - run: pnpm typecheck:py
@@ -105,12 +105,12 @@ jobs:
         with:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
-      # mutation results per item, valid while the framework source is unchanged; a cold run takes about 7 minutes
+      # mutation results per item, valid while the framework and the pins are unchanged; a cold run is slow
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .vet-cache
-          key: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-${{ github.run_id }}
-          restore-keys: vet-cache-${{ github.job }}-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-
+          key: vet-cache-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-${{ github.run_id }}-${{ github.job }}
+          restore-keys: vet-cache-${{ hashFiles('tools/vet/**/*.py', 'py/harness.py', 'package.json') }}-
       - run: pnpm exec playwright install --with-deps chromium
       # built before Playwright starts the dev server, whose start timeout a cold content check would pass
       - run: pnpm content

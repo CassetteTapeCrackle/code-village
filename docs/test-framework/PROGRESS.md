@@ -41,23 +41,31 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `rename-locals`, `rename-params` and `extract-helper` skip functions that bind names through `except ... as`,
   `match`, a local import or an inner function or class; `extract-helper` skips a recursive return;
   `fstring-to-concat` writes `format(x, "")`, since an f-string uses `__format__`. Mutation results that met a
-  timeout or a fuzz set that could not be built are never cached, and a fuzz set that cannot be built is said in
-  the finding. The cache key (file and CI) includes `package.json` and the Python version. The memory cap never
+  fuzz timeout or a fuzz set that could not be built are never cached, and a fuzz set that cannot be built is
+  said in the finding. (The review also asked not to cache a mutant that times out on its tests; that cost
+  every CI run 8 min, so such a mutant now counts as killed and is cached: see the budget entry.) The cache key (file and CI) includes `package.json` and the Python version. The memory cap never
   raises a lower existing limit. `add-debug-print` is skipped for program declarations too.
   `test-inspects-code` also catches `Path("x.py").read_text()`.
 - Session 3: the `right-refused` canary calls `double(n=2)` by keyword while the prompt never names the
   parameter, instead of the plan's `str(result)` spacing example. No rewrite in the list changes a result's
   text, so a spacing canary could not fail; the keyword case is the real way a test refuses a right answer
   (spec 11, parameter names count only when the prompt names them).
-- Session 3: mutation budget (plan: whole content under 8 minutes on 4 cores). Measured in the VM (4 cores): a
-  cold `pnpm content` takes 6 min 27 s to 7 min 20 s with mutants, rewrites and right answers, warm about 30 s.
-  CI caches `.vet-cache/` per job, keyed by the framework source, `py/harness.py` and `package.json`, with the
-  run id so each run saves its new results. The e2e job runs `pnpm content` as its own step before Playwright,
-  because a cold check passes the dev server's 300 s start timeout.
-- Session 3: the cache serves the real content (`.vet-cache/mutation/`) and, through `VET_CACHE`, the Python
-  tests, which share one temporary cache per run so each canary recomputes only the item it changes
-  (without it `pnpm test:py` took 8 min, with it about 6). Fixture runs without `VET_CACHE` always
-  compute everything.
+- Session 3: mutation budget (plan: whole content under 8 minutes on CI's 4 cores). Not met on CI. The first
+  green CI run of the finished checks (d1feee4) took 22 min for a cold `pnpm content`, 24 min for `pnpm test:py`
+  and 57 min for the `check` job; the GitHub runner is about 3.5 times slower than this VM. The e2e job failed
+  there, because `pnpm build` (the preview server) reran the whole check past its 240 s start limit. Fixed after
+  it: a mutant that runs out of time counts as killed and is cached (uncached, the 65 endless ones cost every
+  run 8 min), mutant jobs stop after 10 s instead of 30 s, the rewrite and `right/` results are cached per item
+  like mutation (`tools/vet/cache.py`), `pnpm build` uses `--if-changed` like `pnpm dev`, and the CI cache is
+  shared by both jobs. In the VM now: cold `pnpm content` 5 min 16 s, warm 26 s (33 s before Session 3),
+  `pnpm test:py` 5 min 21 s (2 min 11 s before). Read the next CI run for the GitHub figures.
+- Session 3: CI caches `.vet-cache/`, keyed by the framework source, `py/harness.py` and `package.json`, plus
+  the run id and job so each run saves its new results and both jobs restore the latest. The e2e job runs
+  `pnpm content` as its own step before Playwright, because a cold check passes the dev server's start timeout.
+- Session 3: the cache (`tools/vet/cache.py`, `.vet-cache/<check>/<fingerprint>.json`) serves the real content
+  and, through `VET_CACHE`, the Python tests, which share one temporary cache per run so each canary recomputes
+  only the item it changes. Fixture runs without `VET_CACHE` always compute everything. A value is stored only
+  when settled: a fuzz run or a rewrite or `right/` run that met a timeout is computed again next time.
 - Session 3: each harness process gets at most 2 GiB of address space. Two `generators` mutants grew a list to
   7 GB and 5 GB in their 30 s, and the first Session 3 CI run lost both runners to it. Real jobs peak at 160 MB.
 - Session 3: mutants are spliced into the original text (comments and layout kept, for "Spot the bug"); rewrites
@@ -146,9 +154,14 @@ Each session reads this first and updates it last. Newest entries at the top of 
 ## Open
 - Session 3: the GitHub access problems of Sessions 1 and 2 are gone: `origin` pushes and CI runs on every
   push.
-- Session 3: mutation runs with a timeout are not cached, so a timeout repeats on every run; the build summary
-  counts cached results only (2862 of 2927 mutants today). A fuzz timeout still reports `weak-tests`, which
-  could flicker on a slow runner; no item has `[cases]` yet, so it cannot happen today. Session 4 owns timing.
+- Session 3: CI time. A framework change still means a cold run of the new checks in both jobs (about 5 min in
+  the VM, likely 15 min or more on GitHub), and `pnpm test:py` is about 2.5 times slower than before Session 3
+  (more canaries, a bigger `good` fixture, the `wrong/` and solution checks are not cached). That works against
+  the 2000 Actions minutes a month. Options for Session 4 (timing): cache the remaining runtime checks the same
+  way, or run the canaries' runtime checks in fewer harness processes.
+- Session 3: a mutant that runs past 10 s counts as killed. A correct but slow mutant on a loaded runner would
+  hide a survivor; today's slowest real job takes about 2 s in the VM. A fuzz timeout still reports
+  `weak-tests`, which could flicker on a slow runner; no item has `[cases]` yet, so it cannot happen today.
 - Session 3: `test-inspects-code` allows `open(name)` with a variable (shortcut comment in
   `tools/vet/checks/test_shape.py`).
 - Session 3: some of today's 290 `weak-tests` survivors look equivalent, not weak: `random_state=1` changed to 2

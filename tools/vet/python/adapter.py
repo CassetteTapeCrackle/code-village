@@ -51,7 +51,8 @@ class PythonAdapter:
     def check(self, jobs: Sequence[CheckJob]) -> list[CheckOutcome | None]:
         harness_jobs: list[Job] = [{"mode": "check", "code": job.code, "tests": job.tests, "strict": job.strict,
                                     "cases": [case_json(case) for case in job.cases]} for job in jobs]
-        return [cast(CheckOutcome | None, outcome) for outcome in self._harness_all(harness_jobs)]
+        outcomes = self._harness_all(harness_jobs, [job.limit for job in jobs])
+        return [cast(CheckOutcome | None, outcome) for outcome in outcomes]
 
     def expect(self, code: str, cases: Sequence[CaseInput]) -> list[CaseValue] | None:
         key = (code, tuple(cases))
@@ -69,15 +70,15 @@ class PythonAdapter:
     def features(self, code: str) -> frozenset[str]:
         raise NotImplementedError("feature detection arrives in Task 5.1")
 
-    def _harness_all(self, jobs: Sequence[Job]) -> list[dict[str, object] | None]:
+    def _harness_all(self, jobs: Sequence[Job], limits: Sequence[float] = ()) -> list[dict[str, object] | None]:
         # the jobs are subprocesses, so threads run them side by side
         with ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as pool:
-            return list(pool.map(self._harness, jobs))
+            return list(pool.map(self._harness, jobs, limits or [LIMIT] * len(jobs)))
 
-    def _harness(self, job: Job) -> dict[str, object] | None:
+    def _harness(self, job: Job, limit: float) -> dict[str, object] | None:
         try:
             done = subprocess.run([self.python, "-I", str(CAPPED), str(HARNESS)], input=json.dumps(job),
-                                  capture_output=True, text=True, timeout=LIMIT, env={**os.environ, **ONE_THREAD},
+                                  capture_output=True, text=True, timeout=limit, env={**os.environ, **ONE_THREAD},
                                   check=False)
         except subprocess.TimeoutExpired:
             return None

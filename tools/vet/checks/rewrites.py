@@ -4,9 +4,11 @@ A failure means a test looks at how the code is written, not at what it does (sp
 """
 
 import re
-from collections.abc import Iterable, Sequence
+from collections.abc import Callable, Iterable, Sequence
+from typing import cast
 
 from ..adapter import CheckJob, CheckOutcome, LanguageAdapter, Rewrite, passes
+from ..cache import Computed, Group, cache_for, per_group
 from ..cases.expect import CasesProblem, buildable_cases, item_decl
 from ..cases.spec import ProgramShape
 from ..finding import Finding, subject
@@ -47,22 +49,54 @@ def first_failure(outcomes: Sequence[CheckOutcome | None]) -> str | None:
     return None
 
 
+def refusals(groups: Sequence[Group], outcomes: Sequence[CheckOutcome | None],
+             answers: Sequence[Sequence[str]]) -> list[Computed]:
+    """Per group: whether the solution passes, and each answer's failure, from the outcomes of the solution then
+    of each answer on every suite. Settled when nothing ran out of time."""
+    found: list[Computed] = []
+    each = iter(outcomes)
+    for group, names in zip(groups, answers, strict=True):
+        size = len(group)
+        solution = [next(each) for _ in range(size)]
+        ran = [(name, [next(each) for _ in range(size)]) for name in names]
+        failures = [[name, failure] for name, out in ran if (failure := first_failure(out))]
+        settled = all(o is not None for o in solution) and all(o is not None for _, out in ran for o in out)
+        found.append(({"passes": all(passes(o) for o in solution), "refused": failures}, settled))
+    return found
+
+
+def answer_jobs(groups: Sequence[Group], codes: Sequence[Sequence[str]],
+                adapter: LanguageAdapter) -> list[CheckJob]:
+    """The solution, then each answer, on every suite of its group (visible tests and hidden cases)."""
+    suites = [[(item, buildable_cases(item, adapter)) for item in group] for group in groups]
+    return [CheckJob(code, item.tests, item.strict, cases) for group, suite, answers in zip(groups, suites, codes,
+                                                                                            strict=True)
+            for code in [group[0].solution, *answers] for item, cases in suite]
+
+
+def refused(content: Content, kind: str, groups: Sequence[Group], answers: Callable[[Group], list[tuple[str, str]]],
+            adapter: LanguageAdapter) -> list[list[list[str]]]:
+    """Per group, the (name, failure) of every answer the tests refuse, cached; none while the solution fails
+    (solution-fails reports it, and the tests may be what is wrong)."""
+    def compute(todo: list[Group]) -> list[Computed]:
+        named = [answers(group) for group in todo]
+        jobs = answer_jobs(todo, [[code for _, code in found] for found in named], adapter)
+        return refusals(todo, adapter.check(jobs), [[name for name, _ in found] for found in named])
+
+    values = per_group(groups, cache_for(content, kind), compute)
+    return [cast(list[list[str]], v["refused"]) if v["passes"] else []
+            for v in (cast(dict[str, object], value) for value in values)]
+
+
 def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
     groups = content.solution_groups()
-    suites = [[(item, buildable_cases(item, adapter)) for item in group] for group in groups]
-    candidates = [[r for r in adapter.rewrites(group[0].solution) if kept(r, group)] for group in groups]
-    jobs = [CheckJob(code, item.tests, item.strict, cases)
-            for group, suite, rewrites in zip(groups, suites, candidates, strict=True)
-            for code in [group[0].solution, *(r.code for r in rewrites)] for item, cases in suite]
-    outcomes = iter(adapter.check(jobs))
-    for group, suite, rewrites in zip(groups, suites, candidates, strict=True):
-        solution = [next(outcomes) for _ in suite]
-        refused = [(r, first_failure([next(outcomes) for _ in suite])) for r in rewrites]
-        if not all(passes(o) for o in solution):  # solution-fails reports it; every rewrite would fail too
-            continue
+
+    def answers(group: Group) -> list[tuple[str, str]]:
+        return [(r.id, r.code) for r in adapter.rewrites(group[0].solution) if kept(r, group)]
+
+    for group, failures in zip(groups, refused(content, "rewrites", groups, answers, adapter), strict=True):
         first = group[0]
         about = subject(first.id, first.fingerprint, first.folder / "solution.py", content.root)
-        for rewrite, failure in refused:
-            if failure:
-                yield about.finding("right-refused", f"the solution rewritten by {rewrite.id} behaves the same but is "
-                                                     f"refused ({failure}): a test checks how the code is written")
+        for rewrite_id, failure in failures:
+            yield about.finding("right-refused", f"the solution rewritten by {rewrite_id} behaves the same but is "
+                                                 f"refused ({failure}): a test checks how the code is written")

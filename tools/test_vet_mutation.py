@@ -11,7 +11,8 @@ from pathlib import Path
 
 from test_canaries import CANARIES, FIXTURES, materialize
 from vet.adapter import CaseInput, CaseValue, CheckJob, CheckOutcome
-from vet.checks.mutation import CACHE, cache_for, group_results, summary
+from vet.cache import CACHE_ROOT, cache_for
+from vet.checks.mutation import group_results, summary
 from vet.load import load_content
 from vet.model import Content
 from vet.python.adapter import PythonAdapter
@@ -79,12 +80,12 @@ class Cache(unittest.TestCase):
         self.assertEqual([rs for _, rs in first], [rs for _, rs in again])
         self.assertIn("mutants: 65, killed by visible tests 62, only by hidden cases 3", summary(good, cache))
 
-    def test_results_with_a_timeout_are_not_cached(self) -> None:
+    def test_a_mutant_that_runs_out_of_time_is_killed_and_cached(self) -> None:
         good, _ = load_content(FIXTURES / "good")
         cache = Path(tempfile.mkdtemp())
         results = group_results(good, TimesOut(), cache)
         self.assertTrue(all(r.verdict == "visible" for _, rs in results for r in rs))
-        self.assertEqual(list(cache.glob("*.json")), [])
+        self.assertEqual(len(list(cache.glob("*.json"))), len(results))
 
     def test_a_fuzz_set_that_cannot_be_built_is_said_and_not_cached(self) -> None:
         content = canary_content("fuzz-finds-a-difference")
@@ -108,13 +109,13 @@ class Cache(unittest.TestCase):
         self.assertEqual(summary(good, Path(tempfile.mkdtemp())).split(",")[0], "mutants: 0")
 
     def test_cache_folder_for_real_content_and_for_tests(self) -> None:
-        real, _ = load_content(CACHE.parents[1] / "content")
+        real, _ = load_content(CACHE_ROOT.parent / "content")
         good, _ = load_content(FIXTURES / "good")
-        self.assertEqual(cache_for(real), CACHE)
+        self.assertEqual(cache_for(real, "mutation"), CACHE_ROOT / "mutation")
         with unittest.mock.patch.dict(os.environ, {"VET_CACHE": "/tmp/shared"}):
-            self.assertEqual(cache_for(good), Path("/tmp/shared/mutation"))
+            self.assertEqual(cache_for(good, "rewrites"), Path("/tmp/shared/rewrites"))
         with unittest.mock.patch.dict(os.environ, clear=True):
-            self.assertIsNone(cache_for(good))
+            self.assertIsNone(cache_for(good, "mutation"))
 
 
 if __name__ == "__main__":

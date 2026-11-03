@@ -16,6 +16,7 @@ from collections import Counter
 from pathlib import Path
 
 from vet.adapter import LanguageAdapter, case_json
+from vet.cache import CACHE_ROOT
 from vet.cases.expect import CasesProblem, hidden_cases
 from vet.checks import mutation
 from vet.checks.libraries import PYODIDE_LOCK, build_python, environment_problems
@@ -184,7 +185,7 @@ def main() -> None:
         diff = compare(findings, gaps_for(opts))
         report_known(diff.known, to_job_summary=is_real_content(opts))
         if is_real_content(opts):
-            report_mutation(mutation.summary(content, mutation.CACHE))
+            report_mutation(mutation.summary(content, CACHE_ROOT / mutation.KIND))
         failures = gap_failures(diff)
     if failures:
         print("\n".join(sorted(failures)))

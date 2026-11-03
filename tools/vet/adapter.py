@@ -111,6 +111,7 @@ class CheckJob:
     strict: bool = False
     cases: tuple[HiddenCase, ...] = ()
     requires: tuple[Required, ...] = ()
+    limit: float = LIMIT  # seconds before the job counts as running out of time
 
 
 class TestResultDict(TypedDict):
