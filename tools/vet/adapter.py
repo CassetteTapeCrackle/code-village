@@ -6,7 +6,7 @@ features it uses. Rules call it by file extension and never touch the language d
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Literal, NotRequired, Protocol, TypedDict
+from typing import Literal, Protocol, TypedDict
 
 # seconds a run may take: a guard against runaway loops, not a speed budget (World 3 runs take ~2 s alone but
 # 10+ s on a loaded machine)
@@ -105,7 +105,7 @@ class TestResultDict(TypedDict):
     name: str
     passed: bool
     message: str
-    hidden: NotRequired[bool]  # the harness adds it with hidden cases (Task 2.2)
+    hidden: bool
 
 
 class CheckOutcome(TypedDict):

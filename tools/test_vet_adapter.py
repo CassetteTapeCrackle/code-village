@@ -21,7 +21,8 @@ TESTS = 'def test_double():\n    expect_equal(learner["double"](2), 4, "double(2
 class Check(unittest.TestCase):
     def test_check_passes_solution(self) -> None:
         [outcome] = PythonAdapter().check([CheckJob(code="def double(n):\n    return n * 2\n", tests=TESTS)])
-        self.assertEqual(outcome, {"error": None, "results": [{"name": "double", "passed": True, "message": ""}]})
+        passed = {"name": "double", "passed": True, "message": "", "hidden": False}
+        self.assertEqual(outcome, {"error": None, "results": [passed]})
 
     def test_check_reports_a_failing_test(self) -> None:
         [outcome] = PythonAdapter().check([CheckJob(code="def double(n):\n    return n\n", tests=TESTS)])

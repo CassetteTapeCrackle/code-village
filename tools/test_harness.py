@@ -135,9 +135,6 @@ class Cli(unittest.TestCase):
         self.assertEqual(json.loads(done.stdout), {"stdout": "42\n", "error": None})
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 
 class Libraries(unittest.TestCase):
     def test_finds_big_library_imports_only(self) -> None:
@@ -162,3 +159,183 @@ class Files(unittest.TestCase):
         self.assertEqual(second["stdout"], "[]\n")
         self.assertEqual(Path.cwd(), home)
         self.assertFalse((home / "notes.txt").exists())
+
+
+LARGER = "def larger(a, b):\n    return a if a > b else b\n"
+LARGER_TESTS = 'def test_larger():\n    expect_equal(learner["larger"](1, 2), 2, "larger(1, 2)")\n'
+
+
+def expr_case(expr: str, expect: str, compare: str = "exact", raises: str | None = None,
+              setup: str = "") -> harness.Case:
+    return {"kind": "expr", "show": expr, "setup": setup, "expr": expr, "expect": expect, "raises": raises,
+            "compare": compare}
+
+
+def hidden(out: harness.CheckResult) -> list[harness.TestResult]:
+    return [r for r in out["results"] if r["hidden"]]
+
+
+class HiddenCases(unittest.TestCase):
+    def test_hidden_case_message_shape(self) -> None:
+        code = "def larger(a, b):\n    return b if b < 5 else a\n"  # passes the visible test, fails (3, 7)
+        out = harness.run_tests(code, LARGER_TESTS, cases=[expr_case("larger(3, 7)", "7")])
+        self.assertEqual([r["passed"] for r in out["results"]], [True, False])
+        [result] = hidden(out)
+        self.assertEqual(result["message"], "We also tried larger(3, 7): expected 7, your code returned 3.")
+
+    def test_all_cases_pass_gives_one_summary(self) -> None:
+        cases = [expr_case(f"larger({a}, {b})", str(max(a, b))) for a in range(5) for b in range(5)]
+        out = harness.run_tests(LARGER, LARGER_TESTS, cases=cases)
+        self.assertEqual(hidden(out), [{"name": "25 more inputs", "passed": True, "message": "", "hidden": True}])
+        self.assertFalse(out["results"][0]["hidden"])
+
+    def test_stops_at_the_first_failing_case(self) -> None:
+        cases = [expr_case("larger(1, 2)", "2"), expr_case("larger(5, 4)", "5"), expr_case("larger(9, 8)", "9")]
+        out = harness.run_tests("def larger(a, b):\n    return b\n", LARGER_TESTS, cases=cases)
+        [result] = hidden(out)
+        self.assertIn("larger(5, 4)", result["message"])
+
+    def test_hidden_cases_run_after_a_failed_visible_test(self) -> None:
+        code = "def larger(a, b):\n    return a\n"
+        out = harness.run_tests(code, LARGER_TESTS, cases=[expr_case("larger(2, 1)", "2")])
+        self.assertEqual([r["passed"] for r in out["results"]], [False, True])
+
+    def test_hidden_raise_message(self) -> None:
+        out = harness.run_tests("def larger(a, b):\n    return a / 0\n", "", cases=[expr_case("larger(3, 7)", "7")])
+        [result] = hidden(out)
+        self.assertEqual(result["message"],
+                         "We also tried larger(3, 7): expected 7, your code raised ZeroDivisionError: "
+                         "division by zero.")
+
+    def test_expected_raise_passes_on_the_same_type(self) -> None:
+        code = "def root(n):\n    if n < 0:\n        raise ValueError('negative')\n    return n ** 0.5\n"
+        case = expr_case("root(-1)", "None", raises="ValueError")
+        self.assertTrue(hidden(harness.run_tests(code, "", cases=[case]))[0]["passed"])
+        out = harness.run_tests("def root(n):\n    return 0\n", "", cases=[case])
+        self.assertEqual(hidden(out)[0]["message"],
+                         "We also tried root(-1): expected ValueError, your code returned 0.")
+
+    def test_long_values_are_cut(self) -> None:
+        out = harness.run_tests("def f():\n    return 'x' * 200\n", "", cases=[expr_case("f()", "''")])
+        message = hidden(out)[0]["message"]
+        self.assertIn("returned '" + "x" * 76 + "....", message)
+
+    def test_hidden_case_ignores_learner_prints(self) -> None:
+        code = "print('loading')\ndef larger(a, b):\n    print('comparing', a, b)\n    return max(a, b)\n"
+        out = harness.run_tests(code, LARGER_TESTS, cases=[expr_case("larger(3, 7)", "7")])
+        self.assertTrue(hidden(out)[0]["passed"])
+
+    def test_each_hidden_case_gets_fresh_arguments(self) -> None:
+        code = "seen = []\ndef add(items, x):\n    seen.append(x)\n    items.append(x)\n" \
+               "    return len(items) + len(seen)\n"
+        cases = [expr_case("add([1], 5)", "3"), expr_case("add([1], 5)", "3")]
+        self.assertTrue(hidden(harness.run_tests(code, "", cases=cases))[0]["passed"])
+
+    def test_missing_function_reported_once(self) -> None:
+        cases = [expr_case(f"larger({n}, 0)", str(n)) for n in range(100)]
+        out = harness.run_tests("def largr(a, b):\n    return a\n", LARGER_TESTS, cases=cases)
+        [result] = hidden(out)
+        self.assertEqual(result["message"],
+                         "We also tried larger(0, 0): expected 0, your code raised NameError: name 'larger' is not "
+                         "defined.")
+
+    def test_exact_compare_is_type_aware(self) -> None:
+        out = harness.run_tests("def f():\n    return True\n", "", cases=[expr_case("f()", "1")])
+        self.assertFalse(hidden(out)[0]["passed"])
+        out = harness.run_tests("def f():\n    return [2.0]\n", "", cases=[expr_case("f()", "[2]")])
+        self.assertFalse(hidden(out)[0]["passed"])
+
+    def test_float_compare_tolerates_rounding(self) -> None:
+        out = harness.run_tests("def f():\n    return 0.1 + 0.2\n", "", cases=[expr_case("f()", "0.3", "float")])
+        self.assertTrue(hidden(out)[0]["passed"])
+        out = harness.run_tests("def f():\n    return [0.1 + 0.2, 1]\n", "",
+                                cases=[expr_case("f()", "[0.31, 1]", "float")])
+        self.assertIn("returned [0.30000000000000004, 1]", hidden(out)[0]["message"])
+
+    def test_unordered_compare(self) -> None:
+        out = harness.run_tests("def f():\n    return [3, 1, [2]]\n", "",
+                                cases=[expr_case("f()", "[1, [2], 3]", "unordered")])
+        self.assertTrue(hidden(out)[0]["passed"])
+        case = expr_case("f()", "[1, 3, 3]", "unordered")
+        out = harness.run_tests("def f():\n    return [1, 1, 3]\n", "", cases=[case])
+        self.assertFalse(hidden(out)[0]["passed"])
+
+    def test_text_compare_forgives_unless_strict(self) -> None:
+        case = expr_case("f()", "'Hello, Sam!'", "text")
+        code = "def f():\n    return 'hello sam'\n"
+        self.assertTrue(hidden(harness.run_tests(code, "", cases=[case]))[0]["passed"])
+        out = harness.run_tests(code, "", strict=True, cases=[case])
+        self.assertFalse(hidden(out)[0]["passed"])
+
+    def test_valid_function_compare(self) -> None:
+        tests = "def is_factor(inputs, answer):\n    (n,) = inputs\n    return 1 < answer < n and n % answer == 0\n"
+        case: harness.Case = {**expr_case("factor(12)", "(12,)", "valid"), "valid": "is_factor"}
+        self.assertTrue(hidden(harness.run_tests("def factor(n):\n    return 3\n", tests, cases=[case]))[0]["passed"])
+        out = harness.run_tests("def factor(n):\n    return 5\n", tests, cases=[case])
+        self.assertEqual(hidden(out)[0]["message"],
+                         "We also tried factor(12): expected an answer is_factor accepts, your code returned 5.")
+
+    def test_array_and_frame_compare(self) -> None:
+        setup = "import numpy as np\nimport pandas as pd"
+        array = expr_case("f()", "__import__('numpy').array([0.5, 1.0])", "array", setup=setup)
+        code = "import numpy as np\ndef f():\n    return np.array([1, 2]) / 2\n"
+        self.assertTrue(hidden(harness.run_tests(code, "", cases=[array]))[0]["passed"])
+        frame = expr_case("f()", "__import__('pandas').DataFrame({'a': [1, 2]})", "frame", setup=setup)
+        code = "import pandas as pd\ndef f():\n    return pd.DataFrame({'a': [0, 1, 2]}).iloc[1:]\n"
+        self.assertTrue(hidden(harness.run_tests(code, "", cases=[frame]))[0]["passed"])
+
+    def test_setup_and_objects(self) -> None:
+        code = "class Box:\n    def __init__(self):\n        self.items = []\n    def put(self, x):\n" \
+               "        self.items.append(x)\n"
+        case = expr_case("[obj.put(1), obj.put(2), obj.items]", "[None, None, [1, 2]]", setup="obj = Box()")
+        self.assertTrue(hidden(harness.run_tests(code, "", cases=[case]))[0]["passed"])
+
+    def test_program_case_compares_output(self) -> None:
+        code = "age = int(input('Age? '))\nprint('Adult' if age >= 18 else 'Child')\n"
+        tests = 'PROGRAM = True\ndef test_adult():\n    expect_equal(run_program(["30"]), "Adult\\n")\n'
+        case: harness.Case = {"kind": "program", "show": "typing 18", "stdin": ["18"], "expect": "'Adult\\n'",
+                              "compare": "text"}
+        self.assertTrue(hidden(harness.run_tests(code, tests, cases=[case]))[0]["passed"])
+        out = harness.run_tests(code.replace(">=", ">"), tests, cases=[case])
+        self.assertEqual(hidden(out)[0]["message"], "We also tried typing 18: expected 'Adult\\n', your code "
+                                                    "returned 'Child\\n'.")
+
+    def test_program_case_with_too_few_lines(self) -> None:
+        case: harness.Case = {"kind": "program", "show": "typing 1", "stdin": ["1"], "expect": "'2\\n'",
+                              "compare": "text"}
+        out = harness.run_tests("a = input()\nb = input()\nprint(a, b)\n", "PROGRAM = True\n", cases=[case])
+        self.assertEqual(hidden(out)[0]["message"], "We also tried typing 1: expected '2\\n', but input() was "
+                                                    "called more times than this test gives answers.")
+
+
+class ExpectMode(unittest.TestCase):
+    def test_expect_mode_returns_reprs(self) -> None:
+        code = "def root(n):\n    if n < 0:\n        raise ValueError('negative')\n    return n ** 0.5\n"
+        inputs: list[harness.CaseInput] = [{"show": "root(4)", "setup": "", "expr": "root(4)"},
+                                           {"show": "root(-1)", "setup": "", "expr": "root(-1)"}]
+        self.assertEqual(harness.expect_values(code, inputs),
+                         {"values": [{"repr": "2.0", "raises": None}, {"repr": "None", "raises": "ValueError"}]})
+
+    def test_expect_mode_writes_library_values_as_source(self) -> None:
+        code = "import numpy as np\nimport pandas as pd\ndef f():\n    return np.array([1, 2])\n" \
+               "def g():\n    return pd.DataFrame({'a': [1]})\ndef h():\n    return np.int64(3)\n"
+        inputs: list[harness.CaseInput] = [{"show": n, "setup": "", "expr": n} for n in ("f()", "g()", "h()")]
+        reprs = [v["repr"] for v in harness.expect_values(code, inputs)["values"]]
+        self.assertEqual(reprs, ["__import__('numpy').array([1, 2])", "__import__('pandas').DataFrame({'a': [1]})",
+                                 "3"])
+
+    def test_expect_mode_runs_programs(self) -> None:
+        inputs: list[harness.CaseInput] = [{"show": "typing 2", "stdin": ["2"]}]
+        out = harness.expect_values("print(int(input()) * 2)\n", inputs)
+        self.assertEqual(out, {"values": [{"repr": "'4\\n'", "raises": None}]})
+
+    def test_expect_job_through_the_cli(self) -> None:
+        payload = json.dumps({"mode": "expect", "code": "def f(x):\n    return x + 1\n",
+                              "cases": [{"show": "f(1)", "setup": "", "expr": "f(1)"}]})
+        done = subprocess.run([sys.executable, "py/harness.py"], input=payload, capture_output=True, text=True,
+                              cwd=Path(__file__).resolve().parent.parent, timeout=20, check=False)
+        self.assertEqual(json.loads(done.stdout), {"values": [{"repr": "2", "raises": None}]})
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -335,12 +335,12 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   (calls the named function from `tests.py` with the input and the answer).
 - Message: exactly the shape in Global Constraints. `actual` uses `repr`, cut to 80 characters with `...`.
 
-- [ ] **Step 1:** Tests: `test_hidden_case_message_shape` (expects the exact `larger` sentence),
+- [x] **Step 1:** Tests: `test_hidden_case_message_shape` (expects the exact `larger` sentence),
   `test_hidden_raise_message`, `test_hidden_case_ignores_learner_prints`,
   `test_float_compare_tolerates_rounding`, `test_each_hidden_case_gets_fresh_arguments`,
   `test_missing_function_reported_once`, `test_unordered_compare`, `test_valid_function_compare`,
   `test_expect_mode_returns_reprs`, `test_program_case_compares_output`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. Commit.
 
 ### Task 2.3: Cases in the bundle
 
