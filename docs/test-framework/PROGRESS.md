@@ -73,6 +73,8 @@ Each session reads this first and updates it last. Newest entries at the top of 
 - Session 4: `pnpm content` prints `cache: <kind> N read, M computed, K unsettled (key ...)` for the real
   content, since the first warm pull request run restored the cache and still spent 8 min in `pnpm content`.
   On CI every unit settles (cold run on d3dcd0a: 0 unsettled in every kind, key 850318c159cf).
+- Session 4: CI pins Python 3.14.9 in `setup-python`. The next run on the same code got 3.14.8 from a
+  different runner image, so the key (which holds `sys.version`) changed and every unit recomputed.
 - Session 4: `PythonAdapter.check` remembers outcomes per job like `run`, so writing the jobs file runs nothing
   twice. `Item` gains `wrong` and `min`; `CodeBlock` gains `min`.
 - Session 3, owner's supervisor: the memory cap broke `pnpm content` on macOS (`setrlimit(RLIMIT_AS)` raises
