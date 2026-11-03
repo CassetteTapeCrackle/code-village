@@ -33,6 +33,7 @@ const lesson: Lesson = {
         prompt: "Add the prices.",
         starter: "print(1)",
         tests: "",
+        cases: [],
         hints: [],
         gotcha: false,
         variants: [],

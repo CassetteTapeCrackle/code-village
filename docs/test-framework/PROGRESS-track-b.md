@@ -3,6 +3,14 @@
 Newest entries at the top of each section.
 
 ## Done
+- B.3 (2026-11-03, done locally by the supervisor): merged `test-framework` (at `c98cc48`) into
+  `report-button` with the owner's go. `src/learning/autoReport.ts`: `shouldAutoReport` is true when every
+  hidden result passed and a visible test failed, false without hidden results, on an error, or on a full
+  pass; `claimAutoReport` allows one report per item per page session; the message is the first failing
+  visible test's name and message. `TaskPanel` sends `{kind: "auto", item, code, message}` through
+  `sendReport` after Check. Tests: `src/learning/autoReport.test.ts` (6) and one in `TaskPanel.test.ts`
+  (reported once, second Check sends nothing). The merge needed `cases: []` in the `LessonView.test.ts`
+  task, since Session 2 made `cases` required.
 - Review (2026-11-03): a fresh reviewer subagent read the B.1 and B.2 diff against the standards and the
   spec and found no must-fix defects. Fixed in `5a67f7e`: focus on open, cancel and send; a status line that
   stays mounted; Cancel disabled while sending; a retry for a Turnstile load failure; copy that asks for no

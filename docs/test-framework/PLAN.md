@@ -766,10 +766,10 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 
 ### Task B.3: Automatic report (after Session 2 is on `test-framework`)
 
-- [ ] **Step 1:** `git merge test-framework` into `report-button` (allowed: not `dev` or `main`).
-- [ ] **Step 2:** `src/learning/autoReport.ts`: `shouldAutoReport(result: CheckResult): boolean` is true when
+- [x] **Step 1:** `git merge test-framework` into `report-button` (allowed: not `dev` or `main`).
+- [x] **Step 2:** `src/learning/autoReport.ts`: `shouldAutoReport(result: CheckResult): boolean` is true when
   some visible result failed and the hidden summary passed. At most once per item per session. Tests first.
-- [ ] **Step 3:** Commit, push. The owner opens the pull request for `report-button` into `dev`.
+- [x] **Step 3:** Commit, push. The owner opens the pull request for `report-button` into `dev`.
 
 ---
 

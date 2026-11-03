@@ -1,11 +1,13 @@
 <script lang="ts">
   import type { Lesson, Task } from "../content/types";
+  import { autoReportMessage, claimAutoReport, shouldAutoReport } from "../learning/autoReport";
   import { today } from "../learning/dates";
   import { passTask, recordCheck, taskState, useHint } from "../learning/progress";
   import type { TaskEvent } from "../learning/school";
   import { taskXp } from "../learning/xp";
   import { passedAll, type Outcome } from "../runner/client";
   import type { CheckResult } from "../runner/protocol";
+  import { sendReport } from "../net/api";
   import { getRunner } from "../runner/shared";
   import { moment } from "../ui/moments.svelte";
   import { game, update } from "../store/progress.svelte";
@@ -51,6 +53,9 @@
       hints: mine.hintsUsed,
     });
     const passed = passedAll(checked);
+    const result = resultOf(checked);
+    if (result && shouldAutoReport(result) && claimAutoReport(task.id))
+      void sendReport({ kind: "auto", item: task.id, code, message: autoReportMessage(result) });
     if (passed) update((p) => passTask(p, lesson, task.id, today()));
     if (passed && task.id === TOUR_TASK_ID) tourEvent("check");
     onresult?.(passed ? "pass" : checked.kind === "ok" && !checked.result.error ? "fail" : "error");
