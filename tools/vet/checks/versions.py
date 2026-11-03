@@ -29,14 +29,19 @@ def _version(text: str) -> tuple[int, ...]:
 
 
 def _older(min_python: str | None) -> list[str]:
-    """The older Pythons a unit must agree on: those at or above its declared min."""
-    return [v for v in OLDER_PYTHONS if not min_python or _version(v) >= _version(min_python)]
+    """The older Pythons a unit must agree on: those at or above its declared min (a min that is not a known
+    Python is field-invalid already, so it counts as none)."""
+    if min_python not in PYTHONS:
+        return list(OLDER_PYTHONS)
+    return [v for v in OLDER_PYTHONS if _version(v) >= _version(min_python)]
 
 
-def _per_version(versions: Sequence[Sequence[str]], run: Callable[[str, list[int]], list[object]]) -> list[list[
-        tuple[str, object]]]:
+Ran = list[tuple[str, object]]  # (older Python, its result) for one unit
+
+
+def _per_version(versions: Sequence[Sequence[str]], run: Callable[[str, list[int]], list[object]]) -> list[Ran]:
     """For each unit, (version, result) for each of its versions: every unit asking for a version runs at once."""
-    found: list[list[tuple[str, object]]] = [[] for _ in versions]
+    found: list[Ran] = [[] for _ in versions]
     for version in OLDER_PYTHONS:
         units = [u for u, vs in enumerate(versions) if version in vs]
         for unit, result in zip(units, run(version, units) if units else [], strict=True):
@@ -62,9 +67,13 @@ def _lesson_differences(adapter: LanguageAdapter, lessons: list[tuple[Lesson, li
     messages: list[Differences] = [[] for _ in lessons]
     settled = [True] * len(lessons)
     for (block, lesson_at), here, others in zip(blocks, base, older, strict=True):
+        if here is None:  # not compared, so the lesson's result must not be stored as settled
+            settled[lesson_at] = False
         for version, there in others:
             ran = cast(RunOutcome | None, there)
-            settled[lesson_at] = settled[lesson_at] and ran is not None and here is not None
+            if ran is None:  # a slow machine, not a version difference: compared again next run
+                settled[lesson_at] = False
+                continue
             if ran != here:
                 messages[lesson_at].append(
                     f"this {block.kind} block gives {_describe(here)} on Python {build_python()} but {_describe(ran)} "
@@ -115,7 +124,7 @@ def _group_differences(adapter: LanguageAdapter, groups: list[Group]) -> list[Co
             outcomes = cast(list[CheckOutcome | None], there)
             settled = settled and all(o is not None for o in outcomes)
             for (name, item), mine, theirs in zip(labels, here, outcomes, strict=True):
-                if _verdict(mine) != _verdict(theirs):
+                if theirs is not None and _verdict(mine) != _verdict(theirs):
                     messages.append(f"{name} {_verdict(mine)} the tests of {item.seed} on Python {build_python()} "
                                     f"but {_verdict(theirs)} on Python {version}: make it hold on both, or declare "
                                     "min and say so in the prompt")
@@ -153,11 +162,15 @@ def _names(text: str, version: str) -> bool:
     return f"Python {version}" in text
 
 
+def _needs_saying(min_python: str | None) -> bool:
+    """A min above the oldest supported Python; an unknown one is field-invalid instead."""
+    return min_python in PYTHONS and min_python != PYTHONS[0]
+
+
 def check_min(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
-    oldest = PYTHONS[0]
     for lesson in content.lessons:
         for at, block in enumerate(lesson.blocks):
-            if not isinstance(block, CodeBlock) or block.min in (None, oldest):
+            if not isinstance(block, CodeBlock) or not _needs_saying(block.min):
                 continue
             near = [b.markdown for b in lesson.blocks[max(at - 1, 0):at + 2] if isinstance(b, TextBlock)]
             if not any(_names(text, str(block.min)) for text in near):
@@ -166,7 +179,7 @@ def check_min(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
                                        f"says \"Python {block.min}\": tell the learner it needs that version")
     for group in content.solution_groups():
         first = group[0]
-        if first.min in (None, oldest) or any(_names(item.prompt, str(first.min)) for item in group):
+        if not _needs_saying(first.min) or any(_names(item.prompt, str(first.min)) for item in group):
             continue
         yield subject(first.id, first.fingerprint, first.folder, content.root).finding(
             "min-unexplained", f"{first.id} declares min = \"{first.min}\", but its prompt never says "

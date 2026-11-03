@@ -3,10 +3,17 @@
 import shutil
 import tempfile
 import unittest
+from collections.abc import Sequence
 from pathlib import Path
+from unittest import mock
 
 from test_canaries import CANARIES, FIXTURES, materialize
 from vet import vet
+from vet.adapter import CheckJob, CheckOutcome, RunOutcome
+from vet.checks import versions
+from vet.load import load_content
+from vet.model import CodeBlock
+from vet.python.adapter import PythonAdapter
 from vet.python.interpreters import interpreter, pins
 
 RULES = frozenset({"version-differs", "min-unexplained"})
@@ -62,6 +69,36 @@ class Items(unittest.TestCase):
         toml = self.task / "task.toml"
         toml.write_text(toml.read_text().replace("strict = true", 'strict = true\nmin = "3.9"'))
         self.assertIn(("field-invalid", "basics/double"), [(f.rule, f.item) for f in vet(self.content)])
+
+
+class Slow(PythonAdapter):
+    """A machine so loaded that every job runs out of time."""
+
+    def run(self, codes: Sequence[str]) -> list[RunOutcome | None]:
+        return [None for _ in codes]
+
+    def check(self, jobs: Sequence[CheckJob]) -> list[CheckOutcome | None]:
+        return [None for _ in jobs]
+
+
+class Timeouts(unittest.TestCase):
+    def test_a_block_that_times_out_here_is_not_cached_as_agreeing(self) -> None:
+        good, _ = load_content(FIXTURES / "good")
+        [lesson] = good.lessons
+        blocks = [b for b in lesson.blocks if isinstance(b, CodeBlock)]
+        self.assertEqual(versions._lesson_differences(Slow(), [(lesson, blocks)]), [([], False)])
+
+    def test_a_timeout_on_an_older_python_is_not_a_difference(self) -> None:
+        good, _ = load_content(FIXTURES / "good")
+        groups = good.solution_groups()[:1]
+        with mock.patch.object(versions, "PythonAdapter", Slow):
+            self.assertEqual(versions._group_differences(PythonAdapter(), groups), [([], False)])
+
+    def test_an_unknown_min_on_a_fence_is_invalid_not_a_crash(self) -> None:
+        content = good_copy()
+        lesson = content / "w1/a/basics/lesson.md"
+        lesson.write_text(lesson.read_text().replace("```python predict", "```python predict min=3.l3"))
+        self.assertEqual([f.rule for f in vet(content, only=RULES | {"field-invalid"})], ["field-invalid"])
 
 
 class Interpreters(unittest.TestCase):

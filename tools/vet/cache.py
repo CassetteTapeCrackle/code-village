@@ -4,6 +4,8 @@ The cache serves the real content, and the folder named by VET_CACHE for other c
 it, so canaries share the results of the items they leave unchanged. A result also depends on part of the
 framework's source, the pins and the Python version (framework_hash), so each file records a hash of them and a
 different hash is a miss. CI restores the latest cache whatever its hash and relies on this check alone.
+shortcut: the patch versions of the older Pythons (3.12.x, 3.13.x) are not in the key, since reading them means
+starting both; the uncached nightly CI run catches a result one of them changes.
 """
 
 import hashlib
@@ -32,11 +34,12 @@ def cache_for(content: Content, kind: str) -> Path | None:
 
 
 VET = ROOT / "tools" / "vet"
-# the code a cached result depends on: how jobs run, how hidden cases are built, how code is mutated and rewritten,
-# and the checks that judge the runs; an edit anywhere else in tools/vet keeps the cache
-RESULT_SOURCES = (ROOT / "py" / "harness.py", VET / "adapter.py", VET / "cache.py", VET / "python", VET / "cases",
-                  VET / "checks" / "mutation.py", VET / "checks" / "rewrites.py", VET / "checks" / "right.py",
-                  VET / "checks" / "versions.py")
+# the code a cached result depends on: how content is read into items and blocks, how jobs run, how hidden cases
+# are built, how code is mutated and rewritten, and the checks that judge the runs; other tools/vet edits keep it
+RESULT_SOURCES = (ROOT / "py" / "harness.py", VET / "adapter.py", VET / "cache.py", VET / "load.py",
+                  VET / "model.py", VET / "python", VET / "cases", VET / "checks" / "claims.py",
+                  VET / "checks" / "libraries.py", VET / "checks" / "mutation.py", VET / "checks" / "rewrites.py",
+                  VET / "checks" / "right.py", VET / "checks" / "versions.py")
 
 
 def library_pins() -> str:

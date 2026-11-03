@@ -48,6 +48,7 @@ jobs:
           path: |
             .vet-cache
             !.vet-cache/py3.*
+            !.vet-cache/pyodide-jobs.json
           key: vet-cache-${{ github.run_id }}
           restore-keys: vet-cache-
       - run: pnpm lint

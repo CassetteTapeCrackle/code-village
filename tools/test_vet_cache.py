@@ -44,7 +44,8 @@ class PerGroup(unittest.TestCase):
 class FrameworkHash(unittest.TestCase):
     def test_result_code_is_in_the_key_and_other_framework_code_is_not(self) -> None:
         files = result_files()
-        for needed in ["py/harness.py", "tools/vet/python/mutate.py", "tools/vet/python/rewrite.py",
+        for needed in ["py/harness.py", "tools/vet/load.py", "tools/vet/model.py", "tools/vet/checks/claims.py",
+                       "tools/vet/checks/versions.py", "tools/vet/python/mutate.py", "tools/vet/python/rewrite.py",
                        "tools/vet/cases/generate.py", "tools/vet/checks/mutation.py"]:
             self.assertIn(VET.parents[1] / needed, files)
         for unrelated in ["tools/vet/gaps.py", "tools/vet/checks/hints.py", "tools/vet/run.py"]:

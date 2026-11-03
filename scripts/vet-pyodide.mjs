@@ -3,6 +3,10 @@
 // whose output or verdict differs, and every library whose Pyodide version differs from the pnpm content pins.
 // Run it with node --stack-size=4000 (pnpm vet:pyodide): with Node's default stack, Python code that recurses
 // until RecursionError overflows the JavaScript stack first and Pyodide aborts, which a browser's larger stack avoids.
+// Every job shares one interpreter, as in the browser worker, which also keeps its Pyodide between Checks.
+// shortcut: expected values are compared as exact repr text, not with the case's own comparison (float, array,
+// frame); a last-bit float difference between wasm and native maths would fail here. Compare with the harness's
+// rule once World 3 items declare [cases].
 // shortcut: a job that loops forever only in Pyodide hangs this script (Pyodide on the main thread cannot be
 // interrupted); the CI step's time limit stops it. Run jobs in a worker with a deadline if that ever happens.
 import { readFileSync } from "node:fs";

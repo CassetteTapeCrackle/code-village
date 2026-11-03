@@ -63,7 +63,6 @@ def expect_jobs(content: Content, adapter: LanguageAdapter) -> Iterable[Job]:
 
 
 def write_jobs(content: Content, adapter: LanguageAdapter, path: Path) -> int:
-    """Writes the jobs file and returns how many jobs it holds."""
     jobs = [*block_jobs(content, adapter), *check_jobs(content, adapter), *expect_jobs(content, adapter)]
     versions = {name: version for name, version in (pin.split("==", 1) for pin in pins())}
     path.parent.mkdir(parents=True, exist_ok=True)
