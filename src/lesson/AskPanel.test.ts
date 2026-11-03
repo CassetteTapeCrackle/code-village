@@ -28,6 +28,7 @@ const task: Task = {
   hints: ["Multiply the two parameters."],
   gotcha: false,
   variants: [],
+  cases: [],
 };
 
 const snapshot: Snapshot = {

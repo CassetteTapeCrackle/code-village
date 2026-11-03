@@ -7,10 +7,13 @@ import { tour } from "../tour/tour.svelte";
 import TaskPanel from "./TaskPanel.svelte";
 
 const runner = vi.hoisted(() => ({
-  check: async () => ({
+  check: vi.fn(async () => ({
     kind: "ok" as const,
-    result: { error: null, results: [{ name: "adds", passed: false, message: "returned 3, expected 4" }] },
-  }),
+    result: {
+      error: null,
+      results: [{ name: "adds", passed: false, message: "returned 3, expected 4", hidden: false }],
+    },
+  })),
   run: async () => ({ kind: "timeout" as const }),
   status: () => "ready" as const,
   retry: () => {},
@@ -40,6 +43,7 @@ const task: Task = {
   hints: ["Start at zero."],
   gotcha: false,
   variants: [],
+  cases: [{ kind: "program", show: "typing 2", stdin: ["2"], expect: "'2\\n'", compare: "text" }],
 };
 
 beforeEach(() => {
@@ -71,7 +75,10 @@ test("a Check queues a snapshot of the code and its results for the server", asy
   expect(sent.snapshot).toEqual({
     taskId: task.id,
     code: "print(1)",
-    check: { error: null, results: [{ name: "adds", passed: false, message: "returned 3, expected 4" }] },
+    check: {
+      error: null,
+      results: [{ name: "adds", passed: false, message: "returned 3, expected 4", hidden: false }],
+    },
     checks: 1,
     hints: 0,
   });
@@ -83,4 +90,11 @@ test("Run on the tour task moves the tour on without input lines", async () => {
   render(TaskPanel, { lesson, task: { ...task, id: TOUR_TASK_ID } });
   await fireEvent.click(screen.getByRole("button", { name: "Run" }));
   await vi.waitFor(() => expect(tour.state.step).toBe("check"));
+});
+
+test("Check sends the task itself as the suite, hidden cases included", async () => {
+  vi.useRealTimers();
+  render(TaskPanel, { lesson, task });
+  await fireEvent.click(screen.getByRole("button", { name: "Check" }));
+  await vi.waitFor(() => expect(runner.check).toHaveBeenCalledWith("print(1)", task));
 });

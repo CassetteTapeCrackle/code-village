@@ -9,11 +9,12 @@ test("shows each test with its message", () => {
       result: {
         error: null,
         results: [
-          { name: "adds two", passed: true, message: "" },
+          { name: "adds two", passed: true, message: "", hidden: false },
           {
             name: "empty list",
             passed: false,
             message: 'add_twice([], "a") returned [], expected ["a", "a"]',
+            hidden: false,
           },
         ],
       },
@@ -21,6 +22,42 @@ test("shows each test with its message", () => {
   });
   expect(screen.getByText("1 of 2 tests passed")).toBeTruthy();
   expect(screen.getByText(/returned \[\], expected/)).toBeTruthy();
+});
+
+test("a failed hidden case is its own line with the harness message, outside the test count", () => {
+  const message = "We also tried larger(3, 7): expected 7, your code returned 3.";
+  render(TestResults, {
+    outcome: {
+      kind: "ok",
+      result: {
+        error: null,
+        results: [
+          { name: "larger", passed: true, message: "", hidden: false },
+          { name: "100 more inputs", passed: false, message, hidden: true },
+        ],
+      },
+    },
+  });
+  expect(screen.getByText("1 of 1 tests passed")).toBeTruthy();
+  expect(screen.getByText(message)).toBeTruthy();
+  expect(screen.queryByText("100 more inputs")).toBeNull();
+});
+
+test("passed hidden cases show as one line", () => {
+  render(TestResults, {
+    outcome: {
+      kind: "ok",
+      result: {
+        error: null,
+        results: [
+          { name: "larger", passed: true, message: "", hidden: false },
+          { name: "100 more inputs", passed: true, message: "", hidden: true },
+        ],
+      },
+    },
+  });
+  expect(screen.getByText("1 of 1 tests passed")).toBeTruthy();
+  expect(screen.getByText("Also passed 100 more inputs")).toBeTruthy();
 });
 
 test("a timeout gets the plain message", () => {

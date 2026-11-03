@@ -21,7 +21,7 @@
   import CodePanel from "../lesson/CodePanel.svelte";
   import TestResults from "../lesson/TestResults.svelte";
   import { passedAll, type Outcome } from "../runner/client";
-  import type { CheckResult } from "../runner/protocol";
+  import type { CheckResult, CheckSuite } from "../runner/protocol";
   import { getRunner } from "../runner/shared";
   import { moment } from "../ui/moments.svelte";
   import { LAIRS, lairName, lairOf } from "../village/layout";
@@ -31,7 +31,7 @@
   import { TROPHY_SPRITES } from "../art/trophies";
   import { game, update } from "../store/progress.svelte";
 
-  type Suite = { title: string; tests: string };
+  type Suite = CheckSuite & { title: string };
   let { boss, skip = false }: { boss: Boss; skip?: boolean } = $props();
   // The route flag is read once: after the win the world is marked skipped, and the screen must not
   // flip back to the sleeping view under the learner.
@@ -71,7 +71,7 @@
     results = [];
     const passed: boolean[] = [];
     for (const suite of suites) {
-      const outcome = await getRunner().check(code, suite.tests);
+      const outcome = await getRunner().check(code, suite);
       results = [...results, { title: suite.title, outcome }];
       passed.push(passedAll(outcome));
     }
@@ -95,7 +95,7 @@
     update((p) => recordHardCheck(p, boss));
     const passed = await runSuites(code, [
       ...boss.stages,
-      { title: "Hard mode tests", tests: boss.hardTests },
+      { title: "Hard mode tests", tests: boss.hardTests, cases: boss.hardCases },
     ]);
     if (passed.every(Boolean)) update((p) => winHard(p, boss, today()));
   }

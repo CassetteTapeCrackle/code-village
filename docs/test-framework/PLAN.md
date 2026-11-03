@@ -381,9 +381,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - `TestResult` gains `hidden: boolean`. `TestResults.svelte` shows the hidden failure as its own line with the
   harness message.
 
-- [ ] **Step 1:** Tests: `client.test.ts` sends `cases` in the job; `TestResults.test.ts` renders the hidden
+- [x] **Step 1:** Tests: `client.test.ts` sends `cases` in the job; `TestResults.test.ts` renders the hidden
   line; `TaskPanel.test.ts` passes the suite through.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Measure Check time on the `larger` canary task with 100 cases in
+- [x] **Step 2 to 4:** Fail, implement, pass. Measure Check time on the `larger` canary task with 100 cases in
   Pyodide in Node (`scripts/vet-pyodide.mjs` arrives in Task 4.2, so time it with a short Node script now)
   and record it in PROGRESS. Over one second extra: reduce `count` default and record why. Commit, push. End
   of Session 2.

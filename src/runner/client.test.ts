@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { LIBRARY_TIMEOUT_MESSAGE, createRunner, passedAll, type WorkerLike } from "./client";
-import type { Job, TestResult, WorkerMessage } from "./protocol";
+import type { HiddenCase, Job, TestResult, WorkerMessage } from "./protocol";
 
 type Fake = WorkerLike & { jobs: Job[]; send(m: WorkerMessage): void; terminated: boolean };
 
@@ -41,9 +41,38 @@ describe("runner client", () => {
     const w = fakeWorker();
     const runner = createRunner({ makeWorker: () => w });
     w.send({ type: "ready" });
-    const pending = runner.check("a", "t", true);
+    const pending = runner.check("a", { tests: "t", strict: true, cases: [] });
     await Promise.resolve();
     expect(w.jobs[0]).toMatchObject({ mode: "check", strict: true });
+    w.send({ type: "done", id: w.jobs[0].id, result: { error: null, results: [] } });
+    await pending;
+  });
+
+  test("a check sends the suite's hidden cases, and a suite without strict is not strict", async () => {
+    const w = fakeWorker();
+    const runner = createRunner({ makeWorker: () => w });
+    w.send({ type: "ready" });
+    const cases: HiddenCase[] = [
+      {
+        kind: "expr",
+        show: "larger(3, 7)",
+        setup: "",
+        expr: "larger(3, 7)",
+        expect: "7",
+        raises: null,
+        compare: "exact",
+      },
+    ];
+    const pending = runner.check("a", { tests: "t", cases });
+    await Promise.resolve();
+    expect(w.jobs[0]).toEqual({
+      id: w.jobs[0].id,
+      mode: "check",
+      code: "a",
+      tests: "t",
+      strict: false,
+      cases,
+    });
     w.send({ type: "done", id: w.jobs[0].id, result: { error: null, results: [] } });
     await pending;
   });
@@ -52,7 +81,7 @@ describe("runner client", () => {
     const w = fakeWorker();
     const runner = createRunner({ makeWorker: () => w });
     w.send({ type: "ready" });
-    const first = runner.check("a", "t");
+    const first = runner.check("a", { tests: "t", cases: [] });
     const second = runner.run("b");
     await Promise.resolve();
     expect(w.jobs).toHaveLength(1);
@@ -198,9 +227,9 @@ test("passedAll needs an ok result with no error and every test passed", () => {
     kind: "ok" as const,
     result: { error, results },
   });
-  expect(passedAll(ok([{ name: "a", passed: true, message: "" }]))).toBe(true);
+  expect(passedAll(ok([{ name: "a", passed: true, message: "", hidden: false }]))).toBe(true);
   expect(passedAll(ok([]))).toBe(false);
-  expect(passedAll(ok([{ name: "a", passed: false, message: "x" }]))).toBe(false);
+  expect(passedAll(ok([{ name: "a", passed: false, message: "x", hidden: false }]))).toBe(false);
   expect(passedAll(ok([], "SyntaxError on line 1: invalid syntax"))).toBe(false);
   expect(passedAll({ kind: "timeout" })).toBe(false);
 });
