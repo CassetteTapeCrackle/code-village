@@ -7,7 +7,7 @@ from collections.abc import Callable
 from pathlib import Path
 
 from test_canaries import FIXTURES
-from vet.cache import VET, Computed, Group, framework_hash, per_group, result_files
+from vet.cache import USE, VET, Computed, Group, framework_hash, per_group, result_files, use_report
 from vet.load import load_content
 
 
@@ -35,6 +35,14 @@ class PerGroup(unittest.TestCase):
         per_group(self.groups, self.folder, self.compute(False))
         self.assertEqual(len(self.asked[1]), len(self.groups))
         self.assertEqual(list(self.folder.glob("*.json")), [])
+
+    def test_the_report_counts_reads_and_unsettled_values(self) -> None:
+        USE.clear()
+        per_group(self.groups, self.folder, self.compute(False))
+        per_group(self.groups, self.folder, self.compute(True))
+        per_group(self.groups, self.folder, self.compute(True))
+        n = len(self.groups)
+        self.assertIn(f"{self.folder.name} {n} read, {n} computed, {n} unsettled", use_report())
 
     def test_no_folder_means_no_cache(self) -> None:
         found = per_group(self.groups, None, self.compute(True))

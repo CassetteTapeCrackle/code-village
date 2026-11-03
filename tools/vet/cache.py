@@ -13,6 +13,7 @@ import json
 import os
 import sys
 import tempfile
+from collections import Counter
 from collections.abc import Callable, Sequence
 from pathlib import Path
 
@@ -23,6 +24,8 @@ CACHE_ROOT = ROOT / ".vet-cache"
 Group = list[Item]  # items that share one model solution (Content.solution_groups)
 # a JSON value, and whether it is settled: a result a slower machine could change (a timeout) is not stored
 Computed = tuple[object, bool]
+# per cache folder: values read, computed, and computed but not settled (so computed again next run)
+USE: Counter[tuple[str, str]] = Counter()
 Key = tuple[str, str]  # the fingerprint a value is stored under, and a label for whoever reads the file
 
 
@@ -91,13 +94,22 @@ def per_unit[T](units: Sequence[T], key: Callable[[T], Key], folder: Path | None
     values = []
     for unit, found in zip(units, stored, strict=True):
         if found is not None:
+            USE[str(folder), "read"] += 1
             values.append(found)
             continue
         value, settled = next(fresh)
+        USE[str(folder), "computed" if settled else "unsettled"] += 1
         if folder and settled:
             _write(folder, key(unit), framework, value)
         values.append(value)
     return values
+
+
+def use_report() -> str:
+    """How each cache folder served this run, for the build output."""
+    folders = sorted({folder for folder, _ in USE})
+    return "; ".join(f"{Path(f).name} {USE[f, 'read']} read, {USE[f, 'computed']} computed, {USE[f, 'unsettled']} "
+                     "unsettled" for f in folders) + f" (key {framework_hash()})"
 
 
 def per_group(groups: Sequence[Group], folder: Path | None,
