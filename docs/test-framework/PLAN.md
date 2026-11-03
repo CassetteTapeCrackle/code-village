@@ -408,9 +408,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   `method-swap` (`append`/`extend`, `strip`/`lstrip`/`rstrip`, `lower`/`upper`, `sort`/`reverse`),
   `index-shift`. Only mutants that still compile are returned.
 
-- [ ] **Step 1:** Tests: one per operator on a small source (for example `cmp-swap` on `if a < b:` yields
+- [x] **Step 1:** Tests: one per operator on a small source (for example `cmp-swap` on `if a < b:` yields
   `<=`, `>`, `>=`, `==`, `!=`), `test_mutants_compile`, `test_order_is_stable`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. Commit.
 
 ### Task 3.2: Mutation check
 

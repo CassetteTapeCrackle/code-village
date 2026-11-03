@@ -55,7 +55,10 @@ class Check(unittest.TestCase):
 
     def test_unbuilt_methods_say_so(self) -> None:
         with self.assertRaises(NotImplementedError):
-            PythonAdapter().mutants("x = 1")
+            PythonAdapter().rewrites("x = 1")
+
+    def test_mutants_come_from_the_python_operators(self) -> None:
+        self.assertEqual([m.code for m in PythonAdapter().mutants("x = 1\n")], ["x = 2\n", "x = 0\n"])
 
 
 class BrokenTool(unittest.TestCase):

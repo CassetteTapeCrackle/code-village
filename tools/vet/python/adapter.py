@@ -21,6 +21,7 @@ from ..adapter import (
     RunOutcome,
     case_json,
 )
+from .mutate import mutants
 
 ROOT = Path(__file__).resolve().parents[3]
 HARNESS = ROOT / "py" / "harness.py"
@@ -58,7 +59,7 @@ class PythonAdapter:
         return self._expected[key]
 
     def mutants(self, code: str) -> list[Mutant]:
-        raise NotImplementedError("mutants arrive in Task 3.1")
+        return mutants(code)
 
     def rewrites(self, code: str) -> list[Rewrite]:
         raise NotImplementedError("rewrites arrive in Task 3.3")
