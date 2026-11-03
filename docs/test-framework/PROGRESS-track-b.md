@@ -3,6 +3,11 @@
 Newest entries at the top of each section.
 
 ## Done
+- Review (2026-11-03): a fresh reviewer subagent read the B.1 and B.2 diff against the standards and the
+  spec and found no must-fix defects. Fixed in `5a67f7e`: focus on open, cancel and send; a status line that
+  stays mounted; Cancel disabled while sending; a retry for a Turnstile load failure; copy that asks for no
+  personal details and does not mention code on lesson reports; a raw body cap with room for JSON escaping.
+  New tests pin the retry token, focus, the next day cap reset and Turnstile failures sparing IP slots.
 - B.2 (2026-11-03): `src/ui/ReportButton.svelte` on every task panel (through `CodePanel`'s `reportItem`)
   and in every lesson footer, the exact notice line under the task editor, the footer line
   `Written for Python 3.12 and newer.`, `sendReport()` in `src/net/api.ts`. Tests: `ReportButton.test.ts`,
@@ -11,6 +16,10 @@ Newest entries at the top of each section.
   `Deps.openIssue`. 14 tests in `worker/test/report.test.ts`, including every name the plan lists.
 
 ## Decisions
+- Review nit 9 not taken: `LIMITS.maxReportMessageChars` stays, so every worker limit reads from `LIMITS`.
+- `worker/vitest.config.ts` binds a fake `GITHUB_ISSUES_TOKEN`, so tests open issues by default; the no token
+  test overrides it with an empty string.
+- The lesson footer test renders the narrow layout only; the wide layout renders the same `notebook` snippet.
 - `report_issues` has a `day` column the plan does not list: the daily issue cap needs to count issues
   opened today, and a column is the smallest way.
 - Item ids are checked against the bundle (lessons, tasks, variants, bosses, stages), so an issue title can
@@ -29,9 +38,10 @@ Newest entries at the top of each section.
   header hash is now stale; the owner can regenerate locally.
 
 ## Open
-- Push and pull request blocked: this container has no `origin` remote, and `gh api` answers 403 "GitHub access
-  to this repository is not enabled for this session". Commits `ac7b853` (B.1) and `f7b44cd` (B.2) exist only
-  in this container. CI has not run.
+- Push and pull request blocked. The session started from an uploaded bundle with no remote. After
+  `git remote add origin`, the push gets 403 from the git proxy ("not in this session's authorized repository
+  set"), and the REST call for the pull request gets 403 too. Every Track B commit exists only in this
+  container, and CI has not run. The supervisor said not to retry; waiting for instructions.
 - Dedupe is by item and code hash, as the spec says. A second report with the same code but a new message
   (common for lesson reports, which send empty code) only raises the count; its message stays in D1, not on
   the issue. Upgrade: comment the new message on the existing issue.
@@ -42,5 +52,5 @@ Newest entries at the top of each section.
 - The owner sets `GITHUB_ISSUES_TOKEN` with wrangler before deploying. Until then reports are stored only.
 
 ## Next
-- Review of the B.1 and B.2 diff by a fresh subagent, then push once GitHub access works.
+- Push and open the draft pull request once the repo is in the session's sources.
 - B.3 waits until Session 2 lands on `test-framework`.
