@@ -13,6 +13,8 @@ import urllib.request
 from collections.abc import Callable
 from pathlib import Path
 
+from .logs import emit_files
+
 INVENTORY_URL = "https://docs.python.org/3.12/objects.inv"
 INVENTORY_NAME = "python-3.12-objects.inv"
 DOWNLOAD_SECONDS = 60
@@ -39,6 +41,7 @@ def main() -> None:
         sys.exit(f"{opts.request}: job must be one of {', '.join(sorted(JOBS))}")
     opts.out.mkdir(parents=True, exist_ok=True)
     JOBS[job](request, opts.out)
+    emit_files(opts.out)
 
 
 if __name__ == "__main__":
