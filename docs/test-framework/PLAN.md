@@ -308,10 +308,10 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   Output sorted by size (length of `show`), edge cases first: bounds, 0 when in range, empty and single-item
   containers, duplicates, ties. Deterministic for a given seed.
 
-- [ ] **Step 1:** Tests: `test_same_seed_same_inputs`, `test_edges_come_first` (for `int -50..50`: -50, 50
+- [x] **Step 1:** Tests: `test_same_seed_same_inputs`, `test_edges_come_first` (for `int -50..50`: -50, 50
   and 0 are among the first five), `test_generated_sizes_stay_small` (no container over 12, no string over
   20), `test_bad_decl_names_the_field`, `test_object_steps_are_valid_python`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Document the format in `content/README.md`. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. Document the format in `content/README.md`. Commit.
 
 ### Task 2.2: Hidden cases and comparators in the harness
 

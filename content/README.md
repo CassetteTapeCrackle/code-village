@@ -53,6 +53,55 @@ Any task, variant or boss folder may also hold `wrong/*.py` (see below).
 text below it is the intro. A boss needs 3 to 5 stages (`stage.toml`: `id`, `title`, `prompt`, `hp`), and
 `solution.py` must pass every stage's tests and `hard_tests.py`. One boss per region, in a region with lessons.
 
+## Hidden cases
+
+Visible tests try a few inputs. Hidden cases try about 100 more: the build generates small inputs, runs the
+model solution on each, and ships only the inputs and the expected results. Check runs them after the visible
+tests and shows the learner the first case that fails, for example
+`We also tried larger(3, 7): expected 7, your code returned 3.`
+
+Declare them with a `[cases]` table at the end of `task.toml`, `variant.toml` and each `stage.toml`. A boss's
+hard mode reads `[cases]` from the `boss.md` front matter. Pick one of four shapes:
+
+```toml
+[cases]                                   # a function
+call = "larger"
+args = ["int -50..50", "int -50..50"]
+
+[cases]                                   # a class: a fresh object, then 2 to 6 random method calls
+class = "Account"
+init = ["int 0..500"]
+methods = { deposit = ["int 1..200"], withdraw = ["int 1..200"] }
+reads = ["balance"]                       # attributes compared after the calls
+steps = "2..6"                            # optional, default 1..6
+
+[cases]                                   # a whole program: one typed line per input()
+stdin = ["int 0..120"]
+
+[cases]                                   # no hidden cases, and why (counted in the gap report)
+none = "the answer is random"
+```
+
+Types: `int A..B`, `float A..B`, `bool`, `str A..B` (letters and spaces, length A to B, at most 20), `word`,
+`choice a|b|c`, `list<T> A..B`, `set<T> A..B`, `tuple<T, U>`, `dict<K, V> A..B`, `optional<T>`,
+`array<T> A..B` (NumPy), `matrix<T> R..R C..C`, `frame{col: T, ...} A..B` (pandas rows). Container sizes are
+at most 12 and default to `0..12`. Set items, dict keys, frame columns and `stdin` lines take simple types.
+
+Optional fields:
+
+- `compare`: `exact` (default), `unordered`, `float` (tolerates rounding), `text` (forgiving, like the visible
+  tests), `array`, `frame`.
+- `valid = "is_valid"`: for tasks with several right answers, a function in `tests.py` that takes the input
+  and the answer and says whether the answer is right.
+- `setup`: import lines the inputs need. `array` and `frame` inputs import NumPy and pandas on their own.
+- `mutates = [0]`: argument positions the function changes; they are compared after the call too.
+- `raises = ["ValueError"]`: errors the prompt names. Inputs that make the solution raise any other error
+  are dropped.
+- `count`: how many inputs, default 100.
+
+The inputs are seeded by the item id, so every build ships the same ones. Edge cases come first: the bounds, 0,
+empty and one-item containers, duplicates and ties.
+
 ## The three guards
 
 1. **Claims** (above): the prose is checked, not only the code.
