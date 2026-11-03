@@ -3,6 +3,17 @@
 Each session reads this first and updates it last. Newest entries at the top of each section.
 
 ## Done
+- Session 5 (2026-11-03, overnight cloud session): Tasks 5.1 to 5.4, pushed to `test-framework`. `content/features.toml`
+  holds 93 features (syntax, builtins, methods of the core types, libraries) with detectors, `words` and `say`;
+  `detect_features` in `py/harness.py` finds them and reports the rest as `unknown:<detector>`. Lessons declare
+  `teaches`. Rules `untaught-feature`, `unknown-feature`, `teaches-missing` (`tools/vet/checks/progression.py`),
+  `required-untaught`, `required-not-in-prompt`, `prompt-asks-construct` (`tools/vet/checks/required.py`),
+  `gate-boss-missing` and `trophy-mismatch` (split out of `world-key-invalid`, in `checks/worlds.py`). A task, variant,
+  stage or boss lists `requires`; Check says "Your code works, but this task asks you to ..." once the behaviour
+  passes (harness, bundle version 5, TypeScript runner). Today's content: 0 `unknown-feature`, 34 `teaches-missing`
+  (so no lesson is judged yet), 28 `prompt-asks-construct` (prompts that name a construct without requiring it,
+  for example "Try a list comprehension"). The gap list holds 766 entries. Format in `content/README.md`, "Nothing
+  is used before it is taught" and "Required constructs".
 - Session 4 (2026-11-03, cloud): Task 0 (CI speed) and Tasks 4.1 and 4.2, pushed to `test-framework`, CI green
   on each push. `pnpm content --quick` for `pnpm dev`, `pnpm build`, the SessionStart hook and the e2e job; each
   check lists its rules (`tools/vet/run.py`) and canaries run only theirs; a narrower cache key and uncached CI
@@ -39,6 +50,34 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 5 review (fresh Sonnet subagent on the session diff): fixed findings 1, 2, 4, 5, 6, 7, 8 (annotations and
+  async only), 9, 10 and 11, with a test for each. Mutation jobs run without `requires`, so a mutant that loses a
+  construct is not "killed" by the construct check. A builtin passed as a value (`key=len`, `except ValueError`)
+  counts as used (`call:<name>`). A decorator the code defines, and decorator calls like `functools.wraps(f)`, are
+  not features. A defined method name hides only calls on a name or object, not `self.items.pop()`.
+  `features.toml` is in the results cache key. `dataclasses-module` became `dataclasses-import` and
+  `dataclass-decorator` (detectors are OR, so requiring the module would have accepted a bare import). Finding 3
+  and the operator part of 8 are under Open.
+- Session 5: code is judged for `untaught-feature` only up to the first lesson (world order, then `order`) that has
+  no `teaches`, since an earlier lesson with no list makes every later feature look untaught. `unknown-feature`
+  applies everywhere. A boss is judged after the last lesson of its region and needs all lessons before that to
+  declare `teaches`. Without this rule today's content would give about 1000 `untaught-feature` gaps with no signal.
+- Session 5: `claim` blocks, `tests.py` and boss intro text are not judged: learners never read them (the plan lists
+  the checked code). Hint code spans count only when they parse alone (shortcut in `progression.py`).
+- Session 5: the vocabulary lists only what today's content uses (plus the plan's syntax list), not every builtin
+  and method of the core types: unused entries would be code nobody asked for, and a new world that needs one fails
+  with `unknown-feature` until it is added, which is the spec's "stays complete" mechanism.
+- Session 5: `LanguageAdapter.features` takes a batch of `FeatureQuery` (code and `own_names`) and the vocabulary,
+  and returns one set per query. The plan's `features(code)` could not work without the vocabulary, and one
+  harness job for all of the content is much cheaper than a subprocess per snippet. `detect_features` gained an
+  optional `own_names` (methods defined in the lesson's other code, for hints and snippets).
+- Session 5: `Required` is called `RequiredConstruct` in TypeScript (the global `Required<T>` utility type).
+  `Feature` gains `say`, `Item` gains `requires`, `requires_ids` and `words_ok`; the TOML key `construct_words_ok`
+  silences `prompt-asks-construct`. Boss hard mode reads `requires` from the `boss.md` front matter, like `[cases]`.
+- Session 5: the gate rules live in `checks/worlds.py` next to `world-key-invalid`, not in a new `wiring.py`: the
+  plan lists `task-unplaced`, `concept-*` and `item-id-duplicate` as already existing, which left two new rules.
+  The XP-total Vitest test the plan asks for already exists (`src/learning/curve.test.ts` reads the built bundle).
+- Session 5: Tasks 1.1 Step 5 and 1.5 Step 3 are ticked: CI has been green on every push since Session 3.
 - Session 4 review (fresh subagent on the session diff): fixed findings 1 to 4, 6 and 9 with a regression test
   each where code changed. A block or job that times out on 3.14 leaves its unit uncached, a timeout on 3.12 or
   3.13 is not a `version-differs`, an unknown `min` is only `field-invalid` (it crashed the run), and the cache
@@ -202,6 +241,16 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
+- Session 5 review finding 3: builtin shadowing ignores scope (a parameter named `type` hides every call to `type`
+  in the code). Shortcut comment in `py/harness.py`. Upgrade to per-scope names if a lesson shadows a builtin on
+  purpose.
+- Session 5: operators (`//`, `%`, `**`), list, tuple, dict and set displays are not tracked syntax, so a lesson can
+  use them before teaching them. Add `node:` entries to `TRACKED_NODES` and `features.toml` if that matters.
+- Session 5: no content item uses `requires` yet, so `pnpm vet:pyodide` and the worker never run a real requirement;
+  the browser path is covered by the mocked `client.test.ts` and harness tests only. No lesson has `teaches`, so
+  `untaught-feature` never fires on real content. Both are for the fixing sessions: someone must decide which
+  prompts really require a construct (28 `prompt-asks-construct` gaps) and write `teaches` for the 34 lessons.
+- Session 5: `pnpm test` in the VM still fails only `src/village/terrainCache.test.ts` (575 of 576 pass); CI passes it.
 - Session 4: CI timing, measured on GitHub. Warm pull request run (1b49482, run 41724842270, every unit read
   from the cache): 9 min 30 s wall time; runner time `check` 9 min 26 s, e2e 3 min 11 s, `secrets` 7 s, so
   12 min 44 s in all (15 billed minutes, rounded up per job). Inside `check`: `pnpm test` 1 min 17 s,
@@ -274,7 +323,11 @@ Each session reads this first and updates it last. Newest entries at the top of 
   warms the cache, but the framework should not let a cold machine flake a check (Session 4 owns timing).
 
 ## Next
-- Session 5 (cloud): Tasks 5.1 to 5.4 in `PLAN.md`. Read CI on the last Session 4 push first. A new rule's
-  check goes in `CHECKS` with its rules (`tools/vet/run.py`); a check that reruns code many times belongs in
-  `SLOW_RULES`, and code that shapes a cached result belongs in `RESULT_SOURCES`.
+- Session 6 (cloud): Tasks 6.1 to 6.3 in `PLAN.md`. Correction from the owner: GitHub dispatches a workflow only
+  when its file is on the default branch, and `vet-models.yml` exists only on `test-framework`. So trigger it with a
+  push: commit a request file under `vet/requests/` and let the workflow run `on: push` for `paths: vet/requests/**`
+  (keep `workflow_dispatch` for after the merge); read the results from the run's artifact with `gh api`, then
+  commit them. Secret `DEEPSEEK_API_KEY`, DeepSeek V4.1 Flash only, with the plan's call caps.
+- A new rule's check goes in `CHECKS` with its rules (`tools/vet/run.py`); a check that reruns code many times belongs
+  in `SLOW_RULES`, and code that shapes a cached result belongs in `RESULT_SOURCES`.
 - Track B Task B.3 can merge `test-framework` into `report-button`.
