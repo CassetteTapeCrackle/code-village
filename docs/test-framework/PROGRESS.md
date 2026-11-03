@@ -202,9 +202,13 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
-- Session 4: CI timing. Cold runs (a framework change): `check` 18 to 22 min, e2e 4 min (was 9). A warm pull
-  request run: see the Session 4 timing entry below. `pnpm test:py` takes about 8 min on GitHub and never
-  uses the Actions cache (each run has a fresh `VET_CACHE`), so it bounds the `check` job.
+- Session 4: CI timing, measured on GitHub. Warm pull request run (1b49482, run 41724842270, every unit read
+  from the cache): 9 min 30 s wall time; runner time `check` 9 min 26 s, e2e 3 min 11 s, `secrets` 7 s, so
+  12 min 44 s in all (15 billed minutes, rounded up per job). Inside `check`: `pnpm test` 1 min 17 s,
+  `vet:pyodide` 12 s, `pnpm test:py` 6 min 22 s. Before Session 4: `check` 16 min and e2e 9 min on a cold
+  run, 57 min on d1feee4. A cold run (any change to `RESULT_SOURCES`) still costs `check` about 21 min. `pnpm
+  test:py` is now the longest step and never uses the Actions cache (each run has a fresh `VET_CACHE`); it is
+  the next thing to cut if CI must get faster.
 - Session 4 review finding 5: `vet-pyodide.mjs` compares hidden expected values as exact repr text, not with
   the case's comparison (`float`, `array`, `frame`). A last-bit float difference between wasm and native maths
   would fail. No item declares `[cases]` yet; fix when World 3 items do (shortcut comment in the script).
