@@ -7,6 +7,7 @@ so a task that passes the build passes in the browser. Messages are written for 
 import ast
 import builtins
 import contextlib
+import functools
 import importlib
 import io
 import json
@@ -15,10 +16,29 @@ import shutil
 import sys
 import tempfile
 import traceback
+from collections.abc import Callable, Iterable, Iterator, Sequence
+from typing import TypedDict
 
 MAX_OUTPUT = 10_000
 LEARNER_FILE = "your_code.py"
 HEAVY_LIBRARIES = {"numpy", "pandas", "sklearn", "scipy"}
+NO_INPUT = "input() was called, but this task gives no input"
+
+
+class RunResult(TypedDict):
+    stdout: str
+    error: str | None
+
+
+class TestResult(TypedDict):
+    name: str
+    passed: bool
+    message: str
+
+
+class CheckResult(TypedDict):
+    error: str | None
+    results: list[TestResult]
 
 
 class Failure(Exception):
@@ -26,7 +46,7 @@ class Failure(Exception):
 
 
 class _CappedOutput(io.StringIO):
-    def write(self, s):
+    def write(self, s: str) -> int:
         room = MAX_OUTPUT - self.tell()
         if room <= 0:
             return len(s)
@@ -37,13 +57,13 @@ class _CappedOutput(io.StringIO):
 
 
 @contextlib.contextmanager
-def _fake_input(answers, message, echo=False):
+def _fake_input(answers: Iterable[str], message: str, echo: bool = False) -> Iterator[None]:
     """echo=True prints prompt and answer like a terminal (Run); checks leave prompts out of the output,
     so `input("Name: ")` passes the same tests as `input()`."""
     feed = iter(answers)
     original = builtins.input
 
-    def fake(prompt=""):
+    def fake(prompt: object = "") -> str:
         try:
             answer = next(feed)
         except StopIteration:
@@ -61,7 +81,7 @@ def _fake_input(answers, message, echo=False):
         builtins.input = original
 
 
-def _learner_error(error):
+def _learner_error(error: BaseException) -> str:
     """The error as the learner should see it: only frames from their own file."""
     if isinstance(error, Failure):
         return str(error)
@@ -73,7 +93,7 @@ def _learner_error(error):
 
 
 @contextlib.contextmanager
-def _fresh_dir():
+def _fresh_dir() -> Iterator[None]:
     """Every job starts in an empty folder, so files one run writes never reach the next (or the repo)."""
     home = os.getcwd()
     folder = tempfile.mkdtemp(prefix="job-")
@@ -85,13 +105,13 @@ def _fresh_dir():
         shutil.rmtree(folder, ignore_errors=True)
 
 
-def heavy_imports(source):
+def heavy_imports(source: str) -> list[str]:
     """The big-library modules this code imports, so they can load before the timed run starts."""
     try:
         tree = ast.parse(source)
     except SyntaxError:
         return []
-    found = []
+    found: list[str] = []
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             names = [a.name for a in node.names]
@@ -103,35 +123,34 @@ def heavy_imports(source):
     return found
 
 
-def preimport(modules):
+def preimport(modules: Iterable[str]) -> None:
     for name in modules:
-        try:
+        # not a module (a class), or a typo the timed run will report
+        with contextlib.suppress(Exception):
             importlib.import_module(name)
-        except Exception:  # noqa: BLE001 - not a module (a class), or a typo the timed run will report
-            pass
 
 
-def _execute(code, namespace):
+def _execute(code: str, namespace: dict[str, object]) -> None:
     exec(compile(code, LEARNER_FILE, "exec"), namespace)
 
 
-def run_code(code, inputs):
+def run_code(code: str, inputs: Sequence[str]) -> RunResult:
     out = _CappedOutput()
     error = None
-    with _fresh_dir(), contextlib.redirect_stdout(out), _fake_input(inputs, "input() is waiting for an answer: type it in the input box, one line per input()", echo=True):
+    waiting = "input() is waiting for an answer: type it in the input box, one line per input()"
+    with _fresh_dir(), contextlib.redirect_stdout(out), _fake_input(inputs, waiting, echo=True):
         try:
             _execute(code, {"__name__": "__main__"})
-        except BaseException as e:  # noqa: BLE001 - every learner error is reported, never raised
+        except BaseException as e:  # every learner error is reported, never raised
             error = _learner_error(e)
     return {"stdout": out.getvalue(), "error": error}
 
 
-_STRICT = False
 # The punctuation beginners are allowed to get wrong: only a dot or comma between two digits is kept.
 _IGNORED_PUNCTUATION = ",.!?;:'\""
 
 
-def _lenient_text(text):
+def _lenient_text(text: str) -> str:
     text = " ".join(text.casefold().split())
     kept = []
     for i, char in enumerate(text):
@@ -143,7 +162,7 @@ def _lenient_text(text):
     return "".join(kept)
 
 
-def _forgiving(value):
+def _forgiving(value: object) -> object:
     """What a str, or a container of str, compares as when the task does not teach exact formatting."""
     if isinstance(value, str):
         return _lenient_text(value)
@@ -156,14 +175,14 @@ def _forgiving(value):
     return value
 
 
-def _first_difference(actual, expected):
-    for i, (a, e) in enumerate(zip(actual, expected)):
+def _first_difference(actual: str, expected: str) -> int:
+    for i, (a, e) in enumerate(zip(actual, expected, strict=False)):
         if a != e:
             return i
     return min(len(actual), len(expected))
 
 
-def _mismatch(actual, expected, call):
+def _mismatch(actual: object, expected: object, call: str) -> str:
     shown_actual, shown_expected = repr(actual), repr(expected)
     if call:
         head = f"{call} returned {shown_actual}, expected {shown_expected}"
@@ -175,79 +194,91 @@ def _mismatch(actual, expected, call):
     return f"{head}\n{caret}"
 
 
-def expect_equal(actual, expected, call=""):
-    same = actual == expected if _STRICT else _forgiving(actual) == _forgiving(expected)
+def expect_equal(actual: object, expected: object, call: str = "", *, strict: bool = False) -> None:
+    same = actual == expected if strict else _forgiving(actual) == _forgiving(expected)
     if not same:
         raise Failure(_mismatch(actual, expected, call))
 
 
-class _Learner(dict):
+class _Learner(dict[str, object]):
     """The learner's names, as tests see them; a missing name is a readable failure."""
 
-    def __missing__(self, name):
+    def __missing__(self, name: str) -> object:
         raise Failure(f"{name} is not defined in your code")
 
 
-def run_tests(code, tests, strict=False):
-    global _STRICT
-    previous = _STRICT
-    _STRICT = strict
+def run_tests(code: str, tests: str, strict: bool = False) -> CheckResult:
+    with _fresh_dir():
+        return _run_tests(code, tests, strict)
+
+
+def _test_label(name: str, fn: Callable[[], object]) -> str:
+    if fn.__doc__:
+        return fn.__doc__.strip().splitlines()[0]
+    return name.removeprefix("test_").replace("_", " ")
+
+
+def _run_one_test(label: str, fn: Callable[[], object]) -> TestResult:
     try:
-        with _fresh_dir():
-            return _run_tests(code, tests)
-    finally:
-        _STRICT = previous
+        with contextlib.redirect_stdout(_CappedOutput()), _fake_input([], NO_INPUT):
+            fn()
+    except Failure as f:
+        return {"name": label, "passed": False, "message": str(f)}
+    except AssertionError as a:
+        return {"name": label, "passed": False, "message": str(a) or "a check did not hold"}
+    except Exception as e:  # a learner bug inside a test is a failed test, not a crash
+        return {"name": label, "passed": False, "message": f"your code raised {type(e).__name__}: {e}"}
+    return {"name": label, "passed": True, "message": ""}
 
 
-def _run_tests(code, tests):
+def _run_tests(code: str, tests: str, strict: bool) -> CheckResult:
     """Tests that set PROGRAM = True run the whole program with run_program(inputs) instead of
     importing the learner's functions, so top-level input() is allowed there and nowhere else."""
     learner = _Learner()
 
-    def run_program(inputs=()):
+    def run_program(inputs: Iterable[str] = ()) -> str:
         out = _CappedOutput()
-        with contextlib.redirect_stdout(out), _fake_input(list(inputs), "input() was called more times than this test gives answers"):
+        too_many = "input() was called more times than this test gives answers"
+        with contextlib.redirect_stdout(out), _fake_input(list(inputs), too_many):
             _execute(code, {"__name__": "__main__"})
         return out.getvalue()
 
-    scope = {"learner": learner, "expect_equal": expect_equal, "run_program": run_program, "Failure": Failure}
+    scope: dict[str, object] = {
+        "learner": learner,
+        "expect_equal": functools.partial(expect_equal, strict=strict),
+        "run_program": run_program,
+        "Failure": Failure,
+    }
     exec(compile(tests, "tests.py", "exec"), scope)
     if not scope.get("PROGRAM"):
-        namespace = {"__name__": "learner"}  # exec needs a plain dict, not the _Learner subclass
+        namespace: dict[str, object] = {"__name__": "learner"}  # exec needs a plain dict, not the _Learner subclass
         try:
-            with contextlib.redirect_stdout(_CappedOutput()), _fake_input([], "input() was called, but this task gives no input"):
+            with contextlib.redirect_stdout(_CappedOutput()), _fake_input([], NO_INPUT):
                 _execute(code, namespace)
-        except BaseException as e:  # noqa: BLE001
+        except BaseException as e:  # every learner error is reported, never raised
             return {"error": _learner_error(e), "results": []}
         learner.update(namespace)
-    results = []
-    for name, fn in list(scope.items()):
-        if not (name.startswith("test_") and callable(fn)):
-            continue
-        label = (fn.__doc__ or "").strip().splitlines()[0] if fn.__doc__ else name.removeprefix("test_").replace("_", " ")
-        try:
-            with contextlib.redirect_stdout(_CappedOutput()), _fake_input([], "input() was called, but this task gives no input"):
-                fn()
-            results.append({"name": label, "passed": True, "message": ""})
-        except Failure as f:
-            results.append({"name": label, "passed": False, "message": str(f)})
-        except AssertionError as a:
-            results.append({"name": label, "passed": False, "message": str(a) or "a check did not hold"})
-        except Exception as e:  # noqa: BLE001
-            results.append({"name": label, "passed": False, "message": f"your code raised {type(e).__name__}: {e}"})
-    return {"error": None, "results": results}
+    tests_found = [(name, fn) for name, fn in list(scope.items()) if name.startswith("test_") and callable(fn)]
+    return {"error": None, "results": [_run_one_test(_test_label(name, fn), fn) for name, fn in tests_found]}
 
 
-def run_code_json(code, inputs_json):
-    return json.dumps(run_code(code, json.loads(inputs_json)))
+def run_code_json(code: str, inputs_json: str) -> str:
+    inputs: list[str] = json.loads(inputs_json)
+    return json.dumps(run_code(code, inputs))
 
 
-def run_tests_json(code, tests, strict=False):
+def run_tests_json(code: str, tests: str, strict: bool = False) -> str:
     return json.dumps(run_tests(code, tests, strict))
+
+
+def _run_job(job: dict[str, object]) -> RunResult | CheckResult:
+    code = str(job["code"])
+    if job["mode"] == "run":
+        inputs = job.get("inputs", [])
+        return run_code(code, [str(answer) for answer in inputs] if isinstance(inputs, list) else [])
+    return run_tests(code, str(job["tests"]), bool(job.get("strict", False)))
 
 
 # Pyodide runs this file as __main__ too, but has no stdin job to read.
 if __name__ == "__main__" and sys.platform != "emscripten":
-    job = json.load(sys.stdin)
-    result = run_code(job["code"], job.get("inputs", [])) if job["mode"] == "run" else run_tests(job["code"], job["tests"], job.get("strict", False))
-    print(json.dumps(result))
+    print(json.dumps(_run_job(json.load(sys.stdin))))

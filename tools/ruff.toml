@@ -1,0 +1,18 @@
+# Framework code in tools/ and py/ (py/ruff.toml extends this). Lesson solutions keep LINT_RULES in
+# content_check.py, run with --isolated, so this file never reaches content/.
+target-version = "py312"
+line-length = 120
+# fixtures are lesson code: tests.py uses names the harness injects
+extend-exclude = ["fixtures"]
+
+[lint]
+select = ["E", "F", "W", "B", "SIM", "I", "UP", "C90", "PL", "RUF", "ANN"]
+
+[lint.mccabe]
+max-complexity = 10
+
+[lint.per-file-ignores]
+# shortcut: content_check.py is moved into tools/vet in Task 1.3 and typed there; drop this line once it is thin
+"content_check.py" = ["ANN", "C901", "PLR0912", "PLR0913", "PLR0917", "E501", "PLR2004", "PLW1510", "PLW0603"]
+# tests compare against literal expected values
+"test_*.py" = ["PLR2004"]
