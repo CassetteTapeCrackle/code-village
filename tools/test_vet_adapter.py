@@ -1,3 +1,6 @@
+import contextlib
+import io
+import json
 import shutil
 import sys
 import tempfile
@@ -12,6 +15,7 @@ from vet.adapter import LIMIT, CheckJob, ToolError
 from vet.checks import style
 from vet.load import load_content
 from vet.python import adapter as python_adapter
+from vet.python import capped
 from vet.python.adapter import PythonAdapter
 from vet.rules import RULES, SEVERITIES, RulesError, load_rules
 from vet.run import vet_content
@@ -61,6 +65,21 @@ class Check(unittest.TestCase):
         self.assertLess(time.monotonic() - start, LIMIT / 2)
         assert outcome is not None
         self.assertIn("MemoryError", outcome["error"] or "")
+
+    def test_harness_runs_uncapped_where_the_cap_is_refused(self) -> None:
+        # macOS: setrlimit(RLIMIT_AS) raises ValueError, and every job used to crash with it
+        job = {"mode": "run", "code": "print(6 * 7)", "inputs": []}
+        out = io.StringIO()
+        refused = ValueError("current limit exceeds maximum limit")
+        with mock.patch("resource.setrlimit", side_effect=refused), \
+                mock.patch("sys.stdin", io.StringIO(json.dumps(job))), contextlib.redirect_stdout(out):
+            capped.main(str(python_adapter.HARNESS))
+        self.assertEqual(json.loads(out.getvalue())["stdout"], "42\n")
+
+    def test_cap_memory_says_when_the_platform_refuses(self) -> None:
+        for error in (ValueError("refused"), OSError("refused")):
+            with self.subTest(error=type(error).__name__), mock.patch("resource.setrlimit", side_effect=error):
+                self.assertFalse(capped.cap_memory())
 
     def test_unbuilt_methods_say_so(self) -> None:
         with self.assertRaises(NotImplementedError):

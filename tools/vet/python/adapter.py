@@ -30,12 +30,7 @@ HARNESS = ROOT / "py" / "harness.py"
 ONE_THREAD = {"OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1"}
 
 Job = dict[str, object]
-# a broken solution can grow a list until memory runs out (four at once took a CI runner down), while real jobs
-# stay under 200 MB; macOS ignores the cap, so there a runaway job still waits for the time limit
-MEMORY_CAP = 2 * 1024**3
-CAPPED = ("import resource, runpy, sys\n"
-          f"resource.setrlimit(resource.RLIMIT_AS, ({MEMORY_CAP}, {MEMORY_CAP}))\n"
-          "runpy.run_path(sys.argv[1], run_name='__main__')")
+CAPPED = Path(__file__).with_name("capped.py")  # runs the harness with a memory cap where possible
 
 
 class PythonAdapter:
@@ -81,7 +76,7 @@ class PythonAdapter:
 
     def _harness(self, job: Job) -> dict[str, object] | None:
         try:
-            done = subprocess.run([self.python, "-I", "-c", CAPPED, str(HARNESS)], input=json.dumps(job),
+            done = subprocess.run([self.python, "-I", str(CAPPED), str(HARNESS)], input=json.dumps(job),
                                   capture_output=True, text=True, timeout=LIMIT, env={**os.environ, **ONE_THREAD},
                                   check=False)
         except subprocess.TimeoutExpired:
