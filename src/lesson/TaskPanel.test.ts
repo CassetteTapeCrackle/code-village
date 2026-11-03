@@ -84,3 +84,17 @@ test("Run on the tour task moves the tour on without input lines", async () => {
   await fireEvent.click(screen.getByRole("button", { name: "Run" }));
   await vi.waitFor(() => expect(tour.state.step).toBe("check"));
 });
+
+test("the line under the editor says what an automatic report sends", () => {
+  render(TaskPanel, { lesson, task });
+  expect(
+    screen.getByText(
+      "If Check looks wrong, we send your code anonymously so we can fix it and improve the site.",
+    ),
+  ).toBeTruthy();
+});
+
+test("a task has its own report button", () => {
+  render(TaskPanel, { lesson, task });
+  expect(screen.getByRole("button", { name: "Report a problem" })).toBeTruthy();
+});

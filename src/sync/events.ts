@@ -14,6 +14,8 @@ export type SyncEvent =
   | { kind: "world_skipped"; id: string; at: Day };
 
 export const MAX_CODE_CHARS = 6000;
+// The worker refuses a report message above this; the report form stops typing at it.
+export const MAX_REPORT_MESSAGE_CHARS = 1_000;
 const KINDS: ReadonlySet<string> = new Set([
   "task_passed",
   "lesson_passed",

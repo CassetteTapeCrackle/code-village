@@ -1,4 +1,5 @@
 import type { Env } from "./env";
+import { MAX_REPORT_MESSAGE_CHARS } from "../../src/sync/events";
 import { sha256Hex } from "./crypto.ts";
 
 export const LIMITS = {
@@ -20,7 +21,7 @@ export const LIMITS = {
   reportPerIpPerDay: 10,
   autoReportPerIpPerDay: 20,
   issuesPerDay: 20,
-  maxReportMessageChars: 1_000,
+  maxReportMessageChars: MAX_REPORT_MESSAGE_CHARS,
 } as const;
 
 type IpAction = "register" | "recover" | "report" | "auto-report";

@@ -13,6 +13,7 @@
   import LazyCodeEditor from "./LazyCodeEditor.svelte";
   import Markdown from "./Markdown.svelte";
   import LoadFailed from "./LoadFailed.svelte";
+  import ReportButton from "../ui/ReportButton.svelte";
 
   type Props = {
     id: string;
@@ -26,6 +27,7 @@
     oncheck: (code: string) => Promise<void>;
     children?: Snippet;
     variant?: "paper" | "slate";
+    reportItem?: string; // with one, the panel offers Report a problem and says what Check may send
   };
   let {
     id,
@@ -39,6 +41,7 @@
     oncheck,
     children,
     variant = "paper",
+    reportItem,
   }: Props = $props();
   let code = $state(untrack(() => (draftKey ? game.progress.drafts[draftKey] : undefined) ?? starter));
   let busy = $state(false);
@@ -79,6 +82,11 @@
   <h2 id="h-{id}">{title}</h2>
   <div class="prompt"><Markdown text={prompt} /></div>
   <LazyCodeEditor value={code} label="Your code for {title}" onchange={edit} />
+  {#if reportItem}
+    <p class="sends">
+      If Check looks wrong, we send your code anonymously so we can fix it and improve the site.
+    </p>
+  {/if}
   {#if asksInput}
     <label class="inputs">
       <span>Input lines for Run (one per line, for <code>input()</code>)</span>
@@ -97,6 +105,7 @@
         >{:else if ran.stdout === ""}<span class="quiet">{quietRunNote(code)}</span>{/if}</pre>
   {/if}
   {@render children?.()}
+  {#if reportItem}<ReportButton item={reportItem} {code} />{/if}
 </section>
 
 <style>
@@ -195,6 +204,11 @@
     font-family: var(--font-mono);
     font-size: 14px;
     white-space: pre-wrap;
+  }
+  .sends {
+    margin: 4px 0 0;
+    color: var(--dim);
+    font-size: 13px;
   }
   .quiet {
     white-space: normal;

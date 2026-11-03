@@ -71,6 +71,7 @@
   passed={Boolean(mine.passedAt)}
   oncheck={check}
   {variant}
+  reportItem={task.id}
 >
   {#if mine.hintsUsed < task.hints.length && !mine.passedAt}
     <button type="button" class="hint-button" onclick={hint}
