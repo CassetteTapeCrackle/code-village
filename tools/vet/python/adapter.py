@@ -22,6 +22,7 @@ from ..adapter import (
     case_json,
 )
 from .mutate import mutants
+from .rewrite import rewrites
 
 ROOT = Path(__file__).resolve().parents[3]
 HARNESS = ROOT / "py" / "harness.py"
@@ -62,7 +63,7 @@ class PythonAdapter:
         return mutants(code)
 
     def rewrites(self, code: str) -> list[Rewrite]:
-        raise NotImplementedError("rewrites arrive in Task 3.3")
+        return rewrites(code)
 
     def features(self, code: str) -> frozenset[str]:
         raise NotImplementedError("feature detection arrives in Task 5.1")

@@ -16,8 +16,8 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Literal, cast
 
-from ..adapter import CheckJob, CheckOutcome, HiddenCase, LanguageAdapter, Mutant
-from ..cases.expect import CasesProblem, hidden_cases, item_decl
+from ..adapter import CheckJob, CheckOutcome, LanguageAdapter, Mutant
+from ..cases.expect import CasesProblem, buildable_cases, item_decl
 from ..cases.spec import CasesDecl, NoCases
 from ..finding import Finding, subject
 from ..model import Content, Item
@@ -41,22 +41,7 @@ class MutantResult:
     differs: str = ""
 
 
-Group = list[Item]  # items that share one model solution: a task or variant alone, a boss's stages and hard mode
-
-
-def _groups(content: Content) -> list[Group]:
-    groups: dict[tuple[str, str], Group] = {}
-    for item in content.items():
-        groups.setdefault((item.id, item.solution), []).append(item)
-    return list(groups.values())
-
-
-def _cases(item: Item, adapter: LanguageAdapter, fuzz: int = 0) -> tuple[HiddenCase, ...]:
-    """The item's hidden cases, or none when they cannot be built (the cases rules report why)."""
-    try:
-        return tuple(hidden_cases(item, adapter, fuzz=fuzz))
-    except CasesProblem:
-        return ()
+Group = list[Item]  # items that share one model solution (Content.solution_groups)
 
 
 def _first_verdict(outcomes: Sequence[CheckOutcome | None]) -> Verdict | None:
@@ -116,7 +101,7 @@ class _Run:
                  for i, m in enumerate(ms)] for g, ms in enumerate(mutants)]
 
     def _verdicts(self, groups: Sequence[Group], mutants: Sequence[list[Mutant]]) -> list[list[Verdict | None]]:
-        suites = [[(item, _cases(item, self.adapter)) for item in group] for group in groups]
+        suites = [[(item, buildable_cases(item, self.adapter)) for item in group] for group in groups]
         jobs = [CheckJob(m.code, item.tests, item.strict, cases)
                 for ms, suite in zip(mutants, suites, strict=True) for m in ms for item, cases in suite]
         outcomes = iter(self.adapter.check(jobs))
@@ -128,8 +113,8 @@ class _Run:
         items = list({id(item): item for group, _ in survivors for item in group}.values())
         # each item's fuzz values come from its own harness run, so threads run them side by side
         with ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as pool:
-            fuzz = dict(zip(map(id, items), pool.map(lambda i: _cases(i, self.adapter, FUZZ_COUNT), items),
-                            strict=True))
+            built = pool.map(lambda i: buildable_cases(i, self.adapter, fuzz=FUZZ_COUNT), items)
+            fuzz = dict(zip(map(id, items), built, strict=True))
         per_survivor = [[(item, fuzz[id(item)]) for item in group if fuzz[id(item)]] for group, _ in survivors]
         jobs = [CheckJob(m.code, item.tests, item.strict, cases)
                 for (_, m), suite in zip(survivors, per_survivor, strict=True) for item, cases in suite]
@@ -177,7 +162,7 @@ GroupResults = list[tuple[Group, list[MutantResult]]]
 
 def group_results(content: Content, adapter: LanguageAdapter, cache: Path | None) -> GroupResults:
     """Every group with its mutants' results, read from cache when the group's fingerprint is there."""
-    groups = _groups(content)
+    groups = content.solution_groups()
     framework = _framework_hash() if cache else ""
     cached = [_load(cache / f"{g[0].fingerprint}.json", framework) if cache else None for g in groups]
     fresh = iter(_Run(adapter).results([g for g, c in zip(groups, cached, strict=True) if c is None]))
@@ -219,7 +204,7 @@ def summary(content: Content, cache: Path) -> str:
     """Counts per verdict over the cached results, for the build output."""
     framework = _framework_hash()
     counts: Counter[str] = Counter()
-    for group in _groups(content):
+    for group in content.solution_groups():
         counts.update(r.verdict for r in _load(cache / f"{group[0].fingerprint}.json", framework) or [])
     return (f"mutants: {sum(counts.values())}, killed by visible tests {counts['visible']}, only by hidden cases "
             f"{counts['hidden']} (visible tests could be stronger), equivalent {counts['equivalent']}, "

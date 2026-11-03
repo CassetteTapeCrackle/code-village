@@ -31,6 +31,10 @@ severity = "right-refused"
 summary = "The model solution fails its own hidden cases or runs out of time on them: it is not deterministic."
 severity = "right-refused"
 
+[rule.right-refused]
+summary = "A rewrite of the model solution that behaves the same fails a test: the test checks how code is written."
+severity = "right-refused"
+
 # Lessons that teach something false
 [rule.claim-fails]
 summary = "A claim block raises or runs out of time: the sentence it backs is false."

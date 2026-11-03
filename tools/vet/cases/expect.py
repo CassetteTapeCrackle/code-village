@@ -76,3 +76,11 @@ def hidden_cases(item: Item, adapter: LanguageAdapter, *, fuzz: int = 0) -> list
                                                    "giving the expected values")
     return [case for case_input, value in zip(inputs, values, strict=True)
             if (case := _case(decl, case_input, value)) is not None]
+
+
+def buildable_cases(item: Item, adapter: LanguageAdapter, *, fuzz: int = 0) -> tuple[HiddenCase, ...]:
+    """The item's hidden cases, or none when they cannot be built (the cases rules report why)."""
+    try:
+        return tuple(hidden_cases(item, adapter, fuzz=fuzz))
+    except CasesProblem:
+        return ()

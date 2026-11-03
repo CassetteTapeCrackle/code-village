@@ -448,9 +448,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - Check: every rewrite passes visible tests plus hidden cases, else rule `right-refused` naming the transform
   and the failing test. Rewrites that remove a required feature are skipped (Task 5.3 fills `requires`).
 
-- [ ] **Step 1:** Tests per transform; canary `right-refused` (tests that compare `str(result)` with spacing
+- [x] **Step 1:** Tests per transform; canary `right-refused` (tests that compare `str(result)` with spacing
   that a rewrite changes).
-- [ ] **Step 2 to 4:** Fail, implement, pass. `gaps --write`. Commit.
+- [x] **Step 2 to 4:** Fail, implement, pass. `gaps --write`. Commit.
 
 ### Task 3.4: `right/` answers and tests that inspect code
 
