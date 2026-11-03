@@ -58,7 +58,10 @@ Each session reads this first and updates it last. Newest entries at the top of 
   run 8 min), mutant jobs stop after 10 s instead of 30 s, the rewrite and `right/` results are cached per item
   like mutation (`tools/vet/cache.py`), `pnpm build` uses `--if-changed` like `pnpm dev`, and the CI cache is
   shared by both jobs. In the VM now: cold `pnpm content` 5 min 16 s, warm 26 s (33 s before Session 3),
-  `pnpm test:py` 5 min 21 s (2 min 11 s before). Read the next CI run for the GitHub figures.
+  `pnpm test:py` 5 min 21 s (2 min 11 s before). On GitHub (run on 160ed08, green, cold cache since the
+  framework changed): `pnpm content` 6 min 37 s in e2e and 7 min 42 s in `check` (inside the 8 minute budget),
+  `pnpm test:py` 7 min 21 s, `pnpm build` 3 s, `check` job 16 min, e2e job 9 min. A warm run skips most of the
+  content time.
 - Session 3: CI caches `.vet-cache/`, keyed by the framework source, `py/harness.py` and `package.json`, plus
   the run id and job so each run saves its new results and both jobs restore the latest. The e2e job runs
   `pnpm content` as its own step before Playwright, because a cold check passes the dev server's start timeout.
@@ -154,8 +157,8 @@ Each session reads this first and updates it last. Newest entries at the top of 
 ## Open
 - Session 3: the GitHub access problems of Sessions 1 and 2 are gone: `origin` pushes and CI runs on every
   push.
-- Session 3: CI time. A framework change still means a cold run of the new checks in both jobs (about 5 min in
-  the VM, likely 15 min or more on GitHub), and `pnpm test:py` is about 2.5 times slower than before Session 3
+- Session 3: CI time. A framework change still means a cold run of the new checks in both jobs (about 7 min each
+  on GitHub), and `pnpm test:py` is about 2.5 times slower than before Session 3
   (more canaries, a bigger `good` fixture, the `wrong/` and solution checks are not cached). That works against
   the 2000 Actions minutes a month. Options for Session 4 (timing): cache the remaining runtime checks the same
   way, or run the canaries' runtime checks in fewer harness processes.
@@ -205,7 +208,7 @@ Each session reads this first and updates it last. Newest entries at the top of 
   warms the cache, but the framework should not let a cold machine flake a check (Session 4 owns timing).
 
 ## Next
-- Session 4 (cloud): Tasks 4.1 and 4.2 in `PLAN.md`. Read CI on the last Session 3 push first and fix anything
-  red. The mutation, rewrite and `right/` checks run through `PythonAdapter`, so the interpreters of Task 4.1
+- Session 4 (cloud): Tasks 4.1 and 4.2 in `PLAN.md`. CI was green on 160ed08; read the run on the last Session 3
+  push (this PROGRESS update) first and fix anything red. The mutation, rewrite and `right/` checks run through `PythonAdapter`, so the interpreters of Task 4.1
   plug in there.
 - Track B Task B.3 can merge `test-framework` into `report-button`.
