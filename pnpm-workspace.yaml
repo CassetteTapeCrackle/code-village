@@ -1,3 +1,6 @@
+# Never install an npm version published less than 3 days ago (minutes): hijacked releases are usually
+# pulled by then. Setting it here also makes pnpm strict, failing instead of quietly taking a newer version.
+minimumReleaseAge: 4320
 allowBuilds:
   core-js-pure: false
   esbuild: true
