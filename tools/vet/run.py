@@ -18,6 +18,7 @@ from .checks import (
     solutions,
     style,
     test_shape,
+    versions,
     worlds,
     wrong,
 )
@@ -54,9 +55,11 @@ CHECKS: list[Check] = [
     Check(right.check, frozenset({"right-fails"})),
     Check(right.check_missing, frozenset({"right-missing"})),
     Check(test_shape.check, frozenset({"test-inspects-code"})),
+    Check(versions.check, frozenset({"version-differs"})),
+    Check(versions.check_min, frozenset({"min-unexplained"})),
 ]
-# the checks that run a model solution's many variants; a quick build (pnpm dev, pnpm build) leaves them out
-SLOW_RULES = frozenset({"weak-tests", "right-refused", "right-fails"})
+# the checks that rerun the content many times over; a quick build (pnpm dev, pnpm build) leaves them out
+SLOW_RULES = frozenset({"weak-tests", "right-refused", "right-fails", "version-differs"})
 
 
 class UndeclaredRule(AssertionError):

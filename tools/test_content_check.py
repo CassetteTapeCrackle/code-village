@@ -354,7 +354,7 @@ class GapList(unittest.TestCase):
         gaps.write_text(dump_gaps([GapKey("weak-tests", "basics-double", "000000000000")]))
         quick, _ = check(GOOD, "--gaps", str(gaps), "--quick")
         self.assertEqual(quick.returncode, 0, quick.stdout + quick.stderr)
-        self.assertIn("quick: right-fails, right-refused, weak-tests not checked", quick.stdout)
+        self.assertIn("quick: right-fails, right-refused, version-differs, weak-tests not checked", quick.stdout)
         full, _ = check(GOOD, "--gaps", str(gaps))
         self.assertIn("gap list: weak-tests basics-double 000000000000 no longer happens", full.stdout)
 

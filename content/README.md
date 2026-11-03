@@ -136,6 +136,21 @@ mode together):
 - **Tests compare results only** (`test-inspects-code`): no `inspect`, `ast`, `dis`, `tokenize` or `linecache`,
   no `__code__`, no `open()` on a `.py` file.
 
+## Python 3.12 and newer
+
+Content is written for Python 3.12 and newer. The build runs it on 3.14 (the browser's version) and again on
+CPython 3.12 and 3.13: every example, predict and claim block must print the same, and every solution,
+starter, `wrong/` and `right/` answer must pass or fail the same tests and hidden cases (`version-differs`).
+When something really needs a newer Python, declare the oldest one it holds on and tell the learner:
+
+- a block: ` ```python predict min=3.13 `, with "Python 3.13" in the text just before or after it;
+- a task or variant: `min = "3.13"` in its TOML; a boss: `min = "3.13"` in its front matter. The prompt (for a
+  boss, the intro or a stage prompt) must say "Python 3.13".
+
+A `min` the text never names is `min-unexplained`. The older Pythons live in `.vet-cache/py3.12` and
+`.vet-cache/py3.13` (made by uv with the library pins), and results are cached in `.vet-cache/versions/`.
+`pnpm dev` and `pnpm build` skip this check (and mutants, rewrites and `right/`); `pnpm test` runs it.
+
 ## Review checklist
 
 Before a world is done, read every lesson, prompt, hint, starter, solution and test, and ask:

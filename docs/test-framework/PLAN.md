@@ -485,7 +485,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   differs from 3.14 gives rule `version-differs`, unless the block or item declares `min` at or above the
   first version where it holds and the lesson text near it names that version (`min-unexplained` otherwise).
 
-- [ ] **Step 1 to 4:** Canaries (a predict block whose output differs between 3.12 and 3.14, such as an
+- [x] **Step 1 to 4:** Canaries (a predict block whose output differs between 3.12 and 3.14, such as an
   error message whose wording changed; verify the difference on the pinned interpreters before using it),
   fail, implement, pass. Commit.
 

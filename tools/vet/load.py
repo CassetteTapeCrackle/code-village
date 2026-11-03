@@ -45,10 +45,12 @@ CODE_FILES = ("starter", "solution", "tests")
 FRONT_MATTER_PARTS = 3  # nothing before the first +++, the TOML, then the body
 MIN_STAGES, MAX_STAGES = 3, 5  # the game's boss screen is drawn for 3 to 5 stages
 KINDS = {"write", "fix", "complete"}
-FENCE = re.compile(r"^```python (example|predict|claim)\n(.*?)^```\n", re.S | re.M)
+FENCE = re.compile(r"^```python (example|predict|claim)(?: min=(\S+))?\n(.*?)^```\n", re.S | re.M)
 TASK_LINE = re.compile(r"^::task ([\w-]+)\s*$", re.M)
 CODE_KINDS: dict[str, CodeKind] = {"example": "example", "predict": "predict", "claim": "claim"}
 BLOCK = re.compile(FENCE.pattern + "|" + TASK_LINE.pattern, re.S | re.M)
+# the versions a block or item may say it needs (`min`): the content targets 3.12 and newer
+PYTHONS = ("3.12", "3.13", "3.14")
 
 
 @dataclass
@@ -107,9 +109,15 @@ def _load_variant(folder: Path, lesson_text: str, root: Path) -> tuple[Variant |
     toml = folder / "variant.toml"
     report.require(meta, VARIANT_FIELDS, where, "variant.toml", toml)
     strict = _strict(meta, where, report, toml)
+    _check_min(meta.get("min"), where, report, toml)
     variant = Variant(str(meta.get("id", where)), where, folder, meta, files["starter"], files["solution"],
                       files["tests"], strict, _answers(folder, "wrong"), _answers(folder, "right"), report.fingerprint)
     return variant, report.findings
+
+
+def _check_min(value: object, where: str, report: Report, path: Path) -> None:
+    if value is not None and value not in PYTHONS:
+        report.add("field-invalid", where, f"min must be one of {', '.join(PYTHONS)} (a string)", path)
 
 
 def _load_task(folder: Path, lesson_text: str, root: Path) -> tuple[Task | None, list[Finding]]:
@@ -127,6 +135,7 @@ def _load_task(folder: Path, lesson_text: str, root: Path) -> tuple[Task | None,
     if not hints:
         report.add("field-missing", where, "a task needs at least one hint", toml)
     strict = _strict(meta, where, report, toml)
+    _check_min(meta.get("min"), where, report, toml)
     variants = []
     for variant_folder in subfolders(folder / "variants"):
         variant, found = _load_variant(variant_folder, lesson_text, root)
@@ -164,7 +173,7 @@ def split_body(body: str) -> list[TextBlock | CodeBlock | str]:
         if text:
             blocks.append(TextBlock(text))
         kind = CODE_KINDS.get(m.group(1) or "")
-        blocks.append(CodeBlock(kind, m.group(2)) if kind else m.group(3))
+        blocks.append(CodeBlock(kind, m.group(3), m.group(2)) if kind else m.group(4))
         pos = m.end()
     tail = body[pos:].strip()
     if tail:
@@ -186,6 +195,8 @@ def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Findi
     placed = set()
     for block in split_body(body):
         if not isinstance(block, str):
+            if isinstance(block, CodeBlock):
+                _check_min(block.min, where, report, lesson_md)
             blocks.append(block)
             continue
         folder = lesson_md.parent / "tasks" / block
@@ -221,6 +232,7 @@ def _load_boss(boss_md: Path, root: Path) -> tuple[Boss | None, list[Finding]]:
     if parsed is None:
         return None, report.findings
     meta, intro = parsed
+    _check_min(meta.get("min"), where, report, boss_md)
     try:
         files = {name: (folder / f"{name}.py").read_text() for name in ("starter", "solution", "hard_tests")}
     except OSError as e:

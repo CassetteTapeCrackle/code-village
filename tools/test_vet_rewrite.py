@@ -201,7 +201,7 @@ class Guarantees(unittest.TestCase):
 
 
 def item(prompt: str, tests: str) -> Item:
-    return Item("t", "task", "the solution", Path("."), "", "", tests, False, "fp", "t", None, (), prompt)
+    return Item("t", "task", "the solution", Path("."), "", "", tests, False, "fp", "t", None, (), (), prompt, None)
 
 
 class Check(unittest.TestCase):
@@ -215,7 +215,7 @@ class Check(unittest.TestCase):
         self.assertFalse(kept(debug, [item("", "PROGRAM = True")]))
         self.assertTrue(kept(debug, [item("", "def test_a(): pass")]))
         program = Item("t", "task", "the solution", Path("."), "", "", "def test_a(): pass", False, "fp", "t",
-                       {"stdin": ["int 0..9"]}, (), "")
+                       {"stdin": ["int 0..9"]}, (), (), "", None)
         self.assertFalse(kept(debug, [program]))
 
     def test_first_failure_names_the_test(self) -> None:

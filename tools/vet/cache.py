@@ -21,6 +21,7 @@ CACHE_ROOT = ROOT / ".vet-cache"
 Group = list[Item]  # items that share one model solution (Content.solution_groups)
 # a JSON value, and whether it is settled: a result a slower machine could change (a timeout) is not stored
 Computed = tuple[object, bool]
+Key = tuple[str, str]  # the fingerprint a value is stored under, and a label for whoever reads the file
 
 
 def cache_for(content: Content, kind: str) -> Path | None:
@@ -34,7 +35,8 @@ VET = ROOT / "tools" / "vet"
 # the code a cached result depends on: how jobs run, how hidden cases are built, how code is mutated and rewritten,
 # and the checks that judge the runs; an edit anywhere else in tools/vet keeps the cache
 RESULT_SOURCES = (ROOT / "py" / "harness.py", VET / "adapter.py", VET / "cache.py", VET / "python", VET / "cases",
-                  VET / "checks" / "mutation.py", VET / "checks" / "rewrites.py", VET / "checks" / "right.py")
+                  VET / "checks" / "mutation.py", VET / "checks" / "rewrites.py", VET / "checks" / "right.py",
+                  VET / "checks" / "versions.py")
 
 
 def library_pins() -> str:
@@ -67,28 +69,35 @@ def read(folder: Path, fingerprint: str, framework: str) -> object | None:
     return value
 
 
-def _write(folder: Path, group: Group, framework: str, value: object) -> None:
+def _write(folder: Path, key: Key, framework: str, value: object) -> None:
     # written aside and renamed, so a run reading the cache at the same time never sees half a file
+    fingerprint, label = key
     folder.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile("w", dir=folder, suffix=".tmp", delete=False) as out:
-        json.dump({"framework": framework, "item": group[0].id, "value": value}, out, indent=1)
-    Path(out.name).replace(folder / f"{group[0].fingerprint}.json")
+        json.dump({"framework": framework, "item": label, "value": value}, out, indent=1)
+    Path(out.name).replace(folder / f"{fingerprint}.json")
 
 
-def per_group(groups: Sequence[Group], folder: Path | None,
-              compute: Callable[[list[Group]], list[Computed]]) -> list[object]:
-    """Each group's value: read from folder when its fingerprint is there, else computed (all misses at once,
+def per_unit[T](units: Sequence[T], key: Callable[[T], Key], folder: Path | None,
+                compute: Callable[[list[T]], list[Computed]]) -> list[object]:
+    """Each unit's value: read from folder when its fingerprint is there, else computed (all misses at once,
     so their jobs run side by side) and stored when settled."""
     framework = framework_hash() if folder else ""
-    stored = [read(folder, g[0].fingerprint, framework) if folder else None for g in groups]
-    fresh = iter(compute([g for g, s in zip(groups, stored, strict=True) if s is None]))
+    stored = [read(folder, key(u)[0], framework) if folder else None for u in units]
+    fresh = iter(compute([u for u, s in zip(units, stored, strict=True) if s is None]))
     values = []
-    for group, found in zip(groups, stored, strict=True):
+    for unit, found in zip(units, stored, strict=True):
         if found is not None:
             values.append(found)
             continue
         value, settled = next(fresh)
         if folder and settled:
-            _write(folder, group, framework, value)
+            _write(folder, key(unit), framework, value)
         values.append(value)
     return values
+
+
+def per_group(groups: Sequence[Group], folder: Path | None,
+              compute: Callable[[list[Group]], list[Computed]]) -> list[object]:
+    """per_unit for solution groups, keyed by the group's first item."""
+    return per_unit(groups, lambda g: (g[0].fingerprint, g[0].id), folder, compute)

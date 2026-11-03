@@ -11,7 +11,7 @@ from ..finding import Finding, Subject, subject
 from ..model import CodeBlock, Content, Lesson
 
 
-def _runnable(content: Content) -> list[tuple[Lesson, CodeBlock]]:
+def runnable(content: Content) -> list[tuple[Lesson, CodeBlock]]:
     return [(lesson, block) for lesson in content.lessons for block in lesson.blocks
             if isinstance(block, CodeBlock) and (block.kind != "claim" or "assert" in block.code)]
 
@@ -21,7 +21,7 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
         for block in lesson.blocks:
             if isinstance(block, CodeBlock) and block.kind == "claim" and "assert" not in block.code:
                 yield _about(content, lesson).finding("claim-no-assert", "a claim block needs an assert")
-    blocks = _runnable(content)
+    blocks = runnable(content)
     for (lesson, block), ran in zip(blocks, adapter.run([block.code for _, block in blocks]), strict=True):
         about = _about(content, lesson)
         problems = _judge_claim(ran) if block.kind == "claim" else _judge_example(block, ran)

@@ -40,11 +40,14 @@ jobs:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
       # mutation, rewrite and right/ results per item: each file records the hash of the code, pins and Python it
-      # was computed under (tools/vet/cache.py), so the latest cache is restored whatever changed since
+      # was computed under (tools/vet/cache.py), so the latest cache is restored whatever changed since. The older
+      # Pythons' environments are left out: uv rebuilds them in seconds, and they would fill the cache quota
       - if: github.event_name == 'pull_request' || github.ref == 'refs/heads/dev'
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          path: .vet-cache
+          path: |
+            .vet-cache
+            !.vet-cache/py3.*
           key: vet-cache-${{ github.run_id }}
           restore-keys: vet-cache-
       - run: pnpm lint

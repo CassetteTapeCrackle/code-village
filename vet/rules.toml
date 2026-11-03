@@ -56,6 +56,14 @@ severity = "right-refused"
 summary = "A claim block raises or runs out of time: the sentence it backs is false."
 severity = "false-claim"
 
+[rule.version-differs]
+summary = "Output or a verdict differs between Python 3.12 or 3.13 and the build's Python, with no min declared."
+severity = "false-claim"
+
+[rule.min-unexplained]
+summary = "A block or item declares min, but the text near it never names that Python version."
+severity = "false-claim"
+
 [rule.claim-no-assert]
 summary = "A claim block has no assert, so it backs nothing."
 severity = "false-claim"
