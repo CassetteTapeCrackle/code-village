@@ -448,7 +448,7 @@ class DetectFeatures(unittest.TestCase):
 
     def test_kwarg_detector_names_the_call(self) -> None:
         self.assertEqual(self.detect("sorted([], key=len)\n"), {"sorted-key", "unknown:call:sorted", "fn-len"})
-        self.assertEqual(self.detect("max([], key=len)\n"), {"unknown:call:max", "fn-len"})
+        self.assertEqual(self.detect("max([], key=len)\n"), {"unknown:call:max", "unknown:kwarg:max.key", "fn-len"})
 
     def test_a_builtin_passed_as_a_value_counts(self) -> None:
         self.assertEqual(self.detect("xs = [1]\nxs.append(len)\n"), {"append", "fn-len"})
@@ -480,8 +480,11 @@ class DetectFeatures(unittest.TestCase):
         self.assertEqual(found, {"unknown:call:print", "list-comprehension", "unknown:method:title",
                                  "unknown:import:os"})
 
-    def test_a_kwarg_the_vocabulary_lacks_is_not_unknown(self) -> None:
-        self.assertEqual(self.detect("len(x=1)\n"), {"fn-len"})
+    def test_a_kwarg_of_a_builtin_the_vocabulary_lacks_is_unknown(self) -> None:
+        self.assertEqual(self.detect("len(x=1)\n"), {"fn-len", "unknown:kwarg:len.x"})
+
+    def test_a_kwarg_of_a_method_the_vocabulary_lacks_is_not_unknown(self) -> None:
+        self.assertEqual(self.detect("xs.append(x=1)\n"), {"append"})
 
     def test_the_codes_own_names_are_not_builtins_or_methods(self) -> None:
         code = "def len(x):\n    return 0\nclass C:\n    def append(self):\n        pass\nlen(1)\nC().append()\n"

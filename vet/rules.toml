@@ -137,6 +137,30 @@ severity = "right-refused"
 summary = "Two bosses or lessons give the same trophy or loot id, so owning one counts as owning the other."
 severity = "wiring"
 
+[rule.test-name-unnamed]
+summary = "A test asks the learner's code for a name that neither the prompt nor the starter names."
+severity = "right-refused"
+
+[rule.cases-target-unused]
+summary = "A [cases] table declares hidden cases for a function or class that the item's tests never judge."
+severity = "wrong-accepted"
+
+[rule.valid-always-true]
+summary = "A validity rule returns True for every answer, so its hidden cases accept anything."
+severity = "wrong-accepted"
+
+[rule.claim-vacuous]
+summary = "A claim asserts something that can never fail, such as assert (condition, message)."
+severity = "false-claim"
+
+[rule.lesson-order-duplicate]
+summary = "Two lessons of a world share the same order number."
+severity = "wiring"
+
+[rule.region-no-boss]
+summary = "A region has lessons but no boss, so its gate can never open."
+severity = "wiring"
+
 [rule.world-key-invalid]
 summary = "A world's [key] is missing, present on the first world, or names a boss that is not in an earlier world."
 severity = "wiring"

@@ -1,0 +1,28 @@
+# the key of world w2 names the boss calculator, but the boss in w1 has the id calc
+base = "good"
+expect = ["wiring"]
+
+[[file]]
+path = "w2/world.toml"
+text = '''
+id = "w2"
+order = 2
+name = "The Forest"
+area = "village"
+regions = {}
+
+[building]
+name = "Hut"
+place = "hut"
+
+[teacher]
+name = "Mr. Oak"
+portrait = "teacher"
+
+[key]
+boss = "calculator"
+trophy = "calc-trophy"
+trophy_name = "Calc Trophy"
+opens = "forest"
+gate_hint = "Beat the calculator first."
+'''

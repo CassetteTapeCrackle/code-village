@@ -1,0 +1,13 @@
+# the right/ answer for half uses floor division, which passes half(4) but is wrong for odd numbers
+base = "good"
+expect = ["right-refused"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/right/floors-it.py"
+text = '''
+def half(n):
+    return n // 2
+'''
+
+[[delete]]
+path = "w1/a/basics/tasks/half/right/times-a-half.py"

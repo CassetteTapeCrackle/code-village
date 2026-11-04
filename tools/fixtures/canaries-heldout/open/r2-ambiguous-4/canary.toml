@@ -1,0 +1,87 @@
+# the triple prompt says three times bigger, which reads as 3n or as n + 3n, and the hint no longer settles it
+base = "good"
+expect = ["ambiguous"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)` so that it returns a number three times bigger than `n`."
+hints = ["Check your answer with a small number."]
+gotcha = false
+
+[cases]
+call = "triple"
+args = ["int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/basics/ledger.toml"
+text = '''
+[[sentence]]
+fp = "5200066b97e8"
+text = "Numbers can be multiplied."
+where = "text:0"
+status = "claim:times-two"
+decided = "owner"
+
+[[sentence]]
+fp = "66ec437924e8"
+text = "Write `double(n)`."
+where = "task:basics-double:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "a82bdae3baef"
+text = "Multiply by 2."
+where = "task:basics-double:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "f534e12368ba"
+text = "Write `quadruple(n)`."
+where = "task:basics-double-quadruple:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "4a8843c31c0b"
+text = "Write `half(n)`."
+where = "task:basics-half:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "60e91b832049"
+text = "Divide by 2."
+where = "task:basics-half:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "9ba1abf486c8"
+text = "Write `triple(n)` so that it returns a number three times bigger than `n`."
+where = "task:basics-triple:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "0aef3a099945"
+text = "Check your answer with a small number."
+where = "task:basics-triple:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "6d3af89c09f9"
+text = "Multiplying by 2 doubles a number."
+where = "remember:0"
+status = "claim:times-two"
+decided = "owner"
+
+'''

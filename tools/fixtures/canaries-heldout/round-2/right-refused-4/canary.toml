@@ -1,0 +1,14 @@
+# tests.py annotates a helper with an undefined name Number: fine on 3.14 (lazy annotations), NameError on 3.12 and 3.13
+base = "good"
+expect = ["right-refused"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def expected(n: Number) -> Number:
+    return n * 3
+
+
+def test_triple():
+    expect_equal(learner["triple"](2), expected(2), "triple(2)")
+'''

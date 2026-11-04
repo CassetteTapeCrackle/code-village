@@ -1,0 +1,31 @@
+# the validity rule declared for half always returns True, so hidden cases accept any answer (n - 2 passes half(4))
+base = "good"
+expect = ["valid-always-true"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/task.toml"
+text = '''
+id = "basics-half"
+concept = "numbers"
+kind = "write"
+title = "Half it"
+prompt = "Write `half(n)`."
+hints = ["Divide by 2."]
+gotcha = false
+
+[cases]
+call = "half"
+args = ["int -50..50"]
+valid = "is_valid"
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/half/tests.py"
+text = '''
+def test_half():
+    expect_equal(learner["half"](4), 2.0, "half(4)")
+
+
+def is_valid(args, answer):
+    return True
+'''

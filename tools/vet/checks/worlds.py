@@ -13,9 +13,30 @@ from ..model import Content, World, fingerprint_text
 
 
 def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
+    yield from _lesson_orders(content)
+    yield from _regions_without_boss(content)
     yield from _orders(content.worlds)
     yield from _lesson_worlds(content)
     yield from _keys(content)
+
+
+def _lesson_orders(content: Content) -> Iterable[Finding]:
+    """Rule lesson-order-duplicate: lessons run in order within a world, so two sharing a number have no order."""
+    taken = Counter((lesson.meta.get("world"), lesson.meta.get("order")) for lesson in content.lessons)
+    for (world, order), count in sorted(taken.items(), key=str):
+        if count > 1:
+            message = f"{count} lessons of {world} have order {order}"
+            yield Subject("worlds", fingerprint_text(message), "").finding("lesson-order-duplicate", message)
+
+
+def _regions_without_boss(content: Content) -> Iterable[Finding]:
+    """Rule region-no-boss: a region with lessons ends in a boss, or its gate can never open."""
+    guarded = {(b.meta.get("world"), b.meta.get("region")) for b in content.bosses}
+    regions = {(lesson.meta.get("world"), lesson.meta.get("region")) for lesson in content.lessons
+               if not lesson.meta.get("tour")}
+    for world, region in sorted(regions - guarded, key=str):
+        message = f"region {world}/{region} has lessons but no boss"
+        yield Subject("worlds", fingerprint_text(message), "").finding("region-no-boss", message)
 
 
 def _orders(worlds: Iterable[World]) -> Iterable[Finding]:

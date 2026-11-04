@@ -1,0 +1,10 @@
+# a wrong/ answer returns a float (n * 3.0) and is thought wrong, but 6.0 equals 6 so every test and case accepts it
+base = "good"
+expect = ["wrong-accepted"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/wrong/float-result.py"
+text = '''
+def triple(n):
+    return n * 3.0
+'''

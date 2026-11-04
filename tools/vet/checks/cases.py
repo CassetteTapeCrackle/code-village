@@ -1,14 +1,16 @@
 """Rules cases-missing, cases-decl-invalid, cases-too-few and solution-fails-cases: every item ships hidden cases
 its own solution passes."""
 
+import ast
 import os
+import re
 from collections.abc import Iterable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from ..adapter import LIMIT, CheckJob, HiddenCase, LanguageAdapter
 from ..cases.expect import CasesProblem, hidden_cases, item_decl
-from ..cases.spec import NoCases
+from ..cases.spec import CallShape, NoCases
 from ..finding import Finding, Subject, subject
 from ..model import Content, Item
 
@@ -63,3 +65,46 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
         elif not hidden[0]["passed"]:  # the solution that gave the expected values now gives others
             yield about.finding("solution-fails-cases", f"{item.label} disagrees with its own expected values: "
                                                         f"{hidden[0]['message']}")
+
+
+LEARNER_NAME = re.compile(r"""learner\[\s*['"]([A-Za-z_]\w*)['"]\s*\]""")
+
+
+def learner_names(tests: str) -> set[str]:
+    """The names tests take from the learner's code: learner["double"]."""
+    return set(LEARNER_NAME.findall(tests))
+
+
+def always_true(tests: str, function: str) -> bool:
+    """True when the named function in tests returns True on every path it returns on, so it judges nothing."""
+    try:
+        tree = ast.parse(tests)
+    except SyntaxError:
+        return False
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef) and node.name == function:
+            returns = [r.value for r in ast.walk(node) if isinstance(r, ast.Return)]
+            return bool(returns) and all(isinstance(v, ast.Constant) and v.value is True for v in returns)
+    return False
+
+
+def check_declaration(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
+    """Rules cases-target-unused and valid-always-true: a [cases] table must point at what the tests judge."""
+    del adapter  # reads the declaration and the tests only
+    for item in content.items():
+        try:
+            decl = item_decl(item)
+        except CasesProblem:  # cases-decl-invalid reports it
+            continue
+        if decl is None or isinstance(decl.shape, NoCases):
+            continue
+        about = subject(item.id, item.fingerprint, _decl_path(item), content.root)
+        target = decl.shape.call if isinstance(decl.shape, CallShape) else getattr(decl.shape, "cls", None)
+        names = learner_names(item.tests)
+        if target and names and target not in names:
+            yield about.finding("cases-target-unused", f"{item.seed} declares hidden cases for {target}, but its tests "
+                                                       f"judge {', '.join(sorted(names))}: the cases test the wrong "
+                                                       "thing (a copied [cases] table?)")
+        if decl.valid and always_true(item.tests, decl.valid):
+            yield about.finding("valid-always-true", f"the validity rule {decl.valid} of {item.seed} returns True "
+                                                     "for every answer, so its hidden cases accept anything")

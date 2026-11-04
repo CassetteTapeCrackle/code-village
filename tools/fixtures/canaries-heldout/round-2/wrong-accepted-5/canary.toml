@@ -1,0 +1,18 @@
+# half declares no hidden cases with the reason copied from the README example (the answer is random), but it is deterministic
+base = "good"
+expect = ["wrong-accepted"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/task.toml"
+text = '''
+id = "basics-half"
+concept = "numbers"
+kind = "write"
+title = "Half it"
+prompt = "Write `half(n)`."
+hints = ["Divide by 2."]
+gotcha = false
+
+[cases]
+none = "the answer is random"
+'''

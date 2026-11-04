@@ -7,6 +7,7 @@ from collections.abc import Iterable, Iterator
 from ..adapter import LanguageAdapter
 from ..finding import Finding, subject
 from ..model import Content, Item
+from .cases import learner_names
 
 SOURCE_MODULES = {"inspect", "ast", "dis", "tokenize", "linecache"}
 CODE_ATTRIBUTES = {"__code__"}
@@ -85,6 +86,21 @@ def check_keywords(content: Content, adapter: LanguageAdapter) -> Iterable[Findi
                                                         f"{', '.join(n + '=' for n in unnamed)}, but the prompt never "
                                                         "names that parameter: a right answer with another name is "
                                                         "refused. Name it in the prompt, or call by position")
+
+
+def check_names(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
+    """Rule test-name-unnamed: a test may ask the learner's code only for names the learner was told to write: the
+    prompts of the item's group (a boss's stages and intro), or the starter, name them."""
+    del adapter  # reads the tests, prompts and starters only
+    for group in content.solution_groups():
+        told = "\n".join([group[0].starter, *(item.prompt for item in group)])
+        for item in group:
+            unnamed = sorted(n for n in learner_names(item.tests) if not re.search(rf"\b{re.escape(n)}\b", told))
+            if unnamed:
+                about = subject(item.id, item.fingerprint, item.folder / _tests_path(item), content.root)
+                yield about.finding("test-name-unnamed", f"the tests for {item.seed} ask the learner's code for "
+                                                         f"{', '.join(unnamed)}, which neither the prompt nor the "
+                                                         "starter names: a right answer cannot know to write it")
 
 
 def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:

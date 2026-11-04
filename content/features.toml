@@ -277,6 +277,18 @@ detect = ["call:TypeError"]
 summary = "AssertionError"
 detect = ["call:AssertionError"]
 
+[feature.print-end]
+summary = "print(..., end=...)"
+detect = ["kwarg:print.end"]
+
+[feature.enumerate-start]
+summary = "enumerate(..., start=...)"
+detect = ["kwarg:enumerate.start"]
+
+[feature.sorted-reverse]
+summary = "sorted(..., reverse=True)"
+detect = ["kwarg:sorted.reverse", "kwarg:sort.reverse"]
+
 [feature.sort-key]
 summary = "a key function for sorted(), sort(), min() and max()"
 detect = ["kwarg:sorted.key", "kwarg:sort.key", "kwarg:min.key", "kwarg:max.key"]

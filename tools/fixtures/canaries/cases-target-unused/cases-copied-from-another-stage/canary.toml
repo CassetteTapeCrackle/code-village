@@ -1,0 +1,16 @@
+# the hidden cases of the subtract stage name add instead of sub (copy and paste), so sub gets no hidden cases
+base = "good"
+expect = ["cases-target-unused"]
+
+[[file]]
+path = "w1/a/boss/stages/2-sub/stage.toml"
+text = '''
+id = "calc-sub"
+title = "Subtract"
+prompt = "Write `sub(a, b)`."
+hp = 10
+
+[cases]
+call = "add"
+args = ["int -50..50", "int -50..50"]
+'''

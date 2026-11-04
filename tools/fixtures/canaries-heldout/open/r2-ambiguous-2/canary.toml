@@ -1,0 +1,115 @@
+# the quadruple prompt asks to call double twice, a way of writing that Check cannot verify and no feature names
+base = "good"
+expect = ["ambiguous"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/variants/quadruple/variant.toml"
+text = '''
+id = "basics-double-quadruple"
+title = "Four times"
+prompt = "Write `quadruple(n)` by calling `double` twice."
+
+[cases]
+call = "quadruple"
+args = ["int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/double/variants/quadruple/starter.py"
+text = '''
+def double(n):
+    return n * 2
+
+
+def quadruple(n):
+    pass
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/double/variants/quadruple/solution.py"
+text = '''
+def double(n):
+    return n * 2
+
+
+def quadruple(n):
+    return double(double(n))
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/double/variants/quadruple/right/double-twice.py"
+text = '''
+def double(n):
+    return n + n
+
+
+def quadruple(n):
+    return double(double(n))
+'''
+
+[[file]]
+path = "w1/a/basics/ledger.toml"
+text = '''
+[[sentence]]
+fp = "5200066b97e8"
+text = "Numbers can be multiplied."
+where = "text:0"
+status = "claim:times-two"
+decided = "owner"
+
+[[sentence]]
+fp = "66ec437924e8"
+text = "Write `double(n)`."
+where = "task:basics-double:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "a82bdae3baef"
+text = "Multiply by 2."
+where = "task:basics-double:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "bb6b200553a3"
+text = "Write `quadruple(n)` by calling `double` twice."
+where = "task:basics-double-quadruple:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "4a8843c31c0b"
+text = "Write `half(n)`."
+where = "task:basics-half:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "60e91b832049"
+text = "Divide by 2."
+where = "task:basics-half:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "90c9d737af26"
+text = "Write `triple(n)`."
+where = "task:basics-triple:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "b2d4d0f52e1e"
+text = "Multiply by 3."
+where = "task:basics-triple:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "6d3af89c09f9"
+text = "Multiplying by 2 doubles a number."
+where = "remember:0"
+status = "claim:times-two"
+decided = "owner"
+'''
