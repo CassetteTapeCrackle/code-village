@@ -937,13 +937,8 @@ fingerprint = "c1127bee0134"
 
 [[gap]]
 rule = "right-missing"
-item = "conditions-larger"
-fingerprint = "a08a070a8257"
-
-[[gap]]
-rule = "right-missing"
 item = "conditions-sign"
-fingerprint = "b7c6afe96d16"
+fingerprint = "b19014bc8b6e"
 
 [[gap]]
 rule = "right-missing"
@@ -2072,13 +2067,8 @@ fingerprint = "c1127bee0134"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "conditions-larger"
-fingerprint = "a08a070a8257"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "conditions-sign"
-fingerprint = "b7c6afe96d16"
+fingerprint = "b19014bc8b6e"
 
 [[gap]]
 rule = "wrong-too-few"
