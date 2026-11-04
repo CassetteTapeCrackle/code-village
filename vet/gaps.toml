@@ -937,11 +937,6 @@ fingerprint = "c1127bee0134"
 
 [[gap]]
 rule = "right-missing"
-item = "conditions-weekend"
-fingerprint = "114955a1ddea"
-
-[[gap]]
-rule = "right-missing"
 item = "data-summary"
 fingerprint = "5778085b4b4e"
 
@@ -2054,11 +2049,6 @@ fingerprint = "613303316c8a"
 rule = "wrong-too-few"
 item = "composition-radio"
 fingerprint = "c1127bee0134"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "conditions-weekend"
-fingerprint = "114955a1ddea"
 
 [[gap]]
 rule = "wrong-too-few"
