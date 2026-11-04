@@ -482,11 +482,6 @@ fingerprint = "eb308c118939"
 
 [[gap]]
 rule = "prompt-asks-construct"
-item = "functions-as-values-prices"
-fingerprint = "bda626296ee8"
-
-[[gap]]
-rule = "prompt-asks-construct"
 item = "generators-count-down"
 fingerprint = "9b08fc16afe3"
 

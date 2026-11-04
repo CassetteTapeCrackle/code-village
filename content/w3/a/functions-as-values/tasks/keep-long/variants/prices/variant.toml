@@ -1,6 +1,7 @@
 id = "functions-as-values-prices"
 title = "Add the tax"
 prompt = "Finish `with_tax(prices)`: it returns a new list with every price times `1.5`, using `map` and a `lambda`."
+requires = ["lambda"]
 
 [cases]
 call = "with_tax"
