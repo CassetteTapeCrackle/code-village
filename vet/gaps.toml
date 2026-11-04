@@ -967,11 +967,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "right-missing"
-item = "pandas-tables-tallest"
-fingerprint = "9ef054920fc6"
-
-[[gap]]
-rule = "right-missing"
 item = "pandas-tables-team"
 fingerprint = "8d925b1ba02b"
 
@@ -1294,11 +1289,6 @@ fingerprint = "7b1cb790f6ac"
 rule = "wrong-too-few"
 item = "lost-satchel"
 fingerprint = "a452bd94cfec"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "pandas-tables-tallest"
-fingerprint = "9ef054920fc6"
 
 [[gap]]
 rule = "wrong-too-few"
