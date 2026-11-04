@@ -6,7 +6,7 @@ expect = ["blind-untriaged"]
 path = "../vet/blind/basics-double.json"
 text = '''
 {
-  "fingerprint": "0c2ceca8be6e",
+  "fingerprint": "0d599c5374ef",
   "model": "recorded",
   "attempts": [
     {
