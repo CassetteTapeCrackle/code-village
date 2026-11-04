@@ -723,7 +723,7 @@ fingerprint = "96c847a412bb"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "properties-fuel"
-fingerprint = "52f6c259f6b5"
+fingerprint = "f80723958224"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1204,11 +1204,6 @@ fingerprint = "50eaa30dbf3b"
 rule = "right-missing"
 item = "pandas-tables-total"
 fingerprint = "e27a8e94b019"
-
-[[gap]]
-rule = "right-missing"
-item = "properties-fuel"
-fingerprint = "52f6c259f6b5"
 
 [[gap]]
 rule = "right-missing"
