@@ -1332,11 +1332,6 @@ fingerprint = "f30a906ecba7"
 
 [[gap]]
 rule = "right-missing"
-item = "search-sort-member"
-fingerprint = "306097803fa9"
-
-[[gap]]
-rule = "right-missing"
 item = "search-sort-rank"
 fingerprint = "35ced29c1b29"
 
@@ -2089,11 +2084,6 @@ fingerprint = "8f71aaa27062"
 rule = "wrong-too-few"
 item = "search-sort-insert"
 fingerprint = "f30a906ecba7"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "search-sort-member"
-fingerprint = "306097803fa9"
 
 [[gap]]
 rule = "wrong-too-few"
