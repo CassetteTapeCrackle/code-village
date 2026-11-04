@@ -1,54 +1,54 @@
 {
-  "fingerprint": "4194ee436419",
+  "fingerprint": "de51deec3b30",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n    def describe(self):\n        return f\"{self.kind}, {self.height} m\"\n\n\nclass FruitTree(Tree):\n    def __init__(self, kind, height, fruit):\n        super().__init__(kind, height)\n        self.fruit = fruit\n\n    def describe(self):\n        return super().describe() + f\", gives {self.fruit}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n    def describe(self):\n        return f\"{self.kind}, {self.height} m\"\n\n\nclass FruitTree(Tree):\n    def __init__(self, kind, height, fruit):\n        super().__init__(kind, height)\n        self.fruit = fruit\n\n    def describe(self):\n        return super().describe() + f\", gives {self.fruit}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n    def describe(self):\n        return f\"{self.kind}, {self.height} m\"\n\n\nclass FruitTree(Tree):\n    def __init__(self, kind, height, fruit):\n        super().__init__(kind, height)\n        self.fruit = fruit\n\n    def describe(self):\n        return super().describe() + f\", gives {self.fruit}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n    def describe(self):\n        return f\"{self.kind}, {self.height} m\"\n\n\nclass FruitTree(Tree):\n    def __init__(self, kind, height, fruit):\n        super().__init__(kind, height)\n        self.fruit = fruit\n\n    def describe(self):\n        return super().describe() + f\", gives {self.fruit}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n    def describe(self):\n        return f\"{self.kind}, {self.height} m\"\n\n\nclass FruitTree(Tree):\n    def __init__(self, kind, height, fruit):\n        super().__init__(kind, height)\n        self.fruit = fruit\n\n    def describe(self):\n        return super().describe() + f\", gives {self.fruit}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

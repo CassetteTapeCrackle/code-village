@@ -67,13 +67,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "inheritance-canoe-boat"
-fingerprint = "bc9bd5b079f8"
-
-[[gap]]
-rule = "cases-missing"
 item = "inheritance-fruit-tree"
-fingerprint = "4194ee436419"
+fingerprint = "de51deec3b30"
 
 [[gap]]
 rule = "cases-missing"
@@ -988,7 +983,7 @@ fingerprint = "8c3c7fe025d9"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "inheritance-canoe-boat"
-fingerprint = "bc9bd5b079f8"
+fingerprint = "6ed4a850e76e"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1658,12 +1653,12 @@ fingerprint = "8c3c7fe025d9"
 [[gap]]
 rule = "right-missing"
 item = "inheritance-canoe-boat"
-fingerprint = "bc9bd5b079f8"
+fingerprint = "6ed4a850e76e"
 
 [[gap]]
 rule = "right-missing"
 item = "inheritance-fruit-tree"
-fingerprint = "4194ee436419"
+fingerprint = "de51deec3b30"
 
 [[gap]]
 rule = "right-missing"
@@ -2913,12 +2908,12 @@ fingerprint = "8c3c7fe025d9"
 [[gap]]
 rule = "wrong-too-few"
 item = "inheritance-canoe-boat"
-fingerprint = "bc9bd5b079f8"
+fingerprint = "6ed4a850e76e"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "inheritance-fruit-tree"
-fingerprint = "4194ee436419"
+fingerprint = "de51deec3b30"
 
 [[gap]]
 rule = "wrong-too-few"
