@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "functions-power"
-fingerprint = "dbcd3ca497df"
-
-[[gap]]
-rule = "cases-missing"
 item = "generators-average"
 fingerprint = "0be515d6dd68"
 
@@ -1638,7 +1633,7 @@ fingerprint = "0d804e5079f9"
 [[gap]]
 rule = "right-missing"
 item = "functions-greeting"
-fingerprint = "eeddfbfda550"
+fingerprint = "96f3b3338cf6"
 
 [[gap]]
 rule = "right-missing"
@@ -1648,7 +1643,7 @@ fingerprint = "496681ba32dc"
 [[gap]]
 rule = "right-missing"
 item = "functions-power"
-fingerprint = "dbcd3ca497df"
+fingerprint = "2e165c8ab691"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "0d804e5079f9"
 [[gap]]
 rule = "wrong-too-few"
 item = "functions-greeting"
-fingerprint = "eeddfbfda550"
+fingerprint = "96f3b3338cf6"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2903,7 +2898,7 @@ fingerprint = "496681ba32dc"
 [[gap]]
 rule = "wrong-too-few"
 item = "functions-power"
-fingerprint = "dbcd3ca497df"
+fingerprint = "2e165c8ab691"
 
 [[gap]]
 rule = "wrong-too-few"
