@@ -788,7 +788,7 @@ fingerprint = "02ab0f1b505a"
 [[gap]]
 rule = "cases-missing"
 item = "star-classifier"
-fingerprint = "a3efee858cb3"
+fingerprint = "5bc9df7be022"
 
 [[gap]]
 rule = "cases-missing"
@@ -1293,7 +1293,7 @@ fingerprint = "cf5a766a1521"
 [[gap]]
 rule = "ledger-missing"
 item = "star-classifier"
-fingerprint = "a3efee858cb3"
+fingerprint = "5bc9df7be022"
 
 [[gap]]
 rule = "ledger-missing"
@@ -2473,7 +2473,7 @@ fingerprint = "02ab0f1b505a"
 [[gap]]
 rule = "right-missing"
 item = "star-classifier"
-fingerprint = "a3efee858cb3"
+fingerprint = "5bc9df7be022"
 
 [[gap]]
 rule = "right-missing"
@@ -2814,11 +2814,6 @@ fingerprint = "880767156a46"
 rule = "weak-tests"
 item = "ranger-registry"
 fingerprint = "bc03a544dbed"
-
-[[gap]]
-rule = "weak-tests"
-item = "star-classifier"
-fingerprint = "a3efee858cb3"
 
 [[gap]]
 rule = "weak-tests"
