@@ -18,7 +18,7 @@ fingerprint = "4019e4cb54c0"
 [[gap]]
 rule = "blind-missing"
 item = "inheritance-ostrich"
-fingerprint = "ded3c0f82917"
+fingerprint = "5153f2ae18b6"
 
 [[gap]]
 rule = "blind-missing"
@@ -67,13 +67,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "inheritance-ostrich"
-fingerprint = "ded3c0f82917"
-
-[[gap]]
-rule = "cases-missing"
 item = "inheritance-penguin"
-fingerprint = "1b72b126d469"
+fingerprint = "74b4a88df855"
 
 [[gap]]
 rule = "cases-missing"
@@ -1658,12 +1653,12 @@ fingerprint = "de51deec3b30"
 [[gap]]
 rule = "right-missing"
 item = "inheritance-ostrich"
-fingerprint = "ded3c0f82917"
+fingerprint = "5153f2ae18b6"
 
 [[gap]]
 rule = "right-missing"
 item = "inheritance-penguin"
-fingerprint = "1b72b126d469"
+fingerprint = "74b4a88df855"
 
 [[gap]]
 rule = "right-missing"
@@ -2913,12 +2908,12 @@ fingerprint = "de51deec3b30"
 [[gap]]
 rule = "wrong-too-few"
 item = "inheritance-ostrich"
-fingerprint = "ded3c0f82917"
+fingerprint = "5153f2ae18b6"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "inheritance-penguin"
-fingerprint = "1b72b126d469"
+fingerprint = "74b4a88df855"
 
 [[gap]]
 rule = "wrong-too-few"
