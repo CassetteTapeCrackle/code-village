@@ -5,3 +5,7 @@ title = "The closest camp"
 prompt = "Write `closest(points, target)`: `points` is a list of tuples of numbers, one number per feature; the tests use two and three features. Return the whole nearest tuple, using `math.dist`."
 hints = ["`min` with a `key` picks the point with the smallest distance.", "`math.dist((0, 0), (3, 4))` is `5.0`: the distance between two points."]
 gotcha = false
+
+[cases]
+call = "closest"
+args = ["list<tuple<int 0..9, int 0..9>> 1..6", "tuple<int 0..9, int 0..9>"]
