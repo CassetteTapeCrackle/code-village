@@ -33,7 +33,7 @@ fingerprint = "c46db7ab85db"
 [[gap]]
 rule = "blind-missing"
 item = "train-test-peek"
-fingerprint = "7428c11c94fd"
+fingerprint = "ddfb467d9401"
 
 [[gap]]
 rule = "blind-untriaged"
@@ -893,7 +893,7 @@ fingerprint = "ddab2b4e0f3d"
 [[gap]]
 rule = "cases-missing"
 item = "train-test-peek"
-fingerprint = "7428c11c94fd"
+fingerprint = "ddfb467d9401"
 
 [[gap]]
 rule = "cases-missing"
@@ -2583,7 +2583,7 @@ fingerprint = "8424a1e0c73f"
 [[gap]]
 rule = "right-missing"
 item = "train-test-peek"
-fingerprint = "7428c11c94fd"
+fingerprint = "ddfb467d9401"
 
 [[gap]]
 rule = "right-missing"
@@ -2834,11 +2834,6 @@ fingerprint = "4d85a6b67f5f"
 rule = "weak-tests"
 item = "testing-total-test"
 fingerprint = "5693a29e09d3"
-
-[[gap]]
-rule = "weak-tests"
-item = "train-test-peek"
-fingerprint = "7428c11c94fd"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -3823,7 +3818,7 @@ fingerprint = "8424a1e0c73f"
 [[gap]]
 rule = "wrong-too-few"
 item = "train-test-peek"
-fingerprint = "7428c11c94fd"
+fingerprint = "ddfb467d9401"
 
 [[gap]]
 rule = "wrong-too-few"
