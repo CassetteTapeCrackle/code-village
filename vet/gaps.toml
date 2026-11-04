@@ -1222,13 +1222,8 @@ fingerprint = "d541e12609e3"
 
 [[gap]]
 rule = "right-missing"
-item = "loops-first-even"
-fingerprint = "4e6616e9e497"
-
-[[gap]]
-rule = "right-missing"
 item = "loops-first-over"
-fingerprint = "7a613966deeb"
+fingerprint = "258d27e4982b"
 
 [[gap]]
 rule = "right-missing"
@@ -2172,13 +2167,8 @@ fingerprint = "d541e12609e3"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "loops-first-even"
-fingerprint = "4e6616e9e497"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "loops-first-over"
-fingerprint = "7a613966deeb"
+fingerprint = "258d27e4982b"
 
 [[gap]]
 rule = "wrong-too-few"
