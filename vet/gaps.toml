@@ -213,7 +213,7 @@ fingerprint = "8216e418d98f"
 [[gap]]
 rule = "cases-missing"
 item = "tour-hello"
-fingerprint = "474e2bcde876"
+fingerprint = "247d55d24fd6"
 
 [[gap]]
 rule = "cases-missing"
@@ -916,11 +916,6 @@ item = "values"
 fingerprint = "54410c019459"
 
 [[gap]]
-rule = "right-missing"
-item = "tour-hello"
-fingerprint = "474e2bcde876"
-
-[[gap]]
 rule = "teaches-missing"
 item = "class-attributes"
 fingerprint = "1cefd95ea4c3"
@@ -1124,8 +1119,3 @@ fingerprint = "a1791ab22a84"
 rule = "weak-tests"
 item = "testing-total-test"
 fingerprint = "8216e418d98f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "tour-hello"
-fingerprint = "474e2bcde876"
