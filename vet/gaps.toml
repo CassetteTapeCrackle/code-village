@@ -947,18 +947,13 @@ fingerprint = "c9db3385a57c"
 
 [[gap]]
 rule = "right-missing"
-item = "dunders-hive"
-fingerprint = "cec41594034c"
-
-[[gap]]
-rule = "right-missing"
 item = "dunders-mushroom"
 fingerprint = "1706830caeed"
 
 [[gap]]
 rule = "right-missing"
 item = "dunders-quiver"
-fingerprint = "291d35dd294d"
+fingerprint = "067e5ad5694d"
 
 [[gap]]
 rule = "right-missing"
@@ -1997,18 +1992,13 @@ fingerprint = "c9db3385a57c"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "dunders-hive"
-fingerprint = "cec41594034c"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "dunders-mushroom"
 fingerprint = "1706830caeed"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "dunders-quiver"
-fingerprint = "291d35dd294d"
+fingerprint = "067e5ad5694d"
 
 [[gap]]
 rule = "wrong-too-few"
