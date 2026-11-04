@@ -962,11 +962,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
-item = "knn-sklearn-k"
-fingerprint = "02d3d90fa5ca"
-
-[[gap]]
-rule = "right-missing"
 item = "knn-sklearn-k3"
 fingerprint = "693ac461bb84"
 
@@ -1424,11 +1419,6 @@ fingerprint = "97bacf4256e1"
 rule = "wrong-too-few"
 item = "guessing-stone"
 fingerprint = "7b1cb790f6ac"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "knn-sklearn-k"
-fingerprint = "02d3d90fa5ca"
 
 [[gap]]
 rule = "wrong-too-few"
