@@ -968,7 +968,7 @@ fingerprint = "f1f49b108e4f"
 [[gap]]
 rule = "right-missing"
 item = "comprehensions-numbered"
-fingerprint = "a0c1a45fd22b"
+fingerprint = "53561795bd9f"
 
 [[gap]]
 rule = "right-missing"
@@ -2163,7 +2163,7 @@ fingerprint = "f1f49b108e4f"
 [[gap]]
 rule = "wrong-too-few"
 item = "comprehensions-numbered"
-fingerprint = "a0c1a45fd22b"
+fingerprint = "53561795bd9f"
 
 [[gap]]
 rule = "wrong-too-few"
