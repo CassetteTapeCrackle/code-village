@@ -486,11 +486,6 @@ item = "generators-count-long"
 fingerprint = "7b898165823a"
 
 [[gap]]
-rule = "prompt-asks-construct"
-item = "generators-letters"
-fingerprint = "dd06d5298882"
-
-[[gap]]
 rule = "remember-unbacked"
 item = "class-attributes"
 fingerprint = "0c0c9766a5aa"
