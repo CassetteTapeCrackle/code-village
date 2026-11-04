@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "properties-fuel"
-fingerprint = "e8b9b06ee144"
-
-[[gap]]
-rule = "cases-missing"
 item = "properties-plot"
 fingerprint = "194faeb8a977"
 
@@ -783,7 +778,7 @@ fingerprint = "6ed4a850e76e"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "properties-fuel"
-fingerprint = "e8b9b06ee144"
+fingerprint = "52f6c259f6b5"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1718,7 +1713,7 @@ fingerprint = "e27a8e94b019"
 [[gap]]
 rule = "right-missing"
 item = "properties-fuel"
-fingerprint = "e8b9b06ee144"
+fingerprint = "52f6c259f6b5"
 
 [[gap]]
 rule = "right-missing"
