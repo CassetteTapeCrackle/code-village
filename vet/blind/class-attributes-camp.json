@@ -1,54 +1,54 @@
 {
-  "fingerprint": "98b8a61b557d",
+  "fingerprint": "7a23e8fcf18c",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
