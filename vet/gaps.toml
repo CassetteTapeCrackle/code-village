@@ -57,13 +57,8 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "functions-by-last-letter"
-fingerprint = "1b5389784698"
-
-[[gap]]
-rule = "cases-missing"
 item = "functions-by-length"
-fingerprint = "b85eb693e511"
+fingerprint = "0d804e5079f9"
 
 [[gap]]
 rule = "cases-missing"
@@ -1643,12 +1638,12 @@ fingerprint = "53cf5ef6b2e2"
 [[gap]]
 rule = "right-missing"
 item = "functions-by-last-letter"
-fingerprint = "1b5389784698"
+fingerprint = "a5b342514fc2"
 
 [[gap]]
 rule = "right-missing"
 item = "functions-by-length"
-fingerprint = "b85eb693e511"
+fingerprint = "0d804e5079f9"
 
 [[gap]]
 rule = "right-missing"
@@ -2898,12 +2893,12 @@ fingerprint = "53cf5ef6b2e2"
 [[gap]]
 rule = "wrong-too-few"
 item = "functions-by-last-letter"
-fingerprint = "1b5389784698"
+fingerprint = "a5b342514fc2"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "functions-by-length"
-fingerprint = "b85eb693e511"
+fingerprint = "0d804e5079f9"
 
 [[gap]]
 rule = "wrong-too-few"

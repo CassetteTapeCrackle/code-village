@@ -1,54 +1,54 @@
 {
-  "fingerprint": "b85eb693e511",
+  "fingerprint": "0d804e5079f9",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def sort_by_length(words):\n    # sort by length, not alphabetically\n    return sorted(words, key=len)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def sort_by_length(words):\n    # sort by length, not alphabetically\n    return sorted(words, key=len)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def sort_by_length(words):\n    # sort by length, not alphabetically\n    return sorted(words, key=len)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def sort_by_length(words):\n    # sort by length, not alphabetically\n    return sorted(words, key=len)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def sort_by_length(words):\n    # sort by length, not alphabetically\n    return sorted(words, key=len)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
