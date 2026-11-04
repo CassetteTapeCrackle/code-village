@@ -268,7 +268,7 @@ fingerprint = "e0e3330891e0"
 [[gap]]
 rule = "cases-missing"
 item = "errors-set-volume"
-fingerprint = "f9e5fb1de5bf"
+fingerprint = "5b13eb7deba5"
 
 [[gap]]
 rule = "cases-missing"
@@ -1958,7 +1958,7 @@ fingerprint = "e0e3330891e0"
 [[gap]]
 rule = "right-missing"
 item = "errors-set-volume"
-fingerprint = "f9e5fb1de5bf"
+fingerprint = "5b13eb7deba5"
 
 [[gap]]
 rule = "right-missing"
@@ -2912,11 +2912,6 @@ fingerprint = "bed0eb39405e"
 
 [[gap]]
 rule = "weak-tests"
-item = "errors-set-volume"
-fingerprint = "f9e5fb1de5bf"
-
-[[gap]]
-rule = "weak-tests"
 item = "functions-add-item"
 fingerprint = "23799011c98f"
 
@@ -3493,7 +3488,7 @@ fingerprint = "e0e3330891e0"
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-set-volume"
-fingerprint = "f9e5fb1de5bf"
+fingerprint = "5b13eb7deba5"
 
 [[gap]]
 rule = "wrong-too-few"
