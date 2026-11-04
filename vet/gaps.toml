@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "dataclasses-quiver-default"
-fingerprint = "faeb9ece7de7"
-
-[[gap]]
-rule = "cases-missing"
 item = "dataclasses-races"
 fingerprint = "cddff1fd88d8"
 
@@ -73,7 +68,7 @@ fingerprint = "f8078686a129"
 [[gap]]
 rule = "cases-missing"
 item = "dataclasses-satchel"
-fingerprint = "c1118ebd644f"
+fingerprint = "7915f2c9fda1"
 
 [[gap]]
 rule = "cases-missing"
@@ -1218,7 +1213,7 @@ fingerprint = "dada7302cf0d"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "dataclasses-quiver-default"
-fingerprint = "faeb9ece7de7"
+fingerprint = "9fe72e54528e"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1638,7 +1633,7 @@ fingerprint = "dada7302cf0d"
 [[gap]]
 rule = "right-missing"
 item = "dataclasses-quiver-default"
-fingerprint = "faeb9ece7de7"
+fingerprint = "9fe72e54528e"
 
 [[gap]]
 rule = "right-missing"
@@ -1653,7 +1648,7 @@ fingerprint = "f8078686a129"
 [[gap]]
 rule = "right-missing"
 item = "dataclasses-satchel"
-fingerprint = "c1118ebd644f"
+fingerprint = "7915f2c9fda1"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "dada7302cf0d"
 [[gap]]
 rule = "wrong-too-few"
 item = "dataclasses-quiver-default"
-fingerprint = "faeb9ece7de7"
+fingerprint = "9fe72e54528e"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2908,7 +2903,7 @@ fingerprint = "f8078686a129"
 [[gap]]
 rule = "wrong-too-few"
 item = "dataclasses-satchel"
-fingerprint = "c1118ebd644f"
+fingerprint = "7915f2c9fda1"
 
 [[gap]]
 rule = "wrong-too-few"
