@@ -8,7 +8,7 @@ fingerprint = "9818f60299e0"
 [[gap]]
 rule = "blind-missing"
 item = "comprehensions-add-lists"
-fingerprint = "1cbf52860915"
+fingerprint = "a68fdf88471d"
 
 [[gap]]
 rule = "blind-missing"
