@@ -1,3 +1,6 @@
 id = "pandas-tables-taller"
 title = "How many are taller"
 prompt = "Finish `count_taller(text, h)`: `text` is CSV with `name` and `height` columns. Return how many people are taller than `h`."
+
+[cases]
+none = "it takes CSV text, which cannot be built from simple types"
