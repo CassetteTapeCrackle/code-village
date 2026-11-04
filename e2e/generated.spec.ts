@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
-import { code, chosen, lessons } from "./generatedItems";
+import { code, chosen, lessons, openRoads } from "./generatedItems";
 import { finishTour, showTask, typeCode } from "./helpers";
 
 // For every chosen task: the starter fails, the first wrong/ answer fails, the mutant that only the hidden cases kill
@@ -45,13 +45,19 @@ for (const [lesson, tasks] of lessons(chosen().tasks)) {
     test.beforeAll(async ({ browser }) => {
       page = await browser.newPage({ baseURL: BASE });
       await finishTour(page);
+      await page.goto("/");
+      await page.evaluate(
+        (p) => localStorage.setItem("code-village/progress", JSON.stringify(p)),
+        openRoads(),
+      );
       await page.goto(`/#/lesson/${lesson}`);
+      await page.reload();
     });
     test.afterAll(async () => page.close());
 
     for (const task of tasks) {
       test(task.id, async () => {
-        test.setTimeout(240_000);
+        test.setTimeout(150_000);
         const region = page.getByRole("region", { name: task.title });
         const notPassed = region.getByText(/Passed\. \+\d+ XP/);
         await showTask(page, task.title);

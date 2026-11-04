@@ -1,22 +1,14 @@
 import { expect, test } from "./fixtures";
-import { code, chosen } from "./generatedItems";
+import { code, chosen, openRoads } from "./generatedItems";
 import { openWith } from "./helpers";
 
-// For every chosen boss: with its region's lessons passed, the model solution beats it, and then hard mode.
-const done = { passedAt: "2026-10-01" };
+// For every chosen boss: with its region's lessons passed and the earlier worlds open, the model solution beats it,
+// and then hard mode.
 
 for (const boss of chosen().bosses) {
   test(`boss ${boss.id}`, async ({ page }) => {
     test.setTimeout(300_000);
-    const lessons = Object.fromEntries(boss.lessons.map((id) => [id, done]));
-    await openWith(page, `/#/boss/${boss.id}`, {
-      version: 1,
-      xp: 0,
-      tasks: {},
-      plants: {},
-      drafts: {},
-      lessons,
-    });
+    await openWith(page, `/#/boss/${boss.id}`, openRoads(boss.lessons, boss.id));
     const solution = code(boss.solution);
 
     const enter = async (): Promise<void> => {

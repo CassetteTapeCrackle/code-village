@@ -58,7 +58,9 @@ jobs:
           key: vet-cache-e2e-full-${{ github.run_id }}
           restore-keys: vet-cache-
       - run: pnpm content --quick --items-out .vet-cache/e2e-items.json
-      - run: pnpm e2e --shard=${{ matrix.shard }}/4
+      - run: pnpm e2e e2e/generated --shard=${{ matrix.shard }}/4
+        env:
+          E2E_NO_PREVIEW: "1"
       - if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

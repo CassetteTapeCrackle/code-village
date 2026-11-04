@@ -48,3 +48,23 @@ export function lessons(tasks: TaskItem[]): [string, TaskItem[]][] {
 }
 
 export const code = (path: string): string => readFileSync(path, "utf8");
+
+// A save in which every boss but `except` is beaten: the roads between worlds are open, so any lesson or boss page loads
+// instead of the blocked-world page. Region lessons come from the caller.
+export function openRoads(lessons: string[] = [], except = ""): object {
+  const done = { passedAt: "2026-10-01" };
+  const won = { stagesPassed: [], wonAt: "2026-10-01", hardWonAt: null, hardChecks: 0 };
+  return {
+    version: 1,
+    xp: 0,
+    tasks: {},
+    plants: {},
+    drafts: {},
+    lessons: Object.fromEntries(lessons.map((id) => [id, done])),
+    bosses: Object.fromEntries(
+      read()
+        .bosses.filter((b) => b.id !== except)
+        .map((b) => [b.id, won]),
+    ),
+  };
+}
