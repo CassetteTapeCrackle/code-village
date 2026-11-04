@@ -73,7 +73,7 @@ fingerprint = "7d89a1065dd1"
 [[gap]]
 rule = "cases-missing"
 item = "ranger-registry"
-fingerprint = "6b6226b23439"
+fingerprint = "7ee952b45ea0"
 
 [[gap]]
 rule = "cases-missing"
@@ -423,7 +423,7 @@ fingerprint = "fff326ccf6d2"
 [[gap]]
 rule = "ledger-missing"
 item = "ranger-registry"
-fingerprint = "6b6226b23439"
+fingerprint = "7ee952b45ea0"
 
 [[gap]]
 rule = "ledger-missing"
@@ -524,11 +524,6 @@ fingerprint = "8445cc2d3bfe"
 rule = "prompt-asks-construct"
 item = "inheritance-canoe-boat"
 fingerprint = "96c847a412bb"
-
-[[gap]]
-rule = "prompt-asks-construct"
-item = "ranger-registry"
-fingerprint = "6b6226b23439"
 
 [[gap]]
 rule = "remember-unbacked"
@@ -848,7 +843,7 @@ fingerprint = "eb308c118939"
 [[gap]]
 rule = "weak-tests"
 item = "ranger-registry"
-fingerprint = "6b6226b23439"
+fingerprint = "7ee952b45ea0"
 
 [[gap]]
 rule = "weak-tests"
