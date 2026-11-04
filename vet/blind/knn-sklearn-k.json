@@ -1,54 +1,54 @@
 {
-  "fingerprint": "e88ba1366b9a",
+  "fingerprint": "02d3d90fa5ca",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef crowd(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=5)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef crowd(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=5)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef crowd(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=5)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef crowd(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=5)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef crowd(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=5)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
