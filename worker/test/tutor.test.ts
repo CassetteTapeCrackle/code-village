@@ -102,14 +102,16 @@ test("a happy path streams the pieces, then done, and counts one reply", async (
   expect(res.headers.get("content-type")).toContain("text/event-stream");
   expect(await res.text()).toBe('data: {"text":"Bonj"}\n\ndata: {"text":"our"}\n\ndata: {"done":true}\n\n');
   const player = await playerId("tutorone");
-  const row = await env.DB.prepare("SELECT replies FROM quota WHERE player_id = ? AND day = '2026-10-15'")
+  const row = await env.DB.prepare(
+    "SELECT replies, neurons FROM quota WHERE player_id = ? AND day = '2026-10-15'",
+  )
     .bind(player)
-    .first<{ replies: number }>();
+    .first<{ replies: number; neurons: number }>();
   expect(row?.replies).toBe(1);
-  // one attempt, charged worst case up front
-  expect((await neuronsToday()) - before).toBe(
-    maxNeurons("@cf/google/gemma-4-26b-a4b-it", promptCharsOf(seen[0])),
-  );
+  // one attempt, charged worst case up front, to the day and to this player's share
+  const charged = maxNeurons("@cf/google/gemma-4-26b-a4b-it", promptCharsOf(seen[0]));
+  expect((await neuronsToday()) - before).toBe(charged);
+  expect(row?.neurons).toBe(charged);
 });
 
 test("the 26th question of the day gets the quota error and never calls the model", async () => {

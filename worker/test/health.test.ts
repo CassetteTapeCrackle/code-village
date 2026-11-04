@@ -19,6 +19,18 @@ test("unknown API route is a 404 with a plain message", async () => {
   expect(await res.json()).toEqual({ error: "No such API route." });
 });
 
+test("one address gets 200 API calls a minute, then a 429; another address is unaffected", async () => {
+  const from = (ip: string): Request =>
+    new Request("https://x/api/health", { headers: { "cf-connecting-ip": ip } });
+  for (let i = 0; i < 200; i++) expect((await handle(from("10.9.9.9"), env, deps)).status).toBe(200);
+  const blocked = await handle(from("10.9.9.9"), env, deps);
+  expect(blocked.status).toBe(429);
+  expect(await blocked.json()).toEqual({
+    error: "Too many requests from here. Wait a minute, then try again.",
+  });
+  expect((await handle(from("10.9.9.8"), env, deps)).status).toBe(200);
+});
+
 test("the schema is there", async () => {
   const row = await env.DB.prepare("SELECT count(*) AS n FROM players").first<{ n: number }>();
   expect(row?.n).toBe(0);

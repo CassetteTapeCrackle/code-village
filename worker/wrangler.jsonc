@@ -15,6 +15,12 @@
   ],
   "triggers": { "crons": ["17 3 * * *"] },
   "ai": { "binding": "AI" },
+  // per IP and per Cloudflare location: a class of 30 behind one address peaks near 150 a minute (a sync every
+  // 5 s at most, board views, 4 tutor questions). This stops loops and refresh spam; a script running all day
+  // can still spend the free plan's 100k daily requests, and then only the cloud features pause until 00:00 UTC.
+  "ratelimits": [
+    { "name": "API_RATE_LIMIT", "namespace_id": "1001", "simple": { "limit": 200, "period": 60 } },
+  ],
   "vars": {
     "TURNSTILE_SITE_KEY": "0x4AAAAAAFYr7Xo-W0WadkgZ",
     "TUTOR_MODEL": "@cf/google/gemma-4-26b-a4b-it",

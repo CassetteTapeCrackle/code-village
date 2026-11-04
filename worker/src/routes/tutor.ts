@@ -137,7 +137,7 @@ export async function tutor(request: Request, env: Env, deps: Deps): Promise<Res
         let reader: ReadableStreamDefaultReader<string> | null = null;
         try {
           // Charged before every attempt: the model bills a failed, empty or reasoning-only reply too.
-          await countNeurons(env, now, maxNeurons(env.TUTOR_MODEL, promptChars));
+          await countNeurons(env, player.id, now, maxNeurons(env.TUTOR_MODEL, promptChars));
           const stream = await withDeadline(deps.askModel(messages), LIMITS.tutorDeadlineMs);
           reader = stream.getReader();
           for (;;) {

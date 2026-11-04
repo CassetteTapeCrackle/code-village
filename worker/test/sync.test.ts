@@ -7,6 +7,7 @@ import { XP } from "../../src/learning/xp";
 import { emptyProgress, type Progress } from "../../src/learning/types";
 import { eventsFromProgress } from "../../src/sync/events";
 import { handle } from "../src/router";
+import { forgetSocialAnswers } from "../src/routes/social";
 
 const deps = {
   verifyHuman: async () => true,
@@ -218,6 +219,7 @@ test("a full offline progress backfills onto the board", async () => {
   expect(body.accepted).toBe(events.length);
   const cache = (caches as { default?: Cache }).default;
   await cache?.delete("https://x/api/leaderboard");
+  forgetSocialAnswers();
   const board = await handle(new Request("https://x/api/leaderboard"), env, deps);
   const data = (await board.json()) as { rows: { nickname: string; xp: number }[] };
   // Every task and lesson the bundle ships, tour lesson included, plus both wins of every boss.

@@ -14,6 +14,9 @@ export const LIMITS = {
   tutorPerMinute: 4,
   dailyFreeNeurons: 10_000,
   pauseNewAtShare: 0.8,
+  // no player spends more than this share of the day's budget: it then takes 20 nicknames, not 7, to use it
+  // all, and the free budget only answers about 8 questions per learner across a class of 30 anyway
+  playerNeuronShare: 0.05,
   newPlayerHours: 24,
   maxOutputTokens: 300,
   tutorDeadlineMs: 30_000,
