@@ -487,11 +487,6 @@ fingerprint = "b7cad89809c8"
 
 [[gap]]
 rule = "prompt-asks-construct"
-item = "functions-as-values-oldest"
-fingerprint = "9aef252affa1"
-
-[[gap]]
-rule = "prompt-asks-construct"
 item = "functions-as-values-prices"
 fingerprint = "bda626296ee8"
 
