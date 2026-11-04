@@ -2127,16 +2127,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "weak-tests"
-item = "knn-sklearn-height"
-fingerprint = "e8cbbdf99a5a"
-
-[[gap]]
-rule = "weak-tests"
-item = "knn-sklearn-one-point"
-fingerprint = "3acc379ba2bc"
-
-[[gap]]
-rule = "weak-tests"
 item = "ranger-registry"
 fingerprint = "bc03a544dbed"
 
