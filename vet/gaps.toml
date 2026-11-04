@@ -873,7 +873,7 @@ fingerprint = "0422a04cab54"
 [[gap]]
 rule = "cases-missing"
 item = "strings-initials"
-fingerprint = "1cd4c113ccff"
+fingerprint = "d7366aad6d63"
 
 [[gap]]
 rule = "cases-missing"
@@ -2563,7 +2563,7 @@ fingerprint = "0422a04cab54"
 [[gap]]
 rule = "right-missing"
 item = "strings-initials"
-fingerprint = "1cd4c113ccff"
+fingerprint = "d7366aad6d63"
 
 [[gap]]
 rule = "right-missing"
@@ -2979,11 +2979,6 @@ fingerprint = "3b340a3b4a14"
 rule = "weak-tests"
 item = "strings-file-name"
 fingerprint = "0422a04cab54"
-
-[[gap]]
-rule = "weak-tests"
-item = "strings-initials"
-fingerprint = "1cd4c113ccff"
 
 [[gap]]
 rule = "weak-tests"
@@ -3953,7 +3948,7 @@ fingerprint = "0422a04cab54"
 [[gap]]
 rule = "wrong-too-few"
 item = "strings-initials"
-fingerprint = "1cd4c113ccff"
+fingerprint = "d7366aad6d63"
 
 [[gap]]
 rule = "wrong-too-few"

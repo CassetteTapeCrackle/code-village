@@ -5,3 +5,4 @@ title = "Initials"
 prompt = "Write `initials(full_name)` that returns the first letter of each word, in capitals: `initials(\"noa river\")` is `\"NR\"`."
 hints = ["`full_name.split()` gives the words; `word[0]` is a first letter.", "Start with an empty string, then add each word's first letter, upper-cased, to it inside the loop."]
 gotcha = false
+strict = true
