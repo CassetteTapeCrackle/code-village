@@ -1167,11 +1167,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "right-missing"
-item = "methods-bucket"
-fingerprint = "1cf158584cdc"
-
-[[gap]]
-rule = "right-missing"
 item = "methods-kettle"
 fingerprint = "64070d76637b"
 
@@ -1193,7 +1188,7 @@ fingerprint = "722f22f085f9"
 [[gap]]
 rule = "right-missing"
 item = "methods-torch"
-fingerprint = "c2267357dd3d"
+fingerprint = "047480ec1324"
 
 [[gap]]
 rule = "right-missing"
@@ -1867,11 +1862,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "methods-bucket"
-fingerprint = "1cf158584cdc"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "methods-kettle"
 fingerprint = "64070d76637b"
 
@@ -1893,7 +1883,7 @@ fingerprint = "722f22f085f9"
 [[gap]]
 rule = "wrong-too-few"
 item = "methods-torch"
-fingerprint = "c2267357dd3d"
+fingerprint = "047480ec1324"
 
 [[gap]]
 rule = "wrong-too-few"
