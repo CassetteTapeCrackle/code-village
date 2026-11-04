@@ -937,11 +937,6 @@ fingerprint = "c1127bee0134"
 
 [[gap]]
 rule = "right-missing"
-item = "conditions-sign"
-fingerprint = "b19014bc8b6e"
-
-[[gap]]
-rule = "right-missing"
 item = "conditions-vowel"
 fingerprint = "00b324f318bb"
 
@@ -2064,11 +2059,6 @@ fingerprint = "613303316c8a"
 rule = "wrong-too-few"
 item = "composition-radio"
 fingerprint = "c1127bee0134"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "conditions-sign"
-fingerprint = "b19014bc8b6e"
 
 [[gap]]
 rule = "wrong-too-few"
