@@ -733,7 +733,7 @@ fingerprint = "d530713cbec8"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "properties-volume"
-fingerprint = "a97c80827656"
+fingerprint = "1190ef0f2f06"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1214,11 +1214,6 @@ fingerprint = "1ab5d1c9d528"
 rule = "right-missing"
 item = "properties-ranger-age"
 fingerprint = "d530713cbec8"
-
-[[gap]]
-rule = "right-missing"
-item = "properties-volume"
-fingerprint = "a97c80827656"
 
 [[gap]]
 rule = "right-missing"
