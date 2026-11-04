@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "files-json-logbook"
-fingerprint = "120715c763ea"
-
-[[gap]]
-rule = "cases-missing"
 item = "files-json-save"
 fingerprint = "d519057c4c02"
 
@@ -1638,7 +1633,7 @@ fingerprint = "6f56d86e645c"
 [[gap]]
 rule = "right-missing"
 item = "files-json-logbook"
-fingerprint = "120715c763ea"
+fingerprint = "3d3fb390f1fb"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "6f56d86e645c"
 [[gap]]
 rule = "wrong-too-few"
 item = "files-json-logbook"
-fingerprint = "120715c763ea"
+fingerprint = "3d3fb390f1fb"
 
 [[gap]]
 rule = "wrong-too-few"

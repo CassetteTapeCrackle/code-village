@@ -5,3 +5,6 @@ title = "The logbook forgets"
 prompt = "`add_entry(path, text)` should add `text` as a new line at the end of the logbook. After two entries, only the last one is left: find and fix the bug."
 hints = ["What does the `\"w\"` mode do to a file that already exists?", "Open it with `\"a\"` to add to the end."]
 gotcha = true
+
+[cases]
+none = "it writes a file at a path, which a case cannot set up"
