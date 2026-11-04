@@ -1,54 +1,54 @@
 {
-  "fingerprint": "3da540b2b0cf",
+  "fingerprint": "4e6616e9e497",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def first_even(numbers):\n    for n in numbers:\n        # return n if it is even\n        if n % 2 == 0:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
