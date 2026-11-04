@@ -118,7 +118,7 @@ fingerprint = "1445c0979775"
 [[gap]]
 rule = "cases-missing"
 item = "squirrel-storehouse"
-fingerprint = "02ab0f1b505a"
+fingerprint = "3348c924197f"
 
 [[gap]]
 rule = "cases-missing"
@@ -927,11 +927,6 @@ fingerprint = "40a435d0e3c4"
 
 [[gap]]
 rule = "right-missing"
-item = "squirrel-storehouse"
-fingerprint = "02ab0f1b505a"
-
-[[gap]]
-rule = "right-missing"
 item = "star-classifier"
 fingerprint = "5bc9df7be022"
 
@@ -1154,11 +1149,6 @@ fingerprint = "8f71aaa27062"
 rule = "wrong-too-few"
 item = "songbird-playlist"
 fingerprint = "40a435d0e3c4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "squirrel-storehouse"
-fingerprint = "02ab0f1b505a"
 
 [[gap]]
 rule = "wrong-too-few"
