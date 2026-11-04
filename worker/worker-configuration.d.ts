@@ -9,6 +9,7 @@ interface __BaseEnv_Env {
 	TUTOR_MODEL: "@cf/google/gemma-4-26b-a4b-it";
 	TURNSTILE_SECRET: string;
 	IP_SALT: string;
+	API_RATE_LIMIT: RateLimit;
 }
 declare namespace Cloudflare {
 	interface GlobalProps {
