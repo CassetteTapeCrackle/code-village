@@ -922,11 +922,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
-item = "files-json-best"
-fingerprint = "889bff220338"
-
-[[gap]]
-rule = "right-missing"
 item = "files-json-count"
 fingerprint = "6f56d86e645c"
 
@@ -1234,11 +1229,6 @@ fingerprint = "5693a29e09d3"
 rule = "wrong-too-few"
 item = "data-summary"
 fingerprint = "5778085b4b4e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "files-json-best"
-fingerprint = "889bff220338"
 
 [[gap]]
 rule = "wrong-too-few"
