@@ -113,7 +113,7 @@ fingerprint = "5e15ca36e315"
 [[gap]]
 rule = "cases-missing"
 item = "composition-cook-pantry"
-fingerprint = "b0dda46ad825"
+fingerprint = "95b4d4818b3a"
 
 [[gap]]
 rule = "cases-missing"
@@ -1803,7 +1803,7 @@ fingerprint = "5e15ca36e315"
 [[gap]]
 rule = "right-missing"
 item = "composition-cook-pantry"
-fingerprint = "b0dda46ad825"
+fingerprint = "95b4d4818b3a"
 
 [[gap]]
 rule = "right-missing"
@@ -2972,11 +2972,6 @@ fingerprint = "0c2f8652dab5"
 
 [[gap]]
 rule = "weak-tests"
-item = "composition-cook-pantry"
-fingerprint = "b0dda46ad825"
-
-[[gap]]
-rule = "weak-tests"
 item = "composition-lamp"
 fingerprint = "bf7450e9ed13"
 
@@ -3418,7 +3413,7 @@ fingerprint = "5e15ca36e315"
 [[gap]]
 rule = "wrong-too-few"
 item = "composition-cook-pantry"
-fingerprint = "b0dda46ad825"
+fingerprint = "95b4d4818b3a"
 
 [[gap]]
 rule = "wrong-too-few"
