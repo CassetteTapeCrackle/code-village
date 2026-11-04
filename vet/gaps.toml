@@ -1382,11 +1382,6 @@ fingerprint = "5bc9df7be022"
 
 [[gap]]
 rule = "right-missing"
-item = "statistics-median"
-fingerprint = "6baa873060c1"
-
-[[gap]]
-rule = "right-missing"
 item = "statistics-spread"
 fingerprint = "f4af494da4ea"
 
@@ -2124,11 +2119,6 @@ fingerprint = "a187634a31eb"
 rule = "wrong-too-few"
 item = "squirrel-storehouse"
 fingerprint = "02ab0f1b505a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "statistics-median"
-fingerprint = "6baa873060c1"
 
 [[gap]]
 rule = "wrong-too-few"
