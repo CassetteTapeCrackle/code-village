@@ -3,7 +3,7 @@
 [[gap]]
 rule = "blind-missing"
 item = "composition-nest"
-fingerprint = "630a43c4b983"
+fingerprint = "9818f60299e0"
 
 [[gap]]
 rule = "blind-missing"
@@ -929,11 +929,6 @@ fingerprint = "335516456b2c"
 rule = "right-missing"
 item = "composition-lamp"
 fingerprint = "613303316c8a"
-
-[[gap]]
-rule = "right-missing"
-item = "composition-nest"
-fingerprint = "630a43c4b983"
 
 [[gap]]
 rule = "right-missing"
@@ -2114,11 +2109,6 @@ fingerprint = "335516456b2c"
 rule = "wrong-too-few"
 item = "composition-lamp"
 fingerprint = "613303316c8a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "composition-nest"
-fingerprint = "630a43c4b983"
 
 [[gap]]
 rule = "wrong-too-few"
