@@ -683,7 +683,7 @@ fingerprint = "9aef252affa1"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "functions-as-values-prices"
-fingerprint = "3ca647df292c"
+fingerprint = "bda626296ee8"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -949,11 +949,6 @@ fingerprint = "fb1f8c5691e8"
 rule = "right-missing"
 item = "files-json-visits"
 fingerprint = "a185c4199374"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-as-values-prices"
-fingerprint = "3ca647df292c"
 
 [[gap]]
 rule = "right-missing"
@@ -1464,11 +1459,6 @@ fingerprint = "fb1f8c5691e8"
 rule = "wrong-too-few"
 item = "files-json-visits"
 fingerprint = "a185c4199374"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-as-values-prices"
-fingerprint = "3ca647df292c"
 
 [[gap]]
 rule = "wrong-too-few"
