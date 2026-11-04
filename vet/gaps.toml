@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "generators-letters"
-fingerprint = "e7ef7d6f23e2"
-
-[[gap]]
-rule = "cases-missing"
 item = "generators-spread"
 fingerprint = "ca28b52c0bb9"
 
