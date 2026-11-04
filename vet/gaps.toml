@@ -777,11 +777,6 @@ fingerprint = "fad75fd6bb25"
 
 [[gap]]
 rule = "cases-missing"
-item = "search-sort-score"
-fingerprint = "9364addc898c"
-
-[[gap]]
-rule = "cases-missing"
 item = "songbird-playlist"
 fingerprint = "40a435d0e3c4"
 
@@ -2468,7 +2463,7 @@ fingerprint = "fad75fd6bb25"
 [[gap]]
 rule = "right-missing"
 item = "search-sort-score"
-fingerprint = "9364addc898c"
+fingerprint = "f7677ae7638b"
 
 [[gap]]
 rule = "right-missing"
@@ -2919,11 +2914,6 @@ fingerprint = "bb57155a12b9"
 rule = "weak-tests"
 item = "ranger-registry"
 fingerprint = "8ddcf3d359df"
-
-[[gap]]
-rule = "weak-tests"
-item = "search-sort-score"
-fingerprint = "9364addc898c"
 
 [[gap]]
 rule = "weak-tests"
@@ -3843,7 +3833,7 @@ fingerprint = "fad75fd6bb25"
 [[gap]]
 rule = "wrong-too-few"
 item = "search-sort-score"
-fingerprint = "9364addc898c"
+fingerprint = "f7677ae7638b"
 
 [[gap]]
 rule = "wrong-too-few"
