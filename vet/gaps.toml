@@ -67,13 +67,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "io-echo"
-fingerprint = "c8814f600014"
-
-[[gap]]
-rule = "cases-missing"
 item = "io-greet"
-fingerprint = "dff1d62fb5b1"
+fingerprint = "65cebfaa2d76"
 
 [[gap]]
 rule = "cases-missing"
@@ -1658,12 +1653,12 @@ fingerprint = "7a290e687090"
 [[gap]]
 rule = "right-missing"
 item = "io-echo"
-fingerprint = "c8814f600014"
+fingerprint = "120b7bcb6aac"
 
 [[gap]]
 rule = "right-missing"
 item = "io-greet"
-fingerprint = "dff1d62fb5b1"
+fingerprint = "65cebfaa2d76"
 
 [[gap]]
 rule = "right-missing"
@@ -2913,12 +2908,12 @@ fingerprint = "7a290e687090"
 [[gap]]
 rule = "wrong-too-few"
 item = "io-echo"
-fingerprint = "c8814f600014"
+fingerprint = "120b7bcb6aac"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "io-greet"
-fingerprint = "dff1d62fb5b1"
+fingerprint = "65cebfaa2d76"
 
 [[gap]]
 rule = "wrong-too-few"
