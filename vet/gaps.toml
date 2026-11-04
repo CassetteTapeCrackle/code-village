@@ -743,7 +743,7 @@ fingerprint = "ed7e9e3c636c"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "properties-wingspan"
-fingerprint = "b4fd56dd7030"
+fingerprint = "742707f3a039"
 
 [[gap]]
 rule = "prompt-asks-construct"
