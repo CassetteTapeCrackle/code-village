@@ -1382,11 +1382,6 @@ fingerprint = "5bc9df7be022"
 
 [[gap]]
 rule = "right-missing"
-item = "statistics-summary"
-fingerprint = "711be952208c"
-
-[[gap]]
-rule = "right-missing"
 item = "testing-average-test"
 fingerprint = "b9817d810b45"
 
@@ -2099,11 +2094,6 @@ fingerprint = "a187634a31eb"
 rule = "wrong-too-few"
 item = "squirrel-storehouse"
 fingerprint = "02ab0f1b505a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "statistics-summary"
-fingerprint = "711be952208c"
 
 [[gap]]
 rule = "wrong-too-few"
