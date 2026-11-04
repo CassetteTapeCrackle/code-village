@@ -72,18 +72,13 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "methods-notebook"
-fingerprint = "20f2ee0d30cc"
-
-[[gap]]
-rule = "cases-missing"
 item = "methods-oven"
 fingerprint = "59bd1872b24d"
 
 [[gap]]
 rule = "cases-missing"
 item = "methods-tally"
-fingerprint = "b71b54aaa75e"
+fingerprint = "722f22f085f9"
 
 [[gap]]
 rule = "cases-missing"
@@ -1683,7 +1678,7 @@ fingerprint = "64070d76637b"
 [[gap]]
 rule = "right-missing"
 item = "methods-notebook"
-fingerprint = "20f2ee0d30cc"
+fingerprint = "2cfb6a6ff671"
 
 [[gap]]
 rule = "right-missing"
@@ -1693,7 +1688,7 @@ fingerprint = "59bd1872b24d"
 [[gap]]
 rule = "right-missing"
 item = "methods-tally"
-fingerprint = "b71b54aaa75e"
+fingerprint = "722f22f085f9"
 
 [[gap]]
 rule = "right-missing"
@@ -2933,7 +2928,7 @@ fingerprint = "64070d76637b"
 [[gap]]
 rule = "wrong-too-few"
 item = "methods-notebook"
-fingerprint = "20f2ee0d30cc"
+fingerprint = "2cfb6a6ff671"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2943,7 +2938,7 @@ fingerprint = "59bd1872b24d"
 [[gap]]
 rule = "wrong-too-few"
 item = "methods-tally"
-fingerprint = "b71b54aaa75e"
+fingerprint = "722f22f085f9"
 
 [[gap]]
 rule = "wrong-too-few"
