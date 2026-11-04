@@ -3,6 +3,20 @@
 Each session reads this first and updates it last. Newest entries at the top of each section.
 
 ## Done
+- Session 6 (2026-11-04, overnight cloud session): Tasks 6.1 to 6.3, pushed to `test-framework`. Sentences and the
+  claims ledger: `tools/vet/prose.py` cuts every sentence a learner reads, `ledger.toml` next to each lesson and boss
+  pins one entry per sentence by fingerprint, claim blocks take `id=`, and the rules `ledger-missing`,
+  `ledger-stale`, `remember-unbacked`, `claim-id-missing`, `claim-id-unknown`, `doc-anchor-missing` and
+  `fence-untyped` (`tools/vet/checks/ledger.py`) each have a canary. The pinned docs inventory is
+  `tools/vet/data/python-3.12-objects.inv` (14868 anchors). `python -m tools.vet.pending <out.json>` lists the 1163
+  sentences without an entry. DeepSeek: `tools/vet/models/deepseek.py` (urllib, three retries, call cap, model check),
+  `review_sentences.py`, the shared reply schema `reply.py`, and `.github/workflows/vet-models.yml`, started by pushing
+  a file under `vet/requests/`. Claude's half: `docs/test-framework/prompts/review-sentences.md` and
+  `merge_sentences.py`, which accepts a sentence only when both families say true, name the same backing and every
+  assert passes, and writes the rest to `vet/triage.md`. The five-sentence sample ran end to end (see Decisions for
+  cost). Today's content adds 111 gaps (43 `ledger-missing`, 34 `remember-unbacked`, 33 `claim-id-missing`, 1
+  `fence-untyped`, the boss's map of rooms); the list holds 877 entries. Format in `content/README.md`, "The claims
+  ledger".
 - Session 5 (2026-11-03, overnight cloud session): Tasks 5.1 to 5.4, pushed to `test-framework`. `content/features.toml`
   holds 93 features (syntax, builtins, methods of the core types, libraries) with detectors, `words` and `say`;
   `detect_features` in `py/harness.py` finds them and reports the rest as `unknown:<detector>`. Lessons declare
@@ -50,6 +64,43 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 6 sample run (workflow run 41747686729, commit c1293c4): 5 sentences, 5 calls, 6229 tokens (about 1250 per
+  sentence), 6.2 s wall time with 8 calls in flight. All 1163 sentences would be about 1.45 million tokens and a few
+  minutes; I did not turn tokens into money, since I do not know the price. Claude's half (one Sonnet 5.5 subagent
+  that saw no DeepSeek answer) and a dry run of the merge: 4 accepted, 1 to triage (`super()` in
+  `w2/c/inheritance`: DeepSeek says simplification, Claude says claim), nothing written to the content. The full
+  review is Task 10.1.
+- Session 6 review (fresh Sonnet subagent on the session diff): fixed findings 1 to 8 and 10. A claim block is
+  inserted after the body paragraph only (a remember bullet equal to a paragraph had corrupted the TOML header in the
+  reviewer's probe). A remember bullet that repeats other text stays a remember bullet. `merge_sentences` refuses to
+  rewrite a ledger that does not read whole. An entry must say who settled it (`decided`), an auto entry needs both
+  families to agree, and a fingerprint may appear once. A sentence may end in a number, "..." does not split, and
+  case counts inside backticks. A proposed assert must contain an assert statement. A dropped connection is retried,
+  and a run where most calls failed exits non-zero after writing its results (the log prints them either way). A log
+  with no result file is an error. The workflow reads request paths NUL separated and accepts only
+  `vet/requests/*.json`. Each fix has a test; findings 9, 11 and 12 (partly) are under Open.
+- Session 6: GitHub starts a workflow from the dispatches API only when the workflow file is on the default branch, so
+  `vet-models.yml` runs `on: push` for `vet/requests/**` on `test-framework` (owner's correction); `workflow_dispatch`
+  stays for after the merge. A request file is JSON with a `job` (`inventory`, `sentences`; `blind` comes with Task 7.1).
+- Session 6: the VM cannot download an Actions artifact (the proxy refuses `blob.core.windows.net`), but `gh api
+  .../jobs/<id>/logs` works. A job prints its result files between markers, base64 with a sha256, and
+  `python -m tools.vet.models.logs <log> <folder>` writes them back and refuses a cut or changed log. The artifact is
+  still uploaded for the owner. The plan's `gh run download` is replaced by this.
+- Session 6: the docs inventory could not be fetched in the VM (docs.python.org answers 403 through the proxy), so the
+  `inventory` job downloads it and the session commits it from the log, as the plan allows.
+- Session 6: `fingerprint_text` of the plan is `sentence_fingerprint` (model.py already has a `fingerprint_text` that
+  hashes bytes), and the pending-list CLI is `python -m tools.vet.pending` (a `__main__` in `ledger.py` would need an
+  import inside a function, which ruff refuses, because `load.py` imports `ledger.py`).
+- Session 6: a code sentence is judged where it sits: each sentence of a `remember` bullet, task prompt, hint, variant
+  prompt, boss intro and stage prompt is a ledger sentence, like lesson text; titles are not. One finding per lesson or
+  boss per rule (not per sentence), pinned to the lesson's text, so the gap list grows by 43 `ledger-missing` and not
+  by 1163 entries. `ledger.toml` is left out of item fingerprints, so reviewing a sentence does not re-pin gaps.
+- Session 6: both families use the same prompt file and reply schema (`{fp, status, verdict, reason, assert}`, in a
+  file `{model, replies}`), and a reply that does not fit becomes `unsure`. DeepSeek runs at temperature 0 with JSON
+  output and 8 calls at once; `VET_MAX_CALLS` defaults to 3000 and counts retries.
+- Session 6: boss text cannot hold a claim block, so a runnable fact found there goes to triage. A claim block for a
+  fact from a remember bullet, a task or a hint is appended at the end of `lesson.md`. Merging edits `lesson.md`,
+  which re-pins that lesson's gaps: run `pnpm gaps` after a real merge (Task 10.1).
 - Session 6: the repository secret is named `DSKEY`, not `DEEPSEEK_API_KEY` (the first sample run failed with
   "DEEPSEEK_API_KEY is not set"). The workflow step maps `DEEPSEEK_API_KEY: ${{ secrets.DSKEY }}`, so the code keeps
   reading `DEEPSEEK_API_KEY`. The supervisor gave this fix.
@@ -244,6 +295,15 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
+- Session 6 review finding 9: the merge reads all `deepseek-sentences*.json` and `claude-sentences-*.json` files and
+  a later file overwrites an earlier reply for the same sentence; a triage note is never updated or removed once the
+  sentence is later accepted. Prune `vet/triage.md` by hand after the owner settles it.
+- Session 6 review finding 11: not in today's content, not handled: an indented fence inside a list, `~~~` fences,
+  curly closing quotes, a heading without a blank line after it, and `fence-untyped` reading prompts and hints.
+- Session 6: proposed asserts run on one CPython (the merge's own), so a fact that differs on 3.12 or in Pyodide is
+  found later by `version-differs` and `pnpm vet:pyodide`, after the entry is written.
+- Session 6: `vet/results/` holds only the five-sentence samples (`deepseek-sentences-sample.json`,
+  `claude-sentences-sample.json`); no ledger or lesson was changed by a merge. Task 10.1 runs the real review.
 - Session 5 review finding 3: builtin shadowing ignores scope (a parameter named `type` hides every call to `type`
   in the code). Shortcut comment in `py/harness.py`. Upgrade to per-scope names if a lesson shadows a builtin on
   purpose.

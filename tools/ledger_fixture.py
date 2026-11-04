@@ -23,4 +23,4 @@ def _write(path: Path, old: Iterable[LedgerEntry], sentences: Iterable[Sentence]
     status = {entry.fp: entry.status for entry in old}
     path.write_text(dump_ledger(
         LedgerEntry(s.fingerprint, s.text, s.where, status.get(s.fingerprint) or (
-            "advice" if s.where.startswith("remember:") else "not-a-fact")) for s in sentences))
+            "advice" if s.where.startswith("remember:") else "not-a-fact"), decided="owner") for s in sentences))

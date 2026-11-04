@@ -45,6 +45,21 @@ class Reopening(unittest.TestCase):
             self.assertEqual(rules(content), ["ledger-missing", "ledger-stale"])
 
 
+class Provenance(unittest.TestCase):
+    def test_an_entry_must_say_who_settled_it(self) -> None:
+        with content_copy() as content:
+            edit(content, LEDGER, 'where = "text:0"\nstatus = "claim:times-two"\ndecided = "owner"\n',
+                 'where = "text:0"\nstatus = "claim:times-two"\n')
+            self.assertEqual(rules(content), ["field-invalid"])
+
+    def test_a_sentence_may_not_have_two_entries(self) -> None:
+        with content_copy() as content:
+            ledger = content / LEDGER
+            first = ledger.read_text().split("\n\n")[0] + "\n"
+            ledger.write_text(ledger.read_text() + "\n" + first)
+            self.assertEqual(rules(content), ["field-invalid"])
+
+
 class Backing(unittest.TestCase):
     def test_advice_backs_a_remember_bullet(self) -> None:
         with content_copy() as content:

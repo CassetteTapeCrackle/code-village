@@ -44,18 +44,18 @@ def status_kind(status: str) -> str:
 def status_problem(entry: LedgerEntry) -> str | None:
     """Why an entry's fields are not allowed, None when they are."""
     kind, _, value = entry.status.partition(":")
-    if kind in ("claim", "doc") and not value:
-        return f"status {entry.status} needs a value after the colon"
-    if kind not in ("claim", "doc") and entry.status not in STATUS_WORDS:
-        return f"status {entry.status} must be claim:<id>, doc:<url>, {', '.join(STATUS_WORDS)}"
-    if entry.status == "simplification" and not entry.reason.strip():
-        return "a simplification needs a reason"
-    for name, value in (("deepseek", entry.deepseek), ("claude", entry.claude)):
-        if value and value not in REVIEW_VERDICTS:
-            return f"{name} must be one of {', '.join(REVIEW_VERDICTS)}"
-    if entry.decided and entry.decided not in DECIDERS:
-        return f"decided must be one of {', '.join(DECIDERS)}"
-    return None
+    checks = [
+        (kind in ("claim", "doc") and not value, f"status {entry.status} needs a value after the colon"),
+        (kind not in ("claim", "doc") and entry.status not in STATUS_WORDS,
+         f"status {entry.status} must be claim:<id>, doc:<url>, {', '.join(STATUS_WORDS)}"),
+        (entry.status == "simplification" and not entry.reason.strip(), "a simplification needs a reason"),
+        (entry.deepseek not in ("", *REVIEW_VERDICTS), f"deepseek must be one of {', '.join(REVIEW_VERDICTS)}"),
+        (entry.claude not in ("", *REVIEW_VERDICTS), f"claude must be one of {', '.join(REVIEW_VERDICTS)}"),
+        (entry.decided not in DECIDERS, f"decided must be one of {', '.join(DECIDERS)}: who settled this entry"),
+        (entry.decided == "auto" and (entry.deepseek, entry.claude) != ("agree", "agree"),
+         "an auto entry needs both families to agree"),
+    ]
+    return next((message for failed, message in checks if failed), None)
 
 
 def parse_ledger(text: str) -> tuple[list[LedgerEntry], list[str]]:
@@ -74,7 +74,9 @@ def parse_ledger(text: str) -> tuple[list[LedgerEntry], list[str]]:
             problems.append(f"entry {number} needs fp, text, where and status, all text")
             continue
         entry = LedgerEntry(**fields)
-        if problem := status_problem(entry):
+        repeated = "fp repeats an earlier entry" if entry.fp in {e.fp for e in entries} else None
+        problem = status_problem(entry) or repeated
+        if problem:
             problems.append(f"entry {number} ({entry.fp}): {problem}")
         entries.append(entry)
     return entries, problems

@@ -8,7 +8,7 @@ from test_vet_progression import content_copy
 from vet import vet
 from vet.ledger import parse_ledger
 from vet.load import load_content
-from vet.models.merge_sentences import Merged, insert_claim, merge, write
+from vet.models.merge_sentences import LedgerUnreadable, Merged, insert_claim, merge, write
 from vet.models.reply import Reply
 from vet.prose import pending_sentences, sentence_fingerprint
 from vet.python.adapter import PythonAdapter
@@ -137,11 +137,32 @@ class Inserting(unittest.TestCase):
                          "Intro.\n\nFirst paragraph. Second sentence.\nStill the same paragraph.\n\n"
                          "```python claim id=auto-ab\nassert True\n```\n\nNext one.\n\n::task a\n")
 
+    def test_the_front_matter_is_never_the_place(self) -> None:
+        lesson = '+++\nid = "x"\nremember = ["Lists are ordered."]\n+++\n\nLists are ordered.\n\n::task a\n'
+        sentence = {"fp": "ef", "where": "text:0", "paragraph": "Lists are ordered."}
+        found = insert_claim(lesson, sentence, "assert True")
+        header = '+++\nid = "x"\nremember = ["Lists are ordered."]\n+++\n\nLists are ordered.\n\n'
+        self.assertTrue(found.startswith(header + "```python claim"))
+        self.assertEqual(found.count("```python claim"), 1)
+
     def test_a_sentence_outside_the_text_puts_its_claim_at_the_end(self) -> None:
         lesson = "Intro.\n\n::task a\n"
         sentence = {"fp": "cd", "where": "remember:0", "paragraph": "Remember this."}
         ends = "::task a\n\n```python claim id=auto-cd\nassert True\n```\n"
         self.assertTrue(insert_claim(lesson, sentence, "assert True").endswith(ends))
+
+
+class Writing(unittest.TestCase):
+    def test_a_ledger_that_cannot_be_read_whole_is_not_rewritten(self) -> None:
+        with content_copy() as content:
+            with_new_sentence(content)
+            ledger = content / "w1/a/basics/ledger.toml"
+            ledger.write_text(ledger.read_text().replace('decided = "owner"', 'decided = "maybe"', 1))
+            before = ledger.read_text()
+            merged = run_merge(content, reply(), reply())
+            with self.assertRaises(LedgerUnreadable):
+                write(merged, content.parent / "triage.md")
+            self.assertEqual(ledger.read_text(), before)
 
 
 class Pending(unittest.TestCase):

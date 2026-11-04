@@ -4,6 +4,7 @@ The prompt is docs/test-framework/prompts/review-sentences.md. A reply that does
 it becomes verdict "unsure", so the sentence goes to the owner's triage list instead of being accepted.
 """
 
+import ast
 import json
 from dataclasses import asdict, dataclass
 
@@ -51,6 +52,14 @@ def from_dict(fp: str, data: object) -> Reply:
     return Reply(fp, status, verdict, reason.strip(), assertion if isinstance(assertion, str) else None)
 
 
+def _asserts(source: object) -> bool:
+    """True when source parses and holds an assert statement (a comment saying assert does not count)."""
+    try:
+        return isinstance(source, str) and any(isinstance(node, ast.Assert) for node in ast.walk(ast.parse(source)))
+    except (SyntaxError, ValueError):
+        return False
+
+
 def _problem(status: object, verdict: object, reason: object, assertion: object) -> str | None:
     """Why the fields are not a valid reply, None when they are."""
     kind, colon, value = status.partition(":") if isinstance(status, str) else ("", "", "")
@@ -61,6 +70,6 @@ def _problem(status: object, verdict: object, reason: object, assertion: object)
         (verdict not in VERDICTS, "verdict must be true, false or unsure"),
         (not isinstance(reason, str) or not reason.strip(), "reason is missing"),
         (assertion is not None and not isinstance(assertion, str), "assert must be text or null"),
-        (kind == "claim" and not (isinstance(assertion, str) and "assert" in assertion), "a claim needs an assert"),
+        (kind == "claim" and not _asserts(assertion), "a claim needs Python source with an assert statement"),
     ]
     return next((message for failed, message in checks if failed), None)

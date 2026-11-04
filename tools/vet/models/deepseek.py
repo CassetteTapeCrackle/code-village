@@ -4,6 +4,7 @@ Model calls happen only in GitHub Actions (spec 12). The key comes from DEEPSEEK
 DEEPSEEK_MODEL (default deepseek-flash) and the cap from VET_MAX_CALLS (default 3000). Nothing here prints the key.
 """
 
+import http.client
 import json
 import os
 import threading
@@ -120,8 +121,8 @@ class DeepSeek:
             except urllib.error.HTTPError as e:
                 if e.code not in RETRY_STATUS:
                     raise DeepSeekError(f"the API answered {e.code}") from e
-            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, KeyError, IndexError, TypeError):
-                pass  # a network hiccup or a reply without choices: try again
+            except (OSError, http.client.HTTPException, json.JSONDecodeError, KeyError, IndexError, TypeError):
+                pass  # a dropped connection, a cut reply or a reply without choices: try again
             if attempt < RETRIES:
                 self._sleep(BACKOFF_SECONDS[attempt])
         raise DeepSeekError(f"no usable reply after {RETRIES + 1} tries")

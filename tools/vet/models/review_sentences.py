@@ -23,16 +23,17 @@ WORKERS = 8  # calls in flight at once; the service allows many
 TEMPERATURE = 0.0
 
 
-def review_one(client: DeepSeek, prompt: str, sentence: Mapping[str, str]) -> tuple[Reply, int]:
+def review_one(client: DeepSeek, prompt: str, sentence: Mapping[str, str]) -> tuple[Reply, int, bool]:
+    """The reply, the tokens used, and whether the call itself worked (a bad reply is still a call that worked)."""
     fp = sentence["fp"]
     question = json.dumps({"paragraph": sentence["paragraph"], "sentence": sentence["text"]}, ensure_ascii=False)
     try:
         raw, tokens = client.chat([Message("system", prompt), Message("user", question)], temperature=TEMPERATURE)
     except CapReached:
-        return unsure(fp, "the call cap was reached before this sentence"), 0
+        return unsure(fp, "the call cap was reached before this sentence"), 0, False
     except DeepSeekError as e:
-        return unsure(fp, f"the call failed: {e}"), 0
-    return parse_reply(fp, raw), tokens
+        return unsure(fp, f"the call failed: {e}"), 0, False
+    return parse_reply(fp, raw), tokens, True
 
 
 def review(sentences: Sequence[Mapping[str, str]], client: DeepSeek, prompt: str) -> dict[str, object]:
@@ -40,8 +41,15 @@ def review(sentences: Sequence[Mapping[str, str]], client: DeepSeek, prompt: str
     started = time.monotonic()
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
         done = list(pool.map(lambda sentence: review_one(client, prompt, sentence), sentences))
-    return {"model": client.settings.model, "calls": client.cap.used, "tokens": sum(tokens for _, tokens in done),
-            "seconds": round(time.monotonic() - started, 1), "replies": [reply.as_json() for reply, _ in done]}
+    return {"model": client.settings.model, "calls": client.cap.used, "tokens": sum(tokens for _, tokens, _ in done),
+            "failed": sum(not worked for _, _, worked in done), "seconds": round(time.monotonic() - started, 1),
+            "replies": [reply.as_json() for reply, _, _ in done]}
+
+
+def mostly_failed(result: Mapping[str, object]) -> bool:
+    """True when over half the sentences got no answer (a bad key, the cap, a service that is down)."""
+    replies = result["replies"]
+    return isinstance(replies, list) and isinstance(result["failed"], int) and result["failed"] * 2 > len(replies)
 
 
 def run_file(source: Path, target: Path) -> dict[str, object]:
@@ -63,8 +71,10 @@ def main() -> None:
         result = run_file(opts.source, opts.target)
     except DeepSeekError as e:
         sys.exit(f"review_sentences: {e}")
-    print(f"review_sentences: {len(opts.source.read_text())} bytes in, {result['calls']} calls, "
-          f"{result['tokens']} tokens, {result['seconds']} s -> {opts.target}")
+    print(f"review_sentences: {result['calls']} calls, {result['failed']} failed, {result['tokens']} tokens, "
+          f"{result['seconds']} s -> {opts.target}")
+    if mostly_failed(result):
+        sys.exit("review_sentences: most calls failed: the results are written, but do not trust the run")
 
 
 if __name__ == "__main__":

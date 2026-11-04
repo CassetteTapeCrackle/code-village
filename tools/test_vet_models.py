@@ -2,10 +2,12 @@
 
 import base64
 import contextlib
+import http.client
 import io
 import json
 import tempfile
 import unittest
+import unittest.mock
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -21,8 +23,9 @@ from vet.models.deepseek import (
     settings_from_env,
 )
 from vet.models.logs import LogError, emit_files, extract_files
+from vet.models.logs import main as logs_main
 from vet.models.reply import parse_reply
-from vet.models.review_sentences import review
+from vet.models.review_sentences import mostly_failed, review
 
 
 def printed(folder: Path) -> str:
@@ -49,6 +52,15 @@ class ResultsInTheLog(unittest.TestCase):
             log = printed(Path(tmp)).replace(base64.b64encode(b"data").decode(), base64.b64encode(b"dat4").decode())
         with self.assertRaisesRegex(LogError, "checksum"):
             extract_files(log)
+
+    def test_a_log_without_results_is_an_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            log = Path(tmp) / "job.log"
+            log.write_text("2026-11-04T00:00:00Z nothing printed\n")
+            argv = ["logs", str(log), str(Path(tmp) / "out")]
+            with self.assertRaises(SystemExit) as stopped, unittest.mock.patch("sys.argv", argv):
+                logs_main()
+        self.assertIn("no result file", str(stopped.exception))
 
     def test_a_cut_off_log_is_refused(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -107,6 +119,10 @@ class Replies(unittest.TestCase):
                 reply = parse_reply("fp1", raw)
                 self.assertEqual((reply.verdict, reply.fp), ("unsure", "fp1"))
 
+    def test_a_comment_is_not_an_assert(self) -> None:
+        raw = json.dumps({"status": "claim", "verdict": "true", "reason": "r", "assert": "pass  # assert x == 1"})
+        self.assertEqual(parse_reply("fp1", raw).verdict, "unsure")
+
     def test_a_docs_url_is_a_valid_status(self) -> None:
         raw = json.dumps({"status": "doc:https://docs.python.org/3/library/functions.html#len", "verdict": "true",
                           "reason": "r", "assert": None})
@@ -127,6 +143,10 @@ class Calls(unittest.TestCase):
         fake = Fake(http_error(503), urllib.error.URLError("down"), completion("ok"))
         self.assertEqual(client(fake, waits=waits).chat([Message("user", "hi")], temperature=0.0)[0], "ok")
         self.assertEqual(waits, list(BACKOFF_SECONDS[:2]))
+
+    def test_a_dropped_connection_is_retried(self) -> None:
+        fake = Fake(ConnectionResetError("reset"), http.client.IncompleteRead(b"x"), completion("ok"))
+        self.assertEqual(client(fake).chat([Message("user", "hi")], temperature=0.0)[0], "ok")
 
     def test_gives_up_after_three_retries(self) -> None:
         fake = Fake(*[http_error(500) for _ in range(4)])
@@ -182,6 +202,14 @@ class Reviewing(unittest.TestCase):
         replies = review(SENTENCES, client(fake), "PROMPT")["replies"]
         assert isinstance(replies, list)
         self.assertEqual(sorted(r["verdict"] for r in replies), ["true", "unsure", "unsure"])
+
+    def test_a_run_where_most_calls_failed_says_so(self) -> None:
+        fake = Fake(http_error(401), http_error(401), completion(GOOD_REPLY))
+        result = review(SENTENCES, client(fake), "PROMPT")
+        self.assertEqual(result["failed"], 2)
+        self.assertTrue(mostly_failed(result))
+        ok = review(SENTENCES, client(Fake(*[completion(GOOD_REPLY) for _ in range(3)])), "PROMPT")
+        self.assertFalse(mostly_failed(ok))
 
     def test_sentences_past_the_cap_are_unsure(self) -> None:
         fake = Fake(completion(GOOD_REPLY))

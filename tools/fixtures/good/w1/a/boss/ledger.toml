@@ -3,21 +3,25 @@ fp = "1257fcb833af"
 text = "Build a tiny calculator."
 where = "boss:intro"
 status = "not-a-fact"
+decided = "owner"
 
 [[sentence]]
 fp = "e9a77978635d"
 text = "Write `add(a, b)`."
 where = "stage:calc-add:prompt"
 status = "not-a-fact"
+decided = "owner"
 
 [[sentence]]
 fp = "765e4d096d09"
 text = "Write `sub(a, b)`."
 where = "stage:calc-sub:prompt"
 status = "not-a-fact"
+decided = "owner"
 
 [[sentence]]
 fp = "740c2c34c844"
 text = "Write `mul(a, b)`."
 where = "stage:calc-mul:prompt"
 status = "not-a-fact"
+decided = "owner"

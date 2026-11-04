@@ -4,7 +4,7 @@ import unittest
 import zlib
 
 from vet.ledger import LedgerEntry, doc_anchor_known, dump_ledger, parse_inventory, parse_ledger
-from vet.prose import paragraphs, sentence_fingerprint, sentences, split_sentences
+from vet.prose import paragraphs, sentence_fingerprint, sentences, split_sentences, unit_sentences
 
 
 class Splitting(unittest.TestCase):
@@ -16,9 +16,12 @@ class Splitting(unittest.TestCase):
         self.assertEqual(split_sentences("Pick one (e.g. a list) or another, i.e. a tuple. Done."),
                          ["Pick one (e.g. a list) or another, i.e. a tuple.", "Done."])
 
-    def test_a_digit_before_the_dot_does_not_end_a_sentence(self) -> None:
-        found = split_sentences("Python 3. Next comes 2.5 seconds. Go.")
-        self.assertEqual(found, ["Python 3. Next comes 2.5 seconds.", "Go."])
+    def test_a_sentence_may_end_in_a_number(self) -> None:
+        found = split_sentences("Start counting from 0. Next comes 2.5 seconds. Go.")
+        self.assertEqual(found, ["Start counting from 0.", "Next comes 2.5 seconds.", "Go."])
+
+    def test_an_ellipsis_does_not_split(self) -> None:
+        self.assertEqual(split_sentences("Add 1 + 2 + ... + n. Done."), ["Add 1 + 2 + ... + n.", "Done."])
 
     def test_closing_quote_stays_with_its_sentence(self) -> None:
         self.assertEqual(split_sentences('She said "stop." Then left.'), ['She said "stop."', "Then left."])
@@ -35,6 +38,14 @@ class Fingerprints(unittest.TestCase):
     def test_fingerprint_ignores_spacing(self) -> None:
         self.assertEqual(sentence_fingerprint("A  list\nholds   items."), sentence_fingerprint("a list holds items."))
 
+    def test_case_matters_inside_code_only(self) -> None:
+        self.assertNotEqual(sentence_fingerprint("Use `'ABC'` here."), sentence_fingerprint("Use `'abc'` here."))
+        self.assertEqual(sentence_fingerprint("USE `x` here."), sentence_fingerprint("use `x` HERE."))
+
+    def test_a_remember_bullet_stays_a_bullet_when_prose_repeats_it(self) -> None:
+        found = unit_sentences([("text:0", "Sort first."), ("remember:0", "Sort first.")])
+        self.assertEqual([s.where for s in found], ["remember:0"])
+
     def test_editing_one_word_changes_it(self) -> None:
         self.assertNotEqual(sentence_fingerprint("A list holds items."), sentence_fingerprint("A list holds item."))
 
@@ -49,7 +60,7 @@ class LedgerFile(unittest.TestCase):
                         "auto")
 
     def test_a_ledger_reads_back_what_was_written(self) -> None:
-        text = dump_ledger([self.ENTRY, LedgerEntry("ba9876543210", "Go.", "text:1", "not-a-fact")])
+        text = dump_ledger([self.ENTRY, LedgerEntry("ba9876543210", "Go.", "text:1", "not-a-fact", decided="owner")])
         entries, problems = parse_ledger(text)
         self.assertEqual((entries[0], problems), (self.ENTRY, []))
         self.assertEqual(entries[1].status, "not-a-fact")
@@ -62,6 +73,19 @@ class LedgerFile(unittest.TestCase):
         self.assertIn("needs a reason", problems[0])
         self.assertIn("must be claim:<id>", problems[1])
         self.assertIn("needs fp, text, where and status", problems[2])
+
+    def test_provenance_is_required(self) -> None:
+        entry = '[[sentence]]\nfp = "{fp}"\ntext = "t"\nwhere = "w"\nstatus = "not-a-fact"\n{extra}'
+        _, problems = parse_ledger(entry.format(fp="a", extra="") + entry.format(fp="b", extra='decided = "auto"\n')
+                                   + entry.format(fp="c", extra='decided = "owner"\n'))
+        self.assertEqual(len(problems), 2)
+        self.assertIn("decided must be one of auto, owner", problems[0])
+        self.assertIn("an auto entry needs both families to agree", problems[1])
+
+    def test_a_repeated_fingerprint_is_a_problem(self) -> None:
+        entry = '[[sentence]]\nfp = "a"\ntext = "t"\nwhere = "w"\nstatus = "advice"\ndecided = "owner"\n'
+        entries, problems = parse_ledger(entry + entry)
+        self.assertEqual((len(entries), problems), (2, ["entry 2 (a): fp repeats an earlier entry"]))
 
     def test_a_broken_file_gives_no_entries(self) -> None:
         self.assertEqual(parse_ledger("[[sentence")[0], [])

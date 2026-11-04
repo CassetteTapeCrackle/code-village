@@ -67,6 +67,8 @@ def main() -> None:
         files = extract_files(opts.log.read_text(encoding="utf-8-sig"))
     except LogError as e:
         sys.exit(f"logs: {e}")
+    if not files:
+        sys.exit("logs: no result file in this log: is it the log of the right job, and complete?")
     for name, data in files.items():
         target = opts.folder / name
         if not target.resolve().is_relative_to(opts.folder.resolve()):

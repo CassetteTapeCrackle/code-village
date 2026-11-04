@@ -15,7 +15,7 @@ from pathlib import Path
 
 from .deepseek import DeepSeekError
 from .logs import emit_files
-from .review_sentences import run_file
+from .review_sentences import mostly_failed, run_file
 
 INVENTORY_URL = "https://docs.python.org/3.12/objects.inv"
 INVENTORY_NAME = "python-3.12-objects.inv"
@@ -41,8 +41,10 @@ def run_sentences(request: dict[str, object], out: Path) -> None:
     except DeepSeekError as e:
         sys.exit(f"sentences: {e}")
     source.unlink()
-    print(f"sentences: {len(sentences)} reviewed, {result['calls']} calls, {result['tokens']} tokens, "
-          f"{result['seconds']} s")
+    print(f"sentences: {len(sentences)} reviewed, {result['calls']} calls, {result['failed']} failed, "
+          f"{result['tokens']} tokens, {result['seconds']} s")
+    if mostly_failed(result):
+        sys.exit("sentences: most calls failed: the results are written, but do not trust the run")
 
 
 JOBS: dict[str, Callable[[dict[str, object], Path], None]] = {"inventory": run_inventory,
@@ -59,8 +61,10 @@ def main() -> None:
     if not isinstance(job, str) or job not in JOBS:
         sys.exit(f"{opts.request}: job must be one of {', '.join(sorted(JOBS))}")
     opts.out.mkdir(parents=True, exist_ok=True)
-    JOBS[job](request, opts.out)
-    emit_files(opts.out)
+    try:
+        JOBS[job](request, opts.out)
+    finally:
+        emit_files(opts.out)  # a failed run still prints what it wrote
 
 
 if __name__ == "__main__":

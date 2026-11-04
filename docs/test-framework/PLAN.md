@@ -631,9 +631,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   `gh api repos/CassetteTapeCrackle/code-village/actions/workflows/vet-models.yml/dispatches -f
   ref=test-framework -f 'inputs[job]=sentences'` and fetch it with `gh run download`.
 
-- [ ] **Step 1:** Tests: `test_invalid_reply_becomes_unsure`, `test_call_cap_stops`,
+- [x] **Step 1:** Tests: `test_invalid_reply_becomes_unsure`, `test_call_cap_stops`,
   `test_missing_model_exits`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Run the workflow once on a 5-sentence sample and record cost and
+- [x] **Step 2 to 4:** Fail, implement, pass. Run the workflow once on a 5-sentence sample and record cost and
   time in PROGRESS. Commit.
 
 ### Task 6.3: Claude's review, merge and triage

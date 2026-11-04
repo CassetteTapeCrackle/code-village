@@ -43,19 +43,25 @@ jobs:
           DEEPSEEK_MODEL: ${{ vars.DEEPSEEK_MODEL }}
         run: |
           set -eu
+          case "${REQUEST:-}" in
+            "") ;;
+            *..* | -*) echo "the request must be a vet/requests/*.json file"; exit 1 ;;
+            vet/requests/[A-Za-z0-9_.]*.json) ;;
+            *) echo "the request must be a vet/requests/*.json file"; exit 1 ;;
+          esac
           if [ -n "${REQUEST:-}" ]; then
-            files="$REQUEST"
+            printf '%s\0' "$REQUEST" > requests.list
           elif [ "${BEFORE#0000000}" != "$BEFORE" ]; then
-            files=$(ls vet/requests/*.json)
+            find vet/requests -maxdepth 1 -name '*.json' -print0 > requests.list
           else
-            files=$(git diff --name-only --diff-filter=AM "$BEFORE" "$SHA" -- 'vet/requests/*.json')
+            git diff -z --name-only --diff-filter=AM "$BEFORE" "$SHA" -- 'vet/requests/*.json' > requests.list
           fi
-          [ -n "$files" ] || { echo "no request file in this push"; exit 1; }
+          [ -s requests.list ] || { echo "no request file in this push"; exit 1; }
           mkdir -p out
-          for file in $files; do
+          while IFS= read -r -d '' file; do
             echo "== $file"
             python -m tools.vet.models.request "$file" --out "out/$(basename "$file" .json)"
-          done
+          done < requests.list
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: vet-model-results

@@ -15,7 +15,7 @@ from .model import Boss, Content, Lesson, TaskBlock, TextBlock
 FENCED_CODE = re.compile(r"^```.*?^```[ \t]*$", re.S | re.M)
 LIST_START = re.compile(r"^\s*(?:[-*+]|\d+\.)\s+")
 HEADING = re.compile(r"^#+\s+")
-NOT_A_STOP = ("e.g", "i.e")  # an abbreviation's dot does not end a sentence
+NOT_A_STOP = ("e.g", "i.e")  # an abbreviation's dot does not end a sentence; nor does the last dot of "..."
 CLOSERS = "\"')]"  # a sentence may end inside quotes or brackets
 SENTENCE_ENDS = ".!?"
 
@@ -28,9 +28,11 @@ class Sentence:
 
 
 def sentence_fingerprint(text: str) -> str:
-    """sha256 of the lower-cased text with whitespace collapsed, first 12 hex digits.
-    Not model.fingerprint_text, which hashes bytes as they are."""
-    return hashlib.sha256(" ".join(text.lower().split()).encode()).hexdigest()[:12]
+    """sha256 of the text with whitespace collapsed and prose lower-cased, first 12 hex digits. Code in backticks
+    keeps its case, since `'ABC'` and `'abc'` are different facts. Not model.fingerprint_text, which hashes bytes."""
+    parts = " ".join(text.split()).split("`")
+    folded = "`".join(part if at % 2 else part.lower() for at, part in enumerate(parts))
+    return hashlib.sha256(folded.encode()).hexdigest()[:12]
 
 
 def paragraphs(markdown: str) -> list[str]:
@@ -48,7 +50,7 @@ def paragraphs(markdown: str) -> list[str]:
 
 
 def split_sentences(paragraph: str) -> list[str]:
-    """Cut at . ! ? followed by space, except inside backticks, after e.g or i.e, or after a digit."""
+    """Cut at . ! ? followed by space, except inside backticks, after e.g or i.e, or after another dot."""
     found: list[str] = []
     start = 0
     in_code = False
@@ -69,7 +71,7 @@ def _ends_here(text: str, i: int) -> bool:
     after = text[i + 1:i + 2]
     if after and not after.isspace() and after not in CLOSERS:
         return False
-    abbreviation = text[:i].lower().endswith(NOT_A_STOP) or (i > 0 and text[i - 1].isdigit())
+    abbreviation = text[:i].lower().endswith(NOT_A_STOP) or text[i - 1:i] == "."  # e.g, i.e or an ellipsis
     return not (text[i] == "." and abbreviation)
 
 
@@ -99,11 +101,13 @@ def boss_units(boss: Boss) -> Iterator[tuple[str, str]]:
 
 
 def unit_sentences(units: Iterable[tuple[str, str]]) -> list[Sentence]:
-    """All sentences of the units; a sentence that appears twice is kept once, at its first place."""
+    """All sentences of the units; a sentence that appears twice is kept once, at its first place, except that a
+    remember bullet repeating other text stays a remember bullet (those need a claim or advice)."""
     seen: dict[str, Sentence] = {}
     for where, markdown in units:
         for sentence in sentences(markdown, where):
-            seen.setdefault(sentence.fingerprint, sentence)
+            if sentence.fingerprint not in seen or where.startswith("remember:"):
+                seen[sentence.fingerprint] = sentence
     return list(seen.values())
 
 

@@ -28,7 +28,12 @@ from ..python.adapter import PythonAdapter
 from .reply import Reply, from_dict
 
 CLAIM_ID = "auto-{fp}"
+FRONT_MATTER_END = "\n+++\n"  # the lesson's TOML header closes with a +++ line
 CLAIM_BLOCK = "```python claim id={id}\n{code}\n```\n"
+
+
+class LedgerUnreadable(ValueError):
+    """A ledger.toml has problems, so merging would rewrite it from an incomplete reading."""
 
 
 @dataclass
@@ -130,16 +135,20 @@ def insert_claim(lesson_text: str, sentence: Mapping[str, str], code: str) -> st
     """The lesson with a claim block after the paragraph holding the sentence, or at the end when the sentence
     comes from a remember bullet, a task or a hint."""
     block = CLAIM_BLOCK.format(id=CLAIM_ID.format(fp=sentence["fp"]), code=code.strip("\n"))
-    for raw in re.split(r"\n\s*\n", lesson_text):
-        if sentence["where"].startswith("text:") and sentence["paragraph"] in paragraphs(raw):
-            at = lesson_text.index(raw) + len(raw)
-            return lesson_text[:at] + "\n\n" + block.rstrip("\n") + lesson_text[at:]
+    body_at = lesson_text.find(FRONT_MATTER_END) + len(FRONT_MATTER_END)  # the front matter holds remember bullets too
+    if sentence["where"].startswith("text:"):
+        for found in re.finditer(r"\S(?:.*\S)?(?:\n(?!\s*\n).*\S)*", lesson_text[body_at:]):
+            if sentence["paragraph"] in paragraphs(found.group()):
+                at = body_at + found.end()
+                return lesson_text[:at] + "\n\n" + block.rstrip("\n") + lesson_text[at:]
     return lesson_text.rstrip("\n") + "\n\n" + block
 
 
 def write(merged: Merged, triage_path: Path) -> None:
     for ledger_path, new in merged.entries.items():
-        old = parse_ledger(ledger_path.read_text())[0] if ledger_path.is_file() else []
+        old, problems = parse_ledger(ledger_path.read_text()) if ledger_path.is_file() else ([], [])
+        if problems:  # rewriting a ledger that cannot be read whole would lose the owner's decisions
+            raise LedgerUnreadable(f"{ledger_path}: {'; '.join(problems)}: fix it, then merge again")
         ledger_path.write_text(dump_ledger([*old, *new]))
     for lesson_md, sentence, code in merged.claims:
         lesson_md.write_text(insert_claim(lesson_md.read_text(), sentence, code))
