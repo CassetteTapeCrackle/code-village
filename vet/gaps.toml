@@ -243,7 +243,7 @@ fingerprint = "c07e6645b7b4"
 [[gap]]
 rule = "cases-missing"
 item = "values-average"
-fingerprint = "221e4e77964d"
+fingerprint = "d3a54632b436"
 
 [[gap]]
 rule = "cases-missing"
@@ -263,7 +263,7 @@ fingerprint = "a79fc8667c17"
 [[gap]]
 rule = "cases-missing"
 item = "values-total-price"
-fingerprint = "e4d72fe9750a"
+fingerprint = "2e83ff0258f3"
 
 [[gap]]
 rule = "claim-id-missing"
@@ -1527,11 +1527,6 @@ fingerprint = "82563943a641"
 
 [[gap]]
 rule = "right-missing"
-item = "values-average"
-fingerprint = "221e4e77964d"
-
-[[gap]]
-rule = "right-missing"
 item = "values-describe"
 fingerprint = "342f86fc04fa"
 
@@ -1548,7 +1543,7 @@ fingerprint = "a79fc8667c17"
 [[gap]]
 rule = "right-missing"
 item = "values-total-price"
-fingerprint = "e4d72fe9750a"
+fingerprint = "2e83ff0258f3"
 
 [[gap]]
 rule = "teaches-missing"
@@ -2347,11 +2342,6 @@ fingerprint = "82563943a641"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "values-average"
-fingerprint = "221e4e77964d"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "values-describe"
 fingerprint = "342f86fc04fa"
 
@@ -2368,4 +2358,4 @@ fingerprint = "a79fc8667c17"
 [[gap]]
 rule = "wrong-too-few"
 item = "values-total-price"
-fingerprint = "e4d72fe9750a"
+fingerprint = "2e83ff0258f3"
