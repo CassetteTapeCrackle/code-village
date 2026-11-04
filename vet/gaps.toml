@@ -1167,11 +1167,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "right-missing"
-item = "methods-oven"
-fingerprint = "7e804aff88af"
-
-[[gap]]
-rule = "right-missing"
 item = "methods-tally"
 fingerprint = "f92255f14aea"
 
@@ -1849,11 +1844,6 @@ fingerprint = "981573ab1c44"
 rule = "wrong-too-few"
 item = "lost-satchel"
 fingerprint = "a452bd94cfec"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "methods-oven"
-fingerprint = "7e804aff88af"
 
 [[gap]]
 rule = "wrong-too-few"
