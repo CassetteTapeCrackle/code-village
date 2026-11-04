@@ -3,6 +3,17 @@
 Each session reads this first and updates it last. Newest entries at the top of each section.
 
 ## Done
+- Session 9 (2026-11-04, overnight cloud session): Tasks 9.1 and 9.2, pushed to `test-framework`. Three held-out rounds
+  (prompt `docs/test-framework/prompts/heldout-canaries.md`; a fresh Sonnet subagent each time that read only the spec,
+  the canary README and the good fixture). `python -m unittest tools.test_canaries -k heldout` judges them. Round 1:
+  22 canaries, 11 missed at first. Round 2: 36 canaries, 16 missed. Round 3: 34 canaries, 16 missed. Every miss a
+  program can find from the files became a rule with a canary under `tools/fixtures/canaries/`: 16 new rules
+  (`test-keyword-unnamed`, `test-name-unnamed`, `test-without-learner`, `test-swallows-failure`, `wrong-misses-name`,
+  `trophy-duplicate`, `lesson-id-mismatch`, `lesson-order-duplicate`, `region-no-boss`, `stage-order-duplicate`,
+  `stage-hp-invalid`, `claim-vacuous`, `claim-id-duplicate`, `cases-target-unused`, `valid-always-true`,
+  `solution-flaky`) and four extensions (`test-inspects-code` reads `__name__` and the like, `docstring` is a construct,
+  unlisted keyword arguments of builtins are unknown features, and `weak-tests` leaves out equivalent mutants). 17 defects stay open, each with
+  its reason, in `tools/fixtures/canaries-heldout/README.md`. Flags are real (9.2): see Decisions.
 - Session 8 (2026-11-04, overnight cloud session): Tasks 8.1 to 8.3, pushed to `test-framework`.
   `tools/vet/changed.py` (`python -m tools.vet.changed --base origin/dev` prints a VET_ITEMS value) and
   `content_check.py --items-out .vet-cache/e2e-items.json` (`tools/vet/e2e_items.py`); the specs
@@ -80,6 +91,31 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 9, flags are real (Task 9.2): the full `vet` on today's content gives findings in 11 rules (weak-tests 290,
+  cases-missing 238, right-missing 208, blind-missing 205, wrong-too-few 204, ledger-missing 43, teaches-missing 34,
+  remember-unbacked 34, claim-id-missing 33, prompt-asks-construct 28, fence-untyped 1). Sample: 3 per rule drawn with
+  `random.Random("flags-are-real:<rule>")` from the findings sorted by item and message (33 flags). All 33 were
+  checked against the files. 32 are real: the file, folder or table the message says is missing is missing, or the
+  sentences it quotes are in the lesson; the three `prompt-asks-construct` flags name a construct in the prompt
+  that no test requires (one, `sortable-by-height`, says "finish the key function" and its starter already passes
+  `key=`, so requiring it would be trivial; the owner decides between `requires` and `construct_words_ok`). One was
+  a false alarm: `gradebook` (`weak-tests`): `m.strip()` became `m.lstrip()` inside `if m.strip()`, and the two are
+  empty for exactly the same strings. The other two `weak-tests` samples are real (`squirrel-storehouse`: no test
+  sells twice; `statistics-trimmed`: no test has a fractional mean, so `//` passes). Fix: `mutants()` skips a
+  strip, lstrip or rstrip used only as a condition and the value of a seed argument (`random_state`, `seed`), with a
+  canary in the good direction (`weak-tests/strip-in-a-filter-is-not-weak`). Without `[cases]` other equivalent
+  mutants can still be reported (an index `[0]` and `[-1]` on a one-element list is an example); declaring `[cases]`
+  lets the fuzz set clear them, so the gap list stays the place where they wait.
+- Session 9: a held-out canary counts as caught when the full `vet` gives any finding except a file that cannot be
+  read (`file-unreadable`, `field-missing`, `field-invalid`), as the plan says ("a canary with no finding is a miss").
+  The failure class the writer names is a label: one defect can be filed under another class (a test that fails on
+  Python 3.12 is a `false-claim`). My first version required the class to match, which was wrong.
+- Session 9: every harness run now uses `PYTHONHASHSEED=0` (`-s -P` instead of `-I`, since isolated mode ignores the
+  variable). Before, set and dict order changed from run to run, so a test that depended on it passed or failed at
+  random, against the "no flaky" anti-goal. `solution-flaky` (a slow rule) reruns each solution under seeds 1 to 4.
+- Session 9: the held-out writers were told in round 3 to leave out defects only a reader of prose can find, and
+  round 2 and 3 prompts listed earlier themes to avoid. Round 1 made no such steer. The rounds are therefore not
+  independent samples; no round came back with no miss, and the cap of three rounds ended the task.
 - Session 8: `changed_items` returns a frozenset of VET_ITEMS tokens (`all`, `sample`, item ids), not the plan's
   `set | Literal`, because one change can need a sample and some ids. `all` swallows the rest. A content file maps to
   its task (a variant file to its task, `lesson.md` and `ledger.toml` to every task of the lesson, a boss file to the
@@ -362,6 +398,16 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
+- Session 9, Task 9.1 stopped at the cap of three rounds with misses in round 3 (as the supervisor allowed). Open:
+  17 planted defects the deterministic checker does not find; reasons per canary in
+  `tools/fixtures/canaries-heldout/README.md`. In short: false or weakly proved sentences, wording open to two
+  readings and a hard-coded answer under a validity rule need the model reviews (`vet-models`, Task 10.1) or the blind
+  solvers; an input space declared too narrow, a float tolerance too loose, a validity rule that compares only signs
+  and an `isinstance` test need a person; a prompt or hint naming a function the code calls something else, a hint
+  with code that raises, `kind = "fix"` with an empty starter and a test that keeps state between runs are cheap
+  checks nobody wrote yet. Run the four false sentences of round 1 and 2 (`open/false-claim-*`) through the live
+  DeepSeek review in Task 10.1 to see whether the model half catches them.
+- Session 9: the new rules are quiet on today's content, so the gap list is unchanged (1082 entries).
 - Session 8: Playwright cannot run in the VM (the dev server copies Pyodide wheels from cdn.jsdelivr.net, which the
   proxy refuses), so the generated specs ran only on CI. The uploaded Playwright report is an artifact the VM cannot
   download either, so I sized the shards from the Playwright list printed in the job log.

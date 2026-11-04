@@ -777,21 +777,21 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 
 ### Task 9.1: Held-out canary rounds (S20)
 
-- [ ] **Step 1:** Dispatch a fresh reviewer subagent with `docs/test-framework/prompts/heldout-canaries.md`
+- [x] **Step 1:** Dispatch a fresh reviewer subagent with `docs/test-framework/prompts/heldout-canaries.md`
   (write it now): it may read the spec, `tools/fixtures/canaries/README.md` and `tools/fixtures/good/`, but
   not `tools/fixtures/canaries/*/` or `tools/vet/`. It writes at least two canaries per failure class (spec
   A to H) into `tools/fixtures/canaries-heldout/round-<n>/`, each with `expect` naming the failure class,
   not a rule id.
-- [ ] **Step 2:** Run `python -m unittest tools.test_canaries -k heldout`. A canary with no finding is a miss.
-- [ ] **Step 3:** Each miss: add or fix a rule, move the canary into `tools/fixtures/canaries/` with its rule
+- [x] **Step 2:** Run `python -m unittest tools.test_canaries -k heldout`. A canary with no finding is a miss.
+- [x] **Step 3:** Each miss: add or fix a rule, move the canary into `tools/fixtures/canaries/` with its rule
   id, commit per miss.
-- [ ] **Step 4:** Repeat with a new round until one round has no miss. Record every round in PROGRESS.
+- [x] **Step 4:** Repeat with a new round until one round has no miss. Record every round in PROGRESS.
 
 ### Task 9.2: Flags are real (S21)
 
-- [ ] **Step 1:** Run the full `vet` on today's content. For every rule with findings, read 3 at random (all
+- [x] **Step 1:** Run the full `vet` on today's content. For every rule with findings, read 3 at random (all
   if fewer) against the content and decide real or false alarm. Record the sample in PROGRESS.
-- [ ] **Step 2:** Fix every rule with a false alarm, add a canary for the false alarm in the `good` direction
+- [x] **Step 2:** Fix every rule with a false alarm, add a canary for the false alarm in the `good` direction
   (a fixture that must give no finding), re-run, commit, push. End of Session 9.
 
 ---

@@ -28,4 +28,4 @@ cannot be read) on a copy of `tools/fixtures/good/` with the one planted defect:
     signs. No mutation of the solution slips through them.
 
 Round 1 had 22 canaries (11 missed at first), round 2 had 36 (16) and round 3 had 34 (16). Every miss that a program
-can find from the files became a rule with a canary under `tools/fixtures/canaries/`: 20 rules in all.
+can find from the files became a rule with a canary under `tools/fixtures/canaries/`: 16 new rules in all.

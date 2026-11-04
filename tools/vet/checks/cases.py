@@ -52,7 +52,8 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
             yield about.finding("cases-too-few", f"{item.seed} keeps only {len(cases)} hidden cases (at least "
                                                  f"{MIN_CASES}): widen the input types, or list the error the "
                                                  "solution raises in raises if the prompt names it")
-        jobs.append(CheckJob(item.solution, item.tests, item.strict, tuple(cases), item.requires))
+        # another hash seed than the one that made the expected values: an answer built on a hash is not repeatable
+        jobs.append(CheckJob(item.solution, item.tests, item.strict, tuple(cases), item.requires, hash_seed=1))
         owners.append((about, item))
     for (about, item), outcome in zip(owners, adapter.check(jobs), strict=True):
         if outcome is None:
