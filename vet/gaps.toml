@@ -28,7 +28,7 @@ fingerprint = "91ff482cc828"
 [[gap]]
 rule = "blind-missing"
 item = "recursion-repeat"
-fingerprint = "bc47b45bbb68"
+fingerprint = "c46db7ab85db"
 
 [[gap]]
 rule = "blind-missing"
@@ -744,11 +744,6 @@ fingerprint = "8ddcf3d359df"
 rule = "cases-missing"
 item = "recursion-count"
 fingerprint = "bb76b6db07ac"
-
-[[gap]]
-rule = "cases-missing"
-item = "recursion-repeat"
-fingerprint = "bc47b45bbb68"
 
 [[gap]]
 rule = "cases-missing"
@@ -2433,7 +2428,7 @@ fingerprint = "e838b17027be"
 [[gap]]
 rule = "right-missing"
 item = "recursion-repeat"
-fingerprint = "bc47b45bbb68"
+fingerprint = "c46db7ab85db"
 
 [[gap]]
 rule = "right-missing"
@@ -2929,11 +2924,6 @@ fingerprint = "bb57155a12b9"
 rule = "weak-tests"
 item = "ranger-registry"
 fingerprint = "8ddcf3d359df"
-
-[[gap]]
-rule = "weak-tests"
-item = "recursion-repeat"
-fingerprint = "bc47b45bbb68"
 
 [[gap]]
 rule = "weak-tests"
@@ -3843,7 +3833,7 @@ fingerprint = "e838b17027be"
 [[gap]]
 rule = "wrong-too-few"
 item = "recursion-repeat"
-fingerprint = "bc47b45bbb68"
+fingerprint = "c46db7ab85db"
 
 [[gap]]
 rule = "wrong-too-few"
