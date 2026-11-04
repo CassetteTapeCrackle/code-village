@@ -622,11 +622,6 @@ fingerprint = "b71b54aaa75e"
 
 [[gap]]
 rule = "cases-missing"
-item = "methods-torch"
-fingerprint = "440384b9535b"
-
-[[gap]]
-rule = "cases-missing"
 item = "nearest-neighbour-classify"
 fingerprint = "aab665edb226"
 
@@ -2313,7 +2308,7 @@ fingerprint = "b71b54aaa75e"
 [[gap]]
 rule = "right-missing"
 item = "methods-torch"
-fingerprint = "440384b9535b"
+fingerprint = "c2267357dd3d"
 
 [[gap]]
 rule = "right-missing"
@@ -2924,11 +2919,6 @@ fingerprint = "c2dffb1d68f9"
 rule = "weak-tests"
 item = "methods-oven"
 fingerprint = "f4a485d78eff"
-
-[[gap]]
-rule = "weak-tests"
-item = "methods-torch"
-fingerprint = "440384b9535b"
 
 [[gap]]
 rule = "weak-tests"
@@ -3778,7 +3768,7 @@ fingerprint = "b71b54aaa75e"
 [[gap]]
 rule = "wrong-too-few"
 item = "methods-torch"
-fingerprint = "440384b9535b"
+fingerprint = "c2267357dd3d"
 
 [[gap]]
 rule = "wrong-too-few"

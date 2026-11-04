@@ -1,54 +1,54 @@
 {
-  "fingerprint": "440384b9535b",
+  "fingerprint": "c2267357dd3d",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Torch:\n    def __init__(self, battery):\n        self.battery = battery\n\n    def use(self, minutes):\n        self.battery -= minutes\n        if self.battery < 0:\n            self.battery = 0\n\n    def is_empty(self):\n        return self.battery == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Torch:\n    def __init__(self, battery):\n        self.battery = battery\n\n    def use(self, minutes):\n        self.battery -= minutes\n        if self.battery < 0:\n            self.battery = 0\n\n    def is_empty(self):\n        return self.battery == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Torch:\n    def __init__(self, battery):\n        self.battery = battery\n\n    def use(self, minutes):\n        self.battery -= minutes\n        if self.battery < 0:\n            self.battery = 0\n\n    def is_empty(self):\n        return self.battery == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Torch:\n    def __init__(self, battery):\n        self.battery = battery\n\n    def use(self, minutes):\n        self.battery -= minutes\n        if self.battery < 0:\n            self.battery = 0\n\n    def is_empty(self):\n        return self.battery == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Torch:\n    def __init__(self, battery):\n        self.battery = battery\n\n    def use(self, minutes):\n        self.battery -= minutes\n        if self.battery < 0:\n            self.battery = 0\n\n    def is_empty(self):\n        return self.battery == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
