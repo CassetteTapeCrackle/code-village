@@ -12,7 +12,14 @@ import {
 } from "../src/tutorLimits";
 
 const AT_NOON = new Date("2026-10-15T12:00:00Z");
-const base = { tutorOff: false, repliesToday: 0, callsThisMinute: 0, neuronsToday: 0, playerAgeHours: 48 };
+const base = {
+  tutorOff: false,
+  repliesToday: 0,
+  callsThisMinute: 0,
+  neuronsToday: 0,
+  playerNeuronsToday: 0,
+  playerAgeHours: 48,
+};
 
 test("all fine lets the request through", () => {
   expect(decide(base)).toEqual({ ok: true });
@@ -89,6 +96,17 @@ test("the daily quota refuses the next question", () => {
   });
 });
 
+test("a player who spent their share of the day's budget is refused, even with questions left", () => {
+  const share = LIMITS.dailyFreeNeurons * LIMITS.playerNeuronShare;
+  expect(decide({ ...base, playerNeuronsToday: share - 1 })).toEqual({ ok: true });
+  expect(decide({ ...base, playerNeuronsToday: share })).toEqual({
+    ok: false,
+    status: 429,
+    reason: "quota",
+    message: "You used your share of the teacher for today. Try again tomorrow.",
+  });
+});
+
 test("too many questions in one minute are a burst", () => {
   const gate = decide({ ...base, callsThisMinute: LIMITS.tutorPerMinute });
   expect(gate).toEqual({
@@ -108,6 +126,7 @@ test("counters read for a new UTC day are zero", async () => {
     repliesToday: 0,
     callsThisMinute: 0,
     neuronsToday: 0,
+    playerNeuronsToday: 0,
   });
 });
 
@@ -119,6 +138,7 @@ test("a minute from the previous minute reads as zero calls", async () => {
     repliesToday: 7,
     callsThisMinute: 0,
     neuronsToday: 0,
+    playerNeuronsToday: 0,
   });
 });
 
@@ -130,12 +150,14 @@ test("reserveQuestion takes one minute and one reply slot, and starts the minute
     repliesToday: 2,
     callsThisMinute: 2,
     neuronsToday: 0,
+    playerNeuronsToday: 0,
   });
   expect(await reserveQuestion(env, 9002, later)).toBe(true);
   expect(await readCounters(env, 9002, later)).toEqual({
     repliesToday: 3,
     callsThisMinute: 1,
     neuronsToday: 0,
+    playerNeuronsToday: 0,
   });
 });
 
@@ -153,17 +175,19 @@ test("reserveQuestion refuses once the minute or the day is full", async () => {
 
 test("countNeurons adds to the day, refundReply gives the reply slot back but keeps the neurons", async () => {
   await reserveQuestion(env, 9003, AT_NOON);
-  await countNeurons(env, AT_NOON, 100);
+  await countNeurons(env, 9003, AT_NOON, 100);
   expect(await readCounters(env, 9003, AT_NOON)).toEqual({
     repliesToday: 1,
     callsThisMinute: 1,
     neuronsToday: 100,
+    playerNeuronsToday: 100,
   });
   await refundReply(env, 9003, AT_NOON);
   expect(await readCounters(env, 9003, AT_NOON)).toEqual({
     repliesToday: 0,
     callsThisMinute: 1,
     neuronsToday: 100,
+    playerNeuronsToday: 100,
   });
   await refundReply(env, 9003, AT_NOON);
   expect((await readCounters(env, 9003, AT_NOON)).repliesToday).toBe(0);
@@ -203,4 +227,12 @@ test("an unknown model never estimates lower than a known one", () => {
         estimateNeurons(model, input, output),
       );
   }
+});
+
+// last in the file: it spends a large share of the day's shared budget
+test("reserveQuestion refuses once the player's share of neurons is spent, in the same write", async () => {
+  expect(await reserveQuestion(env, 9006, AT_NOON)).toBe(true);
+  await countNeurons(env, 9006, AT_NOON, LIMITS.dailyFreeNeurons * LIMITS.playerNeuronShare);
+  expect(await reserveQuestion(env, 9006, new Date("2026-10-15T12:05:00Z"))).toBe(false);
+  expect((await readCounters(env, 9006, AT_NOON)).repliesToday).toBe(1);
 });

@@ -10,6 +10,8 @@ interface __BaseEnv_Env {
 	TURNSTILE_SECRET: string;
 	IP_SALT: string;
 	GITHUB_ISSUES_TOKEN: string;
+	RECOVERY_KEY: string;
+	API_RATE_LIMIT: RateLimit;
 }
 declare namespace Cloudflare {
 	interface GlobalProps {
@@ -22,7 +24,7 @@ type StringifyValues<EnvType extends Record<string, unknown>> = {
 	[Binding in keyof EnvType]: EnvType[Binding] extends string ? EnvType[Binding] : string;
 };
 declare namespace NodeJS {
-	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "TURNSTILE_SITE_KEY" | "TUTOR_MODEL" | "TURNSTILE_SECRET" | "IP_SALT" | "GITHUB_ISSUES_TOKEN">> {}
+	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "TURNSTILE_SITE_KEY" | "TUTOR_MODEL" | "TURNSTILE_SECRET" | "IP_SALT" | "GITHUB_ISSUES_TOKEN" | "RECOVERY_KEY">> {}
 }
 declare module "*.txt" {
 	const value: string;

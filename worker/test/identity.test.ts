@@ -1,6 +1,6 @@
 import { env } from "cloudflare:workers";
 import { expect, test } from "vitest";
-import { normalizeRecoveryCode, sha256Hex } from "../src/crypto";
+import { normalizeRecoveryCode, recoveryHash, sha256Hex } from "../src/crypto";
 import { handle } from "../src/router";
 
 const okDeps = {
@@ -42,7 +42,7 @@ test("register returns a token and a recovery code, and stores only hashes", asy
   const playerRow = await env.DB.prepare("SELECT recovery_hash AS recoveryHash FROM players").first<{
     recoveryHash: string;
   }>();
-  expect(playerRow?.recoveryHash).toBe(await sha256Hex(normalizeRecoveryCode(body.recoveryCode)));
+  expect(playerRow?.recoveryHash).toBe(await recoveryHash(env.RECOVERY_KEY, body.recoveryCode));
   const dump = await env.DB.prepare("SELECT * FROM tokens").all();
   expect(JSON.stringify(dump.results)).not.toContain(body.token);
 });
@@ -239,4 +239,26 @@ test("delete me removes every row of that player and leaves the other player alo
     .bind(birchId?.id)
     .first<{ n: number }>();
   expect(kept?.n).toBe(1);
+});
+
+test("a player registered before keyed hashes can still recover until the cron wraps their row", async () => {
+  const code = "maple-otter-brick-lantern-42";
+  await env.DB.prepare(
+    "INSERT INTO players (nickname, nickname_key, recovery_hash, created_at, last_active) VALUES (?, ?, ?, ?, ?)",
+  )
+    .bind(
+      "Oldtimer",
+      "oldtimer",
+      await sha256Hex(normalizeRecoveryCode(code)),
+      "2026-10-01T00:00:00.000Z",
+      "2026-10-01",
+    )
+    .run();
+  const res = await handle(
+    post("/api/recover", { recoveryCode: code, turnstile: "t" }, "10.0.0.90"),
+    env,
+    okDeps,
+  );
+  expect(res.status).toBe(200);
+  expect(((await res.json()) as { nickname: string }).nickname).toBe("Oldtimer");
 });

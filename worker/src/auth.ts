@@ -23,6 +23,9 @@ export async function playerFor(
     .bind(`ban:${row.nicknameKey}`)
     .first();
   if (banned) return null;
-  await env.DB.prepare("UPDATE players SET last_active = ? WHERE id = ?").bind(day, row.id).run();
+  // once a day: the free plan allows 100k written rows a day, and every signed-in request passes here
+  await env.DB.prepare("UPDATE players SET last_active = ? WHERE id = ? AND last_active <> ?")
+    .bind(day, row.id, day)
+    .run();
   return row;
 }

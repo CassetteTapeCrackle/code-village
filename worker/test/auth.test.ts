@@ -36,6 +36,27 @@ test("a bearer token finds the player and stamps last_active", async () => {
   expect(row?.lastActive).toBe("2026-10-15");
 });
 
+test("last_active is written once a day, not on every request", async () => {
+  const token = "tok-daily-0123456789012345678901234567890123";
+  await seedPlayer("Daily", token);
+  // an UPDATE fires this even when it writes the same value, so it counts real row writes
+  await env.DB.batch([
+    env.DB.prepare("CREATE TABLE stamps (n INTEGER)"),
+    env.DB.prepare(
+      "CREATE TRIGGER stamp AFTER UPDATE OF last_active ON players BEGIN INSERT INTO stamps VALUES (1); END",
+    ),
+  ]);
+  const written = async (day: string): Promise<number> => {
+    await env.DB.prepare("DELETE FROM stamps").run();
+    await playerFor(withToken(token), env, "main", day);
+    return (await env.DB.prepare("SELECT count(*) AS n FROM stamps").first<{ n: number }>())?.n ?? -1;
+  };
+  expect(await written("2026-10-15")).toBe(1);
+  expect(await written("2026-10-15")).toBe(0);
+  expect(await written("2026-10-16")).toBe(1);
+  await env.DB.batch([env.DB.prepare("DROP TRIGGER stamp"), env.DB.prepare("DROP TABLE stamps")]);
+});
+
 test("a wrong token, a missing header and an agent token used as main are all null", async () => {
   const token = "tok-agent-01234567890123456789012345678901";
   await seedPlayer("Cedar", token, "agent");

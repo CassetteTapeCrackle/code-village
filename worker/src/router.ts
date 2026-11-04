@@ -10,6 +10,12 @@ import { tutor } from "./routes/tutor";
 
 export async function handle(request: Request, env: Env, deps: Deps): Promise<Response> {
   const url = new URL(request.url);
+  if (url.pathname.startsWith("/api/") || url.pathname === "/mcp") {
+    const { success } = await env.API_RATE_LIMIT.limit({
+      key: request.headers.get("cf-connecting-ip") ?? "unknown",
+    });
+    if (!success) return fail(429, "Too many requests from here. Wait a minute, then try again.");
+  }
   if (url.pathname === "/api/health") return json({ ok: true, time: deps.now().toISOString() });
   if (url.pathname === "/api/register" && request.method === "POST") return register(request, env, deps);
   if (url.pathname === "/api/recover" && request.method === "POST") return recover(request, env, deps);
