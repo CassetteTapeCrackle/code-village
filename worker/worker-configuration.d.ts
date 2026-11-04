@@ -9,6 +9,7 @@ interface __BaseEnv_Env {
 	TUTOR_MODEL: "@cf/google/gemma-4-26b-a4b-it";
 	TURNSTILE_SECRET: string;
 	IP_SALT: string;
+	RECOVERY_KEY: string;
 	API_RATE_LIMIT: RateLimit;
 }
 declare namespace Cloudflare {
@@ -22,7 +23,7 @@ type StringifyValues<EnvType extends Record<string, unknown>> = {
 	[Binding in keyof EnvType]: EnvType[Binding] extends string ? EnvType[Binding] : string;
 };
 declare namespace NodeJS {
-	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "TURNSTILE_SITE_KEY" | "TUTOR_MODEL" | "TURNSTILE_SECRET" | "IP_SALT">> {}
+	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "TURNSTILE_SITE_KEY" | "TUTOR_MODEL" | "TURNSTILE_SECRET" | "IP_SALT" | "RECOVERY_KEY">> {}
 }
 declare module "*.txt" {
 	const value: string;

@@ -2,3 +2,6 @@
 TURNSTILE_SECRET=1x0000000000000000000000000000000AA
 # A throwaway salt for hashing IPs. Local use only.
 IP_SALT=dev-salt
+# Keys the recovery-code hashes. Local use only: production has its own secret, and rotating that one
+# would stop every existing recovery code from working.
+RECOVERY_KEY=dev-recovery-key

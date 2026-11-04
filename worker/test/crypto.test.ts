@@ -1,5 +1,12 @@
 import { expect, test } from "vitest";
-import { newRecoveryCode, normalizeRecoveryCode, randomToken, sha256Hex } from "../src/crypto";
+import {
+  newRecoveryCode,
+  normalizeRecoveryCode,
+  randomToken,
+  recoveryHash,
+  sha256Hex,
+  wrapRecoveryHash,
+} from "../src/crypto";
 import { WORDS } from "../src/words";
 
 test("randomToken is 43 base64url chars and two calls differ", () => {
@@ -26,4 +33,16 @@ test("the word list is 256 distinct friendly words", () => {
   expect(WORDS.length).toBe(256);
   expect(new Set(WORDS).size).toBe(256);
   for (const word of WORDS) expect(word).toMatch(/^[a-z]{3,7}$/);
+});
+
+test("recovery hashes are keyed: another key gives another hash, and no key is refused", async () => {
+  const code = "maple-otter-brick-lantern-42";
+  const [first, second] = ["first", "second"];
+  const hash = await recoveryHash(first, "Maple Otter brick lantern 42");
+  expect(hash).toMatch(/^v2:[0-9a-f]{64}$/);
+  expect(await recoveryHash(first, code)).toBe(hash);
+  expect(await recoveryHash(second, code)).not.toBe(hash);
+  // it wraps the old plain hash, so stored rows can be upgraded without their codes
+  expect(await wrapRecoveryHash(first, await sha256Hex(code))).toBe(hash);
+  await expect(recoveryHash("", code)).rejects.toThrow("RECOVERY_KEY");
 });

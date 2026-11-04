@@ -1,6 +1,13 @@
 import type { Deps, Env } from "../env";
 import { fail, json, readBody } from "../http";
-import { newRecoveryCode, normalizeRecoveryCode, randomToken, sha256Hex } from "../crypto";
+import {
+  newRecoveryCode,
+  normalizeRecoveryCode,
+  randomToken,
+  recoveryHash,
+  sha256Hex,
+  wrapRecoveryHash,
+} from "../crypto";
 import { takeIpSlot } from "../limits";
 import { playerFor } from "../auth";
 
@@ -48,7 +55,7 @@ export async function register(request: Request, env: Env, deps: Deps): Promise<
       `INSERT INTO players (nickname, nickname_key, recovery_hash, created_at, last_active) VALUES (?, ?, ?, ?, ?)
        ON CONFLICT DO NOTHING RETURNING id`,
     )
-      .bind(nickname, key, await sha256Hex(recoveryCode), now.toISOString(), dayOf(now))
+      .bind(nickname, key, await recoveryHash(env.RECOVERY_KEY, recoveryCode), now.toISOString(), dayOf(now))
       .first<{ id: number }>();
     if (!row) {
       const nowTaken = await env.DB.prepare("SELECT 1 FROM players WHERE nickname_key = ?").bind(key).first();
@@ -70,9 +77,11 @@ export async function recover(request: Request, env: Env, deps: Deps): Promise<R
   const now = deps.now();
   if (!(await takeIpSlot(env, ipOf(request), "recover", dayOf(now))))
     return fail(429, "Too many tries from here today.");
-  const hash = await sha256Hex(normalizeRecoveryCode(typeof recoveryCode === "string" ? recoveryCode : ""));
-  const player = await env.DB.prepare("SELECT id, nickname FROM players WHERE recovery_hash = ?")
-    .bind(hash)
+  const plain = await sha256Hex(normalizeRecoveryCode(typeof recoveryCode === "string" ? recoveryCode : ""));
+  // shortcut: the plain hash still finds rows the nightly cron has not wrapped yet; drop it from the lookup
+  // once no player's recovery_hash lacks the "v2:" prefix
+  const player = await env.DB.prepare("SELECT id, nickname FROM players WHERE recovery_hash IN (?, ?)")
+    .bind(await wrapRecoveryHash(env.RECOVERY_KEY, plain), plain)
     .first<{ id: number; nickname: string }>();
   if (!player) return fail(404, "No nickname has that recovery code.");
   // recovering locks out anyone holding an old token, agent ones included: a recovered account

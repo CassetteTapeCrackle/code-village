@@ -1,6 +1,6 @@
 import type { Env } from "./env";
 import { askWorkersAi } from "./aiStream";
-import { deleteInactive } from "./cron";
+import { deleteInactive, wrapLegacyRecoveryHashes } from "./cron";
 import { handle } from "./router";
 import { verifyTurnstile } from "./turnstile";
 
@@ -14,6 +14,11 @@ export default {
     });
   },
   scheduled(_controller, env, ctx) {
-    ctx.waitUntil(deleteInactive(env, new Date().toISOString().slice(0, 10)));
+    ctx.waitUntil(
+      Promise.all([
+        deleteInactive(env, new Date().toISOString().slice(0, 10)),
+        wrapLegacyRecoveryHashes(env),
+      ]),
+    );
   },
 } satisfies ExportedHandler<Env>;

@@ -101,6 +101,19 @@ jobs:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: site
+      # a Worker without its secrets fails sign-up and recovery: stop before shipping it
+      - name: Check the Worker's secrets are set
+        run: |
+          secrets=$(pnpm exec wrangler secret list --config worker/wrangler.jsonc)
+          for name in TURNSTILE_SECRET IP_SALT RECOVERY_KEY; do
+            if ! grep -q "\"$name\"" <<<"$secrets"; then
+              echo "::error::The Worker has no $name secret. Add it in the Cloudflare dashboard, then re-run this deploy."
+              exit 1
+            fi
+          done
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       # migrations land before the code that expects them, once, from main only
       - run: pnpm exec wrangler d1 migrations apply code-village --remote --config worker/wrangler.jsonc
         env:
