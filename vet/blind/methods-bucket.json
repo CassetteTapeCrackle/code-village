@@ -1,54 +1,54 @@
 {
-  "fingerprint": "631621a7c96f",
+  "fingerprint": "1cf158584cdc",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Bucket:\n    def __init__(self, litres):\n        self.litres = litres\n\n    def pour(self, n):\n        self.litres = max(0, self.litres - n)\n\n    def is_dry(self):\n        return self.litres == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Bucket:\n    def __init__(self, litres):\n        self.litres = litres\n\n    def pour(self, n):\n        self.litres = max(0, self.litres - n)\n\n    def is_dry(self):\n        return self.litres == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Bucket:\n    def __init__(self, litres):\n        self.litres = litres\n\n    def pour(self, n):\n        self.litres = max(0, self.litres - n)\n\n    def is_dry(self):\n        return self.litres == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Bucket:\n    def __init__(self, litres):\n        self.litres = litres\n\n    def pour(self, n):\n        self.litres = max(0, self.litres - n)\n\n    def is_dry(self):\n        return self.litres == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Bucket:\n    def __init__(self, litres):\n        self.litres = litres\n\n    def pour(self, n):\n        self.litres = max(0, self.litres - n)\n\n    def is_dry(self):\n        return self.litres == 0\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

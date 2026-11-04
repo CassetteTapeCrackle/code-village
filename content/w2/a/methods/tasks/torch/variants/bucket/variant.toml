@@ -1,3 +1,9 @@
 id = "methods-bucket"
 title = "A leaky bucket"
 prompt = "Write a class `Bucket`: `Bucket(litres)` stores `litres`, `pour(n)` pours `n` litres out but never below 0, and `is_dry()` returns `True` when it is empty. `max(a, b)` gives the bigger of two numbers."
+
+[cases]
+class = "Bucket"
+init = ["int 0..20"]
+methods = { pour = ["int 0..10"], is_dry = [] }
+reads = ["litres"]
