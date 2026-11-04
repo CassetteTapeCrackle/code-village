@@ -182,6 +182,35 @@ severity = "ambiguous"
 summary = "A prompt names a way of writing the code, but the task does not require it, so Check would not notice."
 severity = "ambiguous"
 
+# False claims: a sentence nothing pins or backs
+[rule.ledger-missing]
+summary = "A sentence a learner reads has no entry in the lesson's or boss's ledger.toml."
+severity = "false-claim"
+
+[rule.ledger-stale]
+summary = "A ledger entry matches no sentence any more: the sentence was edited or removed."
+severity = "false-claim"
+
+[rule.remember-unbacked]
+summary = "A remember bullet is not backed by a claim and not marked as advice."
+severity = "false-claim"
+
+[rule.claim-id-unknown]
+summary = "A ledger entry points to a claim id that no claim block of the lesson has."
+severity = "false-claim"
+
+[rule.claim-id-missing]
+summary = "A claim block has no id, so a ledger entry cannot point to it."
+severity = "false-claim"
+
+[rule.doc-anchor-missing]
+summary = "A ledger entry's docs link is not a page and anchor in the pinned Python 3.12 docs inventory."
+severity = "false-claim"
+
+[rule.fence-untyped]
+summary = "A Python code fence is not an example, predict or claim block, so nothing runs it."
+severity = "false-claim"
+
 # Data: files the loader cannot use
 [rule.file-unreadable]
 summary = "A content file is missing, cannot be parsed, or lacks its +++ front matter."

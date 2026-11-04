@@ -609,7 +609,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - CLI: `python -m tools.vet.ledger --pending <out.json>` writes every sentence without a current entry, with
   its paragraph.
 
-- [ ] **Step 1 to 4:** Tests (`test_split_keeps_inline_code`, `test_eg_does_not_split`,
+- [x] **Step 1 to 4:** Tests (`test_split_keeps_inline_code`, `test_eg_does_not_split`,
   `test_fingerprint_ignores_spacing`), canaries per rule, fail, implement, pass. `gaps --write`. Commit.
 
 ### Task 6.2: DeepSeek in Actions

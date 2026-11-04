@@ -9,6 +9,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .finding import Finding, subject
+from .ledger import LedgerEntry, parse_ledger
 from .model import (
     Block,
     Boss,
@@ -48,7 +49,7 @@ CODE_FILES = ("starter", "solution", "tests")
 FRONT_MATTER_PARTS = 3  # nothing before the first +++, the TOML, then the body
 MIN_STAGES, MAX_STAGES = 3, 5  # the game's boss screen is drawn for 3 to 5 stages
 KINDS = {"write", "fix", "complete"}
-FENCE = re.compile(r"^```python (example|predict|claim)(?: min=(\S+))?\n(.*?)^```\n", re.S | re.M)
+FENCE = re.compile(r"^```python (example|predict|claim)((?: (?:min|id)=\S+)*)\n(.*?)^```\n", re.S | re.M)
 TASK_LINE = re.compile(r"^::task ([\w-]+)\s*$", re.M)
 CODE_KINDS: dict[str, CodeKind] = {"example": "example", "predict": "predict", "claim": "claim"}
 BLOCK = re.compile(FENCE.pattern + "|" + TASK_LINE.pattern, re.S | re.M)
@@ -190,7 +191,8 @@ def split_body(body: str) -> list[TextBlock | CodeBlock | str]:
         if text:
             blocks.append(TextBlock(text))
         kind = CODE_KINDS.get(m.group(1) or "")
-        blocks.append(CodeBlock(kind, m.group(3), m.group(2)) if kind else m.group(4))
+        attributes = dict(pair.split("=", 1) for pair in (m.group(2) or "").split())
+        blocks.append(CodeBlock(kind, m.group(3), attributes.get("min"), attributes.get("id")) if kind else m.group(4))
         pos = m.end()
     tail = body[pos:].strip()
     if tail:
@@ -203,6 +205,20 @@ def _check_optional_lesson_fields(meta: Meta, where: str, report: Report, path: 
         report.add("field-invalid", where, "tour must be true or false", path)
     if "teaches" in meta and _strings(meta["teaches"]) is None:
         report.add("field-invalid", where, "teaches must be a list of feature ids (strings)", path)
+
+
+def _load_ledger(path: Path, where: str, report: Report) -> tuple[LedgerEntry, ...]:
+    """The entries of the ledger.toml next to a lesson or boss; none when there is no file."""
+    if not path.is_file():
+        return ()
+    try:
+        entries, problems = parse_ledger(path.read_text())
+    except OSError as e:
+        report.add("file-unreadable", where, f"unreadable ledger.toml: {e}", path)
+        return ()
+    for problem in problems:
+        report.add("field-invalid", where, f"ledger.toml {problem}", path)
+    return tuple(entries)
 
 
 def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Finding]]:
@@ -234,7 +250,8 @@ def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Findi
     for folder in subfolders(lesson_md.parent / "tasks"):
         if folder.name not in placed:
             report.add("task-unplaced", where, f"task folder {folder.name} is never placed with ::task", folder)
-    return Lesson(where, lesson_md, meta, tuple(blocks), report.fingerprint), report.findings
+    ledger = _load_ledger(lesson_md.parent / "ledger.toml", where, report)
+    return Lesson(where, lesson_md, meta, tuple(blocks), report.fingerprint, ledger), report.findings
 
 
 def _load_stage(folder: Path, where: str, report: Report) -> Stage | None:
@@ -266,7 +283,8 @@ def _load_boss(boss_md: Path, root: Path) -> tuple[Boss | None, list[Finding]]:
     if not MIN_STAGES <= len(stages) <= MAX_STAGES:
         report.add("boss-stage-count", where, f"a boss needs 3 to 5 stages, found {len(stages)}", folder / "stages")
     boss = Boss(str(meta.get("id", where)), where, folder, meta, intro.strip(), files["starter"], files["solution"],
-                files["hard_tests"], stages, _answers(folder, "wrong"), _answers(folder, "right"), report.fingerprint)
+                files["hard_tests"], stages, _answers(folder, "wrong"), _answers(folder, "right"), report.fingerprint,
+                _load_ledger(folder / "ledger.toml", where, report))
     return boss, report.findings
 
 

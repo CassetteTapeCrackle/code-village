@@ -12,6 +12,7 @@ from .checks import (
     concepts,
     hints,
     ids,
+    ledger,
     mutation,
     progression,
     required,
@@ -61,6 +62,8 @@ CHECKS: list[Check] = [
     Check(progression.check, frozenset({"untaught-feature", "unknown-feature", "teaches-missing"})),
     Check(required.check, frozenset({"required-untaught", "required-not-in-prompt", "prompt-asks-construct",
                                      "unknown-feature", "field-missing"})),
+    Check(ledger.check, frozenset({"ledger-missing", "ledger-stale", "claim-id-unknown", "claim-id-missing",
+                                   "doc-anchor-missing", "remember-unbacked", "fence-untyped", "field-invalid"})),
     Check(versions.check, frozenset({"version-differs"})),
     Check(versions.check_min, frozenset({"min-unexplained"})),
 ]

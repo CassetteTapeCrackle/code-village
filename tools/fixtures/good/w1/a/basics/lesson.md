@@ -14,7 +14,7 @@ name = "Test Coin"
 
 Numbers can be multiplied.
 
-```python claim
+```python claim id=times-two
 assert 2 * 21 == 42
 ```
 

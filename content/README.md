@@ -196,6 +196,35 @@ this task asks you to put @property above the method." The rules:
 The solution must use every required construct, and `right/` answers too. The equivalent rewrites that remove a
 required construct are skipped.
 
+## The claims ledger
+
+Every sentence a learner reads (lesson text, `remember` bullets, task and variant prompts, hints, boss intro and
+stage prompts) has an entry in the `ledger.toml` next to its `lesson.md` or `boss.md`:
+
+```toml
+[[sentence]]
+fp = "5200066b97e8"            # fingerprint of the sentence with case and spacing ignored
+text = "Numbers can be multiplied."
+where = "text:0"               # text:3, remember:0, task:<id>:prompt, task:<id>:hint:2, boss:intro, stage:<id>:prompt
+status = "claim:times-two"     # claim:<id>, doc:<url#anchor>, simplification, advice or not-a-fact
+reason = ""                    # required for a simplification
+deepseek = "agree"             # what each model family said: agree, disagree, false or unsure
+claude = "agree"
+decided = "auto"               # auto when both agreed and any proposed assert passed, owner otherwise
+```
+
+- `claim:<id>`: a ` ```python claim id=<id> ` block in the lesson asserts it. Give every claim an `id`.
+- `doc:<url>`: the Python docs state it. The link must be `https://docs.python.org/3/<page>#<anchor>` and the anchor
+  must exist in `tools/vet/data/python-3.12-objects.inv`.
+- `simplification`: a deliberate teaching simplification, with a `reason`. `advice`: a recommendation, not a
+  statement about how Python behaves. `not-a-fact`: instructions, story, encouragement.
+
+Editing a sentence changes its fingerprint, so the old entry goes stale and the new wording needs a review. A
+`remember` bullet needs `claim:` or `advice`. The rules: `ledger-missing`, `ledger-stale`, `remember-unbacked`,
+`claim-id-missing`, `claim-id-unknown`, `doc-anchor-missing`, and `fence-untyped` (a Python fence that is not an
+example, predict or claim). `python -m tools.vet.pending <out.json>` lists the sentences without an entry, with their
+paragraphs; the model reviews described in `docs/test-framework/PLAN.md` (Tasks 6.2 and 6.3) fill the ledger.
+
 ## Review checklist
 
 Before a world is done, read every lesson, prompt, hint, starter, solution and test, and ask:

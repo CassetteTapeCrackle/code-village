@@ -7,8 +7,10 @@ from pathlib import Path
 from typing import Literal
 
 from .adapter import Required
+from .ledger import LedgerEntry
 
 Meta = dict[str, object]
+LEDGER_FILE = "ledger.toml"  # reviews of sentences, not content: editing it must not re-pin the item's gaps
 
 
 def fingerprint_bytes(parts: Iterable[bytes]) -> str:
@@ -30,7 +32,7 @@ def fingerprint_files(folder: Path, extra: str = "") -> str:
 
 
 def _local_only(path: Path) -> bool:
-    return any(part.startswith(".") or part == "__pycache__" for part in path.parts)
+    return path.name == LEDGER_FILE or any(part.startswith(".") or part == "__pycache__" for part in path.parts)
 
 
 def fingerprint_text(text: str) -> str:
@@ -82,6 +84,7 @@ class CodeBlock:
     kind: CodeKind
     code: str
     min: str | None = None  # the oldest Python it holds on (fence attribute min=3.13); None means 3.12, the oldest
+    id: str | None = None  # a claim's id (fence attribute id=...), which a ledger entry points to
 
 
 @dataclass(frozen=True)
@@ -110,6 +113,7 @@ class Lesson:
     meta: Meta
     blocks: tuple[Block, ...]
     fingerprint: str
+    ledger: tuple[LedgerEntry, ...] = ()
 
     @property
     def teaches(self) -> tuple[str, ...] | None:
@@ -144,6 +148,7 @@ class Boss:
     wrong: tuple[Path, ...]
     right: tuple[Path, ...]
     fingerprint: str
+    ledger: tuple[LedgerEntry, ...] = ()
 
 
 @dataclass(frozen=True)
