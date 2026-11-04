@@ -942,11 +942,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
-item = "dicts-in-both"
-fingerprint = "c2d69e9954e6"
-
-[[gap]]
-rule = "right-missing"
 item = "dicts-letter-counts"
 fingerprint = "3bb2ea3f897f"
 
@@ -963,7 +958,7 @@ fingerprint = "2285877a8716"
 [[gap]]
 rule = "right-missing"
 item = "dicts-unique-sorted"
-fingerprint = "a8025aa290af"
+fingerprint = "c6099e540bfc"
 
 [[gap]]
 rule = "right-missing"
@@ -2022,11 +2017,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "dicts-in-both"
-fingerprint = "c2d69e9954e6"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "dicts-letter-counts"
 fingerprint = "3bb2ea3f897f"
 
@@ -2043,7 +2033,7 @@ fingerprint = "2285877a8716"
 [[gap]]
 rule = "wrong-too-few"
 item = "dicts-unique-sorted"
-fingerprint = "a8025aa290af"
+fingerprint = "c6099e540bfc"
 
 [[gap]]
 rule = "wrong-too-few"
