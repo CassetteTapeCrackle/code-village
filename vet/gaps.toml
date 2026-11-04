@@ -738,7 +738,7 @@ fingerprint = "528d35ceac1f"
 [[gap]]
 rule = "cases-missing"
 item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
+fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "cases-missing"
@@ -1293,7 +1293,7 @@ fingerprint = "6d44b247f7d3"
 [[gap]]
 rule = "ledger-missing"
 item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
+fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "ledger-missing"
@@ -1453,7 +1453,7 @@ fingerprint = "528d35ceac1f"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
+fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -2393,7 +2393,7 @@ fingerprint = "528d35ceac1f"
 [[gap]]
 rule = "right-missing"
 item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
+fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2893,7 @@ fingerprint = "bb57155a12b9"
 [[gap]]
 rule = "weak-tests"
 item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
+fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "weak-tests"
@@ -3718,7 +3718,7 @@ fingerprint = "528d35ceac1f"
 [[gap]]
 rule = "wrong-too-few"
 item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
+fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "wrong-too-few"
