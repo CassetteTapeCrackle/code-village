@@ -719,9 +719,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 **Files:**
 - Modify: `.github/workflows/ci.yml`; create `.github/workflows/e2e-full.yml`
 
-- [ ] **Step 1:** Pull requests: `VET_ITEMS` from `changed.py` against the base. `e2e-full.yml`: manual
+- [x] **Step 1:** Pull requests: `VET_ITEMS` from `changed.py` against the base. `e2e-full.yml`: manual
   dispatch and pushes to `main`, `VET_ITEMS=all`, 4 shards.
-- [ ] **Step 2:** Push and read the run time; record PR run minutes in PROGRESS. Over 12 minutes: move the
+- [x] **Step 2:** Push and read the run time; record PR run minutes in PROGRESS. Over 12 minutes: move the
   slowest step behind the changed-items filter. Commit, push. End of Session 8.
 
 ---

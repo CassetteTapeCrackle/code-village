@@ -96,6 +96,11 @@ Each session reads this first and updates it last. Newest entries at the top of 
 - Session 8: the generated lesson spec waits for each Check with a MutationObserver on the button's `disabled`
   attribute: the old result stays on the page until the new one replaces it, so result text alone cannot tell a run
   is over (found by the reviewer). Files are parallel (`test.describe.configure`), lessons serial, so shards balance.
+- Session 8: the first CI run of the generated sample hit the 30 minute job limit. Cause: every lesson and boss of World
+  2 and World 3 showed the blocked-world page (a world opens with the trophy of an earlier boss), so each task waited
+  4 minutes for a region that never appeared. The specs now seed a save with every other boss beaten (`openRoads` in
+  `e2e/generatedItems.ts`). The generated specs also moved to their own job `generated` (four shards, no production
+  preview build, `E2E_NO_PREVIEW`), as the supervisor asked; the `e2e` job runs the hand-written specs only.
 - Session 8 review (fresh Sonnet subagent on the session diff): fixed findings 1 to 7. Finding 8 (a failed task
   skips the rest of its lesson; a `browser.newPage()` gets no failure screenshot) is under Open.
 - From Session 7 on, on the supervisor's word (the cloud credit can end without warning): push after every commit,
@@ -358,7 +363,14 @@ Each session reads this first and updates it last. Newest entries at the top of 
 
 ## Open
 - Session 8: Playwright cannot run in the VM (the dev server copies Pyodide wheels from cdn.jsdelivr.net, which the
-  proxy refuses), so the generated specs ran only on CI. PR run minutes: see the entry at the end of the session.
+  proxy refuses), so the generated specs ran only on CI. The uploaded Playwright report is an artifact the VM cannot
+  download either, so I sized the shards from the Playwright list printed in the job log.
+- Session 8 CI minutes, first fully green run (ac6cd91, run 41764063250, branch push, VET_ITEMS=sample: the first task
+  of each of the 34 lessons plus the first boss): `check` 12 min 20 s (warm cache), `e2e` (the hand-written specs)
+  3 min 54 s, `generated` shards 1 to 4: 2 min 46 s, 2 min 8 s, 2 min 56 s and 2 min 45 s, `secrets` 5 s. Wall time
+  about 12.5 min (the `check` job), runner time about 27 min. A full sweep (`e2e-full.yml`, 100 tasks and 9 bosses)
+  has not run; at about 6.5 s per World 1 task it should fit four shards well under 12 minutes, but World 3 tasks
+  load NumPy, pandas or scikit-learn and cost more. Measure it on the first run after the merge.
 - Session 8: variants are not covered by the generated lesson spec (their path in the app is the review session). No
   item declares `[cases]`, so no task has a hidden-case mutant and the "We also tried" check has never run. The
   `chosen()` selection logic in `e2e/generatedItems.ts` has no unit test (Vitest only reads `src/`).
