@@ -718,7 +718,7 @@ fingerprint = "194faeb8a977"
 [[gap]]
 rule = "cases-missing"
 item = "properties-ranger-age"
-fingerprint = "029e75311190"
+fingerprint = "6abe1b97f762"
 
 [[gap]]
 rule = "cases-missing"
@@ -1468,7 +1468,7 @@ fingerprint = "e8b9b06ee144"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "properties-ranger-age"
-fingerprint = "029e75311190"
+fingerprint = "6abe1b97f762"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -2408,7 +2408,7 @@ fingerprint = "194faeb8a977"
 [[gap]]
 rule = "right-missing"
 item = "properties-ranger-age"
-fingerprint = "029e75311190"
+fingerprint = "6abe1b97f762"
 
 [[gap]]
 rule = "right-missing"
@@ -2939,11 +2939,6 @@ fingerprint = "8f51d02033bd"
 rule = "weak-tests"
 item = "pandas-tables-taller"
 fingerprint = "bb57155a12b9"
-
-[[gap]]
-rule = "weak-tests"
-item = "properties-ranger-age"
-fingerprint = "029e75311190"
 
 [[gap]]
 rule = "weak-tests"
@@ -3848,7 +3843,7 @@ fingerprint = "194faeb8a977"
 [[gap]]
 rule = "wrong-too-few"
 item = "properties-ranger-age"
-fingerprint = "029e75311190"
+fingerprint = "6abe1b97f762"
 
 [[gap]]
 rule = "wrong-too-few"
