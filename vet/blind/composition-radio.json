@@ -1,54 +1,54 @@
 {
-  "fingerprint": "a894cc53fe56",
+  "fingerprint": "c1127bee0134",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Radio:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def play(self):\n        if self.battery.charge == 0:\n            return \"silence\"\n        self.battery.drain()\n        return \"music\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Radio:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def play(self):\n        # \"silence\" when empty, otherwise drain once and give \"music\"\n        if self.battery.charge == 0:\n            return \"silence\"\n        self.battery.drain()\n        return \"music\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Radio:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def play(self):\n        if self.battery.charge == 0:\n            return \"silence\"\n        self.battery.drain()\n        return \"music\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Radio:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def play(self):\n        if self.battery.charge == 0:\n            return \"silence\"\n        self.battery.drain()\n        return \"music\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Radio:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def play(self):\n        if self.battery.charge == 0:\n            return \"silence\"\n        self.battery.drain()\n        return \"music\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

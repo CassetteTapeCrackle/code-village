@@ -117,11 +117,6 @@ fingerprint = "3e0fc43ff51c"
 
 [[gap]]
 rule = "cases-missing"
-item = "composition-radio"
-fingerprint = "a894cc53fe56"
-
-[[gap]]
-rule = "cases-missing"
 item = "composition-ranger-pack"
 fingerprint = "bb635db4e32e"
 
@@ -1778,7 +1773,7 @@ fingerprint = "3e0fc43ff51c"
 [[gap]]
 rule = "right-missing"
 item = "composition-radio"
-fingerprint = "a894cc53fe56"
+fingerprint = "c1127bee0134"
 
 [[gap]]
 rule = "right-missing"
@@ -2907,11 +2902,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "weak-tests"
-item = "composition-radio"
-fingerprint = "a894cc53fe56"
-
-[[gap]]
-rule = "weak-tests"
 item = "dunders-feather"
 fingerprint = "d8ebfbb69a84"
 
@@ -3318,7 +3308,7 @@ fingerprint = "3e0fc43ff51c"
 [[gap]]
 rule = "wrong-too-few"
 item = "composition-radio"
-fingerprint = "a894cc53fe56"
+fingerprint = "c1127bee0134"
 
 [[gap]]
 rule = "wrong-too-few"

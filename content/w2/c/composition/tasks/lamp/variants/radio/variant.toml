@@ -1,3 +1,10 @@
 id = "composition-radio"
 title = "A radio with a battery"
 prompt = "Finish `Radio.play()`: the radio has a `Battery`. When `self.battery.charge` is 0, return `\"silence\"`; otherwise call `self.battery.drain()` and return `\"music\"`."
+
+[cases]
+class = "Radio"
+init = ["int 0..6"]
+methods = { play = [] }
+reads = []
+steps = "2..8"
