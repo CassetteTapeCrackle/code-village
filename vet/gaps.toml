@@ -942,11 +942,6 @@ fingerprint = "1706830caeed"
 
 [[gap]]
 rule = "right-missing"
-item = "errors-first-char"
-fingerprint = "5795fc257c09"
-
-[[gap]]
-rule = "right-missing"
 item = "errors-parse-age"
 fingerprint = "38e232d65593"
 
@@ -958,7 +953,7 @@ fingerprint = "3d7a8e78025b"
 [[gap]]
 rule = "right-missing"
 item = "errors-safe-divide"
-fingerprint = "61ac39c45ef2"
+fingerprint = "c11fd1ba2940"
 
 [[gap]]
 rule = "right-missing"
@@ -1967,11 +1962,6 @@ fingerprint = "1706830caeed"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "errors-first-char"
-fingerprint = "5795fc257c09"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "errors-parse-age"
 fingerprint = "38e232d65593"
 
@@ -1983,7 +1973,7 @@ fingerprint = "3d7a8e78025b"
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-safe-divide"
-fingerprint = "61ac39c45ef2"
+fingerprint = "c11fd1ba2940"
 
 [[gap]]
 rule = "wrong-too-few"
