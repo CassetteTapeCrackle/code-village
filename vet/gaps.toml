@@ -43,7 +43,7 @@ fingerprint = "5778085b4b4e"
 [[gap]]
 rule = "blind-untriaged"
 item = "gradebook"
-fingerprint = "ebe8801cb395"
+fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "blind-untriaged"
@@ -388,7 +388,7 @@ fingerprint = "597f4dd59e6d"
 [[gap]]
 rule = "cases-missing"
 item = "gradebook"
-fingerprint = "ebe8801cb395"
+fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "cases-missing"
@@ -1213,7 +1213,7 @@ fingerprint = "0a770deacc45"
 [[gap]]
 rule = "ledger-missing"
 item = "gradebook"
-fingerprint = "ebe8801cb395"
+fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "ledger-missing"
@@ -1413,7 +1413,7 @@ fingerprint = "bfc57fc12411"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "gradebook"
-fingerprint = "ebe8801cb395"
+fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -2018,7 +2018,7 @@ fingerprint = "597f4dd59e6d"
 [[gap]]
 rule = "right-missing"
 item = "gradebook"
-fingerprint = "ebe8801cb395"
+fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "right-missing"
@@ -2832,11 +2832,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "weak-tests"
-item = "gradebook"
-fingerprint = "ebe8801cb395"
-
-[[gap]]
-rule = "weak-tests"
 item = "guessing-stone"
 fingerprint = "0acf1cf27bf9"
 
@@ -3378,7 +3373,7 @@ fingerprint = "597f4dd59e6d"
 [[gap]]
 rule = "wrong-too-few"
 item = "gradebook"
-fingerprint = "ebe8801cb395"
+fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "wrong-too-few"
