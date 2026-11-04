@@ -1,3 +1,4 @@
 id = "sortable-oldest"
 title = "The oldest trees"
 prompt = "`oldest_first(trees)` should return the trees' kinds, oldest first. It crashes with a `TypeError`: give `sorted` a key function that returns `tree.age`, and keep `reverse=True`."
+requires = ["sort-key"]

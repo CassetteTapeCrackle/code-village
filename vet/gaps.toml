@@ -103,7 +103,7 @@ fingerprint = "6e6f6681f43c"
 [[gap]]
 rule = "cases-missing"
 item = "sortable-oldest"
-fingerprint = "6140da26cb48"
+fingerprint = "879ae6c9a9a9"
 
 [[gap]]
 rule = "cases-missing"
@@ -113,7 +113,7 @@ fingerprint = "a8a35a8f0a8d"
 [[gap]]
 rule = "cases-missing"
 item = "sortable-rank"
-fingerprint = "1445c0979775"
+fingerprint = "7dec2ae23a93"
 
 [[gap]]
 rule = "cases-missing"
@@ -529,11 +529,6 @@ fingerprint = "96c847a412bb"
 rule = "prompt-asks-construct"
 item = "ranger-registry"
 fingerprint = "6b6226b23439"
-
-[[gap]]
-rule = "prompt-asks-construct"
-item = "sortable-oldest"
-fingerprint = "6140da26cb48"
 
 [[gap]]
 rule = "remember-unbacked"
