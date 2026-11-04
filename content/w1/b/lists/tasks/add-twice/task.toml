@@ -5,3 +5,8 @@ title = "Add it twice"
 prompt = "Write `add_twice(items, x)` that adds `x` at the end of `items` two times, then returns the list."
 hints = ["`append` adds one value at the end.", "`bag.append(\"pen\")` adds one pen; repeat the same call to add it twice, then return the list."]
 gotcha = false
+
+[cases]
+call = "add_twice"
+args = ["list<int 0..9> 0..5", "int 0..9"]
+mutates = [0]
