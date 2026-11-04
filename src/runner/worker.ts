@@ -7,10 +7,23 @@ import type { Job, WorkerMessage } from "./protocol";
 const post = (m: WorkerMessage): void => postMessage(m);
 let python: PyodideInterface;
 
+// Learner code reaches this worker's globals through `import js`. Cache Storage and IndexedDB belong to the
+// whole origin, and the service worker serves the app's own script from Cache Storage, so pasted code could
+// replace that script and run on the page next load. A nested Worker would bring fresh copies of both. Deleted
+// at the prototype too, so no getter is left to call: Python cannot rebuild a browser API.
+function sealOrigin(): void {
+  for (const name of ["caches", "indexedDB"]) {
+    Reflect.deleteProperty(WorkerGlobalScope.prototype, name);
+    Reflect.deleteProperty(self, name);
+  }
+  Reflect.deleteProperty(self, "Worker");
+}
+
 async function boot(): Promise<void> {
   try {
     python = await loadPyodide({ indexURL: self.name });
     python.runPython(harnessSource);
+    sealOrigin(); // before "ready": no learner code runs until then
     post({ type: "ready" });
   } catch (e) {
     post({ type: "load-failed", message: e instanceof Error ? e.message : String(e) });
