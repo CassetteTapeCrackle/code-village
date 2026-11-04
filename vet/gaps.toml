@@ -168,7 +168,7 @@ fingerprint = "fdaab52fc2ee"
 [[gap]]
 rule = "cases-missing"
 item = "strings-last-word"
-fingerprint = "299ebf5bd2e8"
+fingerprint = "eda809941303"
 
 [[gap]]
 rule = "cases-missing"
@@ -1462,11 +1462,6 @@ fingerprint = "abd1aeb4dded"
 
 [[gap]]
 rule = "right-missing"
-item = "strings-last-word"
-fingerprint = "299ebf5bd2e8"
-
-[[gap]]
-rule = "right-missing"
 item = "strings-shout"
 fingerprint = "2235394fd7b3"
 
@@ -2299,11 +2294,6 @@ fingerprint = "e063d22b9888"
 rule = "wrong-too-few"
 item = "statistics-wait"
 fingerprint = "abd1aeb4dded"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "strings-last-word"
-fingerprint = "299ebf5bd2e8"
 
 [[gap]]
 rule = "wrong-too-few"
