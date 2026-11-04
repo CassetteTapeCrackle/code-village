@@ -997,11 +997,6 @@ fingerprint = "acb220f074d6"
 
 [[gap]]
 rule = "right-missing"
-item = "numpy-arrays-scale"
-fingerprint = "6e284da1f6be"
-
-[[gap]]
-rule = "right-missing"
 item = "numpy-arrays-tripled"
 fingerprint = "51aeb9942b6d"
 
@@ -1419,11 +1414,6 @@ fingerprint = "0ea5cb218e55"
 rule = "wrong-too-few"
 item = "nearest-neighbour-similar"
 fingerprint = "acb220f074d6"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "numpy-arrays-scale"
-fingerprint = "6e284da1f6be"
 
 [[gap]]
 rule = "wrong-too-few"
