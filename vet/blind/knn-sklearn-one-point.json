@@ -1,54 +1,54 @@
 {
-  "fingerprint": "880767156a46",
+  "fingerprint": "3acc379ba2bc",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef label_one(X, y, x, z):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[x, z]]).tolist()[0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef label_one(X, y, x, z):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[x, z]]).tolist()[0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef label_one(X, y, x, z):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[x, z]]).tolist()[0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef label_one(X, y, x, z):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[x, z]]).tolist()[0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef label_one(X, y, x, z):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[x, z]]).tolist()[0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
