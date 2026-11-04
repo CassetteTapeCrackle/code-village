@@ -93,12 +93,12 @@ fingerprint = "11a76e053b3e"
 [[gap]]
 rule = "cases-missing"
 item = "sortable-by-height"
-fingerprint = "b010621c0ec3"
+fingerprint = "31f45be0860d"
 
 [[gap]]
 rule = "cases-missing"
 item = "sortable-by-name"
-fingerprint = "aa5132922176"
+fingerprint = "4eac3afb36d0"
 
 [[gap]]
 rule = "cases-missing"
@@ -758,12 +758,12 @@ fingerprint = "40a435d0e3c4"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "sortable-by-height"
-fingerprint = "b010621c0ec3"
+fingerprint = "31f45be0860d"
 
 [[gap]]
 rule = "prompt-asks-construct"
 item = "sortable-by-name"
-fingerprint = "aa5132922176"
+fingerprint = "4eac3afb36d0"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1342,13 +1342,8 @@ fingerprint = "40a435d0e3c4"
 
 [[gap]]
 rule = "right-missing"
-item = "sortable-by-height"
-fingerprint = "b010621c0ec3"
-
-[[gap]]
-rule = "right-missing"
 item = "sortable-by-name"
-fingerprint = "aa5132922176"
+fingerprint = "4eac3afb36d0"
 
 [[gap]]
 rule = "right-missing"
@@ -2057,13 +2052,8 @@ fingerprint = "40a435d0e3c4"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "sortable-by-height"
-fingerprint = "b010621c0ec3"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "sortable-by-name"
-fingerprint = "aa5132922176"
+fingerprint = "4eac3afb36d0"
 
 [[gap]]
 rule = "wrong-too-few"
