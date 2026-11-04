@@ -757,11 +757,6 @@ fingerprint = "bc47b45bbb68"
 
 [[gap]]
 rule = "cases-missing"
-item = "recursion-sum-to"
-fingerprint = "853dcc733299"
-
-[[gap]]
-rule = "cases-missing"
 item = "recursion-total"
 fingerprint = "947316e5b5a9"
 
@@ -2448,7 +2443,7 @@ fingerprint = "bc47b45bbb68"
 [[gap]]
 rule = "right-missing"
 item = "recursion-sum-to"
-fingerprint = "853dcc733299"
+fingerprint = "777cebd050cf"
 
 [[gap]]
 rule = "right-missing"
@@ -2949,11 +2944,6 @@ fingerprint = "4031c95efd7e"
 rule = "weak-tests"
 item = "recursion-repeat"
 fingerprint = "bc47b45bbb68"
-
-[[gap]]
-rule = "weak-tests"
-item = "recursion-sum-to"
-fingerprint = "853dcc733299"
 
 [[gap]]
 rule = "weak-tests"
@@ -3868,7 +3858,7 @@ fingerprint = "bc47b45bbb68"
 [[gap]]
 rule = "wrong-too-few"
 item = "recursion-sum-to"
-fingerprint = "853dcc733299"
+fingerprint = "777cebd050cf"
 
 [[gap]]
 rule = "wrong-too-few"
