@@ -663,7 +663,7 @@ fingerprint = "2d7227e2792f"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "dataclasses-races"
-fingerprint = "ad3f62255be8"
+fingerprint = "a3df17bda7dd"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -942,13 +942,8 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
-item = "dataclasses-races"
-fingerprint = "ad3f62255be8"
-
-[[gap]]
-rule = "right-missing"
 item = "dataclasses-scores"
-fingerprint = "45463c522a65"
+fingerprint = "3fc3004c3b47"
 
 [[gap]]
 rule = "right-missing"
@@ -2037,13 +2032,8 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "dataclasses-races"
-fingerprint = "ad3f62255be8"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "dataclasses-scores"
-fingerprint = "45463c522a65"
+fingerprint = "3fc3004c3b47"
 
 [[gap]]
 rule = "wrong-too-few"
