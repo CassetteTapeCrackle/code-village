@@ -13,7 +13,7 @@ fingerprint = "1cbf52860915"
 [[gap]]
 rule = "blind-missing"
 item = "identity-trails"
-fingerprint = "4019e4cb54c0"
+fingerprint = "5fc17b0fd78e"
 
 [[gap]]
 rule = "blind-missing"
@@ -1022,13 +1022,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
-item = "identity-maps"
-fingerprint = "169cf59f7cf1"
-
-[[gap]]
-rule = "right-missing"
 item = "identity-trails"
-fingerprint = "4019e4cb54c0"
+fingerprint = "5fc17b0fd78e"
 
 [[gap]]
 rule = "right-missing"
@@ -1607,13 +1602,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "identity-maps"
-fingerprint = "169cf59f7cf1"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "identity-trails"
-fingerprint = "4019e4cb54c0"
+fingerprint = "5fc17b0fd78e"
 
 [[gap]]
 rule = "wrong-too-few"
