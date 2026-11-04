@@ -563,33 +563,41 @@ runs for a push are cancelled by the next push, so the green run to look at is t
 
 ### Done
 - `tools/vet/repin.py`: `python -m tools.vet.repin <item id>... [--drop RULE]...` moves an item's gap entries to
-  its new fingerprint, drops the named rules, and re-judges the stored blind attempts. A blind run is re-pinned
-  only when the solver's question (lesson text, prompt, starter) is unchanged; otherwise it stays stale and
-  `blind-missing` shows it needs a new solve. Give one `--drop` per rule.
-- Weak tests fixed (a test added, or `[cases]` declared so equivalent mutants clear): conditions-letter,
-  class-attributes-camp, classes-backpack, conditions-ticket-price, comprehensions-pair-up, composition-keeper,
-  composition-cook-pantry, conditions-larger, class-attributes-canoe-seats, conditions-sign, conditions-weekend,
-  conditions-vowel, errors-safe-divide, errors-withdraw, data-summary (boss, hard tests),
-  comprehensions-odd-squares, comprehensions-add-lists, class-attributes-cabin, class-attributes-rangers,
-  class-attributes-lanterns, composition-lamp, composition-radio.
+  its new fingerprint, drops the named rules (one `--drop` per rule), and re-judges the stored blind attempts. A
+  blind run is re-pinned only when the solver's question (lesson text, prompt, starter) is unchanged.
+- weak-tests: every item is fixed except the six `testing-*` tasks and a few bosses (see Open).
+- cases-missing: every task and variant has a `[cases]` table, or `none = "why"` where a case cannot build the
+  input (objects, files, CSV text, functions, generators, properties). Bosses still lack stage-level cases.
+- wrong-too-few and right-missing: two or three `wrong/` answers and one `right/` answer for most tasks and
+  variants (the list is whatever is left in `vet/gaps.toml`).
 
 ### Decisions
-- A survivor that agrees with the solution on every input (`>=` for `>` on equal values, `is` on small ints or
-  interned strings, `!=` for `<` where a counter cannot pass its limit) gets a `[cases]` table. A survivor that
-  differs gets a visible test, and the item usually gets `[cases]` as well so its `cases-missing` gap closes.
-- A class whose count starts at 0 is tested against 0 directly (rangers, lanterns). The old before/after
-  difference hid a wrong start value.
-- `weekend` uses `str 3..3` for its hidden cases: `choice` over the seven day names leaves 7 distinct cases and
-  trips `cases-too-few`.
-- An item that edits only `tests.py` or `[cases]` keeps its blind run (same question); no blind request needed.
+- A survivor that agrees with the solution on every input gets a `[cases]` table. A survivor that differs gets a
+  visible test, and the item usually gets `[cases]` as well so its `cases-missing` gap closes.
+- Editing a variant changes its parent task's fingerprint: re-pin the parent too (`repin <parent> <variant>`).
+- `wrong/` and `right/` answers may only use features the lessons teach (`unknown-feature`): no `extend`,
+  `insert`, `id`, `reversed`, `Counter`, `itertools`, `statistics`, `percentile`, `format`, `rsplit`, `.index`.
+  Always include `unknown-feature` in the quick check.
+- The default compare forgives case, spacing and punctuation: tasks about exact text set `strict = true`
+  (strings-initials, clean-tag, file-name, comprehensions-shout-all).
+- Hidden cases compare exactly. A right answer that returns `5` for `5.0` is refused; the owner decides, see
+  `vet/triage.md` ("Hidden cases refuse an equal number of another type"). No answer was bent to fit.
+- `[cases]` for two lists that must be the same length (train-test accuracy, mistakes) draws both at one fixed
+  length, since the prompt does not say what unequal lists do.
 
 ### Open
-- 65 `weak-tests` items remain (the entries with `rule = "weak-tests"` in `vet/gaps.toml`), then `cases-missing`,
-  `wrong-too-few` and `right-missing` (about 200 items each), `ledger-missing`, `teaches-missing`,
-  `claim-id-missing`, `remember-unbacked`, `prompt-asks-construct`, `blind-missing` (7), `blind-untriaged` (3).
+- The six `testing-*` tasks keep their `weak-tests` gaps: the tests judge the learner's own test function with a
+  few broken functions, so mutants of the model test (a dropped assert, shifted constants) survive. Killing them
+  means probes beyond what the prompts promise. Left for the owner.
+- `ranger-registry` keeps three survivors (`== None` for `is None`, and string order or identity on a species in
+  the model test); `knn-sklearn-*` have none left.
+- Bosses: stage-level `[cases]`, plus `wrong/` and `right/` for data-summary, gradebook, guessing-stone,
+  lost-satchel, ranger-registry, sales-report, squirrel-storehouse, star-classifier, songbird-playlist, tour-hello.
+- Then `ledger-missing`, `teaches-missing`, `claim-id-missing`, `remember-unbacked`, `prompt-asks-construct`,
+  `blind-missing` (7), `blind-untriaged` (3).
 - Prompt rewrites that change what a task asks go to `vet/triage.md` for the owner, not into the content.
 
 ### Next
-- Keep going through `weak-tests` (multi-survivor items next: the nearest-neighbour, recursion, search-sort,
-  statistics, train-test and testing groups), then `cases-missing` where a task already has a survivor-free test.
-- After every few items, rerun `pnpm gaps --write` in full and confirm the list equals `vet/gaps.toml`.
+- Finish wrong/right for the files-json, pandas, nearest-neighbour, train-test, search-sort-insert/rank items,
+  then the bosses; then the remaining false-claim and progression rules.
+- After every few items rerun `pnpm content` and `pnpm gaps --write` and confirm the gap list is unchanged.
