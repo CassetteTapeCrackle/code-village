@@ -942,11 +942,6 @@ fingerprint = "1706830caeed"
 
 [[gap]]
 rule = "right-missing"
-item = "errors-withdraw"
-fingerprint = "480045825923"
-
-[[gap]]
-rule = "right-missing"
 item = "files-json-best"
 fingerprint = "889bff220338"
 
@@ -1939,11 +1934,6 @@ fingerprint = "c9db3385a57c"
 rule = "wrong-too-few"
 item = "dunders-mushroom"
 fingerprint = "1706830caeed"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "errors-withdraw"
-fingerprint = "480045825923"
 
 [[gap]]
 rule = "wrong-too-few"
