@@ -10,6 +10,8 @@ name = "Quarry Key"
 [hard_trophy]
 id = "carved-dice"
 name = "Carved Dice"
+[cases]
+stdin = ["int 1..100", "int 1..100", "int 1..100", "int 1..100", "int 1..100", "int 1..100", "int 1..100"]
 +++
 
 Deep in the quarry sits a stone that thinks of a number from 1 to 100 and gives you five guesses. Write the game it plays.

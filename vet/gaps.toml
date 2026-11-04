@@ -423,7 +423,7 @@ fingerprint = "7b95ed744bfa"
 [[gap]]
 rule = "cases-missing"
 item = "guessing-stone"
-fingerprint = "0acf1cf27bf9"
+fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
@@ -1223,7 +1223,7 @@ fingerprint = "edbec3718577"
 [[gap]]
 rule = "ledger-missing"
 item = "guessing-stone"
-fingerprint = "0acf1cf27bf9"
+fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "ledger-missing"
@@ -2053,7 +2053,7 @@ fingerprint = "7b95ed744bfa"
 [[gap]]
 rule = "right-missing"
 item = "guessing-stone"
-fingerprint = "0acf1cf27bf9"
+fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
@@ -2832,11 +2832,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "weak-tests"
-item = "guessing-stone"
-fingerprint = "0acf1cf27bf9"
-
-[[gap]]
-rule = "weak-tests"
 item = "knn-sklearn-height"
 fingerprint = "b157cecc0573"
 
@@ -3408,7 +3403,7 @@ fingerprint = "7b95ed744bfa"
 [[gap]]
 rule = "wrong-too-few"
 item = "guessing-stone"
-fingerprint = "0acf1cf27bf9"
+fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "wrong-too-few"
