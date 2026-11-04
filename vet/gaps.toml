@@ -533,7 +533,7 @@ fingerprint = "e88ba1366b9a"
 [[gap]]
 rule = "cases-missing"
 item = "knn-sklearn-k3"
-fingerprint = "d577e1bd6824"
+fingerprint = "3164b1f17b23"
 
 [[gap]]
 rule = "cases-missing"
@@ -2163,7 +2163,7 @@ fingerprint = "e88ba1366b9a"
 [[gap]]
 rule = "right-missing"
 item = "knn-sklearn-k3"
-fingerprint = "d577e1bd6824"
+fingerprint = "3164b1f17b23"
 
 [[gap]]
 rule = "right-missing"
@@ -2834,11 +2834,6 @@ fingerprint = "54410c019459"
 rule = "weak-tests"
 item = "knn-sklearn-height"
 fingerprint = "b157cecc0573"
-
-[[gap]]
-rule = "weak-tests"
-item = "knn-sklearn-k3"
-fingerprint = "d577e1bd6824"
 
 [[gap]]
 rule = "weak-tests"
