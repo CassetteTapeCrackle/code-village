@@ -161,6 +161,38 @@ severity = "wiring"
 summary = "A region has lessons but no boss, so its gate can never open."
 severity = "wiring"
 
+[rule.test-without-learner]
+summary = "A test function never reaches the learner's code, so it passes whatever is written."
+severity = "wrong-accepted"
+
+[rule.test-swallows-failure]
+summary = "A test catches every failure (a bare except or Exception) without raising it again, so it cannot fail."
+severity = "wrong-accepted"
+
+[rule.wrong-misses-name]
+summary = "A wrong/ answer does not define the names the solution defines, so it fails on a missing name, not its mistake."
+severity = "wrong-accepted"
+
+[rule.claim-id-duplicate]
+summary = "Two claim blocks of a lesson share an id, so a ledger entry could point to either."
+severity = "false-claim"
+
+[rule.lesson-id-mismatch]
+summary = "A lesson's id differs from its folder name."
+severity = "wiring"
+
+[rule.stage-order-duplicate]
+summary = "Two stages of a boss carry the same number in their folder names, so their order is not set."
+severity = "wiring"
+
+[rule.stage-hp-invalid]
+summary = "A boss stage has no hp above 0, so beating it takes no damage off the boss."
+severity = "wiring"
+
+[rule.solution-flaky]
+summary = "A solution passes its tests under one hash seed and fails under another: the tests depend on set or dict order."
+severity = "right-refused"
+
 [rule.world-key-invalid]
 summary = "A world's [key] is missing, present on the first world, or names a boss that is not in an earlier world."
 severity = "wiring"

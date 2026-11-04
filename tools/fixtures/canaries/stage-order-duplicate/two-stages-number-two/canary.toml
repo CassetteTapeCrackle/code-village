@@ -1,0 +1,26 @@
+# Two stage folders carry the number 2 (2-sub and 2-mul), so stage order is not unique.
+base = "good"
+expect = ["stage-order-duplicate"]
+
+[[file]]
+path = "w1/a/boss/stages/2-mul/stage.toml"
+text = '''
+id = "calc-mul"
+title = "Multiply"
+prompt = "Write `mul(a, b)`."
+hp = 10
+
+[cases]
+call = "mul"
+args = ["int -50..50", "int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/boss/stages/2-mul/tests.py"
+text = '''
+def test_mul():
+    expect_equal(learner["mul"](4, 3), 12, "mul(4, 3)")
+'''
+
+[[delete]]
+path = "w1/a/boss/stages/3-mul"

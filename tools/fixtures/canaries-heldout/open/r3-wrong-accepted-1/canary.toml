@@ -1,0 +1,12 @@
+# The half test accepts any answer within 0.5 of 2.0, a tolerance far too loose for exact halving.
+base = "good"
+expect = ["wrong-accepted"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/tests.py"
+text = '''
+def test_half():
+    actual = learner["half"](4)
+    if abs(actual - 2.0) > 0.5:
+        raise Failure("half(4) should be 2.0, got " + str(actual))
+'''

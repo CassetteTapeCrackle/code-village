@@ -41,7 +41,8 @@ def _claims(about: Subject, claims: Sequence[CodeBlock]) -> Iterable[Finding]:
                                                 "id=<name> so a ledger entry can point to the claim")
     twice = sorted(i for i, n in Counter(c.id for c in claims if c.id).items() if n > 1)
     if twice:
-        yield about.finding("field-invalid", f"claim id {', '.join(twice)} is used twice in this lesson")
+        yield about.finding("claim-id-duplicate", f"claim id {', '.join(twice)} is used twice in this lesson: a ledger "
+                                                  "entry could point to either")
 
 
 def _untyped(about: Subject, texts: Sequence[str]) -> Iterable[Finding]:

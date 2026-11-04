@@ -88,6 +88,63 @@ def check_keywords(content: Content, adapter: LanguageAdapter) -> Iterable[Findi
                                                         "refused. Name it in the prompt, or call by position")
 
 
+REACHES_LEARNER = {"learner", "run_program"}
+BROAD_HANDLERS = {"Exception", "BaseException", "AssertionError"}
+
+
+def _test_functions(tree: ast.Module) -> list[ast.FunctionDef]:
+    return [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name.startswith("test_")]
+
+
+def tests_without_learner(tests: str) -> list[str]:
+    """The tests that never reach the learner's code, even through the helper functions they call."""
+    try:
+        tree = ast.parse(tests)
+    except SyntaxError:
+        return []
+    helpers = {n.name: n for n in tree.body if isinstance(n, ast.FunctionDef)}
+
+    def reaches(function: ast.FunctionDef, seen: frozenset[str]) -> bool:
+        names = {n.id for n in ast.walk(function) if isinstance(n, ast.Name)}
+        return bool(names & REACHES_LEARNER) or any(
+            reaches(helpers[name], seen | {name}) for name in names & helpers.keys() - seen)
+
+    return [f.name for f in _test_functions(tree) if not reaches(f, frozenset({f.name}))]
+
+
+def swallowing_tests(tests: str) -> list[str]:
+    """The tests with a try whose handler catches any failure, and no raise anywhere in the test to fail it later (a
+    test of the learner's own test catches the AssertionError and raises Failure when none came)."""
+    try:
+        tree = ast.parse(tests)
+    except SyntaxError:
+        return []
+    found = []
+    for function in _test_functions(tree):
+        if any(isinstance(node, ast.Raise) for node in ast.walk(function)):
+            continue
+        for node in ast.walk(function):
+            if isinstance(node, ast.ExceptHandler) and not any(isinstance(n, ast.Raise) for n in ast.walk(node)):
+                caught = node.type.id if isinstance(node.type, ast.Name) else None
+                if node.type is None or caught in BROAD_HANDLERS:
+                    found.append(function.name)
+    return found
+
+
+def check_bodies(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
+    """Rules test-without-learner and test-swallows-failure: every test must be able to fail on the learner's code."""
+    del adapter  # reads the tests only
+    for item in content.items():
+        about = subject(item.id, item.fingerprint, item.folder / _tests_path(item), content.root)
+        if loose := tests_without_learner(item.tests):
+            yield about.finding("test-without-learner", f"{', '.join(loose)} in the tests for {item.seed} never "
+                                                        "calls the learner's code, so it passes whatever is written")
+        if caught := swallowing_tests(item.tests):
+            yield about.finding("test-swallows-failure", f"{', '.join(sorted(set(caught)))} in the tests for "
+                                                         f"{item.seed} catches every failure without raising it "
+                                                         "again, so it cannot fail")
+
+
 def check_names(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
     """Rule test-name-unnamed: a test may ask the learner's code only for names the learner was told to write: the
     prompts of the item's group (a boss's stages and intro), or the starter, name them."""

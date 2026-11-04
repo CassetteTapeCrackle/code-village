@@ -57,7 +57,8 @@ class PythonAdapter:
             return [self._checked[job] for job in jobs]
         harness_jobs: list[Job] = [{"mode": "check", "code": job.code, "tests": job.tests, "strict": job.strict,
                                     "cases": [case_json(case) for case in job.cases],
-                                    "requires": [asdict(need) for need in job.requires]} for job in new]
+                                    "requires": [asdict(need) for need in job.requires],
+                                    "hash_seed": job.hash_seed} for job in new]
         outcomes = self._harness_all(harness_jobs, [job.limit for job in new])
         self._checked.update(zip(new, (cast(CheckOutcome | None, outcome) for outcome in outcomes), strict=True))
         return [self._checked[job] for job in jobs]
@@ -94,9 +95,11 @@ class PythonAdapter:
 
     def _harness(self, job: Job, limit: float) -> dict[str, object] | None:
         try:
-            done = subprocess.run([self.python, "-I", str(CAPPED), str(HARNESS)], input=json.dumps(job),
-                                  capture_output=True, text=True, timeout=limit, env={**os.environ, **ONE_THREAD},
-                                  check=False)
+            # -s -P instead of -I: isolation would also ignore PYTHONHASHSEED, and every run must repeat exactly
+            seed = {"PYTHONHASHSEED": str(job.get("hash_seed", 0))}
+            done = subprocess.run([self.python, "-s", "-P", str(CAPPED), str(HARNESS)], input=json.dumps(job),
+                                  capture_output=True, text=True, timeout=limit,
+                                  env={**os.environ, **ONE_THREAD, **seed}, check=False)
         except subprocess.TimeoutExpired:
             return None
         if done.returncode != 0:  # e.g. the task's own tests.py has a syntax error

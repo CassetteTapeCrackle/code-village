@@ -121,6 +121,7 @@ class CheckJob:
     cases: tuple[HiddenCase, ...] = ()
     requires: tuple[Required, ...] = ()
     limit: float = LIMIT  # seconds before the job counts as running out of time
+    hash_seed: int = 0  # PYTHONHASHSEED of the run: fixed, so set and dict order repeat; the flaky check varies it
 
 
 class TestResultDict(TypedDict):

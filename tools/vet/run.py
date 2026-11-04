@@ -44,15 +44,18 @@ class Check:
 
 CHECKS: list[Check] = [
     Check(solutions.check, frozenset({"solution-fails", "starter-passes"})),
+    Check(solutions.check_flaky, frozenset({"solution-flaky"})),
     Check(wrong.check, frozenset({"wrong-passes", "wrong-too-few"})),
+    Check(wrong.check_names, frozenset({"wrong-misses-name"})),
     Check(hints.check, frozenset({"hint-code-invalid", "hint-giveaway", "field-invalid"})),
     Check(claims.check, frozenset({"claim-fails", "claim-no-assert", "claim-vacuous", "example-fails",
                                     "predict-silent"})),
     Check(style.check, frozenset({"solution-lint"})),
     Check(concepts.check, frozenset({"concept-unnamed", "concept-name-unused", "concept-too-few-tasks",
                                      "concept-no-gotcha"})),
-    Check(ids.check, frozenset({"item-id-duplicate", "trophy-duplicate"})),
-    Check(bosses.check, frozenset({"boss-region-empty", "boss-region-taken"})),
+    Check(ids.check, frozenset({"item-id-duplicate", "trophy-duplicate", "lesson-id-mismatch"})),
+    Check(bosses.check, frozenset({"boss-region-empty", "boss-region-taken", "stage-order-duplicate",
+                                   "stage-hp-invalid"})),
     Check(worlds.check, frozenset({"region-unnamed", "world-key-invalid", "world-order-duplicate", "world-unknown",
                                    "gate-boss-missing", "trophy-mismatch", "lesson-order-duplicate",
                                    "region-no-boss"})),
@@ -64,18 +67,20 @@ CHECKS: list[Check] = [
     Check(test_shape.check, frozenset({"test-inspects-code"})),
     Check(test_shape.check_keywords, frozenset({"test-keyword-unnamed"})),
     Check(test_shape.check_names, frozenset({"test-name-unnamed"})),
+    Check(test_shape.check_bodies, frozenset({"test-without-learner", "test-swallows-failure"})),
     Check(cases.check_declaration, frozenset({"cases-target-unused", "valid-always-true"})),
     Check(progression.check, frozenset({"untaught-feature", "unknown-feature", "teaches-missing"})),
     Check(required.check, frozenset({"required-untaught", "required-not-in-prompt", "prompt-asks-construct",
                                      "unknown-feature", "field-missing"})),
     Check(ledger.check, frozenset({"ledger-missing", "ledger-stale", "claim-id-unknown", "claim-id-missing",
-                                   "doc-anchor-missing", "remember-unbacked", "fence-untyped", "field-invalid"})),
+                                   "doc-anchor-missing", "remember-unbacked", "fence-untyped", "field-invalid",
+                                   "claim-id-duplicate"})),
     Check(blind.check, frozenset({"blind-missing", "blind-untriaged", "blind-too-strict", "blind-disagrees"})),
     Check(versions.check, frozenset({"version-differs"})),
     Check(versions.check_min, frozenset({"min-unexplained"})),
 ]
 # the checks that rerun the content many times over; a quick build (pnpm dev, pnpm build) leaves them out
-SLOW_RULES = frozenset({"weak-tests", "right-refused", "right-fails", "version-differs"})
+SLOW_RULES = frozenset({"weak-tests", "right-refused", "right-fails", "version-differs", "solution-flaky"})
 
 
 class UndeclaredRule(AssertionError):

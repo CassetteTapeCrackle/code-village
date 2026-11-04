@@ -1,0 +1,60 @@
+# A half test demands a docstring the prompt never asks for, so right/times-a-half is refused.
+base = "good"
+expect = ["right-refused"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/tests.py"
+text = '''
+def test_half():
+    expect_equal(learner["half"](4), 2.0, "half(4)")
+
+def test_documented():
+    if not learner["half"].__doc__:
+        raise Failure("half needs a docstring")
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/half/solution.py"
+text = '''
+def half(n):
+    """Return half of n."""
+    return n / 2
+'''
+
+[[file]]
+path = "w1/a/basics/lesson.md"
+text = '''
++++
+id = "basics"
+title = "Basics"
+world = "w1"
+region = "a"
+order = 1
+concepts = ["numbers"]
+teaches = ["fn-print", "function-def", "return-statement", "fn-sum", "docstring"]
+remember = ["Multiplying by 2 doubles a number."]
+[loot]
+id = "test-coin"
+name = "Test Coin"
++++
+
+Numbers can be multiplied.
+
+```python claim id=times-two
+assert 2 * 21 == 42
+```
+
+```python example
+print(2 * 21)
+```
+
+```python predict
+print(3 * 3)
+```
+
+::task double
+
+::task half
+
+::task triple
+'''

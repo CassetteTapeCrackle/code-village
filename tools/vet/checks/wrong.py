@@ -1,6 +1,7 @@
 """Rules wrong-passes and wrong-too-few: each wrong/*.py is a mistake a learner could make, so some test must fail
 it, and every item writes out at least two."""
 
+import ast
 from collections.abc import Iterable
 from pathlib import Path
 
@@ -40,3 +41,28 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
         if all([passes(next(outcomes)) for _ in suites]):
             about = subject(item, fingerprint, wrong, content.root)
             yield about.finding("wrong-passes", f"wrong/{wrong.name} passes every test: the tests miss that mistake")
+
+
+def defined_names(code: str) -> set[str]:
+    """The functions and classes a file defines at its top level."""
+    try:
+        tree = ast.parse(code)
+    except SyntaxError:
+        return set()
+    return {n.name for n in tree.body if isinstance(n, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef)}
+
+
+def check_names(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
+    """Rule wrong-misses-name: a wrong/ answer must define what the solution defines, or it fails on the missing name
+    and says nothing about its mistake."""
+    del adapter  # reads the files only
+    for group in content.solution_groups():
+        first = group[0]
+        wanted = defined_names(first.solution)
+        for path in first.wrong:
+            missing = sorted(wanted - defined_names(path.read_text()))
+            if missing:
+                about = subject(first.id, first.fingerprint, path, content.root)
+                yield about.finding("wrong-misses-name", f"wrong/{path.name} does not define {', '.join(missing)}, so "
+                                                         "it fails on the name and shows no mistake: keep the names, "
+                                                         "change the logic")

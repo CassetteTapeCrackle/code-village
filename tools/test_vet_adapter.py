@@ -88,6 +88,15 @@ class Check(unittest.TestCase):
         with mock.patch.object(adapter, "_harness_all", side_effect=AssertionError("ran again")):
             self.assertEqual(adapter.check([job]), first[:1])
 
+    def test_every_run_repeats_set_order_and_a_seed_can_change_it(self) -> None:
+        code = "def order():\n    return list({str(n) for n in range(12)})\n"
+        tests = "def test_order():\n    expect_equal(learner['order'](), EXPECTED, 'order()')\n"
+        outcomes = PythonAdapter().check([CheckJob(code, tests.replace("EXPECTED", "[]"), hash_seed=seed)
+                                          for seed in (0, 0, 1)])
+        messages = [o["results"][0]["message"] if o else "" for o in outcomes]  # type: ignore[index]
+        self.assertEqual(messages[0], messages[1])
+        self.assertNotEqual(messages[0], messages[2])
+
     def test_features_come_from_the_harness_vocabulary(self) -> None:
         vocabulary = {"fn-len": ["call:len"], "for-loop": ["node:For"]}
         queries = [FeatureQuery("for x in []:\n    len(x)\n"), FeatureQuery("x = 1\n"), FeatureQuery("len([")]

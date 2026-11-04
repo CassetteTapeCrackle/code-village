@@ -12,7 +12,7 @@ from vet.load import load_content
 from vet.prose import pending_sentences
 
 RULES = frozenset({"ledger-missing", "ledger-stale", "claim-id-unknown", "claim-id-missing", "doc-anchor-missing",
-                   "remember-unbacked", "fence-untyped", "field-invalid"})
+                   "remember-unbacked", "fence-untyped", "field-invalid", "claim-id-duplicate"})
 LESSON = "w1/a/basics/lesson.md"
 LEDGER = "w1/a/basics/ledger.toml"
 
@@ -89,7 +89,7 @@ class Backing(unittest.TestCase):
         with content_copy() as content:
             again = "```python claim id=times-two\nassert 1 + 1 == 2\n```\n\n::task double"
             edit(content, LESSON, "::task double", again)
-            self.assertEqual(rules(content), ["field-invalid"])
+            self.assertEqual(rules(content), ["claim-id-duplicate"])
 
     def test_boss_text_cannot_point_to_a_claim(self) -> None:
         with content_copy() as content:

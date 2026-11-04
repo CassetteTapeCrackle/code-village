@@ -58,13 +58,16 @@ def heldout_dirs() -> list[Path]:
     return sorted(p.parent for p in HELDOUT.glob("round-*/*/canary.toml"))
 
 
-def caught_classes(canary_dir: Path) -> set[str]:
-    """The failure classes of every finding a held-out canary gives when all checks run. The clean fixture gives none,
-    so any finding is the planted defect; the class the author guessed is a label, not a condition, because one defect
-    can be filed under another class (a test that fails on Python 3.12 is a false claim, not a refused answer). A
-    finding that only says a file cannot be read (severity data) is not a catch."""
+# findings that only say a file could not be read or lacks a field: a broken file is not a caught defect
+LOADER_RULES = {"file-unreadable", "field-missing", "field-invalid"}
+
+
+def caught_rules(canary_dir: Path) -> set[str]:
+    """The rules of every finding a held-out canary gives when all checks run. The clean fixture gives none, so any
+    finding is the planted defect; the class the author guessed is a label, not a condition, because one defect can
+    be filed under another class (a test that fails on Python 3.12 is a false claim, not a refused answer)."""
     with tempfile.TemporaryDirectory() as into:
-        return {RULES[f.rule].severity for f in vet(materialize(canary_dir, Path(into))) if f.rule in RULES}
+        return {f.rule for f in vet(materialize(canary_dir, Path(into)))} - LOADER_RULES
 
 
 class Canaries(unittest.TestCase):
@@ -84,10 +87,10 @@ class Canaries(unittest.TestCase):
     def test_heldout_canaries_are_caught(self) -> None:
         dirs = heldout_dirs()
         with ThreadPoolExecutor(max_workers=4) as pool:
-            caught = dict(zip(dirs, pool.map(caught_classes, dirs), strict=True))
-        for canary_dir, classes in caught.items():
+            caught = dict(zip(dirs, pool.map(caught_rules, dirs), strict=True))
+        for canary_dir, rules in caught.items():
             with self.subTest(canary=str(canary_dir.relative_to(HELDOUT))):
-                self.assertTrue(classes - {"data"}, "the checker missed this planted defect")
+                self.assertTrue(rules, "the checker missed this planted defect")
 
     def test_heldout_canaries_name_a_failure_class(self) -> None:
         for canary_dir in heldout_dirs():
