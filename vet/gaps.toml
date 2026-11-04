@@ -733,7 +733,7 @@ fingerprint = "1f21f948e7ee"
 [[gap]]
 rule = "cases-missing"
 item = "properties-wingspan"
-fingerprint = "c2cbc236eaa6"
+fingerprint = "528d35ceac1f"
 
 [[gap]]
 rule = "cases-missing"
@@ -1483,7 +1483,7 @@ fingerprint = "1f21f948e7ee"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "properties-wingspan"
-fingerprint = "c2cbc236eaa6"
+fingerprint = "528d35ceac1f"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -2423,7 +2423,7 @@ fingerprint = "1f21f948e7ee"
 [[gap]]
 rule = "right-missing"
 item = "properties-wingspan"
-fingerprint = "c2cbc236eaa6"
+fingerprint = "528d35ceac1f"
 
 [[gap]]
 rule = "right-missing"
@@ -2939,11 +2939,6 @@ fingerprint = "8f51d02033bd"
 rule = "weak-tests"
 item = "pandas-tables-taller"
 fingerprint = "bb57155a12b9"
-
-[[gap]]
-rule = "weak-tests"
-item = "properties-wingspan"
-fingerprint = "c2cbc236eaa6"
 
 [[gap]]
 rule = "weak-tests"
@@ -3853,7 +3848,7 @@ fingerprint = "1f21f948e7ee"
 [[gap]]
 rule = "wrong-too-few"
 item = "properties-wingspan"
-fingerprint = "c2cbc236eaa6"
+fingerprint = "528d35ceac1f"
 
 [[gap]]
 rule = "wrong-too-few"
