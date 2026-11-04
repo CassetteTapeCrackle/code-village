@@ -67,11 +67,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "inheritance-penguin"
-fingerprint = "74b4a88df855"
-
-[[gap]]
-rule = "cases-missing"
 item = "inheritance-squirrel"
 fingerprint = "a74ec8b39132"
 
