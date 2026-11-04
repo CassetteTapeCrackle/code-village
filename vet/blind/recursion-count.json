@@ -1,54 +1,54 @@
 {
-  "fingerprint": "bb76b6db07ac",
+  "fingerprint": "456102425376",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def count_items(items):\n    if len(items) == 0:\n        return 0\n    return 1 + count_items(items[1:])\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def count_items(items):\n    if len(items) == 0:\n        return 0\n    return 1 + count_items(items[1:])\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def count_items(items):\n    if len(items) == 0:\n        return 0\n    return 1 + count_items(items[1:])\n\n\nprint(count_items([1, 2, 3]))\nprint(count_items([]))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def count_items(items):\n    if len(items) == 0:\n        return 0\n    return 1 + count_items(items[1:])\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def count_items(items):\n    if len(items) == 0:\n        return 0\n    return 1 + count_items(items[1:])\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
