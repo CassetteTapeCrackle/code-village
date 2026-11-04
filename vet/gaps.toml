@@ -62,11 +62,6 @@ fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "cases-missing"
-item = "grids-zeros"
-fingerprint = "7b95ed744bfa"
-
-[[gap]]
-rule = "cases-missing"
 item = "guessing-stone"
 fingerprint = "7b1cb790f6ac"
 
@@ -1653,7 +1648,7 @@ fingerprint = "c66543c76913"
 [[gap]]
 rule = "right-missing"
 item = "grids-zeros"
-fingerprint = "7b95ed744bfa"
+fingerprint = "4a5506ded2f6"
 
 [[gap]]
 rule = "right-missing"
@@ -2908,7 +2903,7 @@ fingerprint = "c66543c76913"
 [[gap]]
 rule = "wrong-too-few"
 item = "grids-zeros"
-fingerprint = "7b95ed744bfa"
+fingerprint = "4a5506ded2f6"
 
 [[gap]]
 rule = "wrong-too-few"
