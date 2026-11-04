@@ -62,11 +62,6 @@ fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "cases-missing"
-item = "grids-sum"
-fingerprint = "c66543c76913"
-
-[[gap]]
-rule = "cases-missing"
 item = "grids-zeros"
 fingerprint = "7b95ed744bfa"
 
