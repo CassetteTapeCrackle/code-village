@@ -942,11 +942,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
-item = "dataclasses-scores"
-fingerprint = "3fc3004c3b47"
-
-[[gap]]
-rule = "right-missing"
 item = "dicts-count-words"
 fingerprint = "3983bd9443d6"
 
@@ -2029,11 +2024,6 @@ fingerprint = "c1127bee0134"
 rule = "wrong-too-few"
 item = "data-summary"
 fingerprint = "5778085b4b4e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dataclasses-scores"
-fingerprint = "3fc3004c3b47"
 
 [[gap]]
 rule = "wrong-too-few"
