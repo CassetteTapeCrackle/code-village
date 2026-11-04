@@ -1192,11 +1192,6 @@ fingerprint = "981573ab1c44"
 
 [[gap]]
 rule = "right-missing"
-item = "lists-add-twice"
-fingerprint = "47bf1eb57272"
-
-[[gap]]
-rule = "right-missing"
 item = "lists-copy-and-add"
 fingerprint = "327a347da3b0"
 
@@ -2114,11 +2109,6 @@ fingerprint = "3acc379ba2bc"
 rule = "wrong-too-few"
 item = "knn-sklearn-predict"
 fingerprint = "981573ab1c44"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lists-add-twice"
-fingerprint = "47bf1eb57272"
 
 [[gap]]
 rule = "wrong-too-few"
