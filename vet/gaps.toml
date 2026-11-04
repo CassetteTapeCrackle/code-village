@@ -917,11 +917,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "right-missing"
-item = "lost-satchel"
-fingerprint = "7d89a1065dd1"
-
-[[gap]]
-rule = "right-missing"
 item = "ranger-registry"
 fingerprint = "bc03a544dbed"
 
@@ -1154,11 +1149,6 @@ fingerprint = "a1791ab22a84"
 rule = "weak-tests"
 item = "testing-total-test"
 fingerprint = "8216e418d98f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lost-satchel"
-fingerprint = "7d89a1065dd1"
 
 [[gap]]
 rule = "wrong-too-few"
