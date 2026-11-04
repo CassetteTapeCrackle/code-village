@@ -942,11 +942,6 @@ fingerprint = "1706830caeed"
 
 [[gap]]
 rule = "right-missing"
-item = "errors-safe-divide"
-fingerprint = "c11fd1ba2940"
-
-[[gap]]
-rule = "right-missing"
 item = "errors-set-volume"
 fingerprint = "26b976939597"
 
@@ -1949,11 +1944,6 @@ fingerprint = "c9db3385a57c"
 rule = "wrong-too-few"
 item = "dunders-mushroom"
 fingerprint = "1706830caeed"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "errors-safe-divide"
-fingerprint = "c11fd1ba2940"
 
 [[gap]]
 rule = "wrong-too-few"
