@@ -1007,11 +1007,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "right-missing"
-item = "search-sort-rank"
-fingerprint = "c7c0aedd8987"
-
-[[gap]]
-rule = "right-missing"
 item = "songbird-playlist"
 fingerprint = "40a435d0e3c4"
 
@@ -1354,11 +1349,6 @@ fingerprint = "bc03a544dbed"
 rule = "wrong-too-few"
 item = "sales-report"
 fingerprint = "8f71aaa27062"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "search-sort-rank"
-fingerprint = "c7c0aedd8987"
 
 [[gap]]
 rule = "wrong-too-few"
