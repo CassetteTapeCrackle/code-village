@@ -5,3 +5,6 @@ title = "Who is on the team?"
 prompt = "Finish `names_in(text, team)`: `text` is CSV with `name`, `height` and `team` columns. Return a plain list of the names of the people in `team`, in their order."
 hints = ["Keep the rows where the `team` column equals the `team` argument.", "Select those rows, then the `name` column, and turn it into a plain list with `tolist()`."]
 gotcha = false
+
+[cases]
+none = "it takes CSV text, which cannot be built from simple types"
