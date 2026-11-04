@@ -1022,13 +1022,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
-item = "identity-copy-basket"
-fingerprint = "7cc5df18140e"
-
-[[gap]]
-rule = "right-missing"
 item = "identity-copy-hiker"
-fingerprint = "21655e50aba9"
+fingerprint = "9dacce4e6a8b"
 
 [[gap]]
 rule = "right-missing"
@@ -1617,13 +1612,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "identity-copy-basket"
-fingerprint = "7cc5df18140e"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "identity-copy-hiker"
-fingerprint = "21655e50aba9"
+fingerprint = "9dacce4e6a8b"
 
 [[gap]]
 rule = "wrong-too-few"
