@@ -83,7 +83,7 @@ fingerprint = "da2e3418ecdd"
 [[gap]]
 rule = "cases-missing"
 item = "songbird-playlist"
-fingerprint = "6a6d0f5e5963"
+fingerprint = "6441288c163a"
 
 [[gap]]
 rule = "cases-missing"
@@ -443,7 +443,7 @@ fingerprint = "2c13674fdeec"
 [[gap]]
 rule = "ledger-missing"
 item = "songbird-playlist"
-fingerprint = "6a6d0f5e5963"
+fingerprint = "6441288c163a"
 
 [[gap]]
 rule = "ledger-missing"
@@ -574,11 +574,6 @@ fingerprint = "742707f3a039"
 rule = "prompt-asks-construct"
 item = "ranger-registry"
 fingerprint = "6b6226b23439"
-
-[[gap]]
-rule = "prompt-asks-construct"
-item = "songbird-playlist"
-fingerprint = "6a6d0f5e5963"
 
 [[gap]]
 rule = "prompt-asks-construct"
