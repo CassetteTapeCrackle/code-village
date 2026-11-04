@@ -1052,11 +1052,6 @@ fingerprint = "e032ab4f0116"
 
 [[gap]]
 rule = "right-missing"
-item = "inheritance-fruit-tree"
-fingerprint = "f4d90b15281e"
-
-[[gap]]
-rule = "right-missing"
 item = "inheritance-ostrich"
 fingerprint = "5153f2ae18b6"
 
@@ -1694,11 +1689,6 @@ fingerprint = "a58334b0ed28"
 rule = "wrong-too-few"
 item = "identity-without-note"
 fingerprint = "e032ab4f0116"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "inheritance-fruit-tree"
-fingerprint = "f4d90b15281e"
 
 [[gap]]
 rule = "wrong-too-few"
