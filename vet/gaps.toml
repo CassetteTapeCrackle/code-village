@@ -233,7 +233,7 @@ fingerprint = "57952bd30819"
 [[gap]]
 rule = "cases-missing"
 item = "dunders-mushroom"
-fingerprint = "bed0eb39405e"
+fingerprint = "f8df48c26250"
 
 [[gap]]
 rule = "cases-missing"
@@ -1913,7 +1913,7 @@ fingerprint = "57952bd30819"
 [[gap]]
 rule = "right-missing"
 item = "dunders-mushroom"
-fingerprint = "bed0eb39405e"
+fingerprint = "f8df48c26250"
 
 [[gap]]
 rule = "right-missing"
@@ -2897,11 +2897,6 @@ fingerprint = "d8ebfbb69a84"
 
 [[gap]]
 rule = "weak-tests"
-item = "dunders-mushroom"
-fingerprint = "bed0eb39405e"
-
-[[gap]]
-rule = "weak-tests"
 item = "generators-average"
 fingerprint = "6d6f5d333d4a"
 
@@ -3433,7 +3428,7 @@ fingerprint = "57952bd30819"
 [[gap]]
 rule = "wrong-too-few"
 item = "dunders-mushroom"
-fingerprint = "bed0eb39405e"
+fingerprint = "f8df48c26250"
 
 [[gap]]
 rule = "wrong-too-few"
