@@ -1,3 +1,6 @@
 id = "functions-as-values-compose"
 title = "One after the other"
 prompt = "Write `compose(f, g, x)`: it calls `g` on `x` first, then `f` on that result, and returns it. `compose(str, len, \"moss\")` is `\"4\"`."
+
+[cases]
+none = "it takes functions as arguments, which a case cannot make"
