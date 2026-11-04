@@ -648,7 +648,7 @@ fingerprint = "54410c019459"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "comprehensions-odd-squares"
-fingerprint = "39a647b32cab"
+fingerprint = "7415efa76c8f"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -942,18 +942,13 @@ fingerprint = "d5e33546ea72"
 
 [[gap]]
 rule = "right-missing"
-item = "comprehensions-long-words"
-fingerprint = "f1f49b108e4f"
-
-[[gap]]
-rule = "right-missing"
 item = "comprehensions-numbered"
 fingerprint = "53561795bd9f"
 
 [[gap]]
 rule = "right-missing"
 item = "comprehensions-odd-squares"
-fingerprint = "39a647b32cab"
+fingerprint = "7415efa76c8f"
 
 [[gap]]
 rule = "right-missing"
@@ -2117,18 +2112,13 @@ fingerprint = "d5e33546ea72"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "comprehensions-long-words"
-fingerprint = "f1f49b108e4f"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "comprehensions-numbered"
 fingerprint = "53561795bd9f"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "comprehensions-odd-squares"
-fingerprint = "39a647b32cab"
+fingerprint = "7415efa76c8f"
 
 [[gap]]
 rule = "wrong-too-few"
