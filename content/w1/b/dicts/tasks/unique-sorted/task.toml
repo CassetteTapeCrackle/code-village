@@ -5,3 +5,7 @@ title = "Each one once"
 prompt = "Finish `unique_sorted(values)`: it returns a sorted list with every value only once."
 hints = ["A set has no order, but `sorted()` takes a set and returns a list.", "`sorted([\"b\", \"a\"])` gives `[\"a\", \"b\"]`: it takes any iterable, a set too."]
 gotcha = false
+
+[cases]
+call = "unique_sorted"
+args = ["list<int 0..9> 0..10"]
