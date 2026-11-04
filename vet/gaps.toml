@@ -803,7 +803,7 @@ fingerprint = "069ecf7c5e79"
 [[gap]]
 rule = "cases-missing"
 item = "sortable-pebbles"
-fingerprint = "7c92565be5e9"
+fingerprint = "1edc93bc5b3a"
 
 [[gap]]
 rule = "cases-missing"
@@ -2488,7 +2488,7 @@ fingerprint = "069ecf7c5e79"
 [[gap]]
 rule = "right-missing"
 item = "sortable-pebbles"
-fingerprint = "7c92565be5e9"
+fingerprint = "1edc93bc5b3a"
 
 [[gap]]
 rule = "right-missing"
@@ -2909,11 +2909,6 @@ fingerprint = "bb57155a12b9"
 rule = "weak-tests"
 item = "ranger-registry"
 fingerprint = "8ddcf3d359df"
-
-[[gap]]
-rule = "weak-tests"
-item = "sortable-pebbles"
-fingerprint = "7c92565be5e9"
 
 [[gap]]
 rule = "weak-tests"
@@ -3838,7 +3833,7 @@ fingerprint = "069ecf7c5e79"
 [[gap]]
 rule = "wrong-too-few"
 item = "sortable-pebbles"
-fingerprint = "7c92565be5e9"
+fingerprint = "1edc93bc5b3a"
 
 [[gap]]
 rule = "wrong-too-few"
