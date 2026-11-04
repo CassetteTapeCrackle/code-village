@@ -13,7 +13,7 @@ fingerprint = "a68fdf88471d"
 [[gap]]
 rule = "blind-missing"
 item = "identity-trails"
-fingerprint = "5fc17b0fd78e"
+fingerprint = "2a984c20975a"
 
 [[gap]]
 rule = "blind-missing"
