@@ -98,7 +98,7 @@ fingerprint = "31f45be0860d"
 [[gap]]
 rule = "cases-missing"
 item = "sortable-by-name"
-fingerprint = "4eac3afb36d0"
+fingerprint = "6e6f6681f43c"
 
 [[gap]]
 rule = "cases-missing"
@@ -534,11 +534,6 @@ fingerprint = "6b6226b23439"
 rule = "prompt-asks-construct"
 item = "sortable-by-height"
 fingerprint = "31f45be0860d"
-
-[[gap]]
-rule = "prompt-asks-construct"
-item = "sortable-by-name"
-fingerprint = "4eac3afb36d0"
 
 [[gap]]
 rule = "prompt-asks-construct"
