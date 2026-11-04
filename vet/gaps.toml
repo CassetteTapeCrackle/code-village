@@ -188,7 +188,7 @@ fingerprint = "b9817d810b45"
 [[gap]]
 rule = "cases-missing"
 item = "testing-clamp-test"
-fingerprint = "9aad40edf19e"
+fingerprint = "3d97b49a2d50"
 
 [[gap]]
 rule = "cases-missing"
@@ -967,11 +967,6 @@ fingerprint = "b9817d810b45"
 
 [[gap]]
 rule = "right-missing"
-item = "testing-clamp-test"
-fingerprint = "9aad40edf19e"
-
-[[gap]]
-rule = "right-missing"
 item = "testing-even-test"
 fingerprint = "21c46e41796b"
 
@@ -1178,7 +1173,7 @@ fingerprint = "b9817d810b45"
 [[gap]]
 rule = "weak-tests"
 item = "testing-clamp-test"
-fingerprint = "9aad40edf19e"
+fingerprint = "3d97b49a2d50"
 
 [[gap]]
 rule = "weak-tests"
@@ -1244,11 +1239,6 @@ fingerprint = "02ab0f1b505a"
 rule = "wrong-too-few"
 item = "testing-average-test"
 fingerprint = "b9817d810b45"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "testing-clamp-test"
-fingerprint = "9aad40edf19e"
 
 [[gap]]
 rule = "wrong-too-few"
