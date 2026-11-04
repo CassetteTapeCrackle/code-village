@@ -543,7 +543,7 @@ fingerprint = "1c1d4e27e467"
 [[gap]]
 rule = "cases-missing"
 item = "knn-sklearn-predict"
-fingerprint = "963e8e5fd04b"
+fingerprint = "6e8c39f6a20e"
 
 [[gap]]
 rule = "cases-missing"
@@ -2173,7 +2173,7 @@ fingerprint = "1c1d4e27e467"
 [[gap]]
 rule = "right-missing"
 item = "knn-sklearn-predict"
-fingerprint = "963e8e5fd04b"
+fingerprint = "6e8c39f6a20e"
 
 [[gap]]
 rule = "right-missing"
@@ -2847,11 +2847,6 @@ fingerprint = "1c1d4e27e467"
 
 [[gap]]
 rule = "weak-tests"
-item = "knn-sklearn-predict"
-fingerprint = "963e8e5fd04b"
-
-[[gap]]
-rule = "weak-tests"
 item = "nearest-neighbour-classify"
 fingerprint = "aab665edb226"
 
@@ -3498,7 +3493,7 @@ fingerprint = "1c1d4e27e467"
 [[gap]]
 rule = "wrong-too-few"
 item = "knn-sklearn-predict"
-fingerprint = "963e8e5fd04b"
+fingerprint = "6e8c39f6a20e"
 
 [[gap]]
 rule = "wrong-too-few"
