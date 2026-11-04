@@ -1,39 +1,9 @@
 # Known gaps: written by `pnpm gaps --write`. Never edit by hand; fix the content instead.
 
 [[gap]]
-rule = "blind-missing"
-item = "composition-nest"
-fingerprint = "ce75c07cba93"
-
-[[gap]]
-rule = "blind-missing"
-item = "comprehensions-add-lists"
-fingerprint = "a68fdf88471d"
-
-[[gap]]
-rule = "blind-missing"
-item = "identity-trails"
-fingerprint = "2a984c20975a"
-
-[[gap]]
-rule = "blind-missing"
-item = "inheritance-ostrich"
-fingerprint = "4927f9797424"
-
-[[gap]]
-rule = "blind-missing"
+rule = "blind-too-strict"
 item = "lost-satchel"
 fingerprint = "7d89a1065dd1"
-
-[[gap]]
-rule = "blind-missing"
-item = "recursion-repeat"
-fingerprint = "390314807bba"
-
-[[gap]]
-rule = "blind-missing"
-item = "train-test-peek"
-fingerprint = "fa1c780a0396"
 
 [[gap]]
 rule = "blind-untriaged"
@@ -49,6 +19,11 @@ fingerprint = "9959d83deecb"
 rule = "blind-untriaged"
 item = "sales-report"
 fingerprint = "da2e3418ecdd"
+
+[[gap]]
+rule = "blind-untriaged"
+item = "train-test-peek"
+fingerprint = "fa1c780a0396"
 
 [[gap]]
 rule = "cases-missing"

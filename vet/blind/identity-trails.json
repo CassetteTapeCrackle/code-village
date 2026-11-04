@@ -1,0 +1,57 @@
+{
+  "fingerprint": "2a984c20975a",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Trail:\n    def __init__(self, name):\n        self.name = name\n\n\ndef compare(a, b):\n    if a is b:\n        return \"same\"\n    if a.name == b.name:\n        return \"twins\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Trail:\n    def __init__(self, name):\n        self.name = name\n\n\ndef compare(a, b):\n    if a is b:\n        return \"same\"\n    if a.name == b.name:\n        return \"twins\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Trail:\n    def __init__(self, name):\n        self.name = name\n\n\ndef compare(a, b):\n    if a is b:\n        return \"same\"\n    if a.name == b.name:\n        return \"twins\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Trail:\n    def __init__(self, name):\n        self.name = name\n\n\ndef compare(a, b):\n    if a is b:\n        return \"same\"\n    if a.name == b.name:\n        return \"twins\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Trail:\n    def __init__(self, name):\n        self.name = name\n\n\ndef compare(a, b):\n    if a is b:\n        return \"same\"\n    if a.name == b.name:\n        return \"twins\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

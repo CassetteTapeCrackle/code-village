@@ -1,0 +1,57 @@
+{
+  "fingerprint": "a68fdf88471d",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def add_lists(a, b):\n    result = []\n    for i in range(max(len(a), len(b))):\n        x = a[i] if i < len(a) else 0\n        y = b[i] if i < len(b) else 0\n        result.append(x + y)\n    return result\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def add_lists(a, b):\n    return [(a[i] if i < len(a) else 0) + (b[i] if i < len(b) else 0)\n            for i in range(max(len(a), len(b)))]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def _get(lst, i):\n    if i < len(lst):\n        return lst[i]\n    return 0\n\ndef add_lists(a, b):\n    return [_get(a, i) + _get(b, i) for i in range(max(len(a), len(b)))]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def add_lists(a, b):\n    result = []\n    for i in range(max(len(a), len(b))):\n        total = 0\n        if i < len(a):\n            total += a[i]\n        if i < len(b):\n            total += b[i]\n        result.append(total)\n    return result\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def add_lists(a, b):\n    result = []\n    for i in range(max(len(a), len(b))):\n        x = a[i] if i < len(a) else 0\n        y = b[i] if i < len(b) else 0\n        result.append(x + y)\n    return result\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}
