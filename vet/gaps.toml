@@ -1192,13 +1192,8 @@ fingerprint = "981573ab1c44"
 
 [[gap]]
 rule = "right-missing"
-item = "lists-first-item"
-fingerprint = "e207901bede3"
-
-[[gap]]
-rule = "right-missing"
 item = "lists-last-item"
-fingerprint = "29aac29afff9"
+fingerprint = "18305ab52fb3"
 
 [[gap]]
 rule = "right-missing"
@@ -2107,13 +2102,8 @@ fingerprint = "981573ab1c44"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "lists-first-item"
-fingerprint = "e207901bede3"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "lists-last-item"
-fingerprint = "29aac29afff9"
+fingerprint = "18305ab52fb3"
 
 [[gap]]
 rule = "wrong-too-few"
