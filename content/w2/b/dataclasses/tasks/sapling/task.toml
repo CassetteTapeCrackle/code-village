@@ -7,6 +7,7 @@ hints = ["Import the decorator from `dataclasses`, put it above the class, and l
 gotcha = false
 
 strict = true
+requires = ["dataclass-decorator"]
 
 [cases]
 class = "Sapling"

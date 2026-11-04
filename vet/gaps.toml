@@ -497,11 +497,6 @@ fingerprint = "a3df17bda7dd"
 
 [[gap]]
 rule = "prompt-asks-construct"
-item = "dataclasses-sapling"
-fingerprint = "e91e2cdfc701"
-
-[[gap]]
-rule = "prompt-asks-construct"
 item = "functions-as-values-keep-long"
 fingerprint = "b7cad89809c8"
 
