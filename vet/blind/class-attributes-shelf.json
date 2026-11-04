@@ -1,54 +1,54 @@
 {
-  "fingerprint": "96be9551ea10",
+  "fingerprint": "146f10707abe",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Shelf:\n    def __init__(self):\n        self.books = []\n\n    def add(self, book):\n        self.books.append(book)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Shelf:\n    def __init__(self):\n        self.books = []\n\n    def add(self, book):\n        self.books.append(book)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Shelf:\n    def __init__(self):\n        self.books = []\n\n    def add(self, book):\n        self.books.append(book)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Shelf:\n    def __init__(self):\n        self.books = []\n\n    def add(self, book):\n        self.books.append(book)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Shelf:\n    def __init__(self):\n        self.books = []\n\n    def add(self, book):\n        self.books.append(book)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

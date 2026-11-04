@@ -52,11 +52,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "class-attributes-shelf"
-fingerprint = "96be9551ea10"
-
-[[gap]]
-rule = "cases-missing"
 item = "classes-backpack"
 fingerprint = "c61499972281"
 
@@ -1593,7 +1588,7 @@ fingerprint = "a2cbbd712b30"
 [[gap]]
 rule = "right-missing"
 item = "class-attributes-shelf"
-fingerprint = "96be9551ea10"
+fingerprint = "146f10707abe"
 
 [[gap]]
 rule = "right-missing"
@@ -2848,7 +2843,7 @@ fingerprint = "a2cbbd712b30"
 [[gap]]
 rule = "wrong-too-few"
 item = "class-attributes-shelf"
-fingerprint = "96be9551ea10"
+fingerprint = "146f10707abe"
 
 [[gap]]
 rule = "wrong-too-few"
