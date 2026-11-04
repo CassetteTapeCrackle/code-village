@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "dunders-badge"
-fingerprint = "052271aeece9"
-
-[[gap]]
-rule = "cases-missing"
 item = "dunders-feather"
 fingerprint = "9e7fc99cc103"
 
@@ -1638,7 +1633,7 @@ fingerprint = "a8025aa290af"
 [[gap]]
 rule = "right-missing"
 item = "dunders-badge"
-fingerprint = "052271aeece9"
+fingerprint = "f9070d007400"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "a8025aa290af"
 [[gap]]
 rule = "wrong-too-few"
 item = "dunders-badge"
-fingerprint = "052271aeece9"
+fingerprint = "f9070d007400"
 
 [[gap]]
 rule = "wrong-too-few"
