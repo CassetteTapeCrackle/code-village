@@ -772,11 +772,6 @@ fingerprint = "a3a0295b1f48"
 
 [[gap]]
 rule = "cases-missing"
-item = "search-sort-member"
-fingerprint = "0f3217fc7a94"
-
-[[gap]]
-rule = "cases-missing"
 item = "search-sort-rank"
 fingerprint = "fad75fd6bb25"
 
@@ -2463,7 +2458,7 @@ fingerprint = "a3a0295b1f48"
 [[gap]]
 rule = "right-missing"
 item = "search-sort-member"
-fingerprint = "0f3217fc7a94"
+fingerprint = "306097803fa9"
 
 [[gap]]
 rule = "right-missing"
@@ -2924,11 +2919,6 @@ fingerprint = "bb57155a12b9"
 rule = "weak-tests"
 item = "ranger-registry"
 fingerprint = "8ddcf3d359df"
-
-[[gap]]
-rule = "weak-tests"
-item = "search-sort-member"
-fingerprint = "0f3217fc7a94"
 
 [[gap]]
 rule = "weak-tests"
@@ -3843,7 +3833,7 @@ fingerprint = "a3a0295b1f48"
 [[gap]]
 rule = "wrong-too-few"
 item = "search-sort-member"
-fingerprint = "0f3217fc7a94"
+fingerprint = "306097803fa9"
 
 [[gap]]
 rule = "wrong-too-few"
