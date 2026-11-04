@@ -152,11 +152,6 @@ fingerprint = "77ec0dda752c"
 
 [[gap]]
 rule = "cases-missing"
-item = "comprehensions-odd-squares"
-fingerprint = "3954e0317374"
-
-[[gap]]
-rule = "cases-missing"
 item = "comprehensions-pair-up"
 fingerprint = "36e9eed1af19"
 
@@ -1448,7 +1443,7 @@ fingerprint = "54410c019459"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "comprehensions-odd-squares"
-fingerprint = "3954e0317374"
+fingerprint = "10b11f17ffed"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1823,7 +1818,7 @@ fingerprint = "77ec0dda752c"
 [[gap]]
 rule = "right-missing"
 item = "comprehensions-odd-squares"
-fingerprint = "3954e0317374"
+fingerprint = "10b11f17ffed"
 
 [[gap]]
 rule = "right-missing"
@@ -2957,11 +2952,6 @@ fingerprint = "906f41b9fdc0"
 
 [[gap]]
 rule = "weak-tests"
-item = "comprehensions-odd-squares"
-fingerprint = "3954e0317374"
-
-[[gap]]
-rule = "weak-tests"
 item = "dunders-feather"
 fingerprint = "d8ebfbb69a84"
 
@@ -3393,7 +3383,7 @@ fingerprint = "77ec0dda752c"
 [[gap]]
 rule = "wrong-too-few"
 item = "comprehensions-odd-squares"
-fingerprint = "3954e0317374"
+fingerprint = "10b11f17ffed"
 
 [[gap]]
 rule = "wrong-too-few"

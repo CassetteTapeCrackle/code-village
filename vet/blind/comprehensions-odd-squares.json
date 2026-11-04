@@ -1,54 +1,54 @@
 {
-  "fingerprint": "3954e0317374",
+  "fingerprint": "10b11f17ffed",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def odd_squares(numbers):\n    return [n * n for n in numbers if n % 2 != 0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def odd_squares(numbers):\n    return [n * n for n in numbers if n % 2 != 0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def odd_squares(numbers):\n    return [n * n for n in numbers if n % 2 != 0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def odd_squares(numbers):\n    return [n * n for n in numbers if n % 2 != 0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def odd_squares(numbers):\n    return [n * n for n in numbers if n % 2 != 0]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
