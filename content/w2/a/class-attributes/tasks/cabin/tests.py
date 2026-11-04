@@ -12,3 +12,6 @@ def test_own_guests():
     b = learner["Cabin"]("B")
     a.check_in("Lou")
     expect_equal(b.guests, [], "cabin B's guests after Lou checks into cabin A")
+
+def test_keeps_its_name():
+    expect_equal(learner["Cabin"]("Pine").name, "Pine", "the name of Cabin('Pine')")

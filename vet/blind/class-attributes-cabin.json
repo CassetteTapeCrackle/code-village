@@ -1,54 +1,54 @@
 {
-  "fingerprint": "125604b874a4",
+  "fingerprint": "8011422a1526",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Cabin:\n    capacity = 4\n\n    def __init__(self, name):\n        self.name = name\n        self.guests = []\n\n    def check_in(self, guest):\n        if len(self.guests) < Cabin.capacity:\n            self.guests.append(guest)\n            return True\n        return False\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Cabin:\n    capacity = 4\n\n    def __init__(self, name):\n        self.name = name\n        self.guests = []\n\n    def check_in(self, guest):\n        if len(self.guests) < Cabin.capacity:\n            self.guests.append(guest)\n            return True\n        return False\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Cabin:\n    capacity = 4\n\n    def __init__(self, name):\n        self.name = name\n        self.guests = []\n\n    def check_in(self, guest):\n        if len(self.guests) < Cabin.capacity:\n            self.guests.append(guest)\n            return True\n        return False\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Cabin:\n    capacity = 4\n\n    def __init__(self, name):\n        self.name = name\n        self.guests = []\n\n    def check_in(self, guest):\n        if len(self.guests) < Cabin.capacity:\n            self.guests.append(guest)\n            return True\n        return False\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Cabin:\n    capacity = 4\n\n    def __init__(self, name):\n        self.name = name\n        self.guests = []\n\n    def check_in(self, guest):\n        if len(self.guests) < Cabin.capacity:\n            self.guests.append(guest)\n            return True\n        return False\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

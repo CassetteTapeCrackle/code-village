@@ -52,11 +52,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "class-attributes-cabin"
-fingerprint = "125604b874a4"
-
-[[gap]]
-rule = "cases-missing"
 item = "class-attributes-camp"
 fingerprint = "98b8a61b557d"
 
@@ -1708,7 +1703,7 @@ fingerprint = "54410c019459"
 [[gap]]
 rule = "right-missing"
 item = "class-attributes-cabin"
-fingerprint = "125604b874a4"
+fingerprint = "8011422a1526"
 
 [[gap]]
 rule = "right-missing"
@@ -2917,11 +2912,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "weak-tests"
-item = "class-attributes-cabin"
-fingerprint = "125604b874a4"
-
-[[gap]]
-rule = "weak-tests"
 item = "class-attributes-lanterns"
 fingerprint = "db8a5b74d0c0"
 
@@ -3268,7 +3258,7 @@ fingerprint = "3bc623742d89"
 [[gap]]
 rule = "wrong-too-few"
 item = "class-attributes-cabin"
-fingerprint = "125604b874a4"
+fingerprint = "8011422a1526"
 
 [[gap]]
 rule = "wrong-too-few"
