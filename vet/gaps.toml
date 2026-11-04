@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "functions-as-values-cheapest"
-fingerprint = "a9c268223200"
-
-[[gap]]
-rule = "cases-missing"
 item = "functions-as-values-compose"
 fingerprint = "6c49d8196cd3"
 
@@ -1643,7 +1638,7 @@ fingerprint = "5d2e9b599c0a"
 [[gap]]
 rule = "right-missing"
 item = "functions-as-values-cheapest"
-fingerprint = "a9c268223200"
+fingerprint = "3cdba1250bbe"
 
 [[gap]]
 rule = "right-missing"
@@ -2898,7 +2893,7 @@ fingerprint = "5d2e9b599c0a"
 [[gap]]
 rule = "wrong-too-few"
 item = "functions-as-values-cheapest"
-fingerprint = "a9c268223200"
+fingerprint = "3cdba1250bbe"
 
 [[gap]]
 rule = "wrong-too-few"
