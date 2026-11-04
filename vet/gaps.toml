@@ -617,11 +617,6 @@ fingerprint = "b71b54aaa75e"
 
 [[gap]]
 rule = "cases-missing"
-item = "nearest-neighbour-classify"
-fingerprint = "aab665edb226"
-
-[[gap]]
-rule = "cases-missing"
 item = "nearest-neighbour-hike"
 fingerprint = "96723bcccb02"
 
@@ -2263,7 +2258,7 @@ fingerprint = "c2267357dd3d"
 [[gap]]
 rule = "right-missing"
 item = "nearest-neighbour-classify"
-fingerprint = "aab665edb226"
+fingerprint = "20a26e0e6b22"
 
 [[gap]]
 rule = "right-missing"
@@ -2829,11 +2824,6 @@ fingerprint = "829dc4d72696"
 rule = "weak-tests"
 item = "knn-sklearn-one-point"
 fingerprint = "880767156a46"
-
-[[gap]]
-rule = "weak-tests"
-item = "nearest-neighbour-classify"
-fingerprint = "aab665edb226"
 
 [[gap]]
 rule = "weak-tests"
@@ -3568,7 +3558,7 @@ fingerprint = "c2267357dd3d"
 [[gap]]
 rule = "wrong-too-few"
 item = "nearest-neighbour-classify"
-fingerprint = "aab665edb226"
+fingerprint = "20a26e0e6b22"
 
 [[gap]]
 rule = "wrong-too-few"
