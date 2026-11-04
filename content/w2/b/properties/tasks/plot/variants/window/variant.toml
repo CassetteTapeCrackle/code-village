@@ -1,3 +1,6 @@
 id = "properties-window"
 title = "A cabin window"
 prompt = "Write a class `Window` storing `width` and `height`, with a property `glass` that returns width times height (put `@property` above the method)."
+
+[cases]
+none = "the checks run on assignment to a property, which a case cannot make"
