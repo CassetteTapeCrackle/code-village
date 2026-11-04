@@ -927,11 +927,6 @@ fingerprint = "335516456b2c"
 
 [[gap]]
 rule = "right-missing"
-item = "composition-keeper"
-fingerprint = "12b9385473f7"
-
-[[gap]]
-rule = "right-missing"
 item = "composition-lamp"
 fingerprint = "613303316c8a"
 
@@ -2114,11 +2109,6 @@ fingerprint = "8011422a1526"
 rule = "wrong-too-few"
 item = "class-attributes-canoe-seats"
 fingerprint = "335516456b2c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "composition-keeper"
-fingerprint = "12b9385473f7"
 
 [[gap]]
 rule = "wrong-too-few"
