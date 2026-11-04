@@ -927,11 +927,6 @@ fingerprint = "335516456b2c"
 
 [[gap]]
 rule = "right-missing"
-item = "composition-cook-pantry"
-fingerprint = "2843db028fc0"
-
-[[gap]]
-rule = "right-missing"
 item = "composition-keeper"
 fingerprint = "12b9385473f7"
 
@@ -953,7 +948,7 @@ fingerprint = "c1127bee0134"
 [[gap]]
 rule = "right-missing"
 item = "composition-ranger-pack"
-fingerprint = "df152a692221"
+fingerprint = "1d725c49e570"
 
 [[gap]]
 rule = "right-missing"
@@ -2122,11 +2117,6 @@ fingerprint = "335516456b2c"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "composition-cook-pantry"
-fingerprint = "2843db028fc0"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "composition-keeper"
 fingerprint = "12b9385473f7"
 
@@ -2148,7 +2138,7 @@ fingerprint = "c1127bee0134"
 [[gap]]
 rule = "wrong-too-few"
 item = "composition-ranger-pack"
-fingerprint = "df152a692221"
+fingerprint = "1d725c49e570"
 
 [[gap]]
 rule = "wrong-too-few"
