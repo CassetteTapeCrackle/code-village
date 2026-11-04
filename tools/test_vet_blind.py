@@ -10,7 +10,8 @@ from pathlib import Path
 
 from test_vet_models import Fake, client, completion
 from vet import vet
-from vet.blind_eval import add_triage, build_request, evaluate, main
+from vet.blind_eval import add_triage, build_request, evaluate, main, stale_ids
+from vet.checks.blind import ATTEMPTS_PER_ITEM, result_path
 from vet.load import load_content
 from vet.models.blind_solve import ATTEMPTS, PHRASINGS, extract_code, solve
 from vet.python.adapter import PythonAdapter
@@ -31,7 +32,8 @@ def blind_copy(attempts: list[dict[str, str]], triage: list[dict[str, object]] |
         loaded, _ = load_content(content)
         folder = Path(into) / "vet" / "blind"
         folder.mkdir(parents=True)
-        run = {"fingerprint": loaded.solution_groups()[0][0].fingerprint, "attempts": attempts, "triage": triage or []}
+        padded = [*attempts, *[attempt("pass", "pass", "agree")] * (ATTEMPTS_PER_ITEM - len(attempts))]
+        run = {"fingerprint": loaded.solution_groups()[0][0].fingerprint, "attempts": padded, "triage": triage or []}
         (folder / "basics-double.json").write_text(json.dumps(run))
         yield content
 
@@ -89,6 +91,19 @@ class Asking(unittest.TestCase):
         [solved] = solve(ITEMS, client(fake))["items"]  # type: ignore[misc]
         self.assertTrue(all(a["error"] == "the reply held no code" for a in solved["attempts"]))
 
+    def test_attempts_stay_with_their_item_in_order(self) -> None:
+        two = [{**ITEMS[0], "id": "a"}, {**ITEMS[0], "id": "b"}]
+        fake = Fake(*[completion(json.dumps({"code": "x = 1"})) for _ in range(10)])
+        result = solve(two, client(fake))
+        self.assertEqual([i["id"] for i in result["items"]], ["a", "b"])  # type: ignore[attr-defined]
+        self.assertTrue(all(len(i["attempts"]) == 5 for i in result["items"]))  # type: ignore[attr-defined]
+
+    def test_the_check_and_the_solver_agree_on_five(self) -> None:
+        self.assertEqual(ATTEMPTS_PER_ITEM, len(ATTEMPTS))
+
+    def test_a_json_fence_is_stripped(self) -> None:
+        self.assertEqual(extract_code('```json\n{"code": "x = 3"}\n```'), "x = 3")
+
     def test_code_comes_from_json_or_a_fence(self) -> None:
         self.assertEqual(extract_code('{"code": "x = 1"}'), "x = 1")
         self.assertEqual(extract_code("Here:\n```python\nx = 2\n```\n"), "x = 2\n")
@@ -103,15 +118,51 @@ class Running(unittest.TestCase):
     def test_attempts_are_run_through_tests_cases_and_the_fuzz_set(self) -> None:
         content, _ = load_content(FIXTURES / "good")
         fp = next(g for g in content.solution_groups() if g[0].id == "basics-double")[0].fingerprint
-        attempts = [{"temperature": 0.2, "code": RIGHT, "error": None},
-                    {"temperature": 0.6, "code": WRONG, "error": None},
-                    {"temperature": 1.0, "code": "", "error": "the call failed"}]
+        attempts = [{"temperature": t, "code": WRONG if at == 1 else RIGHT, "error": None}
+                    for at, (t, _) in enumerate(ATTEMPTS)]
         result = evaluate(content, self.raw(fp, attempts), PythonAdapter())["basics-double"]
-        right, wrong = result["attempts"]  # type: ignore[misc]
+        right, wrong = result["attempts"][0], result["attempts"][1]  # type: ignore[index]
         self.assertEqual((right["visible"], right["hidden"], right["fuzz"]), ("pass", "pass", "agree"))
         self.assertEqual((wrong["visible"], wrong["hidden"]), ("fail", "fail"))
         self.assertIn("double(", wrong["case"])
-        self.assertEqual(len(result["attempts"]), 2)  # the failed call is left out
+        self.assertEqual(len(result["attempts"]), 5)  # type: ignore[arg-type]
+
+    def test_code_that_cannot_load_fails_everything_and_is_not_too_strict(self) -> None:
+        content, _ = load_content(FIXTURES / "good")
+        fp = next(g for g in content.solution_groups() if g[0].id == "basics-double")[0].fingerprint
+        broken = [{"temperature": t, "code": "def double(n:\n", "error": None} for t, _ in ATTEMPTS]
+        result = evaluate(content, self.raw(fp, broken), PythonAdapter())["basics-double"]
+        first = result["attempts"][0]  # type: ignore[index]
+        self.assertEqual((first["visible"], first["hidden"]), ("fail", "fail"))
+        self.assertIn("SyntaxError", first["failure"])
+
+    def test_a_run_with_a_missing_attempt_is_not_written(self) -> None:
+        content, _ = load_content(FIXTURES / "good")
+        fp = next(g for g in content.solution_groups() if g[0].id == "basics-double")[0].fingerprint
+        attempts = [{"temperature": t, "code": RIGHT, "error": None} for t, _ in ATTEMPTS]
+        attempts[3] = {"temperature": 0.6, "code": "", "error": "the call failed"}
+        self.assertEqual(evaluate(content, self.raw(fp, attempts), PythonAdapter()), {})
+
+    def test_asking_again_keeps_the_triage_of_the_same_version(self) -> None:
+        content, _ = load_content(FIXTURES / "good")
+        fp = next(g for g in content.solution_groups() if g[0].id == "basics-double")[0].fingerprint
+        attempts = [{"temperature": t, "code": RIGHT, "error": None} for t, _ in ATTEMPTS]
+        with tempfile.TemporaryDirectory() as tmp:
+            kept = {"attempt": 1, "decision": "test-fixed", "by": "owner", "note": "n"}
+            (Path(tmp) / "basics-double.json").write_text(json.dumps({"fingerprint": fp, "triage": [kept]}))
+            again = evaluate(content, self.raw(fp, attempts), PythonAdapter(), Path(tmp))
+            self.assertEqual(again["basics-double"]["triage"], [kept])
+            (Path(tmp) / "basics-double.json").write_text(json.dumps({"fingerprint": "old", "triage": [kept]}))
+            other = evaluate(content, self.raw(fp, attempts), PythonAdapter(), Path(tmp))
+            self.assertEqual(other["basics-double"]["triage"], [])
+
+    def test_stale_items_are_those_without_a_current_run(self) -> None:
+        content, _ = load_content(FIXTURES / "good")
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(stale_ids(content, Path(tmp), 2), ["basics-double", "basics-double-quadruple"])
+            fp = next(g for g in content.solution_groups() if g[0].id == "basics-double")[0].fingerprint
+            (Path(tmp) / "basics-double.json").write_text(json.dumps({"fingerprint": fp}))
+            self.assertNotIn("basics-double", stale_ids(content, Path(tmp), 99))
 
     def test_an_old_request_is_refused(self) -> None:
         content, _ = load_content(FIXTURES / "good")
@@ -153,6 +204,31 @@ class Triage(unittest.TestCase):
             self.assertEqual(self.found(content), ["blind-disagrees"])
         with blind_copy([differs], [decision]) as content:
             self.assertEqual(self.found(content), [])
+
+    def test_a_thin_or_malformed_file_counts_as_missing_and_does_not_crash(self) -> None:
+        for attempts in (["x"] * 5, [attempt("pass", "pass", "agree")], [attempt("skip", "pass", "agree")] * 5):
+            with self.subTest(attempts=str(attempts)[:40]), blind_copy([]) as content:
+                (content.parent / "vet/blind/basics-double.json").write_text(
+                    json.dumps({"fingerprint": load_content(content)[0].solution_groups()[0][0].fingerprint,
+                                "attempts": attempts}))
+                self.assertEqual(self.found(content), ["blind-missing"])
+
+    def test_one_invalid_decision_unsettles_the_attempt(self) -> None:
+        good = {"attempt": 0, "decision": "model-wrong", "by": "owner", "note": CASE}
+        bad = {"attempt": 0, "decision": "model-wrong", "by": "owner", "note": "no quote"}
+        with blind_copy([FAILING], [good, bad]) as content:
+            self.assertEqual(self.found(content), ["blind-untriaged"])
+
+    def test_model_wrong_needs_a_quote_to_exist(self) -> None:
+        nothing = attempt("fail", "fail")  # no case and no failure recorded
+        decision = {"attempt": 0, "decision": "model-wrong", "by": "owner", "note": "whatever"}
+        with blind_copy([nothing], [decision]) as content:
+            self.assertEqual(self.found(content), ["blind-untriaged"])
+
+    def test_an_item_id_must_be_a_plain_file_name(self) -> None:
+        self.assertEqual(result_path(Path("vet/blind"), "w1-sign"), Path("vet/blind/w1-sign.json"))
+        for bad in ("../x", "/etc/passwd", "a/b", ""):
+            self.assertIsNone(result_path(Path("vet/blind"), bad))
 
     def test_passing_attempts_are_quiet(self) -> None:
         with blind_copy([attempt("pass", "pass", "agree")] * 2) as content:

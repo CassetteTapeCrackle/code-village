@@ -17,7 +17,7 @@ from pathlib import Path
 from .adapter import CheckJob, CheckOutcome, LanguageAdapter
 from .cache import Group
 from .cases.expect import buildable_cases
-from .checks.blind import DECIDERS, DECISIONS
+from .checks.blind import ATTEMPTS_PER_ITEM, DECIDERS, DECISIONS, result_path
 from .checks.mutation import FUZZ_COUNT, difference
 from .load import load_content
 from .model import CodeBlock, Content, TaskBlock, TextBlock
@@ -60,6 +60,17 @@ def question_for(group: Group, read: Mapping[str, tuple[str, str]]) -> dict[str,
             "prompt": prompt, "starter": first.starter}
 
 
+def stale_ids(content: Content, folder: Path, limit: int) -> list[str]:
+    """Up to `limit` item ids that have no stored run for their current fingerprint, in content order."""
+    stale = []
+    for group in content.solution_groups():
+        path = result_path(folder, group_id(group))
+        stored = json.loads(path.read_text()) if path is not None and path.is_file() else {}
+        if stored.get("fingerprint") != group[0].fingerprint:
+            stale.append(group_id(group))
+    return stale[:limit]
+
+
 def build_request(content: Content, ids: Sequence[str]) -> dict[str, object]:
     groups = {group_id(g): g for g in content.solution_groups()}
     unknown = [i for i in ids if i not in groups]
@@ -70,11 +81,12 @@ def build_request(content: Content, ids: Sequence[str]) -> dict[str, object]:
 
 
 def _first_failure(outcomes: Sequence[CheckOutcome | None], hidden: bool) -> str:
-    """The message of the first failing visible test (hidden False) or hidden case (hidden True), else ''."""
+    """The message of the first failing visible test (hidden False) or hidden case (hidden True), else ''.
+    Code that cannot load (a syntax error, an input() at the top) never reaches its tests: that fails both."""
     for outcome in outcomes:
         if outcome is None:
             return "it runs out of time"
-        if outcome["error"] and not hidden:
+        if outcome["error"]:
             return outcome["error"]
         for result in outcome["results"]:
             if result["hidden"] == hidden and not result["passed"]:
@@ -100,12 +112,16 @@ def judge_attempt(group: Group, code: str, adapter: LanguageAdapter) -> dict[str
     differences = [d for d in map(difference, ran) if d]
     if fuzz:
         judged.update({"fuzz": "differs" if differences else "agree", "input": differences[0] if differences else ""})
+    elif has_cases:
+        judged.update({"fuzz": "differs", "input": "its fuzz inputs could not be built, so it was not compared"})
     return judged
 
 
-def evaluate(content: Content, raw: Mapping[str, object], adapter: LanguageAdapter) -> dict[str, dict[str, object]]:
-    """The result file of every item in the raw attempts, by item id. An attempt the model failed to give
-    (`error`) is kept out; a file with no attempt left is not written."""
+def evaluate(content: Content, raw: Mapping[str, object], adapter: LanguageAdapter,
+             stored: Path | None = None) -> dict[str, dict[str, object]]:
+    """The result file of every item in the raw attempts, by item id. An item is written only when all its attempts
+    came back (a missing one would make a thin run look current). `stored` is the vet/blind folder: the triage of an
+    earlier run of the same version of the item is carried over."""
     groups = {group_id(g): g for g in content.solution_groups()}
     results: dict[str, dict[str, object]] = {}
     items = raw["items"]
@@ -115,12 +131,22 @@ def evaluate(content: Content, raw: Mapping[str, object], adapter: LanguageAdapt
         group = groups.get(str(solved["id"]))
         if group is None or str(solved["fingerprint"]) != group[0].fingerprint:
             raise ValueError(f"{solved['id']}: the content changed since the request was made: ask again")
+        if len(solved["attempts"]) != ATTEMPTS_PER_ITEM or any(a["error"] for a in solved["attempts"]):
+            continue
         attempts = [judge_attempt(group, a["code"], adapter) | {"temperature": a["temperature"]}
-                    for a in solved["attempts"] if not a["error"]]
-        if attempts:
-            results[group_id(group)] = {"fingerprint": group[0].fingerprint, "model": raw.get("model", ""),
-                                        "attempts": attempts, "triage": []}
+                    for a in solved["attempts"]]
+        results[group_id(group)] = {"fingerprint": group[0].fingerprint, "model": raw.get("model", ""),
+                                    "attempts": attempts, "triage": _kept_triage(stored, group)}
     return results
+
+
+def _kept_triage(folder: Path | None, group: Group) -> list[object]:
+    """The triage already stored for this very version of the item, so asking again does not lose decisions."""
+    path = folder / f"{group_id(group)}.json" if folder else None
+    if path is None or not path.is_file():
+        return []
+    old = json.loads(path.read_text())
+    return list(old.get("triage", [])) if old.get("fingerprint") == group[0].fingerprint else []
 
 
 def add_triage(path: Path, attempt: int, decision: str, by: str, note: str) -> None:
@@ -131,7 +157,7 @@ def add_triage(path: Path, attempt: int, decision: str, by: str, note: str) -> N
         raise ValueError(f"attempt {attempt} does not exist")
     if decision == "model-wrong":
         shown = data["attempts"][attempt]["case"] or data["attempts"][attempt]["failure"]
-        if shown not in note:
+        if not shown or shown not in note:
             raise ValueError("a model-wrong decision must quote the failing case in the note: " + shown)
     data["triage"] = [t for t in data["triage"] if t["attempt"] != attempt]
     data["triage"].append({"attempt": attempt, "decision": decision, "by": by, "note": note})
@@ -143,7 +169,8 @@ def main(argv: Sequence[str] | None = None) -> None:
     args.add_argument("--content", type=Path, default=Path("content"))
     commands = args.add_subparsers(dest="command", required=True)
     ask = commands.add_parser("request")
-    ask.add_argument("ids", nargs="+")
+    ask.add_argument("ids", nargs="*", help="item ids; with --stale, the items without a current run are added")
+    ask.add_argument("--stale", type=int, metavar="N", help="also ask for up to N items with no current run")
     ask.add_argument("--out", type=Path, required=True)
     run = commands.add_parser("evaluate")
     run.add_argument("raw", type=Path)
@@ -153,7 +180,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     mark.add_argument("attempt", type=int)
     mark.add_argument("decision")
     mark.add_argument("--note", required=True)
-    mark.add_argument("--by", default="session")
+    mark.add_argument("--by", default="session", choices=["session"], help="an owner edits the JSON by hand")
     mark.add_argument("--dir", type=Path, default=BLIND_DIR)
     mark.add_argument("--triage-file", type=Path, default=TRIAGE_FILE)
     opts = args.parse_args(argv)
@@ -162,22 +189,26 @@ def main(argv: Sequence[str] | None = None) -> None:
         if opts.by == "session":
             with opts.triage_file.open("a") as listing:
                 listing.write(f"\n## blind: {opts.id}, attempt {opts.attempt} <!-- session triage -->\n\n"
-                              f"- decision: {opts.decision} (by the session)\n- note: {opts.note}\n")
+                              f"- decision: {opts.decision} (by the session)\n- note: {' '.join(opts.note.split())}\n")
         print(f"blind: triaged {opts.id} attempt {opts.attempt} as {opts.decision}")
         return
     content, _ = load_content(opts.content)
     if opts.command == "request":
+        ids = [*opts.ids, *stale_ids(content, BLIND_DIR, opts.stale or 0)]
         try:
-            request = build_request(content, opts.ids)
+            request = build_request(content, ids)
         except KeyError as e:
             sys.exit(f"blind: {e.args[0]}")
         opts.out.write_text(json.dumps(request, indent=2, ensure_ascii=False) + "\n")
-        print(f"blind: request for {len(opts.ids)} item(s) -> {opts.out}")
+        print(f"blind: request for {len(ids)} item(s) -> {opts.out}")
         return
-    results = evaluate(content, json.loads(opts.raw.read_text()), PythonAdapter())
+    results = evaluate(content, json.loads(opts.raw.read_text()), PythonAdapter(), opts.out)
     opts.out.mkdir(parents=True, exist_ok=True)
     for item, result in results.items():
-        (opts.out / f"{item}.json").write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
+        target = result_path(opts.out, item)
+        if target is None:
+            sys.exit(f"blind: {item} is not a usable file name")
+        target.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
     print(f"blind: {len(results)} result file(s) -> {opts.out}")
 
 

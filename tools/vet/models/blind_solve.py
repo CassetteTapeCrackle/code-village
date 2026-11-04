@@ -33,7 +33,7 @@ FENCE = re.compile(r"```(?:python)?\n(.*?)```", re.S)
 def extract_code(reply: str) -> str | None:
     """The code in a reply: the `code` of a JSON object, else the first Markdown fence, else nothing."""
     try:
-        data = json.loads(reply)
+        data = json.loads(re.sub(r"^```(?:json)?\s*|\s*```$", "", reply.strip()))
     except json.JSONDecodeError:
         data = None
     if isinstance(data, dict) and isinstance(data.get("code"), str) and data["code"].strip():

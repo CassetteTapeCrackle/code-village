@@ -72,6 +72,15 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- From Session 7 on, on the supervisor's word (the cloud credit can end without warning): push after every commit,
+  not only at task boundaries, and run the full suites at part boundaries. Each commit still passes lint, types and
+  the tests of the files it touches.
+- Session 7 review (fresh Sonnet subagent on the session diff): fixed findings 1 to 3, 5 to 7 and 9 to 11, and the
+  parts of 4 and 8 that are cheap. Code that cannot load (a syntax error, an `input()` at the top) now fails the
+  hidden verdict too, so it cannot be mistaken for `blind-too-strict`. An item is written only with all five
+  attempts, and the check wants all five. Asking again keeps the triage of the same version. A model-wrong decision
+  needs a non-empty quote, and one invalid decision unsettles the attempt. A malformed file is `blind-missing`
+  instead of a crash. Item ids must be plain file names. `request --stale N` adds up to N items with no current run.
 - Session 7 blind run (workflow run 41754579815, commit cd55019): 3 items, 15 calls, 8608 tokens (about 570 per
   attempt), 4.0 s with 8 calls in flight, 0 failed. At that size all 205 remaining solutions would be about 590,000
   tokens (1025 attempts). I did not turn tokens into money, since I do not know the price. The run was started by
@@ -322,8 +331,10 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
-- Session 7: no fresh reviewer subagent has read the Session 7 diff yet (see the last entry under Done for whether
-  that changed); the Session 7 code was checked by its own tests only.
+- Session 7 review findings left: 4 in part (an owner can still write `by: owner` into the JSON by hand; the CLI
+  now takes only `session`, and every session decision is listed in `vet/triage.md`); a `prompt-fixed`,
+  `test-fixed` or `solution-fixed` decision settles an attempt without proof of a change, since a change to the item
+  asks for a new run anyway; the default paths of the CLI depend on the current directory (run it from the repo root).
 - Session 7: the three live items were not triaged because none failed. Blind results for the other 205 solutions,
   triage of whatever they show, and the fuzz comparison (needs `[cases]`) are for the fixing sessions and Task 10.1.
 - Session 7: `contexts` for a boss carry no lesson text (a boss spans several lessons). A DeepSeek attempt at a boss

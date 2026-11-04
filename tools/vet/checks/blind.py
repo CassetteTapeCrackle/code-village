@@ -7,8 +7,10 @@ failing attempt needs a triage decision, which is a person's or a session's word
 """
 
 import json
+import re
 from collections.abc import Iterable, Mapping, Sequence
 from pathlib import Path
+from typing import cast
 
 from ..adapter import LanguageAdapter
 from ..finding import Finding, Subject, subject
@@ -17,6 +19,16 @@ from ..model import Content
 Attempt = Mapping[str, str]
 DECISIONS = ("model-wrong", "prompt-fixed", "test-fixed", "solution-fixed")
 DECIDERS = ("owner", "session")
+
+
+ATTEMPTS_PER_ITEM = 5  # blind_solve.ATTEMPTS; a test keeps the two equal
+JUDGED = {"visible": ("pass", "fail"), "hidden": ("pass", "fail", "none"), "fuzz": ("agree", "differs", "none")}
+SAFE_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*")
+
+
+def result_path(folder: Path, item_id: str) -> Path | None:
+    """vet/blind/<id>.json, or None for an id that is not a plain file name."""
+    return folder / f"{item_id}.json" if SAFE_ID.fullmatch(item_id) else None
 
 
 def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
@@ -28,14 +40,22 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
     for group in content.solution_groups():
         first = group[0]
         about = subject(first.id, first.fingerprint, first.folder / "solution.py", content.root)
-        data = _read(folder / f"{first.id}.json")
+        path = result_path(folder, first.id)
+        data = _read(path) if path else None
         attempts = data.get("attempts") if data else None
-        if not data or data.get("fingerprint") != first.fingerprint or not isinstance(attempts, list) or not attempts:
-            yield about.finding("blind-missing", "no blind-solver run for this version of the item: run the "
+        if not data or data.get("fingerprint") != first.fingerprint or not _well_formed(attempts):
+            yield about.finding("blind-missing", "no complete blind-solver run for this version of the item: run the "
                                                  "vet-models blind job (python -m tools.vet.blind_eval request)")
             continue
-        triage = _triage(data.get("triage"), attempts)
-        yield from _judge(about, attempts, triage)
+        judged = cast(list[Attempt], attempts)
+        yield from _judge(about, judged, _triage(data.get("triage"), judged))
+
+
+def _well_formed(attempts: object) -> bool:
+    """A full set of attempts, each a record with only the verdicts a run can give."""
+    return (isinstance(attempts, list) and len(attempts) >= ATTEMPTS_PER_ITEM
+            and all(isinstance(a, dict) and all(a.get(key) in values for key, values in JUDGED.items())
+                    for a in attempts))
 
 
 def _read(path: Path) -> dict[str, object] | None:
@@ -56,11 +76,12 @@ def _triage(entries: object, attempts: Sequence[Attempt]) -> dict[int, str]:
         attempt = attempts[number]
         quote = attempt.get("case") or attempt.get("failure") or ""
         if entry.get("decision") not in DECISIONS or entry.get("by") not in DECIDERS:
-            settled[number] = "its triage decision is not valid"
-        elif entry["decision"] == "model-wrong" and quote not in str(entry.get("note", "")):
-            settled[number] = f"a model-wrong decision must quote the failing case: {quote}"
+            problem = "its triage decision is not valid"
+        elif entry["decision"] == "model-wrong" and (not quote or quote not in str(entry.get("note", ""))):
+            problem = f"a model-wrong decision must quote the failing case: {quote}"
         else:
-            settled[number] = ""
+            problem = ""
+        settled[number] = settled.get(number) or problem  # one invalid entry unsettles the attempt
     return settled
 
 
