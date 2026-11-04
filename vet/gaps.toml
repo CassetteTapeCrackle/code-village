@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "functions-as-values-keep-long"
-fingerprint = "abf7892a7b12"
-
-[[gap]]
-rule = "cases-missing"
 item = "functions-as-values-oldest"
 fingerprint = "49655d5529f4"
 
@@ -1078,7 +1073,7 @@ fingerprint = "f8078686a129"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "functions-as-values-keep-long"
-fingerprint = "abf7892a7b12"
+fingerprint = "4c1b34a90cfb"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1643,7 +1638,7 @@ fingerprint = "8bbadcc9f1d4"
 [[gap]]
 rule = "right-missing"
 item = "functions-as-values-keep-long"
-fingerprint = "abf7892a7b12"
+fingerprint = "4c1b34a90cfb"
 
 [[gap]]
 rule = "right-missing"
@@ -2898,7 +2893,7 @@ fingerprint = "8bbadcc9f1d4"
 [[gap]]
 rule = "wrong-too-few"
 item = "functions-as-values-keep-long"
-fingerprint = "abf7892a7b12"
+fingerprint = "4c1b34a90cfb"
 
 [[gap]]
 rule = "wrong-too-few"

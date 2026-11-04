@@ -1,54 +1,54 @@
 {
-  "fingerprint": "abf7892a7b12",
+  "fingerprint": "4c1b34a90cfb",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
