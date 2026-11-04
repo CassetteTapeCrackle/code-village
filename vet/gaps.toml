@@ -516,11 +516,6 @@ item = "generators-letters"
 fingerprint = "dd06d5298882"
 
 [[gap]]
-rule = "prompt-asks-construct"
-item = "inheritance-bat"
-fingerprint = "8445cc2d3bfe"
-
-[[gap]]
 rule = "remember-unbacked"
 item = "class-attributes"
 fingerprint = "0c0c9766a5aa"
