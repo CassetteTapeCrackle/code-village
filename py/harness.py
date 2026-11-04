@@ -36,6 +36,7 @@ TRACKED_NODES = frozenset({
 })
 BUILTIN_NAMES = frozenset(name for name in dir(builtins) if not name.startswith("_"))
 KWARG_PREFIX = "kwarg:"  # a keyword argument names a construct only when the vocabulary lists it
+BUILTIN_KWARG_PREFIX = "builtin-kwarg:"  # but one passed to a builtin (print(sep=)) must be listed, like the builtin
 
 
 class RunResult(TypedDict):
@@ -645,12 +646,18 @@ def _call_detectors(node: ast.Call, scope: _Scope, decorator: bool) -> Iterator[
         yield f"method:{func.attr}"
     callee = func.id if isinstance(func, ast.Name) else func.attr if isinstance(func, ast.Attribute) else None
     if callee:
-        yield from (f"{KWARG_PREFIX}{callee}.{kw.arg}" for kw in node.keywords if kw.arg)
+        # a keyword argument of a builtin must be listed like the builtin; one of any other call may be (sorted.key)
+        kind = BUILTIN_KWARG_PREFIX if isinstance(func, ast.Name) and func.id in BUILTIN_NAMES \
+            and not scope.owns_builtin(func.id) else KWARG_PREFIX
+        yield from (f"{kind}{callee}.{kw.arg}" for kw in node.keywords if kw.arg)
 
 
 def _node_detectors(node: ast.AST, scope: _Scope, decorators: set[int]) -> Iterator[str]:
     if type(node).__name__ in TRACKED_NODES:
         yield f"node:{type(node).__name__}"
+    if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef | ast.Module) \
+            and ast.get_docstring(node, clean=False) is not None:
+        yield "node:Docstring"  # not a node class of its own: the string that opens a def, class or module
     if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
         if node.id in BUILTIN_NAMES and not scope.owns_builtin(node.id) and id(node) not in decorators:
             yield f"call:{node.id}"
@@ -692,10 +699,11 @@ def detect_features(code: str, vocabulary: Mapping[str, Sequence[str]], own_name
     feature_of = {detector: feature for feature, detectors in vocabulary.items() for detector in detectors}
     features: set[str] = set()
     for detector in _found_detectors(tree, own_names):
-        if detector in feature_of:
-            features.add(feature_of[detector])
+        name = detector.removeprefix("builtin-")  # a builtin's keyword argument is listed as kwarg:<call>.<name>
+        if name in feature_of:
+            features.add(feature_of[name])
         elif not detector.startswith(KWARG_PREFIX):
-            features.add(f"unknown:{detector}")
+            features.add(f"unknown:{name}")
     return features
 
 
