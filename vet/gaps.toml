@@ -1037,13 +1037,8 @@ fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "right-missing"
-item = "grids-row-totals"
-fingerprint = "34f1a5819a86"
-
-[[gap]]
-rule = "right-missing"
 item = "grids-sum"
-fingerprint = "c66543c76913"
+fingerprint = "e1c2362cf76f"
 
 [[gap]]
 rule = "right-missing"
@@ -1927,13 +1922,8 @@ fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "grids-row-totals"
-fingerprint = "34f1a5819a86"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "grids-sum"
-fingerprint = "c66543c76913"
+fingerprint = "e1c2362cf76f"
 
 [[gap]]
 rule = "wrong-too-few"
