@@ -947,11 +947,6 @@ fingerprint = "b7c6afe96d16"
 
 [[gap]]
 rule = "right-missing"
-item = "conditions-ticket-price"
-fingerprint = "afeae0f96552"
-
-[[gap]]
-rule = "right-missing"
 item = "conditions-vowel"
 fingerprint = "00b324f318bb"
 
@@ -2084,11 +2079,6 @@ fingerprint = "a08a070a8257"
 rule = "wrong-too-few"
 item = "conditions-sign"
 fingerprint = "b7c6afe96d16"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "conditions-ticket-price"
-fingerprint = "afeae0f96552"
 
 [[gap]]
 rule = "wrong-too-few"
