@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "properties-wingspan"
-fingerprint = "528d35ceac1f"
-
-[[gap]]
-rule = "cases-missing"
 item = "ranger-registry"
 fingerprint = "bc03a544dbed"
 
@@ -778,7 +773,7 @@ fingerprint = "485f483f4c90"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "properties-wingspan"
-fingerprint = "528d35ceac1f"
+fingerprint = "1f7a66a6ccca"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1718,7 +1713,7 @@ fingerprint = "485f483f4c90"
 [[gap]]
 rule = "right-missing"
 item = "properties-wingspan"
-fingerprint = "528d35ceac1f"
+fingerprint = "1f7a66a6ccca"
 
 [[gap]]
 rule = "right-missing"
@@ -2958,7 +2953,7 @@ fingerprint = "485f483f4c90"
 [[gap]]
 rule = "wrong-too-few"
 item = "properties-wingspan"
-fingerprint = "528d35ceac1f"
+fingerprint = "1f7a66a6ccca"
 
 [[gap]]
 rule = "wrong-too-few"
