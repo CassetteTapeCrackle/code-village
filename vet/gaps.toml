@@ -182,11 +182,6 @@ fingerprint = "9dc9cc6e8676"
 
 [[gap]]
 rule = "cases-missing"
-item = "conditions-weekend"
-fingerprint = "8f7ecb46be42"
-
-[[gap]]
-rule = "cases-missing"
 item = "data-summary"
 fingerprint = "5c445ef34649"
 
@@ -1873,7 +1868,7 @@ fingerprint = "9dc9cc6e8676"
 [[gap]]
 rule = "right-missing"
 item = "conditions-weekend"
-fingerprint = "8f7ecb46be42"
+fingerprint = "75b868d1af57"
 
 [[gap]]
 rule = "right-missing"
@@ -2977,11 +2972,6 @@ fingerprint = "9dc9cc6e8676"
 
 [[gap]]
 rule = "weak-tests"
-item = "conditions-weekend"
-fingerprint = "8f7ecb46be42"
-
-[[gap]]
-rule = "weak-tests"
 item = "data-summary"
 fingerprint = "5c445ef34649"
 
@@ -3468,7 +3458,7 @@ fingerprint = "9dc9cc6e8676"
 [[gap]]
 rule = "wrong-too-few"
 item = "conditions-weekend"
-fingerprint = "8f7ecb46be42"
+fingerprint = "75b868d1af57"
 
 [[gap]]
 rule = "wrong-too-few"
