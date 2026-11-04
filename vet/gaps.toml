@@ -653,7 +653,7 @@ fingerprint = "7415efa76c8f"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "dataclasses-mushroom-spots"
-fingerprint = "dada7302cf0d"
+fingerprint = "e0cccd1290c7"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -668,7 +668,7 @@ fingerprint = "ad3f62255be8"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "dataclasses-sapling"
-fingerprint = "f8078686a129"
+fingerprint = "e91e2cdfc701"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -942,11 +942,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
-item = "dataclasses-mushroom-spots"
-fingerprint = "dada7302cf0d"
-
-[[gap]]
-rule = "right-missing"
 item = "dataclasses-quiver-default"
 fingerprint = "9fe72e54528e"
 
@@ -958,7 +953,7 @@ fingerprint = "ad3f62255be8"
 [[gap]]
 rule = "right-missing"
 item = "dataclasses-sapling"
-fingerprint = "f8078686a129"
+fingerprint = "e91e2cdfc701"
 
 [[gap]]
 rule = "right-missing"
@@ -2057,11 +2052,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "dataclasses-mushroom-spots"
-fingerprint = "dada7302cf0d"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "dataclasses-quiver-default"
 fingerprint = "9fe72e54528e"
 
@@ -2073,7 +2063,7 @@ fingerprint = "ad3f62255be8"
 [[gap]]
 rule = "wrong-too-few"
 item = "dataclasses-sapling"
-fingerprint = "f8078686a129"
+fingerprint = "e91e2cdfc701"
 
 [[gap]]
 rule = "wrong-too-few"
