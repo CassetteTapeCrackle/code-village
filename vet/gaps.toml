@@ -983,7 +983,7 @@ fingerprint = "56342fb4e36d"
 [[gap]]
 rule = "right-missing"
 item = "comprehensions-shout-all"
-fingerprint = "b00f093eb88b"
+fingerprint = "f11dabe1a8bd"
 
 [[gap]]
 rule = "right-missing"
@@ -2178,7 +2178,7 @@ fingerprint = "56342fb4e36d"
 [[gap]]
 rule = "wrong-too-few"
 item = "comprehensions-shout-all"
-fingerprint = "b00f093eb88b"
+fingerprint = "f11dabe1a8bd"
 
 [[gap]]
 rule = "wrong-too-few"
