@@ -67,11 +67,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "knn-sklearn-predict"
-fingerprint = "981573ab1c44"
-
-[[gap]]
-rule = "cases-missing"
 item = "lists-add-both"
 fingerprint = "b3a5d24cc947"
 
