@@ -52,11 +52,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "class-attributes-rangers"
-fingerprint = "a2cbbd712b30"
-
-[[gap]]
-rule = "cases-missing"
 item = "class-attributes-shelf"
 fingerprint = "96be9551ea10"
 
