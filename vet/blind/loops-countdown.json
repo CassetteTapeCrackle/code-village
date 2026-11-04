@@ -1,54 +1,54 @@
 {
-  "fingerprint": "33942f4cd889",
+  "fingerprint": "f8354bb9c6c0",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def countdown(n):\n    return list(range(n, 0, -1))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def countdown(n):\n    return list(range(n, 0, -1))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def countdown(n):\n    return list(range(n, 0, -1))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def countdown(n):\n    return list(range(n, 0, -1))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def countdown(n):\n    return list(range(n, 0, -1))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
