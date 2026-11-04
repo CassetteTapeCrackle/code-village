@@ -492,11 +492,6 @@ fingerprint = "7b898165823a"
 
 [[gap]]
 rule = "prompt-asks-construct"
-item = "generators-evens"
-fingerprint = "176ce1f91370"
-
-[[gap]]
-rule = "prompt-asks-construct"
 item = "generators-letters"
 fingerprint = "dd06d5298882"
 
