@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "dataclasses-satchel"
-fingerprint = "7915f2c9fda1"
-
-[[gap]]
-rule = "cases-missing"
 item = "dataclasses-scores"
 fingerprint = "45463c522a65"
 
