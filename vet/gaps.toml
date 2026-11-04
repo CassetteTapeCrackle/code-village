@@ -608,7 +608,7 @@ fingerprint = "20f2ee0d30cc"
 [[gap]]
 rule = "cases-missing"
 item = "methods-oven"
-fingerprint = "f4a485d78eff"
+fingerprint = "59bd1872b24d"
 
 [[gap]]
 rule = "cases-missing"
@@ -2293,7 +2293,7 @@ fingerprint = "20f2ee0d30cc"
 [[gap]]
 rule = "right-missing"
 item = "methods-oven"
-fingerprint = "f4a485d78eff"
+fingerprint = "59bd1872b24d"
 
 [[gap]]
 rule = "right-missing"
@@ -2899,11 +2899,6 @@ fingerprint = "963e8e5fd04b"
 rule = "weak-tests"
 item = "lost-satchel"
 fingerprint = "91ff482cc828"
-
-[[gap]]
-rule = "weak-tests"
-item = "methods-oven"
-fingerprint = "f4a485d78eff"
 
 [[gap]]
 rule = "weak-tests"
@@ -3743,7 +3738,7 @@ fingerprint = "20f2ee0d30cc"
 [[gap]]
 rule = "wrong-too-few"
 item = "methods-oven"
-fingerprint = "f4a485d78eff"
+fingerprint = "59bd1872b24d"
 
 [[gap]]
 rule = "wrong-too-few"
