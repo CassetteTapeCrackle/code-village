@@ -1222,11 +1222,6 @@ fingerprint = "d541e12609e3"
 
 [[gap]]
 rule = "right-missing"
-item = "loops-countdown"
-fingerprint = "f8354bb9c6c0"
-
-[[gap]]
-rule = "right-missing"
 item = "loops-first-even"
 fingerprint = "4e6616e9e497"
 
@@ -1243,7 +1238,7 @@ fingerprint = "fda961b3c02e"
 [[gap]]
 rule = "right-missing"
 item = "loops-up-to"
-fingerprint = "0721c34441bd"
+fingerprint = "573879681a38"
 
 [[gap]]
 rule = "right-missing"
@@ -2177,11 +2172,6 @@ fingerprint = "d541e12609e3"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "loops-countdown"
-fingerprint = "f8354bb9c6c0"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "loops-first-even"
 fingerprint = "4e6616e9e497"
 
@@ -2198,7 +2188,7 @@ fingerprint = "fda961b3c02e"
 [[gap]]
 rule = "wrong-too-few"
 item = "loops-up-to"
-fingerprint = "0721c34441bd"
+fingerprint = "573879681a38"
 
 [[gap]]
 rule = "wrong-too-few"
