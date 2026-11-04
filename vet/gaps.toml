@@ -922,11 +922,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
-item = "dunders-mushroom"
-fingerprint = "2d7ff9509d72"
-
-[[gap]]
-rule = "right-missing"
 item = "files-json-best"
 fingerprint = "889bff220338"
 
@@ -1579,11 +1574,6 @@ fingerprint = "5693a29e09d3"
 rule = "wrong-too-few"
 item = "data-summary"
 fingerprint = "5778085b4b4e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dunders-mushroom"
-fingerprint = "2d7ff9509d72"
 
 [[gap]]
 rule = "wrong-too-few"
