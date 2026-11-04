@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "errors-parse-age"
-fingerprint = "471990754080"
-
-[[gap]]
-rule = "cases-missing"
 item = "errors-parse-price"
 fingerprint = "24c69049b4af"
 
@@ -1638,7 +1633,7 @@ fingerprint = "5795fc257c09"
 [[gap]]
 rule = "right-missing"
 item = "errors-parse-age"
-fingerprint = "471990754080"
+fingerprint = "38e232d65593"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "5795fc257c09"
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-parse-age"
-fingerprint = "471990754080"
+fingerprint = "38e232d65593"
 
 [[gap]]
 rule = "wrong-too-few"
