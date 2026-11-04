@@ -688,7 +688,7 @@ fingerprint = "aff9a2fe96a5"
 [[gap]]
 rule = "cases-missing"
 item = "pandas-tables-taller"
-fingerprint = "bb57155a12b9"
+fingerprint = "807ad70fca2a"
 
 [[gap]]
 rule = "cases-missing"
@@ -2343,7 +2343,7 @@ fingerprint = "aff9a2fe96a5"
 [[gap]]
 rule = "right-missing"
 item = "pandas-tables-taller"
-fingerprint = "bb57155a12b9"
+fingerprint = "807ad70fca2a"
 
 [[gap]]
 rule = "right-missing"
@@ -2884,11 +2884,6 @@ fingerprint = "c985bfb87f3e"
 rule = "weak-tests"
 item = "numpy-arrays-fahrenheit"
 fingerprint = "8f51d02033bd"
-
-[[gap]]
-rule = "weak-tests"
-item = "pandas-tables-taller"
-fingerprint = "bb57155a12b9"
 
 [[gap]]
 rule = "weak-tests"
@@ -3678,7 +3673,7 @@ fingerprint = "aff9a2fe96a5"
 [[gap]]
 rule = "wrong-too-few"
 item = "pandas-tables-taller"
-fingerprint = "bb57155a12b9"
+fingerprint = "807ad70fca2a"
 
 [[gap]]
 rule = "wrong-too-few"
