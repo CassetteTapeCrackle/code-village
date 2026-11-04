@@ -952,11 +952,6 @@ fingerprint = "1706830caeed"
 
 [[gap]]
 rule = "right-missing"
-item = "dunders-sign"
-fingerprint = "c42c4cd7f072"
-
-[[gap]]
-rule = "right-missing"
 item = "errors-first-char"
 fingerprint = "5795fc257c09"
 
@@ -1989,11 +1984,6 @@ fingerprint = "c9db3385a57c"
 rule = "wrong-too-few"
 item = "dunders-mushroom"
 fingerprint = "1706830caeed"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dunders-sign"
-fingerprint = "c42c4cd7f072"
 
 [[gap]]
 rule = "wrong-too-few"
