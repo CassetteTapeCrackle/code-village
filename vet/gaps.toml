@@ -438,7 +438,7 @@ fingerprint = "1edf43f2eca6"
 [[gap]]
 rule = "cases-missing"
 item = "identity-maps"
-fingerprint = "05dd2d335d78"
+fingerprint = "c76b5193882a"
 
 [[gap]]
 rule = "cases-missing"
@@ -2113,7 +2113,7 @@ fingerprint = "1edf43f2eca6"
 [[gap]]
 rule = "right-missing"
 item = "identity-maps"
-fingerprint = "05dd2d335d78"
+fingerprint = "c76b5193882a"
 
 [[gap]]
 rule = "right-missing"
@@ -2887,11 +2887,6 @@ fingerprint = "0acf1cf27bf9"
 
 [[gap]]
 rule = "weak-tests"
-item = "identity-maps"
-fingerprint = "05dd2d335d78"
-
-[[gap]]
-rule = "weak-tests"
 item = "knn-sklearn-height"
 fingerprint = "b157cecc0573"
 
@@ -3588,7 +3583,7 @@ fingerprint = "1edf43f2eca6"
 [[gap]]
 rule = "wrong-too-few"
 item = "identity-maps"
-fingerprint = "05dd2d335d78"
+fingerprint = "c76b5193882a"
 
 [[gap]]
 rule = "wrong-too-few"
