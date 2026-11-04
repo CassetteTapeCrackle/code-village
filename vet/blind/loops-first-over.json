@@ -1,54 +1,54 @@
 {
-  "fingerprint": "c05a5aac6f71",
+  "fingerprint": "7a613966deeb",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

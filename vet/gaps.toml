@@ -67,11 +67,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "loops-first-over"
-fingerprint = "c05a5aac6f71"
-
-[[gap]]
-rule = "cases-missing"
 item = "loops-up-to"
 fingerprint = "0721c34441bd"
 
@@ -1668,7 +1663,7 @@ fingerprint = "4e6616e9e497"
 [[gap]]
 rule = "right-missing"
 item = "loops-first-over"
-fingerprint = "c05a5aac6f71"
+fingerprint = "7a613966deeb"
 
 [[gap]]
 rule = "right-missing"
@@ -2918,7 +2913,7 @@ fingerprint = "4e6616e9e497"
 [[gap]]
 rule = "wrong-too-few"
 item = "loops-first-over"
-fingerprint = "c05a5aac6f71"
+fingerprint = "7a613966deeb"
 
 [[gap]]
 rule = "wrong-too-few"
