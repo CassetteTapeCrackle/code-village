@@ -172,11 +172,6 @@ fingerprint = "38ceb62f1fd0"
 
 [[gap]]
 rule = "cases-missing"
-item = "conditions-sign"
-fingerprint = "bdfe082978fd"
-
-[[gap]]
-rule = "cases-missing"
 item = "conditions-ticket-price"
 fingerprint = "e970a5f0e7d4"
 
@@ -1863,7 +1858,7 @@ fingerprint = "38ceb62f1fd0"
 [[gap]]
 rule = "right-missing"
 item = "conditions-sign"
-fingerprint = "bdfe082978fd"
+fingerprint = "b7c6afe96d16"
 
 [[gap]]
 rule = "right-missing"
@@ -2977,11 +2972,6 @@ fingerprint = "3954e0317374"
 
 [[gap]]
 rule = "weak-tests"
-item = "conditions-sign"
-fingerprint = "bdfe082978fd"
-
-[[gap]]
-rule = "weak-tests"
 item = "conditions-vowel"
 fingerprint = "9dc9cc6e8676"
 
@@ -3463,7 +3453,7 @@ fingerprint = "38ceb62f1fd0"
 [[gap]]
 rule = "wrong-too-few"
 item = "conditions-sign"
-fingerprint = "bdfe082978fd"
+fingerprint = "b7c6afe96d16"
 
 [[gap]]
 rule = "wrong-too-few"
