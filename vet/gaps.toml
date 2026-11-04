@@ -52,11 +52,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "classes-canoe"
-fingerprint = "6984abea2bd4"
-
-[[gap]]
-rule = "cases-missing"
 item = "classes-counter"
 fingerprint = "7185e9703fb5"
 
@@ -68,7 +63,7 @@ fingerprint = "712e39a9b22a"
 [[gap]]
 rule = "cases-missing"
 item = "classes-tent"
-fingerprint = "5e15ca36e315"
+fingerprint = "e9e058b905fd"
 
 [[gap]]
 rule = "cases-missing"
@@ -1593,7 +1588,7 @@ fingerprint = "6925113f5f8d"
 [[gap]]
 rule = "right-missing"
 item = "classes-canoe"
-fingerprint = "6984abea2bd4"
+fingerprint = "39d77c3319ce"
 
 [[gap]]
 rule = "right-missing"
@@ -1608,7 +1603,7 @@ fingerprint = "712e39a9b22a"
 [[gap]]
 rule = "right-missing"
 item = "classes-tent"
-fingerprint = "5e15ca36e315"
+fingerprint = "e9e058b905fd"
 
 [[gap]]
 rule = "right-missing"
@@ -2848,7 +2843,7 @@ fingerprint = "6925113f5f8d"
 [[gap]]
 rule = "wrong-too-few"
 item = "classes-canoe"
-fingerprint = "6984abea2bd4"
+fingerprint = "39d77c3319ce"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2863,7 +2858,7 @@ fingerprint = "712e39a9b22a"
 [[gap]]
 rule = "wrong-too-few"
 item = "classes-tent"
-fingerprint = "5e15ca36e315"
+fingerprint = "e9e058b905fd"
 
 [[gap]]
 rule = "wrong-too-few"
