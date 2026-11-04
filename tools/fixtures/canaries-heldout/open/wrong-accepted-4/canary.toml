@@ -1,0 +1,40 @@
+# The sub stage and hard mode draw only a larger first argument, so abs(a - b) passes every visible test and hidden case.
+base = "good"
+expect = ["wrong-accepted"]
+
+[[file]]
+path = "w1/a/boss/boss.md"
+text = '''
++++
+id = "calc"
+title = "Calculator"
+world = "w1"
+region = "a"
+hard_checks = 3
+[trophy]
+id = "calc-trophy"
+name = "Calc Trophy"
+[hard_trophy]
+id = "calc-gold"
+name = "Gold Calc"
+
+[cases]
+call = "sub"
+args = ["int 10..50", "int 0..9"]
++++
+
+Build a tiny calculator.
+'''
+
+[[file]]
+path = "w1/a/boss/stages/2-sub/stage.toml"
+text = '''
+id = "calc-sub"
+title = "Subtract"
+prompt = "Write `sub(a, b)`."
+hp = 10
+
+[cases]
+call = "sub"
+args = ["int 10..50", "int 0..9"]
+'''

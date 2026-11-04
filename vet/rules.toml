@@ -129,6 +129,14 @@ severity = "wiring"
 summary = "A lesson's region has no name in its world.toml."
 severity = "wiring"
 
+[rule.test-keyword-unnamed]
+summary = "A test calls the learner's code with a keyword argument the prompt never names, so a right answer with another parameter name is refused."
+severity = "right-refused"
+
+[rule.trophy-duplicate]
+summary = "Two bosses or lessons give the same trophy or loot id, so owning one counts as owning the other."
+severity = "wiring"
+
 [rule.world-key-invalid]
 summary = "A world's [key] is missing, present on the first world, or names a boss that is not in an earlier world."
 severity = "wiring"

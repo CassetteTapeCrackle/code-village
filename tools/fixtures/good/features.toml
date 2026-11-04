@@ -10,6 +10,12 @@ detect = ["node:FunctionDef"]
 summary = "return"
 detect = ["node:Return"]
 
+[feature.docstring]
+summary = "docstrings"
+detect = ["node:Docstring"]
+words = ["docstring"]
+say = "write a docstring"
+
 [feature.fn-sum]
 summary = "sum()"
 detect = ["call:sum"]

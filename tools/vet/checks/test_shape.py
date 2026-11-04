@@ -1,6 +1,7 @@
 """Rule test-inspects-code: tests compare what the code does, never how it is written (spec 11)."""
 
 import ast
+import re
 from collections.abc import Iterable, Iterator
 
 from ..adapter import LanguageAdapter
@@ -9,6 +10,14 @@ from ..model import Content, Item
 
 SOURCE_MODULES = {"inspect", "ast", "dis", "tokenize", "linecache"}
 CODE_ATTRIBUTES = {"__code__"}
+# what a test learns from a learner function without calling it: its name, docs, signature and wrapping
+FUNCTION_ATTRIBUTES = {"__name__", "__qualname__", "__doc__", "__defaults__", "__kwdefaults__", "__annotations__",
+                       "__module__", "__wrapped__", "__closure__", "__globals__"}
+
+
+def _is_learner_name(node: ast.expr) -> bool:
+    """learner["name"]: something the learner defined."""
+    return isinstance(node, ast.Subscript) and isinstance(node.value, ast.Name) and node.value.id == "learner"
 
 
 def _opens_source(node: ast.Call) -> bool:
@@ -45,12 +54,37 @@ def inspections(tests: str) -> Iterator[str]:
             yield f"imports from {node.module}"
         elif isinstance(node, ast.Attribute) and node.attr in CODE_ATTRIBUTES:
             yield f"reads {node.attr}"
+        elif isinstance(node, ast.Attribute) and node.attr in FUNCTION_ATTRIBUTES and _is_learner_name(node.value):
+            yield f"reads {node.attr} of the learner's code"
         elif isinstance(node, ast.Call) and (_opens_source(node) or _reads_source_path(node)):
             yield "opens a source file"
 
 
 def _tests_path(item: Item) -> str:
     return "tests.py" if item.kind in ("task", "variant") else ""
+
+
+def keyword_arguments(tests: str) -> set[str]:
+    """Names passed by keyword in calls on the learner's own functions and classes: learner["f"](n=2)."""
+    try:
+        tree = ast.parse(tests)
+    except SyntaxError:
+        return set()
+    return {kw.arg for node in ast.walk(tree) if isinstance(node, ast.Call) and _is_learner_name(node.func)
+            for kw in node.keywords if kw.arg}
+
+
+def check_keywords(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
+    """Rule test-keyword-unnamed: a parameter name counts as part of the task only when the prompt names it."""
+    del adapter  # reads the tests and prompts only
+    for item in content.items():
+        unnamed = sorted(n for n in keyword_arguments(item.tests) if not re.search(rf"\b{re.escape(n)}\b", item.prompt))
+        if unnamed:
+            about = subject(item.id, item.fingerprint, item.folder / _tests_path(item), content.root)
+            yield about.finding("test-keyword-unnamed", f"the tests for {item.seed} call the learner's code with "
+                                                        f"{', '.join(n + '=' for n in unnamed)}, but the prompt never "
+                                                        "names that parameter: a right answer with another name is "
+                                                        "refused. Name it in the prompt, or call by position")
 
 
 def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:

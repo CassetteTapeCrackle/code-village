@@ -150,6 +150,12 @@ detect = ["node:AsyncFunctionDef", "node:Await", "node:AsyncFor", "node:AsyncWit
 words = ["async", "await"]
 say = "use async and await"
 
+[feature.docstring]
+summary = "docstrings"
+detect = ["node:Docstring"]
+words = ["docstring"]
+say = "write a docstring"
+
 [feature.delete]
 summary = "del"
 detect = ["node:Delete"]

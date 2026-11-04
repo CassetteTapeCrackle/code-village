@@ -1,4 +1,4 @@
-"""Rule item-id-duplicate: progress is stored by id, so two things sharing one would share progress."""
+"""Rules item-id-duplicate and trophy-duplicate: progress is stored by id, so two things sharing one would share it."""
 
 from collections import Counter
 from collections.abc import Iterable
@@ -18,3 +18,14 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
     for dup in sorted(i for i, n in ids.items() if i and n > 1):
         message = f"{dup} is used twice"
         yield Subject("ids", fingerprint_text(message), "").finding("item-id-duplicate", message)
+    rewards = Counter([_reward(b.meta.get("trophy")) for b in content.bosses]
+                      + [_reward(b.meta.get("hard_trophy")) for b in content.bosses]
+                      + [_reward(lesson.meta.get("loot")) for lesson in content.lessons])
+    for dup in sorted(i for i, n in rewards.items() if i and n > 1):
+        message = f"the trophy or loot {dup} is given twice: a learner who owns one owns both"
+        yield Subject("ids", fingerprint_text(message), "").finding("trophy-duplicate", message)
+
+
+def _reward(value: object) -> str:
+    """The id of a trophy or loot table."""
+    return str(value.get("id") or "") if isinstance(value, dict) else ""

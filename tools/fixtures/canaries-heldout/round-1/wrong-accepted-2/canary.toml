@@ -1,0 +1,6 @@
+# The triple task keeps only one wrong/ answer, so the minimum of two is not met.
+base = "good"
+expect = ["wrong-accepted"]
+
+[[delete]]
+path = "w1/a/basics/tasks/triple/wrong/plus-three.py"

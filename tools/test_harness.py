@@ -468,6 +468,13 @@ class DetectFeatures(unittest.TestCase):
         self.assertEqual(self.detect("class S:\n    def pop(self):\n        pass\nS().pop()\n"),
                          {"unknown:node:ClassDef", "unknown:node:FunctionDef"})
 
+    def test_a_docstring_is_detected_on_defs_classes_and_modules(self) -> None:
+        for code in ('"""Module."""\n', 'def f():\n    """Doc."""\n', 'class A:\n    """Doc."""\n'):
+            with self.subTest(code=code):
+                self.assertIn("unknown:node:Docstring", self.detect(code))
+        self.assertNotIn("unknown:node:Docstring", self.detect("def f():\n    # not a docstring\n    return 'x'\n"))
+        self.assertNotIn("unknown:node:Docstring", self.detect("def f():\n    x = 1\n    'not first'\n"))
+
     def test_unknown_feature_reported(self) -> None:
         found = self.detect("print(1)\nx = [i for i in 'ab']\n'ab'.title()\nimport os\n")
         self.assertEqual(found, {"unknown:call:print", "list-comprehension", "unknown:method:title",

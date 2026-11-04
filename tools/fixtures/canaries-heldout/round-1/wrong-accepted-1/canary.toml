@@ -1,0 +1,10 @@
+# The double starter already passes every test and every hidden case.
+base = "good"
+expect = ["wrong-accepted"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/starter.py"
+text = '''
+def double(n):
+    return n * 2 if n else 0
+'''
