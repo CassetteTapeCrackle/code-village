@@ -67,11 +67,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "inheritance-bat"
-fingerprint = "8fcb67bbc23a"
-
-[[gap]]
-rule = "cases-missing"
 item = "inheritance-canoe-boat"
 fingerprint = "bc9bd5b079f8"
 
@@ -93,7 +88,7 @@ fingerprint = "1b72b126d469"
 [[gap]]
 rule = "cases-missing"
 item = "inheritance-squirrel"
-fingerprint = "a1278a96a77e"
+fingerprint = "a74ec8b39132"
 
 [[gap]]
 rule = "cases-missing"
@@ -988,7 +983,7 @@ fingerprint = "97bacf4256e1"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "inheritance-bat"
-fingerprint = "8fcb67bbc23a"
+fingerprint = "8c3c7fe025d9"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1658,7 +1653,7 @@ fingerprint = "e032ab4f0116"
 [[gap]]
 rule = "right-missing"
 item = "inheritance-bat"
-fingerprint = "8fcb67bbc23a"
+fingerprint = "8c3c7fe025d9"
 
 [[gap]]
 rule = "right-missing"
@@ -1683,7 +1678,7 @@ fingerprint = "1b72b126d469"
 [[gap]]
 rule = "right-missing"
 item = "inheritance-squirrel"
-fingerprint = "a1278a96a77e"
+fingerprint = "a74ec8b39132"
 
 [[gap]]
 rule = "right-missing"
@@ -2913,7 +2908,7 @@ fingerprint = "e032ab4f0116"
 [[gap]]
 rule = "wrong-too-few"
 item = "inheritance-bat"
-fingerprint = "8fcb67bbc23a"
+fingerprint = "8c3c7fe025d9"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2938,7 +2933,7 @@ fingerprint = "1b72b126d469"
 [[gap]]
 rule = "wrong-too-few"
 item = "inheritance-squirrel"
-fingerprint = "a1278a96a77e"
+fingerprint = "a74ec8b39132"
 
 [[gap]]
 rule = "wrong-too-few"
