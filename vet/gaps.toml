@@ -1077,11 +1077,6 @@ fingerprint = "ddab2b4e0f3d"
 
 [[gap]]
 rule = "right-missing"
-item = "train-test-mistakes"
-fingerprint = "9fa376e70692"
-
-[[gap]]
-rule = "right-missing"
 item = "train-test-peek"
 fingerprint = "ddfb467d9401"
 
@@ -1449,11 +1444,6 @@ fingerprint = "8b38a2d6e0f6"
 rule = "wrong-too-few"
 item = "train-test-honest"
 fingerprint = "ddab2b4e0f3d"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "train-test-mistakes"
-fingerprint = "9fa376e70692"
 
 [[gap]]
 rule = "wrong-too-few"
