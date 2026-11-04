@@ -88,7 +88,7 @@ fingerprint = "40a435d0e3c4"
 [[gap]]
 rule = "cases-missing"
 item = "sortable-acorns"
-fingerprint = "9d203c8a81a4"
+fingerprint = "11a76e053b3e"
 
 [[gap]]
 rule = "cases-missing"
@@ -1342,11 +1342,6 @@ fingerprint = "40a435d0e3c4"
 
 [[gap]]
 rule = "right-missing"
-item = "sortable-acorns"
-fingerprint = "9d203c8a81a4"
-
-[[gap]]
-rule = "right-missing"
 item = "sortable-by-height"
 fingerprint = "b010621c0ec3"
 
@@ -2059,11 +2054,6 @@ fingerprint = "35ced29c1b29"
 rule = "wrong-too-few"
 item = "songbird-playlist"
 fingerprint = "40a435d0e3c4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sortable-acorns"
-fingerprint = "9d203c8a81a4"
 
 [[gap]]
 rule = "wrong-too-few"
