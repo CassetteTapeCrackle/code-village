@@ -658,7 +658,7 @@ fingerprint = "5fac4e98ccc7"
 [[gap]]
 rule = "cases-missing"
 item = "numpy-arrays-fahrenheit"
-fingerprint = "8f51d02033bd"
+fingerprint = "37e4fd9947bd"
 
 [[gap]]
 rule = "cases-missing"
@@ -2313,7 +2313,7 @@ fingerprint = "5fac4e98ccc7"
 [[gap]]
 rule = "right-missing"
 item = "numpy-arrays-fahrenheit"
-fingerprint = "8f51d02033bd"
+fingerprint = "37e4fd9947bd"
 
 [[gap]]
 rule = "right-missing"
@@ -2879,11 +2879,6 @@ fingerprint = "f5c7d8bba9e5"
 rule = "weak-tests"
 item = "nearest-neighbour-similar"
 fingerprint = "c985bfb87f3e"
-
-[[gap]]
-rule = "weak-tests"
-item = "numpy-arrays-fahrenheit"
-fingerprint = "8f51d02033bd"
 
 [[gap]]
 rule = "weak-tests"
@@ -3643,7 +3638,7 @@ fingerprint = "5fac4e98ccc7"
 [[gap]]
 rule = "wrong-too-few"
 item = "numpy-arrays-fahrenheit"
-fingerprint = "8f51d02033bd"
+fingerprint = "37e4fd9947bd"
 
 [[gap]]
 rule = "wrong-too-few"
