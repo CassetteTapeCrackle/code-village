@@ -967,11 +967,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "right-missing"
-item = "pandas-tables-cheapest-item"
-fingerprint = "789d547828c3"
-
-[[gap]]
-rule = "right-missing"
 item = "pandas-tables-lightest"
 fingerprint = "22a6dc25890e"
 
@@ -993,7 +988,7 @@ fingerprint = "50eaa30dbf3b"
 [[gap]]
 rule = "right-missing"
 item = "pandas-tables-total"
-fingerprint = "e27a8e94b019"
+fingerprint = "876fad007197"
 
 [[gap]]
 rule = "right-missing"
@@ -1312,11 +1307,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "pandas-tables-cheapest-item"
-fingerprint = "789d547828c3"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "pandas-tables-lightest"
 fingerprint = "22a6dc25890e"
 
@@ -1338,7 +1328,7 @@ fingerprint = "50eaa30dbf3b"
 [[gap]]
 rule = "wrong-too-few"
 item = "pandas-tables-total"
-fingerprint = "e27a8e94b019"
+fingerprint = "876fad007197"
 
 [[gap]]
 rule = "wrong-too-few"
