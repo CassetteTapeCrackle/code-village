@@ -1,285 +1,285 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "d010ea9dd6b8",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "raise throws an exception whose message appears in the traceback.",
-   "assert": "try:\n    raise ValueError(\"boom\")\nexcept ValueError as e:\n    assert str(e) == \"boom\""
-  },
-  {
-   "fp": "f0ed9bcad5a3",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise asks.",
-   "assert": null
-  },
-  {
-   "fp": "d8d4503b334d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "afc34065d777",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "37e961f0969b",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise asks.",
-   "assert": null
-  },
-  {
-   "fp": "27cb2772d0e1",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "Advice on reading tracebacks. The last line holds the error name and message, and the line above it shows the code line.",
-   "assert": null
-  },
-  {
-   "fp": "5cef9452012a",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "except SomeError only catches that type, while a bare except catches every exception, including bugs like NameError.",
-   "assert": "def f(exc):\n    try:\n        undefined_name\n    except exc:\n        return 'caught'\nassert f(Exception) == 'caught'\ntry:\n    f(ValueError)\n    assert False\nexcept NameError:\n    pass\ntry:\n    undefined_name\nexcept:\n    caught = True\nassert caught"
-  },
-  {
-   "fp": "14b37d801a5d",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "raise ValueError(\"message\") raises an exception you choose.",
-   "assert": "try:\n    raise ValueError(\"message\")\nexcept ValueError as e:\n    assert e.args == (\"message\",)"
-  },
-  {
-   "fp": "7e98bf6f6c00",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "def creates a named function that is called with arguments.",
-   "assert": "def f(a):\n    return a\nassert callable(f) and f.__name__ == 'f' and f(1) == 1"
-  },
-  {
-   "fp": "66b22e10d786",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "return gives the value back to the caller.",
-   "assert": "def f():\n    return 5\nx = f()\nassert x == 5"
-  },
-  {
-   "fp": "cfdcf290b31a",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "print only displays a value, and a function with no return gives back None.",
-   "assert": "def f():\n    print('hi')\nassert f() is None"
-  },
-  {
-   "fp": "3eeac6338d93",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A parameter default is used when the argument is omitted.",
-   "assert": "def f(a, b=3):\n    return a + b\nassert f(1) == 4\nassert f(1, 2) == 3"
-  },
-  {
-   "fp": "1db4c7cb080a",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Names assigned inside a function are local and not visible after it returns (closures aside, a beginner-level simplification).",
-   "assert": "def f():\n    inner = 1\n    return inner\nf()\ntry:\n    inner\n    assert False\nexcept NameError:\n    pass"
-  },
-  {
-   "fp": "81cd81b1030e",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "1e7cffb60bf2",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "f388c8a0bb40",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "3c8c89d86828",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Exercise instruction. The note that ** raises to a power is correct.",
-   "assert": null
-  },
-  {
-   "fp": "e72fb8f75550",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "sorted with key applies the function to each item and sorts by the results.",
-   "assert": "assert sorted(['ccc', 'a', 'bb'], key=len) == ['a', 'bb', 'ccc']"
-  },
-  {
-   "fp": "edbba9ec7825",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Python's sort is stable, so items with equal keys keep their original order.",
-   "assert": "assert sorted(['bb', 'aa', 'c', 'dd'], key=len) == ['c', 'bb', 'aa', 'dd']"
-  },
-  {
-   "fp": "df208d9f39b6",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise asks.",
-   "assert": null
-  },
-  {
-   "fp": "91e8fbb4f316",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "States an exercise requirement.",
-   "assert": null
-  },
-  {
-   "fp": "019b35c1197b",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "sorted accepts a key argument.",
-   "assert": "assert sorted([3, 1, 2], key=lambda x: -x) == [3, 2, 1]"
-  },
-  {
-   "fp": "05ba52c96ac3",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Sorting by len puts the shorter string first.",
-   "assert": "assert sorted(['bb', 'a'], key=len) == ['a', 'bb']"
-  },
-  {
-   "fp": "a43258213aa6",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Instruction.",
-   "assert": null
-  },
-  {
-   "fp": "7a74b0985419",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise asks.",
-   "assert": null
-  },
-  {
-   "fp": "a1b4ce02c0d2",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Statement about the exercise setup.",
-   "assert": null
-  },
-  {
-   "fp": "c07bd6982747",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Default expressions are evaluated once, when the def statement runs.",
-   "assert": "count = 0\ndef make():\n    global count\n    count += 1\n    return count\ndef f(x=make()):\n    return x\nf(); f()\nassert count == 1"
-  },
-  {
-   "fp": "1ca86c55da70",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A mutable list default is the same object on every call that omits it.",
-   "assert": "def f(x=[]):\n    x.append(1)\n    return x\na = f()\nb = f()\nassert a is b and b == [1, 1]"
-  },
-  {
-   "fp": "2a2d1a2fd2fa",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "1ec20b14b58f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "States the exercise requirement.",
-   "assert": null
-  },
-  {
-   "fp": "ae47768a1743",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the bug in the exercise starter code.",
-   "assert": null
-  },
-  {
-   "fp": "75daac9c30b8",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Instruction.",
-   "assert": null
-  },
-  {
-   "fp": "357613dd82a4",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Instruction.",
-   "assert": null
-  },
-  {
-   "fp": "2ceba203f44a",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "Recommends the standard None-default pattern to avoid a shared mutable default.",
-   "assert": null
-  },
-  {
-   "fp": "6deb29fc0cdd",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "3bfa43dd072c",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "States the exercise requirement.",
-   "assert": null
-  },
-  {
-   "fp": "8511cc020620",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Instruction.",
-   "assert": null
-  },
-  {
-   "fp": "bd15ed64e9cd",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Instruction.",
-   "assert": null
-  },
-  {
-   "fp": "f6016cd33b73",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "return gives the value to the caller. A function that only prints gives the caller None.",
-   "assert": "def a():\n    return 1\ndef b():\n    print('x')\nassert a() == 1\nassert b() is None"
-  },
-  {
-   "fp": "eedba768e748",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A parameter default is used when the argument is left out.",
-   "assert": "def greet(name, greeting=\"Hello\"):\n    return f\"{greeting}, {name}\"\nassert greet(\"Noa\") == \"Hello, Noa\"\nassert greet(\"Noa\", \"Hi\") == \"Hi, Noa\""
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "d010ea9dd6b8",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "raise throws an exception whose message appears in the traceback.",
+      "assert": "try:\n    raise ValueError(\"boom\")\nexcept ValueError as e:\n    assert str(e) == \"boom\""
+    },
+    {
+      "fp": "f0ed9bcad5a3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise asks.",
+      "assert": null
+    },
+    {
+      "fp": "d8d4503b334d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "afc34065d777",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "37e961f0969b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise asks.",
+      "assert": null
+    },
+    {
+      "fp": "27cb2772d0e1",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Advice on reading tracebacks. The last line holds the error name and message, and the line above it shows the code line.",
+      "assert": null
+    },
+    {
+      "fp": "5cef9452012a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "except SomeError only catches that type, while a bare except catches every exception, including bugs like NameError.",
+      "assert": "def f(exc):\n    try:\n        undefined_name\n    except exc:\n        return 'caught'\nassert f(Exception) == 'caught'\ntry:\n    f(ValueError)\n    assert False\nexcept NameError:\n    pass\ntry:\n    undefined_name\nexcept:\n    caught = True\nassert caught"
+    },
+    {
+      "fp": "14b37d801a5d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "raise ValueError(\"message\") raises an exception you choose.",
+      "assert": "try:\n    raise ValueError(\"message\")\nexcept ValueError as e:\n    assert e.args == (\"message\",)"
+    },
+    {
+      "fp": "7e98bf6f6c00",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "def creates a named function that is called with arguments.",
+      "assert": "def f(a):\n    return a\nassert callable(f) and f.__name__ == 'f' and f(1) == 1"
+    },
+    {
+      "fp": "66b22e10d786",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "return gives the value back to the caller.",
+      "assert": "def f():\n    return 5\nx = f()\nassert x == 5"
+    },
+    {
+      "fp": "cfdcf290b31a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "print only displays a value, and a function with no return gives back None.",
+      "assert": "def f():\n    print('hi')\nassert f() is None"
+    },
+    {
+      "fp": "3eeac6338d93",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A parameter default is used when the argument is omitted.",
+      "assert": "def f(a, b=3):\n    return a + b\nassert f(1) == 4\nassert f(1, 2) == 3"
+    },
+    {
+      "fp": "1db4c7cb080a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Names assigned inside a function are local and not visible after it returns (closures aside, a beginner-level simplification).",
+      "assert": "def f():\n    inner = 1\n    return inner\nf()\ntry:\n    inner\n    assert False\nexcept NameError:\n    pass"
+    },
+    {
+      "fp": "81cd81b1030e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "1e7cffb60bf2",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "f388c8a0bb40",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "3c8c89d86828",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Exercise instruction. The note that ** raises to a power is correct.",
+      "assert": null
+    },
+    {
+      "fp": "e72fb8f75550",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "sorted with key applies the function to each item and sorts by the results.",
+      "assert": "assert sorted(['ccc', 'a', 'bb'], key=len) == ['a', 'bb', 'ccc']"
+    },
+    {
+      "fp": "edbba9ec7825",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Python's sort is stable, so items with equal keys keep their original order.",
+      "assert": "assert sorted(['bb', 'aa', 'c', 'dd'], key=len) == ['c', 'bb', 'aa', 'dd']"
+    },
+    {
+      "fp": "df208d9f39b6",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise asks.",
+      "assert": null
+    },
+    {
+      "fp": "91e8fbb4f316",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "States an exercise requirement.",
+      "assert": null
+    },
+    {
+      "fp": "019b35c1197b",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "sorted accepts a key argument.",
+      "assert": "assert sorted([3, 1, 2], key=lambda x: -x) == [3, 2, 1]"
+    },
+    {
+      "fp": "05ba52c96ac3",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Sorting by len puts the shorter string first.",
+      "assert": "assert sorted(['bb', 'a'], key=len) == ['a', 'bb']"
+    },
+    {
+      "fp": "a43258213aa6",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Instruction.",
+      "assert": null
+    },
+    {
+      "fp": "7a74b0985419",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise asks.",
+      "assert": null
+    },
+    {
+      "fp": "a1b4ce02c0d2",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Statement about the exercise setup.",
+      "assert": null
+    },
+    {
+      "fp": "c07bd6982747",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Default expressions are evaluated once, when the def statement runs.",
+      "assert": "count = 0\ndef make():\n    global count\n    count += 1\n    return count\ndef f(x=make()):\n    return x\nf(); f()\nassert count == 1"
+    },
+    {
+      "fp": "1ca86c55da70",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A mutable list default is the same object on every call that omits it.",
+      "assert": "def f(x=[]):\n    x.append(1)\n    return x\na = f()\nb = f()\nassert a is b and b == [1, 1]"
+    },
+    {
+      "fp": "2a2d1a2fd2fa",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "1ec20b14b58f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "States the exercise requirement.",
+      "assert": null
+    },
+    {
+      "fp": "ae47768a1743",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the bug in the exercise starter code.",
+      "assert": null
+    },
+    {
+      "fp": "75daac9c30b8",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Instruction.",
+      "assert": null
+    },
+    {
+      "fp": "357613dd82a4",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Instruction.",
+      "assert": null
+    },
+    {
+      "fp": "2ceba203f44a",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Recommends the standard None-default pattern to avoid a shared mutable default.",
+      "assert": null
+    },
+    {
+      "fp": "6deb29fc0cdd",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "3bfa43dd072c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "States the exercise requirement.",
+      "assert": null
+    },
+    {
+      "fp": "8511cc020620",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Instruction.",
+      "assert": null
+    },
+    {
+      "fp": "bd15ed64e9cd",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Instruction.",
+      "assert": null
+    },
+    {
+      "fp": "f6016cd33b73",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "return gives the value to the caller. A function that only prints gives the caller None.",
+      "assert": "def a():\n    return 1\ndef b():\n    print('x')\nassert a() == 1\nassert b() is None"
+    },
+    {
+      "fp": "eedba768e748",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A parameter default is used when the argument is left out.",
+      "assert": "def greet(name, greeting=\"Hello\"):\n    return f\"{greeting}, {name}\"\nassert greet(\"Noa\") == \"Hello, Noa\"\nassert greet(\"Noa\", \"Hi\") == \"Hi, Noa\""
+    }
+  ]
 }

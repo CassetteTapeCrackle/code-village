@@ -1,285 +1,285 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "9e46cd5c3555",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "219a584b8a7a",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Binary search is much faster on sorted data. It leaves out that it needs random access, which lists have.",
-   "assert": null
-  },
-  {
-   "fp": "511c69f337f2",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Describes the binary search idea for ascending order. It leaves out the cases where the middle item is too big or equal.",
-   "assert": null
-  },
-  {
-   "fp": "7b51fc32b220",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Names the technique just described.",
-   "assert": null
-  },
-  {
-   "fp": "77af3bdbf8e5",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "log2 of a million is about 19.9, so about 20 halvings.",
-   "assert": "import math\nassert math.ceil(math.log2(1_000_000)) == 20"
-  },
-  {
-   "fp": "436fccfba9f6",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "bisect implements binary search on sorted lists.",
-   "assert": "import bisect\nassert bisect.bisect_left([1, 3, 5, 7], 5) == 2"
-  },
-  {
-   "fp": "7b925fdc2e0f",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "bisect_left returns the leftmost index where x is, or the insertion point that keeps order.",
-   "assert": "from bisect import bisect_left\nassert bisect_left([10, 20, 30], 20) == 1\nassert bisect_left([10, 20, 30], 25) == 2\nassert bisect_left([10, 20, 30], 5) == 0\nassert bisect_left([10, 20, 30], 99) == 3"
-  },
-  {
-   "fp": "66a9041c2cfd",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "insort inserts and keeps the list sorted. With duplicates it inserts after equal items (insort_right), not at the bisect_left spot.",
-   "assert": null
-  },
-  {
-   "fp": "17f440cc6a81",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the exercise setup.",
-   "assert": null
-  },
-  {
-   "fp": "ebdb2bb7e72a",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "e77f6b54f452",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "On a sorted list, bisect_left returns the count of values strictly less than the target.",
-   "assert": "from bisect import bisect_left\nt = [1.2, 2.5, 2.5, 3.0]\nassert bisect_left(t, 2.5) == sum(1 for v in t if v < 2.5) == 1\nassert bisect_left(t, 2.8) == 3"
-  },
-  {
-   "fp": "9406baeacb06",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "bisect_left returns 1 for 20 in [10, 20, 30].",
-   "assert": "import bisect\nassert bisect.bisect_left([10, 20, 30], 20) == 1"
-  },
-  {
-   "fp": "ca75c8ef7679",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "94183613937d",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Describes the discard step for ascending order. It leaves out the other branches.",
-   "assert": null
-  },
-  {
-   "fp": "f07fdf33bf8e",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "On an unsorted list the search can discard the half holding the value.",
-   "assert": "from bisect import bisect_left\nitems = [9, 1, 2, 3]\ni = bisect_left(items, 9)\nassert i == 4\nassert items[0] == 9"
-  },
-  {
-   "fp": "53791f00f24e",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Refers to an example not shown here. It is plausible given how bisect works on unsorted data.",
-   "assert": null
-  },
-  {
-   "fp": "4da2ab1d8183",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "Advice to sort before a binary search.",
-   "assert": null
-  },
-  {
-   "fp": "09a999c21579",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Sorting is O(n log n) and one linear search is O(n), so sorting pays off with many searches. It leaves out the case where the data is already sorted.",
-   "assert": null
-  },
-  {
-   "fp": "341bd47ad449",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "a0088b2d24d0",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the buggy behavior and asks for a fix.",
-   "assert": null
-  },
-  {
-   "fp": "a9fe7b27537b",
-   "status": "doc:https://docs.python.org/3/library/bisect.html#bisect.bisect_left",
-   "verdict": "true",
-   "reason": "The bisect module uses a bisection algorithm and bisect_left locates the insertion point in a sorted list.",
-   "assert": null
-  },
-  {
-   "fp": "4ad0e30d3f15",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A hint question.",
-   "assert": null
-  },
-  {
-   "fp": "f7a475c9eae2",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "sorted returns a new list and list.sort sorts in place.",
-   "assert": "names = ['Sam', 'Ines', 'Noa']\ns = sorted(names)\nassert s == ['Ines', 'Noa', 'Sam']\nassert names == ['Sam', 'Ines', 'Noa']\nassert names.sort() is None\nassert names == ['Ines', 'Noa', 'Sam']"
-  },
-  {
-   "fp": "b48b811bc0d2",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "d83badfd74a8",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the bug and asks for a fix.",
-   "assert": null
-  },
-  {
-   "fp": "1270dc54bfae",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Binary search needs sorted data to be correct. It leaves out that sorting must match the comparison used.",
-   "assert": null
-  },
-  {
-   "fp": "d90e7184fa9a",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "A linear search may stop early on a match, so 'every item' is the worst case.",
-   "assert": null
-  },
-  {
-   "fp": "61063d13db8e",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A million items need about log2(1e6), roughly 20, halvings.",
-   "assert": "import math\nassert math.ceil(math.log2(1_000_000)) == 20"
-  },
-  {
-   "fp": "78d5dde470d2",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "bisect_left returns the index of x or its insertion point, and insort inserts keeping order.",
-   "assert": "import bisect\nl = [10, 20, 30]\nassert bisect.bisect_left(l, 20) == 1\nassert bisect.bisect_left(l, 25) == 2\nbisect.insort(l, 25)\nassert l == [10, 20, 25, 30]"
-  },
-  {
-   "fp": "47a1f9ee3b53",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "On unsorted data a binary search may discard the half with the value. It does not always fail.",
-   "assert": null
-  },
-  {
-   "fp": "589fdb77ac8b",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Center and spread are the usual summaries. Other summaries exist.",
-   "assert": null
-  },
-  {
-   "fp": "cdb3fab6a6d7",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A transition phrase.",
-   "assert": null
-  },
-  {
-   "fp": "c80470d411af",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "The mean is the sum divided by the count.",
-   "assert": "import statistics\nv = [1, 2, 3, 4]\nassert statistics.mean(v) == sum(v) / len(v) == 2.5"
-  },
-  {
-   "fp": "aef1584757b5",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Correct for an odd count. The next paragraph covers the even count.",
-   "assert": null
-  },
-  {
-   "fp": "e0c134df751c",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "With an even count the median is the mean of the two middle values.",
-   "assert": "import statistics\nassert statistics.median([1, 2, 3, 4]) == 2.5"
-  },
-  {
-   "fp": "771538575b9b",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "cf087bb49c2a",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "ba8f842c7006",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A hint.",
-   "assert": null
-  },
-  {
-   "fp": "e215a5d57425",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A hint question.",
-   "assert": null
-  },
-  {
-   "fp": "155099203b04",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "With mid = len(s) // 2 and an even count, the middle pair is s[mid-1] and s[mid].",
-   "assert": "s = [1, 2, 3, 4]\nmid = len(s) // 2\nassert (s[mid - 1], s[mid]) == (2, 3)\nassert (s[mid - 1] + s[mid]) / 2 == 2.5"
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "9e46cd5c3555",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "219a584b8a7a",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Binary search is much faster on sorted data. It leaves out that it needs random access, which lists have.",
+      "assert": null
+    },
+    {
+      "fp": "511c69f337f2",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Describes the binary search idea for ascending order. It leaves out the cases where the middle item is too big or equal.",
+      "assert": null
+    },
+    {
+      "fp": "7b51fc32b220",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Names the technique just described.",
+      "assert": null
+    },
+    {
+      "fp": "77af3bdbf8e5",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "log2 of a million is about 19.9, so about 20 halvings.",
+      "assert": "import math\nassert math.ceil(math.log2(1_000_000)) == 20"
+    },
+    {
+      "fp": "436fccfba9f6",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "bisect implements binary search on sorted lists.",
+      "assert": "import bisect\nassert bisect.bisect_left([1, 3, 5, 7], 5) == 2"
+    },
+    {
+      "fp": "7b925fdc2e0f",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "bisect_left returns the leftmost index where x is, or the insertion point that keeps order.",
+      "assert": "from bisect import bisect_left\nassert bisect_left([10, 20, 30], 20) == 1\nassert bisect_left([10, 20, 30], 25) == 2\nassert bisect_left([10, 20, 30], 5) == 0\nassert bisect_left([10, 20, 30], 99) == 3"
+    },
+    {
+      "fp": "66a9041c2cfd",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "insort inserts and keeps the list sorted. With duplicates it inserts after equal items (insort_right), not at the bisect_left spot.",
+      "assert": null
+    },
+    {
+      "fp": "17f440cc6a81",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise setup.",
+      "assert": null
+    },
+    {
+      "fp": "ebdb2bb7e72a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "e77f6b54f452",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "On a sorted list, bisect_left returns the count of values strictly less than the target.",
+      "assert": "from bisect import bisect_left\nt = [1.2, 2.5, 2.5, 3.0]\nassert bisect_left(t, 2.5) == sum(1 for v in t if v < 2.5) == 1\nassert bisect_left(t, 2.8) == 3"
+    },
+    {
+      "fp": "9406baeacb06",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "bisect_left returns 1 for 20 in [10, 20, 30].",
+      "assert": "import bisect\nassert bisect.bisect_left([10, 20, 30], 20) == 1"
+    },
+    {
+      "fp": "ca75c8ef7679",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "94183613937d",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Describes the discard step for ascending order. It leaves out the other branches.",
+      "assert": null
+    },
+    {
+      "fp": "f07fdf33bf8e",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "On an unsorted list the search can discard the half holding the value.",
+      "assert": "from bisect import bisect_left\nitems = [9, 1, 2, 3]\ni = bisect_left(items, 9)\nassert i == 4\nassert items[0] == 9"
+    },
+    {
+      "fp": "53791f00f24e",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Refers to an example not shown here. It is plausible given how bisect works on unsorted data.",
+      "assert": null
+    },
+    {
+      "fp": "4da2ab1d8183",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Advice to sort before a binary search.",
+      "assert": null
+    },
+    {
+      "fp": "09a999c21579",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Sorting is O(n log n) and one linear search is O(n), so sorting pays off with many searches. It leaves out the case where the data is already sorted.",
+      "assert": null
+    },
+    {
+      "fp": "341bd47ad449",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "a0088b2d24d0",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the buggy behavior and asks for a fix.",
+      "assert": null
+    },
+    {
+      "fp": "a9fe7b27537b",
+      "status": "doc:https://docs.python.org/3/library/bisect.html#bisect.bisect_left",
+      "verdict": "true",
+      "reason": "The bisect module uses a bisection algorithm and bisect_left locates the insertion point in a sorted list.",
+      "assert": null
+    },
+    {
+      "fp": "4ad0e30d3f15",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint question.",
+      "assert": null
+    },
+    {
+      "fp": "f7a475c9eae2",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "sorted returns a new list and list.sort sorts in place.",
+      "assert": "names = ['Sam', 'Ines', 'Noa']\ns = sorted(names)\nassert s == ['Ines', 'Noa', 'Sam']\nassert names == ['Sam', 'Ines', 'Noa']\nassert names.sort() is None\nassert names == ['Ines', 'Noa', 'Sam']"
+    },
+    {
+      "fp": "b48b811bc0d2",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "d83badfd74a8",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the bug and asks for a fix.",
+      "assert": null
+    },
+    {
+      "fp": "1270dc54bfae",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Binary search needs sorted data to be correct. It leaves out that sorting must match the comparison used.",
+      "assert": null
+    },
+    {
+      "fp": "d90e7184fa9a",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "A linear search may stop early on a match, so 'every item' is the worst case.",
+      "assert": null
+    },
+    {
+      "fp": "61063d13db8e",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A million items need about log2(1e6), roughly 20, halvings.",
+      "assert": "import math\nassert math.ceil(math.log2(1_000_000)) == 20"
+    },
+    {
+      "fp": "78d5dde470d2",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "bisect_left returns the index of x or its insertion point, and insort inserts keeping order.",
+      "assert": "import bisect\nl = [10, 20, 30]\nassert bisect.bisect_left(l, 20) == 1\nassert bisect.bisect_left(l, 25) == 2\nbisect.insort(l, 25)\nassert l == [10, 20, 25, 30]"
+    },
+    {
+      "fp": "47a1f9ee3b53",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "On unsorted data a binary search may discard the half with the value. It does not always fail.",
+      "assert": null
+    },
+    {
+      "fp": "589fdb77ac8b",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Center and spread are the usual summaries. Other summaries exist.",
+      "assert": null
+    },
+    {
+      "fp": "cdb3fab6a6d7",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A transition phrase.",
+      "assert": null
+    },
+    {
+      "fp": "c80470d411af",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The mean is the sum divided by the count.",
+      "assert": "import statistics\nv = [1, 2, 3, 4]\nassert statistics.mean(v) == sum(v) / len(v) == 2.5"
+    },
+    {
+      "fp": "aef1584757b5",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Correct for an odd count. The next paragraph covers the even count.",
+      "assert": null
+    },
+    {
+      "fp": "e0c134df751c",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "With an even count the median is the mean of the two middle values.",
+      "assert": "import statistics\nassert statistics.median([1, 2, 3, 4]) == 2.5"
+    },
+    {
+      "fp": "771538575b9b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "cf087bb49c2a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "ba8f842c7006",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint.",
+      "assert": null
+    },
+    {
+      "fp": "e215a5d57425",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint question.",
+      "assert": null
+    },
+    {
+      "fp": "155099203b04",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "With mid = len(s) // 2 and an even count, the middle pair is s[mid-1] and s[mid].",
+      "assert": "s = [1, 2, 3, 4]\nmid = len(s) // 2\nassert (s[mid - 1], s[mid]) == (2, 3)\nassert (s[mid - 1] + s[mid]) / 2 == 2.5"
+    }
+  ]
 }

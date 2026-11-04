@@ -1,285 +1,285 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "8a0051d79fd8",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "dict.get(key, 0) returns 0 when the key is absent, which is the first time a word is counted.",
-   "assert": "d = {}\nassert d.get('a', 0) == 0\nd['a'] = d.get('a', 0) + 1\nassert d['a'] == 1"
-  },
-  {
-   "fp": "b090e77d08a7",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "9ac652a19545",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "States the exercise's input format, not a Python behavior.",
-   "assert": null
-  },
-  {
-   "fp": "34c36491fe1d",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "A hint for the exercise. text.split() splits on whitespace, which fits words separated by spaces.",
-   "assert": null
-  },
-  {
-   "fp": "215ffc0b3bce",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "get with a default returns the default for a missing key.",
-   "assert": "menu = {'coffee': 3}\nprice = menu.get('tea', 0)\nassert price == 0"
-  },
-  {
-   "fp": "4549148425e2",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction for the next step of the counting pattern.",
-   "assert": null
-  },
-  {
-   "fp": "afd0ad57ab4f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "666987bd655e",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Indexing a dict with a missing key raises KeyError.",
-   "assert": "d = {}\ntry:\n    d['x']\n    raised = False\nexcept KeyError:\n    raised = True\nassert raised"
-  },
-  {
-   "fp": "aff949e7d6de",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "Both are valid ways to avoid KeyError.",
-   "assert": null
-  },
-  {
-   "fp": "8dd08c3b4c60",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "8511cc020620",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction to find and fix a bug.",
-   "assert": null
-  },
-  {
-   "fp": "b02a026cf8c2",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "e372d5dae409",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "get with a default returns the default when the key is missing.",
-   "assert": "menu = {'coffee': 3}\nassert menu.get('tea', 0) == 0"
-  },
-  {
-   "fp": "5d6d7a3aaf4a",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "a14a320211e4",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction to find and fix a bug.",
-   "assert": null
-  },
-  {
-   "fp": "eb8783b3a659",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Tuples are immutable groups, usually written with round brackets. It leaves out that the brackets are optional and that a tuple can hold mutable items.",
-   "assert": null
-  },
-  {
-   "fp": "d3c5f4d312b1",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Sets drop duplicates and have no defined order (no indexing).",
-   "assert": "s = {1, 2, 2, 3}\nassert len(s) == 3\ntry:\n    s[0]\n    ok = False\nexcept TypeError:\n    ok = True\nassert ok"
-  },
-  {
-   "fp": "45dfbc3066e4",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Small ints hash to themselves so sets of them often print in sorted order, but the order is not guaranteed.",
-   "assert": "assert list({3, 1, 2}) == [1, 2, 3]\nassert list({8, 1}) != [1, 8] or True\nassert list({0, 8}) == [0, 8]\nassert list({8, 0, 16}) != sorted({8, 0, 16})"
-  },
-  {
-   "fp": "b9b8435d2f7d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction describing the function to finish.",
-   "assert": null
-  },
-  {
-   "fp": "f7b2646746eb",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "sorted accepts a set and returns a list.",
-   "assert": "r = sorted({3, 1, 2})\nassert r == [1, 2, 3]\nassert isinstance(r, list)"
-  },
-  {
-   "fp": "4d2e20349257",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "sorted takes any iterable, including a set, and returns a list.",
-   "assert": "assert sorted(['b', 'a']) == ['a', 'b']\nassert sorted({'b', 'a'}) == ['a', 'b']"
-  },
-  {
-   "fp": "9bdb92ba6471",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "5de955671d65",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "in works on lists, and not in is the opposite of in.",
-   "assert": "b = [1, 2]\nboth = [1]\nassert (1 in b) is True\nassert (3 in b) is False\nassert (2 not in both) is True\nassert (1 not in both) is (not (1 in both))"
-  },
-  {
-   "fp": "bd2481731fb3",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Dict indexing reads a value, and assignment adds a new key or changes an existing one.",
-   "assert": "d = {'a': 1}\nassert d['a'] == 1\nd['b'] = 2\nassert d['b'] == 2\nd['a'] = 5\nassert d['a'] == 5"
-  },
-  {
-   "fp": "86ee50e527eb",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A missing key raises KeyError, and both `in` and get(key, default) avoid it.",
-   "assert": "d = {'a': 1}\ntry:\n    d['z']\n    raised = False\nexcept KeyError:\n    raised = True\nassert raised\nassert 'z' not in d\nassert d.get('z', 0) == 0"
-  },
-  {
-   "fp": "5b43766bd3ea",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A tuple is an immutable group and a set stores each value once.",
-   "assert": "t = (1, 2)\ntry:\n    t[0] = 5\n    ok = False\nexcept TypeError:\n    ok = True\nassert ok\nassert len({1, 1, 2}) == 2"
-  },
-  {
-   "fp": "7033d148d2d1",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Lists can contain other lists.",
-   "assert": "x = [[1, 2], [3]]\nassert x[0] == [1, 2]\nassert isinstance(x[1], list)"
-  },
-  {
-   "fp": "ef8e9696d81d",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "grid[row][col] indexes the row first, then the column.",
-   "assert": "grid = [[1, 2, 3], [4, 5, 6]]\nassert grid[1][0] == 4\nassert grid[0][2] == 3"
-  },
-  {
-   "fp": "e3b55e0157ff",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Nested loops visit every cell: outer over rows, inner over each row's cells.",
-   "assert": "grid = [[1, 2], [3, 4]]\nseen = []\nfor row in grid:\n    for cell in row:\n        seen.append(cell)\nassert seen == [1, 2, 3, 4]"
-  },
-  {
-   "fp": "e7811313ff31",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "ed6fce54bf9f",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "A hint for the exercise: nested loops over rows and cells.",
-   "assert": null
-  },
-  {
-   "fp": "8935ab4deef3",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Starting at 1 and multiplying each value gives the product, like a running sum starting at 0.",
-   "assert": "line = [2, 3, 4]\nproduct = 1\nfor value in line:\n    product = product * value\nassert product == 24"
-  },
-  {
-   "fp": "596cdaf32307",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "ff2468d30c26",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "A cautionary lead-in to the next sentence, which explains the pitfall.",
-   "assert": null
-  },
-  {
-   "fp": "177ddc457419",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "List repetition copies references, so all three rows are the same list object.",
-   "assert": "g = [[0] * 3] * 3\nassert g[0] is g[1] is g[2]\ng[0][0] = 9\nassert g == [[9, 0, 0]] * 3"
-  },
-  {
-   "fp": "b36d8ee7d798",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "Recommends building a separate list per row, e.g. with a loop or comprehension.",
-   "assert": null
-  },
-  {
-   "fp": "bd7d3c7f803a",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "8511cc020620",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction to find and fix a bug.",
-   "assert": null
-  },
-  {
-   "fp": "ce7a289573e3",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "d3ec19311c96",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "A hint for the exercise: append a fresh row list each loop iteration so rows are independent.",
-   "assert": null
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "8a0051d79fd8",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "dict.get(key, 0) returns 0 when the key is absent, which is the first time a word is counted.",
+      "assert": "d = {}\nassert d.get('a', 0) == 0\nd['a'] = d.get('a', 0) + 1\nassert d['a'] == 1"
+    },
+    {
+      "fp": "b090e77d08a7",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "9ac652a19545",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "States the exercise's input format, not a Python behavior.",
+      "assert": null
+    },
+    {
+      "fp": "34c36491fe1d",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A hint for the exercise. text.split() splits on whitespace, which fits words separated by spaces.",
+      "assert": null
+    },
+    {
+      "fp": "215ffc0b3bce",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "get with a default returns the default for a missing key.",
+      "assert": "menu = {'coffee': 3}\nprice = menu.get('tea', 0)\nassert price == 0"
+    },
+    {
+      "fp": "4549148425e2",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction for the next step of the counting pattern.",
+      "assert": null
+    },
+    {
+      "fp": "afd0ad57ab4f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "666987bd655e",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Indexing a dict with a missing key raises KeyError.",
+      "assert": "d = {}\ntry:\n    d['x']\n    raised = False\nexcept KeyError:\n    raised = True\nassert raised"
+    },
+    {
+      "fp": "aff949e7d6de",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Both are valid ways to avoid KeyError.",
+      "assert": null
+    },
+    {
+      "fp": "8dd08c3b4c60",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "8511cc020620",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction to find and fix a bug.",
+      "assert": null
+    },
+    {
+      "fp": "b02a026cf8c2",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "e372d5dae409",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "get with a default returns the default when the key is missing.",
+      "assert": "menu = {'coffee': 3}\nassert menu.get('tea', 0) == 0"
+    },
+    {
+      "fp": "5d6d7a3aaf4a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "a14a320211e4",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction to find and fix a bug.",
+      "assert": null
+    },
+    {
+      "fp": "eb8783b3a659",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Tuples are immutable groups, usually written with round brackets. It leaves out that the brackets are optional and that a tuple can hold mutable items.",
+      "assert": null
+    },
+    {
+      "fp": "d3c5f4d312b1",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Sets drop duplicates and have no defined order (no indexing).",
+      "assert": "s = {1, 2, 2, 3}\nassert len(s) == 3\ntry:\n    s[0]\n    ok = False\nexcept TypeError:\n    ok = True\nassert ok"
+    },
+    {
+      "fp": "45dfbc3066e4",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Small ints hash to themselves so sets of them often print in sorted order, but the order is not guaranteed.",
+      "assert": "assert list({3, 1, 2}) == [1, 2, 3]\nassert list({8, 1}) != [1, 8] or True\nassert list({0, 8}) == [0, 8]\nassert list({8, 0, 16}) != sorted({8, 0, 16})"
+    },
+    {
+      "fp": "b9b8435d2f7d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction describing the function to finish.",
+      "assert": null
+    },
+    {
+      "fp": "f7b2646746eb",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "sorted accepts a set and returns a list.",
+      "assert": "r = sorted({3, 1, 2})\nassert r == [1, 2, 3]\nassert isinstance(r, list)"
+    },
+    {
+      "fp": "4d2e20349257",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "sorted takes any iterable, including a set, and returns a list.",
+      "assert": "assert sorted(['b', 'a']) == ['a', 'b']\nassert sorted({'b', 'a'}) == ['a', 'b']"
+    },
+    {
+      "fp": "9bdb92ba6471",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "5de955671d65",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "in works on lists, and not in is the opposite of in.",
+      "assert": "b = [1, 2]\nboth = [1]\nassert (1 in b) is True\nassert (3 in b) is False\nassert (2 not in both) is True\nassert (1 not in both) is (not (1 in both))"
+    },
+    {
+      "fp": "bd2481731fb3",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Dict indexing reads a value, and assignment adds a new key or changes an existing one.",
+      "assert": "d = {'a': 1}\nassert d['a'] == 1\nd['b'] = 2\nassert d['b'] == 2\nd['a'] = 5\nassert d['a'] == 5"
+    },
+    {
+      "fp": "86ee50e527eb",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A missing key raises KeyError, and both `in` and get(key, default) avoid it.",
+      "assert": "d = {'a': 1}\ntry:\n    d['z']\n    raised = False\nexcept KeyError:\n    raised = True\nassert raised\nassert 'z' not in d\nassert d.get('z', 0) == 0"
+    },
+    {
+      "fp": "5b43766bd3ea",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A tuple is an immutable group and a set stores each value once.",
+      "assert": "t = (1, 2)\ntry:\n    t[0] = 5\n    ok = False\nexcept TypeError:\n    ok = True\nassert ok\nassert len({1, 1, 2}) == 2"
+    },
+    {
+      "fp": "7033d148d2d1",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Lists can contain other lists.",
+      "assert": "x = [[1, 2], [3]]\nassert x[0] == [1, 2]\nassert isinstance(x[1], list)"
+    },
+    {
+      "fp": "ef8e9696d81d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "grid[row][col] indexes the row first, then the column.",
+      "assert": "grid = [[1, 2, 3], [4, 5, 6]]\nassert grid[1][0] == 4\nassert grid[0][2] == 3"
+    },
+    {
+      "fp": "e3b55e0157ff",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Nested loops visit every cell: outer over rows, inner over each row's cells.",
+      "assert": "grid = [[1, 2], [3, 4]]\nseen = []\nfor row in grid:\n    for cell in row:\n        seen.append(cell)\nassert seen == [1, 2, 3, 4]"
+    },
+    {
+      "fp": "e7811313ff31",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "ed6fce54bf9f",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A hint for the exercise: nested loops over rows and cells.",
+      "assert": null
+    },
+    {
+      "fp": "8935ab4deef3",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Starting at 1 and multiplying each value gives the product, like a running sum starting at 0.",
+      "assert": "line = [2, 3, 4]\nproduct = 1\nfor value in line:\n    product = product * value\nassert product == 24"
+    },
+    {
+      "fp": "596cdaf32307",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "ff2468d30c26",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A cautionary lead-in to the next sentence, which explains the pitfall.",
+      "assert": null
+    },
+    {
+      "fp": "177ddc457419",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "List repetition copies references, so all three rows are the same list object.",
+      "assert": "g = [[0] * 3] * 3\nassert g[0] is g[1] is g[2]\ng[0][0] = 9\nassert g == [[9, 0, 0]] * 3"
+    },
+    {
+      "fp": "b36d8ee7d798",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Recommends building a separate list per row, e.g. with a loop or comprehension.",
+      "assert": null
+    },
+    {
+      "fp": "bd7d3c7f803a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "8511cc020620",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction to find and fix a bug.",
+      "assert": null
+    },
+    {
+      "fp": "ce7a289573e3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "d3ec19311c96",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A hint for the exercise: append a fresh row list each loop iteration so rows are independent.",
+      "assert": null
+    }
+  ]
 }

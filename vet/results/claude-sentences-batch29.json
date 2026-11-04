@@ -1,54 +1,54 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "9d65fc2f28f1",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes what the exercise's helper function does, so it is not a claim about Python itself. It is consistent with a standard scikit-learn train_test_split and KNeighborsClassifier(n_neighbors=3) pipeline.",
-   "assert": null
-  },
-  {
-   "fp": "98c762b8c10f",
-   "status": "not-a-fact",
-   "verdict": "unsure",
-   "reason": "The 0.8 target is an exercise requirement. The 0.5 and 0.4 baselines depend on the course's hidden dataset and split, so they cannot be checked here.",
-   "assert": null
-  },
-  {
-   "fp": "db43d4f443c1",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "Scaling before the split leaks test-set statistics into training, and the usual practice is to fit the scaler on the training rows only. The sentence says this correctly.",
-   "assert": null
-  },
-  {
-   "fp": "canary-false-claim-1",
-   "status": "claim",
-   "verdict": "false",
-   "reason": "`/` always returns a float in Python 3, even for an exact division, so 6 / 3 is 2.0.",
-   "assert": "assert isinstance(6 / 3, float)\nassert not isinstance(6 / 3, int)"
-  },
-  {
-   "fp": "canary-false-claim-2",
-   "status": "claim",
-   "verdict": "false",
-   "reason": "`//` rounds toward negative infinity (floors), not toward zero. For example -7 // 2 is -4.",
-   "assert": "assert -7 // 2 == -4\nassert -7 // 2 != int(-7 / 2)"
-  },
-  {
-   "fp": "canary-false-claim-3",
-   "status": "claim",
-   "verdict": "false",
-   "reason": "`/` returns a float even when n is even, so 4 / 2 is 2.0. Only `//` keeps an int.",
-   "assert": "n = 4\nassert isinstance(n / 2, float)\nassert not isinstance(n / 2, int)"
-  },
-  {
-   "fp": "canary-false-claim-4",
-   "status": "claim",
-   "verdict": "false",
-   "reason": "`print` writes the text to the output and returns None. It does not hand the text back.",
-   "assert": "import io, contextlib\nbuf = io.StringIO()\nwith contextlib.redirect_stdout(buf):\n    r = print('hi')\nassert r is None\nassert buf.getvalue() == 'hi\\n'"
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "9d65fc2f28f1",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes what the exercise's helper function does, so it is not a claim about Python itself. It is consistent with a standard scikit-learn train_test_split and KNeighborsClassifier(n_neighbors=3) pipeline.",
+      "assert": null
+    },
+    {
+      "fp": "98c762b8c10f",
+      "status": "not-a-fact",
+      "verdict": "unsure",
+      "reason": "The 0.8 target is an exercise requirement. The 0.5 and 0.4 baselines depend on the course's hidden dataset and split, so they cannot be checked here.",
+      "assert": null
+    },
+    {
+      "fp": "db43d4f443c1",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Scaling before the split leaks test-set statistics into training, and the usual practice is to fit the scaler on the training rows only. The sentence says this correctly.",
+      "assert": null
+    },
+    {
+      "fp": "canary-false-claim-1",
+      "status": "claim",
+      "verdict": "false",
+      "reason": "`/` always returns a float in Python 3, even for an exact division, so 6 / 3 is 2.0.",
+      "assert": "assert isinstance(6 / 3, float)\nassert not isinstance(6 / 3, int)"
+    },
+    {
+      "fp": "canary-false-claim-2",
+      "status": "claim",
+      "verdict": "false",
+      "reason": "`//` rounds toward negative infinity (floors), not toward zero. For example -7 // 2 is -4.",
+      "assert": "assert -7 // 2 == -4\nassert -7 // 2 != int(-7 / 2)"
+    },
+    {
+      "fp": "canary-false-claim-3",
+      "status": "claim",
+      "verdict": "false",
+      "reason": "`/` returns a float even when n is even, so 4 / 2 is 2.0. Only `//` keeps an int.",
+      "assert": "n = 4\nassert isinstance(n / 2, float)\nassert not isinstance(n / 2, int)"
+    },
+    {
+      "fp": "canary-false-claim-4",
+      "status": "claim",
+      "verdict": "false",
+      "reason": "`print` writes the text to the output and returns None. It does not hand the text back.",
+      "assert": "import io, contextlib\nbuf = io.StringIO()\nwith contextlib.redirect_stdout(buf):\n    r = print('hi')\nassert r is None\nassert buf.getvalue() == 'hi\\n'"
+    }
+  ]
 }

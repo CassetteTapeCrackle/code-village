@@ -1,285 +1,285 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "e33bdbec3e0a",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the starting code of the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "5bd86a5cbe5d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is the exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "566b5c204696",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is an instruction for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "8bd3f12c783d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is the exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "aae26b1d54d4",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is a hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "e90c7fc25eaf",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is a hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "c0a830eb793d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is the exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "5edd558a7b3d",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Defining __init__ in the child shadows the parent's __init__.",
-   "assert": "class P:\n    def __init__(self):\n        self.a = 1\nclass C(P):\n    def __init__(self):\n        self.b = 2\nc = C()\nassert c.b == 2\nassert not hasattr(c, 'a')\nassert C.__init__ is not P.__init__"
-  },
-  {
-   "fp": "df34f2e147f1",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "If the parent's __init__ sets the attributes and the child never calls it, using them raises AttributeError.",
-   "assert": "class P:\n    def __init__(self):\n        self.a = 1\nclass C(P):\n    def __init__(self):\n        pass\ntry:\n    C().a\n    raised = False\nexcept AttributeError:\n    raised = True\nassert raised"
-  },
-  {
-   "fp": "2e74f4806a04",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the exercise setup.",
-   "assert": null
-  },
-  {
-   "fp": "36805478e80f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the bug and tells the learner to fix it.",
-   "assert": null
-  },
-  {
-   "fp": "3a783f2945e5",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is a guiding question.",
-   "assert": null
-  },
-  {
-   "fp": "d87d71d1d04c",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "super().__init__(name) runs the parent's initializer.",
-   "assert": "class A:\n    def __init__(self, name):\n        self.name = name\nclass S(A):\n    def __init__(self, name):\n        super().__init__(name)\n        self.stash = []\ns = S('Nut')\nassert s.name == 'Nut' and s.stash == []"
-  },
-  {
-   "fp": "63c9c2a7d385",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the exercise and its bug.",
-   "assert": null
-  },
-  {
-   "fp": "734145287d6e",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "It is the fix the exercise expects. Calling Animal.__init__(self, name) would also work, but super() is the recommended way.",
-   "assert": null
-  },
-  {
-   "fp": "7abda6f6888b",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A subclass inherits the parent's methods.",
-   "assert": "class Animal:\n    def eat(self):\n        return 'eats'\nclass Owl(Animal):\n    pass\nassert Owl().eat() == 'eats'\nassert issubclass(Owl, Animal)"
-  },
-  {
-   "fp": "0a76000031f7",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A child method with the same name takes precedence over the parent's.",
-   "assert": "class A:\n    def f(self):\n        return 'a'\nclass B(A):\n    def f(self):\n        return 'b'\nassert B().f() == 'b'"
-  },
-  {
-   "fp": "a5c2d5c1e8c9",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "super() gives access to the parent's method from inside the child's.",
-   "assert": "class A:\n    def describe(self):\n        return 'A'\nclass B(A):\n    def describe(self):\n        return super().describe() + 'B'\nassert B().describe() == 'AB'"
-  },
-  {
-   "fp": "bfb857ce5a3a",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "It leaves out that this only matters when the parent's __init__ sets attributes, and that Parent.__init__(self, ...) also works.",
-   "assert": null
-  },
-  {
-   "fp": "5187d04868e1",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is course narrative.",
-   "assert": null
-  },
-  {
-   "fp": "2ea1d77cfe07",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "It is a motivational statement about testing practice.",
-   "assert": null
-  },
-  {
-   "fp": "83ec8aeeb720",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "assert does nothing for a true condition and raises AssertionError for a false one (unless Python runs with -O).",
-   "assert": "assert True\ntry:\n    assert False\n    raised = False\nexcept AssertionError:\n    raised = True\nassert raised"
-  },
-  {
-   "fp": "b0e66cd26bee",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "It defines a test for beginners. Tests do not have to be functions, and they also check results and errors.",
-   "assert": null
-  },
-  {
-   "fp": "91ad12355b4f",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "The expression after the comma in an assert becomes the AssertionError message.",
-   "assert": "try:\n    assert 1 == 2, 'one is not two'\nexcept AssertionError as e:\n    assert str(e) == 'one is not two'\nelse:\n    raise SystemExit('no error')"
-  },
-  {
-   "fp": "baaed3c45c89",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "It is testing advice: edge cases deserve tests.",
-   "assert": null
-  },
-  {
-   "fp": "31dacf3dd5a7",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "It is a general rule of thumb, not a statement about Python.",
-   "assert": null
-  },
-  {
-   "fp": "95b742808a27",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the function the exercise provides.",
-   "assert": null
-  },
-  {
-   "fp": "d2f92b03b1c5",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is the exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "306c0d8ff703",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It states the exercise requirement.",
-   "assert": null
-  },
-  {
-   "fp": "759db1d12a5b",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is a hint.",
-   "assert": null
-  },
-  {
-   "fp": "255527409419",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is a hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "8ebb708f280c",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the given function in the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "2369e7d7858e",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is the exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "41160d184964",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It states the exercise requirement.",
-   "assert": null
-  },
-  {
-   "fp": "3a7e40ac6ed0",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the exercise starting code.",
-   "assert": null
-  },
-  {
-   "fp": "64f27e341b11",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is the exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "fef63a05ba9c",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is a hint.",
-   "assert": null
-  },
-  {
-   "fp": "5679566c16b9",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is a hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "3ec90a082a43",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the exercise starting code.",
-   "assert": null
-  },
-  {
-   "fp": "66d541f6ad99",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is the exercise instruction.",
-   "assert": null
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "e33bdbec3e0a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the starting code of the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "5bd86a5cbe5d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "566b5c204696",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is an instruction for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "8bd3f12c783d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "aae26b1d54d4",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is a hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "e90c7fc25eaf",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is a hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "c0a830eb793d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "5edd558a7b3d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Defining __init__ in the child shadows the parent's __init__.",
+      "assert": "class P:\n    def __init__(self):\n        self.a = 1\nclass C(P):\n    def __init__(self):\n        self.b = 2\nc = C()\nassert c.b == 2\nassert not hasattr(c, 'a')\nassert C.__init__ is not P.__init__"
+    },
+    {
+      "fp": "df34f2e147f1",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "If the parent's __init__ sets the attributes and the child never calls it, using them raises AttributeError.",
+      "assert": "class P:\n    def __init__(self):\n        self.a = 1\nclass C(P):\n    def __init__(self):\n        pass\ntry:\n    C().a\n    raised = False\nexcept AttributeError:\n    raised = True\nassert raised"
+    },
+    {
+      "fp": "2e74f4806a04",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the exercise setup.",
+      "assert": null
+    },
+    {
+      "fp": "36805478e80f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the bug and tells the learner to fix it.",
+      "assert": null
+    },
+    {
+      "fp": "3a783f2945e5",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is a guiding question.",
+      "assert": null
+    },
+    {
+      "fp": "d87d71d1d04c",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "super().__init__(name) runs the parent's initializer.",
+      "assert": "class A:\n    def __init__(self, name):\n        self.name = name\nclass S(A):\n    def __init__(self, name):\n        super().__init__(name)\n        self.stash = []\ns = S('Nut')\nassert s.name == 'Nut' and s.stash == []"
+    },
+    {
+      "fp": "63c9c2a7d385",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the exercise and its bug.",
+      "assert": null
+    },
+    {
+      "fp": "734145287d6e",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "It is the fix the exercise expects. Calling Animal.__init__(self, name) would also work, but super() is the recommended way.",
+      "assert": null
+    },
+    {
+      "fp": "7abda6f6888b",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A subclass inherits the parent's methods.",
+      "assert": "class Animal:\n    def eat(self):\n        return 'eats'\nclass Owl(Animal):\n    pass\nassert Owl().eat() == 'eats'\nassert issubclass(Owl, Animal)"
+    },
+    {
+      "fp": "0a76000031f7",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A child method with the same name takes precedence over the parent's.",
+      "assert": "class A:\n    def f(self):\n        return 'a'\nclass B(A):\n    def f(self):\n        return 'b'\nassert B().f() == 'b'"
+    },
+    {
+      "fp": "a5c2d5c1e8c9",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "super() gives access to the parent's method from inside the child's.",
+      "assert": "class A:\n    def describe(self):\n        return 'A'\nclass B(A):\n    def describe(self):\n        return super().describe() + 'B'\nassert B().describe() == 'AB'"
+    },
+    {
+      "fp": "bfb857ce5a3a",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "It leaves out that this only matters when the parent's __init__ sets attributes, and that Parent.__init__(self, ...) also works.",
+      "assert": null
+    },
+    {
+      "fp": "5187d04868e1",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is course narrative.",
+      "assert": null
+    },
+    {
+      "fp": "2ea1d77cfe07",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "It is a motivational statement about testing practice.",
+      "assert": null
+    },
+    {
+      "fp": "83ec8aeeb720",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "assert does nothing for a true condition and raises AssertionError for a false one (unless Python runs with -O).",
+      "assert": "assert True\ntry:\n    assert False\n    raised = False\nexcept AssertionError:\n    raised = True\nassert raised"
+    },
+    {
+      "fp": "b0e66cd26bee",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "It defines a test for beginners. Tests do not have to be functions, and they also check results and errors.",
+      "assert": null
+    },
+    {
+      "fp": "91ad12355b4f",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The expression after the comma in an assert becomes the AssertionError message.",
+      "assert": "try:\n    assert 1 == 2, 'one is not two'\nexcept AssertionError as e:\n    assert str(e) == 'one is not two'\nelse:\n    raise SystemExit('no error')"
+    },
+    {
+      "fp": "baaed3c45c89",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "It is testing advice: edge cases deserve tests.",
+      "assert": null
+    },
+    {
+      "fp": "31dacf3dd5a7",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "It is a general rule of thumb, not a statement about Python.",
+      "assert": null
+    },
+    {
+      "fp": "95b742808a27",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the function the exercise provides.",
+      "assert": null
+    },
+    {
+      "fp": "d2f92b03b1c5",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "306c0d8ff703",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It states the exercise requirement.",
+      "assert": null
+    },
+    {
+      "fp": "759db1d12a5b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is a hint.",
+      "assert": null
+    },
+    {
+      "fp": "255527409419",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is a hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "8ebb708f280c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the given function in the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "2369e7d7858e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "41160d184964",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It states the exercise requirement.",
+      "assert": null
+    },
+    {
+      "fp": "3a7e40ac6ed0",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the exercise starting code.",
+      "assert": null
+    },
+    {
+      "fp": "64f27e341b11",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "fef63a05ba9c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is a hint.",
+      "assert": null
+    },
+    {
+      "fp": "5679566c16b9",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is a hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "3ec90a082a43",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the exercise starting code.",
+      "assert": null
+    },
+    {
+      "fp": "66d541f6ad99",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is the exercise instruction.",
+      "assert": null
+    }
+  ]
 }

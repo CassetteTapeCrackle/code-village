@@ -1,285 +1,285 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "269a58c546f9",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "A reminder to call the parent initializer in a subclass. It is good practice and needed here for name and species.",
-   "assert": null
-  },
-  {
-   "fp": "3f55be3919a0",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes what the exercise asks the class to do.",
-   "assert": null
-  },
-  {
-   "fp": "8830c7bacd05",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the exercise's required starting state.",
-   "assert": null
-  },
-  {
-   "fp": "13c8cd2711a4",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the behaviour the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "a971a6cd521b",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the behaviour the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "0d54cee24b41",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "An exercise constraint: store the animals in one place only.",
-   "assert": null
-  },
-  {
-   "fp": "7b4ba011506d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It is an instruction about what to write. The suggested try/assert False pattern works.",
-   "assert": null
-  },
-  {
-   "fp": "e13df345ccd5",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It states a requirement for the test the learner writes.",
-   "assert": null
-  },
-  {
-   "fp": "2928205296f0",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Story setup.",
-   "assert": null
-  },
-  {
-   "fp": "551b1ee22568",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "7a2b0868298c",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the stages of the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "5281bc8a711b",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the exercise mode.",
-   "assert": null
-  },
-  {
-   "fp": "998ed5ffb7b6",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "ec0adcc7fede",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "DataFrame.to_dict(\"records\") returns a list with one dict per row.",
-   "assert": "import pandas as pd\ndf = pd.DataFrame({'product': ['lamp', 'rope'], 'quantity': [2, 1], 'price': [12.5, 3.0]})\nr = df.to_dict('records')\nassert isinstance(r, list) and len(r) == 2\nassert r[0] == {'product': 'lamp', 'quantity': 2, 'price': 12.5}"
-  },
-  {
-   "fp": "19a9937cd5e1",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the types the exercise wants returned.",
-   "assert": null
-  },
-  {
-   "fp": "b26001b94d92",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "80d6aad1c3c2",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "9e9906b80e09",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "0382b5125a5d",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "The json encoder raises TypeError for numpy.int64 and numpy.bool_. Plain int/float conversion fixes it.",
-   "assert": "import json, io\nimport numpy as np\nfor v in (np.int64(3), np.bool_(True)):\n    try:\n        json.dump({'a': v}, io.StringIO())\n    except TypeError:\n        pass\n    else:\n        assert False\njson.dump({'a': int(np.int64(3)), 'b': bool(np.bool_(True))}, io.StringIO())"
-  },
-  {
-   "fp": "7c6791fd7876",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Story setup.",
-   "assert": null
-  },
-  {
-   "fp": "63c257b686c1",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "3b5b81710763",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the stages of the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "5281bc8a711b",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the exercise mode.",
-   "assert": null
-  },
-  {
-   "fp": "6a2871c783a5",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "002ff8ffcde1",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "float() raises ValueError for a blank string and for words. The rest is the exercise's instruction.",
-   "assert": "for s in ('', ' ', 'gust'):\n    try:\n        float(s)\n    except ValueError:\n        pass\n    else:\n        assert False"
-  },
-  {
-   "fp": "8d7c4b5837f7",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for. ddof=0 is the population standard deviation, NumPy's default.",
-   "assert": null
-  },
-  {
-   "fp": "7901bf211af8",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "An instruction to return plain Python numbers, not NumPy ones.",
-   "assert": null
-  },
-  {
-   "fp": "85564af3fb67",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "470f10a1588c",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function and suggests an approach. Sorting and then using bisect_right works.",
-   "assert": null
-  },
-  {
-   "fp": "56376a9fa106",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "bisect_right returns the insertion point after any equal values, while bisect_left returns the point before them.",
-   "assert": "import bisect\na = [1, 2, 2, 3]\nassert bisect.bisect_left(a, 2) == 1\nassert bisect.bisect_right(a, 2) == 3"
-  },
-  {
-   "fp": "7430020f449e",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Story setup.",
-   "assert": null
-  },
-  {
-   "fp": "092b8d2c9f0a",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Story setup describing the data.",
-   "assert": null
-  },
-  {
-   "fp": "58f25011f818",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "201b28224a6f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the stages of the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "5281bc8a711b",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the exercise mode.",
-   "assert": null
-  },
-  {
-   "fp": "7eb0dbc2bfba",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for (min-max scaling).",
-   "assert": null
-  },
-  {
-   "fp": "d1d266b3a4d8",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "It explains why scaling matters: unscaled large features dominate distance calculations.",
-   "assert": null
-  },
-  {
-   "fp": "93f00695dbcc",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "2b97d515eb3e",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It specifies the function the exercise asks for.",
-   "assert": null
-  },
-  {
-   "fp": "3a999b73c0cd",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "scikit-learn raises a ValueError when n_neighbors exceeds the number of samples, but its message talks about samples and never mentions stars.",
-   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=5).fit([[0], [1], [2]], ['a', 'b', 'a'])\ntry:\n    m.predict([[0.5]])\nexcept ValueError as e:\n    assert 'star' not in str(e).lower()\nelse:\n    assert False"
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "269a58c546f9",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A reminder to call the parent initializer in a subclass. It is good practice and needed here for name and species.",
+      "assert": null
+    },
+    {
+      "fp": "3f55be3919a0",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes what the exercise asks the class to do.",
+      "assert": null
+    },
+    {
+      "fp": "8830c7bacd05",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the exercise's required starting state.",
+      "assert": null
+    },
+    {
+      "fp": "13c8cd2711a4",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the behaviour the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "a971a6cd521b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the behaviour the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "0d54cee24b41",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "An exercise constraint: store the animals in one place only.",
+      "assert": null
+    },
+    {
+      "fp": "7b4ba011506d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It is an instruction about what to write. The suggested try/assert False pattern works.",
+      "assert": null
+    },
+    {
+      "fp": "e13df345ccd5",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It states a requirement for the test the learner writes.",
+      "assert": null
+    },
+    {
+      "fp": "2928205296f0",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Story setup.",
+      "assert": null
+    },
+    {
+      "fp": "551b1ee22568",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "7a2b0868298c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the stages of the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "5281bc8a711b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the exercise mode.",
+      "assert": null
+    },
+    {
+      "fp": "998ed5ffb7b6",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "ec0adcc7fede",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "DataFrame.to_dict(\"records\") returns a list with one dict per row.",
+      "assert": "import pandas as pd\ndf = pd.DataFrame({'product': ['lamp', 'rope'], 'quantity': [2, 1], 'price': [12.5, 3.0]})\nr = df.to_dict('records')\nassert isinstance(r, list) and len(r) == 2\nassert r[0] == {'product': 'lamp', 'quantity': 2, 'price': 12.5}"
+    },
+    {
+      "fp": "19a9937cd5e1",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the types the exercise wants returned.",
+      "assert": null
+    },
+    {
+      "fp": "b26001b94d92",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "80d6aad1c3c2",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "9e9906b80e09",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "0382b5125a5d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The json encoder raises TypeError for numpy.int64 and numpy.bool_. Plain int/float conversion fixes it.",
+      "assert": "import json, io\nimport numpy as np\nfor v in (np.int64(3), np.bool_(True)):\n    try:\n        json.dump({'a': v}, io.StringIO())\n    except TypeError:\n        pass\n    else:\n        assert False\njson.dump({'a': int(np.int64(3)), 'b': bool(np.bool_(True))}, io.StringIO())"
+    },
+    {
+      "fp": "7c6791fd7876",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Story setup.",
+      "assert": null
+    },
+    {
+      "fp": "63c257b686c1",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "3b5b81710763",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the stages of the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "5281bc8a711b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the exercise mode.",
+      "assert": null
+    },
+    {
+      "fp": "6a2871c783a5",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "002ff8ffcde1",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "float() raises ValueError for a blank string and for words. The rest is the exercise's instruction.",
+      "assert": "for s in ('', ' ', 'gust'):\n    try:\n        float(s)\n    except ValueError:\n        pass\n    else:\n        assert False"
+    },
+    {
+      "fp": "8d7c4b5837f7",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for. ddof=0 is the population standard deviation, NumPy's default.",
+      "assert": null
+    },
+    {
+      "fp": "7901bf211af8",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "An instruction to return plain Python numbers, not NumPy ones.",
+      "assert": null
+    },
+    {
+      "fp": "85564af3fb67",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "470f10a1588c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function and suggests an approach. Sorting and then using bisect_right works.",
+      "assert": null
+    },
+    {
+      "fp": "56376a9fa106",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "bisect_right returns the insertion point after any equal values, while bisect_left returns the point before them.",
+      "assert": "import bisect\na = [1, 2, 2, 3]\nassert bisect.bisect_left(a, 2) == 1\nassert bisect.bisect_right(a, 2) == 3"
+    },
+    {
+      "fp": "7430020f449e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Story setup.",
+      "assert": null
+    },
+    {
+      "fp": "092b8d2c9f0a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Story setup describing the data.",
+      "assert": null
+    },
+    {
+      "fp": "58f25011f818",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "201b28224a6f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the stages of the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "5281bc8a711b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the exercise mode.",
+      "assert": null
+    },
+    {
+      "fp": "7eb0dbc2bfba",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for (min-max scaling).",
+      "assert": null
+    },
+    {
+      "fp": "d1d266b3a4d8",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "It explains why scaling matters: unscaled large features dominate distance calculations.",
+      "assert": null
+    },
+    {
+      "fp": "93f00695dbcc",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "2b97d515eb3e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It specifies the function the exercise asks for.",
+      "assert": null
+    },
+    {
+      "fp": "3a999b73c0cd",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "scikit-learn raises a ValueError when n_neighbors exceeds the number of samples, but its message talks about samples and never mentions stars.",
+      "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=5).fit([[0], [1], [2]], ['a', 'b', 'a'])\ntry:\n    m.predict([[0.5]])\nexcept ValueError as e:\n    assert 'star' not in str(e).lower()\nelse:\n    assert False"
+    }
+  ]
 }
