@@ -83,7 +83,7 @@ fingerprint = "96be9551ea10"
 [[gap]]
 rule = "cases-missing"
 item = "classes-backpack"
-fingerprint = "2e790fdd7f88"
+fingerprint = "c61499972281"
 
 [[gap]]
 rule = "cases-missing"
@@ -1773,7 +1773,7 @@ fingerprint = "96be9551ea10"
 [[gap]]
 rule = "right-missing"
 item = "classes-backpack"
-fingerprint = "2e790fdd7f88"
+fingerprint = "c61499972281"
 
 [[gap]]
 rule = "right-missing"
@@ -2972,11 +2972,6 @@ fingerprint = "0c2f8652dab5"
 
 [[gap]]
 rule = "weak-tests"
-item = "classes-backpack"
-fingerprint = "2e790fdd7f88"
-
-[[gap]]
-rule = "weak-tests"
 item = "composition-cook-pantry"
 fingerprint = "b0dda46ad825"
 
@@ -3408,7 +3403,7 @@ fingerprint = "96be9551ea10"
 [[gap]]
 rule = "wrong-too-few"
 item = "classes-backpack"
-fingerprint = "2e790fdd7f88"
+fingerprint = "c61499972281"
 
 [[gap]]
 rule = "wrong-too-few"
