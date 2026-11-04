@@ -1,3 +1,7 @@
 id = "lists-first-item"
 title = "The first one"
 prompt = "Write `first_item(items)` that returns the first value of a non-empty list."
+
+[cases]
+call = "first_item"
+args = ["list<int 0..9> 1..6"]
