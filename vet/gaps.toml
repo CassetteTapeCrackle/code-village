@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "errors-first-char"
-fingerprint = "c48748c2374a"
-
-[[gap]]
-rule = "cases-missing"
 item = "errors-parse-age"
 fingerprint = "471990754080"
 
@@ -73,7 +68,7 @@ fingerprint = "24c69049b4af"
 [[gap]]
 rule = "cases-missing"
 item = "errors-safe-divide"
-fingerprint = "e0e3330891e0"
+fingerprint = "61ac39c45ef2"
 
 [[gap]]
 rule = "cases-missing"
@@ -1638,7 +1633,7 @@ fingerprint = "c42c4cd7f072"
 [[gap]]
 rule = "right-missing"
 item = "errors-first-char"
-fingerprint = "c48748c2374a"
+fingerprint = "5795fc257c09"
 
 [[gap]]
 rule = "right-missing"
@@ -1653,7 +1648,7 @@ fingerprint = "24c69049b4af"
 [[gap]]
 rule = "right-missing"
 item = "errors-safe-divide"
-fingerprint = "e0e3330891e0"
+fingerprint = "61ac39c45ef2"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "c42c4cd7f072"
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-first-char"
-fingerprint = "c48748c2374a"
+fingerprint = "5795fc257c09"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2908,7 +2903,7 @@ fingerprint = "24c69049b4af"
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-safe-divide"
-fingerprint = "e0e3330891e0"
+fingerprint = "61ac39c45ef2"
 
 [[gap]]
 rule = "wrong-too-few"
