@@ -1,0 +1,26 @@
+{
+  "job": "blind",
+  "items": [
+    {
+      "id": "dicts-in-both",
+      "fingerprint": "93cd31168198",
+      "context": "A **dict** maps keys to values. Read a value with its key, and assign to a key to add or change it. `in` asks whether a key is there.\n\n```python\nages = {\"Noa\": 12, \"Ines\": 13}\nages[\"Sam\"] = 11\nprint(ages[\"Ines\"], len(ages), \"Sam\" in ages)\n```\n\nCounting is the classic use. `get(key, 0)` gives 0 the first time a key appears.\n\n```python\ncounts = {}\nfor fruit in [\"fig\", \"pear\", \"fig\"]:\n    counts[fruit] = counts.get(fruit, 0) + 1\nprint(counts)\n```\n\nReading a key that is not in the dict raises `KeyError`. Check with `in` first, or use `get(key, default)`.\n\n```python\nstock = {\"apple\": 3}\nprint(stock.get(\"pear\", 0), \"pear\" in stock)\n```\n\nA **tuple** is a fixed group of values in round brackets, good for pairs like a point. A **set** keeps each value only once and has no order. Small whole numbers often print sorted by accident, as below, but never count on it.\n\n```python\npoint = (3, 4)\nx, y = point\nprint(x + y, set([2, 1, 2, 3, 1]))\n```",
+      "prompt": "Finish `in_both(a, b)`: it returns a sorted list of the values found in both lists, each only once. `x in b` checks a list too, and `x not in both` is its opposite.",
+      "starter": "def in_both(a, b):\n    both = []\n    for x in a:\n        # add x when it is also in b, and not in both yet\n        pass\n    both.sort()\n    return both\n"
+    },
+    {
+      "id": "classes-counter",
+      "fingerprint": "f29ddaac1098",
+      "context": "You have used **objects** all along: `\"hi\"` is an object of the `str` class, and `upper()` is something it can do. A **class** is a blueprint for making your own objects, with their own data and their own actions.\n\n```python\nclass Fox:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\nsly = Fox(\"Sly\", 3)\nprint(sly.name, sly.age, type(sly).__name__)\n```\n\nCalling `Fox(\"Sly\", 3)` makes a new object and runs `__init__` on it. `self` is the object being made, so `self.name = name` stores an **attribute** on that object. Each object keeps its own attributes.\n\nA function written inside a class is a **method**. Its first parameter is always `self`, the object you called it on, so the method can read and change that object's attributes.\n\n```python\nclass Fox:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\n    def describe(self):\n        return f\"{self.name} is {self.age}\"\n\nprint(Fox(\"Sly\", 3).describe())\n```\n\n```python\nclass Lamp:\n    def __init__(self, colour):\n        self.colour = colour\n\na = Lamp(\"red\")\nb = Lamp(\"blue\")\na.colour = \"green\"\nprint(a.colour, b.colour)\n```\n\nWhen you call `a.describe()`, Python passes `a` in as `self` for you. If you forget to write `self` in the `def`, the call hands over one argument too many.",
+      "prompt": "`Counter()` starts with `total` at 0, and `add(amount)` should add `amount` to `total`. Calling `add` crashes: find and fix the bug.",
+      "starter": "class Counter:\n    def __init__(self):\n        self.total = 0\n\n    def add(amount):\n        self.total = self.total + amount\n"
+    },
+    {
+      "id": "identity-without-note",
+      "fingerprint": "f4239b6fbc58",
+      "context": "Two questions look alike but are not. `==` asks whether two values are **equal**. `is` asks whether two names point at **the very same object**.\n\n```python\na = [1, 2]\nb = [1, 2]\nc = a\nprint(a == b, a is b, a is c)\n```\n\n`a` and `b` hold equal lists, but they are two separate lists. `c = a` makes no copy: it is a second name for the same list. `is not` asks the opposite: \"a different object?\".\n\n```python\na = [1, 2]\nb = a\nc = [1, 2]\nb.append(3)\nprint(a, a == c, a is b)\n```\n\nObjects of your own class compare with `==` by identity, until you teach them otherwise (a later lesson). `isinstance(a, Fox)` asks whether `a` is a `Fox`.\n\n```python\nclass Fox:\n    def __init__(self, name):\n        self.name = name\n\na = Fox(\"Sly\")\nb = Fox(\"Sly\")\nc = a\nprint(a == b, a is c, isinstance(a, Fox), isinstance(\"Sly\", Fox))\n```\n\nSome list methods compare with `==`. `remove(x)` deletes the first item **equal** to `x`, which is not always the object you meant.",
+      "prompt": "`without_note(notes, note)` should return the notes without that exact note object (a dict), even when another note is equal to it. It removes the wrong one: find and fix it. `is not` asks \"not the very same object?\".",
+      "starter": "def without_note(notes, note):\n    result = []\n    skipped = False\n    for n in notes:\n        if not skipped and n == note:\n            skipped = True\n        else:\n            result.append(n)\n    return result\n"
+    }
+  ]
+}
