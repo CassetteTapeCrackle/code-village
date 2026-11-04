@@ -52,11 +52,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "classes-lantern"
-fingerprint = "712e39a9b22a"
-
-[[gap]]
-rule = "cases-missing"
 item = "classes-tent"
 fingerprint = "e9e058b905fd"
 
@@ -1593,7 +1588,7 @@ fingerprint = "d0ff50501857"
 [[gap]]
 rule = "right-missing"
 item = "classes-lantern"
-fingerprint = "712e39a9b22a"
+fingerprint = "8a7dccedd5d0"
 
 [[gap]]
 rule = "right-missing"
@@ -2848,7 +2843,7 @@ fingerprint = "d0ff50501857"
 [[gap]]
 rule = "wrong-too-few"
 item = "classes-lantern"
-fingerprint = "712e39a9b22a"
+fingerprint = "8a7dccedd5d0"
 
 [[gap]]
 rule = "wrong-too-few"
