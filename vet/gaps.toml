@@ -63,7 +63,7 @@ fingerprint = "cae230417663"
 [[gap]]
 rule = "cases-missing"
 item = "guessing-stone"
-fingerprint = "7b1cb790f6ac"
+fingerprint = "5f8f31fa7cc6"
 
 [[gap]]
 rule = "cases-missing"
@@ -518,7 +518,7 @@ fingerprint = "edbec3718577"
 [[gap]]
 rule = "ledger-missing"
 item = "guessing-stone"
-fingerprint = "7b1cb790f6ac"
+fingerprint = "5f8f31fa7cc6"
 
 [[gap]]
 rule = "ledger-missing"
@@ -917,11 +917,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "right-missing"
-item = "guessing-stone"
-fingerprint = "7b1cb790f6ac"
-
-[[gap]]
-rule = "right-missing"
 item = "lost-satchel"
 fingerprint = "7d89a1065dd1"
 
@@ -1159,11 +1154,6 @@ fingerprint = "a1791ab22a84"
 rule = "weak-tests"
 item = "testing-total-test"
 fingerprint = "8216e418d98f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "guessing-stone"
-fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "wrong-too-few"
