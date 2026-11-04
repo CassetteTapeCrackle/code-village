@@ -1,54 +1,54 @@
 {
-  "fingerprint": "e68350b67d29",
+  "fingerprint": "34f1a5819a86",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def row_totals(grid):\n    totals = []\n    for row in grid:\n        total = 0\n        for cell in row:\n            total += cell\n        totals.append(total)\n    return totals\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def row_totals(grid):\n    totals = []\n    for row in grid:\n        total = 0\n        for cell in row:\n            total += cell\n        totals.append(total)\n    return totals\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def row_totals(grid):\n    totals = []\n    for row in grid:\n        total = 0\n        for cell in row:\n            total += cell\n        totals.append(total)\n    return totals\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def row_totals(grid):\n    totals = []\n    for row in grid:\n        total = 0\n        for cell in row:\n            total = total + cell\n        totals.append(total)\n    return totals\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def row_totals(grid):\n    totals = []\n    for row in grid:\n        total = 0\n        for cell in row:\n            total += cell\n        totals.append(total)\n    return totals\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

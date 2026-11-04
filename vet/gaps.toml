@@ -62,13 +62,8 @@ fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "cases-missing"
-item = "grids-row-totals"
-fingerprint = "e68350b67d29"
-
-[[gap]]
-rule = "cases-missing"
 item = "grids-sum"
-fingerprint = "b510a5fee338"
+fingerprint = "c66543c76913"
 
 [[gap]]
 rule = "cases-missing"
@@ -1653,12 +1648,12 @@ fingerprint = "33d0cd6cd7e8"
 [[gap]]
 rule = "right-missing"
 item = "grids-row-totals"
-fingerprint = "e68350b67d29"
+fingerprint = "34f1a5819a86"
 
 [[gap]]
 rule = "right-missing"
 item = "grids-sum"
-fingerprint = "b510a5fee338"
+fingerprint = "c66543c76913"
 
 [[gap]]
 rule = "right-missing"
@@ -2908,12 +2903,12 @@ fingerprint = "33d0cd6cd7e8"
 [[gap]]
 rule = "wrong-too-few"
 item = "grids-row-totals"
-fingerprint = "e68350b67d29"
+fingerprint = "34f1a5819a86"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "grids-sum"
-fingerprint = "b510a5fee338"
+fingerprint = "c66543c76913"
 
 [[gap]]
 rule = "wrong-too-few"

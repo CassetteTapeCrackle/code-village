@@ -1,54 +1,54 @@
 {
-  "fingerprint": "b510a5fee338",
+  "fingerprint": "c66543c76913",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def grid_sum(grid):\n    total = 0\n    for row in grid:\n        for cell in row:\n            total += cell\n    return total\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def grid_sum(grid):\n    total = 0\n    for row in grid:\n        for cell in row:\n            total += cell\n    return total\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def grid_sum(grid):\n    total = 0\n    for row in grid:\n        for cell in row:\n            total += cell\n    return total\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def grid_sum(grid):\n    total = 0\n    for row in grid:\n        for cell in row:\n            total += cell\n    return total\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def grid_sum(grid):\n    total = 0\n    for row in grid:\n        for cell in row:\n            total += cell\n    return total\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
