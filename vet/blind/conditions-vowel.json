@@ -1,54 +1,54 @@
 {
-  "fingerprint": "9dc9cc6e8676",
+  "fingerprint": "00b324f318bb",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def is_vowel(letter):\n    return letter == \"a\" or letter == \"e\" or letter == \"i\" or letter == \"o\" or letter == \"u\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def is_vowel(letter):\n    return letter == \"a\" or letter == \"e\" or letter == \"i\" or letter == \"o\" or letter == \"u\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def is_vowel(letter):\n    return letter == \"a\" or letter == \"e\" or letter == \"i\" or letter == \"o\" or letter == \"u\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def is_vowel(letter):\n    return letter == \"a\" or letter == \"e\" or letter == \"i\" or letter == \"o\" or letter == \"u\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def is_vowel(letter):\n    return letter == \"a\" or letter == \"e\" or letter == \"i\" or letter == \"o\" or letter == \"u\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

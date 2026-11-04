@@ -177,11 +177,6 @@ fingerprint = "e970a5f0e7d4"
 
 [[gap]]
 rule = "cases-missing"
-item = "conditions-vowel"
-fingerprint = "9dc9cc6e8676"
-
-[[gap]]
-rule = "cases-missing"
 item = "data-summary"
 fingerprint = "5c445ef34649"
 
@@ -1863,7 +1858,7 @@ fingerprint = "e970a5f0e7d4"
 [[gap]]
 rule = "right-missing"
 item = "conditions-vowel"
-fingerprint = "9dc9cc6e8676"
+fingerprint = "00b324f318bb"
 
 [[gap]]
 rule = "right-missing"
@@ -2967,11 +2962,6 @@ fingerprint = "3954e0317374"
 
 [[gap]]
 rule = "weak-tests"
-item = "conditions-vowel"
-fingerprint = "9dc9cc6e8676"
-
-[[gap]]
-rule = "weak-tests"
 item = "data-summary"
 fingerprint = "5c445ef34649"
 
@@ -3453,7 +3443,7 @@ fingerprint = "e970a5f0e7d4"
 [[gap]]
 rule = "wrong-too-few"
 item = "conditions-vowel"
-fingerprint = "9dc9cc6e8676"
+fingerprint = "00b324f318bb"
 
 [[gap]]
 rule = "wrong-too-few"
