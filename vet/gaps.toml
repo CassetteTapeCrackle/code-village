@@ -823,7 +823,7 @@ fingerprint = "a3efee858cb3"
 [[gap]]
 rule = "cases-missing"
 item = "statistics-spread"
-fingerprint = "6330cd9b446d"
+fingerprint = "f4af494da4ea"
 
 [[gap]]
 rule = "cases-missing"
@@ -2513,7 +2513,7 @@ fingerprint = "944b5f96b7ac"
 [[gap]]
 rule = "right-missing"
 item = "statistics-spread"
-fingerprint = "6330cd9b446d"
+fingerprint = "f4af494da4ea"
 
 [[gap]]
 rule = "right-missing"
@@ -2929,11 +2929,6 @@ fingerprint = "3b869168b3eb"
 rule = "weak-tests"
 item = "star-classifier"
 fingerprint = "a3efee858cb3"
-
-[[gap]]
-rule = "weak-tests"
-item = "statistics-spread"
-fingerprint = "6330cd9b446d"
 
 [[gap]]
 rule = "weak-tests"
@@ -3868,7 +3863,7 @@ fingerprint = "944b5f96b7ac"
 [[gap]]
 rule = "wrong-too-few"
 item = "statistics-spread"
-fingerprint = "6330cd9b446d"
+fingerprint = "f4af494da4ea"
 
 [[gap]]
 rule = "wrong-too-few"
