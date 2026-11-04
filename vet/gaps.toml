@@ -57,13 +57,8 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "errors-set-volume"
-fingerprint = "5b13eb7deba5"
-
-[[gap]]
-rule = "cases-missing"
 item = "errors-withdraw"
-fingerprint = "9de7f022cf3a"
+fingerprint = "01a852d9685b"
 
 [[gap]]
 rule = "cases-missing"
@@ -1638,12 +1633,12 @@ fingerprint = "61ac39c45ef2"
 [[gap]]
 rule = "right-missing"
 item = "errors-set-volume"
-fingerprint = "5b13eb7deba5"
+fingerprint = "26b976939597"
 
 [[gap]]
 rule = "right-missing"
 item = "errors-withdraw"
-fingerprint = "9de7f022cf3a"
+fingerprint = "01a852d9685b"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,12 +2888,12 @@ fingerprint = "61ac39c45ef2"
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-set-volume"
-fingerprint = "5b13eb7deba5"
+fingerprint = "26b976939597"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-withdraw"
-fingerprint = "9de7f022cf3a"
+fingerprint = "01a852d9685b"
 
 [[gap]]
 rule = "wrong-too-few"
