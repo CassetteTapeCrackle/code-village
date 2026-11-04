@@ -598,7 +598,7 @@ fingerprint = "91ff482cc828"
 [[gap]]
 rule = "cases-missing"
 item = "methods-kettle"
-fingerprint = "c2dffb1d68f9"
+fingerprint = "9e252de847cf"
 
 [[gap]]
 rule = "cases-missing"
@@ -2283,7 +2283,7 @@ fingerprint = "1cf158584cdc"
 [[gap]]
 rule = "right-missing"
 item = "methods-kettle"
-fingerprint = "c2dffb1d68f9"
+fingerprint = "9e252de847cf"
 
 [[gap]]
 rule = "right-missing"
@@ -2899,11 +2899,6 @@ fingerprint = "963e8e5fd04b"
 rule = "weak-tests"
 item = "lost-satchel"
 fingerprint = "91ff482cc828"
-
-[[gap]]
-rule = "weak-tests"
-item = "methods-kettle"
-fingerprint = "c2dffb1d68f9"
 
 [[gap]]
 rule = "weak-tests"
@@ -3738,7 +3733,7 @@ fingerprint = "1cf158584cdc"
 [[gap]]
 rule = "wrong-too-few"
 item = "methods-kettle"
-fingerprint = "c2dffb1d68f9"
+fingerprint = "9e252de847cf"
 
 [[gap]]
 rule = "wrong-too-few"
