@@ -1,54 +1,54 @@
 {
-  "fingerprint": "95cdb88804df",
+  "fingerprint": "51aeb9942b6d",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

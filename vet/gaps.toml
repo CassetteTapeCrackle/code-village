@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "numpy-arrays-tripled"
-fingerprint = "95cdb88804df"
-
-[[gap]]
-rule = "cases-missing"
 item = "pandas-tables-cheapest-item"
 fingerprint = "a63f908fe453"
 
@@ -1718,7 +1713,7 @@ fingerprint = "0e275a2bfd75"
 [[gap]]
 rule = "right-missing"
 item = "numpy-arrays-tripled"
-fingerprint = "95cdb88804df"
+fingerprint = "51aeb9942b6d"
 
 [[gap]]
 rule = "right-missing"
@@ -2968,7 +2963,7 @@ fingerprint = "0e275a2bfd75"
 [[gap]]
 rule = "wrong-too-few"
 item = "numpy-arrays-tripled"
-fingerprint = "95cdb88804df"
+fingerprint = "51aeb9942b6d"
 
 [[gap]]
 rule = "wrong-too-few"
