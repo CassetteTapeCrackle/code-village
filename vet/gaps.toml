@@ -1037,11 +1037,6 @@ fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "right-missing"
-item = "grids-column"
-fingerprint = "8cb3926540b4"
-
-[[gap]]
-rule = "right-missing"
 item = "grids-diagonal"
 fingerprint = "33d0cd6cd7e8"
 
@@ -1934,11 +1929,6 @@ fingerprint = "ca28b52c0bb9"
 rule = "wrong-too-few"
 item = "gradebook"
 fingerprint = "97bacf4256e1"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "grids-column"
-fingerprint = "8cb3926540b4"
 
 [[gap]]
 rule = "wrong-too-few"
