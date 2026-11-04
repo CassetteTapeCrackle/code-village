@@ -1,6 +1,7 @@
 id = "properties-wingspan"
 title = "A bird's wingspan"
 prompt = "`Bird(wingspan)` should store the wingspan through a setter that refuses 0 or less with `ValueError`. Making a bird crashes with a `RecursionError`: find and fix the bug (store the value under `self._wingspan`)."
+requires = ["property-setter"]
 
 [cases]
 none = "the checks run on assignment to a property, which a case cannot make"

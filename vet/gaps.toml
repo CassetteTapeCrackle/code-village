@@ -527,11 +527,6 @@ fingerprint = "96c847a412bb"
 
 [[gap]]
 rule = "prompt-asks-construct"
-item = "properties-wingspan"
-fingerprint = "742707f3a039"
-
-[[gap]]
-rule = "prompt-asks-construct"
 item = "ranger-registry"
 fingerprint = "6b6226b23439"
 
