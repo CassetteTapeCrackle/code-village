@@ -143,7 +143,7 @@ fingerprint = "7161a11ef330"
 [[gap]]
 rule = "cases-missing"
 item = "statistics-typical"
-fingerprint = "26c106f43e4d"
+fingerprint = "1ef029ba33f2"
 
 [[gap]]
 rule = "cases-missing"
