@@ -1,54 +1,54 @@
 {
-  "fingerprint": "1fe158cf9541",
+  "fingerprint": "9cafac609e2b",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "age = int(input())\nprint(f\"Next year you will be {age + 1}\")\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "age = int(input())\nprint(f\"Next year you will be {age + 1}\")",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "age = int(input())\nprint(f\"Next year you will be {age + 1}\")\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "age = int(input())\nprint(f\"Next year you will be {age + 1}\")",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "age = int(input())\nprint(f\"Next year you will be {age + 1}\")\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
