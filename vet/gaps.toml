@@ -288,7 +288,7 @@ fingerprint = "24c69049b4af"
 [[gap]]
 rule = "cases-missing"
 item = "errors-safe-divide"
-fingerprint = "e36488a9060c"
+fingerprint = "e0e3330891e0"
 
 [[gap]]
 rule = "cases-missing"
@@ -1978,7 +1978,7 @@ fingerprint = "24c69049b4af"
 [[gap]]
 rule = "right-missing"
 item = "errors-safe-divide"
-fingerprint = "e36488a9060c"
+fingerprint = "e0e3330891e0"
 
 [[gap]]
 rule = "right-missing"
@@ -2977,11 +2977,6 @@ fingerprint = "bed0eb39405e"
 
 [[gap]]
 rule = "weak-tests"
-item = "errors-safe-divide"
-fingerprint = "e36488a9060c"
-
-[[gap]]
-rule = "weak-tests"
 item = "errors-set-volume"
 fingerprint = "f9e5fb1de5bf"
 
@@ -3563,7 +3558,7 @@ fingerprint = "24c69049b4af"
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-safe-divide"
-fingerprint = "e36488a9060c"
+fingerprint = "e0e3330891e0"
 
 [[gap]]
 rule = "wrong-too-few"
