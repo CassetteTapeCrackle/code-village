@@ -63,7 +63,7 @@ fingerprint = "db8a5b74d0c0"
 [[gap]]
 rule = "cases-missing"
 item = "class-attributes-rangers"
-fingerprint = "0c2f8652dab5"
+fingerprint = "331402bc0458"
 
 [[gap]]
 rule = "cases-missing"
@@ -1723,7 +1723,7 @@ fingerprint = "db8a5b74d0c0"
 [[gap]]
 rule = "right-missing"
 item = "class-attributes-rangers"
-fingerprint = "0c2f8652dab5"
+fingerprint = "331402bc0458"
 
 [[gap]]
 rule = "right-missing"
@@ -2917,11 +2917,6 @@ fingerprint = "db8a5b74d0c0"
 
 [[gap]]
 rule = "weak-tests"
-item = "class-attributes-rangers"
-fingerprint = "0c2f8652dab5"
-
-[[gap]]
-rule = "weak-tests"
 item = "composition-lamp"
 fingerprint = "bf7450e9ed13"
 
@@ -3278,7 +3273,7 @@ fingerprint = "db8a5b74d0c0"
 [[gap]]
 rule = "wrong-too-few"
 item = "class-attributes-rangers"
-fingerprint = "0c2f8652dab5"
+fingerprint = "331402bc0458"
 
 [[gap]]
 rule = "wrong-too-few"
