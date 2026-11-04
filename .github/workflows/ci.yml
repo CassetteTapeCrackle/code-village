@@ -122,8 +122,24 @@ jobs:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
       - run: pnpm exec playwright install --with-deps chromium
-      # the quick build (the check job runs every rule); built here so the dev server's start stays short
-      - run: pnpm content --quick
+      # the quick build (the check job runs every rule); built here so the dev server's start stays short. It also
+      # writes the items the generated specs (e2e/generated*.spec.ts) cover
+      - run: pnpm content --quick --items-out .vet-cache/e2e-items.json
+      # a pull request runs the generated specs only for the items it changes plus a fixed sample; the full sweep is
+      # e2e-full.yml (manual, and on pushes to main)
+      - name: Choose the generated items
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          if [ "$EVENT" = pull_request ]; then
+            git fetch --no-tags --depth=1 origin "$BASE_REF"
+            items=$(python -m tools.vet.changed --base "origin/$BASE_REF")
+          else
+            items=sample
+          fi
+          echo "VET_ITEMS=$items" >> "$GITHUB_ENV"
+          echo "generated browser tests cover: $items" >> "$GITHUB_STEP_SUMMARY"
       - run: pnpm e2e
       # always: the report and traces are the evidence this job exists to collect, success or failure
       - if: always()

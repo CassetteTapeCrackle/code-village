@@ -77,6 +77,17 @@ class Git(unittest.TestCase):
             self.assertEqual(changed_paths("main", root), [f"{TASK}/solution.py"])
             self.assertEqual(changed_items("main", root), {"basics-double"})
 
+    def test_histories_without_a_common_ancestor_are_compared_tree_to_tree(self) -> None:
+        with repo_with_content() as root:
+            self.git(root, "init", "-q", "-b", "main")
+            self.git(root, "add", "-A")
+            self.git(root, "commit", "-q", "-m", "base")
+            self.git(root, "checkout", "-q", "--orphan", "merged")  # a shallow merge commit looks like this
+            (root / TASK / "starter.py").write_text("def double(n):\n    return n\n")
+            self.git(root, "add", "-A")
+            self.git(root, "commit", "-q", "-m", "base plus change")
+            self.assertEqual(changed_paths("main", root), [f"{TASK}/starter.py"])
+
     def test_an_unknown_base_is_said(self) -> None:
         with repo_with_content() as root:
             self.git(root, "init", "-q")

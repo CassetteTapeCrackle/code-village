@@ -24,12 +24,14 @@ SHARED_CONTENT = ("features.toml", "concepts.toml", "world.toml")  # a change ca
 
 
 def changed_paths(base: str, root: Path = ROOT) -> list[str]:
-    """The files changed between base and HEAD (git diff base...HEAD)."""
-    done = subprocess.run(["git", "diff", "--name-only", f"{base}...HEAD"], cwd=root, capture_output=True, text=True,
-                          check=False)
-    if done.returncode != 0:
-        raise ValueError(f"git cannot compare with {base}: {done.stderr.strip()}: fetch it first")
-    return done.stdout.splitlines()
+    """The files changed between base and HEAD (git diff base...HEAD). A shallow checkout of a pull request's merge
+    commit has no common ancestor to find; there HEAD is the base plus the change, so a plain diff is the change."""
+    for range_ in (f"{base}...HEAD", f"{base}..HEAD"):
+        done = subprocess.run(["git", "diff", "--name-only", range_], cwd=root, capture_output=True, text=True,
+                              check=False)
+        if done.returncode == 0:
+            return done.stdout.splitlines()
+    raise ValueError(f"git cannot compare with {base}: {done.stderr.strip()}: fetch it first")
 
 
 def tokens_for(paths: Iterable[str], content: Content, root: Path = ROOT) -> frozenset[str]:

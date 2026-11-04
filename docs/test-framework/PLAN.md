@@ -712,7 +712,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   mutant shows `We also tried`. Bosses: full run through every stage with the solution, then hard mode.
   Uses `showTask`, `typeCode` from `e2e/helpers.ts`.
 
-- [ ] **Step 1 to 3:** Write, run on 2 items in the VM if Playwright installs there (else on CI), commit.
+- [x] **Step 1 to 3:** Write, run on 2 items in the VM if Playwright installs there (else on CI), commit.
 
 ### Task 8.3: CI layout
 
