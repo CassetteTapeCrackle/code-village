@@ -5,3 +5,8 @@ title = "Leave the original alone"
 prompt = "`copy_and_add(items, x)` should return a **new** list with `x` at the end, and leave `items` unchanged. It has a bug: find and fix it."
 hints = ["Run it, then print the original list after the call.", "Call `.copy()` on the list to get a new list; assigning `new = items` only gives the same list a second name."]
 gotcha = true
+
+[cases]
+call = "copy_and_add"
+args = ["list<int 0..9> 0..5", "int 0..9"]
+mutates = [0]

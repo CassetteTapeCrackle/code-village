@@ -67,11 +67,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "lists-copy-and-add"
-fingerprint = "ff410bbbe012"
-
-[[gap]]
-rule = "cases-missing"
 item = "lists-first-item"
 fingerprint = "779957fcacb3"
 
@@ -1658,7 +1653,7 @@ fingerprint = "d0c7a473aaec"
 [[gap]]
 rule = "right-missing"
 item = "lists-copy-and-add"
-fingerprint = "ff410bbbe012"
+fingerprint = "327a347da3b0"
 
 [[gap]]
 rule = "right-missing"
@@ -2908,7 +2903,7 @@ fingerprint = "d0c7a473aaec"
 [[gap]]
 rule = "wrong-too-few"
 item = "lists-copy-and-add"
-fingerprint = "ff410bbbe012"
+fingerprint = "327a347da3b0"
 
 [[gap]]
 rule = "wrong-too-few"
