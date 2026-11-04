@@ -13,7 +13,9 @@ import urllib.request
 from collections.abc import Callable
 from pathlib import Path
 
+from .deepseek import DeepSeekError
 from .logs import emit_files
+from .review_sentences import run_file
 
 INVENTORY_URL = "https://docs.python.org/3.12/objects.inv"
 INVENTORY_NAME = "python-3.12-objects.inv"
@@ -27,7 +29,24 @@ def run_inventory(request: dict[str, object], out: Path) -> None:
     print(f"inventory: {len(data)} bytes from {INVENTORY_URL}")
 
 
-JOBS: dict[str, Callable[[dict[str, object], Path], None]] = {"inventory": run_inventory}
+def run_sentences(request: dict[str, object], out: Path) -> None:
+    """Review the request's sentences with DeepSeek; the sentences travel inside the request file."""
+    sentences = request.get("sentences")
+    if not isinstance(sentences, list):
+        sys.exit("a sentences request needs a `sentences` list")
+    source = out / "request-sentences.json"
+    source.write_text(json.dumps(sentences))
+    try:
+        result = run_file(source, out / "deepseek-sentences.json")
+    except DeepSeekError as e:
+        sys.exit(f"sentences: {e}")
+    source.unlink()
+    print(f"sentences: {len(sentences)} reviewed, {result['calls']} calls, {result['tokens']} tokens, "
+          f"{result['seconds']} s")
+
+
+JOBS: dict[str, Callable[[dict[str, object], Path], None]] = {"inventory": run_inventory,
+                                                              "sentences": run_sentences}
 
 
 def main() -> None:
