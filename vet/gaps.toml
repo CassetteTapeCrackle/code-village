@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "methods-tally"
-fingerprint = "722f22f085f9"
-
-[[gap]]
-rule = "cases-missing"
 item = "numpy-arrays-columns"
 fingerprint = "c0061355627d"
 
