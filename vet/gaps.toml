@@ -952,11 +952,6 @@ fingerprint = "a185c4199374"
 
 [[gap]]
 rule = "right-missing"
-item = "generators-spread"
-fingerprint = "a8696950d8b9"
-
-[[gap]]
-rule = "right-missing"
 item = "gradebook"
 fingerprint = "97bacf4256e1"
 
@@ -1429,11 +1424,6 @@ fingerprint = "fb1f8c5691e8"
 rule = "wrong-too-few"
 item = "files-json-visits"
 fingerprint = "a185c4199374"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "generators-spread"
-fingerprint = "a8696950d8b9"
 
 [[gap]]
 rule = "wrong-too-few"
