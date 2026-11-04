@@ -28,7 +28,7 @@ fingerprint = "a452bd94cfec"
 [[gap]]
 rule = "blind-missing"
 item = "recursion-repeat"
-fingerprint = "c46db7ab85db"
+fingerprint = "390314807bba"
 
 [[gap]]
 rule = "blind-missing"
@@ -1322,11 +1322,6 @@ fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "right-missing"
-item = "recursion-repeat"
-fingerprint = "c46db7ab85db"
-
-[[gap]]
-rule = "right-missing"
 item = "recursion-sum-to"
 fingerprint = "777cebd050cf"
 
@@ -2104,11 +2099,6 @@ fingerprint = "1f7a66a6ccca"
 rule = "wrong-too-few"
 item = "ranger-registry"
 fingerprint = "bc03a544dbed"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "recursion-repeat"
-fingerprint = "c46db7ab85db"
 
 [[gap]]
 rule = "wrong-too-few"
