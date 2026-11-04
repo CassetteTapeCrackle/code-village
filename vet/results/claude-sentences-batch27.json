@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "65c5d3c8fb7b",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "A lambda is an anonymous function limited to one expression, and negating a number reverses its sort order. This only works for numbers, which is the case here.",
+   "assert": null
+  },
+  {
+   "fp": "c99f7eee33ca",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Story setup.",
+   "assert": null
+  },
+  {
+   "fp": "d1231c820766",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Instruction describing the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "899d627f5d73",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes what the exercise provides.",
+   "assert": null
+  },
+  {
+   "fp": "f416e40b397a",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise's data layout.",
+   "assert": null
+  },
+  {
+   "fp": "38edf7e28b74",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Outline of the exercise stages.",
+   "assert": null
+  },
+  {
+   "fp": "3627d37fdbd6",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise framing.",
+   "assert": null
+  },
+  {
+   "fp": "696c78488a4e",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the function the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "e5c025b0f2aa",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the function the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "d83084668c4f",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the function the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "57af6b106692",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the function the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "94f2b37ae974",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the game the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "3b1e249b1290",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the game the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "2d8ac0d16132",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the game the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "628928a7aa63",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the game the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "edd1323ca615",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the game the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "1a722912f9db",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the game the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "8c7566dc8653",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Story setup.",
+   "assert": null
+  },
+  {
+   "fp": "7b3448b3fa58",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Instruction describing the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "00938eac0fec",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Outline of the exercise stages.",
+   "assert": null
+  },
+  {
+   "fp": "5281bc8a711b",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise framing.",
+   "assert": null
+  },
+  {
+   "fp": "ee60fc9c656b",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the class the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "9dad90da1ca0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the method the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "7cb9bcbd8953",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the method the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "c8c3768b44f1",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the methods the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "4893c7e6e97c",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Story setup.",
+   "assert": null
+  },
+  {
+   "fp": "841be4091ef3",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Instruction describing the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "5d848c03f124",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Outline of the exercise stages.",
+   "assert": null
+  },
+  {
+   "fp": "5281bc8a711b",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise framing.",
+   "assert": null
+  },
+  {
+   "fp": "82bd5671a5ad",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A dataclass generates a repr in that form and an __eq__ that compares the fields.",
+   "assert": "from dataclasses import dataclass\n\n@dataclass\nclass Song:\n    title: str\n    seconds: int\n\nassert repr(Song(\"Dawn\", 90)) == \"Song(title='Dawn', seconds=90)\"\nassert Song(\"Dawn\", 90) == Song(\"Dawn\", 90)"
+  },
+  {
+   "fp": "35d506a56df3",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the class the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "bd8c69983474",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the methods the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "7e37130350bb",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The `in` operator calls the right operand's __contains__ method.",
+   "assert": "class P:\n    def __contains__(self, title):\n        return title == \"Dawn\"\n\nassert \"Dawn\" in P()\nassert \"Dusk\" not in P()"
+  },
+  {
+   "fp": "62a763d9e9ad",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the method the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "f8f6935553b8",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Story setup.",
+   "assert": null
+  },
+  {
+   "fp": "5684ecb7ffc2",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Instruction describing the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "9042d83ce5a0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Outline of the exercise stages.",
+   "assert": null
+  },
+  {
+   "fp": "1f643d068ea8",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Story and encouragement.",
+   "assert": null
+  },
+  {
+   "fp": "64b8991a91d6",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the class the learner writes.",
+   "assert": null
+  },
+  {
+   "fp": "42ff00d35157",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Specification of the class the learner writes.",
+   "assert": null
+  }
+ ]
+}

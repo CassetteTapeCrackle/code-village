@@ -31,6 +31,10 @@ print(Boat("Otter").start())
 
 `Boat` does not inherit from `Engine`: a boat is not an engine. It holds one and asks it to do the engine's job. Below, `sum` adds up a list of numbers.
 
+```python claim id=auto-6671a2672b0e
+assert sum([1, 2, 3]) == 6
+```
+
 ```python predict
 class Wheel:
     def __init__(self, size):

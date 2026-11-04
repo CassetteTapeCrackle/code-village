@@ -1,0 +1,244 @@
+[[sentence]]
+fp = "f60783745113"
+text = "A function is a value, like a number or a string."
+where = "text:0"
+status = "claim:auto-f60783745113"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6a3afaa4d608"
+text = "You can store it under another name, keep it in a list, and pass it to another function, which calls it later."
+where = "text:0"
+status = "claim:auto-6a3afaa4d608"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ec15ff90ab93"
+text = "`speak = shout` has no brackets: it does not call `shout`, it gives the same function a second name."
+where = "text:2"
+status = "claim:auto-ec15ff90ab93"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e4d6d7d89f76"
+text = "The loop then calls each function in the list on `\"owl\"`."
+where = "text:2"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "359cac50ae74"
+text = "Write `apply_twice(f, x)`: it calls the function `f` on `x`, then calls `f` again on that result, and returns it."
+where = "task:functions-as-values-twice:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2d40c429dc4a"
+text = "`apply_twice(add_one, 5)` is `7`."
+where = "task:functions-as-values-twice:prompt"
+status = "claim:auto-2d40c429dc4a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d08f9810e565"
+text = "Write `compose(f, g, x)`: it calls `g` on `x` first, then `f` on that result, and returns it."
+where = "task:functions-as-values-compose:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e1477b47c491"
+text = "`compose(str, len, \"moss\")` is `\"4\"`."
+where = "task:functions-as-values-compose:prompt"
+status = "claim:auto-e1477b47c491"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8ceaddc451ee"
+text = "For a tiny function you only need once, write a **lambda**: `lambda n: n * 2` takes `n` and returns `n * 2`."
+where = "text:5"
+status = "claim:auto-8ceaddc451ee"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7b6ea40c072c"
+text = "It fits right where a function is expected, like the `key=` of `sorted`."
+where = "text:5"
+status = "claim:auto-7b6ea40c072c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "78061c035ea1"
+text = "`map` and `filter` take a function and a list."
+where = "text:8"
+status = "simplification"
+reason = "They accept any iterable, not only a list, and map can take several iterables."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "19fe2f121661"
+text = "They hand back their results one at a time, so wrap them in `list()` to see them all."
+where = "text:8"
+status = "claim:auto-19fe2f121661"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8fefb0bc9bf3"
+text = "Finish `long_words(words, n)`: it returns a list of the words longer than `n` letters, in their order, using `filter` and a `lambda`."
+where = "task:functions-as-values-keep-long:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "746561bf6e2b"
+text = "The lambda gets one word and answers `True` or `False`."
+where = "task:functions-as-values-keep-long:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "da9850a4ccfe"
+text = "`list(filter(lambda w: w.startswith(\"a\"), words))` keeps the words starting with a."
+where = "task:functions-as-values-keep-long:hint:1"
+status = "claim:auto-da9850a4ccfe"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6132394a6b8e"
+text = "Finish `with_tax(prices)`: it returns a new list with every price times `1.5`, using `map` and a `lambda`."
+where = "task:functions-as-values-prices:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f28b2527341c"
+text = "To pass a function, write its name **without brackets**."
+where = "text:12"
+status = "claim:auto-f28b2527341c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "128ddf5b1c30"
+text = "`map(loud(), ...)` would fail before `map` even starts: `loud()` is a call, missing its `word`."
+where = "text:14"
+status = "claim:auto-128ddf5b1c30"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "347a185b7102"
+text = "`cheapest_first(items)` should sort `(name, price)` pairs from the lowest price to the highest."
+where = "task:functions-as-values-cheapest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1099d6bd62a3"
+text = "It crashes instead: find and fix the bug."
+where = "task:functions-as-values-cheapest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "77fd639eebcd"
+text = "What does `by_price(items)` give?"
+where = "task:functions-as-values-cheapest:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3fa201ba22fb"
+text = "Pass the function itself as `key`, without calling it."
+where = "task:functions-as-values-cheapest:hint:1"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b6340866e402"
+text = "`oldest_first(people)` should sort `(name, age)` pairs from the oldest to the youngest."
+where = "task:functions-as-values-oldest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "20c362f331bd"
+text = "It crashes: find and fix the bug."
+where = "task:functions-as-values-oldest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "78b67b3b90f4"
+text = "(Mind the brackets after the key function.)"
+where = "task:functions-as-values-oldest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "207cdde5f7da"
+text = "A function is a value: store it in a name, put it in a list, pass it to another function."
+where = "remember:0"
+status = "claim:auto-207cdde5f7da"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c77867c67920"
+text = "map(f, items) applies f to every item; filter(f, items) keeps the items where f gives True."
+where = "remember:2"
+status = "simplification"
+reason = "filter keeps items where f gives a truthy value, not only True, and the paragraph's advice to wrap them in list() holds because both are lazy."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

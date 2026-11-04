@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "db200c80972b",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a requirement the exercise puts on the learner's test.",
+   "assert": null
+  },
+  {
+   "fp": "3d51136997a2",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`assert` is a keyword that starts a statement, and it is not a callable name.",
+   "assert": "import ast, keyword\nassert 'assert' in keyword.kwlist\nassert isinstance(ast.parse('assert True').body[0], ast.Assert)\nassert not callable(globals().get('assert'))"
+  },
+  {
+   "fp": "6eab27f928fc",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The bracketed form builds a two-item tuple, which is truthy, so the assert never fails. Python 3.12 only warns about it.",
+   "assert": "import warnings\nwarnings.simplefilter('ignore')\nx = 1\nexec('assert (x == 3, \"message\")')\nassert bool((x == 3, 'message')) is True"
+  },
+  {
+   "fp": "2246f8bbaeb4",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise's setup, which is a test that cannot fail.",
+   "assert": null
+  },
+  {
+   "fp": "bd5a77014fa7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "18099c6138b6",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction and a question that guides the learner.",
+   "assert": null
+  },
+  {
+   "fp": "c639303e4080",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Brackets around `cond, msg` make a tuple. A non-empty tuple is truthy, so the assert passes whatever the condition is.",
+   "assert": "import warnings\nwarnings.simplefilter('ignore')\nt = (False, 'msg')\nassert bool(t) is True\nexec('assert (1 == 2, \"msg\")')"
+  },
+  {
+   "fp": "55faba6b42e2",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It tells the learner the correct way to write an assert with a message.",
+   "assert": null
+  },
+  {
+   "fp": "990357b388ce",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise's setup, which is a test that cannot fail.",
+   "assert": null
+  },
+  {
+   "fp": "6d7512c5971a",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The instruction is followed by a correct fact: a bracketed `assert (cond, msg)` checks a non-empty tuple, which is always true.",
+   "assert": "import warnings\nwarnings.simplefilter('ignore')\nexec('assert (\"a\" == \"b\", \"msg\")')\nassert bool((False, 'msg'))"
+  },
+  {
+   "fp": "d41009efc60b",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A false condition raises AssertionError, and the message becomes its argument. This holds unless Python runs with -O.",
+   "assert": "try:\n    exec('assert 1 == 2, \"message\"')\nexcept AssertionError as e:\n    assert str(e) == 'message'\nelse:\n    raise SystemExit('no error')"
+  },
+  {
+   "fp": "28b108a42e4a",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "It is a fair description of a basic test. It leaves out tests that check properties or errors rather than known answers.",
+   "assert": null
+  },
+  {
+   "fp": "23207d6f91d0",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "Testing edge cases is good testing practice.",
+   "assert": null
+  },
+  {
+   "fp": "514c438f8230",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is a style rule, and the reason given is correct: the bracketed pair is a non-empty tuple.",
+   "assert": null
+  },
+  {
+   "fp": "4321bf685e64",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Files are the basic way to keep data after the program ends. It leaves out databases and other storage.",
+   "assert": null
+  },
+  {
+   "fp": "e508adde64b5",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Leaving a `with` block, even through an error, closes the file and so flushes what was written. A StringIO shows the same closing behaviour.",
+   "assert": "import io\ns = io.StringIO()\ntry:\n    with s:\n        s.write('x')\n        raise ValueError\nexcept ValueError:\n    pass\nassert s.closed"
+  },
+  {
+   "fp": "dd1088d78628",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`write` writes exactly the string it is given and adds no newline.",
+   "assert": "import io\ns = io.StringIO()\ns.write('a')\ns.write('b')\nassert s.getvalue() == 'ab'\ns.write('c\\n')\nassert s.getvalue() == 'abc\\n'"
+  },
+  {
+   "fp": "f47c5ffc5ee6",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Iterating over a file yields each line with its trailing newline, and `strip()` removes it. The last line has no newline if the file does not end with one.",
+   "assert": "import io\nlines = list(io.StringIO('a\\nb\\n'))\nassert lines == ['a\\n', 'b\\n']\nassert [l.strip() for l in lines] == ['a', 'b']"
+  },
+  {
+   "fp": "62fd072099f5",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a note about the course's exercise environment.",
+   "assert": null
+  },
+  {
+   "fp": "07ab46cad9c0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is the exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "0c09a38ae895",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "94b0b6847475",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`write` accepts a single string argument, so a newline has to be joined onto the text first.",
+   "assert": "import io\ns = io.StringIO()\ntry:\n    s.write('a', '\\n')\nexcept TypeError:\n    pass\nelse:\n    raise SystemExit('accepted two args')\ns.write('a' + '\\n')\nassert s.getvalue() == 'a\\n'"
+  },
+  {
+   "fp": "41ee3dd30d54",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is the exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "6788c2b14207",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "A text-mode file stores text. It leaves out binary files, which hold bytes.",
+   "assert": null
+  },
+  {
+   "fp": "a8f20557e789",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "JSON is a widely supported text format that handles lists and dicts. The next paragraph adds that it does not keep everything, such as tuples.",
+   "assert": null
+  },
+  {
+   "fp": "941827b953e0",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`json.dump(value, file)` writes to a file object and `json.load(file)` reads it back.",
+   "assert": "import io, json\nf = io.StringIO()\njson.dump({'a': [1, 2]}, f)\nf.seek(0)\nassert json.load(f) == {'a': [1, 2]}"
+  },
+  {
+   "fp": "ed762920286b",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`dumps` returns a str, writes None as null and always uses double quotes for strings.",
+   "assert": "import json\nassert json.dumps(None) == 'null'\nassert json.dumps('hi') == '\"hi\"'\nassert json.dumps(\"it's\") == '\"it\\'s\"'\nassert isinstance(json.dumps([1]), str)"
+  },
+  {
+   "fp": "fe3aabe899c9",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "JSON object keys are strings, so int keys come back as str, and tuples come back as lists.",
+   "assert": "import json\nassert json.loads(json.dumps({1: 'a'})) == {'1': 'a'}\nassert json.loads(json.dumps((1, 2))) == [1, 2]"
+  },
+  {
+   "fp": "4869944a11e2",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise's setup.",
+   "assert": null
+  },
+  {
+   "fp": "065da99007c7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is the exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "dda1f49a9287",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a quiz question.",
+   "assert": null
+  },
+  {
+   "fp": "ab43f86c57f6",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`load` takes a file object and `loads` takes a string.",
+   "assert": "import io, json\nassert json.load(io.StringIO('[1, 2]')) == [1, 2]\nassert json.loads('[1, 2]') == [1, 2]"
+  },
+  {
+   "fp": "5f81184d8cb0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise's setup.",
+   "assert": null
+  },
+  {
+   "fp": "b7899c76046a",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is the exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "33be38ad3c15",
+   "status": "doc:https://docs.python.org/3/library/functions.html#open",
+   "verdict": "true",
+   "reason": "The mode passed to `open` decides whether existing content is erased (\"w\"), kept and extended (\"a\") or only read.",
+   "assert": null
+  },
+  {
+   "fp": "c93fee5912f1",
+   "status": "doc:https://docs.python.org/3/library/functions.html#open",
+   "verdict": "true",
+   "reason": "\"w\" truncates an existing file, and \"a\" appends to the end of it.",
+   "assert": null
+  },
+  {
+   "fp": "97b1f10156ee",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise function should do.",
+   "assert": null
+  },
+  {
+   "fp": "d05769aaf5ed",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the bug in the exercise and tells the learner to fix it.",
+   "assert": null
+  },
+  {
+   "fp": "82ee434ec437",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a quiz question.",
+   "assert": null
+  },
+  {
+   "fp": "86f4bd2b1688",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is a hint, and \"a\" is the right mode for adding to the end of a file.",
+   "assert": null
+  }
+ ]
+}

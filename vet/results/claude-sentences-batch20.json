@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "163f2cf02697",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "read_csv infers a numeric dtype for columns whose values all parse as numbers.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('name,h\\na,1\\nb,2.5\\n'))\nassert pd.api.types.is_numeric_dtype(df['h'])\nassert df['h'].sum() == 3.5"
+  },
+  {
+   "fp": "7341dd4f3b0a",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The DataFrame index is printed on the left as row labels.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('name,h\\na,1\\nb,2\\n'))\nassert list(df.index) == [0, 1]\nassert 'name' not in df.index"
+  },
+  {
+   "fp": "5a3646cdc7d7",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A column is a Series, which has max, min, mean and sum.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('name,height\\na,1\\nb,3\\n'))\nc = df['height']\nassert (c.max(), c.min(), c.mean(), c.sum()) == (3, 1, 2.0, 4)"
+  },
+  {
+   "fp": "1d446e026a9a",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "After sort_values, iloc[0] is the smallest row and iloc[-1] the largest. Indexing that row with 'name' gives a single value.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('name,height\\na,5\\nb,1\\nc,3\\n'))\ns = df.sort_values('height')\nassert s.iloc[0]['name'] == 'b'\nassert s.iloc[-1]['name'] == 'a'"
+  },
+  {
+   "fp": "21eef26b34f3",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise input.",
+   "assert": null
+  },
+  {
+   "fp": "4b8a5b4c1897",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "2abef925181a",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint telling the learner what to write.",
+   "assert": null
+  },
+  {
+   "fp": "2ac89041905d",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "c12a412b5eca",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise input.",
+   "assert": null
+  },
+  {
+   "fp": "80466015b965",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "a4e34daeec91",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A comparison on a column gives a boolean Series, and df[mask] keeps the True rows.",
+   "assert": "import pandas as pd\ndf = pd.DataFrame({'a': [1, 5, 7]})\nmask = df['a'] > 3\nassert mask.tolist() == [False, True, True]\nassert df[mask]['a'].tolist() == [5, 7]"
+  },
+  {
+   "fp": "d44124d1147c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "groupby splits rows by the values of a column, and an aggregate gives one answer per group.",
+   "assert": "import pandas as pd\ndf = pd.DataFrame({'t': ['x', 'y', 'x'], 'h': [1, 2, 3]})\nr = df.groupby('t')['h'].max()\nassert r.to_dict() == {'x': 3, 'y': 2}"
+  },
+  {
+   "fp": "68c5a0f5c907",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Series.tolist() returns a list and Series.to_dict() returns a dict.",
+   "assert": "import pandas as pd\ns = pd.Series([1, 2], index=['a', 'b'])\nassert s.tolist() == [1, 2] and type(s.tolist()) is list\nassert s.to_dict() == {'a': 1, 'b': 2} and type(s.to_dict()) is dict"
+  },
+  {
+   "fp": "a8230601fa47",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise input.",
+   "assert": null
+  },
+  {
+   "fp": "ebdd331b3001",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "5e98e551b6b8",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "9eff6a7d615c",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "869699b60ece",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise input.",
+   "assert": null
+  },
+  {
+   "fp": "cbbd029a50d9",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "acbc8ff25623",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A column of numbers stays numeric when a cell is empty (it becomes NaN), but one non-numeric value makes the column text.",
+   "assert": "import io\nimport pandas as pd\na = pd.read_csv(io.StringIO('n,p\\na,1\\nb,\\nc,3\\n'))\nassert pd.api.types.is_numeric_dtype(a['p'])\nassert a['p'].isna().tolist() == [False, True, False]\nb = pd.read_csv(io.StringIO('n,p\\na,1\\nb,?\\nc,3\\n'))\nassert not pd.api.types.is_numeric_dtype(b['p'])"
+  },
+  {
+   "fp": "7fa5822f7f32",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "One value like ? stops the column being parsed as numbers, so every value stays a string.",
+   "assert": "import io\nimport pandas as pd\nb = pd.read_csv(io.StringIO('n,p\\na,1\\nb,?\\nc,3\\n'))\nassert not pd.api.types.is_numeric_dtype(b['p'])\nassert b['p'].tolist() == ['1', '?', '3']"
+  },
+  {
+   "fp": "bc48e92a4245",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Adding strings joins them, and string order puts '10' before '9'.",
+   "assert": "import io\nimport pandas as pd\nb = pd.read_csv(io.StringIO('n,p\\na,3\\nb,?\\nc,2\\n'))\nassert b['p'].astype(object).sum() == '3?2'\nassert sorted(['9', '10']) == ['10', '9']\nd = pd.DataFrame({'p': ['9', '10']}).sort_values('p')\nassert d['p'].tolist() == ['10', '9']"
+  },
+  {
+   "fp": "75ca777186be",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "to_numeric with errors='coerce' converts what it can and gives NaN for the rest.",
+   "assert": "import pandas as pd\ns = pd.to_numeric(pd.Series(['3', '?', '2']), errors='coerce')\nassert pd.api.types.is_numeric_dtype(s)\nassert s.isna().tolist() == [False, True, False]\nassert s.sum() == 5"
+  },
+  {
+   "fp": "938efd2cc34a",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Series sum and max skip NaN by default (skipna=True).",
+   "assert": "import pandas as pd\nimport numpy as np\ns = pd.Series([3.0, np.nan, 2.0])\nassert s.sum() == 5.0\nassert s.max() == 3.0"
+  },
+  {
+   "fp": "be32531f3726",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise function should do.",
+   "assert": null
+  },
+  {
+   "fp": "14d1b6e762ce",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the buggy starter code's behaviour and asks the learner to fix it.",
+   "assert": null
+  },
+  {
+   "fp": "3d2b9fba9e0a",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A ? in the column stops numeric parsing, so the whole column is text.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('item,price\\ntea,3\\njam,?\\nbun,2\\n'))\nassert not pd.api.types.is_numeric_dtype(df['price'])"
+  },
+  {
+   "fp": "d0b2e138006b",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a question prompting the learner to think.",
+   "assert": null
+  },
+  {
+   "fp": "e3b71f37edae",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "to_numeric with errors='coerce' turns bad text into NaN, which sum ignores.",
+   "assert": "import pandas as pd\ns = pd.to_numeric(pd.Series(['3', '?', '2']), errors='coerce')\nassert s.isna().tolist() == [False, True, False]\nassert s.sum() == 5"
+  },
+  {
+   "fp": "768032b80f93",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "1c65bae17494",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise's task.",
+   "assert": null
+  },
+  {
+   "fp": "ff4713245b67",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the buggy code and asks the learner to fix it. The parenthetical (text sorts '10' before '9') is correct.",
+   "assert": null
+  },
+  {
+   "fp": "22f03a34c912",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "read_csv on a StringIO parses CSV text into a DataFrame.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('a,b\\n1,2\\n'))\nassert isinstance(df, pd.DataFrame)\nassert df['a'].tolist() == [1]"
+  },
+  {
+   "fp": "3736bc4efcff",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "df['col'] is a column, a boolean test keeps matching rows, and tolist gives a plain list.",
+   "assert": "import pandas as pd\ndf = pd.DataFrame({'col': [1, 5, 7]})\nassert isinstance(df['col'], pd.Series)\nr = df[df['col'] > 3]['col'].tolist()\nassert r == [5, 7] and type(r) is list"
+  },
+  {
+   "fp": "266caeeb6fb2",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Aggregating after groupby gives one result per group.",
+   "assert": "import pandas as pd\ndf = pd.DataFrame({'team': ['a', 'b', 'a'], 'col': [1, 2, 3]})\nr = df.groupby('team')['col'].max()\nassert len(r) == 2\nassert r['a'] == 3 and r['b'] == 2"
+  },
+  {
+   "fp": "66de5e698b8b",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A single non-numeric value like ? makes read_csv read the column as text.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('p\\n1\\n?\\n3\\n'))\nassert not pd.api.types.is_numeric_dtype(df['p'])"
+  },
+  {
+   "fp": "51b87d21f938",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "On text values, + joins the strings instead of adding numbers.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('p\\n3\\n?\\n2\\n'))\nassert not pd.api.types.is_numeric_dtype(df['p'])\nassert df['p'].iloc[0] + df['p'].iloc[2] == '32'\nassert df['p'].astype(object).sum() == '3?2'"
+  },
+  {
+   "fp": "a043bff6f417",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "to_numeric with errors='coerce' turns the text column into numbers, with NaN for bad values.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('p\\n3\\n?\\n2\\n'))\ns = pd.to_numeric(df['p'], errors='coerce')\nassert pd.api.types.is_numeric_dtype(s)\nassert s.sum() == 5"
+  },
+  {
+   "fp": "b71611ef8425",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an intro statement that a loop or comprehension can double each price, which is correct.",
+   "assert": null
+  },
+  {
+   "fp": "b4f2062a47d1",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "A NumPy array is a fixed-type container of numbers with element-wise maths. It is not literally a Python list, and it can hold other types too.",
+   "assert": null
+  }
+ ]
+}

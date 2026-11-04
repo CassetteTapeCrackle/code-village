@@ -32,6 +32,22 @@ assert error_from(lambda: {}["key"]) is KeyError
 
 `try` runs code that might fail, and `except SomeError` handles that kind of error only.
 
+```python claim id=auto-8f9ad33b3734
+try:
+    try:
+        int('abc')
+    except TypeError:
+        handled = True
+except ValueError:
+    handled = False
+assert handled is False
+try:
+    1 / 0
+except ZeroDivisionError:
+    handled = True
+assert handled
+```
+
 ```python example
 def to_number(text):
     try:
@@ -45,6 +61,16 @@ print(to_number("42"), to_number("forty"))
 ::task safe-divide
 
 A bare `except:` catches **everything**, even a typo in a variable name. The bug disappears and the function quietly gives the wrong answer. Catch the error you expect, and let the rest show up.
+
+```python claim id=auto-5bd91c7fcbe5
+def f():
+    value = 1
+    try:
+        return valeu
+    except:
+        return None
+assert f() is None
+```
 
 ```python predict
 def parse(text):
@@ -73,3 +99,23 @@ except ValueError as e:
 ```
 
 ::task withdraw
+
+```python claim id=auto-2daf6b471ed9
+try:
+    1 / 0
+except ZeroDivisionError:
+    ok = True
+assert ok
+try:
+    1 // 0
+except ZeroDivisionError:
+    ok = True
+assert ok
+```
+
+```python claim id=auto-14b37d801a5d
+try:
+    raise ValueError("message")
+except ValueError as e:
+    assert e.args == ("message",)
+```

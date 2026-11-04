@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "54af26928808",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "A guiding question for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "2eef6b66d3eb",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "A hint describing the exercise code.",
+   "assert": null
+  },
+  {
+   "fp": "c0435c1b765b",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "A hint on how to fix the recursion bug.",
+   "assert": null
+  },
+  {
+   "fp": "175499e769ed",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes what the exercise asks for.",
+   "assert": null
+  },
+  {
+   "fp": "3fa75d65bc26",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise and tells the learner what to do.",
+   "assert": null
+  },
+  {
+   "fp": "baba3b0facef",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A property is read without brackets and runs the method.",
+   "assert": "class Plot:\n    def __init__(self):\n        self.w = 2\n        self.h = 3\n    @property\n    def area(self):\n        return self.w * self.h\nplot = Plot()\nassert plot.area == 6"
+  },
+  {
+   "fp": "08a956703e8d",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A setter runs when assigning and can raise to refuse a value.",
+   "assert": "class P:\n    @property\n    def area(self):\n        return self._area\n    @area.setter\n    def area(self, v):\n        if v <= 0:\n            raise ValueError\n        self._area = v\np = P()\np.area = 5\nassert p.area == 5\ntry:\n    p.area = -1\n    assert False\nexcept ValueError:\n    pass"
+  },
+  {
+   "fp": "c64dffca7905",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Assigning to the property inside its own setter recurses until RecursionError, so 'forever' means until Python stops it.",
+   "assert": "class P:\n    @property\n    def age(self):\n        return self._age\n    @age.setter\n    def age(self, v):\n        self.age = v\np = P()\ntry:\n    p.age = 1\n    assert False\nexcept RecursionError:\n    pass"
+  },
+  {
+   "fp": "05980ad80db1",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "A naming convention; Python does not enforce it.",
+   "assert": null
+  },
+  {
+   "fp": "b5f2f8a65bdf",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "In CPython sorted and min use <, max uses >.",
+   "assert": "calls = []\nclass A:\n    def __init__(s, v):\n        s.v = v\n    def __lt__(s, o):\n        calls.append('lt')\n        return s.v < o.v\n    def __gt__(s, o):\n        calls.append('gt')\n        return s.v > o.v\nxs = [A(1), A(2), A(3)]\nsorted(xs)\nassert set(calls) == {'lt'}\ncalls.clear()\nmin(xs)\nassert set(calls) == {'lt'}\ncalls.clear()\nmax(xs)\nassert set(calls) == {'gt'}"
+  },
+  {
+   "fp": "3cef00ce2878",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Numbers and strings support ordering comparisons.",
+   "assert": "assert 1 < 2\nassert 'a' < 'b'\nassert sorted([3, 1, 2]) == [1, 2, 3]\nassert sorted(['b', 'a']) == ['a', 'b']\nassert max([1, 3, 2]) == 3 and min('bca') == 'a'"
+  },
+  {
+   "fp": "06e91d733902",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Plain custom objects cannot be ordered and raise TypeError.",
+   "assert": "class A:\n    pass\nfor f in (sorted, max, min):\n    try:\n        f([A(), A()])\n        assert False\n    except TypeError:\n        pass"
+  },
+  {
+   "fp": "e1ab2f169c13",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A key function maps each item to a comparable value.",
+   "assert": "class B:\n    def __init__(s, n):\n        s.name = n\nbs = [B('b'), B('a')]\nassert [b.name for b in sorted(bs, key=lambda b: b.name)] == ['a', 'b']"
+  },
+  {
+   "fp": "dc15ed1afdae",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Refers back to earlier course material.",
+   "assert": null
+  },
+  {
+   "fp": "5e84aadb0b61",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes what the exercise asks.",
+   "assert": null
+  },
+  {
+   "fp": "f10b2e1649f4",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The key function is called with one item and its result is used for ordering.",
+   "assert": "seen = []\ndef k(x):\n    seen.append(x)\n    return -x\nassert sorted([1, 3, 2], key=k) == [3, 2, 1]\nassert sorted(seen) == [1, 2, 3]"
+  },
+  {
+   "fp": "cae5379e75e3",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "e53f02990577",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes what the exercise asks.",
+   "assert": null
+  },
+  {
+   "fp": "3b82ec6037e1",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A key function takes one item and returns the value to sort by.",
+   "assert": "def k(x):\n    return len(x)\nassert sorted(['ccc', 'a', 'bb'], key=k) == ['a', 'bb', 'ccc']"
+  },
+  {
+   "fp": "f4379b4969e7",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "reverse=True gives descending order; strictly equal items are not reversed, as the next sentence says.",
+   "assert": null
+  },
+  {
+   "fp": "edbba9ec7825",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Sorting is stable, also with reverse=True.",
+   "assert": "data = [('a', 1), ('b', 1), ('c', 0)]\nassert sorted(data, key=lambda t: t[1]) == [('c', 0), ('a', 1), ('b', 1)]\nassert sorted(data, key=lambda t: t[1], reverse=True) == [('a', 1), ('b', 1), ('c', 0)]"
+  },
+  {
+   "fp": "053f7b0a83e1",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "a888f29f60bf",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise and tells the learner what to do.",
+   "assert": null
+  },
+  {
+   "fp": "2bac98b51ab2",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "A guiding question.",
+   "assert": null
+  },
+  {
+   "fp": "86de8861e036",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "A hint.",
+   "assert": null
+  },
+  {
+   "fp": "973904e469d8",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "2bd2ab5c0f45",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "7861ffd792f7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise and gives instructions.",
+   "assert": null
+  },
+  {
+   "fp": "ded18a2b445e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Defining only __lt__ is enough for sorted to work.",
+   "assert": "class A:\n    def __init__(s, v):\n        s.v = v\n    def __lt__(s, o):\n        return s.v < o.v\nassert [a.v for a in sorted([A(2), A(1)])] == [1, 2]"
+  },
+  {
+   "fp": "68e9129e627e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "With only __lt__, a > b falls back to the reflected b.__lt__(a), so max works.",
+   "assert": "class A:\n    def __init__(s, v):\n        s.v = v\n    def __lt__(s, o):\n        return s.v < o.v\na, b = A(2), A(1)\nassert (a > b) is True\nassert max([b, a]) is a\nassert min([a, b]) is b\nassert sorted([a, b]) == [b, a]"
+  },
+  {
+   "fp": "77d40aea2444",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise task.",
+   "assert": null
+  },
+  {
+   "fp": "dedd591e846a",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes what the exercise's method should do.",
+   "assert": null
+  },
+  {
+   "fp": "ee9efdf7e192",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "c1615cf20ada",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise task.",
+   "assert": null
+  },
+  {
+   "fp": "79ffa7e12aa5",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "A summary; leaves out other comparison dunders like __gt__ or functools.total_ordering.",
+   "assert": null
+  },
+  {
+   "fp": "02100c6e8f78",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The key function's result is what items are ordered by.",
+   "assert": "assert sorted(['bb', 'a', 'ccc'], key=len) == ['a', 'bb', 'ccc']"
+  },
+  {
+   "fp": "3599c05bc5af",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "self < other calls self.__lt__(other).",
+   "assert": "class A:\n    def __lt__(self, other):\n        return True\nassert (A() < A()) is True"
+  },
+  {
+   "fp": "0b1e35d7ff8e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "reverse=True sorts in descending order.",
+   "assert": "assert sorted([1, 3, 2], reverse=True) == [3, 2, 1]"
+  },
+  {
+   "fp": "31cd4817d803",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Inheritance models an 'is a' relationship; this is a design guideline and leaves out subtleties.",
+   "assert": null
+  },
+  {
+   "fp": "aeaa3f06a754",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "A design recommendation: prefer composition when the relation is 'has a'.",
+   "assert": null
+  }
+ ]
+}

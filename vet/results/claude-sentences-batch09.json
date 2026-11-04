@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "9910e84b6609",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise asks for.",
+   "assert": null
+  },
+  {
+   "fp": "3f242729497a",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "58547a2ec51e",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It recommends changing a shared counter through the class. Doing it through self would make an instance attribute instead.",
+   "assert": null
+  },
+  {
+   "fp": "9caa2e635218",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint telling the learner what to do in the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "e3605954076f",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "07355ba32a8d",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It recommends changing the counter through the class.",
+   "assert": null
+  },
+  {
+   "fp": "2ed2ce02f8ca",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A list built in the class body is created once and every instance sees that same object.",
+   "assert": "class A:\n    items = []\na, b = A(), A()\nassert a.items is b.items is A.items"
+  },
+  {
+   "fp": "6235f1362d0e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Appending through one instance mutates the shared class list, so every object sees the change.",
+   "assert": "class A:\n    items = []\na, b = A(), A()\na.items.append(1)\nassert b.items == [1] and A.items == [1]"
+  },
+  {
+   "fp": "3228f5a500b2",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "Creating the list in __init__ gives each object its own list. This is the standard fix.",
+   "assert": null
+  },
+  {
+   "fp": "57729a9bb96b",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the bug in the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "75daac9c30b8",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "2cc6631d6939",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint question.",
+   "assert": null
+  },
+  {
+   "fp": "1c8020532f0c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The class body executes once at class creation, so a list made there is a single shared object.",
+   "assert": "count = 0\nclass A:\n    global count\n    count += 1\n    items = []\nA(); A()\nassert count == 1\nassert A().items is A().items"
+  },
+  {
+   "fp": "072bba4d3f5c",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "c2b7b482fc13",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the bug in the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "e05b7d833a9e",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "4af4bee4f30b",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A class attribute is looked up through the class, so all instances see the same value. An instance that assigns its own attribute of the same name shadows it, but the attribute set on the class is still shared.",
+   "assert": "class A:\n    x = 1\na, b = A(), A()\nA.x = 5\nassert a.x == 5 and b.x == 5"
+  },
+  {
+   "fp": "7b2a4363a68b",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Assigning through self creates an attribute on that instance only.",
+   "assert": "class A:\n    pass\na, b = A(), A()\na.x = 1\nassert a.x == 1 and not hasattr(b, 'x')"
+  },
+  {
+   "fp": "444f94573a5f",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A list on the class is one shared object, and creating lists in __init__ gives each object its own.",
+   "assert": "class A:\n    L = []\nclass B:\n    def __init__(self):\n        self.L = []\nassert A().L is A().L\nassert B().L is not B().L"
+  },
+  {
+   "fp": "84842b2d67ee",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It recommends updating the shared counter through the class. self.count += 1 would create an instance attribute instead.",
+   "assert": null
+  },
+  {
+   "fp": "54436124c274",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A string literal is an instance of str, and upper is a method it has.",
+   "assert": "assert isinstance(\"hi\", str)\nassert \"hi\".upper() == \"HI\""
+  },
+  {
+   "fp": "1524f3effb35",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "It is a fair beginner definition of a class. It leaves out that a class is itself an object.",
+   "assert": null
+  },
+  {
+   "fp": "3743c3296af4",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Calling a class creates an instance and runs __init__ on it with the arguments.",
+   "assert": "calls = []\nclass Fox:\n    def __init__(self, name, age):\n        calls.append((self, name, age))\nf = Fox(\"Sly\", 3)\nassert calls == [(f, \"Sly\", 3)]"
+  },
+  {
+   "fp": "cd8d37511a26",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Inside __init__, self is the new instance, and assigning self.name stores an attribute on it.",
+   "assert": "class Fox:\n    def __init__(self, name):\n        self.me = self\n        self.name = name\nf = Fox(\"Sly\")\nassert f.me is f\nassert f.__dict__['name'] == \"Sly\""
+  },
+  {
+   "fp": "33f41835a10c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Instance attributes are stored per object.",
+   "assert": "class Fox:\n    def __init__(self, name):\n        self.name = name\na, b = Fox(\"A\"), Fox(\"B\")\nassert a.name == \"A\" and b.name == \"B\""
+  },
+  {
+   "fp": "da28ddd501c7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise asks for.",
+   "assert": null
+  },
+  {
+   "fp": "70fe108088fb",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint.",
+   "assert": null
+  },
+  {
+   "fp": "6201fe3d06a9",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint.",
+   "assert": null
+  },
+  {
+   "fp": "712beaaae90c",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise asks for.",
+   "assert": null
+  },
+  {
+   "fp": "690c5066e44e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A function defined in a class body becomes a method when accessed on an instance.",
+   "assert": "import types\nclass A:\n    def f(self):\n        pass\nassert isinstance(A().f, types.MethodType)"
+  },
+  {
+   "fp": "8d5dc7584d0a",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "It is true for ordinary methods. It leaves out that the name self is only a convention, and that classmethods take cls and staticmethods take no automatic first argument.",
+   "assert": null
+  },
+  {
+   "fp": "ff91d5105782",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Calling a method on an instance passes the instance as the first argument.",
+   "assert": "class A:\n    def describe(self):\n        return self\na = A()\nassert a.describe() is a"
+  },
+  {
+   "fp": "45b361e00a13",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Without self, the automatically passed instance becomes an extra argument and Python raises TypeError.",
+   "assert": "class A:\n    def describe():\n        pass\ntry:\n    A().describe()\n    assert False\nexcept TypeError as e:\n    assert '0 positional arguments but 1 was given' in str(e)"
+  },
+  {
+   "fp": "5ae7765cb291",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the intended behaviour in the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "f3d5cffcaa64",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise bug and gives an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "4a0c0244c4f1",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint question.",
+   "assert": null
+  },
+  {
+   "fp": "bbc37da04262",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Calling counter.add(2) passes counter as the first argument.",
+   "assert": "class Counter:\n    def add(me, amount):\n        return me\nc = Counter()\nassert c.add(2) is c"
+  },
+  {
+   "fp": "5288afd19433",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "56b4fb964d16",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the intended behaviour in the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "d6f0a22e3b3e",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise bug and gives an instruction. The parenthetical is a beginner simplification that ignores static and class methods.",
+   "assert": null
+  }
+ ]
+}

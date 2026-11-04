@@ -1,0 +1,152 @@
+[[sentence]]
+fp = "7033d148d2d1"
+text = "A list can hold lists."
+where = "text:0"
+status = "claim:auto-7033d148d2d1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ef8e9696d81d"
+text = "A **grid** is a list of rows, and `grid[row][col]` reads one cell: first the row, then the column."
+where = "text:0"
+status = "claim:auto-ef8e9696d81d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e7811313ff31"
+text = "Write `grid_sum(grid)` that returns the total of every number in a grid."
+where = "task:grids-sum:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8935ab4deef3"
+text = "A product works the same way: start at `product = 1`, then `for value in line: product = product * value`."
+where = "task:grids-sum:hint:1"
+status = "claim:auto-8935ab4deef3"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "596cdaf32307"
+text = "Write `row_totals(grid)` that returns a list with the total of each row."
+where = "task:grids-row-totals:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ff2468d30c26"
+text = "Building a grid needs care."
+where = "text:5"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "177ddc457419"
+text = "`[[0] * 3] * 3` makes **one** row and puts it in the grid three times, so changing one row changes them all."
+where = "text:5"
+status = "claim:auto-177ddc457419"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b36d8ee7d798"
+text = "Build each row on its own instead."
+where = "text:5"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bd7d3c7f803a"
+text = "`make_board(rows, cols)` should return a grid of `\".\"` where every row is its own list, so placing an `X` in one row leaves the others alone."
+where = "task:grids-board:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8511cc020620"
+text = "It has a bug: find and fix it."
+where = "task:grids-board:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ce7a289573e3"
+text = "Make a board, change `board[0][0]`, then print the board."
+where = "task:grids-board:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6081aa6296b3"
+text = "`zeros(n)` should return an `n` by `n` grid of `0` where every row is its own list, so changing one cell changes only that cell."
+where = "task:grids-zeros:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2d472e55b2c9"
+text = "Finish `column(grid, c)`: it returns a list with the value at index `c` of every row."
+where = "task:grids-column:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "884f79d797f8"
+text = "Each `row` is a list: `row[c]` is the value you want."
+where = "task:grids-column:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "888c829995fc"
+text = "Finish `diagonal(grid)`: for a square grid, it returns the values from the top-left corner to the bottom-right one."
+where = "task:grids-diagonal:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7bdad4550074"
+text = "grid[r][c]: first the row, then the column."
+where = "remember:0"
+status = "claim:auto-7bdad4550074"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1e6a0c38fa1f"
+text = "[[0] * 3] * 3 repeats one row three times; build each row on its own."
+where = "remember:2"
+status = "claim:auto-1e6a0c38fa1f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

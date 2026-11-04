@@ -1,0 +1,62 @@
+[[sentence]]
+fp = "4893c7e6e97c"
+text = "The songbirds in the bramble maze keep forgetting their songs."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "841be4091ef3"
+text = "Build them a playlist that behaves like one of Python's own containers: `len` works on it, `print` shows it nicely, and `in` finds a song."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5d848c03f124"
+text = "Three stages: a `Song` dataclass, a `Playlist` class, then searching and sorting."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5281bc8a711b"
+text = "Hard mode starts from an empty page."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "35d506a56df3"
+text = "`Playlist(name)` keeps its own list of songs."
+where = "stage:playlist-list:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bd8c69983474"
+text = "`add(song)` adds one, `len(playlist)` counts them (write `__len__`), and `str(playlist)` is like `\"Morning: 2 songs\"` (write `__str__`)."
+where = "stage:playlist-list:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "62a763d9e9ad"
+text = "`sorted_by_length()` returns the songs shortest first, using a key function."
+where = "stage:playlist-find:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

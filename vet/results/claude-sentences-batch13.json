@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "a2f252ee2da8",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A class that defines `__eq__` without `__hash__` gets `__hash__ = None`, so its instances cannot go in sets or be dict keys. Defining `__hash__` too would lift the limit, but that is outside the sentence.",
+   "assert": "class A:\n    def __eq__(self, other):\n        return True\nfor f in (lambda: {A()}, lambda: {A(): 1}):\n    try:\n        f()\n    except TypeError as e:\n        assert 'unhashable' in str(e)\n    else:\n        assert False"
+  },
+  {
+   "fp": "50c6681cc57a",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Hashes must agree with equality, so the identity-based default hash would break lookups once `==` changes. It leaves out that you can define `__hash__` yourself.",
+   "assert": null
+  },
+  {
+   "fp": "9b2a3aa834d3",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Without `__bool__`, truthiness falls back to `__len__`, so length 0 is false.",
+   "assert": "class Q:\n    def __init__(self, n):\n        self.n = n\n    def __len__(self):\n        return self.n\nassert len(Q(2)) == 2\nassert not Q(0)\nassert Q(1)"
+  },
+  {
+   "fp": "53a5470b05fe",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes what the exercise asks.",
+   "assert": null
+  },
+  {
+   "fp": "9b955c005e72",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise setup telling the learner where the data is.",
+   "assert": null
+  },
+  {
+   "fp": "45bdc2200b54",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`len()` on a list returns the number of items.",
+   "assert": "assert len([1, 2, 3]) == 3\nassert len([]) == 0"
+  },
+  {
+   "fp": "a6a4da7bbb01",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "468345fdeecf",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes what the exercise asks.",
+   "assert": null
+  },
+  {
+   "fp": "7c543d13e28e",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "A rule for these special methods: they must return a value. It is a general statement about the methods in this lesson, not about every dunder.",
+   "assert": null
+  },
+  {
+   "fp": "79d28a2cd836",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "If `__str__` returns None, `print` (and `str()`) raises `TypeError: __str__ returned non-string`.",
+   "assert": "class B:\n    def __str__(self):\n        print('x')\ntry:\n    print(B())\nexcept TypeError:\n    pass\nelse:\n    assert False"
+  },
+  {
+   "fp": "2f6c081cb8ba",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "43b682044e09",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise bug and gives an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "759ef4ebc05f",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "A hint question.",
+   "assert": null
+  },
+  {
+   "fp": "7a9b49d46a36",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "A rule for writing `__str__`: it must return its text. Printing inside it breaks `print` and `str()`.",
+   "assert": null
+  },
+  {
+   "fp": "0393b66b155a",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "be735e711540",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise and gives an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "72234f82f4bb",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "True for `__str__`, `__repr__`, `__eq__` and `__len__`, the methods in this lesson. It leaves out that some dunders, such as `__init__`, must return None.",
+   "assert": null
+  },
+  {
+   "fp": "14d138cf1cb5",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`print` uses `__str__`, and a list shows its items with `__repr__`.",
+   "assert": "class P:\n    def __str__(self):\n        return 's'\n    def __repr__(self):\n        return 'r'\nassert str(P()) == 's'\nassert str([P()]) == '[r]'"
+  },
+  {
+   "fp": "c181a27577db",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`==` calls `__eq__`, so defining it sets what `==` means.",
+   "assert": "class A:\n    def __init__(self, v):\n        self.v = v\n    def __eq__(self, other):\n        return self.v == other.v\nassert A(1) == A(1)\nassert A(1) != A(2)"
+  },
+  {
+   "fp": "9b8f9a993644",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "`__len__` enables `len()` and, without `__bool__`, makes an empty object false.",
+   "assert": "class Q:\n    def __init__(self, items):\n        self.items = items\n    def __len__(self):\n        return len(self.items)\nassert len(Q([1])) == 1\nassert not Q([])\nassert Q([1])"
+  },
+  {
+   "fp": "713455f7bf55",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Fine for `__str__` and the other methods in this lesson. It leaves out dunders like `__init__` that must return None.",
+   "assert": null
+  },
+  {
+   "fp": "bbc37823cc2a",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "By default any code can assign to an object's attributes. Python has no enforced privacy.",
+   "assert": "class C:\n    pass\nc = C()\nc.x = 1\nassert c.x == 1\nc.x = 2\nassert c.x == 2"
+  },
+  {
+   "fp": "df43872268d7",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "A judgement about design, not a fact about Python.",
+   "assert": null
+  },
+  {
+   "fp": "bb5fc3f566ae",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "A design motivation for properties, not a behaviour claim.",
+   "assert": null
+  },
+  {
+   "fp": "1d420bca9e3e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A property can compute a value (getter) and validate on assignment (setter) while using plain attribute syntax.",
+   "assert": "class T:\n    def __init__(self):\n        self._d = 0\n    @property\n    def f(self):\n        return self._d * 2\n    @property\n    def d(self):\n        return self._d\n    @d.setter\n    def d(self, v):\n        if v < 0:\n            raise ValueError\n        self._d = v\nt = T()\nt.d = 3\nassert t.d == 3\nassert t.f == 6\ntry:\n    t.d = -1\nexcept ValueError:\n    pass\nelse:\n    assert False"
+  },
+  {
+   "fp": "3cdb7055760c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A property is read without brackets and is recomputed on every access, so it reflects the current values.",
+   "assert": "class R:\n    def __init__(self, w, h):\n        self.w = w\n        self.h = h\n    @property\n    def area(self):\n        return self.w * self.h\nr = R(2, 3)\nassert r.area == 6\nr.w = 5\nassert r.area == 15"
+  },
+  {
+   "fp": "3b479d892ab0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An exercise instruction. The fence formula 2*(width+depth) is correct.",
+   "assert": null
+  },
+  {
+   "fp": "9e617d366111",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "A hint on how to write the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "447556b3bef0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An exercise hint.",
+   "assert": null
+  },
+  {
+   "fp": "d90e976c7a46",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An exercise hint.",
+   "assert": null
+  },
+  {
+   "fp": "a2a4f1337fc9",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "fa7a0e3c1b41",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A property setter runs on every assignment to the attribute and can raise to refuse a value.",
+   "assert": "calls = []\nclass T:\n    @property\n    def d(self):\n        return self._d\n    @d.setter\n    def d(self, v):\n        calls.append(v)\n        if v < 0:\n            raise ValueError\n        self._d = v\nt = T()\nt.d = 1\nt.d = 2\nassert calls == [1, 2]\ntry:\n    t.d = -5\nexcept ValueError:\n    pass\nelse:\n    assert False\nassert t.d == 2"
+  },
+  {
+   "fp": "8af73c12d70c",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "Describes the leading-underscore naming convention. Python does not enforce it.",
+   "assert": null
+  },
+  {
+   "fp": "3273f319d816",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "860936eaff1f",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An exercise hint.",
+   "assert": null
+  },
+  {
+   "fp": "8d1514bb9de5",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An exercise hint.",
+   "assert": null
+  },
+  {
+   "fp": "2b4c478ae4f3",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "3d503da21671",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Assigning `self.degrees` inside the setter of `degrees` calls the setter again, recursing until `RecursionError`.",
+   "assert": "class T:\n    @property\n    def degrees(self):\n        return self._d\n    @degrees.setter\n    def degrees(self, v):\n        self.degrees = v\nt = T()\ntry:\n    t.degrees = 1\nexcept RecursionError:\n    pass\nelse:\n    assert False"
+  },
+  {
+   "fp": "1f912345a7fb",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise's intended behaviour.",
+   "assert": null
+  },
+  {
+   "fp": "80604b7cff45",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise bug and gives an instruction.",
+   "assert": null
+  }
+ ]
+}

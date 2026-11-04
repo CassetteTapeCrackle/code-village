@@ -48,6 +48,19 @@ print(f(4))
 
 Without a base case the calls never stop. Python gives up after about a thousand of them with a `RecursionError`.
 
+```python claim id=auto-db472a1cf51c
+import sys
+def f(n):
+    return f(n + 1)
+assert sys.getrecursionlimit() == 1000
+try:
+    f(0)
+    raised = False
+except RecursionError:
+    raised = True
+assert raised
+```
+
 ```python claim
 import sys
 
@@ -69,3 +82,28 @@ assert raised and sys.getrecursionlimit() == 1000 and 900 < depth <= 1000
 ::task power
 
 ::task countdown-list
+
+```python claim id=auto-fc57096c331d
+numbers = [4, 5, 6]
+assert numbers[0] == 4
+assert numbers[1:] == [5, 6]
+```
+
+```python claim id=auto-dd57b7bcd03f
+word = 'hi'
+assert [word] + ['hi'] == ['hi', 'hi']
+assert [1] + [2] == [1, 2]
+```
+
+```python claim id=auto-579273e78ba0
+import sys
+def f(n):
+    return f(n + 1)
+assert sys.getrecursionlimit() == 1000
+try:
+    f(0)
+    raised = False
+except RecursionError:
+    raised = True
+assert raised
+```

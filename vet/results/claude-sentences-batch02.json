@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "3fd47a5a1cb5",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The third argument of range is the step, and a negative step counts down.",
+   "assert": "assert list(range(3, 0, -1)) == [3, 2, 1]"
+  },
+  {
+   "fp": "22b36ab68e89",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A while loop repeats while its condition is true. It is simplified, since any truthy value works, not only True.",
+   "assert": "n = 0\nwhile n < 3:\n    n += 1\nassert n == 3"
+  },
+  {
+   "fp": "b93bd5decfb7",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "break exits the loop and continue jumps to the next iteration.",
+   "assert": "out = []\nfor i in range(5):\n    if i == 1:\n        continue\n    if i == 3:\n        break\n    out.append(i)\nassert out == [0, 2]"
+  },
+  {
+   "fp": "7f67a32bb671",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise asks for.",
+   "assert": null
+  },
+  {
+   "fp": "2a4b8f8a12a7",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "None is the single value that represents the absence of a value. It leaves out that None is an object of type NoneType.",
+   "assert": null
+  },
+  {
+   "fp": "b605e474e53b",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "ed0d0275cb2c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A return inside a loop ends the loop and the function at once.",
+   "assert": "def f(xs, limit):\n    for x in xs:\n        if x > limit:\n            return x\n    return None\nassert f([1, 5, 9], 3) == 5\nassert f([1], 3) is None"
+  },
+  {
+   "fp": "131476de14e1",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise asks for.",
+   "assert": null
+  },
+  {
+   "fp": "93f2664edb45",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "An integer is even exactly when n % 2 == 0, including for negatives in Python.",
+   "assert": "assert all((n % 2 == 0) == (n in (-4, 0, 2, 10)) for n in (-4, -3, 0, 1, 2, 10, 11))"
+  },
+  {
+   "fp": "136fa65510f5",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "range(a, b) includes a and excludes b.",
+   "assert": "assert list(range(1, 4)) == [1, 2, 3]"
+  },
+  {
+   "fp": "8c5a2e3aed14",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "for runs once per item and while runs while its condition holds. It is slightly simplified, since the condition only needs to be truthy.",
+   "assert": "c = 0\nfor _ in 'abc':\n    c += 1\nassert c == 3\nn = 0\nwhile n < 2:\n    n += 1\nassert n == 2"
+  },
+  {
+   "fp": "b156fc7703ff",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "break leaves the loop and continue skips to the next iteration.",
+   "assert": "out = []\nfor i in range(4):\n    if i == 1:\n        continue\n    if i == 3:\n        break\n    out.append(i)\nassert out == [0, 2]"
+  },
+  {
+   "fp": "e21c61269ef1",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Everything in Python is an object, and values are the beginner's word for them.",
+   "assert": null
+  },
+  {
+   "fp": "260a984735b1",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Every value has a type, and these four are the basic ones named. It leaves out other types such as list, None and so on.",
+   "assert": "assert type(1) is int\nassert type(1.5) is float\nassert type('a') is str\nassert type(True) is bool\nassert type(False) is bool"
+  },
+  {
+   "fp": "31a48562257d",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "type() returns the type of a value.",
+   "assert": "assert type(1) is int and type('a') is str and type(1.0) is float"
+  },
+  {
+   "fp": "6837fd24e72f",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "A variable is a name bound to an object. It leaves out that the name refers to the object rather than holding a copy.",
+   "assert": null
+  },
+  {
+   "fp": "4eaa3c0bbd52",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Assignment evaluates the right side and binds it to the name on the left.",
+   "assert": "x = 2 + 3\nassert x == 5"
+  },
+  {
+   "fp": "1953230e7bb6",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A name can be rebound, including to a value computed from its old value.",
+   "assert": "x = 1\nx = x + 1\nassert x == 2"
+  },
+  {
+   "fp": "ab4c87e26c7a",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Each operator behaves as described. // rounds down (floors), also for negatives.",
+   "assert": "assert 3 * 4 == 12\nassert type(4 / 2) is float and 4 / 2 == 2.0\nassert 7 // 2 == 3 and -7 // 2 == -4\nassert 7 % 3 == 1\nassert 2 ** 3 == 8"
+  },
+  {
+   "fp": "59dda76943e9",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercises ask.",
+   "assert": null
+  },
+  {
+   "fp": "677b25269616",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "def gives the function a name and lists its parameters.",
+   "assert": "import inspect\ndef total_price(price, quantity):\n    pass\nassert list(inspect.signature(total_price).parameters) == ['price', 'quantity']\nassert total_price.__name__ == 'total_price'"
+  },
+  {
+   "fp": "450001abe5d8",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The indented block is the body and return hands back the result.",
+   "assert": "def f(a):\n    return a + 1\nassert f(1) == 2"
+  },
+  {
+   "fp": "9432d91d0242",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "pass is a statement that does nothing, so a function with only pass returns None.",
+   "assert": "def f():\n    pass\nassert f() is None"
+  },
+  {
+   "fp": "b92b52837735",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It refers to later course content.",
+   "assert": null
+  },
+  {
+   "fp": "f89c3b8e2726",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is the exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "036b2b99dd97",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "bec2346bcb75",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "974e3fca14eb",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is the exercise instruction, and the number halfway between a and b is their average.",
+   "assert": null
+  },
+  {
+   "fp": "ef8fa0ceffe5",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is a general lead-in saying to pay attention to types.",
+   "assert": null
+  },
+  {
+   "fp": "8b9f894df9aa",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "+ adds numbers and concatenates strings.",
+   "assert": "assert 3 + 4 == 7\nassert '3' + '4' == '34'"
+  },
+  {
+   "fp": "0b19fb6484f0",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Adding two strings concatenates them.",
+   "assert": "assert '3' + '4' == '34'\nassert '3' + '4' != 7"
+  },
+  {
+   "fp": "68aa4e06577a",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It recommends converting types with int(), float() or str() before combining them.",
+   "assert": null
+  },
+  {
+   "fp": "daa5fb40e056",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise setup.",
+   "assert": null
+  },
+  {
+   "fp": "8511cc020620",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "54dbde06a9ef",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a prompt to the learner to run code.",
+   "assert": null
+  },
+  {
+   "fp": "8baa72abbc02",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is a hint to convert with int() first.",
+   "assert": null
+  },
+  {
+   "fp": "122a84d92b21",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "ec445dfe8d25",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise's bug and gives an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "80b6ff8f3836",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "int() truncates floats toward zero and str() converts any value to text.",
+   "assert": "assert int(2.9) == 2\nassert int(-2.9) == -2\nassert str(5) == '5' and str(1.5) == '1.5' and str(True) == 'True' and str(None) == 'None'"
+  },
+  {
+   "fp": "089b3fc04e42",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Python ships a standard library of modules, and import loads one so its names are used with a prefix.",
+   "assert": "import math\nassert math.sqrt(9) == 3.0"
+  }
+ ]
+}

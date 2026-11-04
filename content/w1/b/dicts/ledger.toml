@@ -1,0 +1,225 @@
+[[sentence]]
+fp = "2045d74a732a"
+text = "A **dict** maps keys to values."
+where = "text:0"
+status = "claim:auto-2045d74a732a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f9ba8175660a"
+text = "Read a value with its key, and assign to a key to add or change it."
+where = "text:0"
+status = "claim:auto-f9ba8175660a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "850fe419ebbc"
+text = "`in` asks whether a key is there."
+where = "text:0"
+status = "claim:auto-850fe419ebbc"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5b01e4d70f94"
+text = "Counting is the classic use."
+where = "text:2"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8a0051d79fd8"
+text = "`get(key, 0)` gives 0 the first time a key appears."
+where = "text:2"
+status = "claim:auto-8a0051d79fd8"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b090e77d08a7"
+text = "Write `count_words(text)` that returns a dict from each word to how many times it appears."
+where = "task:dicts-count-words:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9ac652a19545"
+text = "Words are separated by spaces."
+where = "task:dicts-count-words:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "215ffc0b3bce"
+text = "Look up with a default: `price = menu.get(\"tea\", 0)` gives 0 when the tea is missing."
+where = "task:dicts-count-words:hint:1"
+status = "claim:auto-215ffc0b3bce"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4549148425e2"
+text = "Then add 1 and store it back."
+where = "task:dicts-count-words:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "afd0ad57ab4f"
+text = "Write `letter_counts(word)` that returns a dict from each letter to how many times it appears."
+where = "task:dicts-letter-counts:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "666987bd655e"
+text = "Reading a key that is not in the dict raises `KeyError`."
+where = "text:5"
+status = "claim:auto-666987bd655e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "aff949e7d6de"
+text = "Check with `in` first, or use `get(key, default)`."
+where = "text:5"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8dd08c3b4c60"
+text = "`in_stock(stock, item)` should return how many of `item` are left, and 0 for an item the shop has never had."
+where = "task:dicts-stock:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8511cc020620"
+text = "It has a bug: find and fix it."
+where = "task:dicts-stock:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b02a026cf8c2"
+text = "Try it with an item that is not in the dict."
+where = "task:dicts-stock:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e372d5dae409"
+text = "`menu.get(\"tea\", 0)` gives 0 when the key is missing."
+where = "task:dicts-stock:hint:1"
+status = "claim:auto-e372d5dae409"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5d6d7a3aaf4a"
+text = "`phone(book, name)` should return the number stored for `name`, and `\"unknown\"` for a name that is not in the book."
+where = "task:dicts-phone:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a14a320211e4"
+text = "It crashes on new names: find and fix the bug."
+where = "task:dicts-phone:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "eb8783b3a659"
+text = "A **tuple** is a fixed group of values in round brackets, good for pairs like a point."
+where = "text:9"
+status = "simplification"
+reason = "Tuples are immutable groups, usually written with round brackets. It leaves out that the brackets are optional and that a tuple can hold mutable items."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b9b8435d2f7d"
+text = "Finish `unique_sorted(values)`: it returns a sorted list with every value only once."
+where = "task:dicts-unique-sorted:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4d2e20349257"
+text = "`sorted([\"b\", \"a\"])` gives `[\"a\", \"b\"]`: it takes any iterable, a set too."
+where = "task:dicts-unique-sorted:hint:1"
+status = "claim:auto-4d2e20349257"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9bdb92ba6471"
+text = "Finish `in_both(a, b)`: it returns a sorted list of the values found in both lists, each only once."
+where = "task:dicts-in-both:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bd2481731fb3"
+text = "A dict maps keys to values: d[key] reads, d[key] = value adds or changes."
+where = "remember:0"
+status = "claim:auto-bd2481731fb3"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "86ee50e527eb"
+text = "A missing key raises KeyError: check with in first, or use d.get(key, default)."
+where = "remember:1"
+status = "claim:auto-86ee50e527eb"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5b43766bd3ea"
+text = "A tuple is a fixed group like (x, y); a set keeps each value once."
+where = "remember:2"
+status = "claim:auto-5b43766bd3ea"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

@@ -1,0 +1,71 @@
+[[sentence]]
+fp = "2928205296f0"
+text = "The old mine's shop sells lamps, ropes and picks to climbers, and writes every sale on a slip of CSV."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "551b1ee22568"
+text = "Turn the slips into a report the miners can keep."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7a2b0868298c"
+text = "Three stages: read the sales, total them per product, then save the report as JSON and read it back."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5281bc8a711b"
+text = "Hard mode starts from an empty page."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "998ed5ffb7b6"
+text = "`read_sales(text)` reads CSV text with the columns `product`, `quantity` and `price`, and returns a list of dicts, one per row, like `{\"product\": \"lamp\", \"quantity\": 2, \"price\": 12.5}`."
+where = "stage:sales-read:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b26001b94d92"
+text = "`totals(sales)` takes the list from `read_sales` and returns a dict of each product and the money it brought in (quantity times price, added up over all its rows)."
+where = "stage:sales-totals:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "80d6aad1c3c2"
+text = "`save_report(path, sales)` writes a JSON report to `path`: `{\"total\": ..., \"by_product\": totals(sales), \"best\": the product that brought in the most}`."
+where = "stage:sales-report-file:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9e9906b80e09"
+text = "`load_report(path)` reads it back as a dict."
+where = "stage:sales-report-file:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

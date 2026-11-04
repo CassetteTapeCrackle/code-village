@@ -1,0 +1,226 @@
+[[sentence]]
+fp = "dd1088d78628"
+text = "`write` adds no line break on its own, so each line ends with `\"\\n\"`."
+where = "text:3"
+status = "claim:auto-dd1088d78628"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "62fd072099f5"
+text = "(Every run here starts in an empty folder, so the files you make are yours alone.)"
+where = "text:3"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "07ab46cad9c0"
+text = "Write `save_lines(path, lines)`: it writes each string of `lines` to the file at `path`, one per line (each followed by `\"\\n\"`)."
+where = "task:files-json-save:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "94b0b6847475"
+text = "`out.write` takes one string, so add a newline: `text + \"\\n\"`."
+where = "task:files-json-save:hint:1"
+status = "claim:auto-94b0b6847475"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "41ee3dd30d54"
+text = "Write `count_lines(path)`: it opens the file at `path` and returns how many lines it has."
+where = "task:files-json-count:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6788c2b14207"
+text = "Text files hold text."
+where = "text:6"
+status = "simplification"
+reason = "A text-mode file stores text. It leaves out binary files, which hold bytes."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a8f20557e789"
+text = "To save lists and dicts and get them back as lists and dicts, use **JSON**, a text format nearly every language reads."
+where = "text:6"
+status = "simplification"
+reason = "JSON is a widely supported text format that handles lists and dicts. The next paragraph adds that it does not keep everything, such as tuples."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "941827b953e0"
+text = "`json.dump` writes a value to a file; `json.load` reads it back."
+where = "text:6"
+status = "claim:auto-941827b953e0"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ed762920286b"
+text = "`json.dumps` (with an s, for string) gives the JSON text itself: `None` is written `null`, and strings always take double quotes."
+where = "text:8"
+status = "claim:auto-ed762920286b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fe3aabe899c9"
+text = "JSON also keeps less than Python: dict keys always come back as strings, and tuples come back as lists."
+where = "text:8"
+status = "claim:auto-fe3aabe899c9"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4869944a11e2"
+text = "The file at `path` holds a JSON dict of names and scores."
+where = "task:files-json-best:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "065da99007c7"
+text = "Finish `best_player(path)`: load it, then return the name with the highest score."
+where = "task:files-json-best:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "dda1f49a9287"
+text = "Which function reads JSON back from an open file?"
+where = "task:files-json-best:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ab43f86c57f6"
+text = "`json.load(handle)` reads from an open file; `json.loads(text)` reads a string."
+where = "task:files-json-best:hint:1"
+status = "claim:auto-ab43f86c57f6"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5f81184d8cb0"
+text = "The file at `path` holds a JSON list of names."
+where = "task:files-json-visits:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b7899c76046a"
+text = "Finish `sign(path, name)`: load the list, add `name` at the end, and save the list back to the same file."
+where = "task:files-json-visits:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "33be38ad3c15"
+text = "The mode decides what happens to what is already in the file."
+where = "text:11"
+status = "doc:https://docs.python.org/3/library/functions.html#open"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "97b1f10156ee"
+text = "`add_entry(path, text)` should add `text` as a new line at the end of the logbook."
+where = "task:files-json-logbook:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d05769aaf5ed"
+text = "After two entries, only the last one is left: find and fix the bug."
+where = "task:files-json-logbook:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "82ee434ec437"
+text = "What does the `\"w\"` mode do to a file that already exists?"
+where = "task:files-json-logbook:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f483c1ac346c"
+text = "`save_scores(path, scores)` should write every score on its own line."
+where = "task:files-json-scores:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "82b29b1d27a6"
+text = "Only the last score ends up in the file: find and fix the bug."
+where = "task:files-json-scores:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f3eb3f33c2c3"
+text = "(Look at where the file is opened, and in which mode.)"
+where = "task:files-json-scores:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fb6dbce2f4d6"
+text = "with open(path) as f: closes the file for you when the block ends, even after an error."
+where = "remember:0"
+status = "claim:auto-fb6dbce2f4d6"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "52b08215b5c1"
+text = "json.dump(data, f) saves lists, dicts, numbers, strings, True, False and None; json.load(f) reads them back."
+where = "remember:2"
+status = "claim:auto-52b08215b5c1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

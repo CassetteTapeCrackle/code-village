@@ -1,0 +1,188 @@
+[[sentence]]
+fp = "0027056ee01a"
+text = "A class can be built on another one."
+where = "text:0"
+status = "claim:auto-0027056ee01a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "36600fb84adc"
+text = "`class Owl(Animal)` makes `Owl` a **child** of `Animal`: an owl is an animal, and it gets every method `Animal` has."
+where = "text:0"
+status = "claim:auto-36600fb84adc"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e756f2b5ea73"
+text = "A method written again in the child **overrides** the parent's."
+where = "text:0"
+status = "claim:auto-e756f2b5ea73"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f03215a79213"
+text = "`Tree(kind, height)` is given, with `describe()` returning `\"oak, 20 m\"`."
+where = "task:inheritance-fruit-tree:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "128497c26db7"
+text = "Write `FruitTree(Tree)`: `FruitTree(kind, height, fruit)` also stores `fruit`, and its `describe()` adds `\", gives FRUIT\"` to the parent's text: `\"apple, 4 m, gives apples\"`."
+where = "task:inheritance-fruit-tree:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5d0fada652c9"
+text = "Extend the parent's text: call `super().describe()`, add a comma and the text with `self.fruit`, and return the joined string."
+where = "task:inheritance-fruit-tree:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e33bdbec3e0a"
+text = "`Boat(name)` is given, with `describe()` returning `\"NAME floats\"`."
+where = "task:inheritance-canoe-boat:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5bd86a5cbe5d"
+text = "Write `Canoe(Boat)`: `Canoe(name, paddles)` also stores `paddles`, and `describe()` adds `\" with N paddles\"`: `\"Otter floats with 2 paddles\"`."
+where = "task:inheritance-canoe-boat:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "566b5c204696"
+text = "Call `super().__init__(name)` and use `super().describe()`."
+where = "task:inheritance-canoe-boat:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8bd3f12c783d"
+text = "Finish `Penguin(Bird)`: it overrides `move()` so that `Penguin(\"Pip\").move()` returns `\"Pip waddles\"`, while other birds still fly."
+where = "task:inheritance-penguin:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "aae26b1d54d4"
+text = "Write `move` again inside `Penguin`; `self.name` is set by `Bird.__init__`."
+where = "task:inheritance-penguin:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e90c7fc25eaf"
+text = "Override `move` in `Penguin` and return a sentence with the name and the word `waddles`."
+where = "task:inheritance-penguin:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c0a830eb793d"
+text = "Finish `Ostrich(Bird)`: override `move()` so that `Ostrich(\"Oz\").move()` returns `\"Oz runs\"`, while other birds still fly."
+where = "task:inheritance-ostrich:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5edd558a7b3d"
+text = "A child with its own `__init__` replaces the parent's."
+where = "text:9"
+status = "claim:auto-5edd558a7b3d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2e74f4806a04"
+text = "`Squirrel(name)` should be an `Animal` with a `name` and its own empty `stash`."
+where = "task:inheritance-squirrel:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "36805478e80f"
+text = "Asking for its name raises `AttributeError`: find and fix the bug."
+where = "task:inheritance-squirrel:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3a783f2945e5"
+text = "Which `__init__` sets `self.name`, and does it ever run for a squirrel?"
+where = "task:inheritance-squirrel:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d87d71d1d04c"
+text = "The child can call the parent's initializer with `super().__init__`, passing the name."
+where = "task:inheritance-squirrel:hint:1"
+status = "claim:auto-d87d71d1d04c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "63c9c2a7d385"
+text = "`Bat(name, wingspan)` should be an `Animal` with a `name` and a `wingspan`, but asking for its name raises `AttributeError`: find and fix it."
+where = "task:inheritance-bat:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0a76000031f7"
+text = "A method with the same name in the child overrides the parent's."
+where = "remember:1"
+status = "claim:auto-0a76000031f7"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a5c2d5c1e8c9"
+text = "super().describe() calls the parent's version from inside the child."
+where = "remember:2"
+status = "claim:auto-a5c2d5c1e8c9"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

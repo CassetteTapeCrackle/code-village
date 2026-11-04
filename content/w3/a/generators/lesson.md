@@ -13,6 +13,37 @@ name = "Spring Coil"
 
 A function with `yield` in it is a **generator**. Calling it runs nothing yet. Each time a loop asks for the next value, the function runs until its next `yield`, hands out that value, and pauses there.
 
+```python claim id=auto-421c53fe3a1f
+log = []
+def g():
+    log.append('a')
+    yield 1
+    log.append('b')
+    yield 2
+x = g()
+assert next(x) == 1 and log == ['a']
+assert next(x) == 2 and log == ['a', 'b']
+```
+
+```python claim id=auto-d5237e4443c6
+log = []
+def g():
+    log.append('ran')
+    yield 1
+x = g()
+assert log == []
+next(x)
+assert log == ['ran']
+```
+
+```python claim id=auto-defb2b6ff81c
+import inspect
+def g():
+    yield 1
+assert inspect.isgeneratorfunction(g)
+assert inspect.isgenerator(g())
+```
+
 ```python claim
 ran = []
 
@@ -37,6 +68,17 @@ for x in countdown(3):
 
 The values are made one at a time, only when asked for. A generator over a million numbers never holds a million numbers in memory.
 
+```python claim id=auto-d8fc989711ce
+log = []
+def g():
+    for i in range(3):
+        log.append(i)
+        yield i
+x = g()
+next(x)
+assert log == [0]
+```
+
 ```python claim
 import sys
 
@@ -47,6 +89,12 @@ assert sys.getsizeof([n for n in range(1_000_000)]) > 1_000_000
 ::task evens
 
 `next()` asks a generator for one value. A **generator expression** is a list comprehension in round brackets: it builds a generator instead of a list, which suits functions that only need to walk through the values once, like `sum` or `max`.
+
+```python claim id=auto-40291418cdef
+g = (i for i in [5, 6])
+assert next(g) == 5
+assert next(g) == 6
+```
 
 ```python example
 squares = (n * n for n in range(4))
@@ -65,6 +113,13 @@ assert list(m) == [1, 2] and list(m) == []
 
 A generator remembers where it stopped, and it never starts over. Once a loop, `max` or `list` has walked through it, it is used up: anything after that gets nothing.
 
+```python claim id=auto-c7fbd5ed460e
+g = (i for i in range(3))
+assert next(g) == 0
+assert list(g) == [1, 2]
+assert list(g) == []
+```
+
 ```python predict
 scores = (s for s in [4, 9, 2])
 print(max(scores))
@@ -74,3 +129,63 @@ print(list(scores))
 If you need the values twice, keep them in a list: `scores = [s for s in [4, 9, 2]]`.
 
 ::task spread
+
+```python claim id=auto-9c615cd0fb13
+def evens(limit):
+    n = 0
+    while n < limit:
+        yield n
+        n += 2
+assert list(evens(7)) == [0, 2, 4, 6]
+```
+
+```python claim id=auto-2d0ee773b714
+def down(start, step):
+    n = start
+    while n > 0:
+        yield n
+        n -= step
+assert list(down(10, 3)) == [10, 7, 4, 1]
+```
+
+```python claim id=auto-c707fdf728a1
+assert sum(len(w) for w in ["hi", "there"]) == 7
+```
+
+```python claim id=auto-458cae9ad58f
+values = (n for n in [3, 1, 2])
+assert max(values) == 3
+assert list(values) == []
+```
+
+```python claim id=auto-000480a0f259
+g = (i for i in [1, 2])
+assert sum(g) == 3
+assert sum(g) == 0
+```
+
+```python claim id=auto-564b7d36b670
+def g():
+    yield 1
+    yield 2
+x = g()
+assert next(x) == 1
+assert next(x) == 2
+```
+
+```python claim id=auto-753aa04099ec
+def mk():
+    return (i for i in [1, 2, 3])
+assert [i for i in mk()] == [1, 2, 3]
+assert next(mk()) == 1
+assert sum(mk()) == 6
+assert max(mk()) == 3
+assert list(mk()) == [1, 2, 3]
+```
+
+```python claim id=auto-b56a8023540b
+g = (i for i in [1, 2])
+for _ in g:
+    pass
+assert [x for x in g] == []
+```

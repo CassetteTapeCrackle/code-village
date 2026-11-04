@@ -1,0 +1,269 @@
+[[sentence]]
+fp = "62834b9ea1b3"
+text = "Attributes set through `self` belong to one object."
+where = "text:0"
+status = "claim:auto-62834b9ea1b3"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5ee19bbb24f6"
+text = "An attribute written directly in the class body belongs to the **class**: every object sees the same one."
+where = "text:0"
+status = "claim:auto-5ee19bbb24f6"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a849bfd42a63"
+text = "Class attributes suit things that are the same for everybody, like a limit or a counter."
+where = "text:2"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6ebf8ba29ee4"
+text = "To change a shared value, change it through the class."
+where = "text:2"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "360c07c1314f"
+text = "Why through the class?"
+where = "text:4"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9ef7b85f49f3"
+text = "Assigning through `self` makes a **new** attribute on that one object, and the shared value never moves."
+where = "text:4"
+status = "claim:auto-9ef7b85f49f3"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9719d8720565"
+text = "Write a class `Cabin` with a class attribute `capacity = 4`."
+where = "task:class-attributes-cabin:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9168513d7ea2"
+text = "`Cabin(name)` stores `name` and its own empty `guests` list."
+where = "task:class-attributes-cabin:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a874a8eb6a53"
+text = "`check_in(guest)` adds the guest and returns `True` while there is room, otherwise returns `False` without adding."
+where = "task:class-attributes-cabin:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "73f60c1994a6"
+text = "Which value is shared by every cabin, and which one belongs to each cabin?"
+where = "task:class-attributes-cabin:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0c892611b0d7"
+text = "Inside `check_in`, compare `len()` of `self.guests` with `self.capacity`."
+where = "task:class-attributes-cabin:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7ae7fa194f3c"
+text = "If there is room, append the guest and return `True`; otherwise return `False`."
+where = "task:class-attributes-cabin:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e62657cfe196"
+text = "Write a class `Canoe` with a class attribute `capacity = 2`."
+where = "task:class-attributes-canoe-seats:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9910e84b6609"
+text = "`Canoe()` gets its own empty `crew` list, and `board(person)` adds a person and returns `True` while there is room, otherwise `False`."
+where = "task:class-attributes-canoe-seats:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3f242729497a"
+text = "Finish `Ranger`: the class attribute `count` starts at 0, and every new ranger should add 1 to it."
+where = "task:class-attributes-rangers:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "58547a2ec51e"
+text = "Change the shared counter through the class, not through `self`."
+where = "task:class-attributes-rangers:hint:0"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9caa2e635218"
+text = "Change the counter on the class itself: `Ranger.count` goes up by 1 for each new ranger."
+where = "task:class-attributes-rangers:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e3605954076f"
+text = "Finish `Lantern`: the class attribute `made` starts at 0, and every new lantern should add 1 to it."
+where = "task:class-attributes-lanterns:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2ed2ce02f8ca"
+text = "A list in the class body is **one** list, shared by every object."
+where = "text:9"
+status = "claim:auto-2ed2ce02f8ca"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6235f1362d0e"
+text = "Appending to it through one object changes it for all of them."
+where = "text:9"
+status = "claim:auto-6235f1362d0e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3228f5a500b2"
+text = "Give each object its own list by making it in `__init__`."
+where = "text:12"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "57729a9bb96b"
+text = "Each `Camp` should keep its own list of tents, but adding a tent to one camp adds it to all of them."
+where = "task:class-attributes-camp:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "75daac9c30b8"
+text = "Find and fix the bug."
+where = "task:class-attributes-camp:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2cc6631d6939"
+text = "Where is the `tents` list made, and how many lists are there?"
+where = "task:class-attributes-camp:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1c8020532f0c"
+text = "The class body runs once, so a list made there is shared."
+where = "task:class-attributes-camp:hint:1"
+status = "claim:auto-1c8020532f0c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c2b7b482fc13"
+text = "Each `Shelf` should keep its own `books`, but adding a book to one shelf adds it to every shelf."
+where = "task:class-attributes-shelf:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e05b7d833a9e"
+text = "Find and fix the bug: make the list in `__init__`."
+where = "task:class-attributes-shelf:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4af4bee4f30b"
+text = "An attribute set on the class is shared by every object of that class."
+where = "remember:0"
+status = "claim:auto-4af4bee4f30b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7b2a4363a68b"
+text = "An attribute set through self belongs to that one object."
+where = "remember:1"
+status = "claim:auto-7b2a4363a68b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "444f94573a5f"
+text = "A list on the class is one list for everybody: make lists in __init__."
+where = "remember:2"
+status = "claim:auto-444f94573a5f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

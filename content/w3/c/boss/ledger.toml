@@ -1,0 +1,89 @@
+[[sentence]]
+fp = "7430020f449e"
+text = "At the peak, the night is clear and the stars are many."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "092b8d2c9f0a"
+text = "Each one in the catalogue has a temperature (in kelvin) and a brightness, and Alex has labelled some: dwarf, sunlike or giant."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "58f25011f818"
+text = "Teach a program to label the rest."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "201b28224a6f"
+text = "Four stages: scale the features, find the nearest star by hand, let scikit-learn vote, then prove the model works on stars it has never seen."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5281bc8a711b"
+text = "Hard mode starts from an empty page."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7eb0dbc2bfba"
+text = "`scale_columns(rows)` takes a list of rows of numbers and returns new rows where each column is scaled to 0 to 1: `(value - smallest) / (largest - smallest)` within its column."
+where = "stage:stars-scale:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "93f00695dbcc"
+text = "`nearest_label(X, y, point)` returns the label in `y` of the row of `X` nearest to `point`, by hand with `math.dist`."
+where = "stage:stars-nearest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2b97d515eb3e"
+text = "`knn_predict(X, y, rows, k)` fits a scikit-learn `KNeighborsClassifier` with `k` neighbours on `X` and `y`, and returns a plain list of its labels for `rows`."
+where = "stage:stars-vote:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9d65fc2f28f1"
+text = "`star_accuracy(X, y)` scales `X` with your `scale_columns`, splits it with `test_size=0.25` and `random_state=0`, fits a 3-neighbour model on the training part, and returns its accuracy on the test part as a plain float."
+where = "stage:stars-accuracy:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "db43d4f443c1"
+text = "To keep it simple, the whole catalogue is scaled before the split; in real projects you scale with the training rows only, so the test rows stay unseen."
+where = "stage:stars-accuracy:prompt"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

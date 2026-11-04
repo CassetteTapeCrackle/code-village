@@ -1,0 +1,225 @@
+[[sentence]]
+fp = "4b9e3cd2c922"
+text = "**scikit-learn** has the nearest-neighbour method ready, along with many other ways to learn from examples."
+where = "text:0"
+status = "claim:auto-4b9e3cd2c922"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d1aa0f1ddcbb"
+text = "They all work the same way."
+where = "text:0"
+status = "simplification"
+reason = "Most estimators share the `fit` and `predict` pattern. Some, like clustering or transformers, differ in details."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9403544dd4ce"
+text = "`fit` learns from them; `predict` labels new rows."
+where = "text:0"
+status = "claim:auto-9403544dd4ce"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f1bc9f6251cf"
+text = "This is the `nearest` function from the last lesson, in three lines."
+where = "text:2"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "12fc83219328"
+text = "`predict` returns a NumPy array, so `.tolist()` gives a plain list back."
+where = "text:2"
+status = "claim:auto-12fc83219328"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2df42f0be206"
+text = "Write `labels_for(X, y, new_rows)`: fit a `KNeighborsClassifier` with `n_neighbors=1` on `X` and `y`, and return a plain list of its labels for `new_rows`."
+where = "task:knn-sklearn-predict:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7a87800fa89b"
+text = "Build the model with one neighbour and fit it on `X` and `y`."
+where = "task:knn-sklearn-predict:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d3ce613b8589"
+text = "`model.predict(new_rows)` gives the labels as an array; `tolist()` makes a list."
+where = "task:knn-sklearn-predict:hint:1"
+status = "claim:auto-d3ce613b8589"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2c8124d15550"
+text = "Write `vote_labels(X, y, new_rows)`: fit a `KNeighborsClassifier` with `n_neighbors=3` on `X` and `y`, and return a plain list of its labels for `new_rows`."
+where = "task:knn-sklearn-k3:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f3affc83bf89"
+text = "`n_neighbors` is the **k**: how many neighbours vote."
+where = "text:5"
+status = "claim:auto-f3affc83bf89"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d0f0a81ed20c"
+text = "`fit` returns the model itself, so `KNeighborsClassifier(...).fit(X, y)` fits it in one line."
+where = "text:7"
+status = "claim:auto-d0f0a81ed20c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0ff3eb2b0e75"
+text = "Finish `classify(X, y, new_rows)`: the model is made, but it never learns from `X` and `y` before predicting."
+where = "task:knn-sklearn-fit:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "58aab4ea7d29"
+text = "Add the missing line."
+where = "task:knn-sklearn-fit:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "775b68c29768"
+text = "A model learns with `fit`."
+where = "task:knn-sklearn-fit:hint:0"
+status = "claim:auto-775b68c29768"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4cfee319f792"
+text = "`model.fit` takes the inputs first, then their labels."
+where = "task:knn-sklearn-fit:hint:1"
+status = "claim:auto-4cfee319f792"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c1890dfcc4a7"
+text = "Finish `crowd(X, y, new_rows)`: make a `KNeighborsClassifier` where 5 neighbours vote, fit it on `X` and `y`, and return a plain list of labels for `new_rows`."
+where = "task:knn-sklearn-k:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bf85acf7822e"
+text = "`model.predict([8, 8])` (one pair of brackets) stops with `ValueError: Expected 2D array, got 1D array instead`."
+where = "text:12"
+status = "claim:auto-bf85acf7822e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "966f9908ff11"
+text = "`label_one(X, y, x, z)` should return the label (a plain string) of the single point `(x, z)`."
+where = "task:knn-sklearn-one-point:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b7433e32ab0f"
+text = "It crashes with `Expected 2D array`: find and fix the bug."
+where = "task:knn-sklearn-one-point:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e45dd67e31bf"
+text = "How many brackets does one row in a list need?"
+where = "task:knn-sklearn-one-point:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d38dcfec6687"
+text = "`size_of(X, y, height)` should return the label (a plain string) for one height, where each row of `X` holds a single number."
+where = "task:knn-sklearn-height:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "71e836ea4e95"
+text = "It crashes with `Expected 2D array` (one row in a list needs two pairs of brackets): find and fix the bug."
+where = "task:knn-sklearn-height:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2471b9f35dd5"
+text = "model = KNeighborsClassifier(n_neighbors=k), then model.fit(X, y) learns and model.predict(rows) labels new rows."
+where = "remember:1"
+status = "claim:auto-2471b9f35dd5"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7d0d4f939d14"
+text = "predict gives a NumPy array: .tolist() turns it into a plain list."
+where = "remember:2"
+status = "claim:auto-7d0d4f939d14"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "292f2cc772b9"
+text = "predict wants a list of rows, even for one point: model.predict([[x, y]]), not model.predict([x, y])."
+where = "remember:3"
+status = "claim:auto-292f2cc772b9"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

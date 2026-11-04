@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "a599b633e2be",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction describing what the exercise asks.",
+   "assert": null
+  },
+  {
+   "fp": "27d3e415a089",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "a18a6824a545",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "sorted returns a new ascending list, and a slice [:n] keeps the first n items.",
+   "assert": "assert sorted([3, 1, 2])[:2] == [1, 2]\nassert sorted([3, 1, 2, 0])[:3] == [0, 1, 2]"
+  },
+  {
+   "fp": "fa6815940e4e",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the input of the exercise function.",
+   "assert": null
+  },
+  {
+   "fp": "ea43e9626421",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "c7bbfbe548bd",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Distances sum squared differences, so a feature on a much larger scale dominates. It leaves out that this only holds when the scales differ a lot.",
+   "assert": null
+  },
+  {
+   "fp": "b95518f8b1f2",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It introduces the example that follows.",
+   "assert": null
+  },
+  {
+   "fp": "85cb8d8f3352",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It comments on the example's result in the course's own words.",
+   "assert": null
+  },
+  {
+   "fp": "beea83ff4c61",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "It describes min-max scaling, one common way to scale. It leaves out other methods such as standardising.",
+   "assert": null
+  },
+  {
+   "fp": "ea7c0c26f089",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise function takes and should return.",
+   "assert": null
+  },
+  {
+   "fp": "7f8c145bdcba",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise's bug and tells the learner to fix it.",
+   "assert": null
+  },
+  {
+   "fp": "2dd7ccc7db9d",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise code's variables.",
+   "assert": null
+  },
+  {
+   "fp": "fe3bc65bd771",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "7c35cc28ef1e",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise function.",
+   "assert": null
+  },
+  {
+   "fp": "4ad34558ca08",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise's bug and tells the learner to fix it.",
+   "assert": null
+  },
+  {
+   "fp": "59d2e0d6b302",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "math.dist gives the Euclidean distance between two points of equal dimension.",
+   "assert": "import math\nassert math.dist((0, 0), (3, 4)) == 5.0\nassert math.dist((0, 0, 0), (1, 2, 2)) == 3.0\nassert math.dist((1,), (4,)) == 3.0"
+  },
+  {
+   "fp": "b48d424a4187",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "This is the standard definition of 1-nearest-neighbour classification. It leaves out ties and the choice of distance.",
+   "assert": null
+  },
+  {
+   "fp": "4f67c49dc6e9",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "This is the standard k-nearest-neighbours idea, with a majority vote. It leaves out distance weighting and tie handling.",
+   "assert": null
+  },
+  {
+   "fp": "43d82437c6e0",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is a recommendation to scale features before using distances.",
+   "assert": null
+  },
+  {
+   "fp": "84c561291a25",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a question that opens the section.",
+   "assert": null
+  },
+  {
+   "fp": "874a8a00bd08",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Accuracy is the share of correct predictions. It leaves out that the examples should be ones the model has not seen.",
+   "assert": null
+  },
+  {
+   "fp": "927c0359b4df",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It introduces the code that follows.",
+   "assert": null
+  },
+  {
+   "fp": "5ce5df55ef93",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "For scikit-learn classifiers, score predicts X and returns the mean accuracy against y. Regressors return R² instead, but the context is classification.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1).fit([[0], [1], [2], [3]], [0, 0, 1, 1])\nassert m.score([[0], [3]], [0, 0]) == 0.5\nassert m.score([[0], [3]], [0, 1]) == 1.0"
+  },
+  {
+   "fp": "600fea87b806",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise task.",
+   "assert": null
+  },
+  {
+   "fp": "affdb5a6ecdd",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is a hint on how to solve the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "d33a47dbeb20",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "zip pairs items by position.",
+   "assert": "assert list(zip([1, 2], [1, 3])) == [(1, 1), (2, 3)]"
+  },
+  {
+   "fp": "0d517c9569fc",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a question that prompts the learner.",
+   "assert": null
+  },
+  {
+   "fp": "bbc430babb97",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise task.",
+   "assert": null
+  },
+  {
+   "fp": "fff86485fba7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a rhetorical question.",
+   "assert": null
+  },
+  {
+   "fp": "4f8afae4c788",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It advises against evaluating on training data, using an analogy.",
+   "assert": null
+  },
+  {
+   "fp": "17d26170da9b",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is an instruction to hold out some data for testing.",
+   "assert": null
+  },
+  {
+   "fp": "75a13d00fe2d",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "train_test_split shuffles by default and returns a training part and a test part (25% test by default).",
+   "assert": "import inspect\nfrom sklearn.model_selection import train_test_split\nassert inspect.signature(train_test_split).parameters['shuffle'].default is True\nX = list(range(20))\ntr, te = train_test_split(X, random_state=0)\nassert len(tr) == 15 and len(te) == 5\nassert sorted(tr + te) == X\nassert tr != sorted(tr)"
+  },
+  {
+   "fp": "b466e23d064c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The same random_state gives the same shuffle and so the same split on every run.",
+   "assert": "from sklearn.model_selection import train_test_split\nX = list(range(20))\na = train_test_split(X, random_state=1)\nb = train_test_split(X, random_state=1)\nassert a == b"
+  },
+  {
+   "fp": "126625827f52",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise task.",
+   "assert": null
+  },
+  {
+   "fp": "10fc336a2865",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise skeleton.",
+   "assert": null
+  },
+  {
+   "fp": "c923ff2136f4",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "With list inputs X and y it returns four lists, in the order X_train, X_test, y_train, y_test. With arrays it returns arrays, but the course passes lists.",
+   "assert": "from sklearn.model_selection import train_test_split\nX = [[i] for i in range(8)]\ny = list(range(8))\nr = train_test_split(X, y, test_size=0.25, random_state=0)\nassert len(r) == 4 and all(isinstance(p, list) for p in r)\nXtr, Xte, ytr, yte = r\nassert len(Xtr) == len(ytr) == 6 and len(Xte) == len(yte) == 2\nassert [x[0] for x in Xte] == yte"
+  },
+  {
+   "fp": "dd6d48be5247",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "db32772334cd",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the setup of the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "bf997ab99de9",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "60eb7e1bf96d",
+   "status": "simplification",
+   "verdict": "false",
+   "reason": "Only some models, like 1-nearest-neighbour, effectively memorise training labels. Many models, such as a linear model, still get training examples wrong.",
+   "assert": null
+  }
+ ]
+}

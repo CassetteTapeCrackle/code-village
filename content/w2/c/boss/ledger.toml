@@ -1,0 +1,116 @@
+[[sentence]]
+fp = "f8f6935553b8"
+text = "Ranger Noa keeps track of every animal in the forest, and the old den is full of loose papers."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5684ecb7ffc2"
+text = "Build the ranger's registry with everything World 2 taught: classes, inheritance, composition, errors, and a test of your own."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9042d83ce5a0"
+text = "Four stages: animals and birds, keepers, the registry itself, then a test that would catch a careless registry."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1f643d068ea8"
+text = "Beat it, and the Ranger's Badge will get you over the rockslide to the mountains."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "64b8991a91d6"
+text = "`Animal(name, species)` has `describe()` returning `\"Sly the fox\"`."
+where = "stage:registry-animals:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "42ff00d35157"
+text = "`Bird(Animal)` also takes a `wingspan` and its `describe()` adds `\", wingspan 95 cm\"` to the animal's text."
+where = "stage:registry-animals:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3f55be3919a0"
+text = "`Keeper(name)` has its own list of animals: `adopt(animal)` adds one, and `feed_all()` returns `[\"Sly is fed\", ...]` in adoption order."
+where = "stage:registry-keepers:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8830c7bacd05"
+text = "`Registry()` starts with empty `animals` and `log` lists."
+where = "stage:registry-book:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "13c8cd2711a4"
+text = "`arrive(animal)` adds the animal and logs `\"Sly arrived\"`, but raises `ValueError(\"Sly is already registered\")` when an animal with that name is already there."
+where = "stage:registry-book:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a971a6cd521b"
+text = "`find(name)` returns the animal with that name, or `None`."
+where = "stage:registry-book:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0d54cee24b41"
+text = "Keep the animals only in `self.animals`."
+where = "stage:registry-book:prompt"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7b4ba011506d"
+text = "Write `test_registry()` with `assert`s: register an animal and find it, check that an unknown name gives `None`, and check that a second arrival with the same name raises `ValueError` (for example `assert False` right after the second `arrive`, inside a `try` that catches `ValueError`)."
+where = "stage:registry-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e13df345ccd5"
+text = "It must pass on your registry and fail on a careless one that never refuses a name."
+where = "stage:registry-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

@@ -1,0 +1,270 @@
+[[sentence]]
+fp = "cdb3fab6a6d7"
+text = "First by hand."
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c80470d411af"
+text = "The **mean** is the sum divided by the count."
+where = "text:0"
+status = "claim:auto-c80470d411af"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e0c134df751c"
+text = "With an even number of values there are two middle values, and the median is their mean: the median of `[1, 2, 3, 4]` is `2.5`."
+where = "text:2"
+status = "claim:auto-e0c134df751c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "771538575b9b"
+text = "Write `median(values)` by hand (no NumPy): sort the values, and return the middle one."
+where = "task:statistics-median:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cf087bb49c2a"
+text = "With an even number of values, return the mean of the two middle ones."
+where = "task:statistics-median:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ba8f842c7006"
+text = "Sort the values first."
+where = "task:statistics-median:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e215a5d57425"
+text = "How does integer division give you the index of the middle value?"
+where = "task:statistics-median:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "155099203b04"
+text = "With an even count, the two middle values are `s[mid - 1]` and `s[mid]`: add them and divide by 2."
+where = "task:statistics-median:hint:1"
+status = "claim:auto-155099203b04"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7d2dbc0cc391"
+text = "Write `trimmed_mean(values)` by hand (no NumPy): drop one smallest and one largest value, and return the mean of the rest."
+where = "task:statistics-trimmed:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e0cf4c09dc5e"
+text = "There are always at least 3 values."
+where = "task:statistics-trimmed:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "14b24ec0724d"
+text = "The **standard deviation** is the usual one: roughly, how far a typical value sits from the mean."
+where = "text:5"
+status = "simplification"
+reason = "This is an informal description of the standard deviation. It is not exactly the average distance from the mean."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d36ea8d902e0"
+text = "NumPy has all of these."
+where = "text:5"
+status = "claim:auto-d36ea8d902e0"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2cb4ad90700c"
+text = "`np.std` takes a `ddof` that changes the answer a little: `ddof=0` when your values are everything there is, `ddof=1` when they are a sample of something bigger."
+where = "text:5"
+status = "claim:auto-2cb4ad90700c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f9cdb4120fb7"
+text = "pandas uses `ddof=1` unless you say otherwise, so in this course we always write it."
+where = "text:5"
+status = "claim:auto-f9cdb4120fb7"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8cc05159ad45"
+text = "A pandas column has the same methods, so a table's columns are summed up the same way:"
+where = "text:8"
+status = "claim:auto-8cc05159ad45"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d89b6ee3833b"
+text = "Finish `summary(values)`: it returns a dict with the `mean`, the `median`, and the standard deviation `std` with `ddof=0` rounded to 2 decimals, all as plain floats."
+where = "task:statistics-summary:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ea952e762ac1"
+text = "The missing value is the standard deviation, which NumPy's `std` computes."
+where = "task:statistics-summary:hint:0"
+status = "claim:auto-ea952e762ac1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a298e1bd02ec"
+text = "Pass `ddof=0`."
+where = "task:statistics-summary:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8bd12823c08a"
+text = "The prompt needs a plain float rounded to 2 decimals, so wrap the result in `round(..., 2)` and `float(...)`."
+where = "task:statistics-summary:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3e21121db19e"
+text = "Finish `spread(values)`: it returns a dict with the `range` (largest minus smallest) and the standard deviation `std` with `ddof=1` rounded to 2 decimals, both as plain floats."
+where = "task:statistics-spread:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1f1473172d74"
+text = "For \"what is typical here?\""
+where = "text:13"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cbdb276e4f51"
+text = ", the median is usually the better answer."
+where = "text:13"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "87529f9ab70d"
+text = "`typical_price(prices)` should return the typical price: the middle one once sorted, so that one huge price cannot drag it."
+where = "task:statistics-typical:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "87ee12f1ecb0"
+text = "Which number only looks at the middle?"
+where = "task:statistics-typical:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f14d37ef996b"
+text = "`np.median([3, 4, 90])` is `4.0`: it ignores the outlier."
+where = "task:statistics-typical:hint:1"
+status = "claim:auto-f14d37ef996b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "23263ce81e08"
+text = "`typical_wait(minutes)` should return the typical wait at the cable car: the middle value once sorted, so one very long wait does not drag it."
+where = "task:statistics-wait:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c08b9a780839"
+text = "It uses the mean instead: find and fix the bug."
+where = "task:statistics-wait:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3717221d8d28"
+text = "The mean is the sum divided by the count; the median is the middle value once sorted (with an even count, the mean of the two middle ones)."
+where = "remember:0"
+status = "claim:auto-3717221d8d28"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "47c67956233f"
+text = "np.std(x, ddof=0) treats the values as everything there is; ddof=1 as a sample."
+where = "remember:2"
+status = "claim:auto-47c67956233f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d97c11b644ac"
+text = "pandas uses ddof=1 unless told otherwise, so always write ddof."
+where = "remember:2"
+status = "claim:auto-d97c11b644ac"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "1b2c8b19cb35",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "map and filter return lazy iterators, and list() collects their items.",
+   "assert": "assert list(map(str, [1, 2])) == ['1', '2']\nassert list(filter(None, [0, 1, 2])) == [1, 2]\nassert not isinstance(map(str, [1]), list)"
+  },
+  {
+   "fp": "e0983576d97d",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "key=by_price passes the function. key=by_price(items) calls it first and passes its result, which normally fails.",
+   "assert": "def by_price(item):\n    return item[1]\nitems = [('a', 3), ('b', 1)]\nassert sorted(items, key=by_price) == [('b', 1), ('a', 3)]\ntry:\n    sorted(items, key=by_price(items))\n    ok = False\nexcept TypeError:\n    ok = True\nassert ok"
+  },
+  {
+   "fp": "defb2b6ff81c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A function containing yield is a generator function, and calling it gives a generator. The wording is loose but fine for beginners.",
+   "assert": "import inspect\ndef g():\n    yield 1\nassert inspect.isgeneratorfunction(g)\nassert inspect.isgenerator(g())"
+  },
+  {
+   "fp": "d5237e4443c6",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Calling a generator function creates the generator without running the body.",
+   "assert": "log = []\ndef g():\n    log.append('ran')\n    yield 1\nx = g()\nassert log == []\nnext(x)\nassert log == ['ran']"
+  },
+  {
+   "fp": "421c53fe3a1f",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The body runs to the next yield, hands out the value and pauses there.",
+   "assert": "log = []\ndef g():\n    log.append('a')\n    yield 1\n    log.append('b')\n    yield 2\nx = g()\nassert next(x) == 1 and log == ['a']\nassert next(x) == 2 and log == ['a', 'b']"
+  },
+  {
+   "fp": "d8fc989711ce",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Generators produce values lazily, one per request.",
+   "assert": "log = []\ndef g():\n    for i in range(3):\n        log.append(i)\n        yield i\nx = g()\nnext(x)\nassert log == [0]"
+  },
+  {
+   "fp": "807a4dcba440",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A generator keeps only its current state, so its size does not grow with the number of values.",
+   "assert": "import sys\ng = (i for i in range(1_000_000))\nassert sys.getsizeof(g) < 1000\nassert sys.getsizeof(g) < sys.getsizeof(list(range(1000)))"
+  },
+  {
+   "fp": "3ada29ed1870",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "9c615cd0fb13",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The example output is right for a generator that yields even numbers below limit.",
+   "assert": "def evens(limit):\n    n = 0\n    while n < limit:\n        yield n\n        n += 2\nassert list(evens(7)) == [0, 2, 4, 6]"
+  },
+  {
+   "fp": "e6f55937ce7e",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "6b0b4c91ee61",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "5b1cfd974611",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "2d0ee773b714",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A generator that counts down by step while the value is above 0 gives [10, 7, 4, 1] for (10, 3).",
+   "assert": "def down(start, step):\n    n = start\n    while n > 0:\n        yield n\n        n -= step\nassert list(down(10, 3)) == [10, 7, 4, 1]"
+  },
+  {
+   "fp": "40291418cdef",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "next() returns the next value from a generator.",
+   "assert": "g = (i for i in [5, 6])\nassert next(g) == 5\nassert next(g) == 6"
+  },
+  {
+   "fp": "ebbf99d6396f",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Round brackets around a comprehension build a generator, and sum and max accept it.",
+   "assert": "import types\ng = (n for n in [1, 2, 3])\nassert isinstance(g, types.GeneratorType)\nassert sum(n for n in [1, 2, 3]) == 6\nassert max(n for n in [1, 3, 2]) == 3"
+  },
+  {
+   "fp": "98d39d66b132",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "map and filter are lazy iterators, so list() is needed to see their items.",
+   "assert": "m = map(abs, [-1, 2])\nassert not isinstance(m, list)\nassert next(m) == 1\nassert list(m) == [2]"
+  },
+  {
+   "fp": "30e4030db26b",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise asks.",
+   "assert": null
+  },
+  {
+   "fp": "1723f81f21c7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "c707fdf728a1",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "2 + 5 = 7.",
+   "assert": "assert sum(len(w) for w in [\"hi\", \"there\"]) == 7"
+  },
+  {
+   "fp": "5b36ab9c83cf",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise asks.",
+   "assert": null
+  },
+  {
+   "fp": "c7fbd5ed460e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A generator resumes where it stopped and cannot be restarted.",
+   "assert": "g = (i for i in range(3))\nassert next(g) == 0\nassert list(g) == [1, 2]\nassert list(g) == []"
+  },
+  {
+   "fp": "09bfb46d4ae6",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "After a full pass the generator is exhausted and later consumers get nothing.",
+   "assert": "g = (i for i in [1, 2])\nassert max(g) == 2\nassert list(g) == []\ng2 = (i for i in [1, 2])\nfor _ in g2:\n    pass\nassert list(g2) == []"
+  },
+  {
+   "fp": "2a3f2d919f89",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "Storing the values in a list lets you use them repeatedly. The code line is valid.",
+   "assert": null
+  },
+  {
+   "fp": "5032a7e00428",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise function.",
+   "assert": null
+  },
+  {
+   "fp": "1099d6bd62a3",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "458cae9ad58f",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "max consumes the whole iterator.",
+   "assert": "values = (n for n in [3, 1, 2])\nassert max(values) == 3\nassert list(values) == []"
+  },
+  {
+   "fp": "88a1504e37af",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a guiding question; the answer is nothing.",
+   "assert": null
+  },
+  {
+   "fp": "a09b4cbd3e39",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "Converting to a list lets max and min both walk it.",
+   "assert": null
+  },
+  {
+   "fp": "92a632335498",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise function should do.",
+   "assert": null
+  },
+  {
+   "fp": "20c362f331bd",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "000480a0f259",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A generator can be iterated once only.",
+   "assert": "g = (i for i in [1, 2])\nassert sum(g) == 3\nassert sum(g) == 0"
+  },
+  {
+   "fp": "564b7d36b670",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "yield gives out a value and suspends the function until the next value is requested.",
+   "assert": "def g():\n    yield 1\n    yield 2\nx = g()\nassert next(x) == 1\nassert next(x) == 2"
+  },
+  {
+   "fp": "753aa04099ec",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Loops, next(), sum, max and list all pull values from a generator on demand.",
+   "assert": "def mk():\n    return (i for i in [1, 2, 3])\nassert [i for i in mk()] == [1, 2, 3]\nassert next(mk()) == 1\nassert sum(mk()) == 6\nassert max(mk()) == 3\nassert list(mk()) == [1, 2, 3]"
+  },
+  {
+   "fp": "8e89549aa44d",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Round brackets around a comprehension-like expression give a generator expression.",
+   "assert": "import types\nitems = [1, 2]\ng = (n * n for n in items)\nassert isinstance(g, types.GeneratorType)\nassert list(g) == [1, 4]"
+  },
+  {
+   "fp": "b56a8023540b",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "After one full pass the generator is exhausted, so a second loop does nothing.",
+   "assert": "g = (i for i in [1, 2])\nfor _ in g:\n    pass\nassert [x for x in g] == []"
+  },
+  {
+   "fp": "9b9e99ae331d",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "A list can be walked repeatedly, unlike a generator.",
+   "assert": null
+  },
+  {
+   "fp": "a9b9f3d3b3c4",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Leaves out quoting, other delimiters and files without a header row.",
+   "assert": null
+  },
+  {
+   "fp": "9c7394eb9123",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It introduces the code that follows.",
+   "assert": null
+  },
+  {
+   "fp": "37beb100cbcb",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Informal claim that pandas reads CSV in one call and does much more.",
+   "assert": null
+  },
+  {
+   "fp": "43da8aade720",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "read_csv accepts a file-like object such as StringIO and returns a DataFrame.",
+   "assert": "import io\nimport pandas as pd\ndf = pd.read_csv(io.StringIO('a,b\\n1,2\\n3,4'))\nassert isinstance(df, pd.DataFrame)\nassert df['a'].tolist() == [1, 3]"
+  }
+ ]
+}

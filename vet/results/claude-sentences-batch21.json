@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "0c5f89edd451",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A NumPy array prints elements separated by spaces, with no commas.",
+   "assert": "import numpy as np\nassert str(np.array([1, 2, 3])) == '[1 2 3]'\nassert ',' not in str(np.array([1.5, 2.5]))"
+  },
+  {
+   "fp": "adb4b5b26c03",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Array arithmetic is element-wise, and arrays have sum, min, max and mean methods.",
+   "assert": "import numpy as np\na = np.array([1, 2, 3])\nassert (a * 2).tolist() == [2, 4, 6]\nassert (a + a).tolist() == [2, 4, 6]\nassert a.sum() == 6 and a.min() == 1 and a.max() == 3 and a.mean() == 2.0"
+  },
+  {
+   "fp": "e86f52592516",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Vectorised NumPy operations are typically far faster than a Python loop on a million numbers. The exact speedup depends on the operation and the machine.",
+   "assert": null
+  },
+  {
+   "fp": "21814a38487e",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction describing what the function should do.",
+   "assert": null
+  },
+  {
+   "fp": "1f20c27953bf",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint telling the learner to build an array first with np.array(values).",
+   "assert": null
+  },
+  {
+   "fp": "3120ac69ec57",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Multiplying a NumPy array by a scalar multiplies each element.",
+   "assert": "import numpy as np\nassert (np.array([1, 2]) * 3).tolist() == [3, 6]"
+  },
+  {
+   "fp": "a0104d61e8d0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise asks the learner to write.",
+   "assert": null
+  },
+  {
+   "fp": "2efaabfaec35",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "NumPy arrays can have more than one dimension, with rows and columns.",
+   "assert": "import numpy as np\ng = np.array([[1, 2], [3, 4]])\nassert g.ndim == 2 and g.shape == (2, 2)"
+  },
+  {
+   "fp": "46f2c90e43fe",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "shape gives a tuple of (rows, columns) for a 2D array.",
+   "assert": "import numpy as np\ng = np.array([[1, 2, 3], [4, 5, 6]])\nassert g.shape == (2, 3)"
+  },
+  {
+   "fp": "4e0eb53ca73e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "grid[r, c] reads a single element, and grid[:, 0] selects the first column.",
+   "assert": "import numpy as np\ng = np.array([[1, 2], [3, 4]])\nassert g[1, 0] == 3\nassert g[:, 0].tolist() == [1, 3]"
+  },
+  {
+   "fp": "1351e1260046",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "axis=0 aggregates down the rows, giving one result per column. axis=1 aggregates across each row.",
+   "assert": "import numpy as np\ng = np.array([[1, 2], [3, 4]])\nassert g.sum(axis=0).tolist() == [4, 6]\nassert g.sum(axis=1).tolist() == [3, 7]"
+  },
+  {
+   "fp": "6ed488d4bafb",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "NumPy functions and methods return NumPy scalar types such as np.int64 and np.float64, not plain Python numbers.",
+   "assert": "import numpy as np\na = np.array([1, 2, 3])\nassert type(a.sum()) is not int\nassert isinstance(a.sum(), np.integer)\nassert type(a.mean()) is not float"
+  },
+  {
+   "fp": "bef88be929d1",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Since NumPy 2, repr of a scalar shows its type (np.float64(2.0)), which appears inside a list. str and print show a plain number.",
+   "assert": "import numpy as np\nx = np.float64(2.0)\nassert str(x) == '2.0'\nassert repr(x) == 'np.float64(2.0)'\nassert str([x]) == '[np.float64(2.0)]'"
+  },
+  {
+   "fp": "fb02aadf87dd",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "float(), int() and tolist() convert NumPy values to plain Python types.",
+   "assert": "import numpy as np\nx = np.float64(2.5)\nassert type(float(x)) is float\nassert type(int(np.int64(3))) is int\nl = np.array([1, 2]).tolist()\nassert type(l) is list and type(l[0]) is int"
+  },
+  {
+   "fp": "57d706f4316c",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the input of the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "f453bd3a18b3",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "03d04b538442",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "sum(axis=0) adds down the columns, giving one total per column.",
+   "assert": "import numpy as np\nrows = [[1, 2], [3, 4], [5, 6]]\nassert np.array(rows).sum(axis=0).tolist() == [9, 12]"
+  },
+  {
+   "fp": "833faae90837",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "tolist() converts an array to a plain Python list.",
+   "assert": "import numpy as np\nr = np.array([1, 2]).sum(axis=0) * np.array([1, 1])\nassert type(r.tolist()) is list"
+  },
+  {
+   "fp": "511c5a6256f2",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the input of the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "2cf003dcea8d",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction with a hint that axis=1 works along the rows, which is correct.",
+   "assert": null
+  },
+  {
+   "fp": "3d8426e215ad",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "* repeats a list but multiplies an array element-wise.",
+   "assert": "import numpy as np\nassert [1, 2] * 2 == [1, 2, 1, 2]\nassert (np.array([1, 2]) * 2).tolist() == [2, 4]"
+  },
+  {
+   "fp": "b53ec373654c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Multiplying a list by 2 repeats it twice.",
+   "assert": "assert [1, 2, 3] * 2 == [1, 2, 3, 1, 2, 3]"
+  },
+  {
+   "fp": "25c3306f66c0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise function should do.",
+   "assert": null
+  },
+  {
+   "fp": "3438a0ef3fa6",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The buggy version values * 2 returns the list repeated, and the learner is asked to fix it.",
+   "assert": "assert [1, 2, 3] * 2 == [1, 2, 3, 1, 2, 3]"
+  },
+  {
+   "fp": "c531a529d3c0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a statement of the exercise setup, a hint.",
+   "assert": null
+  },
+  {
+   "fp": "86b9bc75af11",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a question prompting the learner to think.",
+   "assert": null
+  },
+  {
+   "fp": "3c9fe7d92143",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "np.array builds an array and * multiplies each element.",
+   "assert": "import numpy as np\na = np.array([1, 2, 3])\nassert isinstance(a, np.ndarray)\nassert (a * 4).tolist() == [4, 8, 12]"
+  },
+  {
+   "fp": "7c9a2a849df6",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "tolist() returns a plain Python list.",
+   "assert": "import numpy as np\nl = np.array([1, 2]).tolist()\nassert type(l) is list"
+  },
+  {
+   "fp": "a0fa27a2fa2a",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise function should do.",
+   "assert": null
+  },
+  {
+   "fp": "fc36ec77e9c7",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Multiplying a list by 3 repeats it three times, and the sentence tells the learner to fix the bug.",
+   "assert": "assert [1, 2] * 3 == [1, 2, 1, 2, 1, 2]"
+  },
+  {
+   "fp": "8ed8dd04c455",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Arithmetic on arrays applies to every element at once.",
+   "assert": "import numpy as np\na = np.array([1, 2])\nb = np.array([10, 20])\nassert (a * 2).tolist() == [2, 4]\nassert (a + b).tolist() == [11, 22]"
+  },
+  {
+   "fp": "6ae5b9df5f3b",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "shape gives (rows, columns), grid[r, c] reads one value, grid[:, c] is a column, and sum(axis=0) adds down the columns.",
+   "assert": "import numpy as np\ng = np.array([[1, 2, 3], [4, 5, 6]])\nassert g.shape == (2, 3)\nassert g[1, 2] == 6\nassert g[:, 1].tolist() == [2, 5]\nassert g.sum(axis=0).tolist() == [5, 7, 9]"
+  },
+  {
+   "fp": "a158ca50e7c1",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "NumPy results are NumPy scalars, and float(), int() and tolist() convert them to plain Python values.",
+   "assert": "import numpy as np\na = np.array([1.5, 2.5])\nassert type(a.sum()) is not float\nassert type(float(a.sum())) is float\nassert type(int(np.int64(3))) is int\nassert type(a.tolist()[0]) is float"
+  },
+  {
+   "fp": "ef955cb85221",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A list times 2 repeats it, and an array times 2 multiplies each element and prints as [2 4].",
+   "assert": "import numpy as np\nassert [1, 2] * 2 == [1, 2, 1, 2]\nassert str(np.array([1, 2]) * 2) == '[2 4]'"
+  },
+  {
+   "fp": "38ccdf0a993c",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Scanning every item in turn is the simplest approach. It leaves out that sorted data allows faster methods like binary search, and that sets or dicts avoid scanning.",
+   "assert": null
+  },
+  {
+   "fp": "68158bbd3253",
+   "status": "doc:https://docs.python.org/3/library/stdtypes.html#common-sequence-operations",
+   "verdict": "true",
+   "reason": "Checking each item in turn until a match is found is the standard definition of linear (sequential) search.",
+   "assert": null
+  },
+  {
+   "fp": "a5fad790badc",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "In the worst case (item absent or last), a linear search examines every item. The sentence says 'may', so it is correct.",
+   "assert": "items = list(range(1000000))\ncount = 0\nfor x in items:\n    count += 1\n    if x == -1:\n        break\nassert count == 1000000"
+  },
+  {
+   "fp": "e354cf9a36b8",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise asks the learner to write.",
+   "assert": null
+  },
+  {
+   "fp": "dd7982efb35a",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is a hint recommending enumerate in a loop to collect matching indexes.",
+   "assert": null
+  },
+  {
+   "fp": "106e3cf9e6c8",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The comprehension yields the index of each matching element, here [1].",
+   "assert": "assert [i for i, x in enumerate([\"a\", \"b\"]) if x == \"b\"] == [1]"
+  }
+ ]
+}

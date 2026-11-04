@@ -1,0 +1,197 @@
+[[sentence]]
+fp = "2bc85859096b"
+text = "Python calls some methods for you."
+where = "text:0"
+status = "claim:auto-2bc85859096b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9d4445d077f8"
+text = "`__str__` is the friendly text that `print` shows."
+where = "text:2"
+status = "claim:auto-9d4445d077f8"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "55f73ccce074"
+text = "`__repr__` is the precise text you see when the object sits inside a list."
+where = "text:2"
+status = "claim:auto-55f73ccce074"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1580047d4df3"
+text = "Write a class `Mushroom(name, spots)` with `__str__` returning text like `\"fly agaric (5 spots)\"`, and `__eq__` saying two mushrooms are equal when both name and spots match."
+where = "task:dunders-mushroom:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "666efd726a3b"
+text = "For `__eq__`, first check that `other` is a `Mushroom`, then compare both attributes."
+where = "task:dunders-mushroom:hint:1"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9f87ef11b573"
+text = "Write a class `Feather(colour)` with `__str__` returning `\"a COLOUR feather\"` (like `\"a blue feather\"`), and `__eq__` saying two feathers are equal when they have the same colour."
+where = "task:dunders-feather:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d74724c79b29"
+text = "`__eq__` decides what `==` means."
+where = "text:5"
+status = "claim:auto-d74724c79b29"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "60e625e673b9"
+text = "Here, two coins are equal when they have the same value, even if they are different objects."
+where = "text:5"
+status = "claim:auto-60e625e673b9"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "53a5470b05fe"
+text = "Finish `Quiver`: `__len__` should return how many arrows it holds, so `len(Quiver([\"oak\", \"ash\"]))` is 2 and an empty quiver counts as false."
+where = "task:dunders-quiver:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9b955c005e72"
+text = "The arrows are in `self.arrows`."
+where = "task:dunders-quiver:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "45bdc2200b54"
+text = "`len()` counts the items in a list."
+where = "task:dunders-quiver:hint:1"
+status = "claim:auto-45bdc2200b54"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a6a4da7bbb01"
+text = "Return the length of the arrows list stored on `self`."
+where = "task:dunders-quiver:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "468345fdeecf"
+text = "Finish `Hive`: `__len__` should return how many bees it holds, so `len(Hive([\"Bea\", \"Buzz\"]))` is 2."
+where = "task:dunders-hive:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "79d28a2cd836"
+text = "A `__str__` that prints its text and returns nothing hands `None` to `print`, which raises a `TypeError`."
+where = "text:12"
+status = "claim:auto-79d28a2cd836"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2f6c081cb8ba"
+text = "`print(Badge(\"Sam\"))` should show `Badge of Sam`, and `str(Badge(\"Sam\"))` should be that text."
+where = "task:dunders-badge:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "43b682044e09"
+text = "Instead the text appears and then Python crashes with a `TypeError`: find and fix the bug."
+where = "task:dunders-badge:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "759ef4ebc05f"
+text = "What does `__str__` give back to whoever called it?"
+where = "task:dunders-badge:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0393b66b155a"
+text = "Build the same \"Badge of ...\" text from `self.owner` and return it."
+where = "task:dunders-badge:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "be735e711540"
+text = "`str(Sign(\"Pine trail\"))` should be `\"To Pine trail\"`, but it raises a `TypeError`: find and fix the bug."
+where = "task:dunders-sign:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "14d138cf1cb5"
+text = "__str__ returns the text print shows; __repr__ the text you see inside a list."
+where = "remember:0"
+status = "claim:auto-14d138cf1cb5"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c181a27577db"
+text = "__eq__ decides what == means for your objects."
+where = "remember:1"
+status = "claim:auto-c181a27577db"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9b8f9a993644"
+text = "__len__ makes len(obj) work, and an empty object then counts as false."
+where = "remember:2"
+status = "claim:auto-9b8f9a993644"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

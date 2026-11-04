@@ -1,0 +1,197 @@
+[[sentence]]
+fp = "02d4ebb5eecb"
+text = "A string is a sequence of characters."
+where = "text:0"
+status = "claim:auto-02d4ebb5eecb"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "eed3b6ccd78f"
+text = "Read one by its index, counting from 0 (negative indexes count from the end), and take a **slice** with `[start:stop]`, which stops before `stop`."
+where = "text:0"
+status = "claim:auto-eed3b6ccd78f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "63464a76a799"
+text = "String methods give you a **new** string: `upper()`, `lower()`, `strip()` (removes spaces, tabs and line breaks at both ends), `replace(old, new)`."
+where = "text:3"
+status = "claim:auto-63464a76a799"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bef3b8b1787d"
+text = "Write `initials(full_name)` that returns the first letter of each word, in capitals: `initials(\"noa river\")` is `\"NR\"`."
+where = "task:strings-initials:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8868e22603fe"
+text = "`full_name.split()` gives the words; `word[0]` is a first letter."
+where = "task:strings-initials:hint:0"
+status = "claim:auto-8868e22603fe"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ae5eaa433e8d"
+text = "Start with an empty string, then add each word's first letter, upper-cased, to it inside the loop."
+where = "task:strings-initials:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1d71da6e4811"
+text = "Write `last_word(sentence)` that returns the last word of a sentence (words are separated by spaces)."
+where = "task:strings-last-word:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "79cd2ea70f4e"
+text = "A string never changes in place."
+where = "text:7"
+status = "claim:auto-79cd2ea70f4e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "289181b5bd33"
+text = "`shout(text)` should return the text in capitals with `!` at the end: `shout(\"hey\")` is `\"HEY!\"`."
+where = "task:strings-shout:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8511cc020620"
+text = "It has a bug: find and fix it."
+where = "task:strings-shout:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "15d3291f749d"
+text = "Does `text.upper()` change `text`?"
+where = "task:strings-shout:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "074e3c6d6df5"
+text = "`upper()` returns a new string, so keep that result and add the `!` to it."
+where = "task:strings-shout:hint:1"
+status = "claim:auto-074e3c6d6df5"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "560e0cdb49ea"
+text = "`whisper(text)` should return the text in lower case with `...` at the end: `whisper(\"HEY\")` is `\"hey...\"`."
+where = "task:strings-whisper:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2ba5548be177"
+text = "Finish `clean_tag(tag)`: strip the spaces at the ends, make it lower-case, and swap the spaces inside for `-`."
+where = "task:strings-clean-tag:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "da118da9c987"
+text = "`\" Python Village \"` becomes `\"python-village\"`."
+where = "task:strings-clean-tag:prompt"
+status = "claim:auto-da118da9c987"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0358c8664ca7"
+text = "Chain the methods, keeping each result."
+where = "task:strings-clean-tag:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2f61dd98a21d"
+text = "`lower()` returns a lower-case copy and `replace(old, new)` returns a copy with every old part swapped for new."
+where = "task:strings-clean-tag:hint:1"
+status = "claim:auto-2f61dd98a21d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0798014d212c"
+text = "Chain them after `strip()`."
+where = "task:strings-clean-tag:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "173b68c0829f"
+text = "Finish `file_name(title)`: strip the spaces at the ends, make it lower-case, swap the spaces inside for `_`, and add `.txt`: `file_name(\" My Notes \")` is `\"my_notes.txt\"`."
+where = "task:strings-file-name:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3f23b8671636"
+text = "Index and slice strings: s[1:4] stops before index 4."
+where = "remember:0"
+status = "claim:auto-3f23b8671636"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ae0626a9008e"
+text = "Lists (next lesson) work the same way."
+where = "remember:0"
+status = "claim:auto-ae0626a9008e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "304cf0a1cae2"
+text = "Strings never change: s.upper() returns a new string, so keep it (s = s.upper())."
+where = "remember:1"
+status = "claim:auto-304cf0a1cae2"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

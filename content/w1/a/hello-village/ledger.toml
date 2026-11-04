@@ -1,0 +1,72 @@
+[[sentence]]
+fp = "db0683221aeb"
+text = "Ms."
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2f269ed30281"
+text = "Juniper waves you in."
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "dc35e0f864f9"
+text = "Replace `NAME` with your own name, then press Run."
+where = "task:tour-hello:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8f8565549b5e"
+text = "When you see your name, press Check."
+where = "task:tour-hello:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6e65d994073d"
+text = "Click between the quotes and type your name in place of NAME."
+where = "task:tour-hello:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "78eb2448aa1f"
+text = "Keep the quotes and the !"
+where = "task:tour-hello:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d90eececc580"
+text = "where they are."
+where = "task:tour-hello:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "74ab721dbb60"
+text = "`print()` shows text on the screen."
+where = "remember:0"
+status = "simplification"
+reason = "`print()` writes to standard output, which usually appears on screen. It leaves out that it can print any object and be redirected."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

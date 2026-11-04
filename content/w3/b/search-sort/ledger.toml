@@ -1,0 +1,200 @@
+[[sentence]]
+fp = "a5fad790badc"
+text = "With a million items, a linear search may look at all million of them."
+where = "text:2"
+status = "claim:auto-a5fad790badc"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e354cf9a36b8"
+text = "Write `find_all(items, target)`: a linear search that returns a list of every index where `target` appears in `items` (an empty list if it is not there)."
+where = "task:search-sort-find-all:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "106e3cf9e6c8"
+text = "Collect matches in a comprehension: `[i for i, x in enumerate([\"a\", \"b\"]) if x == \"b\"]` gives `[1]`."
+where = "task:search-sort-find-all:hint:1"
+status = "claim:auto-106e3cf9e6c8"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9e46cd5c3555"
+text = "Write `last_index(items, target)`: a linear search that returns the index of the last time `target` appears in `items`, or `-1` if it is not there."
+where = "task:search-sort-last:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7b51fc32b220"
+text = "This is a **binary search**."
+where = "text:4"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7b925fdc2e0f"
+text = "`bisect_left(items, x)` gives the index where `x` is, or where it would go to keep the list sorted."
+where = "text:7"
+status = "claim:auto-7b925fdc2e0f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "17f440cc6a81"
+text = "Finish `rank(sorted_times, time)`: `sorted_times` is sorted from fastest to slowest."
+where = "task:search-sort-rank:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ebdb2bb7e72a"
+text = "Return how many times are faster (smaller) than `time`, with `bisect`."
+where = "task:search-sort-rank:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e77f6b54f452"
+text = "The index `bisect_left` gives is how many values come before `time`."
+where = "task:search-sort-rank:hint:0"
+status = "claim:auto-e77f6b54f452"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9406baeacb06"
+text = "`bisect.bisect_left([10, 20, 30], 20)` is 1: the position where 20 would go."
+where = "task:search-sort-rank:hint:1"
+status = "claim:auto-9406baeacb06"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ca75c8ef7679"
+text = "Finish `with_new(sorted_values, x)`: return a new sorted list with `x` added in its place, using `bisect.insort` on a copy (leave `sorted_values` unchanged)."
+where = "task:search-sort-insert:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "94183613937d"
+text = "A binary search trusts that the list is sorted: when the middle item is too small, it throws away everything to its left."
+where = "text:11"
+status = "simplification"
+reason = "Describes the discard step for ascending order. It leaves out the other branches."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f07fdf33bf8e"
+text = "On an unsorted list, the value may be in the half it throws away."
+where = "text:11"
+status = "claim:auto-f07fdf33bf8e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "341bd47ad449"
+text = "`on_list(names, name)` should say whether `name` is in `names`."
+where = "task:search-sort-member:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a0088b2d24d0"
+text = "For `[\"Sam\", \"Ines\", \"Noa\"]` and `\"Sam\"` it says `False`: find and fix the bug."
+where = "task:search-sort-member:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4ad0e30d3f15"
+text = "Is `names` sorted?"
+where = "task:search-sort-member:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f7a475c9eae2"
+text = "`sorted(names)` returns a new sorted list; `names.sort()` sorts in place."
+where = "task:search-sort-member:hint:1"
+status = "claim:auto-f7a475c9eae2"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b48b811bc0d2"
+text = "`has_score(scores, s)` uses a binary search to say whether `s` is in `scores`."
+where = "task:search-sort-score:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d83badfd74a8"
+text = "For `[90, 20, 70, 40]` and `90` it says `False`: find and fix the bug."
+where = "task:search-sort-score:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d90e7184fa9a"
+text = "A linear search looks at every item in turn: fine for short lists, slow for long ones."
+where = "remember:0"
+status = "simplification"
+reason = "A linear search may stop early on a match, so 'every item' is the worst case."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "78d5dde470d2"
+text = "bisect.bisect_left(sorted_list, x) gives where x is, or where it would go; bisect.insort adds x and keeps the list sorted."
+where = "remember:2"
+status = "claim:auto-78d5dde470d2"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "47a1f9ee3b53"
+text = "A binary search only works on sorted data: on an unsorted list it skips the part where the value is."
+where = "remember:3"
+status = "simplification"
+reason = "On unsorted data a binary search may discard the half with the value. It does not always fail."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

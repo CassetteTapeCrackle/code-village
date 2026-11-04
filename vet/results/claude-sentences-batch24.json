@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "f3affc83bf89",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "In scikit-learn, n_neighbors is the number of neighbours consulted for each prediction.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=3).fit([[0],[1],[2],[3]], [0,0,1,1])\nassert m.kneighbors([[0]])[1].shape == (1, 3)"
+  },
+  {
+   "fp": "d9d1cbbbdebb",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "With k=1 an odd example decides the label. With k equal to the number of examples (uniform weights) every prediction is the majority label.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nX = [[0],[1],[2],[3],[10]]\ny = ['a','a','a','a','b']\nassert KNeighborsClassifier(n_neighbors=1).fit(X, y).predict([[10]]).tolist() == ['b']\nm = KNeighborsClassifier(n_neighbors=5).fit(X, y)\nassert m.predict([[10]]).tolist() == ['a']\nassert m.predict([[-100]]).tolist() == ['a']"
+  },
+  {
+   "fp": "d0f0a81ed20c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "fit returns the estimator itself, so it can be chained after the constructor.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1)\nassert m.fit([[0],[1]], [0,1]) is m\nassert KNeighborsClassifier(n_neighbors=1).fit([[0],[1]], [0,1]).predict([[1]]).tolist() == [1]"
+  },
+  {
+   "fp": "0ff3eb2b0e75",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise setup.",
+   "assert": null
+  },
+  {
+   "fp": "58aab4ea7d29",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "An instruction.",
+   "assert": null
+  },
+  {
+   "fp": "775b68c29768",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A scikit-learn model learns from data when fit is called; before that it has no learned state.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1)\nassert not hasattr(m, 'classes_')\nm.fit([[0],[1]], ['a','b'])\nassert list(m.classes_) == ['a','b']"
+  },
+  {
+   "fp": "4cfee319f792",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The signature is fit(X, y): inputs first, labels second.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1).fit([[0],[10]], ['low','high'])\nassert m.predict([[9]]).tolist() == ['high']"
+  },
+  {
+   "fp": "c1890dfcc4a7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "f8aeaaf6d5ed",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "predict needs a 2D input, a list of rows, even for one sample.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1).fit([[0,0],[10,10]], ['a','b'])\nassert m.predict([[8, 8]]).tolist() == ['b']\ntry:\n    m.predict([8, 8])\n    raise SystemExit('no error')\nexcept ValueError:\n    pass"
+  },
+  {
+   "fp": "75a751f7ed69",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A single point is passed as a list containing one row.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1).fit([[0,0],[10,10]], ['a','b'])\nassert len(m.predict([[8, 8]])) == 1"
+  },
+  {
+   "fp": "bf85acf7822e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Passing a flat list raises ValueError whose message starts with 'Expected 2D array, got 1D array instead'.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1).fit([[0,0],[10,10]], ['a','b'])\ntry:\n    m.predict([8, 8])\n    raise SystemExit('no error')\nexcept ValueError as e:\n    assert 'Expected 2D array, got 1D array instead' in str(e)"
+  },
+  {
+   "fp": "966f9908ff11",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes what the exercise function should do.",
+   "assert": null
+  },
+  {
+   "fp": "b7433e32ab0f",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise instruction describing the bug.",
+   "assert": null
+  },
+  {
+   "fp": "2762cbe6fb42",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "predict expects a list of rows (2D input).",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1).fit([[0],[10]], ['a','b'])\nassert m.predict([[9]]).tolist() == ['b']"
+  },
+  {
+   "fp": "e45dd67e31bf",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "A question to the learner.",
+   "assert": null
+  },
+  {
+   "fp": "649412122301",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "A hint instructing the learner.",
+   "assert": null
+  },
+  {
+   "fp": "d38dcfec6687",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Describes the exercise function.",
+   "assert": null
+  },
+  {
+   "fp": "71e836ea4e95",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise instruction; the bracket hint is correct for one-feature rows.",
+   "assert": null
+  },
+  {
+   "fp": "167db42fde20",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Convention for the course. X and y can also be NumPy arrays or DataFrames, which this leaves out.",
+   "assert": null
+  },
+  {
+   "fp": "2471b9f35dd5",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "This is the standard scikit-learn workflow: construct, fit, predict.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nk = 1\nmodel = KNeighborsClassifier(n_neighbors=k)\nmodel.fit([[0],[10]], ['a','b'])\nassert model.predict([[1],[9]]).tolist() == ['a','b']"
+  },
+  {
+   "fp": "7d0d4f939d14",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "predict returns a NumPy array and tolist() converts it to a plain Python list.",
+   "assert": "import numpy as np\nfrom sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1).fit([[0],[10]], ['a','b'])\nr = m.predict([[1]])\nassert isinstance(r, np.ndarray)\nout = r.tolist()\nassert type(out) is list and type(out[0]) is str and out == ['a']"
+  },
+  {
+   "fp": "292f2cc772b9",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A list of rows works for one point; a flat list raises ValueError.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1).fit([[0,0],[10,10]], ['a','b'])\nassert m.predict([[1, 1]]).tolist() == ['a']\ntry:\n    m.predict([1, 1])\n    raise SystemExit('no error')\nexcept ValueError:\n    pass"
+  },
+  {
+   "fp": "17025e5c8ad4",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Introductory description of the region; a fair beginner definition of machine learning.",
+   "assert": null
+  },
+  {
+   "fp": "e19b9375e22e",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Narrative transition.",
+   "assert": null
+  },
+  {
+   "fp": "4fa394281648",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "math.dist returns the Euclidean distance between two points.",
+   "assert": "import math\nassert math.dist((0, 0), (3, 4)) == 5.0"
+  },
+  {
+   "fp": "eb15eb8cc663",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "math.dist accepts points of any equal number of coordinates, so a point can have many numbers.",
+   "assert": "import math\nassert math.dist((0, 0, 0, 0, 0), (1, 1, 1, 1, 0)) == 2.0"
+  },
+  {
+   "fp": "afd9a984552c",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Defines the term 'feature'.",
+   "assert": null
+  },
+  {
+   "fp": "5f6faffa4a35",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise specification.",
+   "assert": null
+  },
+  {
+   "fp": "3832e0736f74",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "e58e5dfc15a4",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "min(points, key=...) returns the item whose key value is smallest.",
+   "assert": "import math\npoints = [(5, 5), (1, 1), (9, 9)]\ntarget = (2, 2)\nassert min(points, key=lambda p: math.dist(p, target)) == (1, 1)"
+  },
+  {
+   "fp": "ada86b3c692b",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The 3-4-5 triangle gives exactly 5.0.",
+   "assert": "import math\nassert math.dist((0, 0), (3, 4)) == 5.0"
+  },
+  {
+   "fp": "8a47c0765ad2",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise specification.",
+   "assert": null
+  },
+  {
+   "fp": "4f217f544eed",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "1e14560501fc",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Narrative transition.",
+   "assert": null
+  },
+  {
+   "fp": "78b25ee84154",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Sets up the scenario.",
+   "assert": null
+  },
+  {
+   "fp": "2f670df77508",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Describes 1-nearest-neighbour. It leaves out ties and the choice of distance.",
+   "assert": null
+  },
+  {
+   "fp": "ebc70bfbf01f",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Fine for the basic method. It leaves out k neighbours, weighting and other distance measures, though k comes next.",
+   "assert": null
+  },
+  {
+   "fp": "69bd60c7869a",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "With k=1 a single mislabelled or odd example decides the result, while k=3 outvotes it.",
+   "assert": "from sklearn.neighbors import KNeighborsClassifier\nX = [[0],[1],[2],[3],[4]]\ny = ['a','a','b','a','a']\nassert KNeighborsClassifier(n_neighbors=1).fit(X, y).predict([[2.1]]).tolist() == ['b']\nassert KNeighborsClassifier(n_neighbors=3).fit(X, y).predict([[2.1]]).tolist() == ['a']"
+  },
+  {
+   "fp": "307dacaef8d4",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Usually more robust to odd examples than k=1. It leaves out that a too-large k blurs real differences.",
+   "assert": null
+  },
+  {
+   "fp": "f0ae182866b4",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "Exercise specification of the input format.",
+   "assert": null
+  }
+ ]
+}

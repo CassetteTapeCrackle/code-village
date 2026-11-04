@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "e6d29291613a",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Describes composition in plain words. It leaves out that a part may also be passed in or shared, not only created inside the object.",
+   "assert": null
+  },
+  {
+   "fp": "c218ac9c0354",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It introduces the term 'composition' for the pattern just described.",
+   "assert": null
+  },
+  {
+   "fp": "c620e880e693",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the design of the example class.",
+   "assert": null
+  },
+  {
+   "fp": "316ebcdfe1fe",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the example Boat does with its engine.",
+   "assert": null
+  },
+  {
+   "fp": "6671a2672b0e",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "sum adds the numbers in an iterable.",
+   "assert": "assert sum([1, 2, 3]) == 6"
+  },
+  {
+   "fp": "a908a8d9de96",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It states what the exercise provides.",
+   "assert": null
+  },
+  {
+   "fp": "cdaf734977ef",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "e8df15814af5",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint about the solution design.",
+   "assert": null
+  },
+  {
+   "fp": "acc9a62b5f27",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint on how to write the method.",
+   "assert": null
+  },
+  {
+   "fp": "38bc642e0b3f",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It states what the exercise provides.",
+   "assert": null
+  },
+  {
+   "fp": "1963bc51b8ea",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "c77a85d35d47",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the intended design of the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "8d944d6611c9",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "bd6b7adfffa4",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise requirement.",
+   "assert": null
+  },
+  {
+   "fp": "c01b571db1db",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise requirement.",
+   "assert": null
+  },
+  {
+   "fp": "bca964717d8d",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction or hint.",
+   "assert": null
+  },
+  {
+   "fp": "dceb485926fd",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "337e3b7c4672",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "6ef62a9f6ca8",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "7df7dd17563e",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise requirement.",
+   "assert": null
+  },
+  {
+   "fp": "cd69863eeef6",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A subclass is an instance of its parent and inherits all its methods, so a Ranger that inherits Backpack is a backpack.",
+   "assert": "class Backpack:\n    def add(self, x):\n        return x\nclass Ranger(Backpack):\n    pass\nr = Ranger()\nassert isinstance(r, Backpack)\nassert r.add(1) == 1"
+  },
+  {
+   "fp": "eaf58171067e",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It recommends composition over inheritance for reuse.",
+   "assert": null
+  },
+  {
+   "fp": "cd91c1ca7e22",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes what the exercise wants.",
+   "assert": null
+  },
+  {
+   "fp": "846ecf9bd8d9",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the starting code of the exercise and tells the learner to fix it.",
+   "assert": null
+  },
+  {
+   "fp": "8393ec610270",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "1f6b4c5bba89",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an instruction.",
+   "assert": null
+  },
+  {
+   "fp": "4ae677f74ebc",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It describes the exercise and tells the learner what to do.",
+   "assert": null
+  },
+  {
+   "fp": "e2aabcfa6f51",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "It is a rule of thumb for design. It leaves out that inheritance is also used for code reuse.",
+   "assert": null
+  },
+  {
+   "fp": "fe011f01ddbc",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "It is a rule of thumb for composition. It leaves out that a has-a part need not be a collection or an attribute holding objects.",
+   "assert": null
+  },
+  {
+   "fp": "6ee743ea40cc",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "It describes delegation to parts in simple terms.",
+   "assert": null
+  },
+  {
+   "fp": "73005300be6e",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is the common design guideline 'favor composition over inheritance'.",
+   "assert": null
+  },
+  {
+   "fp": "0027056ee01a",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A class can list another class as its base.",
+   "assert": "class A:\n    pass\nclass B(A):\n    pass\nassert issubclass(B, A)"
+  },
+  {
+   "fp": "36600fb84adc",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The child class inherits the parent's methods, and its instances are instances of the parent.",
+   "assert": "class Animal:\n    def eat(self):\n        return 'eats'\nclass Owl(Animal):\n    pass\no = Owl()\nassert issubclass(Owl, Animal)\nassert isinstance(o, Animal)\nassert o.eat() == 'eats'"
+  },
+  {
+   "fp": "e756f2b5ea73",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A method defined again in the child replaces the parent's version for child instances.",
+   "assert": "class A:\n    def f(self):\n        return 'a'\nclass B(A):\n    def f(self):\n        return 'b'\nassert B().f() == 'b'\nassert A().f() == 'a'"
+  },
+  {
+   "fp": "54f594e74f37",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Method lookup follows the MRO, which for single inheritance is class, parent, grandparent.",
+   "assert": "class A:\n    def f(self):\n        return 'a'\nclass B(A):\n    pass\nclass C(B):\n    pass\nassert C.__mro__[:3] == (C, B, A)\nassert C().f() == 'a'\nclass B2(A):\n    def f(self):\n        return 'b'\nclass C2(B2):\n    pass\nassert C2().f() == 'b'"
+  },
+  {
+   "fp": "2007bbfa77de",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "super() gives access to the parent's method, so the child can extend it.",
+   "assert": "class A:\n    def f(self):\n        return 'a'\nclass B(A):\n    def f(self):\n        return super().f() + 'b'\nassert B().f() == 'ab'"
+  },
+  {
+   "fp": "f03215a79213",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It states what the exercise provides.",
+   "assert": null
+  },
+  {
+   "fp": "128497c26db7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "d6b2d44a7d3e",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "It is a hint on how to write __init__.",
+   "assert": null
+  },
+  {
+   "fp": "5d0fada652c9",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "It is a hint on how to write the method.",
+   "assert": null
+  }
+ ]
+}

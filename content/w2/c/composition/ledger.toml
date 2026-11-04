@@ -1,0 +1,234 @@
+[[sentence]]
+fp = "aeaa3f06a754"
+text = "Many objects are better described by \"has a\": a boat **has an** engine, a keeper **has** animals."
+where = "text:0"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c218ac9c0354"
+text = "This is **composition**."
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c620e880e693"
+text = "`Boat` does not inherit from `Engine`: a boat is not an engine."
+where = "text:2"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "316ebcdfe1fe"
+text = "It holds one and asks it to do the engine's job."
+where = "text:2"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6671a2672b0e"
+text = "Below, `sum` adds up a list of numbers."
+where = "text:2"
+status = "claim:auto-6671a2672b0e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a908a8d9de96"
+text = "`Animal(name)` is given."
+where = "task:composition-keeper:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cdaf734977ef"
+text = "Write a class `Keeper(name)` that has its own empty `animals` list, `adopt(animal)` to add one, and `feed_all()` returning a list like `[\"Sly is fed\", \"Ollie is fed\"]` in adoption order."
+where = "task:composition-keeper:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e8df15814af5"
+text = "The keeper holds animals in `self.animals`; it does not inherit from `Animal`."
+where = "task:composition-keeper:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "acc9a62b5f27"
+text = "Return a list built from `self.animals`: for each animal, an f-string with its `name` and `is fed`."
+where = "task:composition-keeper:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "38bc642e0b3f"
+text = "`Egg(colour)` is given."
+where = "task:composition-nest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1963bc51b8ea"
+text = "Write a class `Nest()` that has its own empty `eggs` list, `lay(egg)` to add one, and `colours()` returning the eggs' colours in order."
+where = "task:composition-nest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c77a85d35d47"
+text = "The nest holds eggs as an attribute; it is not an egg."
+where = "task:composition-nest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8d944d6611c9"
+text = "Finish `Lamp.shine()`: the lamp has a `Battery`."
+where = "task:composition-lamp:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bd6b7adfffa4"
+text = "When the battery's `charge` is 0, return `\"dark\"`."
+where = "task:composition-lamp:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c01b571db1db"
+text = "Otherwise drain the battery once and return `\"light\"`."
+where = "task:composition-lamp:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bca964717d8d"
+text = "Ask the part: read its `charge`, and call its `drain()` method."
+where = "task:composition-lamp:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "dceb485926fd"
+text = "Read `self.battery.charge`."
+where = "task:composition-lamp:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "337e3b7c4672"
+text = "If it is 0, return `dark`; otherwise call the battery's `drain()` and return `light`."
+where = "task:composition-lamp:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6ef62a9f6ca8"
+text = "Finish `Radio.play()`: the radio has a `Battery`."
+where = "task:composition-radio:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7df7dd17563e"
+text = "When `self.battery.charge` is 0, return `\"silence\"`; otherwise call `self.battery.drain()` and return `\"music\"`."
+where = "task:composition-radio:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "eaf58171067e"
+text = "Give the ranger a backpack instead."
+where = "text:6"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "846ecf9bd8d9"
+text = "Right now a ranger **is** a backpack, so it has no `pack` at all: fix the design."
+where = "task:composition-ranger-pack:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8393ec610270"
+text = "Drop the inheritance: define the class on its own, with no parent in the parentheses."
+where = "task:composition-ranger-pack:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1f6b4c5bba89"
+text = "In `__init__`, store the name on `self` and create a new `Backpack()` as `self.pack`."
+where = "task:composition-ranger-pack:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e2aabcfa6f51"
+text = "Inheritance says 'is a': an owl is an animal."
+where = "remember:0"
+status = "simplification"
+reason = "It is a rule of thumb for design. It leaves out that inheritance is also used for code reuse."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "73005300be6e"
+text = "When in doubt, prefer having a part to being one."
+where = "remember:3"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

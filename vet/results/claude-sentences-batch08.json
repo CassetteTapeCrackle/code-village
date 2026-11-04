@@ -1,0 +1,285 @@
+{
+ "model": "claude-sonnet-5-5",
+ "replies": [
+  {
+   "fp": "70c11b25915a",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "Standard advice: a list default is created once and shared between calls.",
+   "assert": null
+  },
+  {
+   "fp": "1b0b8077bd55",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "sorted with key orders items by the value the key function returns for each item.",
+   "assert": "items = ['ccc', 'a', 'bb']\nassert sorted(items, key=len) == ['a', 'bb', 'ccc']"
+  },
+  {
+   "fp": "e625c33bf8b3",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Good beginner definition. It leaves out that a recursive call is not always strictly smaller in a formal sense, and that recursion can be indirect.",
+   "assert": null
+  },
+  {
+   "fp": "19b19028f911",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Correct for ordinary recursion. It leaves out that a recursion could in principle stop through an exception instead.",
+   "assert": null
+  },
+  {
+   "fp": "610d76da992d",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Describes how plain recursion works: each call is suspended until the inner call returns. It leaves out the call stack details.",
+   "assert": null
+  },
+  {
+   "fp": "f3f12beb3210",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is an exercise instruction describing the recursive definition to implement.",
+   "assert": null
+  },
+  {
+   "fp": "0ce5e0a99ccf",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is a hint giving the base-case code for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "fc57096c331d",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "numbers[0] is the first item and numbers[1:] is a slice of everything after it.",
+   "assert": "numbers = [4, 5, 6]\nassert numbers[0] == 4\nassert numbers[1:] == [5, 6]"
+  },
+  {
+   "fp": "0345fb7fe78b",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "0aa214f02dcf",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Logically the calls never reach an end; in practice Python stops them with RecursionError, as the next sentence says.",
+   "assert": null
+  },
+  {
+   "fp": "db472a1cf51c",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The default recursion limit is 1000, and exceeding it raises RecursionError.",
+   "assert": "import sys\ndef f(n):\n    return f(n + 1)\nassert sys.getrecursionlimit() == 1000\ntry:\n    f(0)\n    raised = False\nexcept RecursionError:\n    raised = True\nassert raised"
+  },
+  {
+   "fp": "abbb357df3ac",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This describes what the exercise asks for.",
+   "assert": null
+  },
+  {
+   "fp": "4dd78660f4a0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is an instruction to the learner.",
+   "assert": null
+  },
+  {
+   "fp": "d679e9e51dd7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is a hint pointing to the cause of the error in the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "79168ce203a0",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is a question to guide the learner.",
+   "assert": null
+  },
+  {
+   "fp": "ae8acf1870b0",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "Correct hint: any base to the power 0 is 1, and this is the natural base case.",
+   "assert": null
+  },
+  {
+   "fp": "65bc874c26be",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This describes the function the exercise asks for.",
+   "assert": null
+  },
+  {
+   "fp": "cae62a32d20a",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "bdd08cdfe995",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This states the required behaviour of the exercise function.",
+   "assert": null
+  },
+  {
+   "fp": "33b7fb55a17d",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is a hint describing the recursive step for the exercise, correct for n of 1 or more.",
+   "assert": null
+  },
+  {
+   "fp": "8b57f7a30e51",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is a hint describing the recursive step for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "f98909521d45",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "4c4b6b8f10f1",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This states the required behaviour of the exercise function.",
+   "assert": null
+  },
+  {
+   "fp": "dd57b7bcd03f",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The + operator joins two lists into a new list.",
+   "assert": "word = 'hi'\nassert [word] + ['hi'] == ['hi', 'hi']\nassert [1] + [2] == [1, 2]"
+  },
+  {
+   "fp": "15baa40d7c64",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "Good beginner definition. It leaves out indirect recursion and the formal meaning of smaller.",
+   "assert": null
+  },
+  {
+   "fp": "e611f88b22b0",
+   "status": "simplification",
+   "verdict": "true",
+   "reason": "True for terminating recursion. It leaves out that a function could stop through an exception instead.",
+   "assert": null
+  },
+  {
+   "fp": "579273e78ba0",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "The default limit is 1000 and exceeding it raises RecursionError.",
+   "assert": "import sys\ndef f(n):\n    return f(n + 1)\nassert sys.getrecursionlimit() == 1000\ntry:\n    f(0)\n    raised = False\nexcept RecursionError:\n    raised = True\nassert raised"
+  },
+  {
+   "fp": "62834b9ea1b3",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "An attribute set on self lives on that instance only.",
+   "assert": "class A:\n    def __init__(self, v):\n        self.v = v\na, b = A(1), A(2)\nassert a.v == 1 and b.v == 2\nassert 'v' not in vars(A)"
+  },
+  {
+   "fp": "5ee19bbb24f6",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "A class body attribute belongs to the class and all instances see the same one.",
+   "assert": "class A:\n    x = 5\na, b = A(), A()\nassert 'x' in vars(A)\nassert a.x == b.x == 5\nA.x = 6\nassert a.x == b.x == 6"
+  },
+  {
+   "fp": "a849bfd42a63",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "Design guidance on when to use class attributes.",
+   "assert": null
+  },
+  {
+   "fp": "6ebf8ba29ee4",
+   "status": "advice",
+   "verdict": "true",
+   "reason": "Sound advice: assigning through the class changes the shared value, as the next sentences explain.",
+   "assert": null
+  },
+  {
+   "fp": "360c07c1314f",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is a rhetorical question introducing the explanation.",
+   "assert": null
+  },
+  {
+   "fp": "9ef7b85f49f3",
+   "status": "claim",
+   "verdict": "true",
+   "reason": "Assigning self.x creates an instance attribute that shadows the class attribute, leaving the class value unchanged.",
+   "assert": "class A:\n    n = 0\na, b = A(), A()\na.n = 5\nassert A.n == 0\nassert b.n == 0\nassert vars(a) == {'n': 5}"
+  },
+  {
+   "fp": "9719d8720565",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is an exercise instruction.",
+   "assert": null
+  },
+  {
+   "fp": "9168513d7ea2",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This describes what the exercise asks for.",
+   "assert": null
+  },
+  {
+   "fp": "a874a8eb6a53",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This describes the required behaviour in the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "73f60c1994a6",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is a question to guide the learner.",
+   "assert": null
+  },
+  {
+   "fp": "0c892611b0d7",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "7ae7fa194f3c",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is a hint for the exercise.",
+   "assert": null
+  },
+  {
+   "fp": "e62657cfe196",
+   "status": "not-a-fact",
+   "verdict": "true",
+   "reason": "This is an exercise instruction.",
+   "assert": null
+  }
+ ]
+}

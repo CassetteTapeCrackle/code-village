@@ -1,0 +1,90 @@
+[[sentence]]
+fp = "f0e80c72731f"
+text = "The marsh school's gradebook got soaked, and only its lines of text survived."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "aabedafaea3a"
+text = "Each line is a name, a colon, then marks separated by commas, like `Noa: 12, 15, 9`."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "df2e1668f78e"
+text = "Write three functions in one program."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b3de0c839fe5"
+text = "Each stage checks one more of them; a beaten stage stays beaten."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a19f65e5e63c"
+text = "`parse_line(line)` returns the name and a list of int marks: `parse_line(\"Noa: 12, 15, 9\")` gives `(\"Noa\", [12, 15, 9])`."
+where = "stage:gradebook-parse:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "79a2ea5af8aa"
+text = "`average(marks)` returns the mean of the marks rounded to 2 decimals."
+where = "stage:gradebook-average:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ea053933b874"
+text = "No marks gives `0.0`."
+where = "stage:gradebook-average:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4a9b550b9471"
+text = "`ranking(lines)` returns `(name, average)` pairs, best average first."
+where = "stage:gradebook-ranking:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "55a78ed835ed"
+text = "Equal averages are in alphabetical order."
+where = "stage:gradebook-ranking:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "65c5d3c8fb7b"
+text = "`lambda pair: ...` is a tiny one-line function, and the minus sign flips the order."
+where = "stage:gradebook-ranking:prompt"
+status = "simplification"
+reason = "A lambda is an anonymous function limited to one expression, and negating a number reverses its sort order. This only works for numbers, which is the case here."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
