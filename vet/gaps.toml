@@ -298,7 +298,7 @@ fingerprint = "f9e5fb1de5bf"
 [[gap]]
 rule = "cases-missing"
 item = "errors-withdraw"
-fingerprint = "4d31ed85a86b"
+fingerprint = "8b9c129bdf7a"
 
 [[gap]]
 rule = "cases-missing"
@@ -1988,7 +1988,7 @@ fingerprint = "f9e5fb1de5bf"
 [[gap]]
 rule = "right-missing"
 item = "errors-withdraw"
-fingerprint = "4d31ed85a86b"
+fingerprint = "8b9c129bdf7a"
 
 [[gap]]
 rule = "right-missing"
@@ -2982,11 +2982,6 @@ fingerprint = "f9e5fb1de5bf"
 
 [[gap]]
 rule = "weak-tests"
-item = "errors-withdraw"
-fingerprint = "4d31ed85a86b"
-
-[[gap]]
-rule = "weak-tests"
 item = "functions-add-item"
 fingerprint = "23799011c98f"
 
@@ -3568,7 +3563,7 @@ fingerprint = "f9e5fb1de5bf"
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-withdraw"
-fingerprint = "4d31ed85a86b"
+fingerprint = "8b9c129bdf7a"
 
 [[gap]]
 rule = "wrong-too-few"
