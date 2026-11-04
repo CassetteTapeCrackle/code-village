@@ -77,11 +77,6 @@ fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "cases-missing"
-item = "recursion-total"
-fingerprint = "2c49c0633049"
-
-[[gap]]
-rule = "cases-missing"
 item = "sales-report"
 fingerprint = "8f71aaa27062"
 
