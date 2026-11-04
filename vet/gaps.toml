@@ -72,18 +72,13 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "numpy-arrays-fahrenheit"
-fingerprint = "37e4fd9947bd"
-
-[[gap]]
-rule = "cases-missing"
 item = "numpy-arrays-row-means"
 fingerprint = "42296442df0b"
 
 [[gap]]
 rule = "cases-missing"
 item = "numpy-arrays-scale"
-fingerprint = "12dc2805cf35"
+fingerprint = "0e275a2bfd75"
 
 [[gap]]
 rule = "cases-missing"
@@ -1718,7 +1713,7 @@ fingerprint = "eb9621af7fea"
 [[gap]]
 rule = "right-missing"
 item = "numpy-arrays-fahrenheit"
-fingerprint = "37e4fd9947bd"
+fingerprint = "57c96f1337c7"
 
 [[gap]]
 rule = "right-missing"
@@ -1728,7 +1723,7 @@ fingerprint = "42296442df0b"
 [[gap]]
 rule = "right-missing"
 item = "numpy-arrays-scale"
-fingerprint = "12dc2805cf35"
+fingerprint = "0e275a2bfd75"
 
 [[gap]]
 rule = "right-missing"
@@ -2968,7 +2963,7 @@ fingerprint = "eb9621af7fea"
 [[gap]]
 rule = "wrong-too-few"
 item = "numpy-arrays-fahrenheit"
-fingerprint = "37e4fd9947bd"
+fingerprint = "57c96f1337c7"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2978,7 +2973,7 @@ fingerprint = "42296442df0b"
 [[gap]]
 rule = "wrong-too-few"
 item = "numpy-arrays-scale"
-fingerprint = "12dc2805cf35"
+fingerprint = "0e275a2bfd75"
 
 [[gap]]
 rule = "wrong-too-few"

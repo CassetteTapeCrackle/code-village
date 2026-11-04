@@ -1,54 +1,54 @@
 {
-  "fingerprint": "37e4fd9947bd",
+  "fingerprint": "57c96f1337c7",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "import numpy as np\n\n\ndef to_fahrenheit(celsius):\n    a = np.array(celsius)\n    return a * 9 / 5 + 32\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "import numpy as np\n\n\ndef to_fahrenheit(celsius):\n    c = np.array(celsius)\n    return c * 9 / 5 + 32\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef to_fahrenheit(celsius):\n    c = np.array(celsius)\n    return c * 9 / 5 + 32\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "import numpy as np\n\n\ndef to_fahrenheit(celsius):\n    a = np.array(celsius)\n    return a * 9 / 5 + 32\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef to_fahrenheit(celsius):\n    c = np.array(celsius)\n    return c * 9 / 5 + 32\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
