@@ -1,6 +1,7 @@
 id = "inheritance-canoe-boat"
 title = "A canoe is a boat"
 prompt = "`Boat(name)` is given, with `describe()` returning `\"NAME floats\"`. Write `Canoe(Boat)`: `Canoe(name, paddles)` also stores `paddles`, and `describe()` adds `\" with N paddles\"`: `\"Otter floats with 2 paddles\"`. Call `super().__init__(name)` and use `super().describe()`."
+requires = ["fn-super"]
 
 [cases]
 class = "Canoe"

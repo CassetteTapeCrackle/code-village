@@ -521,11 +521,6 @@ item = "inheritance-bat"
 fingerprint = "8445cc2d3bfe"
 
 [[gap]]
-rule = "prompt-asks-construct"
-item = "inheritance-canoe-boat"
-fingerprint = "96c847a412bb"
-
-[[gap]]
 rule = "remember-unbacked"
 item = "class-attributes"
 fingerprint = "0c0c9766a5aa"
