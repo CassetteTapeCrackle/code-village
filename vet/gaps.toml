@@ -972,11 +972,6 @@ fingerprint = "20a26e0e6b22"
 
 [[gap]]
 rule = "right-missing"
-item = "nearest-neighbour-closest"
-fingerprint = "605409b459c6"
-
-[[gap]]
-rule = "right-missing"
 item = "nearest-neighbour-farthest"
 fingerprint = "d72a6c314ef7"
 
@@ -1384,11 +1379,6 @@ fingerprint = "a452bd94cfec"
 rule = "wrong-too-few"
 item = "nearest-neighbour-classify"
 fingerprint = "20a26e0e6b22"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "nearest-neighbour-closest"
-fingerprint = "605409b459c6"
 
 [[gap]]
 rule = "wrong-too-few"
