@@ -153,7 +153,7 @@ fingerprint = "abd1aeb4dded"
 [[gap]]
 rule = "cases-missing"
 item = "strings-clean-tag"
-fingerprint = "2b6787c4cf39"
+fingerprint = "4aafdb31c5b8"
 
 [[gap]]
 rule = "cases-missing"
@@ -1462,11 +1462,6 @@ fingerprint = "abd1aeb4dded"
 
 [[gap]]
 rule = "right-missing"
-item = "strings-clean-tag"
-fingerprint = "2b6787c4cf39"
-
-[[gap]]
-rule = "right-missing"
 item = "strings-file-name"
 fingerprint = "867572248bcf"
 
@@ -2314,11 +2309,6 @@ fingerprint = "e063d22b9888"
 rule = "wrong-too-few"
 item = "statistics-wait"
 fingerprint = "abd1aeb4dded"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "strings-clean-tag"
-fingerprint = "2b6787c4cf39"
 
 [[gap]]
 rule = "wrong-too-few"
