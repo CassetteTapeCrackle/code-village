@@ -1,6 +1,7 @@
 id = "generators-count-down"
 title = "Count down in steps"
 prompt = "Write a generator `down(start, step)` that yields `start`, then `start - step`, and so on while the value is above 0. Use `yield`: `list(down(10, 3))` is `[10, 7, 4, 1]`."
+requires = ["generator-yield"]
 
 [cases]
 none = "it returns a generator, which a case cannot compare"
