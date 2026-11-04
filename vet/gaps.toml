@@ -942,11 +942,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
-item = "dicts-unique-sorted"
-fingerprint = "c6099e540bfc"
-
-[[gap]]
-rule = "right-missing"
 item = "dunders-badge"
 fingerprint = "f9070d007400"
 
@@ -1999,11 +1994,6 @@ fingerprint = "c1127bee0134"
 rule = "wrong-too-few"
 item = "data-summary"
 fingerprint = "5778085b4b4e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dicts-unique-sorted"
-fingerprint = "c6099e540bfc"
 
 [[gap]]
 rule = "wrong-too-few"
