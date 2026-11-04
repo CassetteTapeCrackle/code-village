@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "functions-as-values-twice"
-fingerprint = "53cf5ef6b2e2"
-
-[[gap]]
-rule = "cases-missing"
 item = "functions-by-last-letter"
 fingerprint = "1b5389784698"
 
