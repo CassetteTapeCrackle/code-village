@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "generators-average"
-fingerprint = "0be515d6dd68"
-
-[[gap]]
-rule = "cases-missing"
 item = "generators-count-down"
 fingerprint = "4554f7767dee"
 
@@ -83,7 +78,7 @@ fingerprint = "bfc57fc12411"
 [[gap]]
 rule = "cases-missing"
 item = "generators-spread"
-fingerprint = "a6a2e0a9c49f"
+fingerprint = "ca28b52c0bb9"
 
 [[gap]]
 rule = "cases-missing"
@@ -1648,7 +1643,7 @@ fingerprint = "2e165c8ab691"
 [[gap]]
 rule = "right-missing"
 item = "generators-average"
-fingerprint = "0be515d6dd68"
+fingerprint = "14e2ae46a40f"
 
 [[gap]]
 rule = "right-missing"
@@ -1673,7 +1668,7 @@ fingerprint = "bfc57fc12411"
 [[gap]]
 rule = "right-missing"
 item = "generators-spread"
-fingerprint = "a6a2e0a9c49f"
+fingerprint = "ca28b52c0bb9"
 
 [[gap]]
 rule = "right-missing"
@@ -2903,7 +2898,7 @@ fingerprint = "2e165c8ab691"
 [[gap]]
 rule = "wrong-too-few"
 item = "generators-average"
-fingerprint = "0be515d6dd68"
+fingerprint = "14e2ae46a40f"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2928,7 +2923,7 @@ fingerprint = "bfc57fc12411"
 [[gap]]
 rule = "wrong-too-few"
 item = "generators-spread"
-fingerprint = "a6a2e0a9c49f"
+fingerprint = "ca28b52c0bb9"
 
 [[gap]]
 rule = "wrong-too-few"

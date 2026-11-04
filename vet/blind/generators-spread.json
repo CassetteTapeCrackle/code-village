@@ -1,54 +1,54 @@
 {
-  "fingerprint": "a6a2e0a9c49f",
+  "fingerprint": "ca28b52c0bb9",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def spread(numbers):\n    values = [n for n in numbers]\n    return max(values) - min(values)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def spread(numbers):\n    values = [n for n in numbers]\n    return max(values) - min(values)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def spread(numbers):\n    values = [n for n in numbers]\n    return max(values) - min(values)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def spread(numbers):\n    values = [n for n in numbers]\n    return max(values) - min(values)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def spread(numbers):\n    values = [n for n in numbers]\n    return max(values) - min(values)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
