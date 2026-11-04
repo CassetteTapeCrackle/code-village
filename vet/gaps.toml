@@ -188,7 +188,7 @@ fingerprint = "bdfe082978fd"
 [[gap]]
 rule = "cases-missing"
 item = "conditions-ticket-price"
-fingerprint = "17e949b10193"
+fingerprint = "e970a5f0e7d4"
 
 [[gap]]
 rule = "cases-missing"
@@ -1878,7 +1878,7 @@ fingerprint = "bdfe082978fd"
 [[gap]]
 rule = "right-missing"
 item = "conditions-ticket-price"
-fingerprint = "17e949b10193"
+fingerprint = "e970a5f0e7d4"
 
 [[gap]]
 rule = "right-missing"
@@ -3017,11 +3017,6 @@ fingerprint = "bdfe082978fd"
 
 [[gap]]
 rule = "weak-tests"
-item = "conditions-ticket-price"
-fingerprint = "17e949b10193"
-
-[[gap]]
-rule = "weak-tests"
 item = "conditions-vowel"
 fingerprint = "9dc9cc6e8676"
 
@@ -3508,7 +3503,7 @@ fingerprint = "bdfe082978fd"
 [[gap]]
 rule = "wrong-too-few"
 item = "conditions-ticket-price"
-fingerprint = "17e949b10193"
+fingerprint = "e970a5f0e7d4"
 
 [[gap]]
 rule = "wrong-too-few"
