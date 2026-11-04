@@ -6,9 +6,9 @@ updates:
     target-branch: dev # main only takes finished releases from dev
     schedule:
       interval: weekly
-    # hijacked releases are usually caught and pulled within days: never propose one younger than 3
+    # hijacked releases are usually caught and pulled within days: never propose one younger than a week
     cooldown:
-      default-days: 3
+      default-days: 7
     groups:
       actions-minor-patch:
         patterns: ["*"]
@@ -20,7 +20,7 @@ updates:
       interval: weekly
     # matches minimumReleaseAge in pnpm-workspace.yaml, so pnpm never refuses what Dependabot proposes
     cooldown:
-      default-days: 3
+      default-days: 7
     groups:
       # the worker tests run vitest inside Cloudflare's pool, which supports only some vitest versions: move them together
       vitest:
