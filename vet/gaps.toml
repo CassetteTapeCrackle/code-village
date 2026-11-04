@@ -93,7 +93,7 @@ fingerprint = "11a76e053b3e"
 [[gap]]
 rule = "cases-missing"
 item = "sortable-by-height"
-fingerprint = "31f45be0860d"
+fingerprint = "37277dae27bc"
 
 [[gap]]
 rule = "cases-missing"
@@ -529,11 +529,6 @@ fingerprint = "96c847a412bb"
 rule = "prompt-asks-construct"
 item = "ranger-registry"
 fingerprint = "6b6226b23439"
-
-[[gap]]
-rule = "prompt-asks-construct"
-item = "sortable-by-height"
-fingerprint = "31f45be0860d"
 
 [[gap]]
 rule = "prompt-asks-construct"
