@@ -937,13 +937,8 @@ fingerprint = "c1127bee0134"
 
 [[gap]]
 rule = "right-missing"
-item = "conditions-vowel"
-fingerprint = "00b324f318bb"
-
-[[gap]]
-rule = "right-missing"
 item = "conditions-weekend"
-fingerprint = "75b868d1af57"
+fingerprint = "114955a1ddea"
 
 [[gap]]
 rule = "right-missing"
@@ -2062,13 +2057,8 @@ fingerprint = "c1127bee0134"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "conditions-vowel"
-fingerprint = "00b324f318bb"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "conditions-weekend"
-fingerprint = "75b868d1af57"
+fingerprint = "114955a1ddea"
 
 [[gap]]
 rule = "wrong-too-few"
