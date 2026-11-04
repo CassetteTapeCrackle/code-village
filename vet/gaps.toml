@@ -1022,11 +1022,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
-item = "io-double"
-fingerprint = "7a290e687090"
-
-[[gap]]
-rule = "right-missing"
 item = "io-echo"
 fingerprint = "120b7bcb6aac"
 
@@ -1043,7 +1038,7 @@ fingerprint = "65ed29934b56"
 [[gap]]
 rule = "right-missing"
 item = "io-next-year"
-fingerprint = "9cafac609e2b"
+fingerprint = "b0effaccbcfb"
 
 [[gap]]
 rule = "right-missing"
@@ -1587,11 +1582,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "io-double"
-fingerprint = "7a290e687090"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "io-echo"
 fingerprint = "120b7bcb6aac"
 
@@ -1608,7 +1598,7 @@ fingerprint = "65ed29934b56"
 [[gap]]
 rule = "wrong-too-few"
 item = "io-next-year"
-fingerprint = "9cafac609e2b"
+fingerprint = "b0effaccbcfb"
 
 [[gap]]
 rule = "wrong-too-few"
