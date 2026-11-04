@@ -1,54 +1,54 @@
 {
-  "fingerprint": "507922fb2fc9",
+  "fingerprint": "390ea783390a",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "item = input()\nprice = float(input())\nquantity = int(input())\ntotal = price * quantity\nprint(f\"{quantity} x {item} = {total:.2f}\")\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "item = input()\nprice = float(input())\nquantity = int(input())\ntotal = price * quantity\nprint(f\"{quantity} x {item} = {total:.2f}\")\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "item = input()\nprice = float(input())\nquantity = int(input())\ntotal = price * quantity\nprint(f\"{quantity} x {item} = {total:.2f}\")\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "item = input()\nprice = float(input())\nquantity = int(input())\ntotal = price * quantity\nprint(f\"{quantity} x {item} = {total:.2f}\")\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "item = input()\nprice = float(input())\nquantity = int(input())\ntotal = price * quantity\nprint(f\"{quantity} x {item} = {total:.2f}\")\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
