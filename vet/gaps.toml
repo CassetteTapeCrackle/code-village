@@ -482,11 +482,6 @@ fingerprint = "eb308c118939"
 
 [[gap]]
 rule = "prompt-asks-construct"
-item = "dataclasses-quiver-default"
-fingerprint = "2d7227e2792f"
-
-[[gap]]
-rule = "prompt-asks-construct"
 item = "dataclasses-races"
 fingerprint = "a3df17bda7dd"
 
