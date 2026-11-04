@@ -163,7 +163,7 @@ fingerprint = "3954e0317374"
 [[gap]]
 rule = "cases-missing"
 item = "comprehensions-pair-up"
-fingerprint = "6c8cbb78ebb4"
+fingerprint = "36e9eed1af19"
 
 [[gap]]
 rule = "cases-missing"
@@ -1853,7 +1853,7 @@ fingerprint = "3954e0317374"
 [[gap]]
 rule = "right-missing"
 item = "comprehensions-pair-up"
-fingerprint = "6c8cbb78ebb4"
+fingerprint = "36e9eed1af19"
 
 [[gap]]
 rule = "right-missing"
@@ -3002,11 +3002,6 @@ fingerprint = "3954e0317374"
 
 [[gap]]
 rule = "weak-tests"
-item = "comprehensions-pair-up"
-fingerprint = "6c8cbb78ebb4"
-
-[[gap]]
-rule = "weak-tests"
 item = "conditions-larger"
 fingerprint = "aa6fa4e0f73d"
 
@@ -3478,7 +3473,7 @@ fingerprint = "3954e0317374"
 [[gap]]
 rule = "wrong-too-few"
 item = "comprehensions-pair-up"
-fingerprint = "6c8cbb78ebb4"
+fingerprint = "36e9eed1af19"
 
 [[gap]]
 rule = "wrong-too-few"
