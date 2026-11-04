@@ -580,6 +580,11 @@ runs for a push are cancelled by the next push, so the green run to look at is t
   Always include `unknown-feature` in the quick check.
 - The default compare forgives case, spacing and punctuation: tasks about exact text set `strict = true`
   (strings-initials, clean-tag, file-name, comprehensions-shout-all).
+- The owner should confirm three strict tasks: strings-initials, strings-clean-tag and strings-file-name now
+  compare text exactly (the default compare forgives case, so `lower()` for `upper()` passed). Their prompts ask
+  for exact capitals or lower case. The owner asked for lenient checks, so the call is theirs.
+- The e2e result pattern accepts the app's 'Still running after 5 s' message as a finished, failing run, so a
+  starter that never stops does not time out the spec (properties-ranger-age, properties-wingspan).
 - Hidden cases compare exactly. A right answer that returns `5` for `5.0` is refused; the owner decides, see
   `vet/triage.md` ("Hidden cases refuse an equal number of another type"). No answer was bent to fit.
 - `[cases]` for two lists that must be the same length (train-test accuracy, mistakes) draws both at one fixed
