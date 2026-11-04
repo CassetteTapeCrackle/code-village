@@ -997,11 +997,6 @@ fingerprint = "acb220f074d6"
 
 [[gap]]
 rule = "right-missing"
-item = "numpy-arrays-tripled"
-fingerprint = "51aeb9942b6d"
-
-[[gap]]
-rule = "right-missing"
 item = "pandas-tables-cheapest-item"
 fingerprint = "789d547828c3"
 
@@ -1414,11 +1409,6 @@ fingerprint = "0ea5cb218e55"
 rule = "wrong-too-few"
 item = "nearest-neighbour-similar"
 fingerprint = "acb220f074d6"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "numpy-arrays-tripled"
-fingerprint = "51aeb9942b6d"
 
 [[gap]]
 rule = "wrong-too-few"
