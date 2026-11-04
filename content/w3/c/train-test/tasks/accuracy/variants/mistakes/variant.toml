@@ -1,3 +1,7 @@
 id = "train-test-mistakes"
 title = "Count the mistakes"
 prompt = "Write `mistakes(truth, guesses)` by hand: return the indexes (counting from 0) where `guesses` does not match `truth`, for example `[1, 3]`."
+
+[cases]
+call = "mistakes"
+args = ["list<choice a|b|c> 1..8", "list<choice a|b|c> 1..8"]
