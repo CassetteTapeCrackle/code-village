@@ -148,7 +148,7 @@ fingerprint = "26c106f43e4d"
 [[gap]]
 rule = "cases-missing"
 item = "statistics-wait"
-fingerprint = "abd1aeb4dded"
+fingerprint = "5febb3400ce2"
 
 [[gap]]
 rule = "cases-missing"
@@ -1387,11 +1387,6 @@ fingerprint = "711be952208c"
 
 [[gap]]
 rule = "right-missing"
-item = "statistics-wait"
-fingerprint = "abd1aeb4dded"
-
-[[gap]]
-rule = "right-missing"
 item = "testing-average-test"
 fingerprint = "b9817d810b45"
 
@@ -2109,11 +2104,6 @@ fingerprint = "02ab0f1b505a"
 rule = "wrong-too-few"
 item = "statistics-summary"
 fingerprint = "711be952208c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "statistics-wait"
-fingerprint = "abd1aeb4dded"
 
 [[gap]]
 rule = "wrong-too-few"
