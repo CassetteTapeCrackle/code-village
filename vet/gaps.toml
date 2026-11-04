@@ -997,11 +997,6 @@ fingerprint = "acb220f074d6"
 
 [[gap]]
 rule = "right-missing"
-item = "numpy-arrays-row-means"
-fingerprint = "034bd73612f9"
-
-[[gap]]
-rule = "right-missing"
 item = "numpy-arrays-scale"
 fingerprint = "6e284da1f6be"
 
@@ -1424,11 +1419,6 @@ fingerprint = "0ea5cb218e55"
 rule = "wrong-too-few"
 item = "nearest-neighbour-similar"
 fingerprint = "acb220f074d6"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "numpy-arrays-row-means"
-fingerprint = "034bd73612f9"
 
 [[gap]]
 rule = "wrong-too-few"
