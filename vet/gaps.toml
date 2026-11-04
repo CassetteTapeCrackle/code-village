@@ -67,11 +67,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "identity-without-exact"
-fingerprint = "5bb2fd77549a"
-
-[[gap]]
-rule = "cases-missing"
 item = "identity-without-note"
 fingerprint = "a41431ebe7a6"
 
@@ -1658,7 +1653,7 @@ fingerprint = "4019e4cb54c0"
 [[gap]]
 rule = "right-missing"
 item = "identity-without-exact"
-fingerprint = "5bb2fd77549a"
+fingerprint = "a58334b0ed28"
 
 [[gap]]
 rule = "right-missing"
@@ -2913,7 +2908,7 @@ fingerprint = "4019e4cb54c0"
 [[gap]]
 rule = "wrong-too-few"
 item = "identity-without-exact"
-fingerprint = "5bb2fd77549a"
+fingerprint = "a58334b0ed28"
 
 [[gap]]
 rule = "wrong-too-few"
