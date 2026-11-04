@@ -882,11 +882,6 @@ fingerprint = "474e2bcde876"
 
 [[gap]]
 rule = "cases-missing"
-item = "train-test-accuracy"
-fingerprint = "a2adfb7df5b9"
-
-[[gap]]
-rule = "cases-missing"
 item = "train-test-evaluate"
 fingerprint = "e4f7f5c3ea65"
 
@@ -2573,7 +2568,7 @@ fingerprint = "474e2bcde876"
 [[gap]]
 rule = "right-missing"
 item = "train-test-accuracy"
-fingerprint = "a2adfb7df5b9"
+fingerprint = "2a883a76f81e"
 
 [[gap]]
 rule = "right-missing"
@@ -2844,11 +2839,6 @@ fingerprint = "4d85a6b67f5f"
 rule = "weak-tests"
 item = "testing-total-test"
 fingerprint = "5693a29e09d3"
-
-[[gap]]
-rule = "weak-tests"
-item = "train-test-accuracy"
-fingerprint = "a2adfb7df5b9"
 
 [[gap]]
 rule = "weak-tests"
@@ -3838,7 +3828,7 @@ fingerprint = "474e2bcde876"
 [[gap]]
 rule = "wrong-too-few"
 item = "train-test-accuracy"
-fingerprint = "a2adfb7df5b9"
+fingerprint = "2a883a76f81e"
 
 [[gap]]
 rule = "wrong-too-few"
