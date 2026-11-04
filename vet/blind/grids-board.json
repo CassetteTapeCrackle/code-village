@@ -1,54 +1,54 @@
 {
-  "fingerprint": "d142b1b54b76",
+  "fingerprint": "6d3f9c556854",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

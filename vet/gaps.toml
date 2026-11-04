@@ -62,11 +62,6 @@ fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "cases-missing"
-item = "grids-board"
-fingerprint = "d142b1b54b76"
-
-[[gap]]
-rule = "cases-missing"
 item = "grids-column"
 fingerprint = "257cedd9eb85"
 
@@ -1653,7 +1648,7 @@ fingerprint = "97bacf4256e1"
 [[gap]]
 rule = "right-missing"
 item = "grids-board"
-fingerprint = "d142b1b54b76"
+fingerprint = "6d3f9c556854"
 
 [[gap]]
 rule = "right-missing"
@@ -2908,7 +2903,7 @@ fingerprint = "97bacf4256e1"
 [[gap]]
 rule = "wrong-too-few"
 item = "grids-board"
-fingerprint = "d142b1b54b76"
+fingerprint = "6d3f9c556854"
 
 [[gap]]
 rule = "wrong-too-few"
