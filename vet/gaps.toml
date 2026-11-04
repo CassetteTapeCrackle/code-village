@@ -363,7 +363,7 @@ fingerprint = "6d6f5d333d4a"
 [[gap]]
 rule = "cases-missing"
 item = "generators-count-down"
-fingerprint = "58ea91791888"
+fingerprint = "4554f7767dee"
 
 [[gap]]
 rule = "cases-missing"
@@ -1453,7 +1453,7 @@ fingerprint = "6da763269b28"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "generators-count-down"
-fingerprint = "58ea91791888"
+fingerprint = "4554f7767dee"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -2053,7 +2053,7 @@ fingerprint = "6d6f5d333d4a"
 [[gap]]
 rule = "right-missing"
 item = "generators-count-down"
-fingerprint = "58ea91791888"
+fingerprint = "4554f7767dee"
 
 [[gap]]
 rule = "right-missing"
@@ -2897,11 +2897,6 @@ fingerprint = "6d6f5d333d4a"
 
 [[gap]]
 rule = "weak-tests"
-item = "generators-count-down"
-fingerprint = "58ea91791888"
-
-[[gap]]
-rule = "weak-tests"
 item = "gradebook"
 fingerprint = "ebe8801cb395"
 
@@ -3563,7 +3558,7 @@ fingerprint = "6d6f5d333d4a"
 [[gap]]
 rule = "wrong-too-few"
 item = "generators-count-down"
-fingerprint = "58ea91791888"
+fingerprint = "4554f7767dee"
 
 [[gap]]
 rule = "wrong-too-few"
