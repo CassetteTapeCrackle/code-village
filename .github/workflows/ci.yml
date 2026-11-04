@@ -122,6 +122,15 @@ jobs:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
       - run: pnpm exec playwright install --with-deps chromium
+      # the mutation results of the check job, so the items file can name a mutant only the hidden cases kill
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            .vet-cache
+            !.vet-cache/py3.*
+            !.vet-cache/pyodide-jobs.json
+          key: vet-cache-e2e-${{ github.run_id }}
+          restore-keys: vet-cache-
       # the quick build (the check job runs every rule); built here so the dev server's start stays short. It also
       # writes the items the generated specs (e2e/generated*.spec.ts) cover
       - run: pnpm content --quick --items-out .vet-cache/e2e-items.json
@@ -135,6 +144,8 @@ jobs:
           if [ "$EVENT" = pull_request ]; then
             git fetch --no-tags --depth=1 origin "$BASE_REF"
             items=$(python -m tools.vet.changed --base "origin/$BASE_REF")
+            # a change to the generated specs asks for everything, which is the full sweep's job (e2e-full.yml)
+            case ",$items," in *,all,*) items=sample ;; esac
           else
             items=sample
           fi

@@ -49,6 +49,14 @@ jobs:
           path: node_modules/.cache/pyodide-wheels
           key: pyodide-wheels-${{ hashFiles('node_modules/pyodide/package.json') }}
       - run: pnpm exec playwright install --with-deps chromium
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            .vet-cache
+            !.vet-cache/py3.*
+            !.vet-cache/pyodide-jobs.json
+          key: vet-cache-e2e-full-${{ github.run_id }}
+          restore-keys: vet-cache-
       - run: pnpm content --quick --items-out .vet-cache/e2e-items.json
       - run: pnpm e2e --shard=${{ matrix.shard }}/4
       - if: always()

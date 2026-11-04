@@ -1,6 +1,7 @@
 """Which items the generated browser tests cover for a change, and the items file they read."""
 
 import json
+import os
 import shutil
 import subprocess
 import tempfile
@@ -8,9 +9,11 @@ import unittest
 from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
+from unittest import mock
 
+from vet.cache import _write, framework_hash
 from vet.changed import changed_items, changed_paths, tokens_for
-from vet.e2e_items import e2e_items, write_items
+from vet.e2e_items import e2e_items, hidden_only_mutant, write_items
 from vet.load import load_content
 
 GOOD = Path(__file__).resolve().parent / "fixtures" / "good"
@@ -61,6 +64,21 @@ class Mapping(unittest.TestCase):
         self.assertEqual(tokens([f"{TASK}/starter.py", "py/harness.py"]), {"basics-double", "sample"})
 
 
+class Prefixes(unittest.TestCase):
+    def test_a_task_folder_that_starts_like_another_is_not_confused_with_it(self) -> None:
+        with repo_with_content() as root:
+            tasks = root / "content/w1/a/basics/tasks"
+            shutil.copytree(tasks / "double", tasks / "double-2")
+            toml = tasks / "double-2" / "task.toml"
+            toml.write_text(toml.read_text().replace('id = "basics-double"', 'id = "basics-double-2"'))
+            shutil.rmtree(tasks / "double-2" / "variants")
+            lesson = root / "content/w1/a/basics/lesson.md"
+            lesson.write_text(lesson.read_text() + "\n::task double-2\n")
+            content, _ = load_content(root / "content")
+            self.assertEqual(tokens_for([f"{TASK}-2/solution.py"], content, root), {"basics-double-2"})
+            self.assertEqual(tokens_for([f"{TASK}/solution.py"], content, root), {"basics-double"})
+
+
 class Git(unittest.TestCase):
     def git(self, root: Path, *args: str) -> None:
         subprocess.run(["git", "-c", "user.email=t@t", "-c", "user.name=t", *args], cwd=root, check=True,
@@ -88,6 +106,20 @@ class Git(unittest.TestCase):
             self.git(root, "commit", "-q", "-m", "base plus change")
             self.assertEqual(changed_paths("main", root), [f"{TASK}/starter.py"])
 
+    def test_changes_made_on_the_base_after_branching_are_not_ours(self) -> None:
+        with repo_with_content() as root:
+            self.git(root, "init", "-q", "-b", "main")
+            self.git(root, "add", "-A")
+            self.git(root, "commit", "-q", "-m", "base")
+            self.git(root, "switch", "-q", "-c", "work")
+            (root / TASK / "solution.py").write_text("def double(n):\n    return 2 * n\n")
+            self.git(root, "commit", "-q", "-am", "ours")
+            self.git(root, "switch", "-q", "main")
+            (root / "content/w1/a/basics/tasks/half/solution.py").write_text("def half(n):\n    return n * 0.5\n")
+            self.git(root, "commit", "-q", "-am", "theirs")
+            self.git(root, "switch", "-q", "work")
+            self.assertEqual(changed_paths("main", root), [f"{TASK}/solution.py"])  # not the half task: three dots
+
     def test_an_unknown_base_is_said(self) -> None:
         with repo_with_content() as root:
             self.git(root, "init", "-q")
@@ -106,6 +138,18 @@ class Items(unittest.TestCase):
         self.assertIsNone(double["hiddenMutant"])
         [boss] = items["bosses"]
         self.assertEqual((boss["id"], boss["lessons"]), ("calc", ["basics"]))
+
+    def test_a_mutant_only_the_hidden_cases_kill_is_named_from_the_cache(self) -> None:
+        content, _ = load_content(GOOD)
+        task = next(t for t in content.tasks if t.id == "basics-double")
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp) / "mutation"
+            kills = [{"verdict": "visible", "code": "a"}, {"verdict": "hidden", "code": "b"},
+                     {"verdict": "hidden", "code": "c"}]
+            _write(folder, (task.fingerprint, task.id), framework_hash(), kills)
+            with mock.patch.dict(os.environ, {"VET_CACHE": tmp}):
+                self.assertEqual(hidden_only_mutant(content, task.fingerprint), "b")
+                self.assertIsNone(hidden_only_mutant(content, "000000000000"))
 
     def test_the_file_is_written(self) -> None:
         content, _ = load_content(GOOD)

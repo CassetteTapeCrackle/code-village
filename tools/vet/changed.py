@@ -18,8 +18,9 @@ from .load import load_content
 from .model import Content
 
 ROOT = Path(__file__).resolve().parents[2]
-SAMPLE_PREFIXES = ("py/", "src/runner/", "src/lesson/", "tools/vet/")
-ALL_PREFIXES = ("e2e/generated",)
+SAMPLE_PREFIXES = ("py/", "src/runner/", "src/lesson/", "src/screens/", "src/learning/", "tools/vet/",
+                   "tools/content_check.py", "package.json", "pnpm-lock.yaml", "playwright.config.ts")
+ALL_PREFIXES = ("e2e/generated", "e2e/helpers.ts", "e2e/fixtures.ts")
 SHARED_CONTENT = ("features.toml", "concepts.toml", "world.toml")  # a change can reach any item
 
 
@@ -49,7 +50,7 @@ def tokens_for(paths: Iterable[str], content: Content, root: Path = ROOT) -> fro
 
 
 def _owners(content: Content, root: Path) -> list[tuple[str, str]]:
-    """(folder prefix, item id) for every task, variant (as its task), lesson and boss, folders relative to root."""
+    """(folder prefix, item id) for every task (its variants sit inside its folder) and boss, relative to root."""
     def relative(path: Path) -> str:
         return PurePosixPath(path.resolve().relative_to(root.resolve())).as_posix() + "/"
 
@@ -57,7 +58,6 @@ def _owners(content: Content, root: Path) -> list[tuple[str, str]]:
     for lesson in content.lessons:
         for task in lesson.tasks:
             owners.append((relative(task.folder), task.id))
-        owners.append((relative(lesson.path.parent) + "lesson.md", ""))  # marks the lesson's own files
     owners += [(relative(boss.folder), boss.id) for boss in content.bosses]
     return owners
 
@@ -67,11 +67,11 @@ def _content_tokens(path: str, owners: list[tuple[str, str]]) -> set[str]:
     if name in SHARED_CONTENT:
         return {"sample"}
     for prefix, item in owners:
-        if item and path.startswith(prefix):
+        if path.startswith(prefix):
             return {item}
     lesson_folder = str(PurePosixPath(path).parent) + "/"
     if name in ("lesson.md", "ledger.toml"):  # the text before every task of the lesson
-        return {item for prefix, item in owners if item and prefix.startswith(lesson_folder + "tasks/")}
+        return {item for prefix, item in owners if prefix.startswith(lesson_folder + "tasks/")}
     return {"sample"}
 
 

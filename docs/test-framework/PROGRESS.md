@@ -3,6 +3,14 @@
 Each session reads this first and updates it last. Newest entries at the top of each section.
 
 ## Done
+- Session 8 (2026-11-04, overnight cloud session): Tasks 8.1 to 8.3, pushed to `test-framework`.
+  `tools/vet/changed.py` (`python -m tools.vet.changed --base origin/dev` prints a VET_ITEMS value) and
+  `content_check.py --items-out .vet-cache/e2e-items.json` (`tools/vet/e2e_items.py`); the specs
+  `e2e/generated.spec.ts` (per task: starter fails, first `wrong/` fails, the mutant only hidden cases kill shows "We
+  also tried", the solution passes; one page per lesson) and `e2e/generated-bosses.spec.ts` (solution beats the
+  boss, then hard mode), both reading `e2e/generatedItems.ts`; `ci.yml` (the e2e job picks VET_ITEMS from the change)
+  and `e2e-full.yml` (everything, four shards, manual dispatch and pushes to main). Format in `content/README.md` is
+  unchanged; VET_ITEMS is described at the top of `tools/vet/changed.py`.
 - Session 7 (2026-11-04, overnight cloud session): Task 7.1, pushed to `test-framework`. Blind solvers:
   `tools/vet/models/blind_solve.py` (the Actions side: five DeepSeek attempts per item, only the code comes back),
   `tools/vet/blind_eval.py` (the session side: `request`, `evaluate`, `triage`), results in `vet/blind/<id>.json`
@@ -72,6 +80,24 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 8: `changed_items` returns a frozenset of VET_ITEMS tokens (`all`, `sample`, item ids), not the plan's
+  `set | Literal`, because one change can need a sample and some ids. `all` swallows the rest. A content file maps to
+  its task (a variant file to its task, `lesson.md` and `ledger.toml` to every task of the lesson, a boss file to the
+  boss); `features.toml`, `concepts.toml` and `world.toml` ask for a sample; so do `py/`, `src/runner/`,
+  `src/lesson/`, `src/screens/`, `src/learning/`, `tools/vet/`, `tools/content_check.py` and the lockfile; the
+  generated specs and `e2e/helpers.ts` ask for all. `sample` is the first task of every lesson and the first boss.
+- Session 8: a pull request never runs `all` in the e2e job (it would take most of the 30 minute limit, unsharded): a
+  change to the generated specs runs the sample there, and the full sweep is `e2e-full.yml`. It cannot be started by
+  hand until the file is on the default branch, so the first full sweep is after the merge (or a push to main).
+- Session 8: a bare `git diff base...HEAD` finds no merge base in a shallow checkout of a pull request's merge commit;
+  `changed_paths` then compares tree to tree, which is the change since HEAD is the base plus the pull request.
+- Session 8: the e2e jobs restore the check job's `.vet-cache` so the items file can name a mutant that only hidden
+  cases kill. Quick content builds skip the mutation rule but read the cache.
+- Session 8: the generated lesson spec waits for each Check with a MutationObserver on the button's `disabled`
+  attribute: the old result stays on the page until the new one replaces it, so result text alone cannot tell a run
+  is over (found by the reviewer). Files are parallel (`test.describe.configure`), lessons serial, so shards balance.
+- Session 8 review (fresh Sonnet subagent on the session diff): fixed findings 1 to 7. Finding 8 (a failed task
+  skips the rest of its lesson; a `browser.newPage()` gets no failure screenshot) is under Open.
 - From Session 7 on, on the supervisor's word (the cloud credit can end without warning): push after every commit,
   not only at task boundaries, and run the full suites at part boundaries. Each commit still passes lint, types and
   the tests of the files it touches.
@@ -331,6 +357,13 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
+- Session 8: Playwright cannot run in the VM (the dev server copies Pyodide wheels from cdn.jsdelivr.net, which the
+  proxy refuses), so the generated specs ran only on CI. PR run minutes: see the entry at the end of the session.
+- Session 8: variants are not covered by the generated lesson spec (their path in the app is the review session). No
+  item declares `[cases]`, so no task has a hidden-case mutant and the "We also tried" check has never run. The
+  `chosen()` selection logic in `e2e/generatedItems.ts` has no unit test (Vitest only reads `src/`).
+- Session 8: a failed task in a lesson skips the later tasks of that lesson (serial mode), and the page made in
+  `beforeAll` gets no failure screenshot; the e2e job still uploads the HTML report.
 - Session 7 review findings left: 4 in part (an owner can still write `by: owner` into the JSON by hand; the CLI
   now takes only `session`, and every session decision is listed in `vet/triage.md`); a `prompt-fixed`,
   `test-fixed` or `solution-fixed` decision settles an attempt without proof of a change, since a change to the item
