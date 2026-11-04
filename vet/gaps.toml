@@ -52,11 +52,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "classes-basket"
-fingerprint = "cd50a0fbdef6"
-
-[[gap]]
-rule = "cases-missing"
 item = "classes-canoe"
 fingerprint = "6984abea2bd4"
 
@@ -1593,7 +1588,7 @@ fingerprint = "38e595aae411"
 [[gap]]
 rule = "right-missing"
 item = "classes-basket"
-fingerprint = "cd50a0fbdef6"
+fingerprint = "6925113f5f8d"
 
 [[gap]]
 rule = "right-missing"
@@ -2848,7 +2843,7 @@ fingerprint = "38e595aae411"
 [[gap]]
 rule = "wrong-too-few"
 item = "classes-basket"
-fingerprint = "cd50a0fbdef6"
+fingerprint = "6925113f5f8d"
 
 [[gap]]
 rule = "wrong-too-few"
