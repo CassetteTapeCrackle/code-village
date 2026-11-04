@@ -13,3 +13,7 @@ def test_ties():
     """a gust equal to the limit is not over it, and tied gusts both count"""
     expect_equal(learner["count_over"]([10.0, 12.0, 12.0, 9.0], 10), 2, "count_over([10, 12, 12, 9], 10)")
     expect_equal(learner["top"]([12.0, 9.0, 12.0], 2), [12.0, 12.0], "top([12, 9, 12], 2)")
+
+def test_rounding():
+    """the mean and the spread are rounded to 2 decimals, not 3"""
+    expect_equal(learner["summary"]([1.0, 2.0, 2.0]), {"count": 3, "mean": 1.67, "median": 2.0, "std": 0.47}, "summary([1, 2, 2])")

@@ -38,7 +38,7 @@ fingerprint = "7428c11c94fd"
 [[gap]]
 rule = "blind-untriaged"
 item = "data-summary"
-fingerprint = "5c445ef34649"
+fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "blind-untriaged"
@@ -178,7 +178,7 @@ fingerprint = "e970a5f0e7d4"
 [[gap]]
 rule = "cases-missing"
 item = "data-summary"
-fingerprint = "5c445ef34649"
+fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
@@ -1263,7 +1263,7 @@ fingerprint = "d3c7b570c0b0"
 [[gap]]
 rule = "ledger-missing"
 item = "data-summary"
-fingerprint = "5c445ef34649"
+fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "ledger-missing"
@@ -1868,7 +1868,7 @@ fingerprint = "75b868d1af57"
 [[gap]]
 rule = "right-missing"
 item = "data-summary"
-fingerprint = "5c445ef34649"
+fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
@@ -2962,11 +2962,6 @@ fingerprint = "3954e0317374"
 
 [[gap]]
 rule = "weak-tests"
-item = "data-summary"
-fingerprint = "5c445ef34649"
-
-[[gap]]
-rule = "weak-tests"
 item = "dunders-feather"
 fingerprint = "d8ebfbb69a84"
 
@@ -3443,7 +3438,7 @@ fingerprint = "75b868d1af57"
 [[gap]]
 rule = "wrong-too-few"
 item = "data-summary"
-fingerprint = "5c445ef34649"
+fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "wrong-too-few"
