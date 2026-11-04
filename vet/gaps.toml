@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "errors-parse-price"
-fingerprint = "24c69049b4af"
-
-[[gap]]
-rule = "cases-missing"
 item = "errors-safe-divide"
 fingerprint = "61ac39c45ef2"
 
@@ -1638,7 +1633,7 @@ fingerprint = "38e232d65593"
 [[gap]]
 rule = "right-missing"
 item = "errors-parse-price"
-fingerprint = "24c69049b4af"
+fingerprint = "3d7a8e78025b"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "38e232d65593"
 [[gap]]
 rule = "wrong-too-few"
 item = "errors-parse-price"
-fingerprint = "24c69049b4af"
+fingerprint = "3d7a8e78025b"
 
 [[gap]]
 rule = "wrong-too-few"
