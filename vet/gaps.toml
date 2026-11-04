@@ -962,11 +962,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
-item = "knn-sklearn-height"
-fingerprint = "e8cbbdf99a5a"
-
-[[gap]]
-rule = "right-missing"
 item = "knn-sklearn-k"
 fingerprint = "02d3d90fa5ca"
 
@@ -978,7 +973,7 @@ fingerprint = "693ac461bb84"
 [[gap]]
 rule = "right-missing"
 item = "knn-sklearn-one-point"
-fingerprint = "3acc379ba2bc"
+fingerprint = "6713adfc5f7c"
 
 [[gap]]
 rule = "right-missing"
@@ -1432,18 +1427,13 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "knn-sklearn-height"
-fingerprint = "e8cbbdf99a5a"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "knn-sklearn-k"
 fingerprint = "02d3d90fa5ca"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "knn-sklearn-one-point"
-fingerprint = "3acc379ba2bc"
+fingerprint = "6713adfc5f7c"
 
 [[gap]]
 rule = "wrong-too-few"
