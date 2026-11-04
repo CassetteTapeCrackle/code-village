@@ -927,11 +927,6 @@ fingerprint = "335516456b2c"
 
 [[gap]]
 rule = "right-missing"
-item = "classes-tent"
-fingerprint = "82f8afcc23bc"
-
-[[gap]]
-rule = "right-missing"
 item = "composition-cook-pantry"
 fingerprint = "2843db028fc0"
 
@@ -2124,11 +2119,6 @@ fingerprint = "8011422a1526"
 rule = "wrong-too-few"
 item = "class-attributes-canoe-seats"
 fingerprint = "335516456b2c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "classes-tent"
-fingerprint = "82f8afcc23bc"
 
 [[gap]]
 rule = "wrong-too-few"
