@@ -123,7 +123,7 @@ fingerprint = "3348c924197f"
 [[gap]]
 rule = "cases-missing"
 item = "star-classifier"
-fingerprint = "5bc9df7be022"
+fingerprint = "9d0f76121fcf"
 
 [[gap]]
 rule = "cases-missing"
@@ -618,7 +618,7 @@ fingerprint = "cf5a766a1521"
 [[gap]]
 rule = "ledger-missing"
 item = "star-classifier"
-fingerprint = "5bc9df7be022"
+fingerprint = "9d0f76121fcf"
 
 [[gap]]
 rule = "ledger-missing"
@@ -924,11 +924,6 @@ fingerprint = "8f71aaa27062"
 rule = "right-missing"
 item = "songbird-playlist"
 fingerprint = "40a435d0e3c4"
-
-[[gap]]
-rule = "right-missing"
-item = "star-classifier"
-fingerprint = "5bc9df7be022"
 
 [[gap]]
 rule = "right-missing"
