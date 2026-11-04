@@ -1022,18 +1022,13 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
-item = "io-minutes"
-fingerprint = "65ed29934b56"
-
-[[gap]]
-rule = "right-missing"
 item = "io-next-year"
 fingerprint = "b0effaccbcfb"
 
 [[gap]]
 rule = "right-missing"
 item = "io-receipt"
-fingerprint = "390ea783390a"
+fingerprint = "121451c4ba04"
 
 [[gap]]
 rule = "right-missing"
@@ -1572,18 +1567,13 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "io-minutes"
-fingerprint = "65ed29934b56"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "io-next-year"
 fingerprint = "b0effaccbcfb"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "io-receipt"
-fingerprint = "390ea783390a"
+fingerprint = "121451c4ba04"
 
 [[gap]]
 rule = "wrong-too-few"
