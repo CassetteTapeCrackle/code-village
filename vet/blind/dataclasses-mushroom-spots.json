@@ -1,54 +1,54 @@
 {
-  "fingerprint": "4a8bb9645dbc",
+  "fingerprint": "dada7302cf0d",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "from dataclasses import dataclass\n\n\n@dataclass\nclass Toadstool:\n    name: str\n    spots: int = 0\n\n    def add_spot(self):\n        self.spots += 1\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "from dataclasses import dataclass\n\n\n@dataclass\nclass Toadstool:\n    name: str\n    spots: int = 0\n\n    def add_spot(self):\n        self.spots += 1\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from dataclasses import dataclass\n\n@dataclass\nclass Toadstool:\n    name: str\n    spots: int = 0\n\n    def add_spot(self):\n        self.spots += 1\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "from dataclasses import dataclass\n\n\n@dataclass\nclass Toadstool:\n    name: str\n    spots: int = 0\n\n    def add_spot(self):\n        self.spots += 1\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from dataclasses import dataclass\n\n@dataclass\nclass Toadstool:\n    name: str\n    spots: int = 0\n\n    def add_spot(self):\n        self.spots += 1\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
