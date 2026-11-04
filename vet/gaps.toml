@@ -1322,11 +1322,6 @@ fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "right-missing"
-item = "recursion-countdown-list"
-fingerprint = "0ecf30acf2aa"
-
-[[gap]]
-rule = "right-missing"
 item = "recursion-power"
 fingerprint = "e838b17027be"
 
@@ -2114,11 +2109,6 @@ fingerprint = "1f7a66a6ccca"
 rule = "wrong-too-few"
 item = "ranger-registry"
 fingerprint = "bc03a544dbed"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "recursion-countdown-list"
-fingerprint = "0ecf30acf2aa"
 
 [[gap]]
 rule = "wrong-too-few"
