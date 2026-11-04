@@ -967,11 +967,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "right-missing"
-item = "pandas-tables-total"
-fingerprint = "876fad007197"
-
-[[gap]]
-rule = "right-missing"
 item = "ranger-registry"
 fingerprint = "bc03a544dbed"
 
@@ -1284,11 +1279,6 @@ fingerprint = "7b1cb790f6ac"
 rule = "wrong-too-few"
 item = "lost-satchel"
 fingerprint = "a452bd94cfec"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "pandas-tables-total"
-fingerprint = "876fad007197"
 
 [[gap]]
 rule = "wrong-too-few"
