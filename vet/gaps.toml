@@ -972,11 +972,6 @@ fingerprint = "52f0b3a265a8"
 
 [[gap]]
 rule = "right-missing"
-item = "nearest-neighbour-similar"
-fingerprint = "acb220f074d6"
-
-[[gap]]
-rule = "right-missing"
 item = "pandas-tables-cheapest-item"
 fingerprint = "789d547828c3"
 
@@ -1364,11 +1359,6 @@ fingerprint = "a452bd94cfec"
 rule = "wrong-too-few"
 item = "nearest-neighbour-hike"
 fingerprint = "52f0b3a265a8"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "nearest-neighbour-similar"
-fingerprint = "acb220f074d6"
 
 [[gap]]
 rule = "wrong-too-few"
