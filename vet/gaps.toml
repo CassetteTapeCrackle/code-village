@@ -3,7 +3,7 @@
 [[gap]]
 rule = "blind-missing"
 item = "composition-nest"
-fingerprint = "3e0fc43ff51c"
+fingerprint = "630a43c4b983"
 
 [[gap]]
 rule = "blind-missing"
@@ -49,11 +49,6 @@ fingerprint = "97bacf4256e1"
 rule = "blind-untriaged"
 item = "sales-report"
 fingerprint = "8f71aaa27062"
-
-[[gap]]
-rule = "cases-missing"
-item = "composition-nest"
-fingerprint = "3e0fc43ff51c"
 
 [[gap]]
 rule = "cases-missing"
@@ -1598,7 +1593,7 @@ fingerprint = "613303316c8a"
 [[gap]]
 rule = "right-missing"
 item = "composition-nest"
-fingerprint = "3e0fc43ff51c"
+fingerprint = "630a43c4b983"
 
 [[gap]]
 rule = "right-missing"
@@ -2853,7 +2848,7 @@ fingerprint = "613303316c8a"
 [[gap]]
 rule = "wrong-too-few"
 item = "composition-nest"
-fingerprint = "3e0fc43ff51c"
+fingerprint = "630a43c4b983"
 
 [[gap]]
 rule = "wrong-too-few"
