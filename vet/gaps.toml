@@ -118,7 +118,7 @@ fingerprint = "b0dda46ad825"
 [[gap]]
 rule = "cases-missing"
 item = "composition-keeper"
-fingerprint = "a7242580bf28"
+fingerprint = "a2b550575d66"
 
 [[gap]]
 rule = "cases-missing"
@@ -1808,7 +1808,7 @@ fingerprint = "b0dda46ad825"
 [[gap]]
 rule = "right-missing"
 item = "composition-keeper"
-fingerprint = "a7242580bf28"
+fingerprint = "a2b550575d66"
 
 [[gap]]
 rule = "right-missing"
@@ -2977,11 +2977,6 @@ fingerprint = "b0dda46ad825"
 
 [[gap]]
 rule = "weak-tests"
-item = "composition-keeper"
-fingerprint = "a7242580bf28"
-
-[[gap]]
-rule = "weak-tests"
 item = "composition-lamp"
 fingerprint = "bf7450e9ed13"
 
@@ -3428,7 +3423,7 @@ fingerprint = "b0dda46ad825"
 [[gap]]
 rule = "wrong-too-few"
 item = "composition-keeper"
-fingerprint = "a7242580bf28"
+fingerprint = "a2b550575d66"
 
 [[gap]]
 rule = "wrong-too-few"
