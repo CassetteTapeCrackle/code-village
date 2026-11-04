@@ -962,18 +962,13 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
-item = "knn-sklearn-k3"
-fingerprint = "693ac461bb84"
-
-[[gap]]
-rule = "right-missing"
 item = "knn-sklearn-one-point"
 fingerprint = "6713adfc5f7c"
 
 [[gap]]
 rule = "right-missing"
 item = "knn-sklearn-predict"
-fingerprint = "981573ab1c44"
+fingerprint = "94f8798f7093"
 
 [[gap]]
 rule = "right-missing"
@@ -1428,7 +1423,7 @@ fingerprint = "6713adfc5f7c"
 [[gap]]
 rule = "wrong-too-few"
 item = "knn-sklearn-predict"
-fingerprint = "981573ab1c44"
+fingerprint = "94f8798f7093"
 
 [[gap]]
 rule = "wrong-too-few"
