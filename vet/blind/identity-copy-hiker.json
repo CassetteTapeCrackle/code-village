@@ -1,0 +1,57 @@
+{
+  "fingerprint": "8d7021c9521f",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Hiker:\n    def __init__(self, name, pack):\n        self.name = name\n        self.pack = pack\n\n\ndef copy_hiker(hiker):\n    # make a new Hiker with the same name and a copy of the pack\n    return Hiker(hiker.name, list(hiker.pack))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Hiker:\n    def __init__(self, name, pack):\n        self.name = name\n        self.pack = pack\n\n\ndef copy_hiker(hiker):\n    # make a new Hiker with the same name and a copy of the pack\n    return Hiker(hiker.name, hiker.pack.copy())\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Hiker:\n    def __init__(self, name, pack):\n        self.name = name\n        self.pack = pack\n\n\ndef copy_hiker(hiker):\n    # make a new Hiker with the same name and a copy of the pack\n    return Hiker(hiker.name, hiker.pack[:])\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Hiker:\n    def __init__(self, name, pack):\n        self.name = name\n        self.pack = pack\n\n\ndef copy_hiker(hiker):\n    # make a new Hiker with the same name and a copy of the pack\n    return Hiker(hiker.name, hiker.pack.copy())",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Hiker:\n    def __init__(self, name, pack):\n        self.name = name\n        self.pack = pack\n\n\ndef copy_hiker(hiker):\n    # make a new Hiker with the same name and a copy of the pack\n    return Hiker(hiker.name, list(hiker.pack))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

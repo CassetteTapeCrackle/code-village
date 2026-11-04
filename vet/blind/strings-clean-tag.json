@@ -1,0 +1,57 @@
+{
+  "fingerprint": "faa11831faae",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    # make it lower-case and swap spaces for \"-\"\n    tag = tag.lower()\n    tag = tag.replace(\" \", \"-\")\n    return tag\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    # make it lower-case and swap spaces for \"-\"\n    tag = tag.lower().replace(\" \", \"-\")\n    return tag\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    tag = tag.lower()\n    tag = tag.replace(\" \", \"-\")\n    return tag\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    # make it lower-case and swap spaces for \"-\"\n    tag = tag.lower().replace(\" \", \"-\")\n    return tag\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    tag = tag.lower()\n    tag = tag.replace(\" \", \"-\")\n    return tag\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

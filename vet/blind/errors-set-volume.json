@@ -1,0 +1,57 @@
+{
+  "fingerprint": "269d65fa3555",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def set_volume(level):\n    if level < 0 or level > 10:\n        raise ValueError(\"volume must be 0 to 10\")\n    return level\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def set_volume(level):\n    # raise ValueError(\"volume must be 0 to 10\") when level is outside 0 to 10\n    if level < 0 or level > 10:\n        raise ValueError(\"volume must be 0 to 10\")\n    return level\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def set_volume(level):\n    # raise ValueError(\"volume must be 0 to 10\") when level is outside 0 to 10\n    if level < 0 or level > 10:\n        raise ValueError(\"volume must be 0 to 10\")\n    return level\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def set_volume(level):\n    if level < 0 or level > 10:\n        raise ValueError(\"volume must be 0 to 10\")\n    return level\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def set_volume(level):\n    if level < 0 or level > 10:\n        raise ValueError(\"volume must be 0 to 10\")\n    return level\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

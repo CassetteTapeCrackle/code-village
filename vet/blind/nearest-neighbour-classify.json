@@ -1,0 +1,57 @@
+{
+  "fingerprint": "a1c5a8bfac89",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import math\n\n\ndef vote(known, point):\n    nearest = sorted(known, key=lambda pair: math.dist(pair[0], point))[:3]\n    labels = [label for p, label in nearest]\n    return max(labels, key=labels.count)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import math\n\n\ndef vote(known, point):\n    nearest = sorted(known, key=lambda pair: math.dist(pair[0], point))[:3]\n    labels = [label for p, label in nearest]\n    return max(labels, key=labels.count)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef vote(known, point):\n    nearest = sorted(known, key=lambda pair: math.dist(pair[0], point))[:3]\n    labels = [label for p, label in nearest]\n    return max(labels, key=labels.count)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import math\n\n\ndef vote(known, point):\n    nearest = sorted(known, key=lambda pair: math.dist(pair[0], point))[:3]\n    labels = [label for p, label in nearest]\n    return max(labels, key=labels.count)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef vote(known, point):\n    nearest = sorted(known, key=lambda pair: math.dist(pair[0], point))[:3]\n    labels = [label for p, label in nearest]\n    return max(labels, key=labels.count)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

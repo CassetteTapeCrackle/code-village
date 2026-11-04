@@ -1,0 +1,57 @@
+{
+  "fingerprint": "139401d57007",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

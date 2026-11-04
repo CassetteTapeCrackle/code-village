@@ -1,0 +1,57 @@
+{
+  "fingerprint": "ceca1bf14c4e",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def shout(text):\n    return text.upper() + \"!\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def shout(text):\n    text = text.upper()\n    return text + \"!\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def shout(text):\n    text = text.upper()\n    return text + \"!\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def shout(text):\n    text = text.upper()\n    return text + \"!\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def shout(text):\n    text = text.upper()\n    return text + \"!\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

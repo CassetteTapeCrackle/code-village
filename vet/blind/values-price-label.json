@@ -1,0 +1,57 @@
+{
+  "fingerprint": "d79188e3a83d",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def price_label(item, price):\n    return \"Price of \" + item + \": \" + str(price)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def price_label(item, price):\n    return \"Price of \" + item + \": \" + str(price)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def price_label(item, price):\n    return \"Price of \" + item + \": \" + str(price)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def price_label(item, price):\n    return \"Price of \" + item + \": \" + str(price)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def price_label(item, price):\n    return \"Price of \" + item + \": \" + str(price)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -800,11 +800,11 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 
 ### Task 10.1: Write it
 
-- [ ] **Step 1:** Start the `vet-models` job for `both` on all pending sentences and items, run Claude's
+- [x] **Step 1:** Start the `vet-models` job for `both` on all pending sentences and items, run Claude's
   sentence review, merge. Record the cost.
-- [ ] **Step 2:** `python -m tools.vet.gaps --write`; commit `vet/gaps.toml` and the per-world summary (as
+- [x] **Step 2:** `python -m tools.vet.gaps --write`; commit `vet/gaps.toml` and the per-world summary (as
   `docs/test-framework/GAPS.md`, counts per rule and severity).
-- [ ] **Step 3:** Push, CI green. End of Session 10.
+- [x] **Step 3:** Push, CI green. End of Session 10.
 
 ---
 

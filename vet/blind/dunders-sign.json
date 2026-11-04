@@ -1,0 +1,57 @@
+{
+  "fingerprint": "ea9497f61386",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,57 @@
+{
+  "fingerprint": "42d64ea8404e",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

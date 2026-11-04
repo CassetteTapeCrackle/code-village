@@ -1,0 +1,57 @@
+{
+  "fingerprint": "9182f5dc7301",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def save_lines(path, lines):\n    with open(path, \"w\") as f:\n        for line in lines:\n            f.write(line + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def save_lines(path, lines):\n    with open(path, \"w\") as f:\n        for line in lines:\n            f.write(line + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def save_lines(path, lines):\n    with open(path, \"w\") as f:\n        for line in lines:\n            f.write(line + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def save_lines(path, lines):\n    with open(path, \"w\") as f:\n        for line in lines:\n            f.write(line + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def save_lines(path, lines):\n    with open(path, \"w\") as f:\n        for line in lines:\n            f.write(line + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

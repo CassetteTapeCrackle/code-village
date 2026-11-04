@@ -1,0 +1,57 @@
+{
+  "fingerprint": "a0dc93b5ffbb",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def last_letter(word):\n    return word[-1]\n\ndef sort_by_last(words):\n    # sort with key=last_letter\n    return sorted(words, key=last_letter)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def last_letter(word):\n    return word[-1]\n\ndef sort_by_last(words):\n    # sort with key=last_letter\n    return sorted(words, key=last_letter)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def last_letter(word):\n    return word[-1]\n\ndef sort_by_last(words):\n    # sort with key=last_letter\n    return sorted(words, key=last_letter)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def last_letter(word):\n    return word[-1]\n\ndef sort_by_last(words):\n    return sorted(words, key=last_letter)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def last_letter(word):\n    return word[-1]\n\ndef sort_by_last(words):\n    return sorted(words, key=last_letter)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

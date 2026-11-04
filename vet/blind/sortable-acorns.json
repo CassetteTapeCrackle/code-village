@@ -1,0 +1,57 @@
+{
+  "fingerprint": "c40dda75adac",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Acorn:\n    def __init__(self, weight):\n        self.weight = weight\n\n    def __lt__(self, other):\n        return self.weight < other.weight\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Acorn:\n    def __init__(self, weight):\n        self.weight = weight\n\n    def __lt__(self, other):\n        return self.weight < other.weight\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Acorn:\n    def __init__(self, weight):\n        self.weight = weight\n\n    def __lt__(self, other):\n        return self.weight < other.weight\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Acorn:\n    def __init__(self, weight):\n        self.weight = weight\n\n    def __lt__(self, other):\n        return self.weight < other.weight\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Acorn:\n    def __init__(self, weight):\n        self.weight = weight\n\n    def __lt__(self, other):\n        return self.weight < other.weight\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

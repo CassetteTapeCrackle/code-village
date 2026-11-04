@@ -1,0 +1,57 @@
+{
+  "fingerprint": "7a829eb5f888",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import math\n\n\ndef closest(points, target):\n    best = points[0]\n    best_dist = math.dist(best, target)\n    for point in points:\n        d = math.dist(point, target)\n        if d < best_dist:\n            best = point\n            best_dist = d\n    return best\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import math\n\n\ndef closest(points, target):\n    best = None\n    best_distance = None\n\n    for point in points:\n        distance = math.dist(point, target)\n        if best_distance is None or distance < best_distance:\n            best = point\n            best_distance = distance\n\n    return best\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef closest(points, target):\n    best = points[0]\n    best_dist = math.dist(points[0], target)\n    for point in points:\n        d = math.dist(point, target)\n        if d < best_dist:\n            best_dist = d\n            best = point\n    return best\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import math\n\n\ndef closest(points, target):\n    best = points[0]\n    best_distance = math.dist(best, target)\n    for point in points[1:]:\n        distance = math.dist(point, target)\n        if distance < best_distance:\n            best = point\n            best_distance = distance\n    return best\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef closest(points, target):\n    best = None\n    best_distance = None\n    for point in points:\n        distance = math.dist(point, target)\n        if best_distance is None or distance < best_distance:\n            best_distance = distance\n            best = point\n    return best\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

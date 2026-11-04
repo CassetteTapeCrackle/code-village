@@ -1,0 +1,57 @@
+{
+  "fingerprint": "ae38fdea533a",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Backpack:\n    def __init__(self, owner):\n        self.owner = owner\n        self.items = []\n\n    def pack(self, item):\n        self.items.append(item)\n\n    def count(self):\n        return len(self.items)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Backpack:\n    def __init__(self, owner):\n        self.owner = owner\n        self.items = []\n\n    def pack(self, item):\n        self.items.append(item)\n\n    def count(self):\n        # return how many items are packed\n        return len(self.items)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Backpack:\n    def __init__(self, owner):\n        self.owner = owner\n        self.items = []\n\n    def pack(self, item):\n        self.items.append(item)\n\n    def count(self):\n        return len(self.items)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Backpack:\n    def __init__(self, owner):\n        self.owner = owner\n        self.items = []\n\n    def pack(self, item):\n        self.items.append(item)\n\n    def count(self):\n        return len(self.items)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Backpack:\n    def __init__(self, owner):\n        self.owner = owner\n        self.items = []\n\n    def pack(self, item):\n        self.items.append(item)\n\n    def count(self):\n        # return how many items are packed\n        return len(self.items)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

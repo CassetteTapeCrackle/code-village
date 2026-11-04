@@ -1,0 +1,57 @@
+{
+  "fingerprint": "d6ac6fbd7d6c",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

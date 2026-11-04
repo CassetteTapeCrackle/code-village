@@ -1,0 +1,57 @@
+{
+  "fingerprint": "a8e1b5cc5f95",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Counter:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, amount):\n        self.total += amount\n\n\nc = Counter()\nc.add(5)\nprint(c.total)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Counter:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, amount):\n        self.total += amount\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Counter:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, amount):\n        self.total += amount\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Counter:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, amount):\n        self.total += amount\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Counter:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, amount):\n        self.total += amount\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

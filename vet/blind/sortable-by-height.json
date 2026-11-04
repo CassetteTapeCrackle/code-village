@@ -1,0 +1,57 @@
+{
+  "fingerprint": "78a28b00243c",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n\ndef height_of(tree):\n    return tree.height\n\n\ndef shortest_first(trees):\n    return sorted(trees, key=height_of)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n\ndef height_of(tree):\n    return tree.height\n\n\ndef shortest_first(trees):\n    return sorted(trees, key=height_of)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n\ndef height_of(tree):\n    return tree.height\n\n\ndef shortest_first(trees):\n    return sorted(trees, key=height_of)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n\ndef height_of(tree):\n    return tree.height\n\n\ndef shortest_first(trees):\n    return sorted(trees, key=height_of)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Tree:\n    def __init__(self, kind, height):\n        self.kind = kind\n        self.height = height\n\n\ndef height_of(tree):\n    return tree.height\n\n\ndef shortest_first(trees):\n    return sorted(trees, key=height_of)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

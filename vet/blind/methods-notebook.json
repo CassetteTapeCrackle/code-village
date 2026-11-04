@@ -1,0 +1,57 @@
+{
+  "fingerprint": "011afea73d2c",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        # call self.write for each line\n        for line in lines:\n            self.write(line)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        # call self.write for each line\n        for line in lines:\n            self.write(line)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        # call self.write for each line\n        for line in lines:\n            self.write(line)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        # call self.write for each line\n        for line in lines:\n            self.write(line)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        for line in lines:\n            self.write(line)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

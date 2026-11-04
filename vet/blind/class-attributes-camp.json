@@ -1,0 +1,57 @@
+{
+  "fingerprint": "1e2d65448685",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Camp:\n    def __init__(self, name):\n        self.name = name\n        self.tents = []\n\n    def add_tent(self, tent):\n        self.tents.append(tent)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

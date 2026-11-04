@@ -1,0 +1,57 @@
+{
+  "fingerprint": "21f93086428f",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def parse_age(text):\n    try:\n        return int(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def parse_age(text):\n    try:\n        return int(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def parse_age(text):\n    try:\n        return int(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def parse_age(text):\n    try:\n        return int(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def parse_age(text):\n    try:\n        return int(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

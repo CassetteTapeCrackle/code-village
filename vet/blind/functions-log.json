@@ -1,0 +1,57 @@
+{
+  "fingerprint": "70718c2a0d1d",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def log(message, entries=None):\n    if entries is None:\n        entries = []\n    entries.append(message)\n    return entries\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def log(message, entries=None):\n    if entries is None:\n        entries = []\n    entries.append(message)\n    return entries\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def log(message, entries=None):\n    if entries is None:\n        entries = []\n    entries.append(message)\n    return entries\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def log(message, entries=None):\n    if entries is None:\n        entries = []\n    entries.append(message)\n    return entries\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def log(message, entries=None):\n    if entries is None:\n        entries = []\n    entries.append(message)\n    return entries\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

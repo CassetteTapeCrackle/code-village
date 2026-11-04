@@ -1,0 +1,57 @@
+{
+  "fingerprint": "88c46f9cb75a",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def long_words(words, n):\n    return list(filter(lambda w: len(w) > n, words))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

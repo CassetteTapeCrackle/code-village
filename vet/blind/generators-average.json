@@ -1,0 +1,57 @@
+{
+  "fingerprint": "c36b7947acb8",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def average(numbers):\n    values = [n for n in numbers]\n    return sum(values) / len(values)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def average(numbers):\n    values = list(numbers)\n    return sum(values) / len(values)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def average(numbers):\n    values = [n for n in numbers]\n    return sum(values) / len(values)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def average(numbers):\n    values = list(numbers)\n    return sum(values) / len(values)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def average(numbers):\n    values = [n for n in numbers]\n    return sum(values) / len(values)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

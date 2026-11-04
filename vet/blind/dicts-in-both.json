@@ -1,0 +1,57 @@
+{
+  "fingerprint": "34e2d5a13485",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        if x in b and x not in both:\n            both.append(x)\n    return sorted(both)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        if x in b and x not in both:\n            both.append(x)\n    return sorted(both)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        if x in b and x not in both:\n            both.append(x)\n    return sorted(both)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        if x in b and x not in both:\n            both.append(x)\n    return sorted(both)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        if x in b and x not in both:\n            both.append(x)\n    return sorted(both)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,57 @@
+{
+  "fingerprint": "20d5d944380a",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import math\n\n\ndef farthest(points, target):\n    best = points[0]\n    best_distance = math.dist(best, target)\n    for point in points:\n        d = math.dist(point, target)\n        if d > best_distance:\n            best = point\n            best_distance = d\n    return best\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import math\n\n\ndef farthest(points, target):\n    if not points:\n        return None\n\n    farthest_point = points[0]\n    farthest_distance = math.dist(points[0], target)\n\n    for point in points[1:]:\n        distance = math.dist(point, target)\n        if distance > farthest_distance:\n            farthest_distance = distance\n            farthest_point = point\n\n    return farthest_point\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef farthest(points, target):\n    best = points[0]\n    best_dist = math.dist(best, target)\n    for point in points[1:]:\n        d = math.dist(point, target)\n        if d > best_dist:\n            best = point\n            best_dist = d\n    return best\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import math\n\n\ndef farthest(points, target):\n    best = points[0]\n    best_distance = math.dist(best, target)\n    for point in points[1:]:\n        distance = math.dist(point, target)\n        if distance > best_distance:\n            best = point\n            best_distance = distance\n    return best\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef farthest(points, target):\n    best = points[0]\n    best_dist = math.dist(best, target)\n    for point in points:\n        d = math.dist(point, target)\n        if d > best_dist:\n            best = point\n            best_dist = d\n    return best\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

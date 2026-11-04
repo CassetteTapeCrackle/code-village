@@ -3,6 +3,15 @@
 Each session reads this first and updates it last. Newest entries at the top of each section.
 
 ## Done
+- Session 10 (2026-11-04, overnight cloud session): Task 10.1 with the supervisor's change (DeepSeek half only; the
+  supervisor runs Claude's half and merges it). Through the push-triggered `vet-models.yml` (secret `DSKEY`,
+  `deepseek-flash`, run 41774402323): DeepSeek reviewed all 1163 pending sentences and four known-false ones
+  (`vet/results/deepseek-sentences.json`: 1118 true, 48 false, 1 unsure; it called all four known-false sentences
+  false), and solved the 205 items without a blind run five times each. 198 items are stored in `vet/blind/`
+  (201 with the first three); 7 had a failed call and stay `blind-missing`. 991 of 1005 attempts pass their visible
+  tests; the 14 failures are all in three bosses (`data-summary`, `sales-report`, `gradebook`). `vet/gaps.toml` holds
+  887 entries and `docs/test-framework/GAPS.md` has the counts per severity and per world (wrong-accepted 727,
+  right-refused 208, false-claim 111, ambiguous 38, progression 34).
 - Session 9 (2026-11-04, overnight cloud session): Tasks 9.1 and 9.2, pushed to `test-framework`. Three held-out rounds
   (prompt `docs/test-framework/prompts/heldout-canaries.md`; a fresh Sonnet subagent each time that read only the spec,
   the canary README and the good fixture). `python -m unittest tools.test_canaries -k heldout` judges them. Round 1:
@@ -91,6 +100,15 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 10 DeepSeek cost (workflow run 41774402323, commit 99f0420, both requests in one job). Sentences:
+  1167 calls, 1,750,100 tokens (about 1500 per call), 785 s, 0 failed. Blind solvers: 1025 calls, 694,071 tokens
+  (about 680 per attempt), 199 s, 7 failed. Together 2,444,171 tokens and 17 minutes of one runner. I did not turn
+  tokens into money, since I do not know the price. The Sentences prompt is the same file for both families, and
+  Claude's half is not part of this cost.
+- Session 10: the `blind` results of the 7 items with a failed call are not written (the run needs all five
+  attempts); a second request with those ids (`python -m tools.vet.blind_eval request <ids>`) would fill them.
+- Session 10: I added `--summary PATH` to `python -m tools.vet.gaps` so `GAPS.md` is written by the tool with the
+  gap list (counts per severity, worst first, then per world and rule), not by hand.
 - Session 9, flags are real (Task 9.2): the full `vet` on today's content gives findings in 11 rules (weak-tests 290,
   cases-missing 238, right-missing 208, blind-missing 205, wrong-too-few 204, ledger-missing 43, teaches-missing 34,
   remember-unbacked 34, claim-id-missing 33, prompt-asks-construct 28, fence-untyped 1). Sample: 3 per rule drawn with
@@ -398,6 +416,13 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
+- Session 10: 48 sentences that DeepSeek called false are in `vet/results/deepseek-sentences.json` (verdict `false`);
+  nothing has been merged yet, and the supervisor merges Claude's half. Where both families agree a sentence is
+  false it needs an edit; where only DeepSeek says so, it needs a person. Some are overstatements ("always gives a
+  float" ignores complex numbers) that may be teaching simplifications.
+- Session 10: the 14 failing blind attempts are `blind-untriaged` gaps (three bosses). A boss has no lesson text in
+  the blind prompt, so some may only show that the intro and stage prompts leave a case open; prompt rewrites go to
+  `vet/triage.md`.
 - Session 9, Task 9.1 stopped at the cap of three rounds with misses in round 3 (as the supervisor allowed). Open:
   17 planted defects the deterministic checker does not find; reasons per canary in
   `tools/fixtures/canaries-heldout/README.md`. In short: false or weakly proved sentences, wording open to two

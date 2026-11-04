@@ -1,0 +1,57 @@
+{
+  "fingerprint": "53a12a27ae4e",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import bisect\n\n\ndef rank(sorted_times, time):\n    return bisect.bisect_left(sorted_times, time)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import bisect\n\n\ndef rank(sorted_times, time):\n    return bisect.bisect_left(sorted_times, time)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import bisect\n\n\ndef rank(sorted_times, time):\n    return bisect.bisect_left(sorted_times, time)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import bisect\n\n\ndef rank(sorted_times, time):\n    return bisect.bisect_left(sorted_times, time)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import bisect\n\n\ndef rank(sorted_times, time):\n    return bisect.bisect_left(sorted_times, time)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,57 @@
+{
+  "fingerprint": "fd2c3773680a",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def phone(book, name):\n    return book.get(name, \"unknown\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def phone(book, name):\n    return book.get(name, \"unknown\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def phone(book, name):\n    return book.get(name, \"unknown\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def phone(book, name):\n    return book.get(name, \"unknown\")",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def phone(book, name):\n    return book.get(name, \"unknown\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,57 @@
+{
+  "fingerprint": "0115413ab131",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Basket:\n    def __init__(self, owner, fruits):\n        self.owner = owner\n        self.fruits = fruits\n\n\ndef copy_basket(basket):\n    # a new Basket, same owner, copied fruits\n    return Basket(basket.owner, basket.fruits.copy())\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Basket:\n    def __init__(self, owner, fruits):\n        self.owner = owner\n        self.fruits = fruits\n\n\ndef copy_basket(basket):\n    # a new Basket, same owner, copied fruits\n    return Basket(basket.owner, basket.fruits.copy())",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Basket:\n    def __init__(self, owner, fruits):\n        self.owner = owner\n        self.fruits = fruits\n\n\ndef copy_basket(basket):\n    # a new Basket, same owner, copied fruits\n    return Basket(basket.owner, basket.fruits.copy())\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Basket:\n    def __init__(self, owner, fruits):\n        self.owner = owner\n        self.fruits = fruits\n\n\ndef copy_basket(basket):\n    # a new Basket, same owner, copied fruits\n    return Basket(basket.owner, basket.fruits.copy())\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Basket:\n    def __init__(self, owner, fruits):\n        self.owner = owner\n        self.fruits = fruits\n\n\ndef copy_basket(basket):\n    # a new Basket, same owner, copied fruits\n    return Basket(basket.owner, basket.fruits.copy())\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

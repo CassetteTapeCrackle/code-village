@@ -1,0 +1,57 @@
+{
+  "fingerprint": "b917c3b9c682",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Window:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n\n    @property\n    def glass(self):\n        return self.width * self.height\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Window:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n\n    @property\n    def glass(self):\n        return self.width * self.height",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Window:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n\n    @property\n    def glass(self):\n        return self.width * self.height\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Window:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n\n    @property\n    def glass(self):\n        return self.width * self.height\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Window:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n\n    @property\n    def glass(self):\n        return self.width * self.height\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

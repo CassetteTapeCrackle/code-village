@@ -1,0 +1,57 @@
+{
+  "fingerprint": "ed668859e065",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def first_over(numbers, limit):\n    for n in numbers:\n        if n > limit:\n            return n\n    return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

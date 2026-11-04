@@ -1,0 +1,57 @@
+{
+  "fingerprint": "42570b4d5464",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def first(items):\n    return items[0]\n\n\ndef raises_index_error(f, arg):\n    try:\n        f(arg)\n    except IndexError:\n        return True\n    return False\n\n\ndef test_first():\n    assert first([\"a\", \"b\"]) == \"a\"\n    assert raises_index_error(first, []), \"empty list should raise IndexError\"\n\n\ntest_first()\nprint(\"all good\")",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def first(items):\n    return items[0]\n\n\ndef raises_index_error(f, arg):\n    try:\n        f(arg)\n    except IndexError:\n        return True\n    return False\n\n\ndef test_first():\n    assert first([\"a\", \"b\"]) == \"a\"\n    assert raises_index_error(first, []), \"empty list must raise IndexError\"\n\n\ntest_first()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def first(items):\n    return items[0]\n\n\ndef raises_index_error(f, arg):\n    try:\n        f(arg)\n    except IndexError:\n        return True\n    return False\n\n\ndef test_first():\n    assert first([\"a\", \"b\"]) == \"a\"\n    assert raises_index_error(first, []), \"empty list should raise IndexError\"\n\n\ntest_first()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def first(items):\n    return items[0]\n\n\ndef raises_index_error(f, arg):\n    try:\n        f(arg)\n    except IndexError:\n        return True\n    return False\n\n\ndef test_first():\n    assert first([\"a\", \"b\"]) == \"a\"\n    assert raises_index_error(first, []), \"empty list should raise IndexError\"\n\n\ntest_first()",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def first(items):\n    return items[0]\n\n\ndef raises_index_error(f, arg):\n    try:\n        f(arg)\n    except IndexError:\n        return True\n    return False\n\n\ndef test_first():\n    assert first([\"a\", \"b\"]) == \"a\"\n    assert raises_index_error(first, []), \"first([]) should raise IndexError\"\n\n\ntest_first()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

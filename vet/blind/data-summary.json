@@ -1,0 +1,57 @@
+{
+  "fingerprint": "5c445ef34649",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import bisect\nimport numpy as np\n\n\ndef clean(rows):\n    seen = set()\n    speeds = []\n    for row in rows:\n        hour, sep, speed_text = row.partition(\",\")\n        try:\n            speed = float(speed_text)\n        except ValueError:\n            continue\n        if hour in seen:\n            continue\n        seen.add(hour)\n        speeds.append(speed)\n    return speeds\n\n\ndef summary(speeds):\n    if not speeds:\n        return {\"count\": 0, \"mean\": 0.0, \"median\": 0.0, \"std\": 0.0}\n    return {\n        \"count\": len(speeds),\n        \"mean\": round(float(np.mean(speeds)), 2),\n        \"median\": float(np.median(speeds)),\n        \"std\": round(float(np.std(speeds, ddof=0)), 2),\n    }\n\n\ndef top(speeds, n):\n    return sorted(speeds, reverse=True)[:n]\n\n\ndef count_over(speeds, limit):\n    ordered = sorted(speeds)\n    return len(ordered) - bisect.bisect_right(ordered, limit)\n",
+      "visible": "fail",
+      "hidden": "none",
+      "failure": "a log with no usable reading: clean gives [], summary gives count 0 and None for the rest, count_over gives 0: summary([]) returned {'count': 0, 'mean': 0.0, 'median': 0.0, 'std': 0.0}, expected {'count': 0, 'mean': None, 'median': None, 'std': None}\n                                                                                                         ^",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import bisect\nimport numpy as np\n\n\ndef clean(rows):\n    speeds = []\n    seen = set()\n    for row in rows:\n        parts = row.split(\",\")\n        hour = parts[0]\n        if hour in seen:\n            continue\n        try:\n            speed = float(parts[1])\n        except ValueError:\n            continue\n        seen.add(hour)\n        speeds.append(speed)\n    return speeds\n\n\ndef summary(speeds):\n    arr = np.array(speeds)\n    return {\n        \"count\": int(len(speeds)),\n        \"mean\": float(round(arr.mean(), 2)),\n        \"median\": float(np.median(arr)),\n        \"std\": float(round(arr.std(ddof=0), 2)),\n    }\n\n\ndef top(speeds, n):\n    return sorted(speeds, reverse=True)[:n]\n\n\ndef count_over(speeds, limit):\n    ordered = sorted(speeds)\n    return len(ordered) - bisect.bisect_right(ordered, limit)\n",
+      "visible": "fail",
+      "hidden": "none",
+      "failure": "a log with no usable reading: clean gives [], summary gives count 0 and None for the rest, count_over gives 0: summary([]) returned {'count': 0, 'mean': nan, 'median': nan, 'std': nan}, expected {'count': 0, 'mean': None, 'median': None, 'std': None}\n                                                                                                         ^",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import bisect\nimport numpy as np\n\n\ndef clean(rows):\n    seen = set()\n    speeds = []\n    for row in rows:\n        parts = row.split(\",\")\n        if len(parts) < 2:\n            continue\n        hour = parts[0]\n        try:\n            speed = float(parts[1])\n        except ValueError:\n            continue\n        if hour in seen:\n            continue\n        seen.add(hour)\n        speeds.append(speed)\n    return speeds\n\n\ndef summary(speeds):\n    return {\n        \"count\": len(speeds),\n        \"mean\": round(float(np.mean(speeds)), 2),\n        \"median\": float(np.median(speeds)),\n        \"std\": round(float(np.std(speeds, ddof=0)), 2),\n    }\n\n\ndef top(speeds, n):\n    return sorted(speeds, reverse=True)[:n]\n\n\ndef count_over(speeds, limit):\n    ordered = sorted(speeds)\n    return len(ordered) - bisect.bisect_right(ordered, limit)\n",
+      "visible": "fail",
+      "hidden": "none",
+      "failure": "a log with no usable reading: clean gives [], summary gives count 0 and None for the rest, count_over gives 0: summary([]) returned {'count': 0, 'mean': nan, 'median': nan, 'std': nan}, expected {'count': 0, 'mean': None, 'median': None, 'std': None}\n                                                                                                         ^",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import bisect\nimport numpy as np\n\n\ndef clean(rows):\n    speeds = []\n    seen = set()\n    for row in rows:\n        parts = row.split(',', 1)\n        if len(parts) != 2:\n            continue\n        hour, value = parts\n        try:\n            speed = float(value)\n        except ValueError:\n            continue\n        if hour in seen:\n            continue\n        seen.add(hour)\n        speeds.append(speed)\n    return speeds\n\n\ndef summary(speeds):\n    if len(speeds) == 0:\n        return {'count': 0, 'mean': 0.0, 'median': 0.0, 'std': 0.0}\n    return {\n        'count': len(speeds),\n        'mean': round(float(np.mean(speeds)), 2),\n        'median': float(np.median(speeds)),\n        'std': round(float(np.std(speeds, ddof=0)), 2),\n    }\n\n\ndef top(speeds, n):\n    if n <= 0:\n        return []\n    return sorted(speeds, reverse=True)[:n]\n\n\ndef count_over(speeds, limit):\n    ordered = sorted(speeds)\n    return len(ordered) - bisect.bisect_right(ordered, limit)\n",
+      "visible": "fail",
+      "hidden": "none",
+      "failure": "a log with no usable reading: clean gives [], summary gives count 0 and None for the rest, count_over gives 0: summary([]) returned {'count': 0, 'mean': 0.0, 'median': 0.0, 'std': 0.0}, expected {'count': 0, 'mean': None, 'median': None, 'std': None}\n                                                                                                         ^",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import bisect\nimport numpy as np\n\n\ndef clean(rows):\n    speeds = []\n    seen_hours = set()\n    for row in rows:\n        hour, sep, speed = row.partition(',')\n        if not sep:\n            continue\n        hour = hour.strip()\n        try:\n            value = float(speed.strip())\n        except ValueError:\n            continue\n        if hour not in seen_hours:\n            seen_hours.add(hour)\n            speeds.append(value)\n    return speeds\n\n\ndef summary(speeds):\n    return {\n        'count': len(speeds),\n        'mean': round(float(np.mean(speeds)), 2),\n        'median': float(np.median(speeds)),\n        'std': round(float(np.std(speeds, ddof=0)), 2),\n    }\n\n\ndef top(speeds, n):\n    return [float(x) for x in sorted(speeds, reverse=True)[:n]]\n\n\ndef count_over(speeds, limit):\n    ordered = sorted(speeds)\n    return len(ordered) - bisect.bisect_right(ordered, limit)\n",
+      "visible": "fail",
+      "hidden": "none",
+      "failure": "a log with no usable reading: clean gives [], summary gives count 0 and None for the rest, count_over gives 0: summary([]) returned {'count': 0, 'mean': nan, 'median': nan, 'std': nan}, expected {'count': 0, 'mean': None, 'median': None, 'std': None}\n                                                                                                         ^",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

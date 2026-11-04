@@ -1,0 +1,57 @@
+{
+  "fingerprint": "c74b48613949",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def down(start, step):\n    while start > 0:\n        yield start\n        start -= step\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def down(start, step):\n    while start > 0:\n        yield start\n        start -= step\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def down(start, step):\n    while start > 0:\n        yield start\n        start -= step\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def down(start, step):\n    value = start\n    while value > 0:\n        yield value\n        value -= step\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def down(start, step):\n    n = start\n    while n > 0:\n        yield n\n        n -= step\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

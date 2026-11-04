@@ -18,7 +18,7 @@ from pathlib import Path
 
 from .checks.libraries import environment_problems
 from .finding import Finding, GapKey
-from .rules import RULES
+from .rules import RULES, SEVERITIES
 from .run import vet
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -107,11 +107,25 @@ def world_summary(findings: Iterable[Finding]) -> str:
     return "\n".join(lines) + "\n" if counts else "## Known content gaps\n\nNone.\n"
 
 
+def gap_report(findings: Iterable[Finding]) -> str:
+    """Markdown for docs/test-framework/GAPS.md: counts per severity (worst first), then per world and rule."""
+    known = [f for f in findings if f.rule not in NEVER_LISTED]
+    order = {name: at for at, name in enumerate(SEVERITIES)}
+    by_severity = Counter(RULES[f.rule].severity if f.rule in RULES else "?" for f in known)
+    lines = ["# Known content gaps", "",
+             "Written by `python -m tools.vet.gaps --write --summary docs/test-framework/GAPS.md`; the list itself is",
+             "`vet/gaps.toml`. Worst severity first.", "", "| Severity | Gaps |", "| --- | --- |"]
+    lines += [f"| {name} | {n} |" for name, n in sorted(by_severity.items(), key=lambda kv: order.get(kv[0], 99))]
+    return "\n".join(lines) + f"\n\n**{len(known)} findings in all.**\n\n" + world_summary(known).replace(
+        "## Known content gaps", "## By world and rule")
+
+
 def main() -> None:
     args = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     action = args.add_mutually_exclusive_group(required=True)
     action.add_argument("--write", action="store_true", help="rewrite vet/gaps.toml from the current findings")
     action.add_argument("--base", help="git ref to compare vet/gaps.toml against")
+    args.add_argument("--summary", help="with --write, also write the per-severity and per-world counts here")
     opts = args.parse_args()
     if opts.base:
         try:
@@ -129,6 +143,8 @@ def main() -> None:
     keys = {f.key for f in findings if f.rule not in NEVER_LISTED}
     GAPS_PATH.write_text(dump_gaps(keys))
     print(f"gap list: wrote {len(keys)} entries to {GAPS_PATH.relative_to(ROOT)}")
+    if opts.summary:
+        Path(opts.summary).write_text(gap_report(findings))
 
 
 if __name__ == "__main__":

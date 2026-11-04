@@ -1,0 +1,57 @@
+{
+  "fingerprint": "a2909f08cae4",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

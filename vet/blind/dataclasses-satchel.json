@@ -1,0 +1,57 @@
+{
+  "fingerprint": "7ced39909f0e",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Satchel:\n    owner: str\n    items: list = field(default_factory=list)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Satchel:\n    owner: str\n    items: list = field(default_factory=list)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Satchel:\n    owner: str\n    items: list = field(default_factory=list)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Satchel:\n    owner: str\n    items: list = field(default_factory=list)\n\n\ns = Satchel(\"Ada\")\ns.items.append(\"rope\")\nprint(s, Satchel(\"Bo\"))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Satchel:\n    owner: str\n    items: list = field(default_factory=list)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

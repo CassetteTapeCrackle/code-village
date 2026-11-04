@@ -1,0 +1,57 @@
+{
+  "fingerprint": "af8a289238a9",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def accuracy(truth, guesses):\n    return sum(t == g for t, g in zip(truth, guesses)) / len(truth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def accuracy(truth, guesses):\n    return sum(t == g for t, g in zip(truth, guesses)) / len(truth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def accuracy(truth, guesses):\n    return sum(t == g for t, g in zip(truth, guesses)) / len(truth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def accuracy(truth, guesses):\n    return sum(t == g for t, g in zip(truth, guesses)) / len(truth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def accuracy(truth, guesses):\n    return sum(t == g for t, g in zip(truth, guesses)) / len(truth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

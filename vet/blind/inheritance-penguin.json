@@ -1,0 +1,57 @@
+{
+  "fingerprint": "82a10b54f078",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n    def move(self):\n        return f\"{self.name} flies\"\n\n\nclass Penguin(Bird):\n    def move(self):\n        # penguins do not fly\n        return f\"{self.name} waddles\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n    def move(self):\n        return f\"{self.name} flies\"\n\n\nclass Penguin(Bird):\n    def move(self):\n        # penguins do not fly\n        return f\"{self.name} waddles\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n    def move(self):\n        return f\"{self.name} flies\"\n\n\nclass Penguin(Bird):\n    def move(self):\n        # penguins do not fly\n        return f\"{self.name} waddles\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n    def move(self):\n        return f\"{self.name} flies\"\n\n\nclass Penguin(Bird):\n    def move(self):\n        # penguins do not fly\n        return f\"{self.name} waddles\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n    def move(self):\n        return f\"{self.name} flies\"\n\n\nclass Penguin(Bird):\n    def move(self):\n        # penguins do not fly\n        return f\"{self.name} waddles\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

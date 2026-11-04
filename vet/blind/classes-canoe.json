@@ -1,0 +1,57 @@
+{
+  "fingerprint": "10871bbbdc76",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Canoe:\n    def __init__(self, name, seats):\n        self.name = name\n        self.seats = seats\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Canoe:\n    def __init__(self, name, seats):\n        self.name = name\n        self.seats = seats\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Canoe:\n    def __init__(self, name, seats):\n        self.name = name\n        self.seats = seats\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Canoe:\n    def __init__(self, name, seats):\n        self.name = name\n        self.seats = seats\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Canoe:\n    def __init__(self, name, seats):\n        self.name = name\n        self.seats = seats\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

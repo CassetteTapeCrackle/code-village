@@ -1,0 +1,57 @@
+{
+  "fingerprint": "a959953a2db9",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def is_weekend(day):\n    return day == \"sat\" or day == \"sun\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def is_weekend(day):\n    return day == \"sat\" or day == \"sun\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def is_weekend(day):\n    return day == \"sat\" or day == \"sun\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def is_weekend(day):\n    return day == \"sat\" or day == \"sun\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def is_weekend(day):\n    return day == \"sat\" or day == \"sun\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

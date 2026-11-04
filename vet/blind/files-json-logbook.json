@@ -1,0 +1,57 @@
+{
+  "fingerprint": "111327f3dbcd",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def add_entry(path, text):\n    with open(path, \"a\") as f:\n        f.write(text + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def add_entry(path, text):\n    with open(path, \"a\") as f:\n        f.write(text + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def add_entry(path, text):\n    with open(path, \"a\") as f:\n        f.write(text + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def add_entry(path, text):\n    with open(path, \"a\") as f:\n        f.write(text + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def add_entry(path, text):\n    with open(path, \"a\") as f:\n        f.write(text + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

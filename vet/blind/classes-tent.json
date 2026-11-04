@@ -1,0 +1,57 @@
+{
+  "fingerprint": "f44ca2f02746",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Tent:\n    def __init__(self, owner, size):\n        self.owner = owner\n        self.size = size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Tent:\n    def __init__(self, owner, size):\n        self.owner = owner\n        self.size = size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Tent:\n    def __init__(self, owner, size):\n        self.owner = owner\n        self.size = size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Tent:\n    def __init__(self, owner, size):\n        self.owner = owner\n        self.size = size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Tent:\n    def __init__(self, owner, size):\n        self.owner = owner\n        self.size = size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

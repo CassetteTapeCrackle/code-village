@@ -1,0 +1,57 @@
+{
+  "fingerprint": "4ea3b13ee142",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Hive:\n    def __init__(self, bees):\n        self.bees = bees\n\n    def __len__(self):\n        return len(self.bees)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Hive:\n    def __init__(self, bees):\n        self.bees = bees\n\n    def __len__(self):\n        return len(self.bees)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Hive:\n    def __init__(self, bees):\n        self.bees = bees\n\n    def __len__(self):\n        return len(self.bees)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Hive:\n    def __init__(self, bees):\n        self.bees = bees\n\n    def __len__(self):\n        return len(self.bees)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Hive:\n    def __init__(self, bees):\n        self.bees = bees\n\n    def __len__(self):\n        return len(self.bees)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

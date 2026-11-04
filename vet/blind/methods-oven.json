@@ -1,0 +1,57 @@
+{
+  "fingerprint": "611305794a0a",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Oven:\n    def __init__(self, heat):\n        self.heat = heat\n\n    def is_ready(self):\n        return self.heat >= 180\n\n\ndef can_bake(oven):\n    return oven.is_ready()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Oven:\n    def __init__(self, heat):\n        self.heat = heat\n\n    def is_ready(self):\n        return self.heat >= 180\n\n\ndef can_bake(oven):\n    return oven.is_ready()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Oven:\n    def __init__(self, heat):\n        self.heat = heat\n\n    def is_ready(self):\n        return self.heat >= 180\n\n\ndef can_bake(oven):\n    return oven.is_ready()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Oven:\n    def __init__(self, heat):\n        self.heat = heat\n\n    def is_ready(self):\n        return self.heat >= 180\n\n\ndef can_bake(oven):\n    return oven.is_ready()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Oven:\n    def __init__(self, heat):\n        self.heat = heat\n\n    def is_ready(self):\n        return self.heat >= 180\n\n\ndef can_bake(oven):\n    return oven.is_ready()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

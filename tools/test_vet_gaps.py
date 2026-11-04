@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from vet import Finding, GapKey
-from vet.gaps import BaseError, added_for_old_rules, compare, dump_gaps, load_gaps, world_summary
+from vet.gaps import BaseError, added_for_old_rules, compare, dump_gaps, gap_report, load_gaps, world_summary
 
 
 def finding(rule: str = "solution-fails", item: str = "a", fingerprint: str = "f1") -> Finding:
@@ -81,6 +81,16 @@ class Summary(unittest.TestCase):
 
     def test_summary_says_none(self) -> None:
         self.assertIn("None.", world_summary([]))
+
+    def test_the_report_counts_severities_worst_first_and_skips_unlistable_findings(self) -> None:
+        findings = [Finding("concept-no-gotcha", "content", "3", "m", "concepts.toml"),
+                    Finding("solution-fails", "a", "1", "m", "w1/a/x/tasks/t/solution.py"),
+                    Finding("field-missing", "b", "2", "m", "w1/b/y/lesson.md")]
+        report = gap_report(findings)
+        self.assertLess(report.index("| right-refused | 1 |"), report.index("| wiring | 1 |"))
+        self.assertIn("**2 findings in all.**", report)
+        self.assertNotIn("field-missing", report)
+        self.assertIn("## By world and rule", report)
 
 
 class Base(unittest.TestCase):

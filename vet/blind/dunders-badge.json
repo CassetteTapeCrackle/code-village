@@ -1,0 +1,57 @@
+{
+  "fingerprint": "df5fb3f971ad",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Badge:\n    def __init__(self, owner):\n        self.owner = owner\n\n    def __str__(self):\n        return f\"Badge of {self.owner}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Badge:\n    def __init__(self, owner):\n        self.owner = owner\n\n    def __str__(self):\n        return f\"Badge of {self.owner}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Badge:\n    def __init__(self, owner):\n        self.owner = owner\n\n    def __str__(self):\n        return f\"Badge of {self.owner}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Badge:\n    def __init__(self, owner):\n        self.owner = owner\n\n    def __str__(self):\n        return f\"Badge of {self.owner}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Badge:\n    def __init__(self, owner):\n        self.owner = owner\n\n    def __str__(self):\n        return f\"Badge of {self.owner}\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

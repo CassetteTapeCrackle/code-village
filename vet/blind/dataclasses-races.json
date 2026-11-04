@@ -1,0 +1,57 @@
+{
+  "fingerprint": "33d9fe4c7505",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "from dataclasses import dataclass\n\n\n@dataclass(order=True)\nclass Race:\n    time: float\n    runner: str\n\n\ndef winner(races):\n    return min(races).runner\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "from dataclasses import dataclass\n\n\n@dataclass(order=True)  # make races sortable by time, then runner\nclass Race:\n    time: float\n    runner: str\n\n\ndef winner(races):\n    return min(races).runner\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from dataclasses import dataclass\n\n\n@dataclass(order=True)\nclass Race:\n    time: float\n    runner: str\n\n\ndef winner(races):\n    return min(races).runner\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "from dataclasses import dataclass\n\n\n@dataclass(order=True)  # make races sortable by time, then runner\nclass Race:\n    time: float\n    runner: str\n\n\ndef winner(races):\n    return min(races).runner\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from dataclasses import dataclass\n\n\n@dataclass(order=True)  # make races sortable by time, then runner\nclass Race:\n    time: float\n    runner: str\n\n\ndef winner(races):\n    return min(races).runner\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

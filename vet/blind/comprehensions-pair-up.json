@@ -1,0 +1,57 @@
+{
+  "fingerprint": "de81e5cfc008",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def pair_up(names, scores):\n    return [(name, scores[i] if i < len(scores) else None) for i, name in enumerate(names)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def pair_up(names, scores):\n    return [(name, scores[i] if i < len(scores) else None) for i, name in enumerate(names)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def pair_up(names, scores):\n    return [(name, scores[i] if i < len(scores) else None) for i, name in enumerate(names)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def pair_up(names, scores):\n    return [(name, scores[i] if i < len(scores) else None) for i, name in enumerate(names)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def pair_up(names, scores):\n    return [(name, scores[i] if i < len(scores) else None) for i, name in enumerate(names)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,57 @@
+{
+  "fingerprint": "efbdd87606f7",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

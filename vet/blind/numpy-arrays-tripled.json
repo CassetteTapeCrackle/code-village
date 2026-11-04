@@ -1,0 +1,57 @@
+{
+  "fingerprint": "c1004cfae0f1",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import numpy as np\n\n\ndef tripled(depths):\n    return (np.array(depths) * 3).tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

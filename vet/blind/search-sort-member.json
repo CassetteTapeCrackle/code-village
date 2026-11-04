@@ -1,0 +1,57 @@
+{
+  "fingerprint": "d37d683aea12",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import bisect\n\n\ndef on_list(names, name):\n    names = sorted(names)\n    i = bisect.bisect_left(names, name)\n    return i < len(names) and names[i] == name\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import bisect\n\n\ndef on_list(names, name):\n    names = sorted(names)\n    i = bisect.bisect_left(names, name)\n    return i < len(names) and names[i] == name\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import bisect\n\n\ndef on_list(names, name):\n    names = sorted(names)\n    i = bisect.bisect_left(names, name)\n    return i < len(names) and names[i] == name\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import bisect\n\n\ndef on_list(names, name):\n    ordered = sorted(names)\n    i = bisect.bisect_left(ordered, name)\n    return i < len(ordered) and ordered[i] == name\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import bisect\n\n\ndef on_list(names, name):\n    ordered = sorted(names)\n    i = bisect.bisect_left(ordered, name)\n    return i < len(ordered) and ordered[i] == name\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

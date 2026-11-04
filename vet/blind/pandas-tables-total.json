@@ -1,0 +1,57 @@
+{
+  "fingerprint": "03b6e02992ad",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef total_price(text):\n    df = pd.read_csv(io.StringIO(text))\n    prices = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return prices.sum()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef total_price(text):\n    df = pd.read_csv(io.StringIO(text))\n    prices = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return prices.sum()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef total_price(text):\n    df = pd.read_csv(io.StringIO(text))\n    prices = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return prices.sum()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef total_price(text):\n    df = pd.read_csv(io.StringIO(text))\n    prices = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return prices.sum()",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef total_price(text):\n    df = pd.read_csv(io.StringIO(text))\n    prices = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return prices.sum()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}
