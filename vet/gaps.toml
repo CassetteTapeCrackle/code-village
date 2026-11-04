@@ -103,7 +103,7 @@ fingerprint = "4eac3afb36d0"
 [[gap]]
 rule = "cases-missing"
 item = "sortable-oldest"
-fingerprint = "069ecf7c5e79"
+fingerprint = "6140da26cb48"
 
 [[gap]]
 rule = "cases-missing"
@@ -113,7 +113,7 @@ fingerprint = "1edc93bc5b3a"
 [[gap]]
 rule = "cases-missing"
 item = "sortable-rank"
-fingerprint = "a187634a31eb"
+fingerprint = "1445c0979775"
 
 [[gap]]
 rule = "cases-missing"
@@ -768,7 +768,7 @@ fingerprint = "4eac3afb36d0"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "sortable-oldest"
-fingerprint = "069ecf7c5e79"
+fingerprint = "6140da26cb48"
 
 [[gap]]
 rule = "remember-unbacked"
@@ -1342,18 +1342,13 @@ fingerprint = "40a435d0e3c4"
 
 [[gap]]
 rule = "right-missing"
-item = "sortable-oldest"
-fingerprint = "069ecf7c5e79"
-
-[[gap]]
-rule = "right-missing"
 item = "sortable-pebbles"
 fingerprint = "1edc93bc5b3a"
 
 [[gap]]
 rule = "right-missing"
 item = "sortable-rank"
-fingerprint = "a187634a31eb"
+fingerprint = "1445c0979775"
 
 [[gap]]
 rule = "right-missing"
@@ -2047,18 +2042,13 @@ fingerprint = "40a435d0e3c4"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "sortable-oldest"
-fingerprint = "069ecf7c5e79"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "sortable-pebbles"
 fingerprint = "1edc93bc5b3a"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "sortable-rank"
-fingerprint = "a187634a31eb"
+fingerprint = "1445c0979775"
 
 [[gap]]
 rule = "wrong-too-few"
