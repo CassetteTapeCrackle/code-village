@@ -248,7 +248,7 @@ fingerprint = "d3a54632b436"
 [[gap]]
 rule = "cases-missing"
 item = "values-describe"
-fingerprint = "342f86fc04fa"
+fingerprint = "d71bbc8cfd63"
 
 [[gap]]
 rule = "cases-missing"
@@ -1527,11 +1527,6 @@ fingerprint = "82563943a641"
 
 [[gap]]
 rule = "right-missing"
-item = "values-describe"
-fingerprint = "342f86fc04fa"
-
-[[gap]]
-rule = "right-missing"
 item = "values-next-number"
 fingerprint = "d12b83eb85be"
 
@@ -2339,11 +2334,6 @@ fingerprint = "ddfb467d9401"
 rule = "wrong-too-few"
 item = "train-test-score-line"
 fingerprint = "82563943a641"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "values-describe"
-fingerprint = "342f86fc04fa"
 
 [[gap]]
 rule = "wrong-too-few"
