@@ -83,7 +83,7 @@ fingerprint = "da2e3418ecdd"
 [[gap]]
 rule = "cases-missing"
 item = "songbird-playlist"
-fingerprint = "40a435d0e3c4"
+fingerprint = "6a6d0f5e5963"
 
 [[gap]]
 rule = "cases-missing"
@@ -608,7 +608,7 @@ fingerprint = "b6647816ad9b"
 [[gap]]
 rule = "ledger-missing"
 item = "songbird-playlist"
-fingerprint = "40a435d0e3c4"
+fingerprint = "6a6d0f5e5963"
 
 [[gap]]
 rule = "ledger-missing"
@@ -753,7 +753,7 @@ fingerprint = "6b6226b23439"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "songbird-playlist"
-fingerprint = "40a435d0e3c4"
+fingerprint = "6a6d0f5e5963"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -914,11 +914,6 @@ fingerprint = "3b4ca71f2827"
 rule = "remember-unbacked"
 item = "values"
 fingerprint = "54410c019459"
-
-[[gap]]
-rule = "right-missing"
-item = "songbird-playlist"
-fingerprint = "40a435d0e3c4"
 
 [[gap]]
 rule = "right-missing"
@@ -1129,11 +1124,6 @@ fingerprint = "a1791ab22a84"
 rule = "weak-tests"
 item = "testing-total-test"
 fingerprint = "8216e418d98f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "songbird-playlist"
-fingerprint = "40a435d0e3c4"
 
 [[gap]]
 rule = "wrong-too-few"
