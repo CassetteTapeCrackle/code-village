@@ -52,11 +52,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "conditions-ticket-price"
-fingerprint = "28093e291052"
-
-[[gap]]
-rule = "cases-missing"
 item = "data-summary"
 fingerprint = "5778085b4b4e"
 
