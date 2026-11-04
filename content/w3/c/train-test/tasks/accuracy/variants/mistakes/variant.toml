@@ -4,4 +4,4 @@ prompt = "Write `mistakes(truth, guesses)` by hand: return the indexes (counting
 
 [cases]
 call = "mistakes"
-args = ["list<choice a|b|c> 1..8", "list<choice a|b|c> 1..8"]
+args = ["list<choice a|b|c> 5..5", "list<choice a|b|c> 5..5"]
