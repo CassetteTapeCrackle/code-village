@@ -1192,11 +1192,6 @@ fingerprint = "981573ab1c44"
 
 [[gap]]
 rule = "right-missing"
-item = "lists-without"
-fingerprint = "d541e12609e3"
-
-[[gap]]
-rule = "right-missing"
 item = "lost-satchel"
 fingerprint = "a452bd94cfec"
 
@@ -2094,11 +2089,6 @@ fingerprint = "3acc379ba2bc"
 rule = "wrong-too-few"
 item = "knn-sklearn-predict"
 fingerprint = "981573ab1c44"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lists-without"
-fingerprint = "d541e12609e3"
 
 [[gap]]
 rule = "wrong-too-few"
