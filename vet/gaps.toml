@@ -1022,13 +1022,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
-item = "io-echo"
-fingerprint = "120b7bcb6aac"
-
-[[gap]]
-rule = "right-missing"
 item = "io-greet"
-fingerprint = "65cebfaa2d76"
+fingerprint = "147186997be2"
 
 [[gap]]
 rule = "right-missing"
@@ -1582,13 +1577,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "io-echo"
-fingerprint = "120b7bcb6aac"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "io-greet"
-fingerprint = "65cebfaa2d76"
+fingerprint = "147186997be2"
 
 [[gap]]
 rule = "wrong-too-few"
