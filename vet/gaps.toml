@@ -57,18 +57,13 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "files-json-count"
-fingerprint = "229f091215af"
-
-[[gap]]
-rule = "cases-missing"
 item = "files-json-logbook"
 fingerprint = "120715c763ea"
 
 [[gap]]
 rule = "cases-missing"
 item = "files-json-save"
-fingerprint = "c949537e5961"
+fingerprint = "d519057c4c02"
 
 [[gap]]
 rule = "cases-missing"
@@ -1638,7 +1633,7 @@ fingerprint = "889bff220338"
 [[gap]]
 rule = "right-missing"
 item = "files-json-count"
-fingerprint = "229f091215af"
+fingerprint = "6f56d86e645c"
 
 [[gap]]
 rule = "right-missing"
@@ -1648,7 +1643,7 @@ fingerprint = "120715c763ea"
 [[gap]]
 rule = "right-missing"
 item = "files-json-save"
-fingerprint = "c949537e5961"
+fingerprint = "d519057c4c02"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "889bff220338"
 [[gap]]
 rule = "wrong-too-few"
 item = "files-json-count"
-fingerprint = "229f091215af"
+fingerprint = "6f56d86e645c"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2903,7 +2898,7 @@ fingerprint = "120715c763ea"
 [[gap]]
 rule = "wrong-too-few"
 item = "files-json-save"
-fingerprint = "c949537e5961"
+fingerprint = "d519057c4c02"
 
 [[gap]]
 rule = "wrong-too-few"
