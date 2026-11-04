@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "errors-withdraw"
-fingerprint = "01a852d9685b"
-
-[[gap]]
-rule = "cases-missing"
 item = "files-json-best"
 fingerprint = "a7da52387f99"
 
