@@ -1,3 +1,6 @@
 id = "properties-volume"
 title = "A radio's volume"
 prompt = "Finish the setter of `Radio.volume`: store values from 0 to 10 in `self._volume`, and raise `ValueError(\"volume must be 0 to 10\")` for anything outside."
+
+[cases]
+none = "the checks run on assignment to a property, which a case cannot make"
