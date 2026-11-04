@@ -57,18 +57,13 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "dunders-hive"
-fingerprint = "57952bd30819"
-
-[[gap]]
-rule = "cases-missing"
 item = "dunders-mushroom"
 fingerprint = "1706830caeed"
 
 [[gap]]
 rule = "cases-missing"
 item = "dunders-quiver"
-fingerprint = "cb914a8fb36a"
+fingerprint = "291d35dd294d"
 
 [[gap]]
 rule = "cases-missing"
@@ -1638,7 +1633,7 @@ fingerprint = "c9db3385a57c"
 [[gap]]
 rule = "right-missing"
 item = "dunders-hive"
-fingerprint = "57952bd30819"
+fingerprint = "cec41594034c"
 
 [[gap]]
 rule = "right-missing"
@@ -1648,7 +1643,7 @@ fingerprint = "1706830caeed"
 [[gap]]
 rule = "right-missing"
 item = "dunders-quiver"
-fingerprint = "cb914a8fb36a"
+fingerprint = "291d35dd294d"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "c9db3385a57c"
 [[gap]]
 rule = "wrong-too-few"
 item = "dunders-hive"
-fingerprint = "57952bd30819"
+fingerprint = "cec41594034c"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2903,7 +2898,7 @@ fingerprint = "1706830caeed"
 [[gap]]
 rule = "wrong-too-few"
 item = "dunders-quiver"
-fingerprint = "cb914a8fb36a"
+fingerprint = "291d35dd294d"
 
 [[gap]]
 rule = "wrong-too-few"
