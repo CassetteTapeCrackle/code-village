@@ -5,3 +5,6 @@ title = "The best score"
 prompt = "The file at `path` holds a JSON dict of names and scores. Finish `best_player(path)`: load it, then return the name with the highest score."
 hints = ["Which function reads JSON back from an open file?", "`json.load(handle)` reads from an open file; `json.loads(text)` reads a string."]
 gotcha = false
+
+[cases]
+none = "it reads a file at a path, which a case cannot set up"
