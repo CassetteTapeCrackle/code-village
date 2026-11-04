@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "properties-plot"
-fingerprint = "194faeb8a977"
-
-[[gap]]
-rule = "cases-missing"
 item = "properties-ranger-age"
 fingerprint = "6abe1b97f762"
 
@@ -1718,7 +1713,7 @@ fingerprint = "52f6c259f6b5"
 [[gap]]
 rule = "right-missing"
 item = "properties-plot"
-fingerprint = "194faeb8a977"
+fingerprint = "1ab5d1c9d528"
 
 [[gap]]
 rule = "right-missing"
@@ -2963,7 +2958,7 @@ fingerprint = "e27a8e94b019"
 [[gap]]
 rule = "wrong-too-few"
 item = "properties-plot"
-fingerprint = "194faeb8a977"
+fingerprint = "1ab5d1c9d528"
 
 [[gap]]
 rule = "wrong-too-few"

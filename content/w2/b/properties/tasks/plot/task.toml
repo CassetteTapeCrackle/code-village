@@ -5,3 +5,6 @@ title = "A garden plot"
 prompt = "Write a class `Plot` storing `width` and `depth`, with two properties: `area` (width times depth) and `fence` (the length of fence around it, 2 times (width plus depth))."
 hints = ["Each property is a method with the property decorator above it, returning a value.", "For `area`, multiply the two stored numbers. For `fence`, add them and double the sum."]
 gotcha = false
+
+[cases]
+none = "the checks run on assignment to a property, which a case cannot make"
