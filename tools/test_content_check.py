@@ -8,6 +8,7 @@ from collections.abc import Callable
 from pathlib import Path
 from unittest import mock
 
+from ledger_fixture import sync_ledger
 from vet import GapKey, vet
 from vet.checks.hints import hint_code_compiles, hint_problems, looks_like_code
 from vet.checks.libraries import library_problems
@@ -34,6 +35,7 @@ def broken_copy(edit: Callable[[Path], object]) -> Path:
     tmp = Path(tempfile.mkdtemp()) / "content"
     shutil.copytree(GOOD, tmp)
     edit(tmp / "w1" / "a" / "basics")
+    sync_ledger(tmp)
     return tmp
 
 
@@ -400,6 +402,7 @@ class Libraries(unittest.TestCase):
         self.assertIn("content unchanged", again.stdout)
         lesson = content / "w1" / "a" / "basics" / "lesson.md"
         lesson.write_text(lesson.read_text() + "\nOne more line.\n")
+        sync_ledger(content)
         edited = subprocess.run(run, cwd=ROOT, capture_output=True, text=True, timeout=180, check=False)
         self.assertIn("content ok", edited.stdout, edited.stdout + edited.stderr)
 

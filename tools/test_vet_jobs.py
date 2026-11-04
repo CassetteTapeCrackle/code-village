@@ -13,7 +13,7 @@ from test_canaries import FIXTURES
 
 ROOT = Path(__file__).resolve().parent.parent
 # starting a thread works in CPython and raises RuntimeError in Pyodide (verified on 314.0.7)
-THREAD_CLAIM = ("```python claim\nimport threading\nthread = threading.Thread(target=print)\nthread.start()\n"
+THREAD_CLAIM = ("```python claim id=thread\nimport threading\nthread = threading.Thread(target=print)\nthread.start()\n"
                 "thread.join()\nassert not thread.is_alive()\n```\n\n")
 
 

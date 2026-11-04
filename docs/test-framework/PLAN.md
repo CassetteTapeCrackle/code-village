@@ -652,7 +652,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   to `vet/triage.md` (sentence, file, both verdicts and reasons, proposed fix) and stays a `ledger-missing`
   gap until the owner decides.
 
-- [ ] **Step 1 to 4:** Tests on recorded inputs (`test_disagreement_goes_to_triage`,
+- [x] **Step 1 to 4:** Tests on recorded inputs (`test_disagreement_goes_to_triage`,
   `test_agreement_with_failing_assert_goes_to_triage`, `test_accepted_fact_gets_claim_block`), fail,
   implement, pass. Commit, push. End of Session 6.
 
