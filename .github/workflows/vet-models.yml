@@ -38,7 +38,8 @@ jobs:
           BEFORE: ${{ github.event.before }}
           SHA: ${{ github.sha }}
           REQUEST: ${{ inputs.request }}
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          # the repository secret is named DSKEY; the code reads it as DEEPSEEK_API_KEY
+          DEEPSEEK_API_KEY: ${{ secrets.DSKEY }}
           DEEPSEEK_MODEL: ${{ vars.DEEPSEEK_MODEL }}
         run: |
           set -eu

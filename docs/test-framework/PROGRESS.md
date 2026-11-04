@@ -50,6 +50,9 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 6: the repository secret is named `DSKEY`, not `DEEPSEEK_API_KEY` (the first sample run failed with
+  "DEEPSEEK_API_KEY is not set"). The workflow step maps `DEEPSEEK_API_KEY: ${{ secrets.DSKEY }}`, so the code keeps
+  reading `DEEPSEEK_API_KEY`. The supervisor gave this fix.
 - Session 5 review (fresh Sonnet subagent on the session diff): fixed findings 1, 2, 4, 5, 6, 7, 8 (annotations and
   async only), 9, 10 and 11, with a test for each. Mutation jobs run without `requires`, so a mutant that loses a
   construct is not "killed" by the construct check. A builtin passed as a value (`key=len`, `except ValueError`)

@@ -1,5 +1,6 @@
 {
   "job": "sentences",
+  "note": "run 2, with the key read from the secret DSKEY",
   "sentences": [
     {
       "fp": "15427b090620",
