@@ -1342,11 +1342,6 @@ fingerprint = "40a435d0e3c4"
 
 [[gap]]
 rule = "right-missing"
-item = "sortable-by-name"
-fingerprint = "4eac3afb36d0"
-
-[[gap]]
-rule = "right-missing"
 item = "sortable-oldest"
 fingerprint = "069ecf7c5e79"
 
@@ -2049,11 +2044,6 @@ fingerprint = "35ced29c1b29"
 rule = "wrong-too-few"
 item = "songbird-playlist"
 fingerprint = "40a435d0e3c4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sortable-by-name"
-fingerprint = "4eac3afb36d0"
 
 [[gap]]
 rule = "wrong-too-few"
