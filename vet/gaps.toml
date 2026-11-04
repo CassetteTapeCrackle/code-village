@@ -82,11 +82,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "search-sort-find-all"
-fingerprint = "976f765f3fd7"
-
-[[gap]]
-rule = "cases-missing"
 item = "search-sort-insert"
 fingerprint = "d221d5ce10d7"
 
@@ -1748,7 +1743,7 @@ fingerprint = "8f71aaa27062"
 [[gap]]
 rule = "right-missing"
 item = "search-sort-find-all"
-fingerprint = "976f765f3fd7"
+fingerprint = "b51221a23103"
 
 [[gap]]
 rule = "right-missing"
@@ -2988,7 +2983,7 @@ fingerprint = "8f71aaa27062"
 [[gap]]
 rule = "wrong-too-few"
 item = "search-sort-find-all"
-fingerprint = "976f765f3fd7"
+fingerprint = "b51221a23103"
 
 [[gap]]
 rule = "wrong-too-few"
