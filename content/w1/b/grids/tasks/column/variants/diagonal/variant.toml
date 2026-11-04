@@ -1,3 +1,7 @@
 id = "grids-diagonal"
 title = "The diagonal"
 prompt = "Finish `diagonal(grid)`: for a square grid, it returns the values from the top-left corner to the bottom-right one."
+
+[cases]
+call = "diagonal"
+args = ["list<list<int 0..9> 3..3> 3..3"]
