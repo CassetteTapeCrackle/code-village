@@ -67,18 +67,13 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "knn-sklearn-k3"
-fingerprint = "3164b1f17b23"
-
-[[gap]]
-rule = "cases-missing"
 item = "knn-sklearn-one-point"
 fingerprint = "3acc379ba2bc"
 
 [[gap]]
 rule = "cases-missing"
 item = "knn-sklearn-predict"
-fingerprint = "6e8c39f6a20e"
+fingerprint = "981573ab1c44"
 
 [[gap]]
 rule = "cases-missing"
@@ -1658,7 +1653,7 @@ fingerprint = "02d3d90fa5ca"
 [[gap]]
 rule = "right-missing"
 item = "knn-sklearn-k3"
-fingerprint = "3164b1f17b23"
+fingerprint = "693ac461bb84"
 
 [[gap]]
 rule = "right-missing"
@@ -1668,7 +1663,7 @@ fingerprint = "3acc379ba2bc"
 [[gap]]
 rule = "right-missing"
 item = "knn-sklearn-predict"
-fingerprint = "6e8c39f6a20e"
+fingerprint = "981573ab1c44"
 
 [[gap]]
 rule = "right-missing"
@@ -2918,7 +2913,7 @@ fingerprint = "3acc379ba2bc"
 [[gap]]
 rule = "wrong-too-few"
 item = "knn-sklearn-predict"
-fingerprint = "6e8c39f6a20e"
+fingerprint = "981573ab1c44"
 
 [[gap]]
 rule = "wrong-too-few"

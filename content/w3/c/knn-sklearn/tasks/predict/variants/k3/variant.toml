@@ -1,3 +1,7 @@
 id = "knn-sklearn-k3"
 title = "Three neighbours decide"
 prompt = "Write `vote_labels(X, y, new_rows)`: fit a `KNeighborsClassifier` with `n_neighbors=3` on `X` and `y`, and return a plain list of its labels for `new_rows`."
+
+[cases]
+call = "vote_labels"
+args = ["list<list<int 0..9> 2..2> 6..6", "list<choice a|b> 6..6", "list<list<int 0..9> 2..2> 1..4"]
