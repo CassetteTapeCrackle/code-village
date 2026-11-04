@@ -8,7 +8,7 @@ fingerprint = "9818f60299e0"
 [[gap]]
 rule = "blind-missing"
 item = "comprehensions-add-lists"
-fingerprint = "d5e33546ea72"
+fingerprint = "1cbf52860915"
 
 [[gap]]
 rule = "blind-missing"
@@ -934,11 +934,6 @@ fingerprint = "613303316c8a"
 rule = "right-missing"
 item = "composition-radio"
 fingerprint = "c1127bee0134"
-
-[[gap]]
-rule = "right-missing"
-item = "comprehensions-add-lists"
-fingerprint = "d5e33546ea72"
 
 [[gap]]
 rule = "right-missing"
@@ -2084,11 +2079,6 @@ fingerprint = "613303316c8a"
 rule = "wrong-too-few"
 item = "composition-radio"
 fingerprint = "c1127bee0134"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "comprehensions-add-lists"
-fingerprint = "d5e33546ea72"
 
 [[gap]]
 rule = "wrong-too-few"
