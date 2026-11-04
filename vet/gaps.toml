@@ -48,7 +48,7 @@ fingerprint = "cae230417663"
 [[gap]]
 rule = "blind-untriaged"
 item = "sales-report"
-fingerprint = "8f71aaa27062"
+fingerprint = "da2e3418ecdd"
 
 [[gap]]
 rule = "cases-missing"
@@ -78,7 +78,7 @@ fingerprint = "6b6226b23439"
 [[gap]]
 rule = "cases-missing"
 item = "sales-report"
-fingerprint = "8f71aaa27062"
+fingerprint = "da2e3418ecdd"
 
 [[gap]]
 rule = "cases-missing"
@@ -598,7 +598,7 @@ fingerprint = "ef7f0337a623"
 [[gap]]
 rule = "ledger-missing"
 item = "sales-report"
-fingerprint = "8f71aaa27062"
+fingerprint = "da2e3418ecdd"
 
 [[gap]]
 rule = "ledger-missing"
@@ -917,11 +917,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "right-missing"
-item = "sales-report"
-fingerprint = "8f71aaa27062"
-
-[[gap]]
-rule = "right-missing"
 item = "songbird-playlist"
 fingerprint = "40a435d0e3c4"
 
@@ -1134,11 +1129,6 @@ fingerprint = "a1791ab22a84"
 rule = "weak-tests"
 item = "testing-total-test"
 fingerprint = "8216e418d98f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sales-report"
-fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "wrong-too-few"
