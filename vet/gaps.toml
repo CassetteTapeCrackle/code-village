@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "numpy-arrays-scale"
-fingerprint = "0e275a2bfd75"
-
-[[gap]]
-rule = "cases-missing"
 item = "numpy-arrays-tripled"
 fingerprint = "95cdb88804df"
 

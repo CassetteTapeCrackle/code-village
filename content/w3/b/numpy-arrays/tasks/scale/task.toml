@@ -5,3 +5,8 @@ title = "Scale the map"
 prompt = "Write `scale(values, factor)`: it returns a NumPy array with every value of the list `values` multiplied by `factor`."
 hints = ["Make an array first: `np.array(values)`.", "An array multiplies element by element: `np.array([1, 2]) * 3` scales each value."]
 gotcha = false
+
+[cases]
+call = "scale"
+args = ["list<int -9..9> 1..6", "int -5..5"]
+compare = "array"
