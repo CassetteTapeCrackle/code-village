@@ -952,11 +952,6 @@ fingerprint = "a185c4199374"
 
 [[gap]]
 rule = "right-missing"
-item = "functions-as-values-cheapest"
-fingerprint = "3cdba1250bbe"
-
-[[gap]]
-rule = "right-missing"
 item = "functions-as-values-compose"
 fingerprint = "8bbadcc9f1d4"
 
@@ -1484,11 +1479,6 @@ fingerprint = "fb1f8c5691e8"
 rule = "wrong-too-few"
 item = "files-json-visits"
 fingerprint = "a185c4199374"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-as-values-cheapest"
-fingerprint = "3cdba1250bbe"
 
 [[gap]]
 rule = "wrong-too-few"
