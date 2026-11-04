@@ -482,11 +482,6 @@ fingerprint = "eb308c118939"
 
 [[gap]]
 rule = "prompt-asks-construct"
-item = "comprehensions-odd-squares"
-fingerprint = "7415efa76c8f"
-
-[[gap]]
-rule = "prompt-asks-construct"
 item = "dataclasses-mushroom-spots"
 fingerprint = "e0cccd1290c7"
 
