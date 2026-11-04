@@ -942,11 +942,6 @@ fingerprint = "1706830caeed"
 
 [[gap]]
 rule = "right-missing"
-item = "errors-parse-age"
-fingerprint = "38e232d65593"
-
-[[gap]]
-rule = "right-missing"
 item = "errors-parse-price"
 fingerprint = "3d7a8e78025b"
 
@@ -1959,11 +1954,6 @@ fingerprint = "c9db3385a57c"
 rule = "wrong-too-few"
 item = "dunders-mushroom"
 fingerprint = "1706830caeed"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "errors-parse-age"
-fingerprint = "38e232d65593"
 
 [[gap]]
 rule = "wrong-too-few"
