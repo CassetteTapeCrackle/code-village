@@ -813,7 +813,7 @@ fingerprint = "a187634a31eb"
 [[gap]]
 rule = "cases-missing"
 item = "squirrel-storehouse"
-fingerprint = "3b869168b3eb"
+fingerprint = "02ab0f1b505a"
 
 [[gap]]
 rule = "cases-missing"
@@ -2498,7 +2498,7 @@ fingerprint = "a187634a31eb"
 [[gap]]
 rule = "right-missing"
 item = "squirrel-storehouse"
-fingerprint = "3b869168b3eb"
+fingerprint = "02ab0f1b505a"
 
 [[gap]]
 rule = "right-missing"
@@ -2894,11 +2894,6 @@ fingerprint = "bb57155a12b9"
 rule = "weak-tests"
 item = "ranger-registry"
 fingerprint = "8ddcf3d359df"
-
-[[gap]]
-rule = "weak-tests"
-item = "squirrel-storehouse"
-fingerprint = "3b869168b3eb"
 
 [[gap]]
 rule = "weak-tests"
@@ -3828,7 +3823,7 @@ fingerprint = "a187634a31eb"
 [[gap]]
 rule = "wrong-too-few"
 item = "squirrel-storehouse"
-fingerprint = "3b869168b3eb"
+fingerprint = "02ab0f1b505a"
 
 [[gap]]
 rule = "wrong-too-few"
