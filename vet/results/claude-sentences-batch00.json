@@ -1,285 +1,285 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "d969abc5d6db",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Each of the six comparison operators gives a bool for ordinary values such as numbers.",
-   "assert": "a, b = 3, 5\nfor r in (a == b, a != b, a < b, a <= b, a > b, a >= b):\n    assert type(r) is bool"
-  },
-  {
-   "fp": "c877a2edb333",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`=` assigns, `==` compares, and an assignment inside an `if` condition is a SyntaxError.",
-   "assert": "x = 1\nassert (x == 1) is True\ntry:\n    compile('if x = 3:\\n    pass', 's', 'exec')\n    raise AssertionError('no error')\nexcept SyntaxError:\n    pass"
-  },
-  {
-   "fp": "14c61d358b58",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "The block runs when the condition is truthy, not only when it is exactly `True` (for example a non-empty string). That is fine for a beginner at this stage.",
-   "assert": null
-  },
-  {
-   "fp": "15427b090620",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`elif` tests a further condition and `else` runs when none of the earlier conditions matched.",
-   "assert": "def f(n):\n    if n == 1:\n        return 'a'\n    elif n == 2:\n        return 'b'\n    else:\n        return 'c'\nassert f(2) == 'b'\nassert f(9) == 'c'"
-  },
-  {
-   "fp": "0cf29863d7c0",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "In an if/elif/else chain only the first branch with a true condition runs.",
-   "assert": "out = []\nx = 5\nif x > 1:\n    out.append('first')\nelif x > 2:\n    out.append('second')\nelse:\n    out.append('third')\nassert out == ['first']"
-  },
-  {
-   "fp": "b07f5bc33dd8",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "caf41c973f32",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "1d15dd870765",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "b9ac76f6d766",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "b68b4f42e862",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an instruction. `and`, `or` and `not` are the boolean operators.",
-   "assert": null
-  },
-  {
-   "fp": "78975a8c7c90",
-   "status": "claim",
-   "verdict": "false",
-   "reason": "Python does not require full comparisons: `True and 5` or `flag or other` are valid. A full comparison is needed only to express 'x is 1 or 2'. The sentence overstates this as a rule.",
-   "assert": "try:\n    eval('True and 5')\n    ok = True\nexcept Exception:\n    ok = False\nassert not ok"
-  },
-  {
-   "fp": "547e08bd9da4",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`or` has lower precedence than `==`, so the expression is `(x == 1) or 2`, which is not a membership test.",
-   "assert": "import ast\nx = 3\nt = ast.parse('x == 1 or 2', mode='eval').body\nassert isinstance(t, ast.BoolOp) and isinstance(t.values[0], ast.Compare)\nassert (x == 1 or 2) == 2"
-  },
-  {
-   "fp": "1b1eba359878",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`or` returns the right operand when the left one is falsy. 2 is truthy, so an `if` runs.",
-   "assert": "x = 3\nr = (x == 1 or 2)\nassert r == 2\nassert bool(r) is True"
-  },
-  {
-   "fp": "da0af2b35a6e",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "8511cc020620",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "d1bd95ecdbcf",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is a question and instruction for the learner.",
-   "assert": null
-  },
-  {
-   "fp": "9540e6dd7f46",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "This is a hint: write `day == \"sat\" or day == \"sun\"`.",
-   "assert": null
-  },
-  {
-   "fp": "d350944247af",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "2d2c0672651a",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This describes the exercise task.",
-   "assert": null
-  },
-  {
-   "fp": "402c5f2d5608",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "Order matters in an if/elif chain because the first matching branch wins.",
-   "assert": null
-  },
-  {
-   "fp": "dfe10054dacc",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "8b3d2f18041e",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This describes the exercise task.",
-   "assert": null
-  },
-  {
-   "fp": "8f8de9c845e1",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "`==` compares and `=` assigns. It leaves out that `=` is a statement and that other operators like `:=` also store.",
-   "assert": null
-  },
-  {
-   "fp": "81a305fab019",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Using `=` in an if condition is a SyntaxError.",
-   "assert": "try:\n    compile('x = 1\\nif x = 3:\\n    pass', 's', 'exec')\n    raise AssertionError('no error')\nexcept SyntaxError:\n    pass"
-  },
-  {
-   "fp": "c3be7811b58c",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "In an if/elif/else chain only the first branch whose condition is true runs.",
-   "assert": "out = []\nx = 10\nif x > 1:\n    out.append(1)\nelif x > 5:\n    out.append(2)\nelse:\n    out.append(3)\nassert out == [1]"
-  },
-  {
-   "fp": "8c574ad94ed8",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "This is the correct way to write the test, since `x == 1 or 2` is always truthy.",
-   "assert": null
-  },
-  {
-   "fp": "db0683221aeb",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is a sentence fragment from the story ('Ms.' split at the period).",
-   "assert": null
-  },
-  {
-   "fp": "2f269ed30281",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is story narration.",
-   "assert": null
-  },
-  {
-   "fp": "3cdd45525dd7",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is story dialogue. The claim in it, that `print()` shows text, is correct.",
-   "assert": null
-  },
-  {
-   "fp": "7ae6f8ffe185",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is story dialogue giving a beginner instruction. String literals do go between quotes.",
-   "assert": null
-  },
-  {
-   "fp": "dc35e0f864f9",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "8f8565549b5e",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "6e65d994073d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "78eb2448aa1f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an instruction (split sentence at the '!').",
-   "assert": null
-  },
-  {
-   "fp": "d90eececc580",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is a fragment of an instruction.",
-   "assert": null
-  },
-  {
-   "fp": "74ab721dbb60",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "`print()` writes to standard output, which usually appears on screen. It leaves out that it can print any object and be redirected.",
-   "assert": null
-  },
-  {
-   "fp": "da54a5945186",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "A string literal is written between quotes. It leaves out that `print()` can take variables and other values without quotes.",
-   "assert": null
-  },
-  {
-   "fp": "3bfb3839674d",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "By default `print` separates its arguments with a space and ends with a newline.",
-   "assert": "import io, contextlib\nbuf = io.StringIO()\nwith contextlib.redirect_stdout(buf):\n    print('a', 1, True)\nassert buf.getvalue() == 'a 1 True\\n'"
-  },
-  {
-   "fp": "bf632243b492",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`end=\"\"` stops `print` from adding a newline, so the next output continues on the same line.",
-   "assert": "import io, contextlib\nbuf = io.StringIO()\nwith contextlib.redirect_stdout(buf):\n    print('a', end='')\n    print('b')\nassert buf.getvalue() == 'ab\\n'"
-  },
-  {
-   "fp": "3c927162ea6a",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`input()` reads one line from standard input and returns it, without the trailing newline.",
-   "assert": "import io, sys\nold = sys.stdin\nsys.stdin = io.StringIO('hello\\n')\ntry:\n    r = input()\nfinally:\n    sys.stdin = old\nassert r == 'hello'"
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "d969abc5d6db",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Each of the six comparison operators gives a bool for ordinary values such as numbers.",
+      "assert": "a, b = 3, 5\nfor r in (a == b, a != b, a < b, a <= b, a > b, a >= b):\n    assert type(r) is bool"
+    },
+    {
+      "fp": "c877a2edb333",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`=` assigns, `==` compares, and an assignment inside an `if` condition is a SyntaxError.",
+      "assert": "x = 1\nassert (x == 1) is True\ntry:\n    compile('if x = 3:\\n    pass', 's', 'exec')\n    raise AssertionError('no error')\nexcept SyntaxError:\n    pass"
+    },
+    {
+      "fp": "14c61d358b58",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "The block runs when the condition is truthy, not only when it is exactly `True` (for example a non-empty string). That is fine for a beginner at this stage.",
+      "assert": null
+    },
+    {
+      "fp": "15427b090620",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`elif` tests a further condition and `else` runs when none of the earlier conditions matched.",
+      "assert": "def f(n):\n    if n == 1:\n        return 'a'\n    elif n == 2:\n        return 'b'\n    else:\n        return 'c'\nassert f(2) == 'b'\nassert f(9) == 'c'"
+    },
+    {
+      "fp": "0cf29863d7c0",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In an if/elif/else chain only the first branch with a true condition runs.",
+      "assert": "out = []\nx = 5\nif x > 1:\n    out.append('first')\nelif x > 2:\n    out.append('second')\nelse:\n    out.append('third')\nassert out == ['first']"
+    },
+    {
+      "fp": "b07f5bc33dd8",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "caf41c973f32",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "1d15dd870765",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "b9ac76f6d766",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "b68b4f42e862",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an instruction. `and`, `or` and `not` are the boolean operators.",
+      "assert": null
+    },
+    {
+      "fp": "78975a8c7c90",
+      "status": "claim",
+      "verdict": "false",
+      "reason": "Python does not require full comparisons: `True and 5` or `flag or other` are valid. A full comparison is needed only to express 'x is 1 or 2'. The sentence overstates this as a rule.",
+      "assert": "try:\n    eval('True and 5')\n    ok = True\nexcept Exception:\n    ok = False\nassert not ok"
+    },
+    {
+      "fp": "547e08bd9da4",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`or` has lower precedence than `==`, so the expression is `(x == 1) or 2`, which is not a membership test.",
+      "assert": "import ast\nx = 3\nt = ast.parse('x == 1 or 2', mode='eval').body\nassert isinstance(t, ast.BoolOp) and isinstance(t.values[0], ast.Compare)\nassert (x == 1 or 2) == 2"
+    },
+    {
+      "fp": "1b1eba359878",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`or` returns the right operand when the left one is falsy. 2 is truthy, so an `if` runs.",
+      "assert": "x = 3\nr = (x == 1 or 2)\nassert r == 2\nassert bool(r) is True"
+    },
+    {
+      "fp": "da0af2b35a6e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "8511cc020620",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "d1bd95ecdbcf",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a question and instruction for the learner.",
+      "assert": null
+    },
+    {
+      "fp": "9540e6dd7f46",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "This is a hint: write `day == \"sat\" or day == \"sun\"`.",
+      "assert": null
+    },
+    {
+      "fp": "d350944247af",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "2d2c0672651a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This describes the exercise task.",
+      "assert": null
+    },
+    {
+      "fp": "402c5f2d5608",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Order matters in an if/elif chain because the first matching branch wins.",
+      "assert": null
+    },
+    {
+      "fp": "dfe10054dacc",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "8b3d2f18041e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This describes the exercise task.",
+      "assert": null
+    },
+    {
+      "fp": "8f8de9c845e1",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "`==` compares and `=` assigns. It leaves out that `=` is a statement and that other operators like `:=` also store.",
+      "assert": null
+    },
+    {
+      "fp": "81a305fab019",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Using `=` in an if condition is a SyntaxError.",
+      "assert": "try:\n    compile('x = 1\\nif x = 3:\\n    pass', 's', 'exec')\n    raise AssertionError('no error')\nexcept SyntaxError:\n    pass"
+    },
+    {
+      "fp": "c3be7811b58c",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In an if/elif/else chain only the first branch whose condition is true runs.",
+      "assert": "out = []\nx = 10\nif x > 1:\n    out.append(1)\nelif x > 5:\n    out.append(2)\nelse:\n    out.append(3)\nassert out == [1]"
+    },
+    {
+      "fp": "8c574ad94ed8",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "This is the correct way to write the test, since `x == 1 or 2` is always truthy.",
+      "assert": null
+    },
+    {
+      "fp": "db0683221aeb",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a sentence fragment from the story ('Ms.' split at the period).",
+      "assert": null
+    },
+    {
+      "fp": "2f269ed30281",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is story narration.",
+      "assert": null
+    },
+    {
+      "fp": "3cdd45525dd7",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is story dialogue. The claim in it, that `print()` shows text, is correct.",
+      "assert": null
+    },
+    {
+      "fp": "7ae6f8ffe185",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is story dialogue giving a beginner instruction. String literals do go between quotes.",
+      "assert": null
+    },
+    {
+      "fp": "dc35e0f864f9",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "8f8565549b5e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "6e65d994073d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "78eb2448aa1f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an instruction (split sentence at the '!').",
+      "assert": null
+    },
+    {
+      "fp": "d90eececc580",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a fragment of an instruction.",
+      "assert": null
+    },
+    {
+      "fp": "74ab721dbb60",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "`print()` writes to standard output, which usually appears on screen. It leaves out that it can print any object and be redirected.",
+      "assert": null
+    },
+    {
+      "fp": "da54a5945186",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "A string literal is written between quotes. It leaves out that `print()` can take variables and other values without quotes.",
+      "assert": null
+    },
+    {
+      "fp": "3bfb3839674d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "By default `print` separates its arguments with a space and ends with a newline.",
+      "assert": "import io, contextlib\nbuf = io.StringIO()\nwith contextlib.redirect_stdout(buf):\n    print('a', 1, True)\nassert buf.getvalue() == 'a 1 True\\n'"
+    },
+    {
+      "fp": "bf632243b492",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`end=\"\"` stops `print` from adding a newline, so the next output continues on the same line.",
+      "assert": "import io, contextlib\nbuf = io.StringIO()\nwith contextlib.redirect_stdout(buf):\n    print('a', end='')\n    print('b')\nassert buf.getvalue() == 'ab\\n'"
+    },
+    {
+      "fp": "3c927162ea6a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`input()` reads one line from standard input and returns it, without the trailing newline.",
+      "assert": "import io, sys\nold = sys.stdin\nsys.stdin = io.StringIO('hello\\n')\ntry:\n    r = input()\nfinally:\n    sys.stdin = old\nassert r == 'hello'"
+    }
+  ]
 }

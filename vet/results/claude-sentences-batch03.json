@@ -1,285 +1,285 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "720eb3ca6ecd",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "After `import math`, its functions are reached as `math.name`.",
-   "assert": "import math\nassert math.sqrt(16) == 4.0"
-  },
-  {
-   "fp": "7325bef3f38d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "aa839b5a4ac3",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the exercise input, not Python behavior.",
-   "assert": null
-  },
-  {
-   "fp": "0ef470ec62c1",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "cd70ffe8ee8b",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`str()` of an int gives its text form.",
-   "assert": "assert str(12) == '12'\nassert isinstance(str(12), str)"
-  },
-  {
-   "fp": "796ab6f8aa7d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "b4889d4c94c0",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "2550426a34ed",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Fine for a first lesson, but it leaves out other types such as list, dict and None.",
-   "assert": null
-  },
-  {
-   "fp": "d05a075dccff",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`type(x)` returns the type of x.",
-   "assert": "assert type(1) is int\nassert type(1.5) is float\nassert type('a') is str\nassert type(True) is bool"
-  },
-  {
-   "fp": "db7ec3cdfcec",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Assignment binds a name to a value, and rebinding is allowed.",
-   "assert": "x = 1\nassert x == 1\nx = 2\nassert x == 2"
-  },
-  {
-   "fp": "843056d01e96",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`+` adds numbers and concatenates strings.",
-   "assert": "assert 3 + 4 == 7\nassert '3' + '4' == '34'"
-  },
-  {
-   "fp": "cd9c3cd83895",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`int()` truncates, and `round()` uses banker's rounding on ties.",
-   "assert": "assert int(2.9) == 2\nassert int(-2.9) == -2\nassert round(2.6) == 3\nassert round(2.5) == 2\nassert round(3.5) == 4\nassert float('1.5') == 1.5\nassert str(3) == '3'"
-  },
-  {
-   "fp": "67b42be6f7e0",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`import math` makes `math.sqrt` and `math.floor` available.",
-   "assert": "import math\nassert math.sqrt(9) == 3.0\nassert math.floor(2.7) == 2"
-  },
-  {
-   "fp": "3d96ca0807e8",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A comprehension has an expression, then `for`, then an optional `if`.",
-   "assert": "assert [x * 2 for x in range(5) if x % 2 == 1] == [2, 6]"
-  },
-  {
-   "fp": "e686be7164c0",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "554308c610e3",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "954175a1ce04",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "In Python `%` with a positive modulus is never negative, so this works for negative ints too.",
-   "assert": "assert all(n % 2 == 1 for n in [-3, -1, 1, 3])\nassert all(n % 2 != 1 for n in [-2, 0, 2])"
-  },
-  {
-   "fp": "0c1c7caf35b7",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "The comprehension filters words longer than 3 and upper-cases them.",
-   "assert": "words = ['a', 'tea', 'jam', 'bread', 'cake']\nassert [w.upper() for w in words if len(w) > 3] == ['BREAD', 'CAKE']"
-  },
-  {
-   "fp": "02c6549d9ab7",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "e134244d8cfd",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`enumerate` yields (index, item) and accepts `start`, and `zip` pairs items from two lists.",
-   "assert": "assert list(enumerate(['a', 'b'])) == [(0, 'a'), (1, 'b')]\nassert list(enumerate(['a', 'b'], start=1)) == [(1, 'a'), (2, 'b')]\nassert list(zip([1, 2], ['a', 'b'])) == [(1, 'a'), (2, 'b')]"
-  },
-  {
-   "fp": "dfe5c5a81f5a",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`zip` without `strict=True` silently truncates to the shortest input.",
-   "assert": "import warnings\nwarnings.simplefilter('error')\nassert list(zip([1, 2, 3], ['a', 'b'])) == [(1, 'a'), (2, 'b')]"
-  },
-  {
-   "fp": "69cbe8af9d9d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "5c9ccc0a4560",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise requirement.",
-   "assert": null
-  },
-  {
-   "fp": "8511cc020620",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "149a27ee6506",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A question and hint for the learner.",
-   "assert": null
-  },
-  {
-   "fp": "6ff07b35d032",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A hint on how to solve the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "1d6e72b8ea7d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It states the exercise spec, and the example result is arithmetically right.",
-   "assert": null
-  },
-  {
-   "fp": "bc598ea919ef",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction about the exercise bug.",
-   "assert": null
-  },
-  {
-   "fp": "07577722abd8",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`max` returns the largest of its arguments.",
-   "assert": "assert max(3, 2) == 3\nassert max(len([1, 2, 3]), len([10, 20])) == 3\nassert list(range(max(3, 2))) == [0, 1, 2]"
-  },
-  {
-   "fp": "fac115c5c55f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "197e503dd2f2",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`enumerate` with `start=1` yields those pairs.",
-   "assert": "items = ['tea', 'jam']\nassert list(enumerate(items, start=1)) == [(1, 'tea'), (2, 'jam')]"
-  },
-  {
-   "fp": "97bf74a23e73",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A hint for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "cfa53c65e8e8",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "423e5f1b0b36",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "This is the list comprehension syntax with a filter.",
-   "assert": "items = [1, 2, 3, 4]\nassert [x * 10 for x in items if x > 2] == [30, 40]"
-  },
-  {
-   "fp": "f928c4da3c8b",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`enumerate` yields (index, item) pairs, and `start=1` begins at 1.",
-   "assert": "assert list(enumerate('ab')) == [(0, 'a'), (1, 'b')]\nassert list(enumerate('ab', start=1)) == [(1, 'a'), (2, 'b')]"
-  },
-  {
-   "fp": "81b117ec7371",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`zip` truncates to the shortest input and raises no warning or error by default.",
-   "assert": "import warnings\nwarnings.simplefilter('error')\nassert list(zip([1, 2, 3], [4])) == [(1, 4)]"
-  },
-  {
-   "fp": "2045d74a732a",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A dict is a mapping from keys to values.",
-   "assert": "d = {'a': 1}\nassert d['a'] == 1\nassert list(d.keys()) == ['a']"
-  },
-  {
-   "fp": "f9ba8175660a",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`d[key]` reads a value, and assigning to `d[key]` adds or changes an entry.",
-   "assert": "d = {'a': 1}\nassert d['a'] == 1\nd['b'] = 2\nassert d['b'] == 2\nd['a'] = 5\nassert d['a'] == 5"
-  },
-  {
-   "fp": "850fe419ebbc",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "`in` on a dict tests for a key.",
-   "assert": "d = {'a': 1}\nassert 'a' in d\nassert 'b' not in d\nassert 1 not in d"
-  },
-  {
-   "fp": "5b01e4d70f94",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "An opinion that counting is a typical use of dicts, which is reasonable.",
-   "assert": null
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "720eb3ca6ecd",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "After `import math`, its functions are reached as `math.name`.",
+      "assert": "import math\nassert math.sqrt(16) == 4.0"
+    },
+    {
+      "fp": "7325bef3f38d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "aa839b5a4ac3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the exercise input, not Python behavior.",
+      "assert": null
+    },
+    {
+      "fp": "0ef470ec62c1",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "cd70ffe8ee8b",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`str()` of an int gives its text form.",
+      "assert": "assert str(12) == '12'\nassert isinstance(str(12), str)"
+    },
+    {
+      "fp": "796ab6f8aa7d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "b4889d4c94c0",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "2550426a34ed",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Fine for a first lesson, but it leaves out other types such as list, dict and None.",
+      "assert": null
+    },
+    {
+      "fp": "d05a075dccff",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`type(x)` returns the type of x.",
+      "assert": "assert type(1) is int\nassert type(1.5) is float\nassert type('a') is str\nassert type(True) is bool"
+    },
+    {
+      "fp": "db7ec3cdfcec",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Assignment binds a name to a value, and rebinding is allowed.",
+      "assert": "x = 1\nassert x == 1\nx = 2\nassert x == 2"
+    },
+    {
+      "fp": "843056d01e96",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`+` adds numbers and concatenates strings.",
+      "assert": "assert 3 + 4 == 7\nassert '3' + '4' == '34'"
+    },
+    {
+      "fp": "cd9c3cd83895",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`int()` truncates, and `round()` uses banker's rounding on ties.",
+      "assert": "assert int(2.9) == 2\nassert int(-2.9) == -2\nassert round(2.6) == 3\nassert round(2.5) == 2\nassert round(3.5) == 4\nassert float('1.5') == 1.5\nassert str(3) == '3'"
+    },
+    {
+      "fp": "67b42be6f7e0",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`import math` makes `math.sqrt` and `math.floor` available.",
+      "assert": "import math\nassert math.sqrt(9) == 3.0\nassert math.floor(2.7) == 2"
+    },
+    {
+      "fp": "3d96ca0807e8",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A comprehension has an expression, then `for`, then an optional `if`.",
+      "assert": "assert [x * 2 for x in range(5) if x % 2 == 1] == [2, 6]"
+    },
+    {
+      "fp": "e686be7164c0",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "554308c610e3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "954175a1ce04",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In Python `%` with a positive modulus is never negative, so this works for negative ints too.",
+      "assert": "assert all(n % 2 == 1 for n in [-3, -1, 1, 3])\nassert all(n % 2 != 1 for n in [-2, 0, 2])"
+    },
+    {
+      "fp": "0c1c7caf35b7",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The comprehension filters words longer than 3 and upper-cases them.",
+      "assert": "words = ['a', 'tea', 'jam', 'bread', 'cake']\nassert [w.upper() for w in words if len(w) > 3] == ['BREAD', 'CAKE']"
+    },
+    {
+      "fp": "02c6549d9ab7",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "e134244d8cfd",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`enumerate` yields (index, item) and accepts `start`, and `zip` pairs items from two lists.",
+      "assert": "assert list(enumerate(['a', 'b'])) == [(0, 'a'), (1, 'b')]\nassert list(enumerate(['a', 'b'], start=1)) == [(1, 'a'), (2, 'b')]\nassert list(zip([1, 2], ['a', 'b'])) == [(1, 'a'), (2, 'b')]"
+    },
+    {
+      "fp": "dfe5c5a81f5a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`zip` without `strict=True` silently truncates to the shortest input.",
+      "assert": "import warnings\nwarnings.simplefilter('error')\nassert list(zip([1, 2, 3], ['a', 'b'])) == [(1, 'a'), (2, 'b')]"
+    },
+    {
+      "fp": "69cbe8af9d9d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "5c9ccc0a4560",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise requirement.",
+      "assert": null
+    },
+    {
+      "fp": "8511cc020620",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "149a27ee6506",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A question and hint for the learner.",
+      "assert": null
+    },
+    {
+      "fp": "6ff07b35d032",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint on how to solve the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "1d6e72b8ea7d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It states the exercise spec, and the example result is arithmetically right.",
+      "assert": null
+    },
+    {
+      "fp": "bc598ea919ef",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction about the exercise bug.",
+      "assert": null
+    },
+    {
+      "fp": "07577722abd8",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`max` returns the largest of its arguments.",
+      "assert": "assert max(3, 2) == 3\nassert max(len([1, 2, 3]), len([10, 20])) == 3\nassert list(range(max(3, 2))) == [0, 1, 2]"
+    },
+    {
+      "fp": "fac115c5c55f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "197e503dd2f2",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`enumerate` with `start=1` yields those pairs.",
+      "assert": "items = ['tea', 'jam']\nassert list(enumerate(items, start=1)) == [(1, 'tea'), (2, 'jam')]"
+    },
+    {
+      "fp": "97bf74a23e73",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "cfa53c65e8e8",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "423e5f1b0b36",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "This is the list comprehension syntax with a filter.",
+      "assert": "items = [1, 2, 3, 4]\nassert [x * 10 for x in items if x > 2] == [30, 40]"
+    },
+    {
+      "fp": "f928c4da3c8b",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`enumerate` yields (index, item) pairs, and `start=1` begins at 1.",
+      "assert": "assert list(enumerate('ab')) == [(0, 'a'), (1, 'b')]\nassert list(enumerate('ab', start=1)) == [(1, 'a'), (2, 'b')]"
+    },
+    {
+      "fp": "81b117ec7371",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`zip` truncates to the shortest input and raises no warning or error by default.",
+      "assert": "import warnings\nwarnings.simplefilter('error')\nassert list(zip([1, 2, 3], [4])) == [(1, 4)]"
+    },
+    {
+      "fp": "2045d74a732a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A dict is a mapping from keys to values.",
+      "assert": "d = {'a': 1}\nassert d['a'] == 1\nassert list(d.keys()) == ['a']"
+    },
+    {
+      "fp": "f9ba8175660a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`d[key]` reads a value, and assigning to `d[key]` adds or changes an entry.",
+      "assert": "d = {'a': 1}\nassert d['a'] == 1\nd['b'] = 2\nassert d['b'] == 2\nd['a'] = 5\nassert d['a'] == 5"
+    },
+    {
+      "fp": "850fe419ebbc",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`in` on a dict tests for a key.",
+      "assert": "d = {'a': 1}\nassert 'a' in d\nassert 'b' not in d\nassert 1 not in d"
+    },
+    {
+      "fp": "5b01e4d70f94",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "An opinion that counting is a typical use of dicts, which is reasonable.",
+      "assert": null
+    }
+  ]
 }

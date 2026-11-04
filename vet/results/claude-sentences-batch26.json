@@ -1,285 +1,285 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "a82e58ac9ac1",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "With distinct rows, the nearest neighbour of a training point is itself at distance 0, so training accuracy is 1.0. The duplicate-row caveat is stated correctly.",
-   "assert": "import numpy as np\nfrom sklearn.neighbors import KNeighborsClassifier\nrng = np.random.RandomState(0)\nX = rng.rand(50, 3)\ny = rng.randint(0, 2, 50)\nm = KNeighborsClassifier(n_neighbors=1).fit(X, y)\nassert m.score(X, y) == 1.0\nX2 = np.vstack([X, X[:1]])\ny2 = np.append(y, 1 - y[0])\nm2 = KNeighborsClassifier(n_neighbors=1).fit(X2, y2)\nassert m2.score(X2, y2) < 1.0"
-  },
-  {
-   "fp": "9af775dec440",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Figurative. Accuracy on unseen data is usually better than a coin toss, but it is not guaranteed to be good.",
-   "assert": null
-  },
-  {
-   "fp": "ede9ddf06450",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Treats a held-out test score as the only honest estimate. It leaves out cross-validation and validation sets, which are also honest.",
-   "assert": null
-  },
-  {
-   "fp": "e699d4b3c955",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "424cf607a83e",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the exercise's bug and tells the learner to fix it.",
-   "assert": null
-  },
-  {
-   "fp": "37122e5c5ed3",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A hint question.",
-   "assert": null
-  },
-  {
-   "fp": "b210e9a9d02b",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "A hint question.",
-   "assert": null
-  },
-  {
-   "fp": "549f37bf8f88",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "7eb99e119c88",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the exercise's buggy function.",
-   "assert": null
-  },
-  {
-   "fp": "75daac9c30b8",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "a0e46d243bd0",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "For scikit-learn classifiers, score is the mean accuracy, between 0.0 and 1.0.",
-   "assert": "import numpy as np\nfrom sklearn.neighbors import KNeighborsClassifier\nX = np.array([[0], [1], [2], [3]])\ny = np.array([0, 0, 1, 1])\nm = KNeighborsClassifier(n_neighbors=1).fit(X, y)\nassert m.score(np.array([[0], [3]]), np.array([0, 0])) == 0.5\nassert 0.0 <= m.score(X, y) <= 1.0"
-  },
-  {
-   "fp": "721fee6027f7",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "test_size=0.25 puts a quarter of the rows in the test part, and a fixed random_state gives the same split each run.",
-   "assert": "import numpy as np\nfrom sklearn.model_selection import train_test_split\nX = np.arange(40).reshape(20, 2)\ny = np.arange(20)\na = train_test_split(X, y, test_size=0.25, random_state=0)\nb = train_test_split(X, y, test_size=0.25, random_state=0)\nassert len(a[1]) == 5 and len(a[0]) == 15\nassert all((p == q).all() for p, q in zip(a, b))"
-  },
-  {
-   "fp": "905978bcee98",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "Standard practice: fit on the training part only, then evaluate on the test part.",
-   "assert": null
-  },
-  {
-   "fp": "4dbb4f716afe",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Leaves out the case of identical rows with different labels, where a 1-neighbour model scores below 1.0 on its training data.",
-   "assert": null
-  },
-  {
-   "fp": "12c136ba2113",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "Treats the test score as the only guide to performance on new data. It leaves out cross-validation.",
-   "assert": null
-  },
-  {
-   "fp": "51a7814e3f1f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Story setup for the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "a37ff05ae60c",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "597600157920",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the structure of the exercise program.",
-   "assert": null
-  },
-  {
-   "fp": "65820e4200b8",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Code under the __main__ guard runs only when the file is run as the main program, not when it is imported.",
-   "assert": "ns = {'__name__': 'other'}\nexec('ran = False\\nif __name__ == \"__main__\":\\n    ran = True', ns)\nassert ns['ran'] is False\nns = {'__name__': '__main__'}\nexec('ran = False\\nif __name__ == \"__main__\":\\n    ran = True', ns)\nassert ns['ran'] is True"
-  },
-  {
-   "fp": "d26b7b6fab2d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes how the exercise is set up for testing.",
-   "assert": null
-  },
-  {
-   "fp": "36e115f6dc93",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "random.randint(a, b) returns a whole number from a to b, both ends included.",
-   "assert": "import random\nvals = {random.randint(1, 100) for _ in range(20000)}\nassert all(isinstance(v, int) for v in vals)\nassert min(vals) == 1 and max(vals) == 100"
-  },
-  {
-   "fp": "85eb3cd78118",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "ff35eec1ad65",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "41db620391f1",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "strip removes surrounding whitespace, isdecimal is True for a non-empty string of decimal digits, and None means no value. An empty string gives False, a minor edge case.",
-   "assert": "assert '  42 '.strip() == '42'\nassert '42'.isdecimal() is True\nassert '4a'.isdecimal() is False\nassert '-4'.isdecimal() is False\nassert [].sort() is None"
-  },
-  {
-   "fp": "491a8caf6f36",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "43077cd86928",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "f13526e1f409",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "6c5d7ba81af7",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "In a loop, continue skips to the next iteration and return exits the whole function. The first part is the exercise spec.",
-   "assert": "def f():\n    out = []\n    for i in range(5):\n        if i == 1:\n            continue\n        if i == 3:\n            return out\n        out.append(i)\n    out.append('end')\n    return out\nassert f() == [0, 2]"
-  },
-  {
-   "fp": "f0e80c72731f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Story setup.",
-   "assert": null
-  },
-  {
-   "fp": "aabedafaea3a",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes the input format of the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "df2e1668f78e",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "An instruction.",
-   "assert": null
-  },
-  {
-   "fp": "b3de0c839fe5",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Describes how the exercise stages work.",
-   "assert": null
-  },
-  {
-   "fp": "a19f65e5e63c",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "2de7b4b65a12",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "\"\".split(\",\") does return [\"\"], so empty pieces must be skipped before int().",
-   "assert": "assert ''.split(',') == ['']\nparts = 'Ines:'.split(':')\nassert parts == ['Ines', '']\nassert [int(p) for p in parts[1].split(',') if p.strip()] == []"
-  },
-  {
-   "fp": "785dc54b7b73",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "\"Ines:\" has no \": \" (colon followed by a space), so splitting on that finds nothing. Splitting on \":\" and stripping works.",
-   "assert": "assert 'Ines:'.split(': ') == ['Ines:']\nname, rest = [p.strip() for p in 'Ines:'.split(':', 1)]\nassert name == 'Ines' and rest == ''"
-  },
-  {
-   "fp": "79a2ea5af8aa",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "ea053933b874",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "4a9b550b9471",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "55a78ed835ed",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "Specification of an exercise function.",
-   "assert": null
-  },
-  {
-   "fp": "59ca71d3bcdd",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Negating the average sorts highest first, and the name breaks ties alphabetically.",
-   "assert": "pairs = [('Bo', 10.0), ('Al', 12.5), ('Cy', 10.0), ('Di', 7.0)]\nassert sorted(pairs, key=lambda pair: (-pair[1], pair[0])) == [('Al', 12.5), ('Bo', 10.0), ('Cy', 10.0), ('Di', 7.0)]"
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "a82e58ac9ac1",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "With distinct rows, the nearest neighbour of a training point is itself at distance 0, so training accuracy is 1.0. The duplicate-row caveat is stated correctly.",
+      "assert": "import numpy as np\nfrom sklearn.neighbors import KNeighborsClassifier\nrng = np.random.RandomState(0)\nX = rng.rand(50, 3)\ny = rng.randint(0, 2, 50)\nm = KNeighborsClassifier(n_neighbors=1).fit(X, y)\nassert m.score(X, y) == 1.0\nX2 = np.vstack([X, X[:1]])\ny2 = np.append(y, 1 - y[0])\nm2 = KNeighborsClassifier(n_neighbors=1).fit(X2, y2)\nassert m2.score(X2, y2) < 1.0"
+    },
+    {
+      "fp": "9af775dec440",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Figurative. Accuracy on unseen data is usually better than a coin toss, but it is not guaranteed to be good.",
+      "assert": null
+    },
+    {
+      "fp": "ede9ddf06450",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Treats a held-out test score as the only honest estimate. It leaves out cross-validation and validation sets, which are also honest.",
+      "assert": null
+    },
+    {
+      "fp": "e699d4b3c955",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "424cf607a83e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise's bug and tells the learner to fix it.",
+      "assert": null
+    },
+    {
+      "fp": "37122e5c5ed3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint question.",
+      "assert": null
+    },
+    {
+      "fp": "b210e9a9d02b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint question.",
+      "assert": null
+    },
+    {
+      "fp": "549f37bf8f88",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "7eb99e119c88",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise's buggy function.",
+      "assert": null
+    },
+    {
+      "fp": "75daac9c30b8",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "a0e46d243bd0",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "For scikit-learn classifiers, score is the mean accuracy, between 0.0 and 1.0.",
+      "assert": "import numpy as np\nfrom sklearn.neighbors import KNeighborsClassifier\nX = np.array([[0], [1], [2], [3]])\ny = np.array([0, 0, 1, 1])\nm = KNeighborsClassifier(n_neighbors=1).fit(X, y)\nassert m.score(np.array([[0], [3]]), np.array([0, 0])) == 0.5\nassert 0.0 <= m.score(X, y) <= 1.0"
+    },
+    {
+      "fp": "721fee6027f7",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "test_size=0.25 puts a quarter of the rows in the test part, and a fixed random_state gives the same split each run.",
+      "assert": "import numpy as np\nfrom sklearn.model_selection import train_test_split\nX = np.arange(40).reshape(20, 2)\ny = np.arange(20)\na = train_test_split(X, y, test_size=0.25, random_state=0)\nb = train_test_split(X, y, test_size=0.25, random_state=0)\nassert len(a[1]) == 5 and len(a[0]) == 15\nassert all((p == q).all() for p, q in zip(a, b))"
+    },
+    {
+      "fp": "905978bcee98",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Standard practice: fit on the training part only, then evaluate on the test part.",
+      "assert": null
+    },
+    {
+      "fp": "4dbb4f716afe",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Leaves out the case of identical rows with different labels, where a 1-neighbour model scores below 1.0 on its training data.",
+      "assert": null
+    },
+    {
+      "fp": "12c136ba2113",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Treats the test score as the only guide to performance on new data. It leaves out cross-validation.",
+      "assert": null
+    },
+    {
+      "fp": "51a7814e3f1f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Story setup for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "a37ff05ae60c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "597600157920",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the structure of the exercise program.",
+      "assert": null
+    },
+    {
+      "fp": "65820e4200b8",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Code under the __main__ guard runs only when the file is run as the main program, not when it is imported.",
+      "assert": "ns = {'__name__': 'other'}\nexec('ran = False\\nif __name__ == \"__main__\":\\n    ran = True', ns)\nassert ns['ran'] is False\nns = {'__name__': '__main__'}\nexec('ran = False\\nif __name__ == \"__main__\":\\n    ran = True', ns)\nassert ns['ran'] is True"
+    },
+    {
+      "fp": "d26b7b6fab2d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes how the exercise is set up for testing.",
+      "assert": null
+    },
+    {
+      "fp": "36e115f6dc93",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "random.randint(a, b) returns a whole number from a to b, both ends included.",
+      "assert": "import random\nvals = {random.randint(1, 100) for _ in range(20000)}\nassert all(isinstance(v, int) for v in vals)\nassert min(vals) == 1 and max(vals) == 100"
+    },
+    {
+      "fp": "85eb3cd78118",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "ff35eec1ad65",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "41db620391f1",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "strip removes surrounding whitespace, isdecimal is True for a non-empty string of decimal digits, and None means no value. An empty string gives False, a minor edge case.",
+      "assert": "assert '  42 '.strip() == '42'\nassert '42'.isdecimal() is True\nassert '4a'.isdecimal() is False\nassert '-4'.isdecimal() is False\nassert [].sort() is None"
+    },
+    {
+      "fp": "491a8caf6f36",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "43077cd86928",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "f13526e1f409",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "6c5d7ba81af7",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In a loop, continue skips to the next iteration and return exits the whole function. The first part is the exercise spec.",
+      "assert": "def f():\n    out = []\n    for i in range(5):\n        if i == 1:\n            continue\n        if i == 3:\n            return out\n        out.append(i)\n    out.append('end')\n    return out\nassert f() == [0, 2]"
+    },
+    {
+      "fp": "f0e80c72731f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Story setup.",
+      "assert": null
+    },
+    {
+      "fp": "aabedafaea3a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the input format of the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "df2e1668f78e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "b3de0c839fe5",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes how the exercise stages work.",
+      "assert": null
+    },
+    {
+      "fp": "a19f65e5e63c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "2de7b4b65a12",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "\"\".split(\",\") does return [\"\"], so empty pieces must be skipped before int().",
+      "assert": "assert ''.split(',') == ['']\nparts = 'Ines:'.split(':')\nassert parts == ['Ines', '']\nassert [int(p) for p in parts[1].split(',') if p.strip()] == []"
+    },
+    {
+      "fp": "785dc54b7b73",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "\"Ines:\" has no \": \" (colon followed by a space), so splitting on that finds nothing. Splitting on \":\" and stripping works.",
+      "assert": "assert 'Ines:'.split(': ') == ['Ines:']\nname, rest = [p.strip() for p in 'Ines:'.split(':', 1)]\nassert name == 'Ines' and rest == ''"
+    },
+    {
+      "fp": "79a2ea5af8aa",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "ea053933b874",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "4a9b550b9471",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "55a78ed835ed",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Specification of an exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "59ca71d3bcdd",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Negating the average sorts highest first, and the name breaks ties alphabetically.",
+      "assert": "pairs = [('Bo', 10.0), ('Al', 12.5), ('Cy', 10.0), ('Di', 7.0)]\nassert sorted(pairs, key=lambda pair: (-pair[1], pair[0])) == [('Al', 12.5), ('Bo', 10.0), ('Cy', 10.0), ('Di', 7.0)]"
+    }
+  ]
 }

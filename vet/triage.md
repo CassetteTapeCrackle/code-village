@@ -907,7 +907,7 @@ assert order == [("enter", 3), ("enter", 2), ("enter", 1), ("enter", 0), ("after
 
 - file: w2/a/class-attributes/lesson.md
 - why it is here: the two families name different backing (deepseek advice, claude not-a-fact)
-- deepseek: true, advice. This is a correct recommendation: initializing a mutable list on self inside __init__ avoids sharing one class-level list across instances.
+- deepseek: true, advice. This is a correct recommendation: initializing a mutable list on self inside **init** avoids sharing one class-level list across instances.
 - claude: true, not-a-fact. It is an instruction.
 
 ## class-attributes: remember:3 <!-- fp:84842b2d67ee -->
@@ -925,7 +925,7 @@ assert order == [("enter", 3), ("enter", 2), ("enter", 1), ("enter", 0), ("after
 
 - file: w2/a/classes/lesson.md
 - why it is here: the two families name different backing (deepseek advice, claude not-a-fact)
-- deepseek: true, advice. This is a coding recommendation: instance values are often assigned to attributes on self inside __init__. It is not a claim about automatic Python behavior.
+- deepseek: true, advice. This is a coding recommendation: instance values are often assigned to attributes on self inside **init**. It is not a claim about automatic Python behavior.
 - claude: true, not-a-fact. It is a hint.
 
 ## classes: text:5 <!-- fp:8d5dc7584d0a -->
@@ -954,7 +954,7 @@ assert A.method.__code__.co_varnames[0] == "self"
 
 - file: w2/a/classes/lesson.md
 - why it is here: the two families name different backing (deepseek simplification, claude claim)
-- deepseek: true, simplification. The 'blueprint' image is a beginner-friendly simplification: a class is itself an object, and calling it runs __new__/__init__ to create an instance. The concrete claim that calling Fox("Sly", 3) creates a Fox object is correct.
+- deepseek: true, simplification. The 'blueprint' image is a beginner-friendly simplification: a class is itself an object, and calling it runs **new**/**init** to create an instance. The concrete claim that calling Fox("Sly", 3) creates a Fox object is correct.
 - claude: true, claim. Calling a class creates an instance of it.
 - proposed assert:
 
@@ -1073,7 +1073,7 @@ assert p == ['a']
 
 - file: w2/a/identity/lesson.md
 - why it is here: the two families name different backing (deepseek claim, claude simplification)
-- deepseek: true, claim. == compares equality (usually by value via __eq__), while is compares object identity; custom classes can override ==, but the contrast is correct for ordinary values.
+- deepseek: true, claim. == compares equality (usually by value via **eq**), while is compares object identity; custom classes can override ==, but the contrast is correct for ordinary values.
 - claude: true, simplification. `==` calls `__eq__`, which usually compares values. It leaves out that `__eq__` can be defined to mean anything, and that default objects compare by identity.
 - proposed assert:
 
@@ -1200,8 +1200,8 @@ assert a.items is not b.items
 
 - file: w2/b/dataclasses/lesson.md
 - why it is here: verdicts differ or doubt it (deepseek false, claude true)
-- deepseek: false, claim. A frozen dataclass is hashable and can be put in a set, so the blanket claim that dataclass objects cannot go in a set is false. Default non-frozen dataclasses are indeed unhashable because __hash__ is set to None.
-- claude: true, claim. A dataclass with eq=True (default) and not frozen sets __hash__ to None, as a hand-written __eq__ without __hash__ does, so instances are unhashable and cannot go in a set.
+- deepseek: false, claim. A frozen dataclass is hashable and can be put in a set, so the blanket claim that dataclass objects cannot go in a set is false. Default non-frozen dataclasses are indeed unhashable because **hash** is set to None.
+- claude: true, claim. A dataclass with eq=True (default) and not frozen sets **hash** to None, as a hand-written **eq** without **hash** does, so instances are unhashable and cannot go in a set.
 - proposed assert:
 
 ```python
@@ -1246,8 +1246,8 @@ assert sorted([S(2, 'b'), S(1, 'z'), S(2, 'a')]) == [S(1, 'z'), S(2, 'a'), S(2, 
 
 - file: w2/b/dunders/lesson.md
 - why it is here: verdicts differ or doubt it (deepseek false, claude true)
-- deepseek: false, claim. The equality claim is not universal: if b's type is a proper subclass of a's type and overrides __eq__, Python tries b.__eq__(a) first, falling back to a.__eq__(b) only if that returns NotImplemented.
-- claude: true, claim. print uses __str__, len uses __len__, and == uses __eq__ (simplified: print goes through str(), and == may try the reflected side too).
+- deepseek: false, claim. The equality claim is not universal: if b's type is a proper subclass of a's type and overrides **eq**, Python tries b.**eq**(a) first, falling back to a.**eq**(b) only if that returns NotImplemented.
+- claude: true, claim. print uses **str**, len uses **len**, and == uses **eq** (simplified: print goes through str(), and == may try the reflected side too).
 - proposed assert:
 
 ```python
@@ -1282,7 +1282,7 @@ assert (A() == 1) == 'eq'
 
 - file: w2/b/dunders/lesson.md
 - why it is here: the two families name different backing (deepseek not-a-fact, claude advice)
-- deepseek: true, not-a-fact. This describes the intended implementation in the exercise, not a general Python rule; __str__ can return any string and __eq__ can compare whatever the class chooses.
+- deepseek: true, not-a-fact. This describes the intended implementation in the exercise, not a general Python rule; **str** can return any string and **eq** can compare whatever the class chooses.
 - claude: true, advice. This is a hint on how to implement the two methods.
 
 ## dunders: task:dunders-mushroom:hint:1 <!-- fp:a2d3b9cd7527 -->
@@ -1292,7 +1292,7 @@ assert (A() == 1) == 'eq'
 - file: w2/b/dunders/lesson.md
 - why it is here: the two families name different backing (deepseek not-a-fact, claude advice)
 - deepseek: true, not-a-fact. This is an instruction about what the exercise should implement, not a claim about Python behavior.
-- claude: true, advice. This is a hint on how to implement __str__.
+- claude: true, advice. This is a hint on how to implement **str**.
 
 ## dunders: text:7 <!-- fp:a2f252ee2da8 -->
 
@@ -1300,7 +1300,7 @@ assert (A() == 1) == 'eq'
 
 - file: w2/b/dunders/lesson.md
 - why it is here: the two families name different backing (deepseek simplification, claude claim)
-- deepseek: true, simplification. It describes the default: defining __eq__ without defining __hash__ sets __hash__ to None, so instances raise TypeError in sets or as dict keys. It leaves out that a consistent __hash__ can be defined to keep them hashable.
+- deepseek: true, simplification. It describes the default: defining **eq** without defining **hash** sets **hash** to None, so instances raise TypeError in sets or as dict keys. It leaves out that a consistent **hash** can be defined to keep them hashable.
 - claude: true, claim. A class that defines `__eq__` without `__hash__` gets `__hash__ = None`, so its instances cannot go in sets or be dict keys. Defining `__hash__` too would lift the limit, but that is outside the sentence.
 - proposed assert:
 
@@ -1323,7 +1323,7 @@ for f in (lambda: {A()}, lambda: {A(): 1}):
 
 - file: w2/b/dunders/lesson.md
 - why it is here: the two families name different backing (deepseek claim, claude simplification)
-- deepseek: true, claim. Hash-based containers use hash values, so an identity-based hash would conflict with a value-based __eq__ that treats distinct objects as equal. The wording simplifies lookup: sets and dicts also compare equality, and Python actually sets __hash__ to None instead of keeping the identity hash.
+- deepseek: true, claim. Hash-based containers use hash values, so an identity-based hash would conflict with a value-based **eq** that treats distinct objects as equal. The wording simplifies lookup: sets and dicts also compare equality, and Python actually sets **hash** to None instead of keeping the identity hash.
 - claude: true, simplification. Hashes must agree with equality, so the identity-based default hash would break lookups once `==` changes. It leaves out that you can define `__hash__` yourself.
 - proposed assert:
 
@@ -1349,7 +1349,7 @@ assert len({a: 1, b: 2}) == 2
 
 - file: w2/b/dunders/lesson.md
 - why it is here: the two families name different backing (deepseek simplification, claude claim)
-- deepseek: true, simplification. It leaves out that a __bool__ method, if defined, overrides __len__ for truth testing. In the usual case where only __len__ is defined, length 0 is false.
+- deepseek: true, simplification. It leaves out that a **bool** method, if defined, overrides **len** for truth testing. In the usual case where only **len** is defined, length 0 is false.
 - claude: true, claim. Without `__bool__`, truthiness falls back to `__len__`, so length 0 is false.
 - proposed assert:
 
@@ -1370,7 +1370,7 @@ assert Q(1)
 
 - file: w2/b/dunders/lesson.md
 - why it is here: the two families name different backing (deepseek claim, claude advice)
-- deepseek: true, claim. For special methods such as __str__, Python uses the returned value; __str__ must return a string, and returning None raises a TypeError.
+- deepseek: true, claim. For special methods such as **str**, Python uses the returned value; **str** must return a string, and returning None raises a TypeError.
 - claude: true, advice. A rule for these special methods: they must return a value. It is a general statement about the methods in this lesson, not about every dunder.
 - proposed assert:
 
@@ -1399,7 +1399,7 @@ else:
 
 - file: w2/b/dunders/lesson.md
 - why it is here: the two families name different backing (deepseek claim, claude advice)
-- deepseek: true, claim. __str__ has to return a string; a print-only implementation returns None, so str(obj) raises TypeError. Printing may happen as a side effect, but it cannot replace returning the text.
+- deepseek: true, claim. **str** has to return a string; a print-only implementation returns None, so str(obj) raises TypeError. Printing may happen as a side effect, but it cannot replace returning the text.
 - claude: true, advice. A rule for writing `__str__`: it must return its text. Printing inside it breaks `print` and `str()`.
 - proposed assert:
 
@@ -1430,7 +1430,7 @@ else:
 
 - file: w2/b/dunders/lesson.md
 - why it is here: verdicts differ or doubt it (deepseek false, claude true)
-- deepseek: false, claim. The sentence overgeneralizes: many dunder methods are hooks that return None, such as __init__, so not every dunder method returns an answer. In this paragraph the relevant rule is only that __str__ must return a string.
+- deepseek: false, claim. The sentence overgeneralizes: many dunder methods are hooks that return None, such as **init**, so not every dunder method returns an answer. In this paragraph the relevant rule is only that **str** must return a string.
 - claude: true, simplification. True for `__str__`, `__repr__`, `__eq__` and `__len__`, the methods in this lesson. It leaves out that some dunders, such as `__init__`, must return None.
 - proposed assert:
 
@@ -1444,11 +1444,11 @@ assert C().__init__() == 42
 
 ## dunders: remember:3 <!-- fp:713455f7bf55 -->
 
-> Dunder methods return their answer: a __str__ that prints breaks print.
+> Dunder methods return their answer: a **str** that prints breaks print.
 
 - file: w2/b/dunders/lesson.md
 - why it is here: the two families name different backing (deepseek claim, claude simplification)
-- deepseek: true, claim. A __str__ method must return a string; if it prints and returns None, print() raises TypeError instead of producing the object's text. The broader wording is beginner shorthand: protocol dunders supply return values, though some like __init__ return None.
+- deepseek: true, claim. A **str** method must return a string; if it prints and returns None, print() raises TypeError instead of producing the object's text. The broader wording is beginner shorthand: protocol dunders supply return values, though some like **init** return None.
 - claude: true, simplification. Fine for `__str__` and the other methods in this lesson. It leaves out dunders like `__init__` that must return None.
 - proposed assert:
 
@@ -1471,7 +1471,7 @@ else:
 
 - file: w2/b/properties/lesson.md
 - why it is here: verdicts differ or doubt it (deepseek false, claude true)
-- deepseek: false, claim. Not every attribute can be changed from outside: a property without a setter raises AttributeError, and frozen dataclasses or custom __setattr__ can block assignment. The sentence overgeneralizes from ordinary attributes.
+- deepseek: false, claim. Not every attribute can be changed from outside: a property without a setter raises AttributeError, and frozen dataclasses or custom **setattr** can block assignment. The sentence overgeneralizes from ordinary attributes.
 - claude: true, claim. By default any code can assign to an object's attributes. Python has no enforced privacy.
 - proposed assert:
 
@@ -1560,7 +1560,7 @@ except RecursionError:
 
 - file: w2/b/sortable/lesson.md
 - why it is here: verdicts differ or doubt it (deepseek false, claude true)
-- deepseek: false, claim. In CPython 3.12, max() compares current maximum < candidate, so it uses `<` with reversed operands, not `>`. A class that defines only __lt__ works with max() through that comparison.
+- deepseek: false, claim. In CPython 3.12, max() compares current maximum < candidate, so it uses `<` with reversed operands, not `>`. A class that defines only **lt** works with max() through that comparison.
 - claude: true, claim. In CPython sorted and min use <, max uses >.
 - proposed assert:
 
@@ -1695,12 +1695,12 @@ assert (b < a) is False
 
 ## sortable: remember:0 <!-- fp:79ffa7e12aa5 -->
 
-> sorted, max and min need to compare: give them a key, or a __lt__.
+> sorted, max and min need to compare: give them a key, or a **lt**.
 
 - file: w2/b/sortable/lesson.md
 - why it is here: the two families name different backing (deepseek claim, claude simplification)
-- deepseek: true, claim. For multiple items, sorted, max, and min order by comparison; unorderable objects raise TypeError, while a key or an __lt__ method supplies the needed ordering. It is a slight simplification: no comparison occurs for empty or single-item inputs, and keys must themselves be comparable.
-- claude: true, simplification. A summary; leaves out other comparison dunders like __gt__ or functools.total_ordering.
+- deepseek: true, claim. For multiple items, sorted, max, and min order by comparison; unorderable objects raise TypeError, while a key or an **lt** method supplies the needed ordering. It is a slight simplification: no comparison occurs for empty or single-item inputs, and keys must themselves be comparable.
+- claude: true, simplification. A summary; leaves out other comparison dunders like **gt** or functools.total_ordering.
 - proposed assert:
 
 ```python
@@ -1859,8 +1859,8 @@ assert Child().greet() == "hello world"
 
 - file: w2/c/inheritance/lesson.md
 - why it is here: the two families name different backing (deepseek not-a-fact, claude advice)
-- deepseek: true, not-a-fact. The sentence is an instruction for how to write the exercise's __init__ method, not a factual claim about Python behavior.
-- claude: true, advice. It is a hint on how to write __init__.
+- deepseek: true, not-a-fact. The sentence is an instruction for how to write the exercise's **init** method, not a factual claim about Python behavior.
+- claude: true, advice. It is a hint on how to write **init**.
 
 ## inheritance: text:9 <!-- fp:df34f2e147f1 -->
 
@@ -1868,8 +1868,8 @@ assert Child().greet() == "hello world"
 
 - file: w2/c/inheritance/lesson.md
 - why it is here: verdicts differ or doubt it (deepseek false, claude true)
-- deepseek: false, claim. It is false that the parent's __init__ cannot run without super(): you can call Parent.__init__(self) directly, which sets the attributes and avoids AttributeError. Inherited class attributes also remain available without calling super().__init__().
-- claude: true, claim. If the parent's __init__ sets the attributes and the child never calls it, using them raises AttributeError.
+- deepseek: false, claim. It is false that the parent's **init** cannot run without super(): you can call Parent.**init**(self) directly, which sets the attributes and avoids AttributeError. Inherited class attributes also remain available without calling super().**init**().
+- claude: true, claim. If the parent's **init** sets the attributes and the child never calls it, using them raises AttributeError.
 - proposed assert:
 
 ```python
@@ -1893,8 +1893,8 @@ assert raised
 
 - file: w2/c/inheritance/lesson.md
 - why it is here: the two families name different backing (deepseek not-a-fact, claude advice)
-- deepseek: true, not-a-fact. It is an instruction for fixing the exercise, not a general rule about Python. In this exercise, calling super().__init__(name) is the intended way to let Animal set name.
-- claude: true, advice. It is the fix the exercise expects. Calling Animal.__init__(self, name) would also work, but super() is the recommended way.
+- deepseek: true, not-a-fact. It is an instruction for fixing the exercise, not a general rule about Python. In this exercise, calling super().**init**(name) is the intended way to let Animal set name.
+- claude: true, advice. It is the fix the exercise expects. Calling Animal.**init**(self, name) would also work, but super() is the recommended way.
 
 ## inheritance: remember:0 <!-- fp:7abda6f6888b -->
 
@@ -1918,12 +1918,12 @@ assert issubclass(Owl, Animal)
 
 ## inheritance: remember:3 <!-- fp:bfb857ce5a3a -->
 
-> A child's __init__ must call super().__init__(...), or the parent's attributes are never set.
+> A child's **init** must call super().**init**(...), or the parent's attributes are never set.
 
 - file: w2/c/inheritance/lesson.md
 - why it is here: verdicts differ or doubt it (deepseek false, claude true)
-- deepseek: false, claim. A child that defines __init__ can call Parent.__init__ explicitly or set the attributes another way; only an automatic parent __init__ call is omitted. Also, if the child does not override __init__, the parent's __init__ runs normally.
-- claude: true, simplification. It leaves out that this only matters when the parent's __init__ sets attributes, and that Parent.__init__(self, ...) also works.
+- deepseek: false, claim. A child that defines **init** can call Parent.**init** explicitly or set the attributes another way; only an automatic parent **init** call is omitted. Also, if the child does not override **init**, the parent's **init** runs normally.
+- claude: true, simplification. It leaves out that this only matters when the parent's **init** sets attributes, and that Parent.**init**(self, ...) also works.
 - proposed assert:
 
 ```python
@@ -2229,7 +2229,7 @@ else:
 
 - file: w3/a/functions-as-values/lesson.md
 - why it is here: the two families name different backing (deepseek simplification, claude claim)
-- deepseek: true, simplification. It describes the usual inline use of lambda expressions. It leaves out that the created function object has __name__ '<lambda>' and can be assigned to a name instead of used immediately.
+- deepseek: true, simplification. It describes the usual inline use of lambda expressions. It leaves out that the created function object has **name** '<lambda>' and can be assigned to a name instead of used immediately.
 - claude: true, claim. A lambda is an anonymous function, whose name is just '<lambda>'.
 - proposed assert:
 
@@ -3267,7 +3267,7 @@ assert clf.score(X, y) == 1.0
 - file: w1/a/boss/boss.md
 - why it is here: the two families name different backing (deepseek not-a-fact, claude claim)
 - deepseek: true, not-a-fact. It describes the exercise's stage checks and main-block layout rather than making a single checkable Python claim; the guarded block does run only on direct execution.
-- claude: true, claim. Code under the __main__ guard runs only when the file is run as the main program, not when it is imported.
+- claude: true, claim. Code under the **main** guard runs only when the file is run as the main program, not when it is imported.
 - proposed assert:
 
 ```python
@@ -3413,8 +3413,8 @@ assert parse('') == ('', '')
 
 - file: w2/b/boss/boss.md
 - why it is here: boss text has no claim blocks: move the fact into a lesson or mark it by hand
-- deepseek: true, claim. A dataclass generates __repr__ and __eq__ by default, so the constructor call with those fields gives exactly that repr and compares equal to another Song with the same values.
-- claude: true, claim. A dataclass generates a repr in that form and an __eq__ that compares the fields.
+- deepseek: true, claim. A dataclass generates **repr** and **eq** by default, so the constructor call with those fields gives exactly that repr and compares equal to another Song with the same values.
+- claude: true, claim. A dataclass generates a repr in that form and an **eq** that compares the fields.
 - proposed assert:
 
 ```python
@@ -3436,7 +3436,7 @@ assert Song("Dawn", 90) == Song("Dawn", 90)
 - file: w2/b/boss/boss.md
 - why it is here: boss text has no claim blocks: move the fact into a lesson or mark it by hand
 - deepseek: true, claim. Python's `in` operator calls the object's `__contains__` method when it exists, passing the left-hand value as the argument.
-- claude: true, claim. The `in` operator calls the right operand's __contains__ method.
+- claude: true, claim. The `in` operator calls the right operand's **contains** method.
 - proposed assert:
 
 ```python

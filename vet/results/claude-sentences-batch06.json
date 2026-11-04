@@ -1,285 +1,285 @@
 {
- "model": "claude-sonnet-5-5",
- "replies": [
-  {
-   "fp": "8868e22603fe",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "split() with no argument returns the list of words, and indexing a word at 0 gives its first letter.",
-   "assert": "full_name = 'ada king lovelace'\nassert full_name.split() == ['ada', 'king', 'lovelace']\nword = full_name.split()[1]\nassert word[0] == 'k'"
-  },
-  {
-   "fp": "ae5eaa433e8d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is a hint telling the learner how to solve the exercise.",
-   "assert": null
-  },
-  {
-   "fp": "1d71da6e4811",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "79cd2ea70f4e",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Strings are immutable. Methods do not modify them, and item assignment fails.",
-   "assert": "s = 'abc'\ns.upper()\nassert s == 'abc'\ntry:\n    s[0] = 'x'\n    ok = False\nexcept TypeError:\n    ok = True\nassert ok"
-  },
-  {
-   "fp": "ceb41e308347",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "String methods return a new string and leave the original unchanged.",
-   "assert": "s = 'Hello'\nt = s.upper()\nassert s == 'Hello'\nassert t == 'HELLO'"
-  },
-  {
-   "fp": "289181b5bd33",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes what the exercise function should do. The example is correct.",
-   "assert": null
-  },
-  {
-   "fp": "8511cc020620",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "15d3291f749d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is a guiding question to the learner.",
-   "assert": null
-  },
-  {
-   "fp": "074e3c6d6df5",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "upper() returns a new string, so its result must be kept and then extended with '!'.",
-   "assert": "text = 'hey'\nresult = text.upper()\nresult = result + '!'\nassert result == 'HEY!'\nassert text == 'hey'"
-  },
-  {
-   "fp": "560e0cdb49ea",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes what the exercise function should do. The example is correct.",
-   "assert": null
-  },
-  {
-   "fp": "2ba5548be177",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "da118da9c987",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Chaining strip, lower and replace gives that result.",
-   "assert": "assert ' Python Village '.strip().lower().replace(' ', '-') == 'python-village'"
-  },
-  {
-   "fp": "0358c8664ca7",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is a hint about how to write the solution.",
-   "assert": null
-  },
-  {
-   "fp": "2f61dd98a21d",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "lower() returns a lower-case copy. replace(old, new) returns a copy with every occurrence replaced.",
-   "assert": "s = 'A B A'\nassert s.lower() == 'a b a'\nassert s.replace('A', 'x') == 'x B x'\nassert s == 'A B A'"
-  },
-  {
-   "fp": "0798014d212c",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an instruction.",
-   "assert": null
-  },
-  {
-   "fp": "173b68c0829f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction. The example is correct.",
-   "assert": null
-  },
-  {
-   "fp": "3f23b8671636",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A slice s[1:4] covers indexes 1, 2 and 3, and stops before 4.",
-   "assert": "s = 'abcdef'\nassert s[1:4] == 'bcd'"
-  },
-  {
-   "fp": "ae0626a9008e",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Lists support the same indexing and slicing, with the end index excluded.",
-   "assert": "x = [10, 20, 30, 40, 50]\nassert x[1:4] == [20, 30, 40]\nassert x[0] == 10\nassert x[-1] == 50"
-  },
-  {
-   "fp": "304cf0a1cae2",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Strings are immutable. upper() returns a new string that must be assigned to be kept.",
-   "assert": "s = 'abc'\ns.upper()\nassert s == 'abc'\ns = s.upper()\nassert s == 'ABC'"
-  },
-  {
-   "fp": "5161ad5d42d5",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "split() with no argument returns a list of whitespace-separated words, and strip() removes whitespace (spaces and newlines) from both ends.",
-   "assert": "assert 'a b  c'.split() == ['a', 'b', 'c']\nassert '  hi\\n'.strip() == 'hi'"
-  },
-  {
-   "fp": "5a5c0a9b5100",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "A traceback is printed only when the exception is not caught. It leaves out that handled exceptions print nothing.",
-   "assert": null
-  },
-  {
-   "fp": "a9febbccc506",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "It recommends how to read a traceback. The last line holds the error type and message, and the lines above show the call path.",
-   "assert": null
-  },
-  {
-   "fp": "809b403f6b98",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Each example raises the named error.",
-   "assert": "try:\n    undefined_name_xyz\nexcept NameError:\n    pass\nelse:\n    raise AssertionError\ntry:\n    '3' + 4\nexcept TypeError:\n    pass\nelse:\n    raise AssertionError\ntry:\n    int('abc')\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError\ntry:\n    [1][5]\nexcept IndexError:\n    pass\nelse:\n    raise AssertionError\ntry:\n    {}['k']\nexcept KeyError:\n    pass\nelse:\n    raise AssertionError"
-  },
-  {
-   "fp": "8f9ad33b3734",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "An except clause handles only the named error type (and its subclasses). Other errors pass through.",
-   "assert": "try:\n    try:\n        int('abc')\n    except TypeError:\n        handled = True\nexcept ValueError:\n    handled = False\nassert handled is False\ntry:\n    1 / 0\nexcept ZeroDivisionError:\n    handled = True\nassert handled"
-  },
-  {
-   "fp": "4b15bd6e128a",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "725c97f09a2d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "2daf6b471ed9",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "Dividing by zero raises ZeroDivisionError.",
-   "assert": "try:\n    1 / 0\nexcept ZeroDivisionError:\n    ok = True\nassert ok\ntry:\n    1 // 0\nexcept ZeroDivisionError:\n    ok = True\nassert ok"
-  },
-  {
-   "fp": "7c1f869d72aa",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is a hint on how to structure the solution.",
-   "assert": null
-  },
-  {
-   "fp": "537eee86cb7d",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "0dad1440e325",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "5bd91c7fcbe5",
-   "status": "claim",
-   "verdict": "true",
-   "reason": "A bare except catches every exception, including the NameError caused by a mistyped variable name.",
-   "assert": "def f():\n    value = 1\n    try:\n        return valeu\n    except:\n        return None\nassert f() is None"
-  },
-  {
-   "fp": "a9226c5b9aec",
-   "status": "simplification",
-   "verdict": "true",
-   "reason": "It describes the typical outcome of a bare except hiding a bug. It does not always give a wrong answer, but the error is hidden.",
-   "assert": null
-  },
-  {
-   "fp": "e20fe8320486",
-   "status": "advice",
-   "verdict": "true",
-   "reason": "It is a recommendation to catch specific exceptions only.",
-   "assert": null
-  },
-  {
-   "fp": "4a5e4b6b16e9",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "1c31281a127f",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the bug in the exercise's starter code, not Python behaviour.",
-   "assert": null
-  },
-  {
-   "fp": "d77f8d507aca",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is an exercise instruction.",
-   "assert": null
-  },
-  {
-   "fp": "011987485a77",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is a debugging instruction with a guiding question.",
-   "assert": null
-  },
-  {
-   "fp": "322fd7303141",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "This is a hint for the exercise's fix.",
-   "assert": null
-  },
-  {
-   "fp": "7fa512ac7af0",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes what the exercise function should do.",
-   "assert": null
-  },
-  {
-   "fp": "ac12ccde5a95",
-   "status": "not-a-fact",
-   "verdict": "true",
-   "reason": "It describes the starter code's bug and tells the learner what to do.",
-   "assert": null
-  }
- ]
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "8868e22603fe",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "split() with no argument returns the list of words, and indexing a word at 0 gives its first letter.",
+      "assert": "full_name = 'ada king lovelace'\nassert full_name.split() == ['ada', 'king', 'lovelace']\nword = full_name.split()[1]\nassert word[0] == 'k'"
+    },
+    {
+      "fp": "ae5eaa433e8d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a hint telling the learner how to solve the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "1d71da6e4811",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "79cd2ea70f4e",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Strings are immutable. Methods do not modify them, and item assignment fails.",
+      "assert": "s = 'abc'\ns.upper()\nassert s == 'abc'\ntry:\n    s[0] = 'x'\n    ok = False\nexcept TypeError:\n    ok = True\nassert ok"
+    },
+    {
+      "fp": "ceb41e308347",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "String methods return a new string and leave the original unchanged.",
+      "assert": "s = 'Hello'\nt = s.upper()\nassert s == 'Hello'\nassert t == 'HELLO'"
+    },
+    {
+      "fp": "289181b5bd33",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes what the exercise function should do. The example is correct.",
+      "assert": null
+    },
+    {
+      "fp": "8511cc020620",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "15d3291f749d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a guiding question to the learner.",
+      "assert": null
+    },
+    {
+      "fp": "074e3c6d6df5",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "upper() returns a new string, so its result must be kept and then extended with '!'.",
+      "assert": "text = 'hey'\nresult = text.upper()\nresult = result + '!'\nassert result == 'HEY!'\nassert text == 'hey'"
+    },
+    {
+      "fp": "560e0cdb49ea",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes what the exercise function should do. The example is correct.",
+      "assert": null
+    },
+    {
+      "fp": "2ba5548be177",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "da118da9c987",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Chaining strip, lower and replace gives that result.",
+      "assert": "assert ' Python Village '.strip().lower().replace(' ', '-') == 'python-village'"
+    },
+    {
+      "fp": "0358c8664ca7",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a hint about how to write the solution.",
+      "assert": null
+    },
+    {
+      "fp": "2f61dd98a21d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "lower() returns a lower-case copy. replace(old, new) returns a copy with every occurrence replaced.",
+      "assert": "s = 'A B A'\nassert s.lower() == 'a b a'\nassert s.replace('A', 'x') == 'x B x'\nassert s == 'A B A'"
+    },
+    {
+      "fp": "0798014d212c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an instruction.",
+      "assert": null
+    },
+    {
+      "fp": "173b68c0829f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction. The example is correct.",
+      "assert": null
+    },
+    {
+      "fp": "3f23b8671636",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A slice s[1:4] covers indexes 1, 2 and 3, and stops before 4.",
+      "assert": "s = 'abcdef'\nassert s[1:4] == 'bcd'"
+    },
+    {
+      "fp": "ae0626a9008e",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Lists support the same indexing and slicing, with the end index excluded.",
+      "assert": "x = [10, 20, 30, 40, 50]\nassert x[1:4] == [20, 30, 40]\nassert x[0] == 10\nassert x[-1] == 50"
+    },
+    {
+      "fp": "304cf0a1cae2",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Strings are immutable. upper() returns a new string that must be assigned to be kept.",
+      "assert": "s = 'abc'\ns.upper()\nassert s == 'abc'\ns = s.upper()\nassert s == 'ABC'"
+    },
+    {
+      "fp": "5161ad5d42d5",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "split() with no argument returns a list of whitespace-separated words, and strip() removes whitespace (spaces and newlines) from both ends.",
+      "assert": "assert 'a b  c'.split() == ['a', 'b', 'c']\nassert '  hi\\n'.strip() == 'hi'"
+    },
+    {
+      "fp": "5a5c0a9b5100",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "A traceback is printed only when the exception is not caught. It leaves out that handled exceptions print nothing.",
+      "assert": null
+    },
+    {
+      "fp": "a9febbccc506",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "It recommends how to read a traceback. The last line holds the error type and message, and the lines above show the call path.",
+      "assert": null
+    },
+    {
+      "fp": "809b403f6b98",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Each example raises the named error.",
+      "assert": "try:\n    undefined_name_xyz\nexcept NameError:\n    pass\nelse:\n    raise AssertionError\ntry:\n    '3' + 4\nexcept TypeError:\n    pass\nelse:\n    raise AssertionError\ntry:\n    int('abc')\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError\ntry:\n    [1][5]\nexcept IndexError:\n    pass\nelse:\n    raise AssertionError\ntry:\n    {}['k']\nexcept KeyError:\n    pass\nelse:\n    raise AssertionError"
+    },
+    {
+      "fp": "8f9ad33b3734",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "An except clause handles only the named error type (and its subclasses). Other errors pass through.",
+      "assert": "try:\n    try:\n        int('abc')\n    except TypeError:\n        handled = True\nexcept ValueError:\n    handled = False\nassert handled is False\ntry:\n    1 / 0\nexcept ZeroDivisionError:\n    handled = True\nassert handled"
+    },
+    {
+      "fp": "4b15bd6e128a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "725c97f09a2d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "2daf6b471ed9",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Dividing by zero raises ZeroDivisionError.",
+      "assert": "try:\n    1 / 0\nexcept ZeroDivisionError:\n    ok = True\nassert ok\ntry:\n    1 // 0\nexcept ZeroDivisionError:\n    ok = True\nassert ok"
+    },
+    {
+      "fp": "7c1f869d72aa",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a hint on how to structure the solution.",
+      "assert": null
+    },
+    {
+      "fp": "537eee86cb7d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "0dad1440e325",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "5bd91c7fcbe5",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A bare except catches every exception, including the NameError caused by a mistyped variable name.",
+      "assert": "def f():\n    value = 1\n    try:\n        return valeu\n    except:\n        return None\nassert f() is None"
+    },
+    {
+      "fp": "a9226c5b9aec",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "It describes the typical outcome of a bare except hiding a bug. It does not always give a wrong answer, but the error is hidden.",
+      "assert": null
+    },
+    {
+      "fp": "e20fe8320486",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "It is a recommendation to catch specific exceptions only.",
+      "assert": null
+    },
+    {
+      "fp": "4a5e4b6b16e9",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "1c31281a127f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the bug in the exercise's starter code, not Python behaviour.",
+      "assert": null
+    },
+    {
+      "fp": "d77f8d507aca",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "011987485a77",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a debugging instruction with a guiding question.",
+      "assert": null
+    },
+    {
+      "fp": "322fd7303141",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a hint for the exercise's fix.",
+      "assert": null
+    },
+    {
+      "fp": "7fa512ac7af0",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "ac12ccde5a95",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the starter code's bug and tells the learner what to do.",
+      "assert": null
+    }
+  ]
 }
