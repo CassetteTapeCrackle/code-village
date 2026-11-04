@@ -23,7 +23,7 @@ fingerprint = "4927f9797424"
 [[gap]]
 rule = "blind-missing"
 item = "lost-satchel"
-fingerprint = "a452bd94cfec"
+fingerprint = "7d89a1065dd1"
 
 [[gap]]
 rule = "blind-missing"
@@ -68,7 +68,7 @@ fingerprint = "7b1cb790f6ac"
 [[gap]]
 rule = "cases-missing"
 item = "lost-satchel"
-fingerprint = "a452bd94cfec"
+fingerprint = "7d89a1065dd1"
 
 [[gap]]
 rule = "cases-missing"
@@ -433,7 +433,7 @@ fingerprint = "54410c019459"
 [[gap]]
 rule = "fence-untyped"
 item = "lost-satchel"
-fingerprint = "a452bd94cfec"
+fingerprint = "7d89a1065dd1"
 
 [[gap]]
 rule = "ledger-missing"
@@ -558,7 +558,7 @@ fingerprint = "d58548f01d4b"
 [[gap]]
 rule = "ledger-missing"
 item = "lost-satchel"
-fingerprint = "a452bd94cfec"
+fingerprint = "7d89a1065dd1"
 
 [[gap]]
 rule = "ledger-missing"
@@ -933,7 +933,7 @@ fingerprint = "7b1cb790f6ac"
 [[gap]]
 rule = "right-missing"
 item = "lost-satchel"
-fingerprint = "a452bd94cfec"
+fingerprint = "7d89a1065dd1"
 
 [[gap]]
 rule = "right-missing"
@@ -1188,7 +1188,7 @@ fingerprint = "7b1cb790f6ac"
 [[gap]]
 rule = "wrong-too-few"
 item = "lost-satchel"
-fingerprint = "a452bd94cfec"
+fingerprint = "7d89a1065dd1"
 
 [[gap]]
 rule = "wrong-too-few"
