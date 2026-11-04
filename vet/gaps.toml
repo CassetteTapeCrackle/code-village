@@ -1167,18 +1167,13 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "right-missing"
-item = "methods-notebook"
-fingerprint = "2cfb6a6ff671"
-
-[[gap]]
-rule = "right-missing"
 item = "methods-oven"
 fingerprint = "7e804aff88af"
 
 [[gap]]
 rule = "right-missing"
 item = "methods-tally"
-fingerprint = "722f22f085f9"
+fingerprint = "f92255f14aea"
 
 [[gap]]
 rule = "right-missing"
@@ -1857,18 +1852,13 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "methods-notebook"
-fingerprint = "2cfb6a6ff671"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "methods-oven"
 fingerprint = "7e804aff88af"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "methods-tally"
-fingerprint = "722f22f085f9"
+fingerprint = "f92255f14aea"
 
 [[gap]]
 rule = "wrong-too-few"
