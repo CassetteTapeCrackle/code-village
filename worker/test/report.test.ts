@@ -4,6 +4,7 @@ import { MAX_CODE_CHARS } from "../../src/sync/events";
 import type { Deps } from "../src/env";
 import { openGithubIssue } from "../src/github";
 import { LIMITS } from "../src/limits";
+import { UNTRUSTED_NOTICE } from "../src/routes/report";
 import { handle } from "../src/router";
 
 const NOW = new Date("2026-10-15T12:00:00Z");
@@ -79,6 +80,8 @@ test("a button report is stored and opens one issue", async () => {
   expect(await reportCount()).toBe(1);
   expect(opened).toHaveLength(1);
   expect(opened[0].title).toContain(TASK);
+  // agents read these issues: the learner's text must arrive marked as data, before any of it
+  expect(opened[0].body.split("\n")[0]).toBe(UNTRUSTED_NOTICE);
   expect(opened[0].body).toContain("print('hi')");
   expect(opened[0].body).toContain("Check refused this");
   expect(opened[0].labels).toContain("report");
