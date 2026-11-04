@@ -952,11 +952,6 @@ fingerprint = "a185c4199374"
 
 [[gap]]
 rule = "right-missing"
-item = "functions-as-values-compose"
-fingerprint = "8bbadcc9f1d4"
-
-[[gap]]
-rule = "right-missing"
 item = "functions-as-values-keep-long"
 fingerprint = "4c1b34a90cfb"
 
@@ -973,7 +968,7 @@ fingerprint = "3ca647df292c"
 [[gap]]
 rule = "right-missing"
 item = "functions-as-values-twice"
-fingerprint = "53cf5ef6b2e2"
+fingerprint = "455d2f2d6eba"
 
 [[gap]]
 rule = "right-missing"
@@ -1482,11 +1477,6 @@ fingerprint = "a185c4199374"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "functions-as-values-compose"
-fingerprint = "8bbadcc9f1d4"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "functions-as-values-keep-long"
 fingerprint = "4c1b34a90cfb"
 
@@ -1503,7 +1493,7 @@ fingerprint = "3ca647df292c"
 [[gap]]
 rule = "wrong-too-few"
 item = "functions-as-values-twice"
-fingerprint = "53cf5ef6b2e2"
+fingerprint = "455d2f2d6eba"
 
 [[gap]]
 rule = "wrong-too-few"
