@@ -82,11 +82,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "search-sort-rank"
-fingerprint = "35ced29c1b29"
-
-[[gap]]
-rule = "cases-missing"
 item = "songbird-playlist"
 fingerprint = "40a435d0e3c4"
 
