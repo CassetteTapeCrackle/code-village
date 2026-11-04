@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "functions-greeting"
-fingerprint = "badd5cc69b8e"
-
-[[gap]]
-rule = "cases-missing"
 item = "functions-power"
 fingerprint = "dbcd3ca497df"
 
@@ -1643,7 +1638,7 @@ fingerprint = "0d804e5079f9"
 [[gap]]
 rule = "right-missing"
 item = "functions-greeting"
-fingerprint = "badd5cc69b8e"
+fingerprint = "eeddfbfda550"
 
 [[gap]]
 rule = "right-missing"
@@ -2898,7 +2893,7 @@ fingerprint = "0d804e5079f9"
 [[gap]]
 rule = "wrong-too-few"
 item = "functions-greeting"
-fingerprint = "badd5cc69b8e"
+fingerprint = "eeddfbfda550"
 
 [[gap]]
 rule = "wrong-too-few"
