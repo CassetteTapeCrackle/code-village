@@ -1,54 +1,54 @@
 {
-  "fingerprint": "bb8a89cd9010",
+  "fingerprint": "a8025aa290af",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
