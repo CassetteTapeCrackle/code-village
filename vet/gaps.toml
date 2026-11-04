@@ -52,11 +52,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "comprehensions-numbered"
-fingerprint = "77ec0dda752c"
-
-[[gap]]
-rule = "cases-missing"
 item = "comprehensions-pair-up"
 fingerprint = "cb6d93b8dc15"
 
@@ -1608,7 +1603,7 @@ fingerprint = "f1f49b108e4f"
 [[gap]]
 rule = "right-missing"
 item = "comprehensions-numbered"
-fingerprint = "77ec0dda752c"
+fingerprint = "a0c1a45fd22b"
 
 [[gap]]
 rule = "right-missing"
@@ -2863,7 +2858,7 @@ fingerprint = "f1f49b108e4f"
 [[gap]]
 rule = "wrong-too-few"
 item = "comprehensions-numbered"
-fingerprint = "77ec0dda752c"
+fingerprint = "a0c1a45fd22b"
 
 [[gap]]
 rule = "wrong-too-few"
