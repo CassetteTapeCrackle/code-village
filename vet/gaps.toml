@@ -1052,11 +1052,6 @@ fingerprint = "e032ab4f0116"
 
 [[gap]]
 rule = "right-missing"
-item = "inheritance-squirrel"
-fingerprint = "9a346293761f"
-
-[[gap]]
-rule = "right-missing"
 item = "io-double"
 fingerprint = "7a290e687090"
 
@@ -1679,11 +1674,6 @@ fingerprint = "a58334b0ed28"
 rule = "wrong-too-few"
 item = "identity-without-note"
 fingerprint = "e032ab4f0116"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "inheritance-squirrel"
-fingerprint = "9a346293761f"
 
 [[gap]]
 rule = "wrong-too-few"
