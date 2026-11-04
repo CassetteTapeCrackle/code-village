@@ -967,18 +967,13 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "right-missing"
-item = "pandas-tables-taller"
-fingerprint = "8379c26fa649"
-
-[[gap]]
-rule = "right-missing"
 item = "pandas-tables-tallest"
 fingerprint = "9ef054920fc6"
 
 [[gap]]
 rule = "right-missing"
 item = "pandas-tables-team"
-fingerprint = "50eaa30dbf3b"
+fingerprint = "8d925b1ba02b"
 
 [[gap]]
 rule = "right-missing"
@@ -1302,18 +1297,13 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "pandas-tables-taller"
-fingerprint = "8379c26fa649"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "pandas-tables-tallest"
 fingerprint = "9ef054920fc6"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "pandas-tables-team"
-fingerprint = "50eaa30dbf3b"
+fingerprint = "8d925b1ba02b"
 
 [[gap]]
 rule = "wrong-too-few"
