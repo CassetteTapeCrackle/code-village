@@ -699,7 +699,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   <base>...HEAD`; content files map to their item ids; changes in `py/`, `src/runner/`, `src/lesson/`,
   `tools/vet/` give `"sample"` (one item per lesson); changes in `e2e/generated*` give `"all"`.
 
-- [ ] **Step 1 to 4:** Tests, fail, implement, pass. Commit.
+- [x] **Step 1 to 4:** Tests, fail, implement, pass. Commit.
 
 ### Task 8.2: Generated specs
 

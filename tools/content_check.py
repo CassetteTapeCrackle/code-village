@@ -25,6 +25,7 @@ from vet.cache import CACHE_ROOT, use_report
 from vet.cases.expect import CasesProblem, hidden_cases
 from vet.checks import mutation
 from vet.checks.libraries import PYODIDE_LOCK, build_python, environment_problems
+from vet.e2e_items import write_items
 from vet.finding import Finding, GapKey
 from vet.gaps import GAPS_PATH, GapDiff, compare, load_gaps, world_summary
 from vet.jobs import write_jobs
@@ -192,6 +193,7 @@ def main() -> None:
     args.add_argument("--quick", action="store_true", help=f"leave out the slow rules: {', '.join(sorted(SLOW_RULES))}")
     args.add_argument("--if-changed", action="store_true")
     args.add_argument("--jobs-out", help="also write every runtime verdict here, for pnpm vet:pyodide")
+    args.add_argument("--items-out", help="also write the items the generated browser tests cover here")
     opts = args.parse_args()
     out = Path(opts.out)
     stamp = out.with_name(out.name + ".sha256")
@@ -223,6 +225,8 @@ def main() -> None:
     stamp.write_text(writes)
     if opts.jobs_out:
         print(f"pyodide jobs: {write_jobs(content, adapter, Path(opts.jobs_out))} -> {opts.jobs_out}")
+    if opts.items_out:
+        print(f"e2e items: {write_items(content, Path(opts.items_out))} -> {opts.items_out}")
     skipped = f" (quick: {', '.join(sorted(SLOW_RULES))} not checked)" if opts.quick else ""
     print(f"content ok: {len(content.lessons)} lesson(s), {len(content.tasks)} task(s), {len(content.bosses)} boss(es)"
           f" -> {out}{skipped}")
