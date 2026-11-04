@@ -1,0 +1,35 @@
+{
+  "job": "sentences",
+  "sentences": [
+    {
+      "fp": "15427b090620",
+      "text": "`elif` tries another condition, and `else` catches everything left.",
+      "where": "text:3",
+      "paragraph": "`if` runs its indented block only when its condition is `True`. `elif` tries another condition, and `else` catches everything left. Only the first branch that matches runs."
+    },
+    {
+      "fp": "a61015c6df1a",
+      "text": "append, remove and sort change the list itself and return None.",
+      "where": "remember:1",
+      "paragraph": "append, remove and sort change the list itself and return None."
+    },
+    {
+      "fp": "2007bbfa77de",
+      "text": "`super()` reaches the parent's version, so the child can add to it instead of starting over.",
+      "where": "text:5",
+      "paragraph": "`super()` reaches the parent's version, so the child can add to it instead of starting over."
+    },
+    {
+      "fp": "98d39d66b132",
+      "text": "`map` and `filter` from the last lesson work the same way, which is why they needed `list()` to show their results.",
+      "where": "text:8",
+      "paragraph": "`map` and `filter` from the last lesson work the same way, which is why they needed `list()` to show their results."
+    },
+    {
+      "fp": "75a13d00fe2d",
+      "text": "`train_test_split` shuffles the rows and splits them into a **training** part to `fit` on and a **test** part to `score` on.",
+      "where": "text:5",
+      "paragraph": "But which examples should you ask about? Not the ones it learned from: that is like giving a class the exam's answers the day before. Keep some examples aside. `train_test_split` shuffles the rows and splits them into a **training** part to `fit` on and a **test** part to `score` on. `random_state` fixes the shuffle, so every run gives the same split (and the same results)."
+    }
+  ]
+}
