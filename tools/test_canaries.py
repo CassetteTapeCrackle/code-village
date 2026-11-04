@@ -15,6 +15,9 @@ from vet.rules import RULES
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 CANARIES = FIXTURES / "canaries"
+HELDOUT = FIXTURES / "canaries-heldout"  # written by a reviewer who never saw the checker or the canaries above
+# the failure classes a held-out canary may name, as the severities of the rules that belong to them
+FAILURE_CLASSES = ("false-claim", "wrong-accepted", "right-refused", "ambiguous", "progression", "wiring")
 
 
 def materialize(canary_dir: Path, into: Path) -> Path:
@@ -51,6 +54,17 @@ def found_rules(canary_dir: Path) -> set[str]:
         return {f.rule for f in vet(materialize(canary_dir, Path(into)), only=targets)}
 
 
+def heldout_dirs() -> list[Path]:
+    return sorted(p.parent for p in HELDOUT.glob("round-*/*/canary.toml"))
+
+
+def caught_classes(canary_dir: Path) -> set[str]:
+    """The failure classes of every finding a held-out canary gives when all checks run. A finding that only says a
+    file cannot be read (severity data) is not a catch."""
+    with tempfile.TemporaryDirectory() as into:
+        return {RULES[f.rule].severity for f in vet(materialize(canary_dir, Path(into))) if f.rule in RULES}
+
+
 class Canaries(unittest.TestCase):
     def test_good_fixture_has_no_findings(self) -> None:
         self.assertEqual(vet(FIXTURES / "good"), [])
@@ -64,6 +78,20 @@ class Canaries(unittest.TestCase):
         for canary_dir, rules in found.items():
             with self.subTest(canary=str(canary_dir.relative_to(CANARIES))):
                 self.assertEqual(rules, expected_rules(canary_dir))
+
+    def test_heldout_canaries_are_caught(self) -> None:
+        dirs = heldout_dirs()
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            caught = dict(zip(dirs, pool.map(caught_classes, dirs), strict=True))
+        for canary_dir, classes in caught.items():
+            with self.subTest(canary=str(canary_dir.relative_to(HELDOUT))):
+                self.assertLessEqual(expected_rules(canary_dir), classes, "the checker missed this planted defect")
+
+    def test_heldout_canaries_name_a_failure_class(self) -> None:
+        for canary_dir in heldout_dirs():
+            with self.subTest(canary=str(canary_dir.relative_to(HELDOUT))):
+                self.assertTrue(expected_rules(canary_dir))
+                self.assertEqual(sorted(expected_rules(canary_dir) - set(FAILURE_CLASSES)), [])
 
     def test_every_rule_has_a_canary(self) -> None:
         covered = set().union(*(expected_rules(d) for d in canary_dirs()))
