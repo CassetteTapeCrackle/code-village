@@ -1,0 +1,19 @@
+def parse_line(line):
+    name, rest = line.split(":")
+    marks = []
+    for piece in rest.split(","):
+        if piece.strip():
+            marks.append(int(piece))
+    return name.strip(), marks
+
+
+def average(marks):
+    if not marks:
+        return 0.0
+    return round(sum(marks) / len(marks), 2)
+
+
+def ranking(lines):
+    rows = [parse_line(line) for line in lines if line.strip()]
+    pairs = [(name, average(marks)) for name, marks in rows]
+    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))

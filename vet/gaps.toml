@@ -43,7 +43,7 @@ fingerprint = "cc97ac610bf9"
 [[gap]]
 rule = "blind-untriaged"
 item = "gradebook"
-fingerprint = "97bacf4256e1"
+fingerprint = "cae230417663"
 
 [[gap]]
 rule = "blind-untriaged"
@@ -58,7 +58,7 @@ fingerprint = "cc97ac610bf9"
 [[gap]]
 rule = "cases-missing"
 item = "gradebook"
-fingerprint = "97bacf4256e1"
+fingerprint = "cae230417663"
 
 [[gap]]
 rule = "cases-missing"
@@ -508,7 +508,7 @@ fingerprint = "0a770deacc45"
 [[gap]]
 rule = "ledger-missing"
 item = "gradebook"
-fingerprint = "97bacf4256e1"
+fingerprint = "cae230417663"
 
 [[gap]]
 rule = "ledger-missing"
@@ -708,7 +708,7 @@ fingerprint = "dd06d5298882"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "gradebook"
-fingerprint = "97bacf4256e1"
+fingerprint = "cae230417663"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -914,11 +914,6 @@ fingerprint = "3b4ca71f2827"
 rule = "remember-unbacked"
 item = "values"
 fingerprint = "54410c019459"
-
-[[gap]]
-rule = "right-missing"
-item = "gradebook"
-fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "right-missing"
@@ -1164,11 +1159,6 @@ fingerprint = "a1791ab22a84"
 rule = "weak-tests"
 item = "testing-total-test"
 fingerprint = "8216e418d98f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "gradebook"
-fingerprint = "97bacf4256e1"
 
 [[gap]]
 rule = "wrong-too-few"
