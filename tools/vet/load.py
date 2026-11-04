@@ -50,6 +50,7 @@ FRONT_MATTER_PARTS = 3  # nothing before the first +++, the TOML, then the body
 MIN_STAGES, MAX_STAGES = 3, 5  # the game's boss screen is drawn for 3 to 5 stages
 KINDS = {"write", "fix", "complete"}
 FENCE = re.compile(r"^```python (example|predict|claim)((?: (?:min|id)=\S+)*)\n(.*?)^```\n", re.S | re.M)
+CLAIM_FENCE = re.compile(r"^```python claim(?: (?:min|id)=\S+)*\n.*?^```\n", re.S | re.M)
 TASK_LINE = re.compile(r"^::task ([\w-]+)\s*$", re.M)
 CODE_KINDS: dict[str, CodeKind] = {"example": "example", "predict": "predict", "claim": "claim"}
 BLOCK = re.compile(FENCE.pattern + "|" + TASK_LINE.pattern, re.S | re.M)
@@ -221,6 +222,12 @@ def _load_ledger(path: Path, where: str, report: Report) -> tuple[LedgerEntry, .
     return tuple(entries)
 
 
+def _without_claims(lesson_text: str) -> str:
+    """The lesson as learners and blind solvers see it: a claim block backs a sentence and must not re-pin the
+    lesson's tasks, like ledger.toml."""
+    return re.sub(r"\n{3,}", "\n\n", CLAIM_FENCE.sub("", lesson_text))
+
+
 def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Finding]]:
     where = str(lesson_md.parent.relative_to(root))
     text = lesson_md.read_text()
@@ -243,7 +250,7 @@ def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Findi
             report.add("task-folder-missing", where, f"::task {block} has no folder", lesson_md)
             continue
         placed.add(block)
-        task, found = _load_task(folder, text, root)
+        task, found = _load_task(folder, _without_claims(text), root)
         report.findings += found
         if task:
             blocks.append(TaskBlock(task))

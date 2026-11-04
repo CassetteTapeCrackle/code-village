@@ -49,6 +49,16 @@ class Accepting(unittest.TestCase):
         self.assertIn(f"{SENTENCE}\n\n```python claim id=auto-{FP}\n{PASSING}\n```\n", lesson)
         self.assertEqual(findings, [])
 
+    def test_a_claim_block_keeps_the_task_fingerprints(self) -> None:
+        # blind-solver runs and gaps are pinned to these; a hidden claim must not make them stale
+        with content_copy() as content:
+            with_new_sentence(content)
+            before = {item.id: item.fingerprint for item in load_content(content)[0].items()}
+            write(run_merge(content, reply(), reply()), content.parent / "triage.md")
+            after = {item.id: item.fingerprint for item in load_content(content)[0].items()}
+        self.assertTrue(before)
+        self.assertEqual(before, after)
+
     def test_advice_is_accepted_without_a_claim_block(self) -> None:
         with content_copy() as content:
             with_new_sentence(content)
