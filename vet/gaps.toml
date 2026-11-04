@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "functions-as-values-prices"
-fingerprint = "6da763269b28"
-
-[[gap]]
-rule = "cases-missing"
 item = "functions-as-values-twice"
 fingerprint = "53cf5ef6b2e2"
 
@@ -1078,7 +1073,7 @@ fingerprint = "1229ced7a274"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "functions-as-values-prices"
-fingerprint = "6da763269b28"
+fingerprint = "3ca647df292c"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1643,7 +1638,7 @@ fingerprint = "1229ced7a274"
 [[gap]]
 rule = "right-missing"
 item = "functions-as-values-prices"
-fingerprint = "6da763269b28"
+fingerprint = "3ca647df292c"
 
 [[gap]]
 rule = "right-missing"
@@ -2898,7 +2893,7 @@ fingerprint = "1229ced7a274"
 [[gap]]
 rule = "wrong-too-few"
 item = "functions-as-values-prices"
-fingerprint = "6da763269b28"
+fingerprint = "3ca647df292c"
 
 [[gap]]
 rule = "wrong-too-few"
