@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .adapter import LanguageAdapter, ToolError
 from .checks import (
+    blind,
     bosses,
     cases,
     claims,
@@ -64,6 +65,7 @@ CHECKS: list[Check] = [
                                      "unknown-feature", "field-missing"})),
     Check(ledger.check, frozenset({"ledger-missing", "ledger-stale", "claim-id-unknown", "claim-id-missing",
                                    "doc-anchor-missing", "remember-unbacked", "fence-untyped", "field-invalid"})),
+    Check(blind.check, frozenset({"blind-missing", "blind-untriaged", "blind-too-strict", "blind-disagrees"})),
     Check(versions.check, frozenset({"version-differs"})),
     Check(versions.check_min, frozenset({"min-unexplained"})),
 ]

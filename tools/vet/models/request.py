@@ -12,7 +12,9 @@ import sys
 import urllib.request
 from collections.abc import Callable
 from pathlib import Path
+from typing import cast
 
+from . import blind_solve
 from .deepseek import DeepSeekError
 from .logs import emit_files
 from .review_sentences import mostly_failed, run_file
@@ -47,8 +49,21 @@ def run_sentences(request: dict[str, object], out: Path) -> None:
         sys.exit("sentences: most calls failed: the results are written, but do not trust the run")
 
 
-JOBS: dict[str, Callable[[dict[str, object], Path], None]] = {"inventory": run_inventory,
-                                                              "sentences": run_sentences}
+def run_blind(request: dict[str, object], out: Path) -> None:
+    """Five DeepSeek attempts per item; the session runs them, so only the code comes back."""
+    try:
+        result = blind_solve.run_file(request, out / "blind-raw.json")
+    except DeepSeekError as e:
+        sys.exit(f"blind: {e}")
+    items, calls = len(cast(list[object], result["items"])), result["calls"]
+    failed = int(str(result["failed"]))
+    print(f"blind: {items} items, {calls} calls, {failed} failed, {result['tokens']} tokens, {result['seconds']} s")
+    if failed * 2 > items * len(blind_solve.ATTEMPTS):
+        sys.exit("blind: most calls failed: the results are written, but do not trust the run")
+
+
+JOBS: dict[str, Callable[[dict[str, object], Path], None]] = {"inventory": run_inventory, "sentences": run_sentences,
+                                                              "blind": run_blind}
 
 
 def main() -> None:

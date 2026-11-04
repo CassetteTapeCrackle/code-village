@@ -211,6 +211,23 @@ severity = "false-claim"
 summary = "A Python code fence is not an example, predict or claim block, so nothing runs it."
 severity = "false-claim"
 
+# Blind solvers: a model that reads only what a learner reads
+[rule.blind-missing]
+summary = "No stored blind-solver run for this version of the item."
+severity = "ambiguous"
+
+[rule.blind-untriaged]
+summary = "A blind-solver attempt fails a test and nobody has said whether the prompt, a test or the model is wrong."
+severity = "ambiguous"
+
+[rule.blind-too-strict]
+summary = "A blind-solver attempt fails a visible test yet passes every hidden case: the test is probably too strict."
+severity = "right-refused"
+
+[rule.blind-disagrees]
+summary = "A blind-solver attempt passes every test but differs from the solution on the fuzz inputs."
+severity = "ambiguous"
+
 # Data: files the loader cannot use
 [rule.file-unreadable]
 summary = "A content file is missing, cannot be parsed, or lacks its +++ front matter."

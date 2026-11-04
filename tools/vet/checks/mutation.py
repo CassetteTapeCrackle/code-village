@@ -53,7 +53,7 @@ def _first_verdict(outcomes: Sequence[CheckOutcome | None]) -> Verdict | None:
     return None
 
 
-def _difference(outcome: CheckOutcome | None) -> str | None:
+def difference(outcome: CheckOutcome | None) -> str | None:
     """How a mutant differs from the solution on the fuzz cases; None when it agrees on every one."""
     if outcome is None:
         return "it runs out of time on the fuzz inputs"
@@ -130,7 +130,7 @@ class _Run:
         found: list[tuple[str | None, bool]] = []
         for (group, _), suite in zip(survivors, per_survivor, strict=True):
             ran = [next(outcomes) for _ in suite]
-            differences = [d for d in map(_difference, ran) if d]
+            differences = [d for d in map(difference, ran) if d]
             if any(id(item) in unbuilt for item in group):
                 differences.append(f"its {FUZZ_COUNT} fuzz inputs could not be built (the solution ran out of time "
                                    "or crashed on them), so it cannot be told apart from an equivalent mutant")
