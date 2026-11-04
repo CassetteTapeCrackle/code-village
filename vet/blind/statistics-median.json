@@ -1,54 +1,54 @@
 {
-  "fingerprint": "1e80fb9f40ac",
+  "fingerprint": "944b5f96b7ac",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def median(values):\n    ordered = sorted(values)\n    n = len(ordered)\n    mid = n // 2\n    if n % 2 == 1:\n        return ordered[mid]\n    return (ordered[mid - 1] + ordered[mid]) / 2\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def median(values):\n    ordered = sorted(values)\n    n = len(ordered)\n    middle = n // 2\n    if n % 2 == 1:\n        return ordered[middle]\n    return (ordered[middle - 1] + ordered[middle]) / 2\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def median(values):\n    ordered = sorted(values)\n    n = len(ordered)\n    middle = n // 2\n    if n % 2 == 1:\n        return ordered[middle]\n    return (ordered[middle - 1] + ordered[middle]) / 2\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def median(values):\n    ordered = sorted(values)\n    n = len(ordered)\n    middle = n // 2\n    if n % 2 == 1:\n        return ordered[middle]\n    return (ordered[middle - 1] + ordered[middle]) / 2\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def median(values):\n    ordered = sorted(values)\n    n = len(ordered)\n    middle = n // 2\n\n    if n % 2 == 1:\n        return ordered[middle]\n\n    return (ordered[middle - 1] + ordered[middle]) / 2\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
