@@ -53,13 +53,33 @@ class Blind(unittest.TestCase):
                 {"fingerprint": "old", "attempts": [attempt], "triage": [kept]}))
             tests = content_dir / "w1/a/basics/tasks/double/tests.py"
             extra = "\ndef test_extra():\n    expect_equal(learner['double'](7), 15, 'x')\n"
+            before, _ = load_content(content_dir)
             tests.write_text(tests.read_text() + extra)
             content, _ = load_content(content_dir)
-            self.assertEqual(refresh_blind(content, folder, ["basics-double"]), ["basics-double"])
+            self.assertEqual(refresh_blind(content, before, folder, ["basics-double"]), (["basics-double"], []))
             after = json.loads((folder / "basics-double.json").read_text())
         self.assertNotEqual(after["fingerprint"], "old")
         self.assertEqual(after["attempts"][0]["visible"], "fail")  # the correct answer fails the wrong new test
         self.assertEqual(after["triage"], [kept])
+
+    def test_a_changed_question_leaves_the_run_stale(self) -> None:
+        for edit in ("starter.py", "task.toml"):
+            with self.subTest(edit=edit), tempfile.TemporaryDirectory() as tmp:
+                content_dir = Path(tmp) / "content"
+                shutil.copytree(GOOD, content_dir)
+                folder = Path(tmp) / "blind"
+                folder.mkdir()
+                before, _ = load_content(content_dir)
+                group = next(g for g in before.solution_groups() if g[0].id == "basics-double")
+                attempt = judge_attempt(group, RIGHT, PythonAdapter()) | {"temperature": 0.2}
+                stored = json.dumps({"fingerprint": "old", "attempts": [attempt], "triage": []})
+                (folder / "basics-double.json").write_text(stored)
+                path = content_dir / "w1/a/basics/tasks/double" / edit
+                path.write_text(path.read_text().replace("Write `double(n)`.", "Write `double(n)` for any number.")
+                                if edit == "task.toml" else path.read_text() + "# a new line in the starter\n")
+                content, _ = load_content(content_dir)
+                self.assertEqual(refresh_blind(content, before, folder, ["basics-double"]), ([], ["basics-double"]))
+                self.assertEqual((folder / "basics-double.json").read_text(), stored)
 
 
 if __name__ == "__main__":
