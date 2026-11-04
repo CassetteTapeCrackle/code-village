@@ -52,11 +52,6 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "composition-ranger-pack"
-fingerprint = "df152a692221"
-
-[[gap]]
-rule = "cases-missing"
 item = "comprehensions-long-words"
 fingerprint = "b6ea1ff0136e"
 
