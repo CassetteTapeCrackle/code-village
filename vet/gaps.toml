@@ -917,11 +917,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "right-missing"
-item = "class-attributes-cabin"
-fingerprint = "8011422a1526"
-
-[[gap]]
-rule = "right-missing"
 item = "class-attributes-canoe-seats"
 fingerprint = "335516456b2c"
 
@@ -1949,11 +1944,6 @@ fingerprint = "4d85a6b67f5f"
 rule = "weak-tests"
 item = "testing-total-test"
 fingerprint = "5693a29e09d3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "class-attributes-cabin"
-fingerprint = "8011422a1526"
 
 [[gap]]
 rule = "wrong-too-few"
