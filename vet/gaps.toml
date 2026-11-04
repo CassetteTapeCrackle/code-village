@@ -57,13 +57,8 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "dicts-phone"
-fingerprint = "54fd863ca45c"
-
-[[gap]]
-rule = "cases-missing"
 item = "dicts-stock"
-fingerprint = "0c0c8501ae96"
+fingerprint = "2285877a8716"
 
 [[gap]]
 rule = "cases-missing"
@@ -1638,12 +1633,12 @@ fingerprint = "3bb2ea3f897f"
 [[gap]]
 rule = "right-missing"
 item = "dicts-phone"
-fingerprint = "54fd863ca45c"
+fingerprint = "90b30b2f976b"
 
 [[gap]]
 rule = "right-missing"
 item = "dicts-stock"
-fingerprint = "0c0c8501ae96"
+fingerprint = "2285877a8716"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,12 +2888,12 @@ fingerprint = "3bb2ea3f897f"
 [[gap]]
 rule = "wrong-too-few"
 item = "dicts-phone"
-fingerprint = "54fd863ca45c"
+fingerprint = "90b30b2f976b"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "dicts-stock"
-fingerprint = "0c0c8501ae96"
+fingerprint = "2285877a8716"
 
 [[gap]]
 rule = "wrong-too-few"
