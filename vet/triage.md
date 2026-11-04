@@ -3601,3 +3601,10 @@ else:
 - why it is here: verdicts differ or doubt it (deepseek true, claude unsure)
 - deepseek: true, not-a-fact. This is an exercise target with dataset-specific baseline scores, not a general claim about Python or a library. The scores depend on the hidden data and split, so the sentence is an exercise description rather than a checkable Python fact.
 - claude: unsure, not-a-fact. The 0.8 target is an exercise requirement. The 0.5 and 0.4 baselines depend on the course's hidden dataset and split, so they cannot be checked here.
+
+## Hidden cases refuse an equal number of another type
+
+The hidden cases compare exactly, so a correct answer that returns an equal number of another type (`5` for `5.0`) is refused. Whether the comparison should forgive this is the owner's call, so no answer was changed to fit it.
+
+- generators-average: a learner who writes `return statistics.mean(numbers)` is right, but `average([1])` returns `1` and the hidden case expects `1.0`, so the exact comparison refuses it. The right answer that showed this (`right/uses-statistics.py`) was removed from the item, because no lesson teaches `statistics` yet and the vocabulary check flags it (`unknown-feature`). Nothing was changed to fit the comparison; the item has a plain `sum` and `/` right answer instead.
+- Other right answers changed only to match a type comparison: none.
