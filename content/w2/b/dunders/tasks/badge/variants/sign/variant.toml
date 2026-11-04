@@ -3,3 +3,9 @@ title = "A sign that will not print"
 prompt = "`str(Sign(\"Pine trail\"))` should be `\"To Pine trail\"`, but it raises a `TypeError`: find and fix the bug. A dunder method returns its answer."
 
 strict = true
+
+[cases]
+class = "Sign"
+init = ["word"]
+methods = { __str__ = [] }
+reads = ["place"]

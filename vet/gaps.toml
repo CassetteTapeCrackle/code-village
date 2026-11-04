@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "dunders-sign"
-fingerprint = "1f200a6d1e7c"
-
-[[gap]]
-rule = "cases-missing"
 item = "errors-first-char"
 fingerprint = "c48748c2374a"
 
@@ -1638,7 +1633,7 @@ fingerprint = "291d35dd294d"
 [[gap]]
 rule = "right-missing"
 item = "dunders-sign"
-fingerprint = "1f200a6d1e7c"
+fingerprint = "c42c4cd7f072"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "291d35dd294d"
 [[gap]]
 rule = "wrong-too-few"
 item = "dunders-sign"
-fingerprint = "1f200a6d1e7c"
+fingerprint = "c42c4cd7f072"
 
 [[gap]]
 rule = "wrong-too-few"
