@@ -937,11 +937,6 @@ fingerprint = "c1127bee0134"
 
 [[gap]]
 rule = "right-missing"
-item = "composition-ranger-pack"
-fingerprint = "1d725c49e570"
-
-[[gap]]
-rule = "right-missing"
 item = "comprehensions-add-lists"
 fingerprint = "d5e33546ea72"
 
@@ -2114,11 +2109,6 @@ fingerprint = "613303316c8a"
 rule = "wrong-too-few"
 item = "composition-radio"
 fingerprint = "c1127bee0134"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "composition-ranger-pack"
-fingerprint = "1d725c49e570"
 
 [[gap]]
 rule = "wrong-too-few"
