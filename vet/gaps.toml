@@ -67,11 +67,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "io-next-year"
-fingerprint = "9cafac609e2b"
-
-[[gap]]
-rule = "cases-missing"
 item = "io-receipt"
 fingerprint = "390ea783390a"
 
