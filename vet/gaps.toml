@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "dicts-letter-counts"
-fingerprint = "39b80cbbebdc"
-
-[[gap]]
-rule = "cases-missing"
 item = "dicts-phone"
 fingerprint = "54fd863ca45c"
 
@@ -1638,7 +1633,7 @@ fingerprint = "c2d69e9954e6"
 [[gap]]
 rule = "right-missing"
 item = "dicts-letter-counts"
-fingerprint = "39b80cbbebdc"
+fingerprint = "3bb2ea3f897f"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "c2d69e9954e6"
 [[gap]]
 rule = "wrong-too-few"
 item = "dicts-letter-counts"
-fingerprint = "39b80cbbebdc"
+fingerprint = "3bb2ea3f897f"
 
 [[gap]]
 rule = "wrong-too-few"
