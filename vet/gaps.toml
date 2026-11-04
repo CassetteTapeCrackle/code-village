@@ -223,7 +223,7 @@ fingerprint = "09079a9cae2e"
 [[gap]]
 rule = "cases-missing"
 item = "train-test-honest"
-fingerprint = "ddab2b4e0f3d"
+fingerprint = "e663a0a081e1"
 
 [[gap]]
 rule = "cases-missing"
@@ -1067,11 +1067,6 @@ fingerprint = "474e2bcde876"
 
 [[gap]]
 rule = "right-missing"
-item = "train-test-honest"
-fingerprint = "ddab2b4e0f3d"
-
-[[gap]]
-rule = "right-missing"
 item = "train-test-peek"
 fingerprint = "ddfb467d9401"
 
@@ -1429,11 +1424,6 @@ fingerprint = "5693a29e09d3"
 rule = "wrong-too-few"
 item = "tour-hello"
 fingerprint = "474e2bcde876"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "train-test-honest"
-fingerprint = "ddab2b4e0f3d"
 
 [[gap]]
 rule = "wrong-too-few"
