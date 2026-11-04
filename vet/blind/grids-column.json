@@ -1,54 +1,54 @@
 {
-  "fingerprint": "257cedd9eb85",
+  "fingerprint": "8cb3926540b4",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def column(grid, c):\n    values = []\n    for row in grid:\n        # add this row's value at index c\n        values.append(row[c])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def column(grid, c):\n    values = []\n    for row in grid:\n        values.append(row[c])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def column(grid, c):\n    values = []\n    for row in grid:\n        values.append(row[c])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def column(grid, c):\n    values = []\n    for row in grid:\n        values.append(row[c])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def column(grid, c):\n    values = []\n    for row in grid:\n        values.append(row[c])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
