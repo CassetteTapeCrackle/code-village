@@ -680,7 +680,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - A session may triage `model-wrong` only with the failing case quoted in `note`; the owner audits
   `vet/triage.md`, which lists every session triage.
 
-- [ ] **Step 1 to 4:** Tests and canaries on recorded attempts, fail, implement, pass. Run the job on 3 items,
+- [x] **Step 1 to 4:** Tests and canaries on recorded attempts, fail, implement, pass. Run the job on 3 items,
   record cost. Commit, push. End of Session 7.
 
 ---

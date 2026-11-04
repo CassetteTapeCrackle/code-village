@@ -225,6 +225,29 @@ Editing a sentence changes its fingerprint, so the old entry goes stale and the 
 example, predict or claim). `python -m tools.vet.pending <out.json>` lists the sentences without an entry, with their
 paragraphs; the model reviews described in `docs/test-framework/PLAN.md` (Tasks 6.2 and 6.3) fill the ledger.
 
+## Blind solvers
+
+DeepSeek solves every task, variant and boss five times from what a learner has seen at that point: the lesson text
+before the task, the prompt and the starter (never the tests or the solution). The attempts are run, never trusted,
+through the visible tests, the hidden cases and the 2000-input fuzz set, and stored in `vet/blind/<id>.json`, pinned
+to the item's fingerprint. Editing the item asks for a new run. The rules:
+
+- `blind-missing`: no stored run for this version of the item.
+- `blind-untriaged`: an attempt fails a test and nobody has said why.
+- `blind-too-strict`: an attempt fails a visible test but passes every hidden case. The test is probably too strict;
+  this cannot be triaged as `model-wrong`.
+- `blind-disagrees`: an attempt passes every test but differs from the solution on the fuzz inputs.
+
+A failing attempt is settled by a `triage` entry in its file: `python -m tools.vet.blind_eval triage <id> <attempt>
+<model-wrong|prompt-fixed|test-fixed|solution-fixed> --note "..."`. A `model-wrong` note must quote the failing case
+(or failing test message) word for word. Session decisions are also listed in `vet/triage.md` for the owner to
+audit. Without `[cases]` an item has no hidden cases or fuzz set, so only its visible tests can fail an attempt.
+
+How a run goes: `python -m tools.vet.blind_eval request <id>... --out vet/requests/blind-<name>.json`, push it (the
+vet-models workflow starts on a push to `vet/requests/`), read the job log with `gh api .../jobs/<id>/logs`, extract
+it with `python -m tools.vet.models.logs <log> <folder>`, then `python -m tools.vet.blind_eval evaluate
+<folder>/blind-raw.json`.
+
 ## Review checklist
 
 Before a world is done, read every lesson, prompt, hint, starter, solution and test, and ask:

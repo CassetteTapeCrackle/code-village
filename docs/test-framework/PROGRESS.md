@@ -3,6 +3,14 @@
 Each session reads this first and updates it last. Newest entries at the top of each section.
 
 ## Done
+- Session 7 (2026-11-04, overnight cloud session): Task 7.1, pushed to `test-framework`. Blind solvers:
+  `tools/vet/models/blind_solve.py` (the Actions side: five DeepSeek attempts per item, only the code comes back),
+  `tools/vet/blind_eval.py` (the session side: `request`, `evaluate`, `triage`), results in `vet/blind/<id>.json`
+  pinned to the item's fingerprint, and the rules `blind-missing`, `blind-untriaged`, `blind-too-strict` and
+  `blind-disagrees` (`tools/vet/checks/blind.py`), each with a canary on recorded attempts (fixture `blind-base`).
+  Live run on three items (`conditions-sign`, `properties-fuel`, `statistics-median`): all 15 attempts pass their
+  visible tests. The other 205 solutions are `blind-missing` gaps (the list holds 1082 entries). Format in
+  `content/README.md`, "Blind solvers".
 - Session 6 (2026-11-04, overnight cloud session): Tasks 6.1 to 6.3, pushed to `test-framework`. Sentences and the
   claims ledger: `tools/vet/prose.py` cuts every sentence a learner reads, `ledger.toml` next to each lesson and boss
   pins one entry per sentence by fingerprint, claim blocks take `id=`, and the rules `ledger-missing`,
@@ -64,6 +72,25 @@ Each session reads this first and updates it last. Newest entries at the top of 
   `report-button` branches created from it; spec and plan copied here.
 
 ## Decisions
+- Session 7 blind run (workflow run 41754579815, commit cd55019): 3 items, 15 calls, 8608 tokens (about 570 per
+  attempt), 4.0 s with 8 calls in flight, 0 failed. At that size all 205 remaining solutions would be about 590,000
+  tokens (1025 attempts). I did not turn tokens into money, since I do not know the price. The run was started by
+  pushing `vet/requests/blind-sample.json`.
+- Session 7: the Actions job only asks for code; the session runs it. The plan has the harness, hidden cases and the
+  fuzz set run the attempts, and those need the project's libraries and the content tooling, which the stdlib-only
+  job does not have, and "model calls only in Actions" does not forbid running code in the session. The workflow file
+  needed no change: the job is chosen by `job` in the request file (the plan asked for a `blind` job in the YAML).
+- Session 7: the unit is a solution group, like the mutation check: a task, a variant, or a boss (its intro and stage
+  prompts stand in for the prompt, with no lesson text). Variants ask with the lesson text up to their task. The
+  context holds the lesson prose and example and predict code before the task, never claims, tests or solutions.
+- Session 7: an attempt record also holds `failure` (the first failing visible test), `temperature` and `hidden`
+  "none" when the item declares no `[cases]` (today every item). `blind-too-strict` and the fuzz comparison need
+  cases, so on today's content only visible failures can show up. A failed call (`error`) is kept out of the file;
+  a run with no attempt left writes none and stays `blind-missing`.
+- Session 7: the check is silent when `vet/blind/` does not exist (fixtures and canary bases), and asks for every
+  group once it does. A model-wrong triage must contain the failing case or failing test message word for word, and
+  the check enforces it on the stored file, so editing the JSON cannot skip it. The canaries use a one-task fixture
+  (`tools/fixtures/blind-base`) so each needs one recorded file, pinned to that fixture's fingerprint.
 - Session 6 sample run (workflow run 41747686729, commit c1293c4): 5 sentences, 5 calls, 6229 tokens (about 1250 per
   sentence), 6.2 s wall time with 8 calls in flight. All 1163 sentences would be about 1.45 million tokens and a few
   minutes; I did not turn tokens into money, since I do not know the price. Claude's half (one Sonnet 5.5 subagent
@@ -295,6 +322,12 @@ Each session reads this first and updates it last. Newest entries at the top of 
   verified, same as `.claude/cloud-setup.sh`).
 
 ## Open
+- Session 7: no fresh reviewer subagent has read the Session 7 diff yet (see the last entry under Done for whether
+  that changed); the Session 7 code was checked by its own tests only.
+- Session 7: the three live items were not triaged because none failed. Blind results for the other 205 solutions,
+  triage of whatever they show, and the fuzz comparison (needs `[cases]`) are for the fixing sessions and Task 10.1.
+- Session 7: `contexts` for a boss carry no lesson text (a boss spans several lessons). A DeepSeek attempt at a boss
+  therefore tests the intro and stage prompts alone.
 - Session 6 review finding 9: the merge reads all `deepseek-sentences*.json` and `claude-sentences-*.json` files and
   a later file overwrites an earlier reply for the same sentence; a triage note is never updated or removed once the
   sentence is later accepted. Prune `vet/triage.md` by hand after the owner settles it.
