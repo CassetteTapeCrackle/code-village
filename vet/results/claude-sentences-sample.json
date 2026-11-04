@@ -1,0 +1,40 @@
+{
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "15427b090620",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "elif tests a further condition and else runs when no earlier branch matched; checked on Python 3.13.",
+      "assert": "def pick(n):\n    if n > 10:\n        return \"big\"\n    elif n > 5:\n        return \"mid\"\n    else:\n        return \"small\"\nassert [pick(20), pick(7), pick(1)] == [\"big\", \"mid\", \"small\"]\nran = []\nif True:\n    ran.append(1)\nelif True:\n    ran.append(2)\nelse:\n    ran.append(3)\nassert ran == [1]"
+    },
+    {
+      "fp": "a61015c6df1a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "list.append, list.remove and list.sort mutate in place and return None; checked on Python 3.13.",
+      "assert": "x = [3, 1, 2]\nassert x.append(4) is None and x == [3, 1, 2, 4]\nassert x.remove(3) is None and x == [1, 2, 4]\nassert x.sort() is None and x == [1, 2, 4]\ny = [2, 1]\nassert y.sort() is None and y == [1, 2]"
+    },
+    {
+      "fp": "2007bbfa77de",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "super() gives access to the parent's method so the child can extend it; checked on Python 3.13. With multiple inheritance it follows the method resolution order, a detail beginners can skip.",
+      "assert": "class Parent:\n    def greet(self):\n        return \"hello\"\nclass Child(Parent):\n    def greet(self):\n        return super().greet() + \" world\"\nassert Child().greet() == \"hello world\""
+    },
+    {
+      "fp": "98d39d66b132",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In Python 3 map and filter return lazy iterators, so list() is needed to see results. 'The same way' depends on the previous lesson, which is not shown.",
+      "assert": "m = map(str, [1, 2])\nf = filter(None, [0, 1])\nassert not isinstance(m, list) and not isinstance(f, list)\nassert iter(m) is m and iter(f) is f\nassert list(m) == [\"1\", \"2\"] and list(f) == [1]\nassert list(m) == []"
+    },
+    {
+      "fp": "75a13d00fe2d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "train_test_split shuffles by default (shuffle=True) and returns train and test parts. The assert was NOT run: scikit-learn is not installed here, so it is unverified.",
+      "assert": "from sklearn.model_selection import train_test_split\nX = list(range(20))\ny = list(range(20))\na, b, c, d = train_test_split(X, y, test_size=0.25, random_state=0)\nassert len(a) == 15 and len(b) == 5\nassert sorted(a + b) == X\nassert a != sorted(a)\ne = train_test_split(X, y, test_size=0.25, random_state=0)\nassert e[0] == a and e[1] == b\nassert train_test_split(X, y, test_size=0.25, random_state=1)[0] != a"
+    }
+  ]
+}
