@@ -3,3 +3,6 @@ def test_twice():
 
 def test_missing():
     expect_equal(learner["find_all"]([1, 2], 5), [], "find_all([1, 2], 5)")
+
+def test_target_built_apart():
+    expect_equal(learner["find_all"](["elk", "owl", "elk"], "".join(["e", "lk"])), [0, 2], "find_all with a target built apart from the items")
