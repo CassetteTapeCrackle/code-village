@@ -1207,11 +1207,6 @@ fingerprint = "e27a8e94b019"
 
 [[gap]]
 rule = "right-missing"
-item = "properties-plot"
-fingerprint = "1ab5d1c9d528"
-
-[[gap]]
-rule = "right-missing"
 item = "properties-ranger-age"
 fingerprint = "d530713cbec8"
 
@@ -1814,11 +1809,6 @@ fingerprint = "50eaa30dbf3b"
 rule = "wrong-too-few"
 item = "pandas-tables-total"
 fingerprint = "e27a8e94b019"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "properties-plot"
-fingerprint = "1ab5d1c9d528"
 
 [[gap]]
 rule = "wrong-too-few"
