@@ -554,3 +554,42 @@ Each session reads this first and updates it last. Newest entries at the top of 
 - A new rule's check goes in `CHECKS` with its rules (`tools/vet/run.py`); a check that reruns code many times belongs
   in `SLOW_RULES`, and code that shapes a cached result belongs in `RESULT_SOURCES`.
 - Track B Task B.3 can merge `test-framework` into `report-button`.
+
+## Part 7 handoff (branch `gap-fixes`, draft PR 10)
+
+Read this first when you take over. The branch starts at the supervisor's tip `64eeb84` and does not contain
+`test-framework`; the owner decides how the branches combine. One item per commit, pushed after each commit. CI
+runs for a push are cancelled by the next push, so the green run to look at is the one for the last commit.
+
+### Done
+- `tools/vet/repin.py`: `python -m tools.vet.repin <item id>... [--drop RULE]...` moves an item's gap entries to
+  its new fingerprint, drops the named rules, and re-judges the stored blind attempts. A blind run is re-pinned
+  only when the solver's question (lesson text, prompt, starter) is unchanged; otherwise it stays stale and
+  `blind-missing` shows it needs a new solve. Give one `--drop` per rule.
+- Weak tests fixed (a test added, or `[cases]` declared so equivalent mutants clear): conditions-letter,
+  class-attributes-camp, classes-backpack, conditions-ticket-price, comprehensions-pair-up, composition-keeper,
+  composition-cook-pantry, conditions-larger, class-attributes-canoe-seats, conditions-sign, conditions-weekend,
+  conditions-vowel, errors-safe-divide, errors-withdraw, data-summary (boss, hard tests),
+  comprehensions-odd-squares, comprehensions-add-lists, class-attributes-cabin, class-attributes-rangers,
+  class-attributes-lanterns, composition-lamp, composition-radio.
+
+### Decisions
+- A survivor that agrees with the solution on every input (`>=` for `>` on equal values, `is` on small ints or
+  interned strings, `!=` for `<` where a counter cannot pass its limit) gets a `[cases]` table. A survivor that
+  differs gets a visible test, and the item usually gets `[cases]` as well so its `cases-missing` gap closes.
+- A class whose count starts at 0 is tested against 0 directly (rangers, lanterns). The old before/after
+  difference hid a wrong start value.
+- `weekend` uses `str 3..3` for its hidden cases: `choice` over the seven day names leaves 7 distinct cases and
+  trips `cases-too-few`.
+- An item that edits only `tests.py` or `[cases]` keeps its blind run (same question); no blind request needed.
+
+### Open
+- 65 `weak-tests` items remain (the entries with `rule = "weak-tests"` in `vet/gaps.toml`), then `cases-missing`,
+  `wrong-too-few` and `right-missing` (about 200 items each), `ledger-missing`, `teaches-missing`,
+  `claim-id-missing`, `remember-unbacked`, `prompt-asks-construct`, `blind-missing` (7), `blind-untriaged` (3).
+- Prompt rewrites that change what a task asks go to `vet/triage.md` for the owner, not into the content.
+
+### Next
+- Keep going through `weak-tests` (multi-survivor items next: the nearest-neighbour, recursion, search-sort,
+  statistics, train-test and testing groups), then `cases-missing` where a task already has a survivor-free test.
+- After every few items, rerun `pnpm gaps --write` in full and confirm the list equals `vet/gaps.toml`.
