@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "methods-kettle"
-fingerprint = "9e252de847cf"
-
-[[gap]]
-rule = "cases-missing"
 item = "methods-notebook"
 fingerprint = "20f2ee0d30cc"
 
@@ -1683,7 +1678,7 @@ fingerprint = "1cf158584cdc"
 [[gap]]
 rule = "right-missing"
 item = "methods-kettle"
-fingerprint = "9e252de847cf"
+fingerprint = "64070d76637b"
 
 [[gap]]
 rule = "right-missing"
@@ -2933,7 +2928,7 @@ fingerprint = "1cf158584cdc"
 [[gap]]
 rule = "wrong-too-few"
 item = "methods-kettle"
-fingerprint = "9e252de847cf"
+fingerprint = "64070d76637b"
 
 [[gap]]
 rule = "wrong-too-few"
