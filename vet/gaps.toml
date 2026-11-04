@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "numpy-arrays-columns"
-fingerprint = "c0061355627d"
-
-[[gap]]
-rule = "cases-missing"
 item = "numpy-arrays-doubled"
 fingerprint = "5fac4e98ccc7"
 
@@ -1718,7 +1713,7 @@ fingerprint = "acb220f074d6"
 [[gap]]
 rule = "right-missing"
 item = "numpy-arrays-columns"
-fingerprint = "c0061355627d"
+fingerprint = "d11c9a93feb5"
 
 [[gap]]
 rule = "right-missing"
@@ -2968,7 +2963,7 @@ fingerprint = "acb220f074d6"
 [[gap]]
 rule = "wrong-too-few"
 item = "numpy-arrays-columns"
-fingerprint = "c0061355627d"
+fingerprint = "d11c9a93feb5"
 
 [[gap]]
 rule = "wrong-too-few"
