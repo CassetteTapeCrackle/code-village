@@ -8,5 +8,5 @@ gotcha = false
 
 [cases]
 call = "scale"
-args = ["list<int -9..9> 1..6", "int -5..5"]
+args = ["list<float -9.0..9.0> 1..6", "int -5..5"]
 compare = "array"
