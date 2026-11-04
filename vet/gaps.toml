@@ -1012,11 +1012,6 @@ fingerprint = "0d804e5079f9"
 
 [[gap]]
 rule = "right-missing"
-item = "functions-log"
-fingerprint = "496681ba32dc"
-
-[[gap]]
-rule = "right-missing"
 item = "functions-power"
 fingerprint = "2e165c8ab691"
 
@@ -1994,11 +1989,6 @@ fingerprint = "a5b342514fc2"
 rule = "wrong-too-few"
 item = "functions-by-length"
 fingerprint = "0d804e5079f9"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-log"
-fingerprint = "496681ba32dc"
 
 [[gap]]
 rule = "wrong-too-few"
