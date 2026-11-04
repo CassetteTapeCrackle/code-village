@@ -947,11 +947,6 @@ fingerprint = "ad3f62255be8"
 
 [[gap]]
 rule = "right-missing"
-item = "dataclasses-sapling"
-fingerprint = "e91e2cdfc701"
-
-[[gap]]
-rule = "right-missing"
 item = "dataclasses-satchel"
 fingerprint = "4448f456d122"
 
@@ -2049,11 +2044,6 @@ fingerprint = "5778085b4b4e"
 rule = "wrong-too-few"
 item = "dataclasses-races"
 fingerprint = "ad3f62255be8"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dataclasses-sapling"
-fingerprint = "e91e2cdfc701"
 
 [[gap]]
 rule = "wrong-too-few"
