@@ -738,7 +738,7 @@ fingerprint = "1190ef0f2f06"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "properties-window"
-fingerprint = "485f483f4c90"
+fingerprint = "ed7e9e3c636c"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1204,11 +1204,6 @@ fingerprint = "50eaa30dbf3b"
 rule = "right-missing"
 item = "pandas-tables-total"
 fingerprint = "e27a8e94b019"
-
-[[gap]]
-rule = "right-missing"
-item = "properties-window"
-fingerprint = "485f483f4c90"
 
 [[gap]]
 rule = "right-missing"
@@ -1804,11 +1799,6 @@ fingerprint = "50eaa30dbf3b"
 rule = "wrong-too-few"
 item = "pandas-tables-total"
 fingerprint = "e27a8e94b019"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "properties-window"
-fingerprint = "485f483f4c90"
 
 [[gap]]
 rule = "wrong-too-few"
