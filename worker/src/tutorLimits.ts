@@ -18,6 +18,7 @@ export function decide(input: {
   repliesToday: number;
   callsThisMinute: number;
   neuronsToday: number;
+  playerNeuronsToday: number;
   playerAgeHours: number;
 }): Gate {
   if (input.tutorOff) {
@@ -45,6 +46,14 @@ export function decide(input: {
       status: 429,
       reason: "quota",
       message: `You used your ${LIMITS.tutorPerDay} questions for today.`,
+    };
+  }
+  if (input.playerNeuronsToday >= LIMITS.dailyFreeNeurons * LIMITS.playerNeuronShare) {
+    return {
+      ok: false,
+      status: 429,
+      reason: "quota",
+      message: "You used your share of the teacher for today. Try again tomorrow.",
     };
   }
   if (input.callsThisMinute >= LIMITS.tutorPerMinute) {
@@ -100,12 +109,17 @@ export async function readCounters(
   env: Env,
   playerId: number,
   now: Date,
-): Promise<{ repliesToday: number; callsThisMinute: number; neuronsToday: number }> {
+): Promise<{
+  repliesToday: number;
+  callsThisMinute: number;
+  neuronsToday: number;
+  playerNeuronsToday: number;
+}> {
   const quota = await env.DB.prepare(
-    "SELECT replies, minute, minute_count AS minuteCount FROM quota WHERE player_id = ? AND day = ?",
+    "SELECT replies, minute, minute_count AS minuteCount, neurons FROM quota WHERE player_id = ? AND day = ?",
   )
     .bind(playerId, dayOf(now))
-    .first<{ replies: number; minute: string; minuteCount: number }>();
+    .first<{ replies: number; minute: string; minuteCount: number; neurons: number }>();
   const usage = await env.DB.prepare("SELECT neurons FROM usage WHERE day = ?")
     .bind(dayOf(now))
     .first<{ neurons: number }>();
@@ -114,12 +128,14 @@ export async function readCounters(
     // a row left from an earlier minute reads as zero calls, without a write
     callsThisMinute: quota?.minute === minuteOf(now) ? quota.minuteCount : 0,
     neuronsToday: usage?.neurons ?? 0,
+    playerNeuronsToday: quota?.neurons ?? 0,
   };
 }
 
-// One conditional upsert takes the minute and the day slot together: both counters move only
-// when both are under their limit, so parallel requests cannot all pass a read-then-write gate.
-// No row back means a slot was gone at write time: the caller refuses.
+// One conditional upsert takes the minute and the day slot together: the counters move only when
+// the minute, the day and the player's share of neurons are all under their limit, so parallel
+// requests cannot all pass a read-then-write gate. No row back means a slot was gone at write time:
+// the caller refuses.
 export async function reserveQuestion(env: Env, playerId: number, now: Date): Promise<boolean> {
   const row = await env.DB.prepare(
     `INSERT INTO quota (player_id, day, replies, minute, minute_count) VALUES (?, ?, 1, ?, 1)
@@ -127,22 +143,34 @@ export async function reserveQuestion(env: Env, playerId: number, now: Date): Pr
        replies = quota.replies + 1,
        minute_count = CASE WHEN quota.minute = excluded.minute THEN quota.minute_count + 1 ELSE 1 END,
        minute = excluded.minute
-     WHERE quota.replies < ? AND (quota.minute != excluded.minute OR quota.minute_count < ?)
+     WHERE quota.replies < ? AND quota.neurons < ? AND (quota.minute != excluded.minute OR quota.minute_count < ?)
      RETURNING replies`,
   )
-    .bind(playerId, dayOf(now), minuteOf(now), LIMITS.tutorPerDay, LIMITS.tutorPerMinute)
+    .bind(
+      playerId,
+      dayOf(now),
+      minuteOf(now),
+      LIMITS.tutorPerDay,
+      LIMITS.dailyFreeNeurons * LIMITS.playerNeuronShare,
+      LIMITS.tutorPerMinute,
+    )
     .first<{ replies: number }>();
   return row !== null;
 }
 
-// Neurons are charged worst case before each model attempt and never refunded. The reply slot
-// is the only thing a failed or empty answer gives back.
-export async function countNeurons(env: Env, now: Date, neurons: number): Promise<void> {
-  await env.DB.prepare(
-    "INSERT INTO usage (day, neurons) VALUES (?, ?) ON CONFLICT(day) DO UPDATE SET neurons = neurons + excluded.neurons",
-  )
-    .bind(dayOf(now), neurons)
-    .run();
+// Neurons are charged worst case before each model attempt and never refunded, to the day and to
+// the player's own share. The reply slot is the only thing a failed or empty answer gives back.
+export async function countNeurons(env: Env, playerId: number, now: Date, neurons: number): Promise<void> {
+  await env.DB.batch([
+    env.DB.prepare(
+      "INSERT INTO usage (day, neurons) VALUES (?, ?) ON CONFLICT(day) DO UPDATE SET neurons = neurons + excluded.neurons",
+    ).bind(dayOf(now), neurons),
+    env.DB.prepare("UPDATE quota SET neurons = neurons + ? WHERE player_id = ? AND day = ?").bind(
+      neurons,
+      playerId,
+      dayOf(now),
+    ),
+  ]);
 }
 
 export async function refundReply(env: Env, playerId: number, now: Date): Promise<void> {
