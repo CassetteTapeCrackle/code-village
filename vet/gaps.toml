@@ -172,11 +172,6 @@ fingerprint = "f55ce264c6c8"
 
 [[gap]]
 rule = "cases-missing"
-item = "conditions-larger"
-fingerprint = "a08a070a8257"
-
-[[gap]]
-rule = "cases-missing"
 item = "conditions-letter"
 fingerprint = "38ceb62f1fd0"
 
@@ -2989,11 +2984,6 @@ fingerprint = "906f41b9fdc0"
 rule = "weak-tests"
 item = "comprehensions-odd-squares"
 fingerprint = "3954e0317374"
-
-[[gap]]
-rule = "weak-tests"
-item = "conditions-larger"
-fingerprint = "a08a070a8257"
 
 [[gap]]
 rule = "weak-tests"
