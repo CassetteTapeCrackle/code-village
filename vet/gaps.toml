@@ -67,11 +67,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "identity-trails"
-fingerprint = "4019e4cb54c0"
-
-[[gap]]
-rule = "cases-missing"
 item = "identity-without-exact"
 fingerprint = "5bb2fd77549a"
 
