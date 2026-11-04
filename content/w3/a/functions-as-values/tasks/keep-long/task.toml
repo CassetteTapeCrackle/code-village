@@ -5,6 +5,7 @@ title = "Only the long words"
 prompt = "Finish `long_words(words, n)`: it returns a list of the words longer than `n` letters, in their order, using `filter` and a `lambda`."
 hints = ["The lambda gets one word and answers `True` or `False`.", "`list(filter(lambda w: w.startswith(\"a\"), words))` keeps the words starting with a."]
 gotcha = false
+requires = ["lambda"]
 
 [cases]
 call = "long_words"
