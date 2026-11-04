@@ -942,11 +942,6 @@ fingerprint = "d5e33546ea72"
 
 [[gap]]
 rule = "right-missing"
-item = "comprehensions-odd-squares"
-fingerprint = "7415efa76c8f"
-
-[[gap]]
-rule = "right-missing"
 item = "conditions-larger"
 fingerprint = "a08a070a8257"
 
@@ -2094,11 +2089,6 @@ fingerprint = "c1127bee0134"
 rule = "wrong-too-few"
 item = "comprehensions-add-lists"
 fingerprint = "d5e33546ea72"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "comprehensions-odd-squares"
-fingerprint = "7415efa76c8f"
 
 [[gap]]
 rule = "wrong-too-few"
