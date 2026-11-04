@@ -52,13 +52,8 @@ fingerprint = "8f71aaa27062"
 
 [[gap]]
 rule = "cases-missing"
-item = "class-attributes-lanterns"
-fingerprint = "5918257a7fc9"
-
-[[gap]]
-rule = "cases-missing"
 item = "class-attributes-rangers"
-fingerprint = "331402bc0458"
+fingerprint = "a2cbbd712b30"
 
 [[gap]]
 rule = "cases-missing"
@@ -1593,12 +1588,12 @@ fingerprint = "335516456b2c"
 [[gap]]
 rule = "right-missing"
 item = "class-attributes-lanterns"
-fingerprint = "5918257a7fc9"
+fingerprint = "23c84c83ca97"
 
 [[gap]]
 rule = "right-missing"
 item = "class-attributes-rangers"
-fingerprint = "331402bc0458"
+fingerprint = "a2cbbd712b30"
 
 [[gap]]
 rule = "right-missing"
@@ -2848,12 +2843,12 @@ fingerprint = "335516456b2c"
 [[gap]]
 rule = "wrong-too-few"
 item = "class-attributes-lanterns"
-fingerprint = "5918257a7fc9"
+fingerprint = "23c84c83ca97"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "class-attributes-rangers"
-fingerprint = "331402bc0458"
+fingerprint = "a2cbbd712b30"
 
 [[gap]]
 rule = "wrong-too-few"
