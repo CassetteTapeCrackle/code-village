@@ -1022,11 +1022,6 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "right-missing"
-item = "identity-without-note"
-fingerprint = "e032ab4f0116"
-
-[[gap]]
-rule = "right-missing"
 item = "io-double"
 fingerprint = "7a290e687090"
 
@@ -1589,11 +1584,6 @@ fingerprint = "97bacf4256e1"
 rule = "wrong-too-few"
 item = "guessing-stone"
 fingerprint = "7b1cb790f6ac"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "identity-without-note"
-fingerprint = "e032ab4f0116"
 
 [[gap]]
 rule = "wrong-too-few"
