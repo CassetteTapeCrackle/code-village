@@ -72,18 +72,13 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "pandas-tables-lightest"
-fingerprint = "aff9a2fe96a5"
-
-[[gap]]
-rule = "cases-missing"
 item = "pandas-tables-taller"
 fingerprint = "807ad70fca2a"
 
 [[gap]]
 rule = "cases-missing"
 item = "pandas-tables-tallest"
-fingerprint = "21e027908150"
+fingerprint = "b2a8229a4102"
 
 [[gap]]
 rule = "cases-missing"
@@ -1718,7 +1713,7 @@ fingerprint = "789d547828c3"
 [[gap]]
 rule = "right-missing"
 item = "pandas-tables-lightest"
-fingerprint = "aff9a2fe96a5"
+fingerprint = "22a6dc25890e"
 
 [[gap]]
 rule = "right-missing"
@@ -1728,7 +1723,7 @@ fingerprint = "807ad70fca2a"
 [[gap]]
 rule = "right-missing"
 item = "pandas-tables-tallest"
-fingerprint = "21e027908150"
+fingerprint = "b2a8229a4102"
 
 [[gap]]
 rule = "right-missing"
@@ -2968,7 +2963,7 @@ fingerprint = "789d547828c3"
 [[gap]]
 rule = "wrong-too-few"
 item = "pandas-tables-lightest"
-fingerprint = "aff9a2fe96a5"
+fingerprint = "22a6dc25890e"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2978,7 +2973,7 @@ fingerprint = "807ad70fca2a"
 [[gap]]
 rule = "wrong-too-few"
 item = "pandas-tables-tallest"
-fingerprint = "21e027908150"
+fingerprint = "b2a8229a4102"
 
 [[gap]]
 rule = "wrong-too-few"
