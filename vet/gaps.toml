@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "methods-oven"
-fingerprint = "59bd1872b24d"
-
-[[gap]]
-rule = "cases-missing"
 item = "methods-tally"
 fingerprint = "722f22f085f9"
 
@@ -1683,7 +1678,7 @@ fingerprint = "2cfb6a6ff671"
 [[gap]]
 rule = "right-missing"
 item = "methods-oven"
-fingerprint = "59bd1872b24d"
+fingerprint = "7e804aff88af"
 
 [[gap]]
 rule = "right-missing"
@@ -2933,7 +2928,7 @@ fingerprint = "2cfb6a6ff671"
 [[gap]]
 rule = "wrong-too-few"
 item = "methods-oven"
-fingerprint = "59bd1872b24d"
+fingerprint = "7e804aff88af"
 
 [[gap]]
 rule = "wrong-too-few"
