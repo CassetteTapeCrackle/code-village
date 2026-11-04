@@ -163,12 +163,12 @@ fingerprint = "9ca12aa15eae"
 [[gap]]
 rule = "cases-missing"
 item = "strings-initials"
-fingerprint = "fdaab52fc2ee"
+fingerprint = "9a61ddd72612"
 
 [[gap]]
 rule = "cases-missing"
 item = "strings-last-word"
-fingerprint = "eda809941303"
+fingerprint = "c238ff8460e2"
 
 [[gap]]
 rule = "cases-missing"
