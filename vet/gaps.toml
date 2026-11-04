@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "dunders-quiver"
-fingerprint = "291d35dd294d"
-
-[[gap]]
-rule = "cases-missing"
 item = "dunders-sign"
 fingerprint = "1f200a6d1e7c"
 
