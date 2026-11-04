@@ -57,18 +57,13 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "generators-count-long"
-fingerprint = "ba31fc48ff40"
-
-[[gap]]
-rule = "cases-missing"
 item = "generators-evens"
 fingerprint = "6448b4b77741"
 
 [[gap]]
 rule = "cases-missing"
 item = "generators-letters"
-fingerprint = "bfc57fc12411"
+fingerprint = "e7ef7d6f23e2"
 
 [[gap]]
 rule = "cases-missing"
@@ -1048,7 +1043,7 @@ fingerprint = "50681349e872"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "generators-count-long"
-fingerprint = "ba31fc48ff40"
+fingerprint = "9b27b70efecc"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1058,7 +1053,7 @@ fingerprint = "6448b4b77741"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "generators-letters"
-fingerprint = "bfc57fc12411"
+fingerprint = "e7ef7d6f23e2"
 
 [[gap]]
 rule = "prompt-asks-construct"
@@ -1648,7 +1643,7 @@ fingerprint = "50681349e872"
 [[gap]]
 rule = "right-missing"
 item = "generators-count-long"
-fingerprint = "ba31fc48ff40"
+fingerprint = "9b27b70efecc"
 
 [[gap]]
 rule = "right-missing"
@@ -1658,7 +1653,7 @@ fingerprint = "6448b4b77741"
 [[gap]]
 rule = "right-missing"
 item = "generators-letters"
-fingerprint = "bfc57fc12411"
+fingerprint = "e7ef7d6f23e2"
 
 [[gap]]
 rule = "right-missing"
@@ -2903,7 +2898,7 @@ fingerprint = "50681349e872"
 [[gap]]
 rule = "wrong-too-few"
 item = "generators-count-long"
-fingerprint = "ba31fc48ff40"
+fingerprint = "9b27b70efecc"
 
 [[gap]]
 rule = "wrong-too-few"
@@ -2913,7 +2908,7 @@ fingerprint = "6448b4b77741"
 [[gap]]
 rule = "wrong-too-few"
 item = "generators-letters"
-fingerprint = "bfc57fc12411"
+fingerprint = "e7ef7d6f23e2"
 
 [[gap]]
 rule = "wrong-too-few"
