@@ -223,7 +223,7 @@ fingerprint = "052271aeece9"
 [[gap]]
 rule = "cases-missing"
 item = "dunders-feather"
-fingerprint = "d8ebfbb69a84"
+fingerprint = "9e7fc99cc103"
 
 [[gap]]
 rule = "cases-missing"
@@ -1903,7 +1903,7 @@ fingerprint = "052271aeece9"
 [[gap]]
 rule = "right-missing"
 item = "dunders-feather"
-fingerprint = "d8ebfbb69a84"
+fingerprint = "9e7fc99cc103"
 
 [[gap]]
 rule = "right-missing"
@@ -2892,11 +2892,6 @@ fingerprint = "54410c019459"
 
 [[gap]]
 rule = "weak-tests"
-item = "dunders-feather"
-fingerprint = "d8ebfbb69a84"
-
-[[gap]]
-rule = "weak-tests"
 item = "generators-average"
 fingerprint = "6d6f5d333d4a"
 
@@ -3418,7 +3413,7 @@ fingerprint = "052271aeece9"
 [[gap]]
 rule = "wrong-too-few"
 item = "dunders-feather"
-fingerprint = "d8ebfbb69a84"
+fingerprint = "9e7fc99cc103"
 
 [[gap]]
 rule = "wrong-too-few"
