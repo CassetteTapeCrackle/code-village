@@ -52,7 +52,7 @@ assert speak is shout
 assert speak('a') == 'A'
 ```
 
-```python claim
+```python claim id=functions-as-values-claim-1
 def shout(text):
     return text.upper() + "!"
 
@@ -73,7 +73,7 @@ f = lambda n: n * 2
 assert f(4) == 8
 ```
 
-```python claim
+```python claim id=functions-as-values-claim-2
 assert (lambda n: n * 2)(4) == 8
 ```
 
@@ -93,7 +93,7 @@ assert list(m) == ['2']
 assert list(f) == [1]
 ```
 
-```python claim
+```python claim id=functions-as-values-claim-3
 m = map(lambda n: n * 10, [3, 8])
 assert not isinstance(m, list)
 assert next(m) == 30 and list(m) == [80]
@@ -135,7 +135,7 @@ else:
     assert False
 ```
 
-```python claim
+```python claim id=functions-as-values-claim-4
 def loud(word):
     return word.upper()
 

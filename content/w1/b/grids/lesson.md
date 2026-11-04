@@ -51,7 +51,7 @@ g[0][0] = 9
 assert g == [[9, 0, 0]] * 3
 ```
 
-```python claim
+```python claim id=grids-claim-1
 shared = [[0] * 3] * 3
 assert shared[0] is shared[1]
 own = [[0] * 3 for _ in range(3)]

@@ -65,7 +65,7 @@ print(o.describe(), o.sound(), isinstance(o, Animal))
 
 Python looks for a method in the object's class first, then in its parent, then the parent's parent.
 
-```python claim
+```python claim id=inheritance-claim-1
 class A:
     pass
 
@@ -133,7 +133,7 @@ assert not hasattr(c, 'a')
 assert C.__init__ is not P.__init__
 ```
 
-```python claim
+```python claim id=inheritance-claim-2
 class Animal:
     def __init__(self, name):
         self.name = name

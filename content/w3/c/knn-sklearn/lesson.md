@@ -51,7 +51,7 @@ assert type(r.tolist()) is list
 assert r.tolist() == ['low', 'high']
 ```
 
-```python claim
+```python claim id=knn-sklearn-claim-1
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -89,7 +89,7 @@ assert m.fit([[0],[1]], [0,1]) is m
 assert KNeighborsClassifier(n_neighbors=1).fit([[0],[1]], [0,1]).predict([[1]]).tolist() == [1]
 ```
 
-```python claim
+```python claim id=knn-sklearn-claim-2
 from sklearn.neighbors import KNeighborsClassifier
 
 model = KNeighborsClassifier(n_neighbors=1)
@@ -119,7 +119,7 @@ except ValueError as e:
     assert 'Expected 2D array, got 1D array instead' in str(e)
 ```
 
-```python claim
+```python claim id=knn-sklearn-claim-3
 from sklearn.neighbors import KNeighborsClassifier
 
 model = KNeighborsClassifier(n_neighbors=1).fit([[1, 1], [9, 9]], ["fern", "pine"])

@@ -74,7 +74,7 @@ x.append(3)
 assert x == [9, 2, 3]
 ```
 
-```python claim
+```python claim id=lists-claim-1
 items = [3, 1, 3]
 assert items.append(2) is None and items == [3, 1, 3, 2]
 items.remove(3)
@@ -116,7 +116,7 @@ print(a)
 
 To get an independent list, copy it: `a.copy()` or `list(a)`.
 
-```python claim
+```python claim id=lists-claim-2
 a = [1, 2]
 b, c = a.copy(), list(a)
 b.append(3)

@@ -24,7 +24,7 @@ print(accuracy_score(truth, guess))
 
 A model's `score(X, y)` predicts every row of `X` and gives the accuracy against `y` in one go.
 
-```python claim
+```python claim id=train-test-claim-1
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -51,7 +51,7 @@ assert e[0] == a and e[1] == b
 assert train_test_split(X, y, test_size=0.25, random_state=1)[0] != a
 ```
 
-```python claim
+```python claim id=train-test-claim-2
 from sklearn.model_selection import train_test_split
 
 first = train_test_split(list(range(10)), test_size=0.3, random_state=0)
@@ -88,7 +88,7 @@ m2 = KNeighborsClassifier(n_neighbors=1).fit(X2, y2)
 assert m2.score(X2, y2) < 1.0
 ```
 
-```python claim
+```python claim id=train-test-claim-3
 from sklearn.neighbors import KNeighborsClassifier
 
 X, y = [[1], [2], [3]], ["a", "b", "a"]

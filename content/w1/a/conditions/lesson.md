@@ -23,7 +23,7 @@ except SyntaxError:
     pass
 ```
 
-```python claim
+```python claim id=conditions-claim-1
 try:
     compile("if x = 3:\n    pass", "lesson", "exec")
     raised = False
@@ -98,7 +98,7 @@ assert isinstance(t, ast.BoolOp) and isinstance(t.values[0], ast.Compare)
 assert (x == 1 or 2) == 2
 ```
 
-```python claim
+```python claim id=conditions-claim-2
 x = 5
 assert (x == 1 or 2) == 2 and bool(2) is True
 assert (x == 1 or x == 2) is False

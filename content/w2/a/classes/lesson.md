@@ -57,7 +57,7 @@ f = Fox("Sly", 3)
 assert calls == [(f, "Sly", 3)]
 ```
 
-```python claim
+```python claim id=classes-claim-1
 class Fox:
     def __init__(self, name):
         self.name = name
@@ -123,7 +123,7 @@ a = A()
 assert a.describe() is a
 ```
 
-```python claim
+```python claim id=classes-claim-2
 class Fox:
     def describe():
         return "fox"

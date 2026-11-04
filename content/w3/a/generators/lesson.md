@@ -44,7 +44,7 @@ assert inspect.isgeneratorfunction(g)
 assert inspect.isgenerator(g())
 ```
 
-```python claim
+```python claim id=generators-claim-1
 ran = []
 
 def countdown(n):
@@ -79,7 +79,7 @@ next(x)
 assert log == [0]
 ```
 
-```python claim
+```python claim id=generators-claim-2
 import sys
 
 assert sys.getsizeof(n for n in range(1_000_000)) < 1000
@@ -104,7 +104,7 @@ print(sum(n * n for n in range(4)))
 
 `map` and `filter` from the last lesson work the same way, which is why they needed `list()` to show their results.
 
-```python claim
+```python claim id=generators-claim-3
 m = map(abs, [-1, -2])
 assert list(m) == [1, 2] and list(m) == []
 ```

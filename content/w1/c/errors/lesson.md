@@ -15,7 +15,7 @@ When something goes wrong, Python raises an **exception** and prints a traceback
 
 The usual suspects: `NameError` (a name that does not exist), `TypeError` (the wrong type, like `"3" + 4`), `ValueError` (the right type but a bad value, like `int("abc")`), `IndexError` and `KeyError`.
 
-```python claim
+```python claim id=errors-claim-1
 def error_from(make):
     try:
         make()

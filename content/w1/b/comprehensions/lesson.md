@@ -29,7 +29,7 @@ assert list(enumerate(['a', 'b'], start=1)) == [(1, 'a'), (2, 'b')]
 assert list(zip([1, 2], ['a', 'b'])) == [(1, 'a'), (2, 'b')]
 ```
 
-```python claim
+```python claim id=comprehensions-claim-1
 assert list(enumerate("ab")) == [(0, "a"), (1, "b")]
 assert list(enumerate("ab", start=1)) == [(1, "a"), (2, "b")]
 assert [n for n in [1, 2, 3, 4] if n % 2 == 0] == [2, 4]

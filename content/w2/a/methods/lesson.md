@@ -31,7 +31,7 @@ print(w.coins, w.can_buy(8))
 
 `spend` changes the wallet; `can_buy` only answers. Keeping the two apart makes code easy to follow: you know which calls can change things.
 
-```python claim
+```python claim id=methods-claim-1
 class Wallet:
     def __init__(self):
         self.coins = 10
@@ -93,7 +93,7 @@ assert A().m != 5
 assert callable(A().m)
 ```
 
-```python claim
+```python claim id=methods-claim-2
 class Owl:
     def hoot(self):
         return ""

@@ -36,7 +36,7 @@ else:
     raise SystemExit('no error')
 ```
 
-```python claim
+```python claim id=testing-claim-1
 assert 1 + 1 == 2
 try:
     assert 1 + 1 == 3, "maths is broken"
@@ -83,7 +83,7 @@ assert isinstance(ast.parse('assert True').body[0], ast.Assert)
 assert not callable(globals().get('assert'))
 ```
 
-```python claim
+```python claim id=testing-claim-2
 x = 2
 assert bool((x == 3, "message")) is True
 ```

@@ -33,7 +33,7 @@ import statistics
 assert statistics.median([1, 2, 3, 4]) == 2.5
 ```
 
-```python claim
+```python claim id=statistics-claim-1
 import numpy as np
 
 assert float(np.median([1, 2, 3, 4])) == 2.5 and float(np.median([3, 1, 2])) == 2.0
@@ -72,7 +72,7 @@ assert np.mean(x) == 2.5
 assert np.median(x) == 2.5
 ```
 
-```python claim
+```python claim id=statistics-claim-2
 import math
 import numpy as np
 import pandas as pd

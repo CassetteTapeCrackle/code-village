@@ -71,7 +71,7 @@ assert b.n == 0
 assert vars(a) == {'n': 5}
 ```
 
-```python claim
+```python claim id=class-attributes-claim-1
 class Ranger:
     count = 0
 
@@ -112,7 +112,7 @@ a, b = A(), A()
 assert a.items is b.items is A.items
 ```
 
-```python claim
+```python claim id=class-attributes-claim-2
 class Pack:
     items = []
 

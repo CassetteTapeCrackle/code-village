@@ -57,7 +57,7 @@ print(cart.total(), len(cart.wheels))
 
 Inheriting just to reuse some methods is tempting, and it makes odd claims: if `Ranger` inherits from `Backpack`, a ranger **is** a backpack, and every backpack method becomes a ranger method. Give the ranger a backpack instead.
 
-```python claim
+```python claim id=composition-claim-1
 class Backpack:
     def add(self, item):
         pass

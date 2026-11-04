@@ -29,7 +29,7 @@ print(math.sqrt((4 - 1) ** 2 + (6 - 2) ** 2))
 
 A point can have as many numbers as you like: one per thing you measured (height, weight, age...). Each number is a **feature**.
 
-```python claim
+```python claim id=nearest-neighbour-claim-1
 import math
 
 assert math.dist((0, 0, 0), (1, 2, 2)) == 3.0

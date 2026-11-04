@@ -115,7 +115,7 @@ else:
 assert t.d == 2
 ```
 
-```python claim
+```python claim id=properties-claim-1
 class Thermometer:
     def __init__(self, degrees):
         self.degrees = degrees
@@ -179,7 +179,7 @@ else:
     assert False
 ```
 
-```python claim
+```python claim id=properties-claim-2
 class Ranger:
     def __init__(self, age):
         self.age = age

@@ -61,7 +61,7 @@ except RecursionError:
 assert raised
 ```
 
-```python claim
+```python claim id=recursion-claim-1
 import sys
 
 depth = 0

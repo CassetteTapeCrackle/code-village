@@ -71,7 +71,7 @@ except KeyError:
 assert raised
 ```
 
-```python claim
+```python claim id=dicts-claim-1
 stock = {"apple": 3}
 
 try:
@@ -93,7 +93,7 @@ print(stock.get("pear", 0), "pear" in stock)
 
 A **tuple** is a fixed group of values in round brackets, good for pairs like a point. A **set** keeps each value only once and has no order. Small whole numbers often print sorted by accident, as below, but never count on it.
 
-```python claim
+```python claim id=dicts-claim-2
 assert set([2, 1, 2, 3, 1]) == {1, 2, 3} and len(set("banana")) == 3
 ```
 

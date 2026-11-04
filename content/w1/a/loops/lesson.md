@@ -29,7 +29,7 @@ for item in ['a', 'b', 'c']:
 assert n == 3
 ```
 
-```python claim
+```python claim id=loops-claim-1
 assert list(range(3)) == [0, 1, 2] and list(range(1, 4)) == [1, 2, 3] and list(range(0)) == []
 ```
 
@@ -70,7 +70,7 @@ for i in range(5):
 assert out == [0, 2]
 ```
 
-```python claim
+```python claim id=loops-claim-2
 seen = []
 for n in range(10):
     if n == 1:

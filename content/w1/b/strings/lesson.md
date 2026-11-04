@@ -27,7 +27,7 @@ assert isinstance(s, Sequence)
 assert list(s) == ['a', 'b', 'c']
 ```
 
-```python claim
+```python claim id=strings-claim-1
 word = "village"
 assert word[0] == "v" and word[-1] == "e" and word[1:4] == "ill" and len(word[1:4]) == 3
 ```
@@ -48,7 +48,7 @@ assert s.replace('Hi', 'Yo') == ' \tYo there\n'
 assert s == ' \tHi there\n'
 ```
 
-```python claim
+```python claim id=strings-claim-2
 assert " \t fern\n ".strip() == "fern"
 assert "a  b\tc".split() == ["a", "b", "c"] and "a, b".split(", ") == ["a", "b"]
 ```
@@ -75,7 +75,7 @@ except TypeError:
 assert ok
 ```
 
-```python claim
+```python claim id=strings-claim-3
 name = "mika"
 loud = name.upper()
 assert name == "mika" and loud == "MIKA"

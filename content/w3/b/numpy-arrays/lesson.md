@@ -32,7 +32,7 @@ assert (a + a).tolist() == [2, 4, 6]
 assert a.sum() == 6 and a.min() == 1 and a.max() == 3 and a.mean() == 2.0
 ```
 
-```python claim
+```python claim id=numpy-arrays-claim-1
 import numpy as np
 
 a = np.array([3, 5, 8])
@@ -70,7 +70,7 @@ g = np.array([[1, 2], [3, 4]])
 assert g.ndim == 2 and g.shape == (2, 2)
 ```
 
-```python claim
+```python claim id=numpy-arrays-claim-2
 import numpy as np
 
 grid = np.array([[1, 2, 3], [4, 5, 6]])
@@ -106,7 +106,7 @@ assert repr(x) == 'np.float64(2.0)'
 assert str([x]) == '[np.float64(2.0)]'
 ```
 
-```python claim
+```python claim id=numpy-arrays-claim-3
 import numpy as np
 
 m = np.array([1.5, 2.5]).mean()

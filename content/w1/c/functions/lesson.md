@@ -26,7 +26,7 @@ def f(a):
 assert callable(f) and f.__name__ == 'f' and f(1) == 1
 ```
 
-```python claim
+```python claim id=functions-claim-1
 def show(n):
     print(n)
 
@@ -68,7 +68,7 @@ assert sorted(data, key=lambda t: t[1], reverse=True) == [('a', 1), ('b', 1), ('
 assert sorted(['ccc', 'a', 'bb'], key=len) == ['a', 'bb', 'ccc']
 ```
 
-```python claim
+```python claim id=functions-claim-2
 assert sorted(["kiwi", "plum", "fig"], key=len) == ["fig", "kiwi", "plum"]
 
 def greet(name, greeting="Hello"):

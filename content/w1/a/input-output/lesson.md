@@ -30,7 +30,7 @@ with contextlib.redirect_stdout(buf):
 assert buf.getvalue() == 'a 1 True\n'
 ```
 
-```python claim
+```python claim id=input-output-claim-1
 import contextlib
 import io
 
@@ -73,7 +73,7 @@ assert f'v={x + 1}' == 'v=4'
 assert f'{len("ab")}' == '2'
 ```
 
-```python claim
+```python claim id=input-output-claim-2
 score = 17.456
 assert f"{score:.1f}" == "17.5" and f"{score:.2f}" == "17.46" and f"{3 + 4}" == "7"
 ```

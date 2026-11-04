@@ -60,7 +60,7 @@ assert a == b
 assert a is not b
 ```
 
-```python claim
+```python claim id=identity-claim-1
 a = [1, 2]
 c = a
 c.append(3)
@@ -95,7 +95,7 @@ assert x == x
 assert x != y
 ```
 
-```python claim
+```python claim id=identity-claim-2
 class Fox:
     def __init__(self, name):
         self.name = name
@@ -143,7 +143,7 @@ x.remove(A(2))
 assert len(x) == 1
 ```
 
-```python claim
+```python claim id=identity-claim-3
 a, b = ["tent"], ["tent"]
 bags = [a, b]
 bags.remove(b)
