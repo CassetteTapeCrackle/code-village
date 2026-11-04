@@ -942,13 +942,8 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
-item = "dicts-phone"
-fingerprint = "90b30b2f976b"
-
-[[gap]]
-rule = "right-missing"
 item = "dicts-stock"
-fingerprint = "2285877a8716"
+fingerprint = "e031c3e7c603"
 
 [[gap]]
 rule = "right-missing"
@@ -2012,13 +2007,8 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "dicts-phone"
-fingerprint = "90b30b2f976b"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "dicts-stock"
-fingerprint = "2285877a8716"
+fingerprint = "e031c3e7c603"
 
 [[gap]]
 rule = "wrong-too-few"
