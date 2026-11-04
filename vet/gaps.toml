@@ -1322,11 +1322,6 @@ fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "right-missing"
-item = "recursion-count"
-fingerprint = "456102425376"
-
-[[gap]]
-rule = "right-missing"
 item = "recursion-countdown-list"
 fingerprint = "0ecf30acf2aa"
 
@@ -1348,7 +1343,7 @@ fingerprint = "777cebd050cf"
 [[gap]]
 rule = "right-missing"
 item = "recursion-total"
-fingerprint = "2c49c0633049"
+fingerprint = "455d622cf30d"
 
 [[gap]]
 rule = "right-missing"
@@ -2122,11 +2117,6 @@ fingerprint = "bc03a544dbed"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "recursion-count"
-fingerprint = "456102425376"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "recursion-countdown-list"
 fingerprint = "0ecf30acf2aa"
 
@@ -2148,7 +2138,7 @@ fingerprint = "777cebd050cf"
 [[gap]]
 rule = "wrong-too-few"
 item = "recursion-total"
-fingerprint = "2c49c0633049"
+fingerprint = "455d622cf30d"
 
 [[gap]]
 rule = "wrong-too-few"
