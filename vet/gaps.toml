@@ -67,13 +67,8 @@ fingerprint = "7b1cb790f6ac"
 
 [[gap]]
 rule = "cases-missing"
-item = "identity-copy-basket"
-fingerprint = "59ce3f7405b6"
-
-[[gap]]
-rule = "cases-missing"
 item = "identity-copy-hiker"
-fingerprint = "1edf43f2eca6"
+fingerprint = "21655e50aba9"
 
 [[gap]]
 rule = "cases-missing"
@@ -1658,12 +1653,12 @@ fingerprint = "7b1cb790f6ac"
 [[gap]]
 rule = "right-missing"
 item = "identity-copy-basket"
-fingerprint = "59ce3f7405b6"
+fingerprint = "7cc5df18140e"
 
 [[gap]]
 rule = "right-missing"
 item = "identity-copy-hiker"
-fingerprint = "1edf43f2eca6"
+fingerprint = "21655e50aba9"
 
 [[gap]]
 rule = "right-missing"
@@ -2913,12 +2908,12 @@ fingerprint = "7b1cb790f6ac"
 [[gap]]
 rule = "wrong-too-few"
 item = "identity-copy-basket"
-fingerprint = "59ce3f7405b6"
+fingerprint = "7cc5df18140e"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "identity-copy-hiker"
-fingerprint = "1edf43f2eca6"
+fingerprint = "21655e50aba9"
 
 [[gap]]
 rule = "wrong-too-few"
