@@ -8,7 +8,7 @@ fingerprint = "3e0fc43ff51c"
 [[gap]]
 rule = "blind-missing"
 item = "comprehensions-add-lists"
-fingerprint = "906f41b9fdc0"
+fingerprint = "d5e33546ea72"
 
 [[gap]]
 rule = "blind-missing"
@@ -134,11 +134,6 @@ fingerprint = "a894cc53fe56"
 rule = "cases-missing"
 item = "composition-ranger-pack"
 fingerprint = "bb635db4e32e"
-
-[[gap]]
-rule = "cases-missing"
-item = "comprehensions-add-lists"
-fingerprint = "906f41b9fdc0"
 
 [[gap]]
 rule = "cases-missing"
@@ -1803,7 +1798,7 @@ fingerprint = "bb635db4e32e"
 [[gap]]
 rule = "right-missing"
 item = "comprehensions-add-lists"
-fingerprint = "906f41b9fdc0"
+fingerprint = "d5e33546ea72"
 
 [[gap]]
 rule = "right-missing"
@@ -2947,11 +2942,6 @@ fingerprint = "a894cc53fe56"
 
 [[gap]]
 rule = "weak-tests"
-item = "comprehensions-add-lists"
-fingerprint = "906f41b9fdc0"
-
-[[gap]]
-rule = "weak-tests"
 item = "dunders-feather"
 fingerprint = "d8ebfbb69a84"
 
@@ -3368,7 +3358,7 @@ fingerprint = "bb635db4e32e"
 [[gap]]
 rule = "wrong-too-few"
 item = "comprehensions-add-lists"
-fingerprint = "906f41b9fdc0"
+fingerprint = "d5e33546ea72"
 
 [[gap]]
 rule = "wrong-too-few"
