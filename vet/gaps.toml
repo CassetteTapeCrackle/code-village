@@ -57,11 +57,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "cases-missing"
-item = "files-json-scores"
-fingerprint = "f24b9c40ddd5"
-
-[[gap]]
-rule = "cases-missing"
 item = "files-json-visits"
 fingerprint = "116f4f0f95ce"
 
@@ -1638,7 +1633,7 @@ fingerprint = "d519057c4c02"
 [[gap]]
 rule = "right-missing"
 item = "files-json-scores"
-fingerprint = "f24b9c40ddd5"
+fingerprint = "fb1f8c5691e8"
 
 [[gap]]
 rule = "right-missing"
@@ -2893,7 +2888,7 @@ fingerprint = "d519057c4c02"
 [[gap]]
 rule = "wrong-too-few"
 item = "files-json-scores"
-fingerprint = "f24b9c40ddd5"
+fingerprint = "fb1f8c5691e8"
 
 [[gap]]
 rule = "wrong-too-few"
