@@ -2,4 +2,4 @@ import statistics
 
 
 def average(numbers):
-    return statistics.mean(numbers)
+    return float(statistics.mean(numbers))
