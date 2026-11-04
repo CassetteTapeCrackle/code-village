@@ -942,18 +942,13 @@ fingerprint = "a08a070a8257"
 
 [[gap]]
 rule = "right-missing"
-item = "conditions-letter"
-fingerprint = "ef8a41ed646a"
-
-[[gap]]
-rule = "right-missing"
 item = "conditions-sign"
 fingerprint = "b7c6afe96d16"
 
 [[gap]]
 rule = "right-missing"
 item = "conditions-ticket-price"
-fingerprint = "28093e291052"
+fingerprint = "afeae0f96552"
 
 [[gap]]
 rule = "right-missing"
@@ -2087,18 +2082,13 @@ fingerprint = "a08a070a8257"
 
 [[gap]]
 rule = "wrong-too-few"
-item = "conditions-letter"
-fingerprint = "ef8a41ed646a"
-
-[[gap]]
-rule = "wrong-too-few"
 item = "conditions-sign"
 fingerprint = "b7c6afe96d16"
 
 [[gap]]
 rule = "wrong-too-few"
 item = "conditions-ticket-price"
-fingerprint = "28093e291052"
+fingerprint = "afeae0f96552"
 
 [[gap]]
 rule = "wrong-too-few"
