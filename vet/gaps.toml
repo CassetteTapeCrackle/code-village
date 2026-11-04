@@ -72,11 +72,6 @@ fingerprint = "a452bd94cfec"
 
 [[gap]]
 rule = "cases-missing"
-item = "pandas-tables-tallest"
-fingerprint = "b2a8229a4102"
-
-[[gap]]
-rule = "cases-missing"
 item = "pandas-tables-team"
 fingerprint = "50eaa30dbf3b"
 
