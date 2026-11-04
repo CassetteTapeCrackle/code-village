@@ -942,11 +942,6 @@ fingerprint = "5778085b4b4e"
 
 [[gap]]
 rule = "right-missing"
-item = "dicts-stock"
-fingerprint = "e031c3e7c603"
-
-[[gap]]
-rule = "right-missing"
 item = "dicts-unique-sorted"
 fingerprint = "c6099e540bfc"
 
@@ -2004,11 +1999,6 @@ fingerprint = "c1127bee0134"
 rule = "wrong-too-few"
 item = "data-summary"
 fingerprint = "5778085b4b4e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dicts-stock"
-fingerprint = "e031c3e7c603"
 
 [[gap]]
 rule = "wrong-too-few"
