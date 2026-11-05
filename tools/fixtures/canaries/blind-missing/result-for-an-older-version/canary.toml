@@ -1,0 +1,65 @@
+# The stored run belongs to an older version of the task.
+base = "blind-base"
+expect = ["blind-missing"]
+
+[[file]]
+path = "../vet/blind/basics-double.json"
+text = '''
+{
+  "fingerprint": "000000000000",
+  "model": "recorded",
+  "attempts": [
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}
+'''

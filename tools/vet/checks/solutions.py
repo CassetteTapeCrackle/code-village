@@ -14,7 +14,8 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
 
 def _solutions(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
     items = list(content.items())
-    outcomes = adapter.check([CheckJob(item.solution, item.tests, item.strict) for item in items])
+    jobs = [CheckJob(item.solution, item.tests, item.strict, requires=item.requires) for item in items]
+    outcomes = adapter.check(jobs)
     for item, outcome in zip(items, outcomes, strict=True):
         about = subject(item.id, item.fingerprint, item.folder / "solution.py", content.root)
         if outcome is None:
@@ -22,6 +23,26 @@ def _solutions(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
         elif not passes(outcome):
             failed = outcome["error"] or [r for r in outcome["results"] if not r["passed"]]
             yield about.finding("solution-fails", f"{item.label} fails: {failed}")
+
+
+FLAKY_SEEDS = (1, 2, 3, 4)  # a result that depends on a three-way order is the same under all five seeds 1 time in 11
+
+
+def check_flaky(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
+    """Rule solution-flaky: a solution that passes under one hash seed and fails under another rests on set or dict
+    order, so a right answer could be refused at random. Every run is otherwise pinned to seed 0."""
+    items = list(content.items())
+    base = adapter.check([CheckJob(item.solution, item.tests, item.strict, requires=item.requires) for item in items])
+    for seed in FLAKY_SEEDS:
+        others = adapter.check([CheckJob(item.solution, item.tests, item.strict, requires=item.requires,
+                                         hash_seed=seed) for item in items])
+        for item, first, other in zip(items, base, others, strict=True):
+            if first is not None and other is not None and passes(first) != passes(other):
+                about = subject(item.id, item.fingerprint, item.folder / "tests.py", content.root)
+                yield about.finding("solution-flaky", f"{item.label} {'passes' if passes(first) else 'fails'} with "
+                                                      f"hash seed 0 and the opposite with seed {seed}: the tests or "
+                                                      "the solution depend on set or dict order")
+                return
 
 
 def _starters(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:

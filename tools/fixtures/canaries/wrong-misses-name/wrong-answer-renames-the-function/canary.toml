@@ -1,0 +1,10 @@
+# The wrong/thirds answer defines halve instead of half, so it fails for its name and not for its mistake.
+base = "good"
+expect = ["wrong-misses-name"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/wrong/thirds.py"
+text = '''
+def halve(n):
+    return n / 3
+'''

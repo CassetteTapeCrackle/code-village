@@ -1,0 +1,57 @@
+{
+  "fingerprint": "494dd7d39b49",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Plot:\n    def __init__(self, width, depth):\n        self.width = width\n        self.depth = depth\n\n    @property\n    def area(self):\n        return self.width * self.depth\n\n    @property\n    def fence(self):\n        return 2 * (self.width + self.depth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Plot:\n    def __init__(self, width, depth):\n        self.width = width\n        self.depth = depth\n\n    @property\n    def area(self):\n        return self.width * self.depth\n\n    @property\n    def fence(self):\n        return 2 * (self.width + self.depth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Plot:\n    def __init__(self, width, depth):\n        self.width = width\n        self.depth = depth\n\n    @property\n    def area(self):\n        return self.width * self.depth\n\n    @property\n    def fence(self):\n        return 2 * (self.width + self.depth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Plot:\n    def __init__(self, width, depth):\n        self.width = width\n        self.depth = depth\n\n    @property\n    def area(self):\n        return self.width * self.depth\n\n    @property\n    def fence(self):\n        return 2 * (self.width + self.depth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Plot:\n    def __init__(self, width, depth):\n        self.width = width\n        self.depth = depth\n\n    @property\n    def area(self):\n        return self.width * self.depth\n\n    @property\n    def fence(self):\n        return 2 * (self.width + self.depth)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

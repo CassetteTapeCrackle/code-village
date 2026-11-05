@@ -1,0 +1,57 @@
+{
+  "fingerprint": "70431e78e35c",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def add_both(items, a, b):\n    items.append(a)\n    items.append(b)\n    return items\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def add_both(items, a, b):\n    items.append(a)\n    items.append(b)\n    return items",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def add_both(items, a, b):\n    items.append(a)\n    items.append(b)\n    return items\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def add_both(items, a, b):\n    items.append(a)\n    items.append(b)\n    return items\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def add_both(items, a, b):\n    items.append(a)\n    items.append(b)\n    return items\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

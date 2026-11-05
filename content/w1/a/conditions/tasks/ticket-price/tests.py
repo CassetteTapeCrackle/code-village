@@ -9,3 +9,6 @@ def test_adult_edges():
 
 def test_senior():
     expect_equal(learner["ticket_price"](65), 6, "ticket_price(65)")
+
+def test_older_seniors():
+    expect_equal([learner["ticket_price"](a) for a in (66, 80, 100)], [6, 6, 6], "ticket_price(66), (80) and (100)")

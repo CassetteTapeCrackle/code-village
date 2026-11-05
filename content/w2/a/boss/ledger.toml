@@ -1,0 +1,71 @@
+[[sentence]]
+fp = "8c7566dc8653"
+text = "The squirrels of the hollow oak run a storehouse, and their books are a mess."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7b3448b3fa58"
+text = "Write an `Inventory` class that keeps one product's stock, sales and takings straight."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "00938eac0fec"
+text = "Three stages: make the inventory, sell from it, then restock it and say what the stock is worth."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5281bc8a711b"
+text = "Hard mode starts from an empty page."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ee60fc9c656b"
+text = "`Inventory(product, stock, price)` stores those three, and starts with `sales` and `revenue` at 0."
+where = "stage:storehouse-stock:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9dad90da1ca0"
+text = "`sell(quantity)` sells that many when there is enough stock: stock goes down, `sales` goes up by the quantity, `revenue` by quantity times price, and it returns `True`."
+where = "stage:storehouse-sell:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7cb9bcbd8953"
+text = "When there is not enough, it changes nothing and returns `False`."
+where = "stage:storehouse-sell:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c8c3768b44f1"
+text = "`restock(quantity)` adds to the stock, and `value()` returns what the stock is worth: stock times price."
+where = "stage:storehouse-restock:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

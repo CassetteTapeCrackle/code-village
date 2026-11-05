@@ -1,3 +1,9 @@
 id = "classes-basket"
 title = "Is it in the basket?"
 prompt = "Finish `Basket`: `put(fruit)` already adds a fruit, and `has(fruit)` should return `True` when that fruit is in the basket. `fruit in self.fruits` checks a list."
+
+[cases]
+class = "Basket"
+init = []
+methods = { put = ["word"], has = ["word"] }
+reads = ["fruits"]

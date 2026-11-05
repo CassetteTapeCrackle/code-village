@@ -1,0 +1,57 @@
+{
+  "fingerprint": "29b46f4b777b",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef size_of(X, y, height):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[height]]).tolist()[0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef size_of(X, y, height):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[height]]).tolist()[0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef size_of(X, y, height):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[height]]).tolist()[0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef size_of(X, y, height):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[height]]).tolist()[0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef size_of(X, y, height):\n    model = KNeighborsClassifier(n_neighbors=1).fit(X, y)\n    return model.predict([[height]]).tolist()[0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

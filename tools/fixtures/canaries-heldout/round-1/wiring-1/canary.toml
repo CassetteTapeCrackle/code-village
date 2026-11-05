@@ -1,0 +1,19 @@
+# The half task names the concept number, but concepts.toml defines numbers.
+base = "good"
+expect = ["wiring"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/task.toml"
+text = '''
+id = "basics-half"
+concept = "number"
+kind = "write"
+title = "Half it"
+prompt = "Write `half(n)`."
+hints = ["Divide by 2."]
+gotcha = false
+
+[cases]
+call = "half"
+args = ["int -50..50"]
+'''

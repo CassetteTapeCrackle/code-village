@@ -1,0 +1,57 @@
+{
+  "fingerprint": "8bf3c2cfb548",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "hours = int(input())\nprint(f\"{hours} hours = {hours * 60} minutes\")\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "hours = int(input())\n# print the line here\nprint(f\"{hours} hours = {hours * 60} minutes\")",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "hours = int(input())\n# print the line here\nprint(f\"{hours} hours = {hours * 60} minutes\")\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "hours = int(input())\nprint(f\"{hours} hours = {hours * 60} minutes\")",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "hours = int(input())\nprint(f\"{hours} hours = {hours * 60} minutes\")\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

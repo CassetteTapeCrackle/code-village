@@ -1,0 +1,57 @@
+{
+  "fingerprint": "439ac126ff76",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def withdraw(balance, amount):\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def withdraw(balance, amount):\n    # raise ValueError(\"not enough money\") when amount is bigger than balance\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def withdraw(balance, amount):\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def withdraw(balance, amount):\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def withdraw(balance, amount):\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

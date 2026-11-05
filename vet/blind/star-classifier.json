@@ -1,0 +1,57 @@
+{
+  "fingerprint": "d511165f5eaa",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import math\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\n\n\ndef scale_columns(rows):\n    if len(rows) == 0:\n        return []\n    column_count = len(rows[0])\n    smallest = [min(row[i] for row in rows) for i in range(column_count)]\n    largest = [max(row[i] for row in rows) for i in range(column_count)]\n    scaled = []\n    for row in rows:\n        new_row = []\n        for i in range(column_count):\n            value = row[i]\n            if largest[i] == smallest[i]:\n                new_row.append(0.0)\n            else:\n                new_row.append((value - smallest[i]) / (largest[i] - smallest[i]))\n        scaled.append(new_row)\n    return scaled\n\n\ndef nearest_label(X, y, point):\n    best_index = 0\n    best_distance = math.dist(X[0], point)\n    for i in range(1, len(X)):\n        distance = math.dist(X[i], point)\n        if distance < best_distance:\n            best_distance = distance\n            best_index = i\n    return y[best_index]\n\n\ndef knn_predict(X, y, rows, k):\n    if k > len(X):\n        raise ValueError('k is larger than the number of known stars')\n    if len(rows) == 0:\n        return []\n    model = KNeighborsClassifier(n_neighbors=k)\n    model.fit(X, y)\n    return list(model.predict(rows))\n\n\ndef star_accuracy(X, y):\n    scaled_X = scale_columns(X)\n    X_train, X_test, y_train, y_test = train_test_split(\n        scaled_X, y, test_size=0.25, random_state=0\n    )\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X_train, y_train)\n    return float(model.score(X_test, y_test))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import math\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\n\n\ndef scale_columns(rows):\n    if not rows:\n        return []\n    result = []\n    for row in rows:\n        result.append([])\n    for j in range(len(rows[0])):\n        column = [row[j] for row in rows]\n        low = min(column)\n        high = max(column)\n        if high == low:\n            for i in range(len(rows)):\n                result[i].append(0.0)\n        else:\n            for i, value in enumerate(column):\n                result[i].append((value - low) / (high - low))\n    return result\n\n\ndef nearest_label(X, y, point):\n    best_distance = None\n    best_index = None\n    for i, row in enumerate(X):\n        distance = math.dist(row, point)\n        if best_distance is None or distance < best_distance:\n            best_distance = distance\n            best_index = i\n    return y[best_index]\n\n\ndef knn_predict(X, y, rows, k):\n    if k > len(X):\n        raise ValueError('k is larger than the number of known stars')\n    model = KNeighborsClassifier(n_neighbors=k)\n    model.fit(X, y)\n    return list(model.predict(rows))\n\n\ndef star_accuracy(X, y):\n    scaled = scale_columns(X)\n    X_train, X_test, y_train, y_test = train_test_split(\n        scaled, y, test_size=0.25, random_state=0\n    )\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X_train, y_train)\n    predictions = model.predict(X_test)\n    correct = 0\n    for actual, predicted in zip(y_test, predictions):\n        if actual == predicted:\n            correct += 1\n    return correct / len(y_test)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\n\n\ndef scale_columns(rows):\n    if not rows:\n        return []\n    n_cols = len(rows[0])\n    mins = []\n    maxs = []\n    for j in range(n_cols):\n        values = [row[j] for row in rows]\n        mins.append(min(values))\n        maxs.append(max(values))\n    scaled = []\n    for row in rows:\n        new_row = []\n        for j, value in enumerate(row):\n            if maxs[j] == mins[j]:\n                new_row.append(0.0)\n            else:\n                new_row.append((value - mins[j]) / (maxs[j] - mins[j]))\n        scaled.append(new_row)\n    return scaled\n\n\ndef nearest_label(X, y, point):\n    best_i = 0\n    best_d = math.dist(X[0], point)\n    for i in range(1, len(X)):\n        d = math.dist(X[i], point)\n        if d < best_d:\n            best_d = d\n            best_i = i\n    return y[best_i]\n\n\ndef knn_predict(X, y, rows, k):\n    if k > len(X):\n        raise ValueError('k cannot be larger than the number of known stars')\n    model = KNeighborsClassifier(n_neighbors=k)\n    model.fit(X, y)\n    return list(model.predict(rows))\n\n\ndef star_accuracy(X, y):\n    scaled = scale_columns(X)\n    X_train, X_test, y_train, y_test = train_test_split(\n        scaled, y, test_size=0.25, random_state=0\n    )\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X_train, y_train)\n    return float(model.score(X_test, y_test))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import math\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\n\n\ndef scale_columns(rows):\n    if not rows:\n        return []\n\n    n_cols = len(rows[0])\n    mins = [min(row[i] for row in rows) for i in range(n_cols)]\n    maxs = [max(row[i] for row in rows) for i in range(n_cols)]\n\n    scaled = []\n    for row in rows:\n        new_row = []\n        for i, value in enumerate(row):\n            smallest = mins[i]\n            largest = maxs[i]\n            if largest == smallest:\n                new_row.append(0.0)\n            else:\n                new_row.append((value - smallest) / (largest - smallest))\n        scaled.append(new_row)\n\n    return scaled\n\n\ndef nearest_label(X, y, point):\n    best_index = 0\n    best_distance = math.dist(X[0], point)\n\n    for i in range(1, len(X)):\n        distance = math.dist(X[i], point)\n        if distance < best_distance:\n            best_distance = distance\n            best_index = i\n\n    return y[best_index]\n\n\ndef knn_predict(X, y, rows, k):\n    if k > len(y):\n        raise ValueError('k cannot be larger than the number of known stars')\n\n    model = KNeighborsClassifier(n_neighbors=k)\n    model.fit(X, y)\n    return list(model.predict(rows))\n\n\ndef star_accuracy(X, y):\n    scaled = scale_columns(X)\n    X_train, X_test, y_train, y_test = train_test_split(\n        scaled, y, test_size=0.25, random_state=0\n    )\n\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X_train, y_train)\n\n    return float(model.score(X_test, y_test))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\n\n\ndef scale_columns(rows):\n    if len(rows) == 0:\n        return []\n\n    n_cols = len(rows[0])\n    mins = []\n    maxs = []\n\n    for j in range(n_cols):\n        column = [row[j] for row in rows]\n        mins.append(min(column))\n        maxs.append(max(column))\n\n    scaled = []\n    for row in rows:\n        new_row = []\n        for j in range(n_cols):\n            if maxs[j] == mins[j]:\n                new_row.append(0.0)\n            else:\n                new_row.append((row[j] - mins[j]) / (maxs[j] - mins[j]))\n        scaled.append(new_row)\n\n    return scaled\n\n\ndef nearest_label(X, y, point):\n    best_index = 0\n    best_distance = math.dist(X[0], point)\n\n    for i in range(1, len(X)):\n        distance = math.dist(X[i], point)\n        if distance < best_distance:\n            best_distance = distance\n            best_index = i\n\n    return y[best_index]\n\n\ndef knn_predict(X, y, rows, k):\n    if k > len(y):\n        raise ValueError(f'k={k} is larger than the number of known stars ({len(y)})')\n\n    if len(rows) == 0:\n        return []\n\n    model = KNeighborsClassifier(n_neighbors=k)\n    model.fit(X, y)\n    return list(model.predict(rows))\n\n\ndef star_accuracy(X, y):\n    scaled = scale_columns(X)\n\n    X_train, X_test, y_train, y_test = train_test_split(\n        scaled, y, test_size=0.25, random_state=0\n    )\n\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X_train, y_train)\n\n    predictions = model.predict(X_test)\n\n    correct = 0\n    for actual, predicted in zip(y_test, predictions):\n        if actual == predicted:\n            correct += 1\n\n    return correct / len(y_test)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

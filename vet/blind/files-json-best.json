@@ -1,0 +1,57 @@
+{
+  "fingerprint": "47131e74f4a2",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import json\n\n\ndef best_player(path):\n    with open(path) as f:\n        data = json.load(f)\n    return max(data, key=data.get)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import json\n\n\ndef best_player(path):\n    with open(path) as f:\n        data = json.load(f)\n    return max(data, key=data.get)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import json\n\n\ndef best_player(path):\n    with open(path) as f:\n        data = json.load(f)\n    return max(data, key=data.get)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import json\n\n\ndef best_player(path):\n    with open(path) as f:\n        data = json.load(f)\n    return max(data, key=data.get)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import json\n\n\ndef best_player(path):\n    with open(path) as f:\n        data = json.load(f)\n    return max(data, key=data.get)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

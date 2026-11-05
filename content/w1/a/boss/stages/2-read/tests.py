@@ -11,3 +11,7 @@ def test_not_numbers():
 def test_out_of_range():
     """only 1 to 100 are guesses"""
     expect_equal([learner["read_guess"](t) for t in ("0", "101")], [None, None], 'read_guess("0") and ("101")')
+
+def test_ends_of_the_range():
+    """1 and 100 are guesses"""
+    expect_equal([learner["read_guess"](t) for t in ("1", "100")], [1, 100], 'read_guess("1") and ("100")')

@@ -1,0 +1,60 @@
+# the add stage requires the sum feature and the solution uses it, but the prompt never names sum
+base = "good"
+expect = ["ambiguous"]
+
+[[file]]
+path = "features.toml"
+text = '''
+[feature.fn-print]
+summary = "print()"
+detect = ["call:print"]
+
+[feature.function-def]
+summary = "def"
+detect = ["node:FunctionDef"]
+
+[feature.return-statement]
+summary = "return"
+detect = ["node:Return"]
+
+[feature.docstring]
+summary = "docstrings"
+detect = ["node:Docstring"]
+words = ["docstring"]
+say = "write a docstring"
+
+[feature.fn-sum]
+summary = "sum()"
+detect = ["call:sum"]
+words = ["sum"]
+say = "use sum"
+'''
+
+[[file]]
+path = "w1/a/boss/stages/1-add/stage.toml"
+text = '''
+id = "calc-add"
+title = "Add"
+prompt = "Write `add(a, b)`."
+hp = 10
+requires = ["fn-sum"]
+
+[cases]
+call = "add"
+args = ["int -50..50", "int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/boss/solution.py"
+text = '''
+def add(a, b):
+    return sum([a, b])
+
+
+def sub(a, b):
+    return a - b
+
+
+def mul(a, b):
+    return a * b
+'''

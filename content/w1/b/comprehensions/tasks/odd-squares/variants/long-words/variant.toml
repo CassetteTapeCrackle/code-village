@@ -1,3 +1,7 @@
 id = "comprehensions-long-words"
 title = "Long words"
 prompt = "Write `long_words(words)` that returns the words with more than 3 letters, in order."
+
+[cases]
+call = "long_words"
+args = ["list<word> 0..8"]

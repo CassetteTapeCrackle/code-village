@@ -9,3 +9,10 @@ def expected():
 
 def test_fair():
     expect_equal(learner["fair_score"](X, Y), expected(), "fair_score(X, Y)")
+
+NOISY_X = [[8], [19], [18], [5], [12], [20], [16], [19], [3], [20], [1], [16]]
+NOISY_Y = ["b", "a", "a", "b", "b", "b", "a", "a", "a", "b", "a", "a"]
+
+def test_noisy_data():
+    """here one neighbour scores 1.0 and two or three neighbours score 0.67"""
+    expect_equal(learner["fair_score"](NOISY_X, NOISY_Y), 1.0, "fair_score(NOISY_X, NOISY_Y)")

@@ -1,3 +1,7 @@
 id = "knn-sklearn-height"
 title = "One height"
 prompt = "`size_of(X, y, height)` should return the label (a plain string) for one height, where each row of `X` holds a single number. It crashes with `Expected 2D array` (one row in a list needs two pairs of brackets): find and fix the bug."
+
+[cases]
+call = "size_of"
+args = ["list<list<int 0..99> 1..1> 6..6", "list<choice small|tall> 6..6", "int 0..99"]

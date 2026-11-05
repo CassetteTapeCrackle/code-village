@@ -16,3 +16,6 @@ def test_below_zero():
     except ValueError:
         return
     raise Failure("set_volume(-1) should raise ValueError")
+
+def test_both_ends_are_allowed():
+    expect_equal([learner["set_volume"](v) for v in (0, 10)], [0, 10], "set_volume(0) and set_volume(10)")

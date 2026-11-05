@@ -1,0 +1,33 @@
+# The detector call:sum belongs to two features, fn-sum and a new fn-total.
+base = "good"
+expect = ["progression"]
+
+[[file]]
+path = "features.toml"
+text = '''
+[feature.fn-print]
+summary = "print()"
+detect = ["call:print"]
+
+[feature.function-def]
+summary = "def"
+detect = ["node:FunctionDef"]
+
+[feature.return-statement]
+summary = "return"
+detect = ["node:Return"]
+
+[feature.docstring]
+summary = "docstrings"
+detect = ["node:Docstring"]
+words = ["docstring"]
+say = "write a docstring"
+
+[feature.fn-sum]
+summary = "sum()"
+detect = ["call:sum"]
+
+[feature.fn-total]
+summary = "totals"
+detect = ["call:sum"]
+'''

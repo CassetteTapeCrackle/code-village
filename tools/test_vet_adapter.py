@@ -1,3 +1,6 @@
+import contextlib
+import io
+import json
 import shutil
 import sys
 import tempfile
@@ -7,14 +10,15 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from vet import Finding, GapKey
-from vet.adapter import LIMIT, CheckJob, ToolError
+from vet import Finding, GapKey, run
+from vet.adapter import LIMIT, CheckJob, FeatureQuery, ToolError
 from vet.checks import style
 from vet.load import load_content
 from vet.python import adapter as python_adapter
+from vet.python import capped
 from vet.python.adapter import PythonAdapter
 from vet.rules import RULES, SEVERITIES, RulesError, load_rules
-from vet.run import vet_content
+from vet.run import CHECKS, UndeclaredRule, vet_content
 
 TESTS = 'def test_double():\n    expect_equal(learner["double"](2), 4, "double(2)")\n'
 
@@ -62,9 +66,50 @@ class Check(unittest.TestCase):
         assert outcome is not None
         self.assertIn("MemoryError", outcome["error"] or "")
 
-    def test_unbuilt_methods_say_so(self) -> None:
-        with self.assertRaises(NotImplementedError):
-            PythonAdapter().features("x = 1")
+    def test_harness_runs_uncapped_where_the_cap_is_refused(self) -> None:
+        # macOS: setrlimit(RLIMIT_AS) raises ValueError, and every job used to crash with it
+        job = {"mode": "run", "code": "print(6 * 7)", "inputs": []}
+        out = io.StringIO()
+        refused = ValueError("current limit exceeds maximum limit")
+        with mock.patch("resource.setrlimit", side_effect=refused), \
+                mock.patch("sys.stdin", io.StringIO(json.dumps(job))), contextlib.redirect_stdout(out):
+            capped.main(str(python_adapter.HARNESS))
+        self.assertEqual(json.loads(out.getvalue())["stdout"], "42\n")
+
+    def test_cap_memory_says_when_the_platform_refuses(self) -> None:
+        for error in (ValueError("refused"), OSError("refused")):
+            with self.subTest(error=type(error).__name__), mock.patch("resource.setrlimit", side_effect=error):
+                self.assertFalse(capped.cap_memory())
+
+    def test_a_job_checked_before_is_not_run_again(self) -> None:
+        adapter = PythonAdapter()
+        job = CheckJob(code="def double(n):\n    return n * 2\n", tests=TESTS)
+        first = adapter.check([job, job])
+        with mock.patch.object(adapter, "_harness_all", side_effect=AssertionError("ran again")):
+            self.assertEqual(adapter.check([job]), first[:1])
+
+    def test_every_run_repeats_set_order_and_a_seed_can_change_it(self) -> None:
+        code = "def order():\n    return list({str(n) for n in range(12)})\n"
+        tests = "def test_order():\n    expect_equal(learner['order'](), EXPECTED, 'order()')\n"
+        outcomes = PythonAdapter().check([CheckJob(code, tests.replace("EXPECTED", "[]"), hash_seed=seed)
+                                          for seed in (0, 0, 1)])
+        messages = [o["results"][0]["message"] if o else "" for o in outcomes]  # type: ignore[index]
+        self.assertEqual(messages[0], messages[1])
+        self.assertNotEqual(messages[0], messages[2])
+
+    def test_features_come_from_the_harness_vocabulary(self) -> None:
+        vocabulary = {"fn-len": ["call:len"], "for-loop": ["node:For"]}
+        queries = [FeatureQuery("for x in []:\n    len(x)\n"), FeatureQuery("x = 1\n"), FeatureQuery("len([")]
+        found = PythonAdapter().features(queries, vocabulary)
+        self.assertEqual(found, [frozenset({"fn-len", "for-loop"}), frozenset(), frozenset()])
+
+    def test_features_of_no_code_run_nothing(self) -> None:
+        with mock.patch.object(PythonAdapter, "_harness_all", side_effect=AssertionError("ran")):
+            self.assertEqual(PythonAdapter().features([], {}), [])
+
+    def test_features_job_that_cannot_run_is_a_tool_error(self) -> None:
+        with mock.patch.object(PythonAdapter, "_harness_all", return_value=[None]), self.assertRaises(ToolError):
+            PythonAdapter().features([FeatureQuery("x = 1\n")], {})
 
     def test_mutants_come_from_the_python_operators(self) -> None:
         self.assertEqual([m.code for m in PythonAdapter().mutants("x = 1\n")], ["x = 2\n", "x = 0\n"])
@@ -79,6 +124,39 @@ class BrokenTool(unittest.TestCase):
         with mock.patch.object(style, "_ruff", side_effect=ToolError("ruff is missing")):
             findings, broken = vet_content(content, PythonAdapter())
         self.assertEqual(([f.rule for f in findings], broken), (["solution-fails"], ["ruff is missing"]))
+
+
+LOADER_RULES = {"boss-stage-count", "concept-unnamed", "field-invalid", "field-missing", "file-unreadable",
+                "task-folder-missing", "task-unplaced", "world-id-mismatch"}
+
+
+class PickedRules(unittest.TestCase):
+    def setUp(self) -> None:
+        self.content, _ = load_content(python_adapter.ROOT / "tools" / "fixtures" / "good")
+        self.ran: list[str] = []
+
+    def fake(self, name: str, rules: set[str], reports: str | None = None) -> run.Check:
+        def ran(content: object, adapter: object) -> list[Finding]:
+            self.ran.append(name)
+            return [Finding(reports, "item", "0", "m", "p")] if reports else []
+        return run.Check(ran, frozenset(rules))
+
+    def test_only_the_checks_behind_the_asked_rules_run(self) -> None:
+        checks = [self.fake("cheap", {"solution-fails"}), self.fake("slow", {"weak-tests"})]
+        with mock.patch("vet.run.CHECKS", checks):
+            vet_content(self.content, PythonAdapter(), frozenset({"solution-fails"}))
+            vet_content(self.content, PythonAdapter())
+        self.assertEqual(self.ran, ["cheap", "cheap", "slow"])
+
+    def test_a_rule_missing_from_its_check_entry_fails(self) -> None:
+        with mock.patch("vet.run.CHECKS", [self.fake("liar", {"solution-fails"}, reports="weak-tests")]), \
+                self.assertRaisesRegex(UndeclaredRule, "weak-tests"):
+            vet_content(self.content, PythonAdapter())
+
+    def test_every_rule_belongs_to_a_check_or_the_loader(self) -> None:
+        from_checks = set().union(*(check.rules for check in CHECKS))
+        self.assertEqual(sorted(from_checks - RULES.keys()), [])
+        self.assertEqual(sorted(RULES.keys() - from_checks), sorted(LOADER_RULES - from_checks))
 
 
 class Findings(unittest.TestCase):

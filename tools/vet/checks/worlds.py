@@ -1,4 +1,5 @@
-"""Rules world-order-duplicate, world-unknown, region-unnamed and world-key-invalid.
+"""Rules world-order-duplicate, world-unknown, region-unnamed, world-key-invalid, gate-boss-missing and
+trophy-mismatch.
 
 Every world is ordered once, names every region it teaches, and opens with a boss trophy from an earlier world.
 """
@@ -12,9 +13,30 @@ from ..model import Content, World, fingerprint_text
 
 
 def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
+    yield from _lesson_orders(content)
+    yield from _regions_without_boss(content)
     yield from _orders(content.worlds)
     yield from _lesson_worlds(content)
     yield from _keys(content)
+
+
+def _lesson_orders(content: Content) -> Iterable[Finding]:
+    """Rule lesson-order-duplicate: lessons run in order within a world, so two sharing a number have no order."""
+    taken = Counter((lesson.meta.get("world"), lesson.meta.get("order")) for lesson in content.lessons)
+    for (world, order), count in sorted(taken.items(), key=str):
+        if count > 1:
+            message = f"{count} lessons of {world} have order {order}"
+            yield Subject("worlds", fingerprint_text(message), "").finding("lesson-order-duplicate", message)
+
+
+def _regions_without_boss(content: Content) -> Iterable[Finding]:
+    """Rule region-no-boss: a region with lessons ends in a boss, or its gate can never open."""
+    guarded = {(b.meta.get("world"), b.meta.get("region")) for b in content.bosses}
+    regions = {(lesson.meta.get("world"), lesson.meta.get("region")) for lesson in content.lessons
+               if not lesson.meta.get("tour")}
+    for world, region in sorted(regions - guarded, key=str):
+        message = f"region {world}/{region} has lessons but no boss"
+        yield Subject("worlds", fingerprint_text(message), "").finding("region-no-boss", message)
 
 
 def _orders(worlds: Iterable[World]) -> Iterable[Finding]:
@@ -39,8 +61,6 @@ def _lesson_worlds(content: Content) -> Iterable[Finding]:
 def _keys(content: Content) -> Iterable[Finding]:
     orders = [o for w in content.worlds if isinstance(o := w.meta.get("order"), int)]
     first = min(orders, default=None)
-    order_of = {w.id: w.meta.get("order", 0) for w in content.worlds}
-    trophies = {_table(b.meta.get("trophy")).get("id"): b for b in content.bosses}
     for world in content.worlds:
         about = subject(world.id, world.fingerprint, world.path, content.root)
         key = _table(world.meta.get("key")) if "key" in world.meta else None
@@ -49,14 +69,24 @@ def _keys(content: Content) -> Iterable[Finding]:
             yield about.finding("world-key-invalid", "the first world must have no [key]: nothing could open it")
         if order != first and not key:
             yield about.finding("world-key-invalid", "needs a [key]: without one it is open from the start")
-        if not key:
-            continue
-        boss = trophies.get(key.get("trophy"))
-        if boss is None or boss.id != key.get("boss"):
-            message = f"[key] trophy {key.get('trophy')} is not the trophy of boss {key.get('boss')}"
-            yield about.finding("world-key-invalid", message)
-        elif _int(order_of.get(str(boss.meta.get("world")), 0)) >= _int(order):
-            yield about.finding("world-key-invalid", f"[key] boss {boss.id} must be in an earlier world")
+        if key:
+            yield from _gate(content, about, key, order)
+
+
+def _gate(content: Content, about: Subject, key: dict[str, object], order: object) -> Iterable[Finding]:
+    """A [key] opens its world with the trophy of a boss in an earlier world."""
+    boss = next((b for b in content.bosses if b.id == key.get("boss")), None)
+    if boss is None:
+        yield about.finding("gate-boss-missing", f"[key] boss {key.get('boss')} is no boss in the content")
+        return
+    trophy = _table(boss.meta.get("trophy"))
+    if (key.get("trophy"), key.get("trophy_name")) != (trophy.get("id"), trophy.get("name")):
+        message = (f"[key] trophy {key.get('trophy')} ({key.get('trophy_name')}) is not the trophy of boss "
+                   f"{boss.id}: {trophy.get('id')} ({trophy.get('name')})")
+        yield about.finding("trophy-mismatch", message)
+    order_of = {w.id: w.meta.get("order", 0) for w in content.worlds}
+    if _int(order_of.get(str(boss.meta.get("world")), 0)) >= _int(order):
+        yield about.finding("world-key-invalid", f"[key] boss {boss.id} must be in an earlier world")
 
 
 def _table(value: object) -> dict[str, object]:

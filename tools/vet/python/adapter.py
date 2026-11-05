@@ -4,7 +4,7 @@ import json
 import os
 import subprocess
 import sys
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from pathlib import Path
@@ -16,9 +16,11 @@ from ..adapter import (
     CaseValue,
     CheckJob,
     CheckOutcome,
+    FeatureQuery,
     Mutant,
     Rewrite,
     RunOutcome,
+    ToolError,
     case_json,
 )
 from .mutate import mutants
@@ -30,12 +32,7 @@ HARNESS = ROOT / "py" / "harness.py"
 ONE_THREAD = {"OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1"}
 
 Job = dict[str, object]
-# a broken solution can grow a list until memory runs out (four at once took a CI runner down), while real jobs
-# stay under 200 MB; macOS ignores the cap, so there a runaway job still waits for the time limit
-MEMORY_CAP = 2 * 1024**3
-CAPPED = ("import resource, runpy, sys\n"
-          f"resource.setrlimit(resource.RLIMIT_AS, ({MEMORY_CAP}, {MEMORY_CAP}))\n"
-          "runpy.run_path(sys.argv[1], run_name='__main__')")
+CAPPED = Path(__file__).with_name("capped.py")  # runs the harness with a memory cap where possible
 
 
 class PythonAdapter:
@@ -45,6 +42,7 @@ class PythonAdapter:
         self.python = str(python) if python else sys.executable
         # the bundle shows the very runs the checks judged, and nothing runs twice
         self._runs: dict[str, RunOutcome | None] = {}
+        self._checked: dict[CheckJob, CheckOutcome | None] = {}
         self._expected: dict[tuple[str, tuple[CaseInput, ...]], list[CaseValue] | None] = {}
 
     def run(self, codes: Sequence[str]) -> list[RunOutcome | None]:
@@ -54,9 +52,16 @@ class PythonAdapter:
         return [self._runs[code] for code in codes]
 
     def check(self, jobs: Sequence[CheckJob]) -> list[CheckOutcome | None]:
+        new = list(dict.fromkeys(job for job in jobs if job not in self._checked))
+        if not new:
+            return [self._checked[job] for job in jobs]
         harness_jobs: list[Job] = [{"mode": "check", "code": job.code, "tests": job.tests, "strict": job.strict,
-                                    "cases": [case_json(case) for case in job.cases]} for job in jobs]
-        return [cast(CheckOutcome | None, outcome) for outcome in self._harness_all(harness_jobs)]
+                                    "cases": [case_json(case) for case in job.cases],
+                                    "requires": [asdict(need) for need in job.requires],
+                                    "hash_seed": job.hash_seed} for job in new]
+        outcomes = self._harness_all(harness_jobs, [job.limit for job in new])
+        self._checked.update(zip(new, (cast(CheckOutcome | None, outcome) for outcome in outcomes), strict=True))
+        return [self._checked[job] for job in jobs]
 
     def expect(self, code: str, cases: Sequence[CaseInput]) -> list[CaseValue] | None:
         key = (code, tuple(cases))
@@ -71,19 +76,30 @@ class PythonAdapter:
     def rewrites(self, code: str) -> list[Rewrite]:
         return rewrites(code)
 
-    def features(self, code: str) -> frozenset[str]:
-        raise NotImplementedError("feature detection arrives in Task 5.1")
+    def features(self, queries: Sequence[FeatureQuery], vocabulary: Mapping[str, Sequence[str]]
+                 ) -> list[frozenset[str]]:
+        if not queries:
+            return []
+        job: Job = {"mode": "features", "vocabulary": {k: list(v) for k, v in vocabulary.items()},
+                    "queries": [{"code": q.code, "own_names": list(q.own_names)} for q in queries]}
+        [out] = self._harness_all([job])
+        found = out.get("features") if out else None
+        if not isinstance(found, list):
+            raise ToolError("the feature detector could not run")
+        return [frozenset(features) for features in cast(list[list[str]], found)]
 
-    def _harness_all(self, jobs: Sequence[Job]) -> list[dict[str, object] | None]:
+    def _harness_all(self, jobs: Sequence[Job], limits: Sequence[float] = ()) -> list[dict[str, object] | None]:
         # the jobs are subprocesses, so threads run them side by side
         with ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as pool:
-            return list(pool.map(self._harness, jobs))
+            return list(pool.map(self._harness, jobs, limits or [LIMIT] * len(jobs)))
 
-    def _harness(self, job: Job) -> dict[str, object] | None:
+    def _harness(self, job: Job, limit: float) -> dict[str, object] | None:
         try:
-            done = subprocess.run([self.python, "-I", "-c", CAPPED, str(HARNESS)], input=json.dumps(job),
-                                  capture_output=True, text=True, timeout=LIMIT, env={**os.environ, **ONE_THREAD},
-                                  check=False)
+            # -s -P instead of -I: isolation would also ignore PYTHONHASHSEED, and every run must repeat exactly
+            seed = {"PYTHONHASHSEED": str(job.get("hash_seed", 0))}
+            done = subprocess.run([self.python, "-s", "-P", str(CAPPED), str(HARNESS)], input=json.dumps(job),
+                                  capture_output=True, text=True, timeout=limit,
+                                  env={**os.environ, **ONE_THREAD, **seed}, check=False)
         except subprocess.TimeoutExpired:
             return None
         if done.returncode != 0:  # e.g. the task's own tests.py has a syntax error

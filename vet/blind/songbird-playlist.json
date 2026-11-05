@@ -1,0 +1,57 @@
+{
+  "fingerprint": "741eaab9eb6e",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Song:\n    title: str\n    seconds: int\n\n\nclass Playlist:\n    def __init__(self, name):\n        self.name = name\n        self.songs = []\n\n    def add(self, song):\n        self.songs.append(song)\n\n    def __len__(self):\n        return len(self.songs)\n\n    def __str__(self):\n        return f\"{self.name}: {len(self)} songs\"\n\n    def __contains__(self, title):\n        return any(song.title == title for song in self.songs)\n\n    def sorted_by_length(self):\n        return sorted(self.songs, key=lambda song: song.seconds)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Song:\n    title: str\n    seconds: int\n\n\nclass Playlist:\n    def __init__(self, name):\n        self.name = name\n        self.songs = []\n\n    def add(self, song):\n        self.songs.append(song)\n\n    def __len__(self):\n        return len(self.songs)\n\n    def __str__(self):\n        return f\"{self.name}: {len(self)} songs\"\n\n    def __contains__(self, title):\n        return any(song.title == title for song in self.songs)\n\n    def sorted_by_length(self):\n        return sorted(self.songs, key=lambda song: song.seconds)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Song:\n    title: str\n    seconds: int\n\n\nclass Playlist:\n    def __init__(self, name):\n        self.name = name\n        self.songs = []\n\n    def add(self, song):\n        self.songs.append(song)\n\n    def __len__(self):\n        return len(self.songs)\n\n    def __str__(self):\n        return f\"{self.name}: {len(self)} songs\"\n\n    def __contains__(self, title):\n        return any(song.title == title for song in self.songs)\n\n    def sorted_by_length(self):\n        return sorted(self.songs, key=lambda song: song.seconds)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Song:\n    title: str\n    seconds: int\n\n\nclass Playlist:\n    def __init__(self, name):\n        self.name = name\n        self.songs = []\n\n    def add(self, song):\n        self.songs.append(song)\n\n    def __len__(self):\n        return len(self.songs)\n\n    def __str__(self):\n        return f\"{self.name}: {len(self)} songs\"\n\n    def __contains__(self, title):\n        return any(song.title == title for song in self.songs)\n\n    def sorted_by_length(self):\n        return sorted(self.songs, key=lambda song: song.seconds)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Song:\n    title: str\n    seconds: int\n\n\nclass Playlist:\n    def __init__(self, name):\n        self.name = name\n        self.songs = []\n\n    def add(self, song):\n        self.songs.append(song)\n\n    def __len__(self):\n        return len(self.songs)\n\n    def __str__(self):\n        return f\"{self.name}: {len(self)} songs\"\n\n    def __contains__(self, title):\n        return any(song.title == title for song in self.songs)\n\n    def sorted_by_length(self):\n        return sorted(self.songs, key=lambda song: song.seconds)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

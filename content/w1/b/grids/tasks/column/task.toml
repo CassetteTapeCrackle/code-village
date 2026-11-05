@@ -5,3 +5,7 @@ title = "One column"
 prompt = "Finish `column(grid, c)`: it returns a list with the value at index `c` of every row."
 hints = ["Each `row` is a list: `row[c]` is the value you want.", "For the first column, `row[0]` is that row's first value; use `c` instead of `0`."]
 gotcha = false
+
+[cases]
+call = "column"
+args = ["list<list<int 0..9> 3..3> 1..5", "int 0..2"]

@@ -5,3 +5,6 @@ title = "Always None"
 prompt = "`parse_age(text)` should return the age as an int, or `None` when the text is not a number. It always returns `None`. Find out why, fix it, and make it catch only the error it expects."
 hints = ["Delete the `try` and `except` for a moment and run it: what error appears?", "The name is `text`, not `txt`; then catch `ValueError` instead of everything."]
 gotcha = true
+
+[cases]
+none = "valid and invalid text cannot both be drawn from one simple type"

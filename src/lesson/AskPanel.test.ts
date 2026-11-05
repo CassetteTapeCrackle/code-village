@@ -29,6 +29,7 @@ const task: Task = {
   gotcha: false,
   variants: [],
   cases: [],
+  requires: [],
 };
 
 const snapshot: Snapshot = {

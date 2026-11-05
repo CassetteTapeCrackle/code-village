@@ -1,0 +1,190 @@
+[[sentence]]
+fp = "5a5c0a9b5100"
+text = "When something goes wrong, Python raises an **exception** and prints a traceback."
+where = "text:0"
+status = "simplification"
+reason = "A traceback is printed only when the exception is not caught. It leaves out that handled exceptions print nothing."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8f9ad33b3734"
+text = "`try` runs code that might fail, and `except SomeError` handles that kind of error only."
+where = "text:2"
+status = "claim:auto-8f9ad33b3734"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4b15bd6e128a"
+text = "Write `safe_divide(a, b)` that returns `a / b`, or `None` when `b` is 0."
+where = "task:errors-safe-divide:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "725c97f09a2d"
+text = "Use `try` and `except ZeroDivisionError`."
+where = "task:errors-safe-divide:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2daf6b471ed9"
+text = "Dividing by zero raises `ZeroDivisionError`."
+where = "task:errors-safe-divide:hint:0"
+status = "claim:auto-2daf6b471ed9"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "537eee86cb7d"
+text = "Write `first_char(text)` that returns the first character, or `None` for an empty string."
+where = "task:errors-first-char:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0dad1440e325"
+text = "Use `try` and `except IndexError`."
+where = "task:errors-first-char:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5bd91c7fcbe5"
+text = "A bare `except:` catches **everything**, even a typo in a variable name."
+where = "text:5"
+status = "claim:auto-5bd91c7fcbe5"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a9226c5b9aec"
+text = "The bug disappears and the function quietly gives the wrong answer."
+where = "text:5"
+status = "simplification"
+reason = "It describes the typical outcome of a bare except hiding a bug. It does not always give a wrong answer, but the error is hidden."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e20fe8320486"
+text = "Catch the error you expect, and let the rest show up."
+where = "text:5"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4a5e4b6b16e9"
+text = "`parse_age(text)` should return the age as an int, or `None` when the text is not a number."
+where = "task:errors-parse-age:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1c31281a127f"
+text = "It always returns `None`."
+where = "task:errors-parse-age:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d77f8d507aca"
+text = "Find out why, fix it, and make it catch only the error it expects."
+where = "task:errors-parse-age:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "011987485a77"
+text = "Delete the `try` and `except` for a moment and run it: what error appears?"
+where = "task:errors-parse-age:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "322fd7303141"
+text = "The name is `text`, not `txt`; then catch `ValueError` instead of everything."
+where = "task:errors-parse-age:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7fa512ac7af0"
+text = "`parse_price(text)` should return the price as a float, or `None` when the text is not a number."
+where = "task:errors-parse-price:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ac12ccde5a95"
+text = "It always returns `None`: find the hidden bug, and catch only the error you expect."
+where = "task:errors-parse-price:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f0ed9bcad5a3"
+text = "Finish `withdraw(balance, amount)`: it returns the new balance, but raises `ValueError(\"not enough money\")` when `amount` is bigger than `balance`."
+where = "task:errors-withdraw:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "afc34065d777"
+text = "Check whether `amount` is bigger than `balance`, then raise `ValueError` with the message from the prompt before subtracting."
+where = "task:errors-withdraw:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "37e961f0969b"
+text = "Finish `set_volume(level)`: it returns `level`, but raises `ValueError(\"volume must be 0 to 10\")` when `level` is below 0 or above 10."
+where = "task:errors-set-volume:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "14b37d801a5d"
+text = "raise ValueError(\"message\") signals a problem yourself."
+where = "remember:2"
+status = "claim:auto-14b37d801a5d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

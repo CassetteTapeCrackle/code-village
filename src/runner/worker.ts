@@ -87,6 +87,12 @@ onmessage = async ({ data }: MessageEvent<Job>) => {
   const json =
     data.mode === "run"
       ? python.globals.get("run_code_json")(data.code, JSON.stringify(data.inputs))
-      : python.globals.get("run_tests_json")(data.code, data.tests, data.strict, JSON.stringify(data.cases));
+      : python.globals.get("run_tests_json")(
+          data.code,
+          data.tests,
+          data.strict,
+          JSON.stringify(data.cases),
+          JSON.stringify(data.requires),
+        );
   post({ type: "done", id: data.id, result: JSON.parse(json as string) });
 };

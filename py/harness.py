@@ -17,7 +17,7 @@ import shutil
 import sys
 import tempfile
 import traceback
-from collections.abc import Callable, Iterable, Iterator, Sequence
+from collections.abc import Callable, Collection, Iterable, Iterator, Mapping, Sequence
 from typing import NotRequired, TypedDict, TypeGuard, cast
 
 MAX_OUTPUT = 10_000
@@ -27,6 +27,16 @@ NO_INPUT = "input() was called, but this task gives no input"
 TOO_MANY_INPUTS = "input() was called more times than this test gives answers"
 SHOWN_LENGTH = 80  # a value in a hidden-case message is cut to this many characters
 REL_TOL = ABS_TOL = 1e-9
+# the syntax a feature can be named after (node:<class>); any other node class is plain Python everywhere
+TRACKED_NODES = frozenset({
+    "For", "While", "Break", "Continue", "If", "IfExp", "Match", "FunctionDef", "Return", "Lambda", "ClassDef",
+    "Try", "Raise", "Assert", "With", "Global", "Nonlocal", "Yield", "YieldFrom", "Starred", "ListComp", "SetComp",
+    "DictComp", "GeneratorExp", "JoinedStr", "AugAssign", "Slice", "Delete", "NamedExpr", "AnnAssign",
+    "AsyncFunctionDef", "Await", "AsyncFor", "AsyncWith",
+})
+BUILTIN_NAMES = frozenset(name for name in dir(builtins) if not name.startswith("_"))
+KWARG_PREFIX = "kwarg:"  # a keyword argument names a construct only when the vocabulary lists it
+BUILTIN_KWARG_PREFIX = "builtin-kwarg:"  # but one passed to a builtin (print(sep=)) must be listed, like the builtin
 
 
 class RunResult(TypedDict):
@@ -92,6 +102,23 @@ class ExpectedValue(TypedDict):
 
 class ExpectResult(TypedDict):
     values: list[ExpectedValue]
+
+
+class Required(TypedDict):
+    """A construct a task asks for: the feature id, its detectors and what to tell the learner to do."""
+
+    id: str
+    detect: list[str]
+    say: str
+
+
+class FeatureQuery(TypedDict):
+    code: str
+    own_names: NotRequired[list[str]]
+
+
+class FeaturesResult(TypedDict):
+    features: list[list[str]]
 
 
 class Failure(Exception):
@@ -260,11 +287,27 @@ class _Learner(dict[str, object]):
         raise Failure(f"{name} is not defined in your code")
 
 
-def run_tests(code: str, tests: str, strict: bool = False, cases: Sequence[Case] = ()) -> CheckResult:
+def run_tests(code: str, tests: str, strict: bool = False, cases: Sequence[Case] = (),
+              requires: Sequence[Required] = ()) -> CheckResult:
     """The visible tests, then the hidden cases (even when a visible test failed: a learner whose code passes
-    every hidden case but fails a visible test is how a too strict test shows itself)."""
+    every hidden case but fails a visible test is how a too strict test shows itself). Then, only when all of that
+    passed, the constructs the task requires."""
     with _fresh_dir():
-        return _run_tests(code, tests, strict, cases)
+        out = _run_tests(code, tests, strict, cases)
+    if requires and not out["error"] and all(r["passed"] for r in out["results"]):
+        missing = _missing_construct(code, requires)
+        if missing:
+            out["results"].append(missing)
+    return out
+
+
+def _missing_construct(code: str, requires: Sequence[Required]) -> TestResult | None:
+    """A failing result for the first required construct the code does not use, None when it uses them all."""
+    for need in requires:
+        if need["id"] not in detect_features(code, {need["id"]: need["detect"]}):
+            return {"name": "Uses what the task asks", "passed": False, "hidden": False,
+                    "message": f"Your code works, but this task asks you to {need['say']}."}
+    return None
 
 
 def _test_label(name: str, fn: Callable[[], object]) -> str:
@@ -554,17 +597,135 @@ def expect_values(code: str, inputs: Sequence[CaseInput]) -> ExpectResult:
     return {"values": values}
 
 
+def _owned_names(tree: ast.AST) -> tuple[set[str], set[str]]:
+    """The names the code defines itself: (every name it binds, the functions and classes it defines).
+    shortcut: scope is ignored, so a parameter called `type` hides every call to `type` in the code. Upgrade to
+    per-scope names if a lesson ever shadows a builtin on purpose."""
+    bound: set[str] = set()
+    defined: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef):
+            bound.add(node.name)
+            defined.add(node.name)
+        elif isinstance(node, ast.Name) and isinstance(node.ctx, ast.Store):
+            bound.add(node.id)
+        elif isinstance(node, ast.arg):
+            bound.add(node.arg)
+    return bound, defined
+
+
+def _decorator_name(expr: ast.expr) -> str:
+    """`property` for @property, `dataclass` for @dataclass(order=True), `setter` for @age.setter."""
+    if isinstance(expr, ast.Call):
+        return _decorator_name(expr.func)
+    if isinstance(expr, ast.Attribute):
+        return expr.attr
+    return expr.id if isinstance(expr, ast.Name) else ast.unparse(expr)
+
+
+class _Scope:
+    """What the code and its caller say is the learner's own, so it is no feature."""
+
+    def __init__(self, tree: ast.AST, own_names: Collection[str]) -> None:
+        self.bound, self.defined = _owned_names(tree)
+        self.outside = set(own_names)
+
+    def owns_builtin(self, name: str) -> bool:
+        return name in self.bound or name in self.outside
+
+    def owns_method(self, call_func: ast.Attribute) -> bool:
+        """A method the code defines is its own when called on a name or an object, but a call through an
+        attribute (`self.items.pop()`) may still be the builtin's."""
+        name = call_func.attr
+        return name in self.outside or (name in self.defined and not isinstance(call_func.value, ast.Attribute))
+
+
+def _call_detectors(node: ast.Call, scope: _Scope, decorator: bool) -> Iterator[str]:
+    func = node.func
+    if isinstance(func, ast.Attribute) and not decorator and not scope.owns_method(func):
+        yield f"method:{func.attr}"
+    callee = func.id if isinstance(func, ast.Name) else func.attr if isinstance(func, ast.Attribute) else None
+    if callee:
+        # a keyword argument of a builtin must be listed like the builtin; one of any other call may be (sorted.key)
+        kind = BUILTIN_KWARG_PREFIX if isinstance(func, ast.Name) and func.id in BUILTIN_NAMES \
+            and not scope.owns_builtin(func.id) else KWARG_PREFIX
+        yield from (f"{kind}{callee}.{kw.arg}" for kw in node.keywords if kw.arg)
+
+
+def _node_detectors(node: ast.AST, scope: _Scope, decorators: set[int]) -> Iterator[str]:
+    if type(node).__name__ in TRACKED_NODES:
+        yield f"node:{type(node).__name__}"
+    if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef | ast.Module) \
+            and ast.get_docstring(node, clean=False) is not None:
+        yield "node:Docstring"  # not a node class of its own: the string that opens a def, class or module
+    if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
+        if node.id in BUILTIN_NAMES and not scope.owns_builtin(node.id) and id(node) not in decorators:
+            yield f"call:{node.id}"
+    elif isinstance(node, ast.Call):
+        yield from _call_detectors(node, scope, id(node) in decorators)
+    elif isinstance(node, ast.Import):
+        yield from (f"import:{alias.name}" for alias in node.names)
+    elif isinstance(node, ast.ImportFrom):
+        yield f"import:{'.' * node.level}{node.module or ''}"
+
+
+def _found_detectors(tree: ast.AST, own_names: Collection[str]) -> set[str]:
+    scope = _Scope(tree, own_names)
+    definitions = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef)]
+    decorator_nodes = [d for definition in definitions for d in definition.decorator_list]
+    # a decorator's call and its name (`property`, `wraps`) are read as decorators below, not as a call or a builtin
+    decorators = {id(d) for d in decorator_nodes}
+    decorators |= {id(d.func) for d in decorator_nodes if isinstance(d, ast.Call)}
+    found: set[str] = set()
+    for node in ast.walk(tree):
+        found.update(_node_detectors(node, scope, decorators))
+    for d in decorator_nodes:
+        name = _decorator_name(d)
+        if name not in scope.defined and name not in scope.outside:
+            found.add(f"decorator:{name}")
+    return found
+
+
+def detect_features(code: str, vocabulary: Mapping[str, Sequence[str]], own_names: Collection[str] = ()) -> set[str]:
+    """The feature ids the code uses. `vocabulary` maps a feature id to its detectors (node:<AstClass>,
+    call:<builtin>, method:<name>, import:<module>, decorator:<name>, kwarg:<call>.<name>). A builtin used (called
+    or passed as a value), method call, import, decorator or tracked node with no feature gives
+    `unknown:<detector>`. A method the code defines (or `own_names` lists, for a snippet whose class lives
+    elsewhere) is the learner's own, not a feature. Code that does not parse uses none."""
+    try:
+        tree = ast.parse(code)
+    except (SyntaxError, ValueError):  # ValueError: null bytes or a lone surrogate
+        return set()
+    feature_of = {detector: feature for feature, detectors in vocabulary.items() for detector in detectors}
+    features: set[str] = set()
+    for detector in _found_detectors(tree, own_names):
+        name = detector.removeprefix("builtin-")  # a builtin's keyword argument is listed as kwarg:<call>.<name>
+        if name in feature_of:
+            features.add(feature_of[name])
+        elif not detector.startswith(KWARG_PREFIX):
+            features.add(f"unknown:{name}")
+    return features
+
+
+def features_job(queries: Sequence[FeatureQuery], vocabulary: Mapping[str, Sequence[str]]) -> FeaturesResult:
+    return {"features": [sorted(detect_features(q["code"], vocabulary, q.get("own_names", ()))) for q in queries]}
+
+
 def run_code_json(code: str, inputs_json: str) -> str:
     inputs: list[str] = json.loads(inputs_json)
     return json.dumps(run_code(code, inputs))
 
 
-def run_tests_json(code: str, tests: str, strict: bool = False, cases_json: str = "[]") -> str:
+def run_tests_json(code: str, tests: str, strict: bool = False, cases_json: str = "[]",
+                   requires_json: str = "[]") -> str:
     cases: list[Case] = json.loads(cases_json)
-    return json.dumps(run_tests(code, tests, strict, cases))
+    requires: list[Required] = json.loads(requires_json)
+    return json.dumps(run_tests(code, tests, strict, cases, requires))
 
 
-def _run_job(job: dict[str, object]) -> RunResult | CheckResult | ExpectResult:
+def _run_job(job: dict[str, object]) -> RunResult | CheckResult | ExpectResult | FeaturesResult:
+    if job["mode"] == "features":
+        return features_job(cast(list[FeatureQuery], job["queries"]), cast(dict[str, list[str]], job["vocabulary"]))
     code = str(job["code"])
     if job["mode"] == "run":
         inputs = job.get("inputs", [])
@@ -572,7 +733,9 @@ def _run_job(job: dict[str, object]) -> RunResult | CheckResult | ExpectResult:
     cases = job.get("cases", [])
     if job["mode"] == "expect":
         return expect_values(code, cases if isinstance(cases, list) else [])
-    return run_tests(code, str(job["tests"]), bool(job.get("strict", False)), cases if isinstance(cases, list) else [])
+    requires = job.get("requires", [])
+    return run_tests(code, str(job["tests"]), bool(job.get("strict", False)), cases if isinstance(cases, list) else [],
+                     cast(list[Required], requires) if isinstance(requires, list) else [])
 
 
 # Pyodide runs this file as __main__ too, but has no stdin job to read.

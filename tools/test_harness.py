@@ -413,5 +413,141 @@ class ExpectMode(unittest.TestCase):
         self.assertEqual(json.loads(done.stdout), {"values": [{"repr": "2", "raises": None}]})
 
 
+VOCABULARY = {
+    "for-loop": ["node:For"],
+    "list-comprehension": ["node:ListComp"],
+    "fn-len": ["call:len"],
+    "append": ["method:append"],
+    "math": ["import:math"],
+    "property": ["decorator:property"],
+    "sorted-key": ["kwarg:sorted.key"],
+}
+
+
+class DetectFeatures(unittest.TestCase):
+    def detect(self, code: str, own_names: tuple[str, ...] = ()) -> set[str]:
+        return harness.detect_features(code, VOCABULARY, own_names)
+
+    def test_node_detector(self) -> None:
+        self.assertEqual(self.detect("for x in []:\n    pass\n"), {"for-loop"})
+
+    def test_call_detector_names_a_builtin(self) -> None:
+        self.assertEqual(self.detect("len([])"), {"fn-len"})
+
+    def test_method_detector(self) -> None:
+        self.assertEqual(self.detect("xs = []\nxs.append(1)\n"), {"append"})
+
+    def test_import_detector_for_both_import_forms(self) -> None:
+        self.assertEqual(self.detect("import math\n"), {"math"})
+        self.assertEqual(self.detect("from math import sqrt\n"), {"math"})
+
+    def test_decorator_detector_strips_call_and_owner(self) -> None:
+        code = "class A:\n    @property\n    def x(self): ...\n    @x.setter\n    def x(self, v): ...\n"
+        self.assertEqual(self.detect(code), {"property", "unknown:decorator:setter", "unknown:node:FunctionDef",
+                                             "unknown:node:ClassDef"})
+
+    def test_kwarg_detector_names_the_call(self) -> None:
+        self.assertEqual(self.detect("sorted([], key=len)\n"), {"sorted-key", "unknown:call:sorted", "fn-len"})
+        self.assertEqual(self.detect("max([], key=len)\n"), {"unknown:call:max", "unknown:kwarg:max.key", "fn-len"})
+
+    def test_a_builtin_passed_as_a_value_counts(self) -> None:
+        self.assertEqual(self.detect("xs = [1]\nxs.append(len)\n"), {"append", "fn-len"})
+        self.assertEqual(self.detect("try:\n    pass\nexcept ValueError:\n    pass\n"),
+                         {"unknown:node:Try", "unknown:call:ValueError"})
+
+    def test_a_decorator_the_code_defines_is_not_unknown(self) -> None:
+        code = "def deco(f):\n    return f\n@deco\ndef g():\n    pass\n"
+        self.assertEqual(self.detect(code), {"unknown:node:FunctionDef", "unknown:node:Return"})
+        self.assertEqual(self.detect("@functools.wraps(f)\ndef g():\n    pass\n"),
+                         {"unknown:node:FunctionDef", "unknown:decorator:wraps"})
+
+    def test_a_defined_method_name_hides_only_calls_on_names_and_objects(self) -> None:
+        code = "class S:\n    def pop(self):\n        return self.items.pop()\nS().pop()\n"
+        found = self.detect(code)
+        self.assertIn("unknown:method:pop", found)
+        self.assertEqual(self.detect("class S:\n    def pop(self):\n        pass\nS().pop()\n"),
+                         {"unknown:node:ClassDef", "unknown:node:FunctionDef"})
+
+    def test_a_docstring_is_detected_on_defs_classes_and_modules(self) -> None:
+        for code in ('"""Module."""\n', 'def f():\n    """Doc."""\n', 'class A:\n    """Doc."""\n'):
+            with self.subTest(code=code):
+                self.assertIn("unknown:node:Docstring", self.detect(code))
+        self.assertNotIn("unknown:node:Docstring", self.detect("def f():\n    # not a docstring\n    return 'x'\n"))
+        self.assertNotIn("unknown:node:Docstring", self.detect("def f():\n    x = 1\n    'not first'\n"))
+
+    def test_unknown_feature_reported(self) -> None:
+        found = self.detect("print(1)\nx = [i for i in 'ab']\n'ab'.title()\nimport os\n")
+        self.assertEqual(found, {"unknown:call:print", "list-comprehension", "unknown:method:title",
+                                 "unknown:import:os"})
+
+    def test_a_kwarg_of_a_builtin_the_vocabulary_lacks_is_unknown(self) -> None:
+        self.assertEqual(self.detect("len(x=1)\n"), {"fn-len", "unknown:kwarg:len.x"})
+
+    def test_a_kwarg_of_a_method_the_vocabulary_lacks_is_not_unknown(self) -> None:
+        self.assertEqual(self.detect("xs.append(x=1)\n"), {"append"})
+
+    def test_the_codes_own_names_are_not_builtins_or_methods(self) -> None:
+        code = "def len(x):\n    return 0\nclass C:\n    def append(self):\n        pass\nlen(1)\nC().append()\n"
+        self.assertEqual(self.detect(code), {"unknown:node:FunctionDef", "unknown:node:ClassDef",
+                                             "unknown:node:Return"})
+
+    def test_own_names_come_from_outside_the_code_too(self) -> None:
+        self.assertEqual(self.detect("pet.feed()\n"), {"unknown:method:feed"})
+        self.assertEqual(self.detect("pet.feed()\n", own_names=("feed",)), set())
+
+    def test_code_that_does_not_parse_has_no_features(self) -> None:
+        self.assertEqual(self.detect("for x in\n"), set())
+        self.assertEqual(self.detect("x = 1\x00\n"), set())
+
+    def test_features_job_through_the_cli(self) -> None:
+        payload = json.dumps({"mode": "features", "vocabulary": VOCABULARY,
+                              "queries": [{"code": "len([])", "own_names": []}, {"code": "import math"}]})
+        done = subprocess.run([sys.executable, "py/harness.py"], input=payload, capture_output=True, text=True,
+                              cwd=Path(__file__).resolve().parent.parent, timeout=20, check=False)
+        self.assertEqual(json.loads(done.stdout), {"features": [["fn-len"], ["math"]]})
+
+
+PROPERTY: list[harness.Required] = [{"id": "property-decorator", "detect": ["decorator:property"],
+                                     "say": "put @property above the method"}]
+PROPERTY_TESTS = "def test_area():\n    expect_equal(learner['Box'](2).area, 4, 'Box(2).area')\n"
+WITH_PROPERTY = ("class Box:\n    def __init__(self, s):\n        self.s = s\n    @property\n    def area(self):\n"
+                 "        return self.s ** 2\n")
+WITHOUT_PROPERTY = "class Box:\n    def __init__(self, s):\n        self.area = s ** 2\n"
+
+
+class RequiredConstructs(unittest.TestCase):
+    def test_required_feature_message(self) -> None:
+        out = harness.run_tests(WITHOUT_PROPERTY, PROPERTY_TESTS, requires=PROPERTY)
+        self.assertEqual([r["passed"] for r in out["results"]], [True, False])
+        self.assertEqual(out["results"][1]["message"], "Your code works, but this task asks you to put @property "
+                                                       "above the method.")
+        self.assertFalse(out["results"][1]["hidden"])
+
+    def test_code_with_the_feature_passes(self) -> None:
+        out = harness.run_tests(WITH_PROPERTY, PROPERTY_TESTS, requires=PROPERTY)
+        self.assertEqual([r["passed"] for r in out["results"]], [True])
+
+    def test_no_requirements_change_nothing(self) -> None:
+        out = harness.run_tests(WITHOUT_PROPERTY, PROPERTY_TESTS)
+        self.assertEqual([r["passed"] for r in out["results"]], [True])
+
+    def test_behaviour_failures_come_first_and_alone(self) -> None:
+        out = harness.run_tests("class Box:\n    def __init__(self, s):\n        self.area = 0\n", PROPERTY_TESTS,
+                                requires=PROPERTY)
+        self.assertEqual([r["passed"] for r in out["results"]], [False])
+
+    def test_only_the_first_missing_feature_is_named(self) -> None:
+        both: list[harness.Required] = [*PROPERTY, {"id": "lambda", "detect": ["node:Lambda"], "say": "use a lambda"}]
+        out = harness.run_tests(WITHOUT_PROPERTY, PROPERTY_TESTS, requires=both)
+        self.assertEqual(len(out["results"]), 2)
+        self.assertIn("@property", out["results"][1]["message"])
+
+    def test_required_job_through_the_cli(self) -> None:
+        payload = json.dumps({"mode": "check", "code": WITHOUT_PROPERTY, "tests": PROPERTY_TESTS, "requires": PROPERTY})
+        done = subprocess.run([sys.executable, "py/harness.py"], input=payload, capture_output=True, text=True,
+                              cwd=Path(__file__).resolve().parent.parent, timeout=20, check=False)
+        self.assertFalse(json.loads(done.stdout)["results"][1]["passed"])
+
+
 if __name__ == "__main__":
     unittest.main()

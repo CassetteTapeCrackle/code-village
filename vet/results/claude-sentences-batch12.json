@@ -1,0 +1,285 @@
+{
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "c17870ec18bb",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A dataclass field can have a default, and ordinary methods can be defined in the class body.",
+      "assert": "from dataclasses import dataclass\n@dataclass\nclass A:\n    x: int = 1\n    def double(self):\n        return self.x * 2\nassert A().x == 1\nassert A(4).double() == 8"
+    },
+    {
+      "fp": "4ae5acd25be9",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "dc3c89753e0b",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The generated __repr__ lists the fields in order with their values.",
+      "assert": "from dataclasses import dataclass\n@dataclass\nclass Sapling:\n    name: str\n    height: int = 1\n    def grow(self, cm):\n        self.height += cm\nassert repr(Sapling('oak')) == \"Sapling(name='oak', height=1)\""
+    },
+    {
+      "fp": "adafbdd06a95",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an instruction (a hint) on how to write the dataclass.",
+      "assert": null
+    },
+    {
+      "fp": "1cdab5f9e5ee",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A default is written as name: type = value in the class body.",
+      "assert": "from dataclasses import dataclass, fields\n@dataclass\nclass A:\n    n: int = 5\nassert A().n == 5\nassert fields(A)[0].default == 5"
+    },
+    {
+      "fp": "8f31e33f6490",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an instruction (a hint) for writing grow.",
+      "assert": null
+    },
+    {
+      "fp": "e81443311df0",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "f43f820e2ffd",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an instruction for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "8c018517ce6d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "With order=True, comparison works like comparing tuples of the fields in definition order.",
+      "assert": "from dataclasses import dataclass\n@dataclass(order=True)\nclass P:\n    a: int\n    b: int\nassert P(1, 9) < P(2, 0)\nassert P(1, 2) < P(1, 3)\nassert not (P(2, 0) < P(1, 9))\nassert hasattr(P, '__lt__') and hasattr(P, '__le__') and hasattr(P, '__gt__') and hasattr(P, '__ge__')"
+    },
+    {
+      "fp": "1a1568b97c63",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "e4fc39be4b96",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Passing order=True is enough to make instances sortable.",
+      "assert": "from dataclasses import dataclass\n@dataclass(order=True)\nclass P:\n    a: int\nassert sorted([P(3), P(1), P(2)]) == [P(1), P(2), P(3)]"
+    },
+    {
+      "fp": "99e7e1fd267d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a hint telling the learner what to do.",
+      "assert": null
+    },
+    {
+      "fp": "a6a3f1db7109",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a hint telling the learner what to do.",
+      "assert": null
+    },
+    {
+      "fp": "36a7c2752e2d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "02ed8607cac2",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "order=True gives the comparison methods, so sorted and min work.",
+      "assert": "from dataclasses import dataclass\n@dataclass(order=True)\nclass Race:\n    time: float\n    runner: str\nrs = [Race(3.0, 'a'), Race(1.5, 'b'), Race(2.0, 'c')]\nassert min(rs).runner == 'b'\nassert sorted(rs)[0] == Race(1.5, 'b')"
+    },
+    {
+      "fp": "ec3d389eaa33",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A mutable default in a plain class is one object shared by all instances. A dataclass would refuse it, so the shared-list behaviour is shown with a class attribute.",
+      "assert": "class A:\n    items = []\na, b = A(), A()\na.items.append(1)\nassert b.items == [1]\nassert a.items is b.items"
+    },
+    {
+      "fp": "884114da1da0",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A dataclass raises ValueError for a list (or other unhashable) default.",
+      "assert": "from dataclasses import dataclass\ntry:\n    @dataclass\n    class A:\n        items: list = []\n    raised = False\nexcept ValueError:\n    raised = True\nassert raised"
+    },
+    {
+      "fp": "7a72d3d7f328",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "default_factory=list builds a new list for every instance.",
+      "assert": "from dataclasses import dataclass, field\n@dataclass\nclass A:\n    items: list = field(default_factory=list)\na, b = A(), A()\na.items.append(1)\nassert b.items == []\nassert a.items is not b.items"
+    },
+    {
+      "fp": "3a283d0e7fe4",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A dataclass with eq=True (default) and not frozen sets __hash__ to None, as a hand-written __eq__ without __hash__ does, so instances are unhashable and cannot go in a set.",
+      "assert": "from dataclasses import dataclass\n@dataclass\nclass A:\n    x: int\nclass B:\n    def __eq__(self, o):\n        return True\nfor obj in (A(1), B()):\n    try:\n        {obj}\n        ok = True\n    except TypeError:\n        ok = False\n    assert not ok"
+    },
+    {
+      "fp": "a7d8b06d8f4a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This describes the requirement of the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "fd520dde9746",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This describes the exercise setup and asks the learner to fix the bug.",
+      "assert": null
+    },
+    {
+      "fp": "9230e61b94bd",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is a question prompting the learner to read the error.",
+      "assert": null
+    },
+    {
+      "fp": "2190c507811d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an instruction (a hint) for the fix.",
+      "assert": null
+    },
+    {
+      "fp": "6706e39eda6c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "630cd812963b",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The decorator generates __init__, __repr__ and __eq__ from the annotated fields.",
+      "assert": "from dataclasses import dataclass\n@dataclass\nclass A:\n    x: int\n    y: int = 0\nassert '__init__' in A.__dict__ and '__repr__' in A.__dict__ and '__eq__' in A.__dict__\nassert A(1) == A(1, 0)\nassert repr(A(1)) == 'A(x=1, y=0)'"
+    },
+    {
+      "fp": "c86cf282530a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Annotations are not enforced at runtime.",
+      "assert": "from dataclasses import dataclass\n@dataclass\nclass A:\n    name: str\nassert A(5).name == 5"
+    },
+    {
+      "fp": "c6b29f000258",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A bare list default is rejected, and default_factory=list is the standard fix (None plus __post_init__ is another way, which the summary ignores).",
+      "assert": "from dataclasses import dataclass, field\ntry:\n    @dataclass\n    class Bad:\n        items: list = []\n    bad = False\nexcept ValueError:\n    bad = True\nassert bad\n@dataclass\nclass Good:\n    items: list = field(default_factory=list)\nassert Good().items == []"
+    },
+    {
+      "fp": "7919a3aba726",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "order=True compares instances field by field in definition order.",
+      "assert": "from dataclasses import dataclass\n@dataclass(order=True)\nclass S:\n    points: int\n    name: str\nassert sorted([S(2, 'b'), S(1, 'z'), S(2, 'a')]) == [S(1, 'z'), S(2, 'a'), S(2, 'b')]"
+    },
+    {
+      "fp": "2bc85859096b",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Python calls special methods implicitly, for example len() calls __len__.",
+      "assert": "calls = []\nclass A:\n    def __len__(self):\n        calls.append(1)\n        return 3\nassert len(A()) == 3\nassert calls == [1]"
+    },
+    {
+      "fp": "fe116b23bf65",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "print uses __str__, len uses __len__, and == uses __eq__ (simplified: print goes through str(), and == may try the reflected side too).",
+      "assert": "import io, contextlib\nclass A:\n    def __str__(self):\n        return 'hi'\n    def __len__(self):\n        return 7\n    def __eq__(self, other):\n        return 'eq'\nbuf = io.StringIO()\nwith contextlib.redirect_stdout(buf):\n    print(A())\nassert buf.getvalue() == 'hi\\n'\nassert len(A()) == 7\nassert (A() == 1) == 'eq'"
+    },
+    {
+      "fp": "259c51c508a4",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Loosely says that defining dunder methods lets objects work with built-ins like print, len and ==. It leaves out that only the dunders you write give each behaviour.",
+      "assert": null
+    },
+    {
+      "fp": "9d4445d077f8",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "print calls str(), which uses __str__.",
+      "assert": "import io, contextlib\nclass A:\n    def __str__(self):\n        return 'friendly'\n    def __repr__(self):\n        return 'precise'\nbuf = io.StringIO()\nwith contextlib.redirect_stdout(buf):\n    print(A())\nassert buf.getvalue() == 'friendly\\n'"
+    },
+    {
+      "fp": "55f73ccce074",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Printing a list shows its elements using their __repr__.",
+      "assert": "class A:\n    def __str__(self):\n        return 'friendly'\n    def __repr__(self):\n        return 'precise'\nassert str([A()]) == '[precise]'"
+    },
+    {
+      "fp": "1580047d4df3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "344bdca0d5ae",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "This is a hint on how to implement the two methods.",
+      "assert": null
+    },
+    {
+      "fp": "a2d3b9cd7527",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "This is a hint on how to implement __str__.",
+      "assert": null
+    },
+    {
+      "fp": "666efd726a3b",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "This is a hint on a good __eq__ pattern (check the type, then compare).",
+      "assert": null
+    },
+    {
+      "fp": "9f87ef11b573",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is the exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "d74724c79b29",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "== calls __eq__, so a class can define what equal means.",
+      "assert": "class A:\n    def __eq__(self, other):\n        return True\nassert A() == A()\nassert A() == 5"
+    },
+    {
+      "fp": "60e625e673b9",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "With __eq__ comparing values, two separate objects can be equal while still being different objects.",
+      "assert": "class Coin:\n    def __init__(self, value):\n        self.value = value\n    def __eq__(self, other):\n        return isinstance(other, Coin) and self.value == other.value\na, b = Coin(5), Coin(5)\nassert a == b\nassert a is not b"
+    }
+  ]
+}

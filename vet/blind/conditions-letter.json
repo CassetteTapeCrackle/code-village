@@ -1,0 +1,57 @@
+{
+  "fingerprint": "51b91a340aa4",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def letter(score):\n    if score >= 16:\n        return \"A\"\n    elif score >= 12:\n        return \"B\"\n    elif score >= 10:\n        return \"C\"\n    else:\n        return \"F\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def letter(score):\n    if score >= 16:\n        return \"A\"\n    elif score >= 12:\n        return \"B\"\n    elif score >= 10:\n        return \"C\"\n    else:\n        return \"F\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def letter(score):\n    if score >= 16:\n        return \"A\"\n    elif score >= 12:\n        return \"B\"\n    elif score >= 10:\n        return \"C\"\n    else:\n        return \"F\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def letter(score):\n    if score >= 16:\n        return \"A\"\n    elif score >= 12:\n        return \"B\"\n    elif score >= 10:\n        return \"C\"\n    else:\n        return \"F\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def letter(score):\n    if score >= 16:\n        return \"A\"\n    elif score >= 12:\n        return \"B\"\n    elif score >= 10:\n        return \"C\"\n    else:\n        return \"F\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

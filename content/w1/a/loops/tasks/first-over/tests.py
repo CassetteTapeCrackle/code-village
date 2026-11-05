@@ -6,3 +6,6 @@ def test_none():
 
 def test_first():
     expect_equal(learner["first_over"]([11], 10), 11, "first_over([11], 10)")
+
+def test_equal_is_not_over():
+    expect_equal(learner["first_over"]([10, 12], 10), 12, "first_over([10, 12], 10)")

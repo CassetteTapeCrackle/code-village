@@ -56,6 +56,14 @@ severity = "right-refused"
 summary = "A claim block raises or runs out of time: the sentence it backs is false."
 severity = "false-claim"
 
+[rule.version-differs]
+summary = "Output or a verdict differs between Python 3.12 or 3.13 and the build's Python, with no min declared."
+severity = "false-claim"
+
+[rule.min-unexplained]
+summary = "A block or item declares min, but the text near it never names that Python version."
+severity = "false-claim"
+
 [rule.claim-no-assert]
 summary = "A claim block has no assert, so it backs nothing."
 severity = "false-claim"
@@ -121,8 +129,80 @@ severity = "wiring"
 summary = "A lesson's region has no name in its world.toml."
 severity = "wiring"
 
+[rule.test-keyword-unnamed]
+summary = "A test calls the learner's code with a keyword argument the prompt never names, so a right answer with another parameter name is refused."
+severity = "right-refused"
+
+[rule.trophy-duplicate]
+summary = "Two bosses or lessons give the same trophy or loot id, so owning one counts as owning the other."
+severity = "wiring"
+
+[rule.test-name-unnamed]
+summary = "A test asks the learner's code for a name that neither the prompt nor the starter names."
+severity = "right-refused"
+
+[rule.cases-target-unused]
+summary = "A [cases] table declares hidden cases for a function or class that the item's tests never judge."
+severity = "wrong-accepted"
+
+[rule.valid-always-true]
+summary = "A validity rule returns True for every answer, so its hidden cases accept anything."
+severity = "wrong-accepted"
+
+[rule.claim-vacuous]
+summary = "A claim asserts something that can never fail, such as assert (condition, message)."
+severity = "false-claim"
+
+[rule.lesson-order-duplicate]
+summary = "Two lessons of a world share the same order number."
+severity = "wiring"
+
+[rule.region-no-boss]
+summary = "A region has lessons but no boss, so its gate can never open."
+severity = "wiring"
+
+[rule.test-without-learner]
+summary = "A test function never reaches the learner's code, so it passes whatever is written."
+severity = "wrong-accepted"
+
+[rule.test-swallows-failure]
+summary = "A test catches every failure (a bare except or Exception) without raising it again, so it cannot fail."
+severity = "wrong-accepted"
+
+[rule.wrong-misses-name]
+summary = "A wrong/ answer does not define the names the solution defines, so it fails on a missing name, not its mistake."
+severity = "wrong-accepted"
+
+[rule.claim-id-duplicate]
+summary = "Two claim blocks of a lesson share an id, so a ledger entry could point to either."
+severity = "false-claim"
+
+[rule.lesson-id-mismatch]
+summary = "A lesson's id differs from its folder name."
+severity = "wiring"
+
+[rule.stage-order-duplicate]
+summary = "Two stages of a boss carry the same number in their folder names, so their order is not set."
+severity = "wiring"
+
+[rule.stage-hp-invalid]
+summary = "A boss stage has no hp above 0, so beating it takes no damage off the boss."
+severity = "wiring"
+
+[rule.solution-flaky]
+summary = "A solution passes its tests under one hash seed and fails under another: the tests depend on set or dict order."
+severity = "right-refused"
+
 [rule.world-key-invalid]
-summary = "A world's [key] is missing, present on the first world, or not the trophy of an earlier boss."
+summary = "A world's [key] is missing, present on the first world, or names a boss that is not in an earlier world."
+severity = "wiring"
+
+[rule.gate-boss-missing]
+summary = "A world's [key] names a boss that does not exist, so nothing can open the world."
+severity = "wiring"
+
+[rule.trophy-mismatch]
+summary = "A world's [key] trophy is not the trophy (id and name) of the boss it names."
 severity = "wiring"
 
 [rule.concept-unnamed]
@@ -140,6 +220,77 @@ severity = "wiring"
 [rule.concept-no-gotcha]
 summary = "A concept has no gotcha task."
 severity = "wiring"
+
+# Progression: nothing is used before it is taught
+[rule.untaught-feature]
+summary = "Code uses a feature that no lesson up to this point teaches."
+severity = "progression"
+
+[rule.unknown-feature]
+summary = "Code uses a builtin, method, import, decorator or syntax that content/features.toml does not list."
+severity = "progression"
+
+[rule.teaches-missing]
+summary = "A lesson declares no `teaches` list, so what it introduces cannot be checked."
+severity = "progression"
+
+[rule.required-untaught]
+summary = "A task requires a construct that no lesson up to it teaches."
+severity = "progression"
+
+[rule.required-not-in-prompt]
+summary = "A task requires a construct that its prompt never names, so the learner cannot know to use it."
+severity = "ambiguous"
+
+[rule.prompt-asks-construct]
+summary = "A prompt names a way of writing the code, but the task does not require it, so Check would not notice."
+severity = "ambiguous"
+
+# False claims: a sentence nothing pins or backs
+[rule.ledger-missing]
+summary = "A sentence a learner reads has no entry in the lesson's or boss's ledger.toml."
+severity = "false-claim"
+
+[rule.ledger-stale]
+summary = "A ledger entry matches no sentence any more: the sentence was edited or removed."
+severity = "false-claim"
+
+[rule.remember-unbacked]
+summary = "A remember bullet is not backed by a claim and not marked as advice."
+severity = "false-claim"
+
+[rule.claim-id-unknown]
+summary = "A ledger entry points to a claim id that no claim block of the lesson has."
+severity = "false-claim"
+
+[rule.claim-id-missing]
+summary = "A claim block has no id, so a ledger entry cannot point to it."
+severity = "false-claim"
+
+[rule.doc-anchor-missing]
+summary = "A ledger entry's docs link is not a page and anchor in the pinned Python 3.12 docs inventory."
+severity = "false-claim"
+
+[rule.fence-untyped]
+summary = "A Python code fence is not an example, predict or claim block, so nothing runs it."
+severity = "false-claim"
+
+# Blind solvers: a model that reads only what a learner reads
+[rule.blind-missing]
+summary = "No stored blind-solver run for this version of the item."
+severity = "ambiguous"
+
+[rule.blind-untriaged]
+summary = "A blind-solver attempt fails a test and nobody has said whether the prompt, a test or the model is wrong."
+severity = "ambiguous"
+
+[rule.blind-too-strict]
+summary = "A blind-solver attempt fails a visible test yet passes every hidden case: the test is probably too strict."
+severity = "right-refused"
+
+[rule.blind-disagrees]
+summary = "A blind-solver attempt passes every test but differs from the solution on the fuzz inputs."
+severity = "ambiguous"
 
 # Data: files the loader cannot use
 [rule.file-unreadable]

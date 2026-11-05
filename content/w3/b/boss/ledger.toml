@@ -1,0 +1,71 @@
+[[sentence]]
+fp = "7c6791fd7876"
+text = "The weather station on the windy ridge logs the wind every hour, and the wind gets into the log too: blank readings, words where numbers should be, hours written twice."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "63c257b686c1"
+text = "Make sense of it."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3b5b81710763"
+text = "Three stages: clean the readings, sum them up, then find the strongest gusts and count the hours over a limit."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5281bc8a711b"
+text = "Hard mode starts from an empty page."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6a2871c783a5"
+text = "`clean(rows)` gets strings like `\"06:00,12\"` (an hour and a wind speed) and returns the speeds as plain floats, in order."
+where = "stage:summary-clean:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8d7c4b5837f7"
+text = "`summary(speeds)` returns a dict with the `count`, the `mean` rounded to 2 decimals, the `median`, and the standard deviation `std` with `ddof=0` rounded to 2 decimals."
+where = "stage:summary-numbers:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "85564af3fb67"
+text = "`top(speeds, n)` returns the `n` biggest speeds, biggest first."
+where = "stage:summary-gusts:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "470f10a1588c"
+text = "`count_over(speeds, limit)` returns how many speeds are above `limit` (a speed equal to the limit is not above it): sort them, then let `bisect` find where `limit` falls."
+where = "stage:summary-gusts:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

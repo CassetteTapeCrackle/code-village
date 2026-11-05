@@ -1,0 +1,14 @@
+# A right answer calls a method content/features.toml does not list.
+base = "good"
+expect = ["unknown-feature"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/right/is-integer.py"
+text = '''
+def half(n):
+    return n / 2
+
+
+def whole(n):
+    return (n / 2).is_integer()
+'''

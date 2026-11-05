@@ -1,0 +1,57 @@
+{
+  "fingerprint": "59e2d33455d9",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def mistakes(truth, guesses):\n    return [i for i, (t, g) in enumerate(zip(truth, guesses)) if t != g]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def mistakes(truth, guesses):\n    return [i for i in range(len(truth)) if truth[i] != guesses[i]]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def mistakes(truth, guesses):\n    result = []\n    for i, (t, g) in enumerate(zip(truth, guesses)):\n        if t != g:\n            result.append(i)\n    return result\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def mistakes(truth, guesses):\n    wrong = []\n    for i, (t, g) in enumerate(zip(truth, guesses)):\n        if t != g:\n            wrong.append(i)\n    return wrong\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def mistakes(truth, guesses):\n    return [i for i, (t, g) in enumerate(zip(truth, guesses)) if t != g]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

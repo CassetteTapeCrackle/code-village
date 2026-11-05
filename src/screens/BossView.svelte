@@ -95,7 +95,7 @@
     update((p) => recordHardCheck(p, boss));
     const passed = await runSuites(code, [
       ...boss.stages,
-      { title: "Hard mode tests", tests: boss.hardTests, cases: boss.hardCases },
+      { title: "Hard mode tests", tests: boss.hardTests, cases: boss.hardCases, requires: boss.hardRequires },
     ]);
     if (passed.every(Boolean)) update((p) => winHard(p, boss, today()));
   }
@@ -216,7 +216,7 @@
             <CodePanel
               id="{boss.id}-hard"
               title="{boss.title}, hard mode"
-              prompt="No starter code, stricter tests, and {boss.hardChecks} Checks per attempt."
+              prompt="No starter code, more tests, and {boss.hardChecks} Checks per attempt."
               starter=""
               draftKey="boss:{boss.id}:hard"
               passed={Boolean(mine.hardWonAt)}

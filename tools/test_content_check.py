@@ -8,6 +8,7 @@ from collections.abc import Callable
 from pathlib import Path
 from unittest import mock
 
+from ledger_fixture import sync_ledger
 from vet import GapKey, vet
 from vet.checks.hints import hint_code_compiles, hint_problems, looks_like_code
 from vet.checks.libraries import library_problems
@@ -34,15 +35,38 @@ def broken_copy(edit: Callable[[Path], object]) -> Path:
     tmp = Path(tempfile.mkdtemp()) / "content"
     shutil.copytree(GOOD, tmp)
     edit(tmp / "w1" / "a" / "basics")
+    sync_ledger(tmp)
     return tmp
 
 
 class ContentCheck(unittest.TestCase):
+    def test_required_constructs_reach_the_bundle(self) -> None:
+        def require_lambda(lesson: Path) -> None:
+            root = lesson.parents[2]
+            (root / "features.toml").write_text((root / "features.toml").read_text() + (
+                '\n[feature.lambda]\nsummary = "lambda"\ndetect = ["node:Lambda"]\nwords = ["lambda"]\n'
+                'say = "use a lambda"\n'))
+            text = (lesson / "lesson.md").read_text()
+            (lesson / "lesson.md").write_text(text.replace('"fn-sum"]', '"fn-sum", "lambda"]'))
+            double = lesson / "tasks" / "double"
+            toml = (double / "task.toml").read_text().replace("Write `double(n)`.", "Write `double(n)` as a lambda.")
+            (double / "task.toml").write_text('requires = ["lambda"]\n' + toml)
+            (double / "solution.py").write_text("def double(n):\n    return (lambda x: x * 2)(n)\n")
+
+        done, out = check(broken_copy(require_lambda), "--quick")
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        bundle = json.loads(out.read_text())
+        double = bundle["lessons"][0]["blocks"][3]["task"]
+        self.assertEqual(double["requires"], [{"id": "lambda", "detect": ["node:Lambda"], "say": "use a lambda"}])
+        self.assertEqual(double["variants"][0]["requires"], [])
+        self.assertEqual(bundle["bosses"][0]["hardRequires"], [])
+        self.assertEqual(bundle["bosses"][0]["stages"][0]["requires"], [])
+
     def test_good_content_builds_a_bundle(self) -> None:
         done, out = check(GOOD)
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
         bundle = json.loads(out.read_text())
-        self.assertEqual(bundle["version"], 4)
+        self.assertEqual(bundle["version"], 5)
         self.assertEqual(bundle["concepts"], {"numbers": "numbers"})
         self.assertEqual(bundle["worlds"][0]["building"], {"name": "School", "placeId": "school"})
         self.assertIsNone(bundle["worlds"][0]["key"])
@@ -349,6 +373,16 @@ class GapList(unittest.TestCase):
         self.assertEqual(done.returncode, 1)
         self.assertIn("gap list: solution-fails basics-double 000000000000 no longer happens", done.stdout)
 
+    def test_a_quick_build_keeps_the_gaps_of_the_checks_it_skips(self) -> None:
+        gaps = Path(tempfile.mkdtemp()) / "gaps.toml"
+        gaps.write_text(dump_gaps([GapKey("weak-tests", "basics-double", "000000000000")]))
+        quick, _ = check(GOOD, "--gaps", str(gaps), "--quick")
+        self.assertEqual(quick.returncode, 0, quick.stdout + quick.stderr)
+        skipped = "quick: right-fails, right-refused, solution-flaky, version-differs, weak-tests not checked"
+        self.assertIn(skipped, quick.stdout)
+        full, _ = check(GOOD, "--gaps", str(gaps))
+        self.assertIn("gap list: weak-tests basics-double 000000000000 no longer happens", full.stdout)
+
 
 class Libraries(unittest.TestCase):
     def test_library_versions_must_match_pyodide(self) -> None:
@@ -369,8 +403,22 @@ class Libraries(unittest.TestCase):
         self.assertIn("content unchanged", again.stdout)
         lesson = content / "w1" / "a" / "basics" / "lesson.md"
         lesson.write_text(lesson.read_text() + "\nOne more line.\n")
+        sync_ledger(content)
         edited = subprocess.run(run, cwd=ROOT, capture_output=True, text=True, timeout=180, check=False)
         self.assertIn("content ok", edited.stdout, edited.stdout + edited.stderr)
+
+    def test_if_changed_lets_a_full_build_serve_a_quick_one_and_not_the_reverse(self) -> None:
+        out = Path(tempfile.mkdtemp()) / "bundle.json"
+        run = [sys.executable, "tools/content_check.py", "--content", str(GOOD), "--out", str(out),
+               "--no-version-check", "--if-changed"]
+
+        def said(*extra: str) -> str:
+            done = subprocess.run([*run, *extra], cwd=ROOT, capture_output=True, text=True, timeout=180, check=False)
+            return done.stdout.splitlines()[-1]
+
+        self.assertTrue(said("--quick").startswith("content ok"))
+        self.assertTrue(said().startswith("content ok"))
+        self.assertTrue(said("--quick").startswith("content unchanged"))
 
 
 if __name__ == "__main__":

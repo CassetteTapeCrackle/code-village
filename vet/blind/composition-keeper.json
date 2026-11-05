@@ -1,0 +1,57 @@
+{
+  "fingerprint": "3e9f3fe35cca",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f\"{animal.name} is fed\" for animal in self.animals]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f\"{animal.name} is fed\" for animal in self.animals]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f\"{animal.name} is fed\" for animal in self.animals]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f\"{animal.name} is fed\" for animal in self.animals]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f\"{a.name} is fed\" for a in self.animals]\n\n\nkeeper = Keeper(\"Ada\")\nkeeper.adopt(Animal(\"Sly\"))\nkeeper.adopt(Animal(\"Ollie\"))\nprint(keeper.feed_all())\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

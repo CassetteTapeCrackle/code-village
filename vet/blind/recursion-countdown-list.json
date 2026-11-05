@@ -1,0 +1,57 @@
+{
+  "fingerprint": "8c69b934abf7",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def countdown_list(n):\n    if n == 0:\n        return []\n    # n first, then the countdown from n - 1\n    return [n] + countdown_list(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def countdown_list(n):\n    if n == 0:\n        return []\n    # n first, then the countdown from n - 1\n    return [n] + countdown_list(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def countdown_list(n):\n    if n == 0:\n        return []\n    # n first, then the countdown from n - 1\n    return [n] + countdown_list(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def countdown_list(n):\n    if n == 0:\n        return []\n    # n first, then the countdown from n - 1\n    return [n] + countdown_list(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def countdown_list(n):\n    if n == 0:\n        return []\n    # n first, then the countdown from n - 1\n    return [n] + countdown_list(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

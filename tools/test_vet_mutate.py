@@ -93,6 +93,31 @@ class Operators(unittest.TestCase):
         self.assertEqual(changed("def f(xs: list[int]) -> tuple[int, int]:\n    pass\n", "index-shift"), [])
 
 
+class EquivalentSites(unittest.TestCase):
+    def operators(self, code: str) -> set[str]:
+        return {m.operator for m in mutants(code)}
+
+    def test_strip_used_as_a_condition_has_no_mutants(self) -> None:
+        for code in ("def f(parts):\n    return [p for p in parts if p.strip()]\n",
+                     "def f(s):\n    if s.lstrip():\n        return 1\n    return 2\n",
+                     "def f(s):\n    return s.rstrip() or 'x'\n",
+                     "def f(s):\n    return not s.strip()\n"):
+            with self.subTest(code=code):
+                self.assertNotIn("method-swap", self.operators(code))
+
+    def test_strip_whose_value_is_used_still_has_mutants(self) -> None:
+        self.assertIn("method-swap", self.operators("def f(s):\n    return s.strip()\n"))
+
+    def test_a_seed_argument_has_no_mutants(self) -> None:
+        code = "def f(xs):\n    return split(xs, random_state=1, other=2, seed=3)\n"
+        constants = [m for m in mutants(code) if m.operator.startswith("const")]
+        self.assertTrue(constants)
+        for mutant in constants:
+            self.assertIn("random_state=1", mutant.code)
+            self.assertIn("seed=3", mutant.code)
+            self.assertNotIn("other=2", mutant.code)  # the other argument is still mutated
+
+
 class Guarantees(unittest.TestCase):
     SOURCE = (
         "def count_short(words, limit=3):\n"

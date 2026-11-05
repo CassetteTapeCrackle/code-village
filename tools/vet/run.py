@@ -1,22 +1,28 @@
-"""vet(): load the content and run every check on it."""
+"""vet(): load the content and run every check on it, or only the checks behind the rules asked for."""
 
 from collections.abc import Callable, Iterable
+from dataclasses import dataclass
 from pathlib import Path
 
 from .adapter import LanguageAdapter, ToolError
 from .checks import (
+    blind,
     bosses,
     cases,
     claims,
     concepts,
     hints,
     ids,
+    ledger,
     mutation,
+    progression,
+    required,
     rewrites,
     right,
     solutions,
     style,
     test_shape,
+    versions,
     worlds,
     wrong,
 )
@@ -26,29 +32,86 @@ from .model import Content
 from .python.adapter import PythonAdapter
 
 CheckFn = Callable[[Content, LanguageAdapter], Iterable[Finding]]
-CHECKS: list[CheckFn] = [
-    solutions.check, wrong.check, hints.check, claims.check, style.check,
-    concepts.check, ids.check, bosses.check, worlds.check, cases.check, mutation.check, rewrites.check,
-    right.check, test_shape.check,
+
+
+@dataclass(frozen=True)
+class Check:
+    """A check and every rule it can report, so a run can skip the checks behind rules nobody asked for."""
+
+    run: CheckFn
+    rules: frozenset[str]
+
+
+CHECKS: list[Check] = [
+    Check(solutions.check, frozenset({"solution-fails", "starter-passes"})),
+    Check(solutions.check_flaky, frozenset({"solution-flaky"})),
+    Check(wrong.check, frozenset({"wrong-passes", "wrong-too-few"})),
+    Check(wrong.check_names, frozenset({"wrong-misses-name"})),
+    Check(hints.check, frozenset({"hint-code-invalid", "hint-giveaway", "field-invalid"})),
+    Check(claims.check, frozenset({"claim-fails", "claim-no-assert", "claim-vacuous", "example-fails",
+                                    "predict-silent"})),
+    Check(style.check, frozenset({"solution-lint"})),
+    Check(concepts.check, frozenset({"concept-unnamed", "concept-name-unused", "concept-too-few-tasks",
+                                     "concept-no-gotcha"})),
+    Check(ids.check, frozenset({"item-id-duplicate", "trophy-duplicate", "lesson-id-mismatch"})),
+    Check(bosses.check, frozenset({"boss-region-empty", "boss-region-taken", "stage-order-duplicate",
+                                   "stage-hp-invalid"})),
+    Check(worlds.check, frozenset({"region-unnamed", "world-key-invalid", "world-order-duplicate", "world-unknown",
+                                   "gate-boss-missing", "trophy-mismatch", "lesson-order-duplicate",
+                                   "region-no-boss"})),
+    Check(cases.check, frozenset({"cases-missing", "cases-decl-invalid", "cases-too-few", "solution-fails-cases"})),
+    Check(mutation.check, frozenset({"weak-tests"})),
+    Check(rewrites.check, frozenset({"right-refused"})),
+    Check(right.check, frozenset({"right-fails"})),
+    Check(right.check_missing, frozenset({"right-missing"})),
+    Check(test_shape.check, frozenset({"test-inspects-code"})),
+    Check(test_shape.check_keywords, frozenset({"test-keyword-unnamed"})),
+    Check(test_shape.check_names, frozenset({"test-name-unnamed"})),
+    Check(test_shape.check_bodies, frozenset({"test-without-learner", "test-swallows-failure"})),
+    Check(cases.check_declaration, frozenset({"cases-target-unused", "valid-always-true"})),
+    Check(progression.check, frozenset({"untaught-feature", "unknown-feature", "teaches-missing"})),
+    Check(required.check, frozenset({"required-untaught", "required-not-in-prompt", "prompt-asks-construct",
+                                     "unknown-feature", "field-missing"})),
+    Check(ledger.check, frozenset({"ledger-missing", "ledger-stale", "claim-id-unknown", "claim-id-missing",
+                                   "doc-anchor-missing", "remember-unbacked", "fence-untyped", "field-invalid",
+                                   "claim-id-duplicate"})),
+    Check(blind.check, frozenset({"blind-missing", "blind-untriaged", "blind-too-strict", "blind-disagrees"})),
+    Check(versions.check, frozenset({"version-differs"})),
+    Check(versions.check_min, frozenset({"min-unexplained"})),
 ]
+# the checks that rerun the content many times over; a quick build (pnpm dev, pnpm build) leaves them out
+SLOW_RULES = frozenset({"weak-tests", "right-refused", "right-fails", "version-differs", "solution-flaky"})
 
 
-def vet_content(content: Content, adapter: LanguageAdapter) -> tuple[list[Finding], list[str]]:
-    """Every finding the checks report on loaded content, and why any check could not run at all."""
+class UndeclaredRule(AssertionError):
+    """A check reported a rule its CHECKS entry does not list, so runs that pick rules would miss it."""
+
+
+def vet_content(content: Content, adapter: LanguageAdapter,
+                rules: frozenset[str] | None = None) -> tuple[list[Finding], list[str]]:
+    """Every finding the checks report on loaded content, and why any check could not run at all. With `rules`,
+    only the checks that can report one of them run."""
     findings: list[Finding] = []
     broken = []
     for check in CHECKS:
+        if rules is not None and not check.rules & rules:
+            continue
         try:
-            findings += check(content, adapter)
+            found = list(check.run(content, adapter))
         except ToolError as e:
             broken.append(str(e))
+            continue
+        if undeclared := {f.rule for f in found} - check.rules:
+            raise UndeclaredRule(f"{check.run.__module__} reported {sorted(undeclared)}: add them to its CHECKS entry")
+        findings += found
     return findings, broken
 
 
 def vet(root: Path, adapter: LanguageAdapter | None = None, only: frozenset[str] | None = None) -> list[Finding]:
-    """Every finding on the content under root, load problems included; `only` keeps the named rules."""
+    """Every finding on the content under root, load problems included; `only` runs just the checks behind the
+    named rules and keeps just those rules."""
     content, findings = load_content(root)
-    checked, broken = vet_content(content, adapter or PythonAdapter())
+    checked, broken = vet_content(content, adapter or PythonAdapter(), only)
     if broken:
         raise ToolError("; ".join(broken))
     findings += checked

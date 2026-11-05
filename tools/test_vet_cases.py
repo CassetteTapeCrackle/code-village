@@ -159,7 +159,7 @@ ROOT_CODE = "def root(n):\n    if n < 0:\n        raise ValueError('negative')\n
 
 
 def item(solution: str, cases: object) -> Item:
-    return Item("t", "task", "the solution", Path("."), "", solution, "", False, "fp", "t", cases, (), "")
+    return Item("t", "task", "the solution", Path("."), "", solution, "", False, "fp", "t", cases, (), (), "", None)
 
 
 class TimesOut:

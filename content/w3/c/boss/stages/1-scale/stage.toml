@@ -1,4 +1,4 @@
 id = "stars-scale"
 title = "Same scale for every feature"
-prompt = "`scale_columns(rows)` takes a list of rows of numbers and returns new rows where each column is scaled to 0 to 1: `(value - smallest) / (largest - smallest)` within its column. Temperatures in the thousands must not swamp brightness."
+prompt = "`scale_columns(rows)` takes a list of rows of numbers and returns new rows where each column is scaled to 0 to 1: `(value - smallest) / (largest - smallest)` within its column; a column where every value is the same scales to `0.0`. Temperatures in the thousands must not swamp brightness."
 hp = 25

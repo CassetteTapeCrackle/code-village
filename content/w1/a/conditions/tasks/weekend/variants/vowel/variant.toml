@@ -1,3 +1,7 @@
 id = "conditions-vowel"
 title = "Is it a vowel?"
 prompt = "`is_vowel(letter)` should return `True` for `\"a\"`, `\"e\"`, `\"i\"`, `\"o\"` or `\"u\"`, and `False` otherwise. It has a bug: find and fix it."
+
+[cases]
+call = "is_vowel"
+args = ["choice a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z"]

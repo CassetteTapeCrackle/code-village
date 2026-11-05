@@ -1,0 +1,57 @@
+{
+  "fingerprint": "8fa5bb976b6d",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_like(hikes, wanted):\n    climbs = scale([h[1] for h in hikes] + [wanted[0]])\n    kms = scale([h[2] for h in hikes] + [wanted[1]])\n    target = (climbs[-1], kms[-1])\n    best = min(range(len(hikes)), key=lambda i: math.dist((climbs[i], kms[i]), target))\n    return hikes[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_like(hikes, wanted):\n    climbs = scale([h[1] for h in hikes] + [wanted[0]])\n    kms = scale([h[2] for h in hikes] + [wanted[1]])\n    target = (climbs[-1], kms[-1])\n    best = min(range(len(hikes)), key=lambda i: math.dist((climbs[i], kms[i]), target))\n    return hikes[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_like(hikes, wanted):\n    climbs = scale([h[1] for h in hikes] + [wanted[0]])\n    kms = scale([h[2] for h in hikes] + [wanted[1]])\n    target = (climbs[-1], kms[-1])\n    best = min(range(len(hikes)), key=lambda i: math.dist((climbs[i], kms[i]), target))\n    return hikes[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_like(hikes, wanted):\n    climbs = scale([h[1] for h in hikes] + [wanted[0]])\n    kms = scale([h[2] for h in hikes] + [wanted[1]])\n    target = (climbs[-1], kms[-1])\n    best = min(range(len(hikes)), key=lambda i: math.dist((climbs[i], kms[i]), target))\n    return hikes[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_like(hikes, wanted):\n    climbs = scale([h[1] for h in hikes] + [wanted[0]])\n    kms = scale([h[2] for h in hikes] + [wanted[1]])\n    target = (climbs[-1], kms[-1])\n    best = min(range(len(hikes)), key=lambda i: math.dist((climbs[i], kms[i]), target))\n    return hikes[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

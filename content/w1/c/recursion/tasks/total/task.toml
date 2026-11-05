@@ -5,3 +5,7 @@ title = "Add up, recursively"
 prompt = "Write `total(numbers)` recursively: the total of an empty list is 0; otherwise it is the first number plus the total of the rest (`numbers[1:]`)."
 hints = ["Base case: `if len(numbers) == 0: return 0`.", "`numbers[0]` is the first value and `numbers[1:]` is the rest; add the first to the total of the rest."]
 gotcha = false
+
+[cases]
+call = "total"
+args = ["list<int -9..9> 0..8"]

@@ -1,0 +1,57 @@
+{
+  "fingerprint": "6de6c04db17e",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def sum_to(n):\n    if n == 0:\n        return 0\n    return n + sum_to(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def sum_to(n):\n    if n == 0:\n        return 0\n    return n + sum_to(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def sum_to(n):\n    if n == 0:\n        return 0\n    return n + sum_to(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def sum_to(n):\n    if n == 0:\n        return 0\n    return n + sum_to(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def sum_to(n):\n    if n == 0:\n        return 0\n    return n + sum_to(n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

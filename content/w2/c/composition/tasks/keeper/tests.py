@@ -8,3 +8,6 @@ def test_own_animals():
     a = learner["Keeper"]("Noa")
     a.adopt(learner["Animal"]("Sly"))
     expect_equal(learner["Keeper"]("Sam").feed_all(), [], "a second keeper's feed_all()")
+
+def test_keeps_its_name():
+    expect_equal(learner["Keeper"]("Noa").name, "Noa", "the name of Keeper('Noa')")

@@ -28,6 +28,7 @@ const task: Task = {
   gotcha: false,
   variants: [],
   cases: [],
+  requires: [],
 };
 
 const failedCheck: CheckResult = {

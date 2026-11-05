@@ -1,0 +1,19 @@
+# The triple task has kind fix but its starter is an empty stub with no code to fix.
+base = "good"
+expect = ["wiring"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "fix"
+title = "Triple it"
+prompt = "Write `triple(n)`."
+hints = ["Multiply by 3."]
+gotcha = false
+
+[cases]
+call = "triple"
+args = ["int -50..50"]
+'''

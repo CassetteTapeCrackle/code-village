@@ -1,0 +1,57 @@
+{
+  "fingerprint": "9c6365fb9bfe",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Lamp:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def shine(self):\n        # \"dark\" when the battery is empty, otherwise drain it once and give \"light\"\n        if self.battery.charge == 0:\n            return \"dark\"\n        self.battery.drain()\n        return \"light\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Lamp:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def shine(self):\n        if self.battery.charge == 0:\n            return \"dark\"\n        self.battery.drain()\n        return \"light\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Lamp:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def shine(self):\n        if self.battery.charge == 0:\n            return \"dark\"\n        self.battery.drain()\n        return \"light\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Lamp:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def shine(self):\n        if self.battery.charge == 0:\n            return \"dark\"\n        self.battery.drain()\n        return \"light\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Battery:\n    def __init__(self, charge):\n        self.charge = charge\n\n    def drain(self):\n        self.charge -= 1\n\n\nclass Lamp:\n    def __init__(self, charge):\n        self.battery = Battery(charge)\n\n    def shine(self):\n        if self.battery.charge == 0:\n            return \"dark\"\n        self.battery.drain()\n        return \"light\"\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

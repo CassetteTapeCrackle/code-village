@@ -1,0 +1,233 @@
+[[sentence]]
+fp = "1ea7253e7227"
+text = "A list holds several values in order, between square brackets."
+where = "text:0"
+status = "claim:auto-1ea7253e7227"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "30983f41fba4"
+text = "You read one value by its position, its **index**, counting from 0."
+where = "text:0"
+status = "claim:auto-30983f41fba4"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4dfbf2abbe78"
+text = "Negative indexes count from the end."
+where = "text:0"
+status = "claim:auto-4dfbf2abbe78"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "320e4362c42b"
+text = "Write `last_item(items)` that returns the last value of a non-empty list."
+where = "task:lists-last-item:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8b145ebb50a3"
+text = "`-1` points at the last position, so use it as the index inside the square brackets."
+where = "task:lists-last-item:hint:1"
+status = "claim:auto-8b145ebb50a3"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "55947c8db289"
+text = "Write `first_item(items)` that returns the first value of a non-empty list."
+where = "task:lists-first-item:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "425d0466fda7"
+text = "A list can change."
+where = "text:3"
+status = "claim:auto-425d0466fda7"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3fec6558ce22"
+text = "`append(x)` adds `x` at the end."
+where = "text:3"
+status = "claim:auto-3fec6558ce22"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "63dd43df4bbd"
+text = "It changes the list itself and returns `None`, so you never write `items = items.append(x)`."
+where = "text:3"
+status = "claim:auto-63dd43df4bbd"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f5b12b3da4fe"
+text = "`remove(x)` deletes the first `x` it finds and `sort()` puts the list in order; they change the list itself too."
+where = "text:3"
+status = "claim:auto-f5b12b3da4fe"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1ce1c79c443a"
+text = "Write `add_twice(items, x)` that adds `x` at the end of `items` two times, then returns the list."
+where = "task:lists-add-twice:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "90634fb1c15b"
+text = "`append` adds one value at the end."
+where = "task:lists-add-twice:hint:0"
+status = "claim:auto-90634fb1c15b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cdf5c792e6e8"
+text = "`bag.append(\"pen\")` adds one pen; repeat the same call to add it twice, then return the list."
+where = "task:lists-add-twice:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a1f2ac0eb1cd"
+text = "Write `add_both(items, a, b)` that adds `a` then `b` at the end of `items`, then returns the list."
+where = "task:lists-add-both:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e98dadc8195c"
+text = "One trap catches almost everyone."
+where = "text:7"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b3d804a25a65"
+text = "`b = a` does not make a copy: it gives the same list a second name."
+where = "text:7"
+status = "claim:auto-b3d804a25a65"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a858cf32a1c1"
+text = "Change it through one name, and the other name sees the change."
+where = "text:7"
+status = "claim:auto-a858cf32a1c1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8014107b3aa4"
+text = "`copy_and_add(items, x)` should return a **new** list with `x` at the end, and leave `items` unchanged."
+where = "task:lists-copy-and-add:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8511cc020620"
+text = "It has a bug: find and fix it."
+where = "task:lists-copy-and-add:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4bdb4571b817"
+text = "Run it, then print the original list after the call."
+where = "task:lists-copy-and-add:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b99de4985f96"
+text = "Call `.copy()` on the list to get a new list; assigning `new = items` only gives the same list a second name."
+where = "task:lists-copy-and-add:hint:1"
+status = "claim:auto-b99de4985f96"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "39e0c10b757b"
+text = "`without(items, x)` should return a **new** list without the first `x`, and leave `items` unchanged."
+where = "task:lists-without:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a9fb964c68b1"
+text = "A list keeps values in order; the first index is 0 and -1 is the last."
+where = "remember:0"
+status = "claim:auto-a9fb964c68b1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a61015c6df1a"
+text = "append, remove and sort change the list itself and return None."
+where = "remember:1"
+status = "claim:auto-a61015c6df1a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6a9b3bfe01f6"
+text = "b = a does not copy a list: both names point at the same list."
+where = "remember:2"
+status = "claim:auto-6a9b3bfe01f6"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a1ab1be3c9e7"
+text = "Use a.copy() or list(a)."
+where = "remember:2"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

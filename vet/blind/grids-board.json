@@ -1,0 +1,57 @@
+{
+  "fingerprint": "de22d115f7be",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def make_board(rows, cols):\n    return [[\".\"] * cols for _ in range(rows)]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

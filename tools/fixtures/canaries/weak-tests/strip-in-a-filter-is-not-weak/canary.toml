@@ -1,0 +1,42 @@
+# The only strip is a filter: strip, lstrip and rstrip are empty for the same strings, so swapping them changes
+# nothing. The task declares no [cases], so no fuzz set could clear a survivor: the mutant must not exist at all.
+base = "good"
+expect = []
+
+[[file]]
+path = "w1/a/basics/tasks/double/solution.py"
+text = '''
+def double(n):
+    kept = [p for p in str(n).split(",") if p.strip()]
+    return int("".join(kept)) * 2
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/double/task.toml"
+text = '''
+id = "basics-double"
+concept = "numbers"
+kind = "write"
+title = "Double it"
+prompt = "Write `double(n)`."
+hints = ["Multiply by 2."]
+gotcha = true
+
+strict = true
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/double/tests.py"
+text = '''
+def test_four():
+    expect_equal(learner["double"](2), 4, "double(2)")
+
+def test_zero():
+    expect_equal(learner["double"](0), 0, "double(0)")
+
+def test_odd():
+    expect_equal(learner["double"](5), 10, "double(5)")
+
+def test_negative():
+    expect_equal(learner["double"](-3), -6, "double(-3)")
+'''

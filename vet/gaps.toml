@@ -2,3535 +2,620 @@
 
 [[gap]]
 rule = "cases-missing"
-item = "class-attributes-cabin"
-fingerprint = "d6534a3c2959"
-
-[[gap]]
-rule = "cases-missing"
-item = "class-attributes-camp"
-fingerprint = "1e2d65448685"
-
-[[gap]]
-rule = "cases-missing"
-item = "class-attributes-canoe-seats"
-fingerprint = "4527c1ac5160"
-
-[[gap]]
-rule = "cases-missing"
-item = "class-attributes-lanterns"
-fingerprint = "a2fdb144ef77"
-
-[[gap]]
-rule = "cases-missing"
-item = "class-attributes-rangers"
-fingerprint = "ea9b92d3e9df"
-
-[[gap]]
-rule = "cases-missing"
-item = "class-attributes-shelf"
-fingerprint = "e6e864707512"
-
-[[gap]]
-rule = "cases-missing"
-item = "classes-backpack"
-fingerprint = "ae38fdea533a"
-
-[[gap]]
-rule = "cases-missing"
-item = "classes-basket"
-fingerprint = "df5f722f032a"
-
-[[gap]]
-rule = "cases-missing"
-item = "classes-canoe"
-fingerprint = "10871bbbdc76"
-
-[[gap]]
-rule = "cases-missing"
-item = "classes-counter"
-fingerprint = "a8e1b5cc5f95"
-
-[[gap]]
-rule = "cases-missing"
-item = "classes-lantern"
-fingerprint = "21b70dde1ce4"
-
-[[gap]]
-rule = "cases-missing"
-item = "classes-tent"
-fingerprint = "f44ca2f02746"
-
-[[gap]]
-rule = "cases-missing"
-item = "composition-cook-pantry"
-fingerprint = "60674e64d928"
-
-[[gap]]
-rule = "cases-missing"
-item = "composition-keeper"
-fingerprint = "55269961bd1f"
-
-[[gap]]
-rule = "cases-missing"
-item = "composition-lamp"
-fingerprint = "10ecfb7e982e"
-
-[[gap]]
-rule = "cases-missing"
-item = "composition-nest"
-fingerprint = "f1a37c816f77"
-
-[[gap]]
-rule = "cases-missing"
-item = "composition-radio"
-fingerprint = "9c5f1d8688d4"
-
-[[gap]]
-rule = "cases-missing"
-item = "composition-ranger-pack"
-fingerprint = "9304e53b7a2f"
-
-[[gap]]
-rule = "cases-missing"
-item = "comprehensions-add-lists"
-fingerprint = "b85562443269"
-
-[[gap]]
-rule = "cases-missing"
-item = "comprehensions-long-words"
-fingerprint = "96b8ce983916"
-
-[[gap]]
-rule = "cases-missing"
-item = "comprehensions-numbered"
-fingerprint = "76f7c535969f"
-
-[[gap]]
-rule = "cases-missing"
-item = "comprehensions-odd-squares"
-fingerprint = "33993c37710a"
-
-[[gap]]
-rule = "cases-missing"
-item = "comprehensions-pair-up"
-fingerprint = "de81e5cfc008"
-
-[[gap]]
-rule = "cases-missing"
-item = "comprehensions-shout-all"
-fingerprint = "139401d57007"
-
-[[gap]]
-rule = "cases-missing"
-item = "conditions-larger"
-fingerprint = "a2909f08cae4"
-
-[[gap]]
-rule = "cases-missing"
-item = "conditions-letter"
-fingerprint = "06c1bcc6608a"
-
-[[gap]]
-rule = "cases-missing"
-item = "conditions-sign"
-fingerprint = "97afed50d365"
-
-[[gap]]
-rule = "cases-missing"
-item = "conditions-ticket-price"
-fingerprint = "a972935e4e37"
-
-[[gap]]
-rule = "cases-missing"
-item = "conditions-vowel"
-fingerprint = "37abb6ffccd9"
-
-[[gap]]
-rule = "cases-missing"
-item = "conditions-weekend"
-fingerprint = "a959953a2db9"
-
-[[gap]]
-rule = "cases-missing"
 item = "data-summary"
-fingerprint = "5c445ef34649"
-
-[[gap]]
-rule = "cases-missing"
-item = "dataclasses-mushroom-spots"
-fingerprint = "2656c9377ccc"
-
-[[gap]]
-rule = "cases-missing"
-item = "dataclasses-quiver-default"
-fingerprint = "ca7c98bab22d"
-
-[[gap]]
-rule = "cases-missing"
-item = "dataclasses-races"
-fingerprint = "33d9fe4c7505"
-
-[[gap]]
-rule = "cases-missing"
-item = "dataclasses-sapling"
-fingerprint = "3ccadbcd986c"
-
-[[gap]]
-rule = "cases-missing"
-item = "dataclasses-satchel"
-fingerprint = "7ced39909f0e"
-
-[[gap]]
-rule = "cases-missing"
-item = "dataclasses-scores"
-fingerprint = "fb8786a43d63"
-
-[[gap]]
-rule = "cases-missing"
-item = "dicts-count-words"
-fingerprint = "6c589c51d074"
-
-[[gap]]
-rule = "cases-missing"
-item = "dicts-in-both"
-fingerprint = "34e2d5a13485"
-
-[[gap]]
-rule = "cases-missing"
-item = "dicts-letter-counts"
-fingerprint = "ca8dde8f9081"
-
-[[gap]]
-rule = "cases-missing"
-item = "dicts-phone"
-fingerprint = "fd2c3773680a"
-
-[[gap]]
-rule = "cases-missing"
-item = "dicts-stock"
-fingerprint = "59e8cec80fd2"
-
-[[gap]]
-rule = "cases-missing"
-item = "dicts-unique-sorted"
-fingerprint = "1f24c71d0139"
-
-[[gap]]
-rule = "cases-missing"
-item = "dunders-badge"
-fingerprint = "df5fb3f971ad"
-
-[[gap]]
-rule = "cases-missing"
-item = "dunders-feather"
-fingerprint = "efbdd87606f7"
-
-[[gap]]
-rule = "cases-missing"
-item = "dunders-hive"
-fingerprint = "4ea3b13ee142"
-
-[[gap]]
-rule = "cases-missing"
-item = "dunders-mushroom"
-fingerprint = "4c7e0d11cd2b"
-
-[[gap]]
-rule = "cases-missing"
-item = "dunders-quiver"
-fingerprint = "27618f2d0333"
-
-[[gap]]
-rule = "cases-missing"
-item = "dunders-sign"
-fingerprint = "ea9497f61386"
-
-[[gap]]
-rule = "cases-missing"
-item = "errors-first-char"
-fingerprint = "faf08f5ac29a"
-
-[[gap]]
-rule = "cases-missing"
-item = "errors-parse-age"
-fingerprint = "21f93086428f"
-
-[[gap]]
-rule = "cases-missing"
-item = "errors-parse-price"
-fingerprint = "ef08ac4f4c08"
-
-[[gap]]
-rule = "cases-missing"
-item = "errors-safe-divide"
-fingerprint = "bdc5796225cc"
-
-[[gap]]
-rule = "cases-missing"
-item = "errors-set-volume"
-fingerprint = "269d65fa3555"
-
-[[gap]]
-rule = "cases-missing"
-item = "errors-withdraw"
-fingerprint = "8f4ca1b4992f"
-
-[[gap]]
-rule = "cases-missing"
-item = "files-json-best"
-fingerprint = "a8a398924242"
-
-[[gap]]
-rule = "cases-missing"
-item = "files-json-count"
-fingerprint = "ad7c59ded477"
-
-[[gap]]
-rule = "cases-missing"
-item = "files-json-logbook"
-fingerprint = "111327f3dbcd"
-
-[[gap]]
-rule = "cases-missing"
-item = "files-json-save"
-fingerprint = "9182f5dc7301"
-
-[[gap]]
-rule = "cases-missing"
-item = "files-json-scores"
-fingerprint = "32eccfa9e156"
-
-[[gap]]
-rule = "cases-missing"
-item = "files-json-visits"
-fingerprint = "f235d341462b"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-add-item"
-fingerprint = "8ed8007d011b"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-as-values-cheapest"
-fingerprint = "78274db78ca9"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-as-values-compose"
-fingerprint = "6ad04ec3168c"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-as-values-keep-long"
-fingerprint = "88c46f9cb75a"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-as-values-oldest"
-fingerprint = "fb2060f0c132"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-as-values-prices"
-fingerprint = "93be12f3e54e"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-as-values-twice"
-fingerprint = "81e71dc2374a"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-by-last-letter"
-fingerprint = "a0dc93b5ffbb"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-by-length"
-fingerprint = "4b51c7e45f91"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-greeting"
-fingerprint = "794bd62d7270"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-log"
-fingerprint = "70718c2a0d1d"
-
-[[gap]]
-rule = "cases-missing"
-item = "functions-power"
-fingerprint = "2bebbbb7a4a3"
-
-[[gap]]
-rule = "cases-missing"
-item = "generators-average"
-fingerprint = "c36b7947acb8"
-
-[[gap]]
-rule = "cases-missing"
-item = "generators-count-down"
-fingerprint = "c74b48613949"
-
-[[gap]]
-rule = "cases-missing"
-item = "generators-count-long"
-fingerprint = "0a65ab30efa8"
-
-[[gap]]
-rule = "cases-missing"
-item = "generators-evens"
-fingerprint = "7b58b43f81a9"
-
-[[gap]]
-rule = "cases-missing"
-item = "generators-letters"
-fingerprint = "16380fb556cc"
-
-[[gap]]
-rule = "cases-missing"
-item = "generators-spread"
-fingerprint = "5f8387b7fdd4"
+fingerprint = "1268951043fa"
 
 [[gap]]
 rule = "cases-missing"
 item = "gradebook"
-fingerprint = "ebe8801cb395"
-
-[[gap]]
-rule = "cases-missing"
-item = "grids-board"
-fingerprint = "34a794cbd3b5"
-
-[[gap]]
-rule = "cases-missing"
-item = "grids-column"
-fingerprint = "d7f232674990"
-
-[[gap]]
-rule = "cases-missing"
-item = "grids-diagonal"
-fingerprint = "f057451f5465"
-
-[[gap]]
-rule = "cases-missing"
-item = "grids-row-totals"
-fingerprint = "8ebd9f5c78d4"
-
-[[gap]]
-rule = "cases-missing"
-item = "grids-sum"
-fingerprint = "13be6d360466"
-
-[[gap]]
-rule = "cases-missing"
-item = "grids-zeros"
-fingerprint = "bdf5a9a139a3"
+fingerprint = "25be7b6325b1"
 
 [[gap]]
 rule = "cases-missing"
 item = "guessing-stone"
-fingerprint = "0acf1cf27bf9"
-
-[[gap]]
-rule = "cases-missing"
-item = "identity-copy-basket"
-fingerprint = "0115413ab131"
-
-[[gap]]
-rule = "cases-missing"
-item = "identity-copy-hiker"
-fingerprint = "8d7021c9521f"
-
-[[gap]]
-rule = "cases-missing"
-item = "identity-maps"
-fingerprint = "e0c7dba53638"
-
-[[gap]]
-rule = "cases-missing"
-item = "identity-trails"
-fingerprint = "c95aa972b1ce"
-
-[[gap]]
-rule = "cases-missing"
-item = "identity-without-exact"
-fingerprint = "0c7d06b5c973"
-
-[[gap]]
-rule = "cases-missing"
-item = "identity-without-note"
-fingerprint = "c42af0d0d8bd"
-
-[[gap]]
-rule = "cases-missing"
-item = "inheritance-bat"
-fingerprint = "accf2d41e5eb"
-
-[[gap]]
-rule = "cases-missing"
-item = "inheritance-canoe-boat"
-fingerprint = "96191d6b14a1"
-
-[[gap]]
-rule = "cases-missing"
-item = "inheritance-fruit-tree"
-fingerprint = "68fed5e1b2d0"
-
-[[gap]]
-rule = "cases-missing"
-item = "inheritance-ostrich"
-fingerprint = "729e6b31fcfb"
-
-[[gap]]
-rule = "cases-missing"
-item = "inheritance-penguin"
-fingerprint = "82a10b54f078"
-
-[[gap]]
-rule = "cases-missing"
-item = "inheritance-squirrel"
-fingerprint = "04ac3e8066db"
-
-[[gap]]
-rule = "cases-missing"
-item = "io-double"
-fingerprint = "2b210b68e594"
-
-[[gap]]
-rule = "cases-missing"
-item = "io-echo"
-fingerprint = "e7dba5e85400"
-
-[[gap]]
-rule = "cases-missing"
-item = "io-greet"
-fingerprint = "cfbb63e35c85"
-
-[[gap]]
-rule = "cases-missing"
-item = "io-minutes"
-fingerprint = "f2e26f60d452"
-
-[[gap]]
-rule = "cases-missing"
-item = "io-next-year"
-fingerprint = "71bb85af14c7"
-
-[[gap]]
-rule = "cases-missing"
-item = "io-receipt"
-fingerprint = "308781c5c9a3"
-
-[[gap]]
-rule = "cases-missing"
-item = "knn-sklearn-fit"
-fingerprint = "eea47bd7ac9b"
-
-[[gap]]
-rule = "cases-missing"
-item = "knn-sklearn-height"
-fingerprint = "97c19d41c44b"
-
-[[gap]]
-rule = "cases-missing"
-item = "knn-sklearn-k"
-fingerprint = "3282f12754a7"
-
-[[gap]]
-rule = "cases-missing"
-item = "knn-sklearn-k3"
-fingerprint = "2c87df4bb4bd"
-
-[[gap]]
-rule = "cases-missing"
-item = "knn-sklearn-one-point"
-fingerprint = "627a6c577451"
-
-[[gap]]
-rule = "cases-missing"
-item = "knn-sklearn-predict"
-fingerprint = "d6ac6fbd7d6c"
-
-[[gap]]
-rule = "cases-missing"
-item = "lists-add-both"
-fingerprint = "8d468d6ee0da"
-
-[[gap]]
-rule = "cases-missing"
-item = "lists-add-twice"
-fingerprint = "33d274408a6b"
-
-[[gap]]
-rule = "cases-missing"
-item = "lists-copy-and-add"
-fingerprint = "256860edaf71"
-
-[[gap]]
-rule = "cases-missing"
-item = "lists-first-item"
-fingerprint = "c16d9ca50ce7"
-
-[[gap]]
-rule = "cases-missing"
-item = "lists-last-item"
-fingerprint = "990059498ce5"
-
-[[gap]]
-rule = "cases-missing"
-item = "lists-without"
-fingerprint = "ea211059ad9a"
-
-[[gap]]
-rule = "cases-missing"
-item = "loops-count-evens"
-fingerprint = "e03e2d0b6229"
-
-[[gap]]
-rule = "cases-missing"
-item = "loops-countdown"
-fingerprint = "012916d2457d"
-
-[[gap]]
-rule = "cases-missing"
-item = "loops-first-even"
-fingerprint = "f5a28971864c"
-
-[[gap]]
-rule = "cases-missing"
-item = "loops-first-over"
-fingerprint = "ed668859e065"
-
-[[gap]]
-rule = "cases-missing"
-item = "loops-sum-to"
-fingerprint = "c8fe3083e600"
-
-[[gap]]
-rule = "cases-missing"
-item = "loops-up-to"
-fingerprint = "b3ba3c816a45"
+fingerprint = "024cbc8f4989"
 
 [[gap]]
 rule = "cases-missing"
 item = "lost-satchel"
-fingerprint = "91ff482cc828"
-
-[[gap]]
-rule = "cases-missing"
-item = "methods-bucket"
-fingerprint = "b4d067d8a99d"
-
-[[gap]]
-rule = "cases-missing"
-item = "methods-kettle"
-fingerprint = "3e0f9306c817"
-
-[[gap]]
-rule = "cases-missing"
-item = "methods-notebook"
-fingerprint = "011afea73d2c"
-
-[[gap]]
-rule = "cases-missing"
-item = "methods-oven"
-fingerprint = "611305794a0a"
-
-[[gap]]
-rule = "cases-missing"
-item = "methods-tally"
-fingerprint = "41a7b589d3f4"
-
-[[gap]]
-rule = "cases-missing"
-item = "methods-torch"
-fingerprint = "f20a9447d346"
-
-[[gap]]
-rule = "cases-missing"
-item = "nearest-neighbour-classify"
-fingerprint = "a1c5a8bfac89"
-
-[[gap]]
-rule = "cases-missing"
-item = "nearest-neighbour-closest"
-fingerprint = "7a829eb5f888"
-
-[[gap]]
-rule = "cases-missing"
-item = "nearest-neighbour-farthest"
-fingerprint = "20d5d944380a"
-
-[[gap]]
-rule = "cases-missing"
-item = "nearest-neighbour-hike"
-fingerprint = "3ec9e6a1b608"
-
-[[gap]]
-rule = "cases-missing"
-item = "nearest-neighbour-one"
-fingerprint = "6a3a716e1a00"
-
-[[gap]]
-rule = "cases-missing"
-item = "nearest-neighbour-similar"
-fingerprint = "96edbeba5509"
-
-[[gap]]
-rule = "cases-missing"
-item = "numpy-arrays-columns"
-fingerprint = "f6edf9123315"
-
-[[gap]]
-rule = "cases-missing"
-item = "numpy-arrays-doubled"
-fingerprint = "00d3e2711038"
-
-[[gap]]
-rule = "cases-missing"
-item = "numpy-arrays-fahrenheit"
-fingerprint = "70996809d12a"
-
-[[gap]]
-rule = "cases-missing"
-item = "numpy-arrays-row-means"
-fingerprint = "b7b91071cfc2"
-
-[[gap]]
-rule = "cases-missing"
-item = "numpy-arrays-scale"
-fingerprint = "e9f5c5b58632"
-
-[[gap]]
-rule = "cases-missing"
-item = "numpy-arrays-tripled"
-fingerprint = "c1004cfae0f1"
-
-[[gap]]
-rule = "cases-missing"
-item = "pandas-tables-cheapest-item"
-fingerprint = "32dba28ae038"
-
-[[gap]]
-rule = "cases-missing"
-item = "pandas-tables-lightest"
-fingerprint = "c941da1478d3"
-
-[[gap]]
-rule = "cases-missing"
-item = "pandas-tables-taller"
-fingerprint = "e7b2b3b8d0c5"
-
-[[gap]]
-rule = "cases-missing"
-item = "pandas-tables-tallest"
-fingerprint = "5671fe1d11e3"
-
-[[gap]]
-rule = "cases-missing"
-item = "pandas-tables-team"
-fingerprint = "17f33e69e0de"
-
-[[gap]]
-rule = "cases-missing"
-item = "pandas-tables-total"
-fingerprint = "03b6e02992ad"
-
-[[gap]]
-rule = "cases-missing"
-item = "properties-fuel"
-fingerprint = "3297ad9c2699"
-
-[[gap]]
-rule = "cases-missing"
-item = "properties-plot"
-fingerprint = "421a1719a294"
-
-[[gap]]
-rule = "cases-missing"
-item = "properties-ranger-age"
-fingerprint = "703365763ab3"
-
-[[gap]]
-rule = "cases-missing"
-item = "properties-volume"
-fingerprint = "6e712774cd5d"
-
-[[gap]]
-rule = "cases-missing"
-item = "properties-window"
-fingerprint = "b917c3b9c682"
-
-[[gap]]
-rule = "cases-missing"
-item = "properties-wingspan"
-fingerprint = "d02454b6c8ac"
+fingerprint = "c9affd671791"
 
 [[gap]]
 rule = "cases-missing"
 item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
-
-[[gap]]
-rule = "cases-missing"
-item = "recursion-count"
-fingerprint = "6a004e4b052c"
-
-[[gap]]
-rule = "cases-missing"
-item = "recursion-countdown-list"
-fingerprint = "cba7c433b75d"
-
-[[gap]]
-rule = "cases-missing"
-item = "recursion-power"
-fingerprint = "cc4febb2d05c"
-
-[[gap]]
-rule = "cases-missing"
-item = "recursion-repeat"
-fingerprint = "a74fbeadc0a0"
-
-[[gap]]
-rule = "cases-missing"
-item = "recursion-sum-to"
-fingerprint = "f2447d54b6b2"
-
-[[gap]]
-rule = "cases-missing"
-item = "recursion-total"
-fingerprint = "240b5dba0ac3"
+fingerprint = "87adb1b91a19"
 
 [[gap]]
 rule = "cases-missing"
 item = "sales-report"
-fingerprint = "8f71aaa27062"
-
-[[gap]]
-rule = "cases-missing"
-item = "search-sort-find-all"
-fingerprint = "8b0daf50e502"
-
-[[gap]]
-rule = "cases-missing"
-item = "search-sort-insert"
-fingerprint = "8c3559175c95"
-
-[[gap]]
-rule = "cases-missing"
-item = "search-sort-last"
-fingerprint = "463528fd4be0"
-
-[[gap]]
-rule = "cases-missing"
-item = "search-sort-member"
-fingerprint = "d37d683aea12"
-
-[[gap]]
-rule = "cases-missing"
-item = "search-sort-rank"
-fingerprint = "53a12a27ae4e"
-
-[[gap]]
-rule = "cases-missing"
-item = "search-sort-score"
-fingerprint = "f0de2dac5d26"
+fingerprint = "eeb0c56be3f4"
 
 [[gap]]
 rule = "cases-missing"
 item = "songbird-playlist"
-fingerprint = "40a435d0e3c4"
+fingerprint = "741eaab9eb6e"
 
 [[gap]]
 rule = "cases-missing"
 item = "sortable-acorns"
-fingerprint = "c40dda75adac"
+fingerprint = "d22511dd209c"
 
 [[gap]]
 rule = "cases-missing"
 item = "sortable-by-height"
-fingerprint = "78a28b00243c"
+fingerprint = "c295e654dad3"
 
 [[gap]]
 rule = "cases-missing"
 item = "sortable-by-name"
-fingerprint = "94fa0afcc945"
+fingerprint = "0eee87457bbe"
 
 [[gap]]
 rule = "cases-missing"
 item = "sortable-oldest"
-fingerprint = "b0c1651f4127"
+fingerprint = "a0a014495150"
 
 [[gap]]
 rule = "cases-missing"
 item = "sortable-pebbles"
-fingerprint = "13cb9b2a5173"
+fingerprint = "364ae86481fa"
 
 [[gap]]
 rule = "cases-missing"
 item = "sortable-rank"
-fingerprint = "6d11c9e43ab0"
+fingerprint = "40d6268d5528"
 
 [[gap]]
 rule = "cases-missing"
 item = "squirrel-storehouse"
-fingerprint = "3b869168b3eb"
+fingerprint = "3348c924197f"
 
 [[gap]]
 rule = "cases-missing"
 item = "star-classifier"
-fingerprint = "a3efee858cb3"
-
-[[gap]]
-rule = "cases-missing"
-item = "statistics-median"
-fingerprint = "d5d7b83d8861"
+fingerprint = "d511165f5eaa"
 
 [[gap]]
 rule = "cases-missing"
 item = "statistics-spread"
-fingerprint = "be04969757bd"
+fingerprint = "c3ee5810f882"
 
 [[gap]]
 rule = "cases-missing"
 item = "statistics-summary"
-fingerprint = "3113c8567342"
+fingerprint = "66fe60ec34be"
 
 [[gap]]
 rule = "cases-missing"
 item = "statistics-trimmed"
-fingerprint = "64a0edbe9839"
+fingerprint = "4201063383f5"
 
 [[gap]]
 rule = "cases-missing"
 item = "statistics-typical"
-fingerprint = "0eb835f79e14"
+fingerprint = "5b089777e664"
 
 [[gap]]
 rule = "cases-missing"
 item = "statistics-wait"
-fingerprint = "4fb188d5f8cb"
+fingerprint = "e7c768f03ddb"
 
 [[gap]]
 rule = "cases-missing"
 item = "strings-clean-tag"
-fingerprint = "faa11831faae"
+fingerprint = "969d33c45987"
 
 [[gap]]
 rule = "cases-missing"
 item = "strings-file-name"
-fingerprint = "25dd2fa8f526"
+fingerprint = "a65479d1e79e"
 
 [[gap]]
 rule = "cases-missing"
 item = "strings-initials"
-fingerprint = "41878cc18f63"
+fingerprint = "2e2aca1a2676"
 
 [[gap]]
 rule = "cases-missing"
 item = "strings-last-word"
-fingerprint = "1f890536125c"
+fingerprint = "652ece23e64f"
 
 [[gap]]
 rule = "cases-missing"
 item = "strings-shout"
-fingerprint = "ceca1bf14c4e"
+fingerprint = "0b9ed1a99407"
 
 [[gap]]
 rule = "cases-missing"
 item = "strings-whisper"
-fingerprint = "42d64ea8404e"
+fingerprint = "c9bc4a60893b"
 
 [[gap]]
 rule = "cases-missing"
 item = "testing-average-test"
-fingerprint = "538f0f71b6f4"
+fingerprint = "896356c95dff"
 
 [[gap]]
 rule = "cases-missing"
 item = "testing-clamp-test"
-fingerprint = "e01ea90f04b7"
+fingerprint = "ee27f59880d1"
 
 [[gap]]
 rule = "cases-missing"
 item = "testing-even-test"
-fingerprint = "804f875e473b"
+fingerprint = "5b1f8218fcad"
 
 [[gap]]
 rule = "cases-missing"
 item = "testing-first-test"
-fingerprint = "42570b4d5464"
+fingerprint = "66f7319f9b28"
 
 [[gap]]
 rule = "cases-missing"
 item = "testing-shout-test"
-fingerprint = "347129951597"
+fingerprint = "6ac1e11d2b4c"
 
 [[gap]]
 rule = "cases-missing"
 item = "testing-total-test"
-fingerprint = "3623d4efee6c"
+fingerprint = "18d5dd51f483"
 
 [[gap]]
 rule = "cases-missing"
 item = "tour-hello"
-fingerprint = "474e2bcde876"
-
-[[gap]]
-rule = "cases-missing"
-item = "train-test-accuracy"
-fingerprint = "af8a289238a9"
+fingerprint = "115b06540153"
 
 [[gap]]
 rule = "cases-missing"
 item = "train-test-evaluate"
-fingerprint = "7807072f109d"
+fingerprint = "59d0116ace23"
 
 [[gap]]
 rule = "cases-missing"
 item = "train-test-honest"
-fingerprint = "26b6873d0ea3"
-
-[[gap]]
-rule = "cases-missing"
-item = "train-test-mistakes"
-fingerprint = "f84ac8f8d6b3"
+fingerprint = "38822daf2067"
 
 [[gap]]
 rule = "cases-missing"
 item = "train-test-peek"
-fingerprint = "fc51504a400a"
+fingerprint = "3f3174806432"
 
 [[gap]]
 rule = "cases-missing"
 item = "train-test-score-line"
-fingerprint = "e76f6dfb3e40"
+fingerprint = "8d95387e88d8"
 
 [[gap]]
 rule = "cases-missing"
 item = "values-add-strings"
-fingerprint = "1df912a724f6"
+fingerprint = "7e19ae9a23ff"
 
 [[gap]]
 rule = "cases-missing"
 item = "values-average"
-fingerprint = "fb173daab218"
+fingerprint = "5370884a7c61"
 
 [[gap]]
 rule = "cases-missing"
 item = "values-describe"
-fingerprint = "b358cc076183"
+fingerprint = "c4c32c1a898d"
 
 [[gap]]
 rule = "cases-missing"
 item = "values-next-number"
-fingerprint = "d270405a0347"
+fingerprint = "f4db0fb9c2ff"
 
 [[gap]]
 rule = "cases-missing"
 item = "values-price-label"
-fingerprint = "d79188e3a83d"
+fingerprint = "5957ee334134"
 
 [[gap]]
 rule = "cases-missing"
 item = "values-total-price"
-fingerprint = "c8f72de18c4e"
+fingerprint = "366c3819d751"
 
 [[gap]]
-rule = "right-missing"
-item = "class-attributes-cabin"
-fingerprint = "d6534a3c2959"
-
-[[gap]]
-rule = "right-missing"
-item = "class-attributes-camp"
-fingerprint = "1e2d65448685"
-
-[[gap]]
-rule = "right-missing"
-item = "class-attributes-canoe-seats"
-fingerprint = "4527c1ac5160"
-
-[[gap]]
-rule = "right-missing"
-item = "class-attributes-lanterns"
-fingerprint = "a2fdb144ef77"
-
-[[gap]]
-rule = "right-missing"
-item = "class-attributes-rangers"
-fingerprint = "ea9b92d3e9df"
-
-[[gap]]
-rule = "right-missing"
-item = "class-attributes-shelf"
-fingerprint = "e6e864707512"
-
-[[gap]]
-rule = "right-missing"
-item = "classes-backpack"
-fingerprint = "ae38fdea533a"
-
-[[gap]]
-rule = "right-missing"
-item = "classes-basket"
-fingerprint = "df5f722f032a"
-
-[[gap]]
-rule = "right-missing"
-item = "classes-canoe"
-fingerprint = "10871bbbdc76"
-
-[[gap]]
-rule = "right-missing"
-item = "classes-counter"
-fingerprint = "a8e1b5cc5f95"
-
-[[gap]]
-rule = "right-missing"
-item = "classes-lantern"
-fingerprint = "21b70dde1ce4"
-
-[[gap]]
-rule = "right-missing"
-item = "classes-tent"
-fingerprint = "f44ca2f02746"
-
-[[gap]]
-rule = "right-missing"
-item = "composition-cook-pantry"
-fingerprint = "60674e64d928"
-
-[[gap]]
-rule = "right-missing"
-item = "composition-keeper"
-fingerprint = "55269961bd1f"
-
-[[gap]]
-rule = "right-missing"
-item = "composition-lamp"
-fingerprint = "10ecfb7e982e"
-
-[[gap]]
-rule = "right-missing"
-item = "composition-nest"
-fingerprint = "f1a37c816f77"
-
-[[gap]]
-rule = "right-missing"
-item = "composition-radio"
-fingerprint = "9c5f1d8688d4"
-
-[[gap]]
-rule = "right-missing"
-item = "composition-ranger-pack"
-fingerprint = "9304e53b7a2f"
-
-[[gap]]
-rule = "right-missing"
-item = "comprehensions-add-lists"
-fingerprint = "b85562443269"
-
-[[gap]]
-rule = "right-missing"
-item = "comprehensions-long-words"
-fingerprint = "96b8ce983916"
-
-[[gap]]
-rule = "right-missing"
-item = "comprehensions-numbered"
-fingerprint = "76f7c535969f"
-
-[[gap]]
-rule = "right-missing"
-item = "comprehensions-odd-squares"
-fingerprint = "33993c37710a"
-
-[[gap]]
-rule = "right-missing"
-item = "comprehensions-pair-up"
-fingerprint = "de81e5cfc008"
-
-[[gap]]
-rule = "right-missing"
-item = "comprehensions-shout-all"
-fingerprint = "139401d57007"
-
-[[gap]]
-rule = "right-missing"
-item = "conditions-larger"
-fingerprint = "a2909f08cae4"
-
-[[gap]]
-rule = "right-missing"
-item = "conditions-letter"
-fingerprint = "06c1bcc6608a"
-
-[[gap]]
-rule = "right-missing"
-item = "conditions-sign"
-fingerprint = "97afed50d365"
-
-[[gap]]
-rule = "right-missing"
-item = "conditions-ticket-price"
-fingerprint = "a972935e4e37"
-
-[[gap]]
-rule = "right-missing"
-item = "conditions-vowel"
-fingerprint = "37abb6ffccd9"
-
-[[gap]]
-rule = "right-missing"
-item = "conditions-weekend"
-fingerprint = "a959953a2db9"
-
-[[gap]]
-rule = "right-missing"
-item = "data-summary"
-fingerprint = "5c445ef34649"
-
-[[gap]]
-rule = "right-missing"
-item = "dataclasses-mushroom-spots"
-fingerprint = "2656c9377ccc"
-
-[[gap]]
-rule = "right-missing"
-item = "dataclasses-quiver-default"
-fingerprint = "ca7c98bab22d"
-
-[[gap]]
-rule = "right-missing"
-item = "dataclasses-races"
-fingerprint = "33d9fe4c7505"
-
-[[gap]]
-rule = "right-missing"
-item = "dataclasses-sapling"
-fingerprint = "3ccadbcd986c"
-
-[[gap]]
-rule = "right-missing"
-item = "dataclasses-satchel"
-fingerprint = "7ced39909f0e"
-
-[[gap]]
-rule = "right-missing"
-item = "dataclasses-scores"
-fingerprint = "fb8786a43d63"
-
-[[gap]]
-rule = "right-missing"
-item = "dicts-count-words"
-fingerprint = "6c589c51d074"
-
-[[gap]]
-rule = "right-missing"
-item = "dicts-in-both"
-fingerprint = "34e2d5a13485"
-
-[[gap]]
-rule = "right-missing"
-item = "dicts-letter-counts"
-fingerprint = "ca8dde8f9081"
-
-[[gap]]
-rule = "right-missing"
-item = "dicts-phone"
-fingerprint = "fd2c3773680a"
-
-[[gap]]
-rule = "right-missing"
-item = "dicts-stock"
-fingerprint = "59e8cec80fd2"
-
-[[gap]]
-rule = "right-missing"
-item = "dicts-unique-sorted"
-fingerprint = "1f24c71d0139"
-
-[[gap]]
-rule = "right-missing"
-item = "dunders-badge"
-fingerprint = "df5fb3f971ad"
-
-[[gap]]
-rule = "right-missing"
-item = "dunders-feather"
-fingerprint = "efbdd87606f7"
-
-[[gap]]
-rule = "right-missing"
-item = "dunders-hive"
-fingerprint = "4ea3b13ee142"
-
-[[gap]]
-rule = "right-missing"
-item = "dunders-mushroom"
-fingerprint = "4c7e0d11cd2b"
-
-[[gap]]
-rule = "right-missing"
-item = "dunders-quiver"
-fingerprint = "27618f2d0333"
-
-[[gap]]
-rule = "right-missing"
-item = "dunders-sign"
-fingerprint = "ea9497f61386"
-
-[[gap]]
-rule = "right-missing"
-item = "errors-first-char"
-fingerprint = "faf08f5ac29a"
-
-[[gap]]
-rule = "right-missing"
-item = "errors-parse-age"
-fingerprint = "21f93086428f"
-
-[[gap]]
-rule = "right-missing"
-item = "errors-parse-price"
-fingerprint = "ef08ac4f4c08"
-
-[[gap]]
-rule = "right-missing"
-item = "errors-safe-divide"
-fingerprint = "bdc5796225cc"
-
-[[gap]]
-rule = "right-missing"
-item = "errors-set-volume"
-fingerprint = "269d65fa3555"
-
-[[gap]]
-rule = "right-missing"
-item = "errors-withdraw"
-fingerprint = "8f4ca1b4992f"
-
-[[gap]]
-rule = "right-missing"
-item = "files-json-best"
-fingerprint = "a8a398924242"
-
-[[gap]]
-rule = "right-missing"
-item = "files-json-count"
-fingerprint = "ad7c59ded477"
-
-[[gap]]
-rule = "right-missing"
-item = "files-json-logbook"
-fingerprint = "111327f3dbcd"
-
-[[gap]]
-rule = "right-missing"
-item = "files-json-save"
-fingerprint = "9182f5dc7301"
-
-[[gap]]
-rule = "right-missing"
-item = "files-json-scores"
-fingerprint = "32eccfa9e156"
-
-[[gap]]
-rule = "right-missing"
-item = "files-json-visits"
-fingerprint = "f235d341462b"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-add-item"
-fingerprint = "8ed8007d011b"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-as-values-cheapest"
-fingerprint = "78274db78ca9"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-as-values-compose"
-fingerprint = "6ad04ec3168c"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-as-values-keep-long"
-fingerprint = "88c46f9cb75a"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-as-values-oldest"
-fingerprint = "fb2060f0c132"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-as-values-prices"
-fingerprint = "93be12f3e54e"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-as-values-twice"
-fingerprint = "81e71dc2374a"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-by-last-letter"
-fingerprint = "a0dc93b5ffbb"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-by-length"
-fingerprint = "4b51c7e45f91"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-greeting"
-fingerprint = "794bd62d7270"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-log"
-fingerprint = "70718c2a0d1d"
-
-[[gap]]
-rule = "right-missing"
-item = "functions-power"
-fingerprint = "2bebbbb7a4a3"
-
-[[gap]]
-rule = "right-missing"
-item = "generators-average"
-fingerprint = "c36b7947acb8"
-
-[[gap]]
-rule = "right-missing"
-item = "generators-count-down"
-fingerprint = "c74b48613949"
-
-[[gap]]
-rule = "right-missing"
-item = "generators-count-long"
-fingerprint = "0a65ab30efa8"
-
-[[gap]]
-rule = "right-missing"
-item = "generators-evens"
-fingerprint = "7b58b43f81a9"
-
-[[gap]]
-rule = "right-missing"
-item = "generators-letters"
-fingerprint = "16380fb556cc"
-
-[[gap]]
-rule = "right-missing"
-item = "generators-spread"
-fingerprint = "5f8387b7fdd4"
-
-[[gap]]
-rule = "right-missing"
-item = "gradebook"
-fingerprint = "ebe8801cb395"
-
-[[gap]]
-rule = "right-missing"
-item = "grids-board"
-fingerprint = "34a794cbd3b5"
-
-[[gap]]
-rule = "right-missing"
-item = "grids-column"
-fingerprint = "d7f232674990"
-
-[[gap]]
-rule = "right-missing"
-item = "grids-diagonal"
-fingerprint = "f057451f5465"
-
-[[gap]]
-rule = "right-missing"
-item = "grids-row-totals"
-fingerprint = "8ebd9f5c78d4"
-
-[[gap]]
-rule = "right-missing"
-item = "grids-sum"
-fingerprint = "13be6d360466"
-
-[[gap]]
-rule = "right-missing"
-item = "grids-zeros"
-fingerprint = "bdf5a9a139a3"
-
-[[gap]]
-rule = "right-missing"
-item = "guessing-stone"
-fingerprint = "0acf1cf27bf9"
-
-[[gap]]
-rule = "right-missing"
-item = "identity-copy-basket"
-fingerprint = "0115413ab131"
-
-[[gap]]
-rule = "right-missing"
-item = "identity-copy-hiker"
-fingerprint = "8d7021c9521f"
-
-[[gap]]
-rule = "right-missing"
-item = "identity-maps"
-fingerprint = "e0c7dba53638"
-
-[[gap]]
-rule = "right-missing"
-item = "identity-trails"
-fingerprint = "c95aa972b1ce"
-
-[[gap]]
-rule = "right-missing"
-item = "identity-without-exact"
-fingerprint = "0c7d06b5c973"
-
-[[gap]]
-rule = "right-missing"
-item = "identity-without-note"
-fingerprint = "c42af0d0d8bd"
-
-[[gap]]
-rule = "right-missing"
-item = "inheritance-bat"
-fingerprint = "accf2d41e5eb"
-
-[[gap]]
-rule = "right-missing"
-item = "inheritance-canoe-boat"
-fingerprint = "96191d6b14a1"
-
-[[gap]]
-rule = "right-missing"
-item = "inheritance-fruit-tree"
-fingerprint = "68fed5e1b2d0"
-
-[[gap]]
-rule = "right-missing"
-item = "inheritance-ostrich"
-fingerprint = "729e6b31fcfb"
-
-[[gap]]
-rule = "right-missing"
-item = "inheritance-penguin"
-fingerprint = "82a10b54f078"
-
-[[gap]]
-rule = "right-missing"
-item = "inheritance-squirrel"
-fingerprint = "04ac3e8066db"
-
-[[gap]]
-rule = "right-missing"
-item = "io-double"
-fingerprint = "2b210b68e594"
-
-[[gap]]
-rule = "right-missing"
-item = "io-echo"
-fingerprint = "e7dba5e85400"
-
-[[gap]]
-rule = "right-missing"
-item = "io-greet"
-fingerprint = "cfbb63e35c85"
-
-[[gap]]
-rule = "right-missing"
-item = "io-minutes"
-fingerprint = "f2e26f60d452"
-
-[[gap]]
-rule = "right-missing"
-item = "io-next-year"
-fingerprint = "71bb85af14c7"
-
-[[gap]]
-rule = "right-missing"
-item = "io-receipt"
-fingerprint = "308781c5c9a3"
-
-[[gap]]
-rule = "right-missing"
-item = "knn-sklearn-fit"
-fingerprint = "eea47bd7ac9b"
-
-[[gap]]
-rule = "right-missing"
-item = "knn-sklearn-height"
-fingerprint = "97c19d41c44b"
-
-[[gap]]
-rule = "right-missing"
-item = "knn-sklearn-k"
-fingerprint = "3282f12754a7"
-
-[[gap]]
-rule = "right-missing"
-item = "knn-sklearn-k3"
-fingerprint = "2c87df4bb4bd"
-
-[[gap]]
-rule = "right-missing"
-item = "knn-sklearn-one-point"
-fingerprint = "627a6c577451"
-
-[[gap]]
-rule = "right-missing"
-item = "knn-sklearn-predict"
-fingerprint = "d6ac6fbd7d6c"
-
-[[gap]]
-rule = "right-missing"
-item = "lists-add-both"
-fingerprint = "8d468d6ee0da"
-
-[[gap]]
-rule = "right-missing"
-item = "lists-add-twice"
-fingerprint = "33d274408a6b"
-
-[[gap]]
-rule = "right-missing"
-item = "lists-copy-and-add"
-fingerprint = "256860edaf71"
-
-[[gap]]
-rule = "right-missing"
-item = "lists-first-item"
-fingerprint = "c16d9ca50ce7"
-
-[[gap]]
-rule = "right-missing"
-item = "lists-last-item"
-fingerprint = "990059498ce5"
-
-[[gap]]
-rule = "right-missing"
-item = "lists-without"
-fingerprint = "ea211059ad9a"
-
-[[gap]]
-rule = "right-missing"
-item = "loops-count-evens"
-fingerprint = "e03e2d0b6229"
-
-[[gap]]
-rule = "right-missing"
-item = "loops-countdown"
-fingerprint = "012916d2457d"
-
-[[gap]]
-rule = "right-missing"
-item = "loops-first-even"
-fingerprint = "f5a28971864c"
-
-[[gap]]
-rule = "right-missing"
-item = "loops-first-over"
-fingerprint = "ed668859e065"
-
-[[gap]]
-rule = "right-missing"
-item = "loops-sum-to"
-fingerprint = "c8fe3083e600"
-
-[[gap]]
-rule = "right-missing"
-item = "loops-up-to"
-fingerprint = "b3ba3c816a45"
-
-[[gap]]
-rule = "right-missing"
+rule = "fence-untyped"
 item = "lost-satchel"
-fingerprint = "91ff482cc828"
+fingerprint = "c9affd671791"
 
 [[gap]]
-rule = "right-missing"
-item = "methods-bucket"
-fingerprint = "b4d067d8a99d"
+rule = "ledger-missing"
+item = "class-attributes"
+fingerprint = "4592faee5d52"
 
 [[gap]]
-rule = "right-missing"
-item = "methods-kettle"
-fingerprint = "3e0f9306c817"
+rule = "ledger-missing"
+item = "classes"
+fingerprint = "e17d31123fdb"
 
 [[gap]]
-rule = "right-missing"
-item = "methods-notebook"
-fingerprint = "011afea73d2c"
+rule = "ledger-missing"
+item = "composition"
+fingerprint = "3f5d4e0ddac7"
 
 [[gap]]
-rule = "right-missing"
-item = "methods-oven"
-fingerprint = "611305794a0a"
+rule = "ledger-missing"
+item = "comprehensions"
+fingerprint = "a93255d82af5"
 
 [[gap]]
-rule = "right-missing"
-item = "methods-tally"
-fingerprint = "41a7b589d3f4"
+rule = "ledger-missing"
+item = "conditions"
+fingerprint = "972117635422"
 
 [[gap]]
-rule = "right-missing"
-item = "methods-torch"
-fingerprint = "f20a9447d346"
+rule = "ledger-missing"
+item = "data-summary"
+fingerprint = "1268951043fa"
 
 [[gap]]
-rule = "right-missing"
-item = "nearest-neighbour-classify"
-fingerprint = "a1c5a8bfac89"
+rule = "ledger-missing"
+item = "dataclasses"
+fingerprint = "0a410f15bb96"
 
 [[gap]]
-rule = "right-missing"
-item = "nearest-neighbour-closest"
-fingerprint = "7a829eb5f888"
+rule = "ledger-missing"
+item = "dicts"
+fingerprint = "9ad731256477"
 
 [[gap]]
-rule = "right-missing"
-item = "nearest-neighbour-farthest"
-fingerprint = "20d5d944380a"
+rule = "ledger-missing"
+item = "dunders"
+fingerprint = "34fa754b94fe"
 
 [[gap]]
-rule = "right-missing"
-item = "nearest-neighbour-hike"
-fingerprint = "3ec9e6a1b608"
+rule = "ledger-missing"
+item = "errors"
+fingerprint = "541c25c3d738"
 
 [[gap]]
-rule = "right-missing"
-item = "nearest-neighbour-one"
-fingerprint = "6a3a716e1a00"
+rule = "ledger-missing"
+item = "files-json"
+fingerprint = "a39464e54fa0"
 
 [[gap]]
-rule = "right-missing"
-item = "nearest-neighbour-similar"
-fingerprint = "96edbeba5509"
+rule = "ledger-missing"
+item = "functions"
+fingerprint = "1ff9745a7bf5"
 
 [[gap]]
-rule = "right-missing"
-item = "numpy-arrays-columns"
-fingerprint = "f6edf9123315"
+rule = "ledger-missing"
+item = "functions-as-values"
+fingerprint = "272a7df3b7da"
 
 [[gap]]
-rule = "right-missing"
-item = "numpy-arrays-doubled"
-fingerprint = "00d3e2711038"
+rule = "ledger-missing"
+item = "generators"
+fingerprint = "c15ffda8d038"
 
 [[gap]]
-rule = "right-missing"
-item = "numpy-arrays-fahrenheit"
-fingerprint = "70996809d12a"
+rule = "ledger-missing"
+item = "gradebook"
+fingerprint = "25be7b6325b1"
 
 [[gap]]
-rule = "right-missing"
-item = "numpy-arrays-row-means"
-fingerprint = "b7b91071cfc2"
+rule = "ledger-missing"
+item = "grids"
+fingerprint = "717a73615ef9"
 
 [[gap]]
-rule = "right-missing"
-item = "numpy-arrays-scale"
-fingerprint = "e9f5c5b58632"
+rule = "ledger-missing"
+item = "guessing-stone"
+fingerprint = "024cbc8f4989"
 
 [[gap]]
-rule = "right-missing"
-item = "numpy-arrays-tripled"
-fingerprint = "c1004cfae0f1"
+rule = "ledger-missing"
+item = "hello-village"
+fingerprint = "8baf1f6abcee"
 
 [[gap]]
-rule = "right-missing"
-item = "pandas-tables-cheapest-item"
-fingerprint = "32dba28ae038"
+rule = "ledger-missing"
+item = "identity"
+fingerprint = "ab432c9226a9"
 
 [[gap]]
-rule = "right-missing"
-item = "pandas-tables-lightest"
-fingerprint = "c941da1478d3"
+rule = "ledger-missing"
+item = "inheritance"
+fingerprint = "523be13ea268"
 
 [[gap]]
-rule = "right-missing"
-item = "pandas-tables-taller"
-fingerprint = "e7b2b3b8d0c5"
+rule = "ledger-missing"
+item = "input-output"
+fingerprint = "2db4b992290f"
 
 [[gap]]
-rule = "right-missing"
-item = "pandas-tables-tallest"
-fingerprint = "5671fe1d11e3"
+rule = "ledger-missing"
+item = "knn-sklearn"
+fingerprint = "0ab2fc822312"
 
 [[gap]]
-rule = "right-missing"
-item = "pandas-tables-team"
-fingerprint = "17f33e69e0de"
+rule = "ledger-missing"
+item = "lists"
+fingerprint = "5ad465ae0799"
 
 [[gap]]
-rule = "right-missing"
-item = "pandas-tables-total"
-fingerprint = "03b6e02992ad"
+rule = "ledger-missing"
+item = "loops"
+fingerprint = "eeacabce7072"
 
 [[gap]]
-rule = "right-missing"
-item = "properties-fuel"
-fingerprint = "3297ad9c2699"
+rule = "ledger-missing"
+item = "lost-satchel"
+fingerprint = "c9affd671791"
 
 [[gap]]
-rule = "right-missing"
-item = "properties-plot"
-fingerprint = "421a1719a294"
+rule = "ledger-missing"
+item = "methods"
+fingerprint = "e75cbef66b52"
 
 [[gap]]
-rule = "right-missing"
-item = "properties-ranger-age"
-fingerprint = "703365763ab3"
+rule = "ledger-missing"
+item = "nearest-neighbour"
+fingerprint = "4fd1e14ace08"
 
 [[gap]]
-rule = "right-missing"
-item = "properties-volume"
-fingerprint = "6e712774cd5d"
+rule = "ledger-missing"
+item = "numpy-arrays"
+fingerprint = "7c1a066f9908"
 
 [[gap]]
-rule = "right-missing"
-item = "properties-window"
-fingerprint = "b917c3b9c682"
+rule = "ledger-missing"
+item = "pandas-tables"
+fingerprint = "fb1658c29b50"
 
 [[gap]]
-rule = "right-missing"
-item = "properties-wingspan"
-fingerprint = "d02454b6c8ac"
+rule = "ledger-missing"
+item = "properties"
+fingerprint = "7ec3b5816ffc"
 
 [[gap]]
-rule = "right-missing"
+rule = "ledger-missing"
 item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
+fingerprint = "87adb1b91a19"
 
 [[gap]]
-rule = "right-missing"
-item = "recursion-count"
-fingerprint = "6a004e4b052c"
+rule = "ledger-missing"
+item = "recursion"
+fingerprint = "f989697f0b52"
 
 [[gap]]
-rule = "right-missing"
-item = "recursion-countdown-list"
-fingerprint = "cba7c433b75d"
-
-[[gap]]
-rule = "right-missing"
-item = "recursion-power"
-fingerprint = "cc4febb2d05c"
-
-[[gap]]
-rule = "right-missing"
-item = "recursion-repeat"
-fingerprint = "a74fbeadc0a0"
-
-[[gap]]
-rule = "right-missing"
-item = "recursion-sum-to"
-fingerprint = "f2447d54b6b2"
-
-[[gap]]
-rule = "right-missing"
-item = "recursion-total"
-fingerprint = "240b5dba0ac3"
-
-[[gap]]
-rule = "right-missing"
+rule = "ledger-missing"
 item = "sales-report"
-fingerprint = "8f71aaa27062"
+fingerprint = "eeb0c56be3f4"
 
 [[gap]]
-rule = "right-missing"
-item = "search-sort-find-all"
-fingerprint = "8b0daf50e502"
+rule = "ledger-missing"
+item = "search-sort"
+fingerprint = "8b013107a643"
 
 [[gap]]
-rule = "right-missing"
-item = "search-sort-insert"
-fingerprint = "8c3559175c95"
-
-[[gap]]
-rule = "right-missing"
-item = "search-sort-last"
-fingerprint = "463528fd4be0"
-
-[[gap]]
-rule = "right-missing"
-item = "search-sort-member"
-fingerprint = "d37d683aea12"
-
-[[gap]]
-rule = "right-missing"
-item = "search-sort-rank"
-fingerprint = "53a12a27ae4e"
-
-[[gap]]
-rule = "right-missing"
-item = "search-sort-score"
-fingerprint = "f0de2dac5d26"
-
-[[gap]]
-rule = "right-missing"
+rule = "ledger-missing"
 item = "songbird-playlist"
-fingerprint = "40a435d0e3c4"
+fingerprint = "741eaab9eb6e"
 
 [[gap]]
-rule = "right-missing"
-item = "sortable-acorns"
-fingerprint = "c40dda75adac"
+rule = "ledger-missing"
+item = "sortable"
+fingerprint = "afb8c3eaccaf"
 
 [[gap]]
-rule = "right-missing"
-item = "sortable-by-height"
-fingerprint = "78a28b00243c"
-
-[[gap]]
-rule = "right-missing"
-item = "sortable-by-name"
-fingerprint = "94fa0afcc945"
-
-[[gap]]
-rule = "right-missing"
-item = "sortable-oldest"
-fingerprint = "b0c1651f4127"
-
-[[gap]]
-rule = "right-missing"
-item = "sortable-pebbles"
-fingerprint = "13cb9b2a5173"
-
-[[gap]]
-rule = "right-missing"
-item = "sortable-rank"
-fingerprint = "6d11c9e43ab0"
-
-[[gap]]
-rule = "right-missing"
-item = "squirrel-storehouse"
-fingerprint = "3b869168b3eb"
-
-[[gap]]
-rule = "right-missing"
+rule = "ledger-missing"
 item = "star-classifier"
-fingerprint = "a3efee858cb3"
+fingerprint = "d511165f5eaa"
 
 [[gap]]
-rule = "right-missing"
-item = "statistics-median"
-fingerprint = "d5d7b83d8861"
+rule = "ledger-missing"
+item = "statistics"
+fingerprint = "d6c3414d6a8c"
 
 [[gap]]
-rule = "right-missing"
-item = "statistics-spread"
-fingerprint = "be04969757bd"
+rule = "ledger-missing"
+item = "strings"
+fingerprint = "86e24adf3def"
 
 [[gap]]
-rule = "right-missing"
-item = "statistics-summary"
-fingerprint = "3113c8567342"
+rule = "ledger-missing"
+item = "testing"
+fingerprint = "45815d2c6d41"
 
 [[gap]]
-rule = "right-missing"
-item = "statistics-trimmed"
-fingerprint = "64a0edbe9839"
+rule = "ledger-missing"
+item = "train-test"
+fingerprint = "ed61a3291c8b"
 
 [[gap]]
-rule = "right-missing"
-item = "statistics-typical"
-fingerprint = "0eb835f79e14"
+rule = "ledger-missing"
+item = "values"
+fingerprint = "6694393bb9d8"
 
 [[gap]]
-rule = "right-missing"
-item = "statistics-wait"
-fingerprint = "4fb188d5f8cb"
+rule = "prompt-asks-construct"
+item = "gradebook"
+fingerprint = "25be7b6325b1"
 
 [[gap]]
-rule = "right-missing"
-item = "strings-clean-tag"
-fingerprint = "faa11831faae"
+rule = "remember-unbacked"
+item = "class-attributes"
+fingerprint = "4592faee5d52"
 
 [[gap]]
-rule = "right-missing"
-item = "strings-file-name"
-fingerprint = "25dd2fa8f526"
+rule = "remember-unbacked"
+item = "classes"
+fingerprint = "e17d31123fdb"
 
 [[gap]]
-rule = "right-missing"
-item = "strings-initials"
-fingerprint = "41878cc18f63"
+rule = "remember-unbacked"
+item = "composition"
+fingerprint = "3f5d4e0ddac7"
 
 [[gap]]
-rule = "right-missing"
-item = "strings-last-word"
-fingerprint = "1f890536125c"
+rule = "remember-unbacked"
+item = "conditions"
+fingerprint = "972117635422"
 
 [[gap]]
-rule = "right-missing"
-item = "strings-shout"
-fingerprint = "ceca1bf14c4e"
+rule = "remember-unbacked"
+item = "dataclasses"
+fingerprint = "0a410f15bb96"
 
 [[gap]]
-rule = "right-missing"
-item = "strings-whisper"
-fingerprint = "42d64ea8404e"
+rule = "remember-unbacked"
+item = "dunders"
+fingerprint = "34fa754b94fe"
 
 [[gap]]
-rule = "right-missing"
-item = "testing-average-test"
-fingerprint = "538f0f71b6f4"
+rule = "remember-unbacked"
+item = "errors"
+fingerprint = "541c25c3d738"
 
 [[gap]]
-rule = "right-missing"
-item = "testing-clamp-test"
-fingerprint = "e01ea90f04b7"
+rule = "remember-unbacked"
+item = "files-json"
+fingerprint = "a39464e54fa0"
 
 [[gap]]
-rule = "right-missing"
-item = "testing-even-test"
-fingerprint = "804f875e473b"
+rule = "remember-unbacked"
+item = "functions-as-values"
+fingerprint = "272a7df3b7da"
 
 [[gap]]
-rule = "right-missing"
-item = "testing-first-test"
-fingerprint = "42570b4d5464"
+rule = "remember-unbacked"
+item = "generators"
+fingerprint = "c15ffda8d038"
 
 [[gap]]
-rule = "right-missing"
-item = "testing-shout-test"
-fingerprint = "347129951597"
+rule = "remember-unbacked"
+item = "grids"
+fingerprint = "717a73615ef9"
 
 [[gap]]
-rule = "right-missing"
-item = "testing-total-test"
-fingerprint = "3623d4efee6c"
+rule = "remember-unbacked"
+item = "hello-village"
+fingerprint = "8baf1f6abcee"
 
 [[gap]]
-rule = "right-missing"
-item = "tour-hello"
-fingerprint = "474e2bcde876"
+rule = "remember-unbacked"
+item = "identity"
+fingerprint = "ab432c9226a9"
 
 [[gap]]
-rule = "right-missing"
-item = "train-test-accuracy"
-fingerprint = "af8a289238a9"
+rule = "remember-unbacked"
+item = "inheritance"
+fingerprint = "523be13ea268"
 
 [[gap]]
-rule = "right-missing"
-item = "train-test-evaluate"
-fingerprint = "7807072f109d"
+rule = "remember-unbacked"
+item = "input-output"
+fingerprint = "2db4b992290f"
 
 [[gap]]
-rule = "right-missing"
-item = "train-test-honest"
-fingerprint = "26b6873d0ea3"
+rule = "remember-unbacked"
+item = "knn-sklearn"
+fingerprint = "0ab2fc822312"
 
 [[gap]]
-rule = "right-missing"
-item = "train-test-mistakes"
-fingerprint = "f84ac8f8d6b3"
+rule = "remember-unbacked"
+item = "methods"
+fingerprint = "e75cbef66b52"
 
 [[gap]]
-rule = "right-missing"
-item = "train-test-peek"
-fingerprint = "fc51504a400a"
+rule = "remember-unbacked"
+item = "nearest-neighbour"
+fingerprint = "4fd1e14ace08"
 
 [[gap]]
-rule = "right-missing"
-item = "train-test-score-line"
-fingerprint = "e76f6dfb3e40"
+rule = "remember-unbacked"
+item = "numpy-arrays"
+fingerprint = "7c1a066f9908"
 
 [[gap]]
-rule = "right-missing"
-item = "values-add-strings"
-fingerprint = "1df912a724f6"
+rule = "remember-unbacked"
+item = "pandas-tables"
+fingerprint = "fb1658c29b50"
 
 [[gap]]
-rule = "right-missing"
-item = "values-average"
-fingerprint = "fb173daab218"
+rule = "remember-unbacked"
+item = "properties"
+fingerprint = "7ec3b5816ffc"
 
 [[gap]]
-rule = "right-missing"
-item = "values-describe"
-fingerprint = "b358cc076183"
+rule = "remember-unbacked"
+item = "recursion"
+fingerprint = "f989697f0b52"
 
 [[gap]]
-rule = "right-missing"
-item = "values-next-number"
-fingerprint = "d270405a0347"
+rule = "remember-unbacked"
+item = "search-sort"
+fingerprint = "8b013107a643"
 
 [[gap]]
-rule = "right-missing"
-item = "values-price-label"
-fingerprint = "d79188e3a83d"
+rule = "remember-unbacked"
+item = "sortable"
+fingerprint = "afb8c3eaccaf"
 
 [[gap]]
-rule = "right-missing"
-item = "values-total-price"
-fingerprint = "c8f72de18c4e"
+rule = "remember-unbacked"
+item = "statistics"
+fingerprint = "d6c3414d6a8c"
 
 [[gap]]
-rule = "weak-tests"
-item = "class-attributes-cabin"
-fingerprint = "d6534a3c2959"
+rule = "remember-unbacked"
+item = "strings"
+fingerprint = "86e24adf3def"
 
 [[gap]]
-rule = "weak-tests"
-item = "class-attributes-camp"
-fingerprint = "1e2d65448685"
+rule = "remember-unbacked"
+item = "testing"
+fingerprint = "45815d2c6d41"
 
 [[gap]]
-rule = "weak-tests"
-item = "class-attributes-canoe-seats"
-fingerprint = "4527c1ac5160"
+rule = "remember-unbacked"
+item = "train-test"
+fingerprint = "ed61a3291c8b"
 
 [[gap]]
-rule = "weak-tests"
-item = "class-attributes-lanterns"
-fingerprint = "a2fdb144ef77"
-
-[[gap]]
-rule = "weak-tests"
-item = "class-attributes-rangers"
-fingerprint = "ea9b92d3e9df"
-
-[[gap]]
-rule = "weak-tests"
-item = "classes-backpack"
-fingerprint = "ae38fdea533a"
-
-[[gap]]
-rule = "weak-tests"
-item = "composition-cook-pantry"
-fingerprint = "60674e64d928"
-
-[[gap]]
-rule = "weak-tests"
-item = "composition-keeper"
-fingerprint = "55269961bd1f"
-
-[[gap]]
-rule = "weak-tests"
-item = "composition-lamp"
-fingerprint = "10ecfb7e982e"
-
-[[gap]]
-rule = "weak-tests"
-item = "composition-radio"
-fingerprint = "9c5f1d8688d4"
-
-[[gap]]
-rule = "weak-tests"
-item = "comprehensions-add-lists"
-fingerprint = "b85562443269"
-
-[[gap]]
-rule = "weak-tests"
-item = "comprehensions-odd-squares"
-fingerprint = "33993c37710a"
-
-[[gap]]
-rule = "weak-tests"
-item = "comprehensions-pair-up"
-fingerprint = "de81e5cfc008"
-
-[[gap]]
-rule = "weak-tests"
-item = "conditions-larger"
-fingerprint = "a2909f08cae4"
-
-[[gap]]
-rule = "weak-tests"
-item = "conditions-letter"
-fingerprint = "06c1bcc6608a"
-
-[[gap]]
-rule = "weak-tests"
-item = "conditions-sign"
-fingerprint = "97afed50d365"
-
-[[gap]]
-rule = "weak-tests"
-item = "conditions-ticket-price"
-fingerprint = "a972935e4e37"
-
-[[gap]]
-rule = "weak-tests"
-item = "conditions-vowel"
-fingerprint = "37abb6ffccd9"
-
-[[gap]]
-rule = "weak-tests"
-item = "conditions-weekend"
-fingerprint = "a959953a2db9"
-
-[[gap]]
-rule = "weak-tests"
-item = "data-summary"
-fingerprint = "5c445ef34649"
-
-[[gap]]
-rule = "weak-tests"
-item = "dunders-feather"
-fingerprint = "efbdd87606f7"
-
-[[gap]]
-rule = "weak-tests"
-item = "dunders-mushroom"
-fingerprint = "4c7e0d11cd2b"
-
-[[gap]]
-rule = "weak-tests"
-item = "errors-safe-divide"
-fingerprint = "bdc5796225cc"
-
-[[gap]]
-rule = "weak-tests"
-item = "errors-set-volume"
-fingerprint = "269d65fa3555"
-
-[[gap]]
-rule = "weak-tests"
-item = "errors-withdraw"
-fingerprint = "8f4ca1b4992f"
-
-[[gap]]
-rule = "weak-tests"
-item = "functions-add-item"
-fingerprint = "8ed8007d011b"
-
-[[gap]]
-rule = "weak-tests"
-item = "functions-log"
-fingerprint = "70718c2a0d1d"
-
-[[gap]]
-rule = "weak-tests"
-item = "generators-average"
-fingerprint = "c36b7947acb8"
-
-[[gap]]
-rule = "weak-tests"
-item = "generators-count-down"
-fingerprint = "c74b48613949"
+rule = "remember-unbacked"
+item = "values"
+fingerprint = "6694393bb9d8"
 
 [[gap]]
 rule = "weak-tests"
 item = "gradebook"
-fingerprint = "ebe8801cb395"
-
-[[gap]]
-rule = "weak-tests"
-item = "guessing-stone"
-fingerprint = "0acf1cf27bf9"
-
-[[gap]]
-rule = "weak-tests"
-item = "identity-maps"
-fingerprint = "e0c7dba53638"
-
-[[gap]]
-rule = "weak-tests"
-item = "identity-trails"
-fingerprint = "c95aa972b1ce"
-
-[[gap]]
-rule = "weak-tests"
-item = "knn-sklearn-height"
-fingerprint = "97c19d41c44b"
-
-[[gap]]
-rule = "weak-tests"
-item = "knn-sklearn-k3"
-fingerprint = "2c87df4bb4bd"
-
-[[gap]]
-rule = "weak-tests"
-item = "knn-sklearn-one-point"
-fingerprint = "627a6c577451"
-
-[[gap]]
-rule = "weak-tests"
-item = "knn-sklearn-predict"
-fingerprint = "d6ac6fbd7d6c"
-
-[[gap]]
-rule = "weak-tests"
-item = "loops-count-evens"
-fingerprint = "e03e2d0b6229"
-
-[[gap]]
-rule = "weak-tests"
-item = "loops-first-even"
-fingerprint = "f5a28971864c"
-
-[[gap]]
-rule = "weak-tests"
-item = "loops-first-over"
-fingerprint = "ed668859e065"
-
-[[gap]]
-rule = "weak-tests"
-item = "loops-sum-to"
-fingerprint = "c8fe3083e600"
-
-[[gap]]
-rule = "weak-tests"
-item = "lost-satchel"
-fingerprint = "91ff482cc828"
-
-[[gap]]
-rule = "weak-tests"
-item = "methods-bucket"
-fingerprint = "b4d067d8a99d"
-
-[[gap]]
-rule = "weak-tests"
-item = "methods-kettle"
-fingerprint = "3e0f9306c817"
-
-[[gap]]
-rule = "weak-tests"
-item = "methods-oven"
-fingerprint = "611305794a0a"
-
-[[gap]]
-rule = "weak-tests"
-item = "methods-torch"
-fingerprint = "f20a9447d346"
-
-[[gap]]
-rule = "weak-tests"
-item = "nearest-neighbour-classify"
-fingerprint = "a1c5a8bfac89"
-
-[[gap]]
-rule = "weak-tests"
-item = "nearest-neighbour-closest"
-fingerprint = "7a829eb5f888"
-
-[[gap]]
-rule = "weak-tests"
-item = "nearest-neighbour-farthest"
-fingerprint = "20d5d944380a"
-
-[[gap]]
-rule = "weak-tests"
-item = "nearest-neighbour-hike"
-fingerprint = "3ec9e6a1b608"
-
-[[gap]]
-rule = "weak-tests"
-item = "nearest-neighbour-one"
-fingerprint = "6a3a716e1a00"
-
-[[gap]]
-rule = "weak-tests"
-item = "nearest-neighbour-similar"
-fingerprint = "96edbeba5509"
-
-[[gap]]
-rule = "weak-tests"
-item = "numpy-arrays-fahrenheit"
-fingerprint = "70996809d12a"
-
-[[gap]]
-rule = "weak-tests"
-item = "pandas-tables-taller"
-fingerprint = "e7b2b3b8d0c5"
-
-[[gap]]
-rule = "weak-tests"
-item = "properties-ranger-age"
-fingerprint = "703365763ab3"
-
-[[gap]]
-rule = "weak-tests"
-item = "properties-wingspan"
-fingerprint = "d02454b6c8ac"
+fingerprint = "25be7b6325b1"
 
 [[gap]]
 rule = "weak-tests"
 item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
-
-[[gap]]
-rule = "weak-tests"
-item = "recursion-countdown-list"
-fingerprint = "cba7c433b75d"
-
-[[gap]]
-rule = "weak-tests"
-item = "recursion-power"
-fingerprint = "cc4febb2d05c"
-
-[[gap]]
-rule = "weak-tests"
-item = "recursion-repeat"
-fingerprint = "a74fbeadc0a0"
-
-[[gap]]
-rule = "weak-tests"
-item = "recursion-sum-to"
-fingerprint = "f2447d54b6b2"
-
-[[gap]]
-rule = "weak-tests"
-item = "search-sort-find-all"
-fingerprint = "8b0daf50e502"
-
-[[gap]]
-rule = "weak-tests"
-item = "search-sort-last"
-fingerprint = "463528fd4be0"
-
-[[gap]]
-rule = "weak-tests"
-item = "search-sort-member"
-fingerprint = "d37d683aea12"
-
-[[gap]]
-rule = "weak-tests"
-item = "search-sort-score"
-fingerprint = "f0de2dac5d26"
-
-[[gap]]
-rule = "weak-tests"
-item = "sortable-acorns"
-fingerprint = "c40dda75adac"
-
-[[gap]]
-rule = "weak-tests"
-item = "sortable-pebbles"
-fingerprint = "13cb9b2a5173"
-
-[[gap]]
-rule = "weak-tests"
-item = "squirrel-storehouse"
-fingerprint = "3b869168b3eb"
-
-[[gap]]
-rule = "weak-tests"
-item = "star-classifier"
-fingerprint = "a3efee858cb3"
-
-[[gap]]
-rule = "weak-tests"
-item = "statistics-median"
-fingerprint = "d5d7b83d8861"
-
-[[gap]]
-rule = "weak-tests"
-item = "statistics-spread"
-fingerprint = "be04969757bd"
-
-[[gap]]
-rule = "weak-tests"
-item = "statistics-trimmed"
-fingerprint = "64a0edbe9839"
-
-[[gap]]
-rule = "weak-tests"
-item = "strings-clean-tag"
-fingerprint = "faa11831faae"
-
-[[gap]]
-rule = "weak-tests"
-item = "strings-file-name"
-fingerprint = "25dd2fa8f526"
-
-[[gap]]
-rule = "weak-tests"
-item = "strings-initials"
-fingerprint = "41878cc18f63"
+fingerprint = "87adb1b91a19"
 
 [[gap]]
 rule = "weak-tests"
 item = "testing-average-test"
-fingerprint = "538f0f71b6f4"
+fingerprint = "896356c95dff"
 
 [[gap]]
 rule = "weak-tests"
 item = "testing-clamp-test"
-fingerprint = "e01ea90f04b7"
+fingerprint = "ee27f59880d1"
 
 [[gap]]
 rule = "weak-tests"
 item = "testing-even-test"
-fingerprint = "804f875e473b"
+fingerprint = "5b1f8218fcad"
 
 [[gap]]
 rule = "weak-tests"
 item = "testing-first-test"
-fingerprint = "42570b4d5464"
+fingerprint = "66f7319f9b28"
 
 [[gap]]
 rule = "weak-tests"
 item = "testing-shout-test"
-fingerprint = "347129951597"
+fingerprint = "6ac1e11d2b4c"
 
 [[gap]]
 rule = "weak-tests"
 item = "testing-total-test"
-fingerprint = "3623d4efee6c"
-
-[[gap]]
-rule = "weak-tests"
-item = "train-test-accuracy"
-fingerprint = "af8a289238a9"
-
-[[gap]]
-rule = "weak-tests"
-item = "train-test-evaluate"
-fingerprint = "7807072f109d"
-
-[[gap]]
-rule = "weak-tests"
-item = "train-test-honest"
-fingerprint = "26b6873d0ea3"
-
-[[gap]]
-rule = "weak-tests"
-item = "train-test-mistakes"
-fingerprint = "f84ac8f8d6b3"
-
-[[gap]]
-rule = "weak-tests"
-item = "train-test-peek"
-fingerprint = "fc51504a400a"
-
-[[gap]]
-rule = "weak-tests"
-item = "train-test-score-line"
-fingerprint = "e76f6dfb3e40"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "class-attributes-cabin"
-fingerprint = "d6534a3c2959"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "class-attributes-camp"
-fingerprint = "1e2d65448685"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "class-attributes-canoe-seats"
-fingerprint = "4527c1ac5160"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "class-attributes-lanterns"
-fingerprint = "a2fdb144ef77"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "class-attributes-rangers"
-fingerprint = "ea9b92d3e9df"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "class-attributes-shelf"
-fingerprint = "e6e864707512"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "classes-backpack"
-fingerprint = "ae38fdea533a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "classes-basket"
-fingerprint = "df5f722f032a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "classes-canoe"
-fingerprint = "10871bbbdc76"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "classes-counter"
-fingerprint = "a8e1b5cc5f95"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "classes-lantern"
-fingerprint = "21b70dde1ce4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "classes-tent"
-fingerprint = "f44ca2f02746"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "composition-cook-pantry"
-fingerprint = "60674e64d928"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "composition-keeper"
-fingerprint = "55269961bd1f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "composition-lamp"
-fingerprint = "10ecfb7e982e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "composition-nest"
-fingerprint = "f1a37c816f77"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "composition-radio"
-fingerprint = "9c5f1d8688d4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "composition-ranger-pack"
-fingerprint = "9304e53b7a2f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "comprehensions-add-lists"
-fingerprint = "b85562443269"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "comprehensions-long-words"
-fingerprint = "96b8ce983916"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "comprehensions-numbered"
-fingerprint = "76f7c535969f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "comprehensions-odd-squares"
-fingerprint = "33993c37710a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "comprehensions-pair-up"
-fingerprint = "de81e5cfc008"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "comprehensions-shout-all"
-fingerprint = "139401d57007"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "conditions-larger"
-fingerprint = "a2909f08cae4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "conditions-letter"
-fingerprint = "06c1bcc6608a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "conditions-sign"
-fingerprint = "97afed50d365"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "conditions-ticket-price"
-fingerprint = "a972935e4e37"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "conditions-vowel"
-fingerprint = "37abb6ffccd9"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "conditions-weekend"
-fingerprint = "a959953a2db9"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "data-summary"
-fingerprint = "5c445ef34649"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dataclasses-mushroom-spots"
-fingerprint = "2656c9377ccc"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dataclasses-quiver-default"
-fingerprint = "ca7c98bab22d"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dataclasses-races"
-fingerprint = "33d9fe4c7505"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dataclasses-sapling"
-fingerprint = "3ccadbcd986c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dataclasses-satchel"
-fingerprint = "7ced39909f0e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dataclasses-scores"
-fingerprint = "fb8786a43d63"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dicts-count-words"
-fingerprint = "6c589c51d074"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dicts-in-both"
-fingerprint = "34e2d5a13485"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dicts-letter-counts"
-fingerprint = "ca8dde8f9081"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dicts-phone"
-fingerprint = "fd2c3773680a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dicts-stock"
-fingerprint = "59e8cec80fd2"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dicts-unique-sorted"
-fingerprint = "1f24c71d0139"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dunders-badge"
-fingerprint = "df5fb3f971ad"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dunders-feather"
-fingerprint = "efbdd87606f7"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dunders-hive"
-fingerprint = "4ea3b13ee142"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dunders-mushroom"
-fingerprint = "4c7e0d11cd2b"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dunders-quiver"
-fingerprint = "27618f2d0333"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "dunders-sign"
-fingerprint = "ea9497f61386"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "errors-first-char"
-fingerprint = "faf08f5ac29a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "errors-parse-age"
-fingerprint = "21f93086428f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "errors-parse-price"
-fingerprint = "ef08ac4f4c08"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "errors-safe-divide"
-fingerprint = "bdc5796225cc"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "errors-set-volume"
-fingerprint = "269d65fa3555"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "errors-withdraw"
-fingerprint = "8f4ca1b4992f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "files-json-best"
-fingerprint = "a8a398924242"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "files-json-count"
-fingerprint = "ad7c59ded477"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "files-json-logbook"
-fingerprint = "111327f3dbcd"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "files-json-save"
-fingerprint = "9182f5dc7301"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "files-json-scores"
-fingerprint = "32eccfa9e156"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "files-json-visits"
-fingerprint = "f235d341462b"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-add-item"
-fingerprint = "8ed8007d011b"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-as-values-cheapest"
-fingerprint = "78274db78ca9"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-as-values-compose"
-fingerprint = "6ad04ec3168c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-as-values-keep-long"
-fingerprint = "88c46f9cb75a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-as-values-oldest"
-fingerprint = "fb2060f0c132"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-as-values-prices"
-fingerprint = "93be12f3e54e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-as-values-twice"
-fingerprint = "81e71dc2374a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-by-last-letter"
-fingerprint = "a0dc93b5ffbb"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-by-length"
-fingerprint = "4b51c7e45f91"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-greeting"
-fingerprint = "794bd62d7270"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-log"
-fingerprint = "70718c2a0d1d"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "functions-power"
-fingerprint = "2bebbbb7a4a3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "generators-average"
-fingerprint = "c36b7947acb8"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "generators-count-down"
-fingerprint = "c74b48613949"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "generators-count-long"
-fingerprint = "0a65ab30efa8"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "generators-evens"
-fingerprint = "7b58b43f81a9"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "generators-letters"
-fingerprint = "16380fb556cc"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "generators-spread"
-fingerprint = "5f8387b7fdd4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "gradebook"
-fingerprint = "ebe8801cb395"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "grids-board"
-fingerprint = "34a794cbd3b5"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "grids-column"
-fingerprint = "d7f232674990"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "grids-diagonal"
-fingerprint = "f057451f5465"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "grids-row-totals"
-fingerprint = "8ebd9f5c78d4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "grids-sum"
-fingerprint = "13be6d360466"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "grids-zeros"
-fingerprint = "bdf5a9a139a3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "guessing-stone"
-fingerprint = "0acf1cf27bf9"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "identity-copy-basket"
-fingerprint = "0115413ab131"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "identity-copy-hiker"
-fingerprint = "8d7021c9521f"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "identity-maps"
-fingerprint = "e0c7dba53638"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "identity-trails"
-fingerprint = "c95aa972b1ce"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "identity-without-exact"
-fingerprint = "0c7d06b5c973"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "identity-without-note"
-fingerprint = "c42af0d0d8bd"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "inheritance-bat"
-fingerprint = "accf2d41e5eb"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "inheritance-canoe-boat"
-fingerprint = "96191d6b14a1"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "inheritance-fruit-tree"
-fingerprint = "68fed5e1b2d0"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "inheritance-ostrich"
-fingerprint = "729e6b31fcfb"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "inheritance-penguin"
-fingerprint = "82a10b54f078"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "inheritance-squirrel"
-fingerprint = "04ac3e8066db"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "io-double"
-fingerprint = "2b210b68e594"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "io-echo"
-fingerprint = "e7dba5e85400"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "io-greet"
-fingerprint = "cfbb63e35c85"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "io-minutes"
-fingerprint = "f2e26f60d452"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "io-next-year"
-fingerprint = "71bb85af14c7"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "io-receipt"
-fingerprint = "308781c5c9a3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "knn-sklearn-fit"
-fingerprint = "eea47bd7ac9b"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "knn-sklearn-height"
-fingerprint = "97c19d41c44b"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "knn-sklearn-k"
-fingerprint = "3282f12754a7"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "knn-sklearn-one-point"
-fingerprint = "627a6c577451"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "knn-sklearn-predict"
-fingerprint = "d6ac6fbd7d6c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lists-add-both"
-fingerprint = "8d468d6ee0da"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lists-add-twice"
-fingerprint = "33d274408a6b"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lists-copy-and-add"
-fingerprint = "256860edaf71"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lists-first-item"
-fingerprint = "c16d9ca50ce7"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lists-last-item"
-fingerprint = "990059498ce5"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lists-without"
-fingerprint = "ea211059ad9a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "loops-count-evens"
-fingerprint = "e03e2d0b6229"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "loops-countdown"
-fingerprint = "012916d2457d"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "loops-first-even"
-fingerprint = "f5a28971864c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "loops-first-over"
-fingerprint = "ed668859e065"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "loops-sum-to"
-fingerprint = "c8fe3083e600"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "loops-up-to"
-fingerprint = "b3ba3c816a45"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "lost-satchel"
-fingerprint = "91ff482cc828"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "methods-bucket"
-fingerprint = "b4d067d8a99d"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "methods-kettle"
-fingerprint = "3e0f9306c817"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "methods-notebook"
-fingerprint = "011afea73d2c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "methods-oven"
-fingerprint = "611305794a0a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "methods-tally"
-fingerprint = "41a7b589d3f4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "methods-torch"
-fingerprint = "f20a9447d346"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "nearest-neighbour-classify"
-fingerprint = "a1c5a8bfac89"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "nearest-neighbour-closest"
-fingerprint = "7a829eb5f888"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "nearest-neighbour-farthest"
-fingerprint = "20d5d944380a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "nearest-neighbour-hike"
-fingerprint = "3ec9e6a1b608"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "nearest-neighbour-one"
-fingerprint = "6a3a716e1a00"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "nearest-neighbour-similar"
-fingerprint = "96edbeba5509"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "numpy-arrays-columns"
-fingerprint = "f6edf9123315"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "numpy-arrays-doubled"
-fingerprint = "00d3e2711038"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "numpy-arrays-fahrenheit"
-fingerprint = "70996809d12a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "numpy-arrays-row-means"
-fingerprint = "b7b91071cfc2"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "numpy-arrays-scale"
-fingerprint = "e9f5c5b58632"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "numpy-arrays-tripled"
-fingerprint = "c1004cfae0f1"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "pandas-tables-cheapest-item"
-fingerprint = "32dba28ae038"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "pandas-tables-lightest"
-fingerprint = "c941da1478d3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "pandas-tables-taller"
-fingerprint = "e7b2b3b8d0c5"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "pandas-tables-tallest"
-fingerprint = "5671fe1d11e3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "pandas-tables-team"
-fingerprint = "17f33e69e0de"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "pandas-tables-total"
-fingerprint = "03b6e02992ad"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "properties-plot"
-fingerprint = "421a1719a294"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "properties-ranger-age"
-fingerprint = "703365763ab3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "properties-window"
-fingerprint = "b917c3b9c682"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "properties-wingspan"
-fingerprint = "d02454b6c8ac"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "ranger-registry"
-fingerprint = "8ddcf3d359df"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "recursion-count"
-fingerprint = "6a004e4b052c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "recursion-countdown-list"
-fingerprint = "cba7c433b75d"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "recursion-power"
-fingerprint = "cc4febb2d05c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "recursion-repeat"
-fingerprint = "a74fbeadc0a0"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "recursion-sum-to"
-fingerprint = "f2447d54b6b2"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "recursion-total"
-fingerprint = "240b5dba0ac3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sales-report"
-fingerprint = "8f71aaa27062"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "search-sort-find-all"
-fingerprint = "8b0daf50e502"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "search-sort-insert"
-fingerprint = "8c3559175c95"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "search-sort-last"
-fingerprint = "463528fd4be0"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "search-sort-member"
-fingerprint = "d37d683aea12"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "search-sort-rank"
-fingerprint = "53a12a27ae4e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "search-sort-score"
-fingerprint = "f0de2dac5d26"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "songbird-playlist"
-fingerprint = "40a435d0e3c4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sortable-acorns"
-fingerprint = "c40dda75adac"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sortable-by-height"
-fingerprint = "78a28b00243c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sortable-by-name"
-fingerprint = "94fa0afcc945"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sortable-oldest"
-fingerprint = "b0c1651f4127"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sortable-pebbles"
-fingerprint = "13cb9b2a5173"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "sortable-rank"
-fingerprint = "6d11c9e43ab0"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "squirrel-storehouse"
-fingerprint = "3b869168b3eb"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "statistics-median"
-fingerprint = "d5d7b83d8861"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "statistics-spread"
-fingerprint = "be04969757bd"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "statistics-summary"
-fingerprint = "3113c8567342"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "statistics-trimmed"
-fingerprint = "64a0edbe9839"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "statistics-typical"
-fingerprint = "0eb835f79e14"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "statistics-wait"
-fingerprint = "4fb188d5f8cb"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "strings-clean-tag"
-fingerprint = "faa11831faae"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "strings-file-name"
-fingerprint = "25dd2fa8f526"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "strings-initials"
-fingerprint = "41878cc18f63"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "strings-last-word"
-fingerprint = "1f890536125c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "strings-shout"
-fingerprint = "ceca1bf14c4e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "strings-whisper"
-fingerprint = "42d64ea8404e"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "testing-average-test"
-fingerprint = "538f0f71b6f4"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "testing-clamp-test"
-fingerprint = "e01ea90f04b7"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "testing-even-test"
-fingerprint = "804f875e473b"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "testing-first-test"
-fingerprint = "42570b4d5464"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "testing-shout-test"
-fingerprint = "347129951597"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "testing-total-test"
-fingerprint = "3623d4efee6c"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "tour-hello"
-fingerprint = "474e2bcde876"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "train-test-accuracy"
-fingerprint = "af8a289238a9"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "train-test-evaluate"
-fingerprint = "7807072f109d"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "train-test-honest"
-fingerprint = "26b6873d0ea3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "train-test-mistakes"
-fingerprint = "f84ac8f8d6b3"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "train-test-peek"
-fingerprint = "fc51504a400a"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "train-test-score-line"
-fingerprint = "e76f6dfb3e40"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "values-add-strings"
-fingerprint = "1df912a724f6"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "values-average"
-fingerprint = "fb173daab218"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "values-describe"
-fingerprint = "b358cc076183"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "values-next-number"
-fingerprint = "d270405a0347"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "values-price-label"
-fingerprint = "d79188e3a83d"
-
-[[gap]]
-rule = "wrong-too-few"
-item = "values-total-price"
-fingerprint = "c8f72de18c4e"
+fingerprint = "18d5dd51f483"

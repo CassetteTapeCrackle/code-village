@@ -251,6 +251,35 @@ def _annotations(tree: ast.Module) -> set[int]:
     return {id(inner) for root in roots for inner in ast.walk(root)}
 
 
+STRIPS = ("strip", "lstrip", "rstrip")
+SEED_NAMES = ("random_state", "seed")
+
+
+def _is_condition(parent: ast.AST | None, field: str) -> bool:
+    """True when a value is only asked whether it is empty: a test, a comprehension filter, an and/or, a not."""
+    if isinstance(parent, ast.If | ast.While | ast.IfExp | ast.Assert):
+        return field == "test"
+    if isinstance(parent, ast.comprehension):
+        return field == "ifs"
+    return isinstance(parent, ast.BoolOp) or (isinstance(parent, ast.UnaryOp) and isinstance(parent.op, ast.Not))
+
+
+def _equivalent_sites(tree: ast.Module) -> set[int]:
+    """ids of nodes whose mutants cannot differ from the original, so a survivor would be a false alarm: a strip of
+    any side used only as a condition (it is empty for exactly the same strings) and the value of a seed argument
+    (any other seed is as good, and a test cannot fairly depend on one)."""
+    parents = _parents(tree)
+    sites: set[int] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute) and node.func.attr in STRIPS:
+            parent, field, _ = parents.get(id(node), (None, "", None))
+            if _is_condition(parent, field):
+                sites.add(id(node))
+        if isinstance(node, ast.keyword) and node.arg in SEED_NAMES:
+            sites.update(id(inner) for inner in ast.walk(node.value))
+    return sites
+
+
 def _parents(tree: ast.Module) -> dict[int, tuple[ast.AST, str, int | None]]:
     """Where each node sits: its parent, the field, and the index when the field is a list."""
     found: dict[int, tuple[ast.AST, str, int | None]] = {}
@@ -336,7 +365,7 @@ def mutants(code: str) -> list[Mutant]:
         except SyntaxError:
             return []
         source = _Source(code, tree)
-        skip = _annotations(tree)
+        skip = _annotations(tree) | _equivalent_sites(tree)
         nodes = [n for n in ast.walk(tree) if id(n) not in skip]
         changes = [(target.lineno, target.col_offset, rank, seq, name, target, new)
                    for rank, (name, operator) in enumerate(OPERATORS.items())

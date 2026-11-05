@@ -1,0 +1,16 @@
+# A negative-input test for triple catches every exception, so it can never fail.
+base = "good"
+expect = ["test-swallows-failure"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_triple():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+
+def test_negative():
+    try:
+        expect_equal(learner["triple"](-2), -6, "triple(-2)")
+    except Exception:
+        pass
+'''

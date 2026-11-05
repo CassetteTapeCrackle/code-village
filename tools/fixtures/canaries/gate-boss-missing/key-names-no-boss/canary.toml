@@ -1,0 +1,29 @@
+# World 2 is opened by a boss that does not exist.
+base = "good"
+expect = ["gate-boss-missing"]
+
+[[file]]
+path = "w2/world.toml"
+text = '''
+# The world's words and wiring. Its look lives in code (src/village/areas.ts, terrain.ts).
+id = "w2"
+order = 2
+name = "The Forest"
+area = "forest"
+regions = { a = "Classes" }
+
+[building]
+name = "Cabin"
+place = "cabin"
+
+[teacher]
+name = "Ranger Noa"
+portrait = "ranger"
+
+[key]
+boss = "nobody"
+trophy = "calc-trophy"
+trophy_name = "Calc Trophy"
+opens = "o"
+gate_hint = "h"
+'''

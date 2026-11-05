@@ -17,6 +17,7 @@ const task = (id: string) => ({
     tests: "",
     variants: [],
     cases: [],
+    requires: [],
   },
 });
 const lesson: Lesson = {

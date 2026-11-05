@@ -1,0 +1,57 @@
+{
+  "fingerprint": "a0a014495150",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Tree:\n    def __init__(self, kind, age):\n        self.kind = kind\n        self.age = age\n\n\ndef age_of(tree):\n    return tree.age\n\n\ndef oldest_first(trees):\n    return [t.kind for t in sorted(trees, key=age_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Tree:\n    def __init__(self, kind, age):\n        self.kind = kind\n        self.age = age\n\n\ndef age_of(tree):\n    return tree.age\n\n\ndef oldest_first(trees):\n    return [t.kind for t in sorted(trees, key=age_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Tree:\n    def __init__(self, kind, age):\n        self.kind = kind\n        self.age = age\n\n\ndef age_of(tree):\n    return tree.age\n\n\ndef oldest_first(trees):\n    return [t.kind for t in sorted(trees, key=age_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Tree:\n    def __init__(self, kind, age):\n        self.kind = kind\n        self.age = age\n\n\ndef age_of(tree):\n    return tree.age\n\n\ndef oldest_first(trees):\n    return [t.kind for t in sorted(trees, key=age_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Tree:\n    def __init__(self, kind, age):\n        self.kind = kind\n        self.age = age\n\n\ndef age_of(tree):\n    return tree.age\n\n\ndef oldest_first(trees):\n    return [t.kind for t in sorted(trees, key=age_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

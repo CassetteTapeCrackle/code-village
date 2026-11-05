@@ -1,3 +1,7 @@
 id = "recursion-sum-to"
 title = "Add them up"
 prompt = "`sum_to(n)` should return `n + (n - 1) + ... + 1`, recursively, with `sum_to(0)` equal to 0. It crashes: find and fix it."
+
+[cases]
+call = "sum_to"
+args = ["int 0..30"]

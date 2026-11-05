@@ -5,3 +5,6 @@ title = "Not that bag, this one"
 prompt = "`without_exact(bags, bag)` should return the bags without that exact bag object, even when another bag holds the same items. It removes the wrong one: find and fix the bug."
 hints = ["`remove` deletes the first bag that is `==` to `bag`. Which test is about the very same object?", "Keep every bag where `x is not bag`, not `x != bag`."]
 gotcha = true
+
+[cases]
+none = "the point is which object is removed, and a case cannot tell equal objects apart"

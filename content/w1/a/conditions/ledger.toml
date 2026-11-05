@@ -1,0 +1,170 @@
+[[sentence]]
+fp = "c877a2edb333"
+text = "Careful: one `=` stores a value, two `==` compare, and `if x = 3:` is a syntax error."
+where = "text:0"
+status = "claim:auto-c877a2edb333"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "15427b090620"
+text = "`elif` tries another condition, and `else` catches everything left."
+where = "text:3"
+status = "claim:auto-15427b090620"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0cf29863d7c0"
+text = "Only the first branch that matches runs."
+where = "text:3"
+status = "claim:auto-0cf29863d7c0"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b07f5bc33dd8"
+text = "Write `sign(n)` that returns `\"positive\"`, `\"negative\"` or `\"zero\"`."
+where = "task:conditions-sign:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "caf41c973f32"
+text = "Use `if`, `elif` and `else`."
+where = "task:conditions-sign:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1d15dd870765"
+text = "Put the three cases in order: one `if` branch, then `elif`, then `else`, and return the matching word from each."
+where = "task:conditions-sign:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b9ac76f6d766"
+text = "Write `larger(a, b)` that returns the bigger of the two numbers (either one if they are equal)."
+where = "task:conditions-larger:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b68b4f42e862"
+text = "Combine conditions with `and`, `or` and `not`."
+where = "text:6"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "547e08bd9da4"
+text = "`x == 1 or 2` does not mean \"x is 1 or 2\": Python reads it as `(x == 1) or 2`."
+where = "text:6"
+status = "claim:auto-547e08bd9da4"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1b1eba359878"
+text = "When the left side is False, `or` hands back the right side itself, so the result is `2`, which counts as true in an `if`."
+where = "text:6"
+status = "claim:auto-1b1eba359878"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "da0af2b35a6e"
+text = "`is_weekend(day)` should return `True` for `\"sat\"` or `\"sun\"` and `False` for any other day."
+where = "task:conditions-weekend:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8511cc020620"
+text = "It has a bug: find and fix it."
+where = "task:conditions-weekend:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d1bd95ecdbcf"
+text = "Try `is_weekend(\"mon\")`: what comes back?"
+where = "task:conditions-weekend:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d350944247af"
+text = "`is_vowel(letter)` should return `True` for `\"a\"`, `\"e\"`, `\"i\"`, `\"o\"` or `\"u\"`, and `False` otherwise."
+where = "task:conditions-vowel:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2d2c0672651a"
+text = "Finish `ticket_price(age)`: 0 under 4, 5 from 4 to 17, 9 from 18 to 64, and 6 from 65."
+where = "task:conditions-ticket-price:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "dfe10054dacc"
+text = "After the two cases in the starter, add an `elif` for ages 18 to 64 and a final `else` for 65 and over."
+where = "task:conditions-ticket-price:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8b3d2f18041e"
+text = "Finish `letter(score)`: `\"A\"` from 16, `\"B\"` from 12 to 15, `\"C\"` from 10 to 11, and `\"F\"` under 10."
+where = "task:conditions-letter:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c3be7811b58c"
+text = "if / elif / else: only the first branch whose condition is True runs."
+where = "remember:1"
+status = "claim:auto-c3be7811b58c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8c574ad94ed8"
+text = "Write a full comparison on each side: x == 1 or x == 2, never x == 1 or 2."
+where = "remember:2"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

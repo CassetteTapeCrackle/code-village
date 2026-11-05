@@ -1,0 +1,57 @@
+{
+  "fingerprint": "ebe93d475205",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Lantern:\n    made = 0\n\n    def __init__(self, colour):\n        self.colour = colour\n        Lantern.made += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Lantern:\n    made = 0\n\n    def __init__(self, colour):\n        self.colour = colour\n        Lantern.made += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Lantern:\n    made = 0\n\n    def __init__(self, colour):\n        self.colour = colour\n        Lantern.made += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Lantern:\n    made = 0\n\n    def __init__(self, colour):\n        self.colour = colour\n        Lantern.made += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Lantern:\n    made = 0\n\n    def __init__(self, colour):\n        self.colour = colour\n        Lantern.made += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

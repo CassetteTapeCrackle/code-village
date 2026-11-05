@@ -1,0 +1,17 @@
+# A second double test builds its own expected value and never calls the learner's function.
+base = "good"
+expect = ["test-without-learner"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/tests.py"
+text = '''
+def test_four():
+    expect_equal(learner["double"](2), 4, "double(2)")
+
+def test_zero():
+    expect_equal(learner["double"](0), 0, "double(0)")
+
+def test_negative():
+    expected = -3 * 2
+    expect_equal(expected, -6, "double(-3)")
+'''

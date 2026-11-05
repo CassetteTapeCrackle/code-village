@@ -5,3 +5,6 @@ title = "A squirrel with no name"
 prompt = "`Squirrel(name)` should be an `Animal` with a `name` and its own empty `stash`. Asking for its name raises `AttributeError`: find and fix the bug."
 hints = ["Which `__init__` sets `self.name`, and does it ever run for a squirrel?", "The child can call the parent's initializer with `super().__init__`, passing the name."]
 gotcha = true
+
+[cases]
+none = "it only stores what it is given, and the visible tests read each attribute"

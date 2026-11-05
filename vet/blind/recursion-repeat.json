@@ -1,0 +1,57 @@
+{
+  "fingerprint": "03f07640236b",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def repeat(word, n):\n    if n == 0:\n        return []\n    return [word] + repeat(word, n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def repeat(word, n):\n    if n == 0:\n        return []\n    return [word] + repeat(word, n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def repeat(word, n):\n    if n == 0:\n        return []\n    return [word] + repeat(word, n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def repeat(word, n):\n    if n == 0:\n        return []\n    return [word] + repeat(word, n - 1)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def repeat(word, n):\n    if n == 0:\n        return []\n    return [word] + repeat(word, n - 1)\n\nprint(repeat(\"hi\", 0))\nprint(repeat(\"hi\", 3))\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,3 +1,7 @@
 id = "search-sort-last"
 title = "The last place"
 prompt = "Write `last_index(items, target)`: a linear search that returns the index of the last time `target` appears in `items`, or `-1` if it is not there."
+
+[cases]
+call = "last_index"
+args = ["list<int 0..5> 0..8", "int 0..5"]

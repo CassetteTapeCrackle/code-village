@@ -1,3 +1,7 @@
 id = "recursion-repeat"
 title = "Repeat"
 prompt = "Finish `repeat(word, n)` so it returns a list with `word` in it `n` times, recursively. `repeat(\"hi\", 0)` is `[]`. `+` joins two lists: `[word] + repeat(word, n - 1)`."
+
+[cases]
+call = "repeat"
+args = ["word", "int 0..8"]

@@ -1,0 +1,197 @@
+[[sentence]]
+fp = "06e91d733902"
+text = "Your own objects do not, until you tell Python."
+where = "text:0"
+status = "claim:auto-06e91d733902"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e1ab2f169c13"
+text = "The first way is a **key**: a function that turns each object into something Python can compare."
+where = "text:2"
+status = "claim:auto-e1ab2f169c13"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "dc15ed1afdae"
+text = "It is the same `key=` you met with words and `len`."
+where = "text:2"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5e84aadb0b61"
+text = "Finish the key function `name_of(bird)` so that `alphabetical(birds)` returns the birds sorted by name."
+where = "task:sortable-by-name:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f10b2e1649f4"
+text = "A key function takes one bird and returns what to sort by."
+where = "task:sortable-by-name:hint:0"
+status = "claim:auto-f10b2e1649f4"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cae5379e75e3"
+text = "Return the `name` attribute of the bird you are given."
+where = "task:sortable-by-name:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e53f02990577"
+text = "Finish the key function `height_of(tree)` so that `shortest_first(trees)` returns the trees sorted by `height`."
+where = "task:sortable-by-height:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3b82ec6037e1"
+text = "A key function takes one item and returns what to sort by."
+where = "task:sortable-by-height:prompt"
+status = "claim:auto-3b82ec6037e1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "edbba9ec7825"
+text = "Items with the same key keep their order."
+where = "text:5"
+status = "claim:auto-edbba9ec7825"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "053f7b0a83e1"
+text = "`rank(hikers)` should return the hikers' names, furthest walker first."
+where = "task:sortable-rank:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a888f29f60bf"
+text = "It crashes with a `TypeError`: find and fix the bug."
+where = "task:sortable-rank:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2bac98b51ab2"
+text = "How should `sorted` compare two `Hiker` objects?"
+where = "task:sortable-rank:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "86de8861e036"
+text = "Give it a key."
+where = "task:sortable-rank:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "973904e469d8"
+text = "Write a small key function that takes one hiker and returns the hiker's `km`, then pass it to `sorted` with `reverse=True`."
+where = "task:sortable-rank:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2bd2ab5c0f45"
+text = "`oldest_first(trees)` should return the trees' kinds, oldest first."
+where = "task:sortable-oldest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ded18a2b445e"
+text = "The second way is the dunder `__lt__` (\"less than\")."
+where = "text:9"
+status = "claim:auto-ded18a2b445e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "68e9129e627e"
+text = "With it, `sorted`, `max` and `min` work on your objects directly: when `max` asks whether `a > b`, Python turns the question around and asks `b < a`."
+where = "text:9"
+status = "claim:auto-68e9129e627e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "77d40aea2444"
+text = "Give the class `Acorn` a `__lt__` method comparing `weight`, so that `sorted(acorns)` orders them lightest first and `max(acorns)` finds the heaviest."
+where = "task:sortable-acorns:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c1615cf20ada"
+text = "Give the class `Pebble` a `__lt__(self, other)` method comparing `size`, so that `min(pebbles)` finds the smallest pebble."
+where = "task:sortable-pebbles:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "02100c6e8f78"
+text = "key=f sorts by what f returns for each item."
+where = "remember:1"
+status = "claim:auto-02100c6e8f78"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3599c05bc5af"
+text = "__lt__(self, other) answers: is self less than other?"
+where = "remember:2"
+status = "claim:auto-3599c05bc5af"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0b1e35d7ff8e"
+text = "reverse=True puts the biggest first."
+where = "remember:3"
+status = "claim:auto-0b1e35d7ff8e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

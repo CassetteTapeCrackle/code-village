@@ -485,7 +485,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   differs from 3.14 gives rule `version-differs`, unless the block or item declares `min` at or above the
   first version where it holds and the lesson text near it names that version (`min-unexplained` otherwise).
 
-- [ ] **Step 1 to 4:** Canaries (a predict block whose output differs between 3.12 and 3.14, such as an
+- [x] **Step 1 to 4:** Canaries (a predict block whose output differs between 3.12 and 3.14, such as an
   error message whose wording changed; verify the difference on the pinned interpreters before using it),
   fail, implement, pass. Commit.
 
@@ -504,9 +504,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   needs, runs each job, and exits 1 listing every mismatch. It also compares the Pyodide package versions with
   the pins and fails on a difference.
 
-- [ ] **Step 1:** Canary: a claim that holds in CPython but not in Pyodide (starting a `threading.Thread`
+- [x] **Step 1:** Canary: a claim that holds in CPython but not in Pyodide (starting a `threading.Thread`
   works in CPython and raises in Pyodide; verify it first).
-- [ ] **Step 2 to 4:** Fail, implement, pass. Commit, push. End of Session 4.
+- [x] **Step 2 to 4:** Fail, implement, pass. Commit, push. End of Session 4.
 
 ---
 
@@ -528,7 +528,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   needs it in Task 5.3). Any builtin call, method call, import or listed node with no feature id is reported
   as `unknown:<detector>`.
 
-- [ ] **Step 1 to 4:** Tests per detector kind, `test_unknown_feature_reported`; fail, implement, pass.
+- [x] **Step 1 to 4:** Tests per detector kind, `test_unknown_feature_reported`; fail, implement, pass.
   Commit.
 
 ### Task 5.2: Nothing used before it is taught
@@ -542,7 +542,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   starter and solution. Rules: `untaught-feature` (names the feature, the file and the lesson that teaches it
   if any), `unknown-feature`, `teaches-missing` (a lesson without `teaches`).
 
-- [ ] **Step 1 to 4:** Canaries (a W1 solution using a class), fail, implement, pass. `gaps --write`.
+- [x] **Step 1 to 4:** Canaries (a W1 solution using a class), fail, implement, pass. `gaps --write`.
   Commit.
 
 ### Task 5.3: Required constructs (S11b)
@@ -563,7 +563,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   it; an item may silence it with `construct_words_ok = "reason"`).
 - Rewrites drop a rewrite whose features lose a required id.
 
-- [ ] **Step 1 to 4:** Canaries and harness tests (`test_required_feature_message`), fail, implement, pass.
+- [x] **Step 1 to 4:** Canaries and harness tests (`test_required_feature_message`), fail, implement, pass.
   Commit.
 
 ### Task 5.4: Wiring invariants
@@ -577,7 +577,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   `src/learning/curve.test.ts`; add a Vitest test there that reads the built bundle and recomputes the XP
   totals, so new content cannot break the cap silently.
 
-- [ ] **Step 1 to 4:** Canaries, fail, implement, pass. Commit, push. End of Session 5.
+- [x] **Step 1 to 4:** Canaries, fail, implement, pass. Commit, push. End of Session 5.
 
 ---
 
@@ -609,7 +609,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - CLI: `python -m tools.vet.ledger --pending <out.json>` writes every sentence without a current entry, with
   its paragraph.
 
-- [ ] **Step 1 to 4:** Tests (`test_split_keeps_inline_code`, `test_eg_does_not_split`,
+- [x] **Step 1 to 4:** Tests (`test_split_keeps_inline_code`, `test_eg_does_not_split`,
   `test_fingerprint_ignores_spacing`), canaries per rule, fail, implement, pass. `gaps --write`. Commit.
 
 ### Task 6.2: DeepSeek in Actions
@@ -631,9 +631,9 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   `gh api repos/CassetteTapeCrackle/code-village/actions/workflows/vet-models.yml/dispatches -f
   ref=test-framework -f 'inputs[job]=sentences'` and fetch it with `gh run download`.
 
-- [ ] **Step 1:** Tests: `test_invalid_reply_becomes_unsure`, `test_call_cap_stops`,
+- [x] **Step 1:** Tests: `test_invalid_reply_becomes_unsure`, `test_call_cap_stops`,
   `test_missing_model_exits`.
-- [ ] **Step 2 to 4:** Fail, implement, pass. Run the workflow once on a 5-sentence sample and record cost and
+- [x] **Step 2 to 4:** Fail, implement, pass. Run the workflow once on a 5-sentence sample and record cost and
   time in PROGRESS. Commit.
 
 ### Task 6.3: Claude's review, merge and triage
@@ -652,7 +652,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   to `vet/triage.md` (sentence, file, both verdicts and reasons, proposed fix) and stays a `ledger-missing`
   gap until the owner decides.
 
-- [ ] **Step 1 to 4:** Tests on recorded inputs (`test_disagreement_goes_to_triage`,
+- [x] **Step 1 to 4:** Tests on recorded inputs (`test_disagreement_goes_to_triage`,
   `test_agreement_with_failing_assert_goes_to_triage`, `test_accepted_fact_gets_claim_block`), fail,
   implement, pass. Commit, push. End of Session 6.
 
@@ -680,7 +680,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - A session may triage `model-wrong` only with the failing case quoted in `note`; the owner audits
   `vet/triage.md`, which lists every session triage.
 
-- [ ] **Step 1 to 4:** Tests and canaries on recorded attempts, fail, implement, pass. Run the job on 3 items,
+- [x] **Step 1 to 4:** Tests and canaries on recorded attempts, fail, implement, pass. Run the job on 3 items,
   record cost. Commit, push. End of Session 7.
 
 ---
@@ -699,7 +699,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   <base>...HEAD`; content files map to their item ids; changes in `py/`, `src/runner/`, `src/lesson/`,
   `tools/vet/` give `"sample"` (one item per lesson); changes in `e2e/generated*` give `"all"`.
 
-- [ ] **Step 1 to 4:** Tests, fail, implement, pass. Commit.
+- [x] **Step 1 to 4:** Tests, fail, implement, pass. Commit.
 
 ### Task 8.2: Generated specs
 
@@ -712,16 +712,16 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
   mutant shows `We also tried`. Bosses: full run through every stage with the solution, then hard mode.
   Uses `showTask`, `typeCode` from `e2e/helpers.ts`.
 
-- [ ] **Step 1 to 3:** Write, run on 2 items in the VM if Playwright installs there (else on CI), commit.
+- [x] **Step 1 to 3:** Write, run on 2 items in the VM if Playwright installs there (else on CI), commit.
 
 ### Task 8.3: CI layout
 
 **Files:**
 - Modify: `.github/workflows/ci.yml`; create `.github/workflows/e2e-full.yml`
 
-- [ ] **Step 1:** Pull requests: `VET_ITEMS` from `changed.py` against the base. `e2e-full.yml`: manual
+- [x] **Step 1:** Pull requests: `VET_ITEMS` from `changed.py` against the base. `e2e-full.yml`: manual
   dispatch and pushes to `main`, `VET_ITEMS=all`, 4 shards.
-- [ ] **Step 2:** Push and read the run time; record PR run minutes in PROGRESS. Over 12 minutes: move the
+- [x] **Step 2:** Push and read the run time; record PR run minutes in PROGRESS. Over 12 minutes: move the
   slowest step behind the changed-items filter. Commit, push. End of Session 8.
 
 ---
@@ -777,21 +777,21 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 
 ### Task 9.1: Held-out canary rounds (S20)
 
-- [ ] **Step 1:** Dispatch a fresh reviewer subagent with `docs/test-framework/prompts/heldout-canaries.md`
+- [x] **Step 1:** Dispatch a fresh reviewer subagent with `docs/test-framework/prompts/heldout-canaries.md`
   (write it now): it may read the spec, `tools/fixtures/canaries/README.md` and `tools/fixtures/good/`, but
   not `tools/fixtures/canaries/*/` or `tools/vet/`. It writes at least two canaries per failure class (spec
   A to H) into `tools/fixtures/canaries-heldout/round-<n>/`, each with `expect` naming the failure class,
   not a rule id.
-- [ ] **Step 2:** Run `python -m unittest tools.test_canaries -k heldout`. A canary with no finding is a miss.
-- [ ] **Step 3:** Each miss: add or fix a rule, move the canary into `tools/fixtures/canaries/` with its rule
+- [x] **Step 2:** Run `python -m unittest tools.test_canaries -k heldout`. A canary with no finding is a miss.
+- [x] **Step 3:** Each miss: add or fix a rule, move the canary into `tools/fixtures/canaries/` with its rule
   id, commit per miss.
-- [ ] **Step 4:** Repeat with a new round until one round has no miss. Record every round in PROGRESS.
+- [x] **Step 4:** Repeat with a new round until one round has no miss. Record every round in PROGRESS.
 
 ### Task 9.2: Flags are real (S21)
 
-- [ ] **Step 1:** Run the full `vet` on today's content. For every rule with findings, read 3 at random (all
+- [x] **Step 1:** Run the full `vet` on today's content. For every rule with findings, read 3 at random (all
   if fewer) against the content and decide real or false alarm. Record the sample in PROGRESS.
-- [ ] **Step 2:** Fix every rule with a false alarm, add a canary for the false alarm in the `good` direction
+- [x] **Step 2:** Fix every rule with a false alarm, add a canary for the false alarm in the `good` direction
   (a fixture that must give no finding), re-run, commit, push. End of Session 9.
 
 ---
@@ -800,11 +800,11 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 
 ### Task 10.1: Write it
 
-- [ ] **Step 1:** Start the `vet-models` job for `both` on all pending sentences and items, run Claude's
+- [x] **Step 1:** Start the `vet-models` job for `both` on all pending sentences and items, run Claude's
   sentence review, merge. Record the cost.
-- [ ] **Step 2:** `python -m tools.vet.gaps --write`; commit `vet/gaps.toml` and the per-world summary (as
+- [x] **Step 2:** `python -m tools.vet.gaps --write`; commit `vet/gaps.toml` and the per-world summary (as
   `docs/test-framework/GAPS.md`, counts per rule and severity).
-- [ ] **Step 3:** Push, CI green. End of Session 10.
+- [x] **Step 3:** Push, CI green. End of Session 10.
 
 ---
 

@@ -1,0 +1,289 @@
+[[sentence]]
+fp = "5187d04868e1"
+text = "Until now the checks were written for you."
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2ea1d77cfe07"
+text = "Writing your own is how real programmers stay sure their code still works after every change."
+where = "text:0"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b0e66cd26bee"
+text = "A **test** is a function that calls your code with inputs whose answers you already know."
+where = "text:2"
+status = "simplification"
+reason = "It defines a test for beginners. Tests do not have to be functions, and they also check results and errors."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "91ad12355b4f"
+text = "The text after the comma is the message shown when the check fails."
+where = "text:2"
+status = "claim:auto-91ad12355b4f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "baaed3c45c89"
+text = "Good tests also try the **edges**: zero, a single item, an empty list, the exact limits."
+where = "text:5"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "31dacf3dd5a7"
+text = "That is where bugs like to hide."
+where = "text:5"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "95b742808a27"
+text = "`clamp(n, low, high)` keeps `n` between `low` and `high`."
+where = "task:testing-clamp-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d2f92b03b1c5"
+text = "Write `test_clamp()` with `assert`s checking a number in the middle, one below `low` and one above `high`."
+where = "task:testing-clamp-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "306c0d8ff703"
+text = "Your test must pass with this `clamp`, and fail if `clamp` forgot either limit."
+where = "task:testing-clamp-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "759db1d12a5b"
+text = "Three asserts, one for each case."
+where = "task:testing-clamp-test:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "255527409419"
+text = "Use a value inside the limits, a negative value below the low limit, and a value above the high limit; assert each result equals the clamped value."
+where = "task:testing-clamp-test:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8ebb708f280c"
+text = "`is_even(n)` returns `True` for even numbers."
+where = "task:testing-even-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2369e7d7858e"
+text = "Write `test_is_even()` with `assert`s for an even number and an odd number (check the odd one with `not`: `assert not is_even(7)`)."
+where = "task:testing-even-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "41160d184964"
+text = "It must pass with this `is_even`, and fail if `is_even` always said `True`."
+where = "task:testing-even-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3a7e40ac6ed0"
+text = "`test_average()` already checks a normal list."
+where = "task:testing-average-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "64f27e341b11"
+text = "Add two checks: a list of one number gives that number, and an empty list raises `ValueError` (the helper `raises_value_error(f, arg)` tells you whether it does)."
+where = "task:testing-average-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fef63a05ba9c"
+text = "One `assert` for `[5]`, one `assert` using the helper with `[]`."
+where = "task:testing-average-test:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5679566c16b9"
+text = "Add two asserts: one on the result for a list with one number (the number itself), and one on the helper's answer for an empty list (it should say the error was raised)."
+where = "task:testing-average-test:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3ec90a082a43"
+text = "`test_first()` already checks a normal list."
+where = "task:testing-first-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "66d541f6ad99"
+text = "Add a check that `first([])` raises `IndexError`, using the helper `raises_index_error(f, arg)`."
+where = "task:testing-first-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "db200c80972b"
+text = "Your test must fail if `first` returned `None` for an empty list."
+where = "task:testing-first-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3d51136997a2"
+text = "`assert` is a statement, not a function."
+where = "text:9"
+status = "claim:auto-3d51136997a2"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6eab27f928fc"
+text = "Written with brackets around both parts, `assert (x == 3, \"message\")` checks a pair of values, and a pair is always true: the test can never fail."
+where = "text:9"
+status = "claim:auto-6eab27f928fc"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2246f8bbaeb4"
+text = "`test_total()` should catch a broken `total`, but it passes even when `total` always returns 0."
+where = "task:testing-total-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bd5a77014fa7"
+text = "Find and fix the bug in the test, not in `total`."
+where = "task:testing-total-test:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "18099c6138b6"
+text = "Read the `assert` line: what exactly is being checked?"
+where = "task:testing-total-test:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c639303e4080"
+text = "The parentheses turn the assert into a tuple, and a non-empty tuple is always true."
+where = "task:testing-total-test:hint:1"
+status = "claim:auto-c639303e4080"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "55faba6b42e2"
+text = "Put the message after a comma instead, with no brackets around the comparison."
+where = "task:testing-total-test:hint:1"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6d7512c5971a"
+text = "Fix the test, not `shout`: an `assert` with brackets around both parts checks a pair, and a pair is always true."
+where = "task:testing-shout-test:prompt"
+status = "claim:auto-6d7512c5971a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d41009efc60b"
+text = "assert condition, \"message\" stops with AssertionError when the condition is false."
+where = "remember:0"
+status = "claim:auto-d41009efc60b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "28b108a42e4a"
+text = "A test calls your code with inputs whose answers you already know."
+where = "remember:1"
+status = "simplification"
+reason = "It is a fair description of a basic test. It leaves out tests that check properties or errors rather than known answers."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "23207d6f91d0"
+text = "Test the edges too: zero, one item, an empty list, the limits."
+where = "remember:2"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

@@ -1,0 +1,236 @@
+[[sentence]]
+fp = "84c561291a25"
+text = "How good is a model?"
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "927c0359b4df"
+text = "By hand, and then with scikit-learn:"
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "600fea87b806"
+text = "Write `accuracy(truth, guesses)` by hand (no scikit-learn): return the share of positions where `guesses` matches `truth`, as a number from `0.0` to `1.0`."
+where = "task:train-test-accuracy:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d33a47dbeb20"
+text = "`list(zip([1, 2], [1, 3]))` pairs the lists: `[(1, 1), (2, 3)]`."
+where = "task:train-test-accuracy:hint:1"
+status = "claim:auto-d33a47dbeb20"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0d517c9569fc"
+text = "How many pairs have equal halves?"
+where = "task:train-test-accuracy:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bbc430babb97"
+text = "Write `mistakes(truth, guesses)` by hand: return the indexes (counting from 0) where `guesses` does not match `truth`, for example `[1, 3]`."
+where = "task:train-test-mistakes:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fff86485fba7"
+text = "But which examples should you ask about?"
+where = "text:5"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "17d26170da9b"
+text = "Keep some examples aside."
+where = "text:5"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "75a13d00fe2d"
+text = "`train_test_split` shuffles the rows and splits them into a **training** part to `fit` on and a **test** part to `score` on."
+where = "text:5"
+status = "claim:auto-75a13d00fe2d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "126625827f52"
+text = "Finish `evaluate(X, y)`: split `X` and `y` with `test_size=0.25` and `random_state=0`, fit a 1-neighbour model on the training part, and return its score on the test part as a plain float."
+where = "task:train-test-evaluate:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "10fc336a2865"
+text = "The split line is missing."
+where = "task:train-test-evaluate:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "dd6d48be5247"
+text = "Pass the test size and random state from the prompt, and unpack the four results in the order the next lines use."
+where = "task:train-test-evaluate:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "db32772334cd"
+text = "Finish `test_score(X, y)`: the data is split (`test_size=0.25`, `random_state=0`) and a 1-neighbour model is fitted on the training part."
+where = "task:train-test-score-line:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bf997ab99de9"
+text = "Return its accuracy on the **test** part as a plain float."
+where = "task:train-test-score-line:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a82e58ac9ac1"
+text = "A 1-neighbour model is the extreme case: each training point's nearest neighbour is itself, so on its own training data it is never wrong (unless two identical rows have different labels)."
+where = "text:9"
+status = "claim:auto-a82e58ac9ac1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9af775dec440"
+text = "Perfect on what it has seen, a coin toss on what it has not."
+where = "text:12"
+status = "simplification"
+reason = "Figurative. Accuracy on unseen data is usually better than a coin toss, but it is not guaranteed to be good."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ede9ddf06450"
+text = "Only the test score is the honest one."
+where = "text:12"
+status = "simplification"
+reason = "Treats a held-out test score as the only honest estimate. It leaves out cross-validation and validation sets, which are also honest."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e699d4b3c955"
+text = "`honest_score(X, y)` should say how well a 1-neighbour model does on examples it has not seen (split with `test_size=0.25`, `random_state=0`)."
+where = "task:train-test-honest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "424cf607a83e"
+text = "It always says `1.0`: find and fix the bug."
+where = "task:train-test-honest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "37122e5c5ed3"
+text = "Which part of the data does it score on?"
+where = "task:train-test-honest:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b210e9a9d02b"
+text = "Which part did it learn from?"
+where = "task:train-test-honest:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7eb99e119c88"
+text = "`fair_score(X, y)` splits the data (`test_size=0.25`, `random_state=0`) and scores on the test part, but its score is too good: the model learned from **all** the data, the test rows too."
+where = "task:train-test-peek:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "75daac9c30b8"
+text = "Find and fix the bug."
+where = "task:train-test-peek:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "721fee6027f7"
+text = "train_test_split(X, y, test_size=0.25, random_state=0) keeps a quarter of the examples aside to test on; random_state makes the split the same every run."
+where = "remember:1"
+status = "claim:auto-721fee6027f7"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "905978bcee98"
+text = "fit on the training part only, then score on the test part."
+where = "remember:2"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "12c136ba2113"
+text = "Only the test score tells you how it does on new data."
+where = "remember:3"
+status = "simplification"
+reason = "Treats the test score as the only guide to performance on new data. It leaves out cross-validation."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

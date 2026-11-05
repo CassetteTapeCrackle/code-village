@@ -1,0 +1,57 @@
+{
+  "fingerprint": "ae10d4ac92c6",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,57 @@
+{
+  "fingerprint": "84d0714c28c6",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Canoe:\n    capacity = 2\n\n    def __init__(self):\n        self.crew = []\n\n    def board(self, person):\n        if len(self.crew) < Canoe.capacity:\n            self.crew.append(person)\n            return True\n        return False\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Canoe:\n    capacity = 2\n\n    def __init__(self):\n        self.crew = []\n\n    def board(self, person):\n        if len(self.crew) < self.capacity:\n            self.crew.append(person)\n            return True\n        return False\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Canoe:\n    capacity = 2\n\n    def __init__(self):\n        self.crew = []\n\n    def board(self, person):\n        if len(self.crew) < Canoe.capacity:\n            self.crew.append(person)\n            return True\n        return False\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Canoe:\n    capacity = 2\n\n    def __init__(self):\n        self.crew = []\n\n    def board(self, person):\n        if len(self.crew) < self.capacity:\n            self.crew.append(person)\n            return True\n        return False\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Canoe:\n    capacity = 2\n\n    def __init__(self):\n        self.crew = []\n\n    def board(self, person):\n        if len(self.crew) < Canoe.capacity:\n            self.crew.append(person)\n            return True\n        return False\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,251 @@
+[[sentence]]
+fp = "bbf40e5a57da"
+text = "`==` asks whether two values are **equal**."
+where = "text:0"
+status = "claim:auto-bbf40e5a57da"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e2dd777e1b0d"
+text = "`is` asks whether two names point at **the very same object**."
+where = "text:0"
+status = "claim:auto-e2dd777e1b0d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4e84ba978aa3"
+text = "`a` and `b` hold equal lists, but they are two separate lists."
+where = "text:2"
+status = "claim:auto-4e84ba978aa3"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5f6deba07ea0"
+text = "`c = a` makes no copy: it is a second name for the same list."
+where = "text:2"
+status = "claim:auto-5f6deba07ea0"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bf97c39212ba"
+text = "`is not` asks the opposite: \"a different object?\""
+where = "text:2"
+status = "claim:auto-bf97c39212ba"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cdb4ee2aea69"
+text = "."
+where = "text:2"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "144230b59c81"
+text = "Write `compare(a, b)` for two `Trail` objects (each has a `name`): return `\"same\"` if they are the very same object, `\"twins\"` if they are different objects with the same name, and `\"different\"` otherwise."
+where = "task:identity-trails:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6f55a13ad8f3"
+text = "The `Trail` class is given."
+where = "task:identity-trails:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1a19e0f16754"
+text = "Each branch returns the matching word from the prompt."
+where = "task:identity-trails:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "52d368a6a1fa"
+text = "Write `compare_maps(a, b)` for two `Map` objects (each has a `region`): `\"same map\"` if they are the very same object, `\"copies\"` if they are different objects of the same region, `\"different\"` otherwise."
+where = "task:identity-maps:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a2535e1d6da2"
+text = "Objects of your own class compare with `==` by identity, until you teach them otherwise (a later lesson)."
+where = "text:6"
+status = "claim:auto-a2535e1d6da2"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bb5e6b3108d6"
+text = "`isinstance(a, Fox)` asks whether `a` is a `Fox`."
+where = "text:6"
+status = "claim:auto-bb5e6b3108d6"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "929db346cc59"
+text = "Finish `copy_hiker(hiker)`: return a **new** `Hiker` with the same name and a copy of the pack, so packing the copy's bag leaves the original's alone."
+where = "task:identity-copy-hiker:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "44583a0f2ef2"
+text = "Make a new `Hiker` from the old one's `name` and a copied `pack`."
+where = "task:identity-copy-hiker:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9dd17ded6958"
+text = "Finish `copy_basket(basket)`: return a **new** `Basket` with the same owner and a copy of the fruits list."
+where = "task:identity-copy-basket:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "619bc09de2ae"
+text = "`.copy()` copies a list."
+where = "task:identity-copy-basket:prompt"
+status = "claim:auto-619bc09de2ae"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "21e325ac7426"
+text = "Some list methods compare with `==`."
+where = "text:10"
+status = "claim:auto-21e325ac7426"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ce28001d7582"
+text = "`remove(x)` deletes the first item **equal** to `x`, which is not always the object you meant."
+where = "text:10"
+status = "claim:auto-ce28001d7582"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0c161a453c3b"
+text = "`without_exact(bags, bag)` should return the bags without that exact bag object, even when another bag holds the same items."
+where = "task:identity-without-exact:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f8141baa5e82"
+text = "It removes the wrong one: find and fix the bug."
+where = "task:identity-without-exact:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9636cc75a82e"
+text = "`remove` deletes the first bag that is `==` to `bag`."
+where = "task:identity-without-exact:hint:0"
+status = "claim:auto-9636cc75a82e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3dba916f967c"
+text = "Which test is about the very same object?"
+where = "task:identity-without-exact:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1726f3577660"
+text = "`without_note(notes, note)` should return the notes without that exact note object (a dict), even when another note is equal to it."
+where = "task:identity-without-note:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2d5c24103010"
+text = "It removes the wrong one: find and fix it."
+where = "task:identity-without-note:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cff90d44a04c"
+text = "`is not` asks \"not the very same object?\""
+where = "task:identity-without-note:prompt"
+status = "claim:auto-cff90d44a04c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7527abbbf463"
+text = "is asks: the very same object?"
+where = "remember:0"
+status = "claim:auto-7527abbbf463"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5d8027403670"
+text = "Your own objects are == only when they are the same object, until you write __eq__."
+where = "remember:2"
+status = "claim:auto-5d8027403670"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f77235d305e6"
+text = "isinstance(x, Fox) asks whether x is a Fox."
+where = "remember:3"
+status = "claim:auto-f77235d305e6"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

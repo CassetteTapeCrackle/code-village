@@ -9,12 +9,14 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .finding import Finding, subject
+from .ledger import LedgerEntry, parse_ledger
 from .model import (
     Block,
     Boss,
     CodeBlock,
     CodeKind,
     Content,
+    Feature,
     Lesson,
     Meta,
     Stage,
@@ -40,15 +42,20 @@ WORLD_FIELDS: Fields = {"id": str, "order": int, "name": str, "area": str, "regi
                         "teacher": dict}
 BUILDING_FIELDS: Fields = {"name": str, "place": str}
 TEACHER_FIELDS: Fields = {"name": str, "portrait": str}
+FEATURE_FIELDS: Fields = {"summary": str, "detect": list}
+DETECTOR_KINDS = ("node", "call", "method", "import", "decorator", "kwarg")
 KEY_FIELDS: Fields = {"boss": str, "trophy": str, "trophy_name": str, "opens": str, "gate_hint": str}
 CODE_FILES = ("starter", "solution", "tests")
 FRONT_MATTER_PARTS = 3  # nothing before the first +++, the TOML, then the body
 MIN_STAGES, MAX_STAGES = 3, 5  # the game's boss screen is drawn for 3 to 5 stages
 KINDS = {"write", "fix", "complete"}
-FENCE = re.compile(r"^```python (example|predict|claim)\n(.*?)^```\n", re.S | re.M)
+FENCE = re.compile(r"^```python (example|predict|claim)((?: (?:min|id)=\S+)*)\n(.*?)^```\n", re.S | re.M)
+CLAIM_FENCE = re.compile(r"^```python claim(?: (?:min|id)=\S+)*\n.*?^```\n", re.S | re.M)
 TASK_LINE = re.compile(r"^::task ([\w-]+)\s*$", re.M)
 CODE_KINDS: dict[str, CodeKind] = {"example": "example", "predict": "predict", "claim": "claim"}
 BLOCK = re.compile(FENCE.pattern + "|" + TASK_LINE.pattern, re.S | re.M)
+# the versions a block or item may say it needs (`min`): the content targets 3.12 and newer
+PYTHONS = ("3.12", "3.13", "3.14")
 
 
 @dataclass
@@ -107,9 +114,29 @@ def _load_variant(folder: Path, lesson_text: str, root: Path) -> tuple[Variant |
     toml = folder / "variant.toml"
     report.require(meta, VARIANT_FIELDS, where, "variant.toml", toml)
     strict = _strict(meta, where, report, toml)
+    _check_item_fields(meta, where, report, toml)
     variant = Variant(str(meta.get("id", where)), where, folder, meta, files["starter"], files["solution"],
                       files["tests"], strict, _answers(folder, "wrong"), _answers(folder, "right"), report.fingerprint)
     return variant, report.findings
+
+
+def _check_construct_fields(meta: Meta, where: str, report: Report, path: Path) -> None:
+    """`requires` (feature ids) and `construct_words_ok` (a reason) in an item's TOML."""
+    if "requires" in meta and _strings(meta["requires"]) is None:
+        report.add("field-invalid", where, "requires must be a list of feature ids (strings)", path)
+    words_ok = meta.get("construct_words_ok")
+    if "construct_words_ok" in meta and not (isinstance(words_ok, str) and words_ok.strip()):
+        report.add("field-invalid", where, "construct_words_ok must say why, as text", path)
+
+
+def _check_item_fields(meta: Meta, where: str, report: Report, path: Path) -> None:
+    _check_min(meta.get("min"), where, report, path)
+    _check_construct_fields(meta, where, report, path)
+
+
+def _check_min(value: object, where: str, report: Report, path: Path) -> None:
+    if value is not None and value not in PYTHONS:
+        report.add("field-invalid", where, f"min must be one of {', '.join(PYTHONS)} (a string)", path)
 
 
 def _load_task(folder: Path, lesson_text: str, root: Path) -> tuple[Task | None, list[Finding]]:
@@ -127,6 +154,7 @@ def _load_task(folder: Path, lesson_text: str, root: Path) -> tuple[Task | None,
     if not hints:
         report.add("field-missing", where, "a task needs at least one hint", toml)
     strict = _strict(meta, where, report, toml)
+    _check_item_fields(meta, where, report, toml)
     variants = []
     for variant_folder in subfolders(folder / "variants"):
         variant, found = _load_variant(variant_folder, lesson_text, root)
@@ -164,12 +192,40 @@ def split_body(body: str) -> list[TextBlock | CodeBlock | str]:
         if text:
             blocks.append(TextBlock(text))
         kind = CODE_KINDS.get(m.group(1) or "")
-        blocks.append(CodeBlock(kind, m.group(2)) if kind else m.group(3))
+        attributes = dict(pair.split("=", 1) for pair in (m.group(2) or "").split())
+        blocks.append(CodeBlock(kind, m.group(3), attributes.get("min"), attributes.get("id")) if kind else m.group(4))
         pos = m.end()
     tail = body[pos:].strip()
     if tail:
         blocks.append(TextBlock(tail))
     return blocks
+
+
+def _check_optional_lesson_fields(meta: Meta, where: str, report: Report, path: Path) -> None:
+    if "tour" in meta and not isinstance(meta["tour"], bool):
+        report.add("field-invalid", where, "tour must be true or false", path)
+    if "teaches" in meta and _strings(meta["teaches"]) is None:
+        report.add("field-invalid", where, "teaches must be a list of feature ids (strings)", path)
+
+
+def _load_ledger(path: Path, where: str, report: Report) -> tuple[LedgerEntry, ...]:
+    """The entries of the ledger.toml next to a lesson or boss; none when there is no file."""
+    if not path.is_file():
+        return ()
+    try:
+        entries, problems = parse_ledger(path.read_text())
+    except OSError as e:
+        report.add("file-unreadable", where, f"unreadable ledger.toml: {e}", path)
+        return ()
+    for problem in problems:
+        report.add("field-invalid", where, f"ledger.toml {problem}", path)
+    return tuple(entries)
+
+
+def _without_claims(lesson_text: str) -> str:
+    """The lesson as learners and blind solvers see it: a claim block backs a sentence and must not re-pin the
+    lesson's tasks, like ledger.toml."""
+    return re.sub(r"\n{3,}", "\n\n", CLAIM_FENCE.sub("", lesson_text))
 
 
 def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Finding]]:
@@ -180,12 +236,13 @@ def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Findi
     if parsed is None:
         return None, report.findings
     meta, body = parsed
-    if "tour" in meta and not isinstance(meta["tour"], bool):
-        report.add("field-invalid", where, "tour must be true or false", lesson_md)
+    _check_optional_lesson_fields(meta, where, report, lesson_md)
     blocks: list[Block] = []
     placed = set()
     for block in split_body(body):
         if not isinstance(block, str):
+            if isinstance(block, CodeBlock):
+                _check_min(block.min, where, report, lesson_md)
             blocks.append(block)
             continue
         folder = lesson_md.parent / "tasks" / block
@@ -193,14 +250,15 @@ def _load_lesson(lesson_md: Path, root: Path) -> tuple[Lesson | None, list[Findi
             report.add("task-folder-missing", where, f"::task {block} has no folder", lesson_md)
             continue
         placed.add(block)
-        task, found = _load_task(folder, text, root)
+        task, found = _load_task(folder, _without_claims(text), root)
         report.findings += found
         if task:
             blocks.append(TaskBlock(task))
     for folder in subfolders(lesson_md.parent / "tasks"):
         if folder.name not in placed:
             report.add("task-unplaced", where, f"task folder {folder.name} is never placed with ::task", folder)
-    return Lesson(where, lesson_md, meta, tuple(blocks), report.fingerprint), report.findings
+    ledger = _load_ledger(lesson_md.parent / "ledger.toml", where, report)
+    return Lesson(where, lesson_md, meta, tuple(blocks), report.fingerprint, ledger), report.findings
 
 
 def _load_stage(folder: Path, where: str, report: Report) -> Stage | None:
@@ -210,6 +268,7 @@ def _load_stage(folder: Path, where: str, report: Report) -> Stage | None:
         return None
     meta, files = read
     report.require(meta, STAGE_FIELDS, stage_where, "stage.toml", folder / "stage.toml")
+    _check_construct_fields(meta, stage_where, report, folder / "stage.toml")
     return Stage(str(meta.get("id")), stage_where, meta, files["tests"])
 
 
@@ -221,6 +280,7 @@ def _load_boss(boss_md: Path, root: Path) -> tuple[Boss | None, list[Finding]]:
     if parsed is None:
         return None, report.findings
     meta, intro = parsed
+    _check_item_fields(meta, where, report, boss_md)
     try:
         files = {name: (folder / f"{name}.py").read_text() for name in ("starter", "solution", "hard_tests")}
     except OSError as e:
@@ -230,7 +290,8 @@ def _load_boss(boss_md: Path, root: Path) -> tuple[Boss | None, list[Finding]]:
     if not MIN_STAGES <= len(stages) <= MAX_STAGES:
         report.add("boss-stage-count", where, f"a boss needs 3 to 5 stages, found {len(stages)}", folder / "stages")
     boss = Boss(str(meta.get("id", where)), where, folder, meta, intro.strip(), files["starter"], files["solution"],
-                files["hard_tests"], stages, _answers(folder, "wrong"), _answers(folder, "right"), report.fingerprint)
+                files["hard_tests"], stages, _answers(folder, "wrong"), _answers(folder, "right"), report.fingerprint,
+                _load_ledger(folder / "ledger.toml", where, report))
     return boss, report.findings
 
 
@@ -254,6 +315,61 @@ def _load_concepts(root: Path) -> tuple[dict[str, str], list[Finding]]:
         if not isinstance(name, str) or not name.strip():
             report.add("concept-unnamed", where, f"concept {concept} needs a name", path)
     return {c: n for c, n in names.items() if isinstance(n, str) and n.strip()}, report.findings
+
+
+def _strings(value: object) -> list[str] | None:
+    """The value when it is a list of strings, else None."""
+    return value if isinstance(value, list) and all(isinstance(v, str) for v in value) else None
+
+
+def _load_feature(feature_id: str, table: object, seen: dict[str, str], report: Report, path: Path) -> Feature | None:
+    where = f"features.toml:{feature_id}"
+    if not isinstance(table, dict):
+        report.add("field-invalid", where, "a feature is a table: [feature.<id>]", path)
+        return None
+    report.require(table, FEATURE_FIELDS, where, "feature", path)
+    detect, listed = _strings(table.get("detect")), _strings(table.get("words", []))
+    words = [w.lower() for w in listed] if listed is not None else None
+    if not detect or words is None:
+        report.add("field-invalid", where, "detect needs a list of detector strings and words a list of strings", path)
+        return None
+    for detector in detect:
+        if detector.partition(":")[0] not in DETECTOR_KINDS or not detector.partition(":")[2]:
+            report.add("field-invalid", where, f"detector {detector} must be <kind>:<name>, kind one of "
+                                               f"{', '.join(DETECTOR_KINDS)}", path)
+        elif detector in seen:
+            report.add("field-invalid", where, f"detector {detector} already belongs to feature {seen[detector]}", path)
+        seen[detector] = seen.get(detector, feature_id)
+    say = table.get("say", "")
+    if not isinstance(say, str):
+        report.add("field-invalid", where, "say must be text", path)
+    return Feature(feature_id, str(table.get("summary", "")), tuple(detect), tuple(words),
+                   say if isinstance(say, str) else "")
+
+
+def _load_features(root: Path) -> tuple[dict[str, Feature], list[Finding]]:
+    """content/features.toml: every feature a lesson can teach and the detectors that find it."""
+    where = "features.toml"
+    path = root / where
+    try:
+        text = path.read_text()
+    except OSError:
+        report = Report(root, fingerprint_text(""))
+        report.add("file-unreadable", where, "missing: the feature vocabulary", path)
+        return {}, report.findings
+    report = Report(root, fingerprint_text(text))
+    try:
+        tables = tomllib.loads(text).get("feature", {})
+    except tomllib.TOMLDecodeError as e:
+        report.add("file-unreadable", where, f"unreadable: {e}", path)
+        return {}, report.findings
+    seen: dict[str, str] = {}
+    features = {}
+    for feature_id, table in (tables.items() if isinstance(tables, dict) else ()):
+        feature = _load_feature(feature_id, table, seen, report, path)
+        if feature:
+            features[feature_id] = feature
+    return features, report.findings
 
 
 def _load_world(folder: Path, root: Path) -> tuple[World | None, list[Finding]]:
@@ -298,10 +414,12 @@ def load_content(root: Path) -> tuple[Content, list[Finding]]:
             bosses.append(boss)
     concepts, found = _load_concepts(root)
     findings += found
+    features, found = _load_features(root)
+    findings += found
     worlds = []
     for folder in subfolders(root):
         world, found = _load_world(folder, root)
         findings += found
         if world:
             worlds.append(world)
-    return Content(root, tuple(worlds), tuple(lessons), tuple(bosses), concepts), findings
+    return Content(root, tuple(worlds), tuple(lessons), tuple(bosses), concepts, features), findings

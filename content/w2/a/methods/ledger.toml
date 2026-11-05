@@ -1,0 +1,245 @@
+[[sentence]]
+fp = "885304e01b50"
+text = "Methods come in two kinds."
+where = "text:0"
+status = "simplification"
+reason = "A useful two-way split for beginners. It leaves out methods that both change the object and return a value, such as `list.pop`."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c65defaa3deb"
+text = "Others **change** the object: they update its attributes and usually return `None`."
+where = "text:0"
+status = "simplification"
+reason = "Hedged with 'usually', so it is fine. It leaves out mutators that return a value, like `pop`."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e08b054d7412"
+text = "`spend` changes the wallet; `can_buy` only answers."
+where = "text:2"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "eeab6265f9fb"
+text = "Keeping the two apart makes code easy to follow: you know which calls can change things."
+where = "text:2"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1b5c2447ba93"
+text = "Write a class `Torch`: `Torch(battery)` stores `battery`, `use(minutes)` takes that many minutes off but never goes below 0, and `is_empty()` returns `True` when `battery` is 0."
+where = "task:methods-torch:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2cd2f1d6673d"
+text = "`use` changes `self.battery`; `is_empty` only answers."
+where = "task:methods-torch:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "049e985328db"
+text = "In `use`, subtract the minutes from `self.battery` and keep the bigger of that result and 0."
+where = "task:methods-torch:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c8debc79092c"
+text = "In `is_empty`, compare the battery with 0."
+where = "task:methods-torch:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "afaaba2c168b"
+text = "Write a class `Bucket`: `Bucket(litres)` stores `litres`, `pour(n)` pours `n` litres out but never below 0, and `is_dry()` returns `True` when it is empty."
+where = "task:methods-bucket:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3b1d55cfd3ea"
+text = "`max(a, b)` gives the bigger of two numbers."
+where = "task:methods-bucket:prompt"
+status = "claim:auto-3b1d55cfd3ea"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ca66e17ab7cf"
+text = "A method can call another method of the same object through `self`."
+where = "text:5"
+status = "claim:auto-ca66e17ab7cf"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0648cf98bb69"
+text = "Then the work is written once and reused."
+where = "text:5"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4d830e6bcbc8"
+text = "Finish `Tally`: `add(n)` already adds to `total`, and `add_all(numbers)` should add each number by calling `self.add`."
+where = "task:methods-tally:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d6d6eceab853"
+text = "Loop over `numbers`."
+where = "task:methods-tally:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0e18880a4989"
+text = "Inside `add_all`, loop over `numbers` and call `self.add` on each number."
+where = "task:methods-tally:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4f8caad3db41"
+text = "Finish `Notebook`: `write(line)` already adds a line to `lines`, and `write_lines(lines)` should add each one by calling `self.write`."
+where = "task:methods-notebook:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5891ff3f2606"
+text = "To **call** a method you need the brackets."
+where = "text:8"
+status = "claim:auto-5891ff3f2606"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8e8dce7e0d78"
+text = "Without them, `obj.method` is the method itself, an object that is always true in an `if`."
+where = "text:8"
+status = "claim:auto-8e8dce7e0d78"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8f5709ebd6df"
+text = "`ready(kettle)` should return `True` only when the kettle is hot."
+where = "task:methods-kettle:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6a78de3a04bb"
+text = "It says every kettle is ready: find and fix the bug."
+where = "task:methods-kettle:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "29ce29c1c50f"
+text = "Print `kettle.is_hot` and `kettle.is_hot()`: what is the difference?"
+where = "task:methods-kettle:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c4134f4158da"
+text = "Add parentheses after the method name to call it; without them you get the method object."
+where = "task:methods-kettle:hint:1"
+status = "claim:auto-c4134f4158da"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "714b9f94b2e5"
+text = "`can_bake(oven)` should return `True` only when the oven is ready."
+where = "task:methods-oven:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "488e3be4b6be"
+text = "It says every oven is ready: find and fix the bug."
+where = "task:methods-oven:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f5731ae902c1"
+text = "A method that changes updates attributes on self and usually returns None."
+where = "remember:1"
+status = "simplification"
+reason = "Describes the lesson's 'changing' method category, hedged with 'usually'. It leaves out mutators that return a value."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2a1e80a3418d"
+text = "self.other() calls another method on the same object."
+where = "remember:2"
+status = "claim:auto-2a1e80a3418d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9bfc2a7bb292"
+text = "obj.method without () is the method itself, not its result."
+where = "remember:3"
+status = "claim:auto-9bfc2a7bb292"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

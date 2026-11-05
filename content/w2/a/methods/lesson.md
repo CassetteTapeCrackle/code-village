@@ -5,6 +5,7 @@ world = "w2"
 region = "a"
 order = 2
 concepts = ["methods"]
+teaches = ["augmented-assignment"]
 remember = ["A method that answers returns a value and changes nothing.", "A method that changes updates attributes on self and usually returns None.", "self.other() calls another method on the same object.", "obj.method without () is the method itself, not its result."]
 [loot]
 id = "whittled-spoon"
@@ -31,7 +32,7 @@ print(w.coins, w.can_buy(8))
 
 `spend` changes the wallet; `can_buy` only answers. Keeping the two apart makes code easy to follow: you know which calls can change things.
 
-```python claim
+```python claim id=methods-claim-1
 class Wallet:
     def __init__(self):
         self.coins = 10
@@ -45,6 +46,15 @@ assert Wallet().spend(3) is None
 ::task torch
 
 A method can call another method of the same object through `self`. Then the work is written once and reused.
+
+```python claim id=auto-ca66e17ab7cf
+class A:
+    def a(self):
+        return 1
+    def b(self):
+        return self.a() + 1
+assert A().b() == 2
+```
 
 ```python example
 class Garden:
@@ -67,7 +77,24 @@ print(g.plants)
 
 To **call** a method you need the brackets. Without them, `obj.method` is the method itself, an object that is always true in an `if`.
 
-```python claim
+```python claim id=auto-8e8dce7e0d78
+class A:
+    def m(self):
+        return False
+assert bool(A().m) is True
+assert bool(A().m()) is False
+```
+
+```python claim id=auto-5891ff3f2606
+class A:
+    def m(self):
+        return 5
+assert A().m() == 5
+assert A().m != 5
+assert callable(A().m)
+```
+
+```python claim id=methods-claim-2
 class Owl:
     def hoot(self):
         return ""
@@ -85,3 +112,39 @@ print(o.hoot() == "hoo", o.hoot == "hoo")
 ```
 
 ::task kettle
+
+```python claim id=auto-3b1d55cfd3ea
+assert max(3, 7) == 7
+assert max(-2, 0) == 0
+assert max(5, 5) == 5
+```
+
+```python claim id=auto-c4134f4158da
+class K:
+    def is_hot(self):
+        return False
+k = K()
+assert k.is_hot() is False
+assert callable(k.is_hot)
+assert k.is_hot is not False
+assert type(k.is_hot).__name__ == 'method'
+```
+
+```python claim id=auto-2a1e80a3418d
+class A:
+    def other(self):
+        return 'o'
+    def m(self):
+        return self.other()
+assert A().m() == 'o'
+```
+
+```python claim id=auto-9bfc2a7bb292
+class A:
+    def m(self):
+        return 3
+a = A()
+assert a.m != 3
+assert a.m() == 3
+assert a.m.__func__ is A.m
+```

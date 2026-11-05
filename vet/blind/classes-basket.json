@@ -1,0 +1,57 @@
+{
+  "fingerprint": "7745205554c4",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Basket:\n    def __init__(self):\n        self.fruits = []\n\n    def put(self, fruit):\n        self.fruits.append(fruit)\n\n    def has(self, fruit):\n        # True when fruit is in the basket\n        return fruit in self.fruits\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Basket:\n    def __init__(self):\n        self.fruits = []\n\n    def put(self, fruit):\n        self.fruits.append(fruit)\n\n    def has(self, fruit):\n        return fruit in self.fruits\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Basket:\n    def __init__(self):\n        self.fruits = []\n\n    def put(self, fruit):\n        self.fruits.append(fruit)\n\n    def has(self, fruit):\n        return fruit in self.fruits\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Basket:\n    def __init__(self):\n        self.fruits = []\n\n    def put(self, fruit):\n        self.fruits.append(fruit)\n\n    def has(self, fruit):\n        # True when fruit is in the basket\n        return fruit in self.fruits\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Basket:\n    def __init__(self):\n        self.fruits = []\n\n    def put(self, fruit):\n        self.fruits.append(fruit)\n\n    def has(self, fruit):\n        return fruit in self.fruits\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,13 @@
+# the zero test of double is named tests_zero, so it never runs, and plus-two is caught only by hidden cases
+base = "good"
+expect = ["wrong-accepted"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/tests.py"
+text = '''
+def test_four():
+    expect_equal(learner["double"](2), 4, "double(2)")
+
+def tests_zero():
+    expect_equal(learner["double"](0), 0, "double(0)")
+'''

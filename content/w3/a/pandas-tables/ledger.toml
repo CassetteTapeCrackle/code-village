@@ -1,0 +1,351 @@
+[[sentence]]
+fp = "a9b9f3d3b3c4"
+text = "A table of data often arrives as **CSV** text: one row per line, values split by commas, names on the first line."
+where = "text:0"
+status = "simplification"
+reason = "Leaves out quoting, other delimiters and files without a header row."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9c7394eb9123"
+text = "You can read it by hand with what you know already:"
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "43da8aade720"
+text = "`pd.read_csv` reads a file into a table called a **DataFrame**; `io.StringIO(text)` makes our text behave like a file, so we can keep the data right in the code."
+where = "text:2"
+status = "claim:auto-43da8aade720"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "163f2cf02697"
+text = "Each number column is read as numbers."
+where = "text:2"
+status = "claim:auto-163f2cf02697"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7341dd4f3b0a"
+text = "The numbers down the left are the row labels."
+where = "text:5"
+status = "claim:auto-7341dd4f3b0a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5a3646cdc7d7"
+text = "`df[\"height\"]` is one column, and it has its own `max`, `min`, `mean` and `sum`."
+where = "text:5"
+status = "claim:auto-5a3646cdc7d7"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1d446e026a9a"
+text = "`sort_values(\"height\")` sorts the rows by that column, smallest first; `.iloc[0]` is then the first row and `.iloc[-1]` the last, and `[\"name\"]` reads one value from that row."
+where = "text:5"
+status = "claim:auto-1d446e026a9a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "21eef26b34f3"
+text = "Write `tallest(text)`: `text` is CSV with the columns `name` and `height`."
+where = "task:pandas-tables-tallest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4b8a5b4c1897"
+text = "Read it with pandas and return the name of the tallest person."
+where = "task:pandas-tables-tallest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2abef925181a"
+text = "Read the text as a table with pandas: `pd.read_csv(io.StringIO(text))`."
+where = "task:pandas-tables-tallest:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2ac89041905d"
+text = "Sort by the height column and take the last row; read its name column."
+where = "task:pandas-tables-tallest:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c12a412b5eca"
+text = "Write `lightest(text)`: `text` is CSV with the columns `pack` and `kg`."
+where = "task:pandas-tables-lightest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "80466015b965"
+text = "Read it with pandas and return the name of the lightest pack."
+where = "task:pandas-tables-lightest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a4e34daeec91"
+text = "A test on a column gives one `True` or `False` per row, and `df[...]` with it keeps only the rows where it is `True`."
+where = "text:7"
+status = "claim:auto-a4e34daeec91"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d44124d1147c"
+text = "`groupby` splits the rows by a column's values and answers once per group."
+where = "text:7"
+status = "claim:auto-d44124d1147c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "68c5a0f5c907"
+text = "`.tolist()` and `.to_dict()` turn the answers back into plain lists and dicts."
+where = "text:7"
+status = "claim:auto-68c5a0f5c907"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a8230601fa47"
+text = "Finish `names_in(text, team)`: `text` is CSV with `name`, `height` and `team` columns."
+where = "task:pandas-tables-team:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ebdd331b3001"
+text = "Return a plain list of the names of the people in `team`, in their order."
+where = "task:pandas-tables-team:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5e98e551b6b8"
+text = "Keep the rows where the `team` column equals the `team` argument."
+where = "task:pandas-tables-team:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9eff6a7d615c"
+text = "Select those rows, then the `name` column, and turn it into a plain list with `tolist()`."
+where = "task:pandas-tables-team:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "869699b60ece"
+text = "Finish `count_taller(text, h)`: `text` is CSV with `name` and `height` columns."
+where = "task:pandas-tables-taller:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cbbd029a50d9"
+text = "Return how many people are taller than `h`."
+where = "task:pandas-tables-taller:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "acbc8ff25623"
+text = "pandas reads a column as numbers only when every value in it looks like a number (an empty cell is fine: it becomes `NaN`, \"not a number\")."
+where = "text:10"
+status = "claim:auto-acbc8ff25623"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7fa5822f7f32"
+text = "One odd value, like a `?`, and the whole column is read as text."
+where = "text:10"
+status = "claim:auto-7fa5822f7f32"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bc48e92a4245"
+text = "On text, `sum` joins the strings, and sorting puts `\"10\"` before `\"9\"`."
+where = "text:13"
+status = "claim:auto-bc48e92a4245"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "75ca777186be"
+text = "`pd.to_numeric(df[\"price\"], errors=\"coerce\")` turns the column back into numbers, with `NaN` for whatever was not one."
+where = "text:13"
+status = "claim:auto-75ca777186be"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "938efd2cc34a"
+text = "`sum` and `max` skip the `NaN`s."
+where = "text:13"
+status = "claim:auto-938efd2cc34a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "be32531f3726"
+text = "`total_price(text)` should add up the `price` column of a CSV, skipping prices that are not numbers."
+where = "task:pandas-tables-total:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "14d1b6e762ce"
+text = "For tea 3, jam ?, bun 2 it returns `\"3?2\"` instead of `5`: find and fix the bug."
+where = "task:pandas-tables-total:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d0b2e138006b"
+text = "What does `sum` do with text?"
+where = "task:pandas-tables-total:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e3b71f37edae"
+text = "`pd.to_numeric` converts a column to numbers; with `errors=\"coerce\"` it turns bad text into a missing value that `sum` ignores."
+where = "task:pandas-tables-total:hint:1"
+status = "claim:auto-e3b71f37edae"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "768032b80f93"
+text = "Use it on the price column before summing."
+where = "task:pandas-tables-total:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1c65bae17494"
+text = "`cheapest(text)` should return the item with the lowest price in a CSV where some prices are `?`."
+where = "task:pandas-tables-cheapest-item:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ff4713245b67"
+text = "It picks the wrong one (the `?` made the prices text, and text sorts `\"10\"` before `\"9\"`): find and fix the bug."
+where = "task:pandas-tables-cheapest-item:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "22f03a34c912"
+text = "pd.read_csv(io.StringIO(text)) turns CSV text into a table (a DataFrame); io.StringIO makes text behave like a file."
+where = "remember:0"
+status = "claim:auto-22f03a34c912"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3736bc4efcff"
+text = "df[\"col\"] is one column; df[df[\"col\"] > 3] keeps the rows where the test holds; .tolist() gives a plain list."
+where = "remember:1"
+status = "claim:auto-3736bc4efcff"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "266caeeb6fb2"
+text = "df.groupby(\"team\")[\"col\"].max() answers once per group."
+where = "remember:2"
+status = "claim:auto-266caeeb6fb2"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "51b87d21f938"
+text = "makes pandas read the whole column as text: + then joins instead of adding."
+where = "remember:3"
+status = "claim:auto-51b87d21f938"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a043bff6f417"
+text = "pd.to_numeric(col, errors=\"coerce\") turns it back into numbers."
+where = "remember:3"
+status = "claim:auto-a043bff6f417"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

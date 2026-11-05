@@ -1,3 +1,6 @@
 id = "io-echo"
 title = "Echo"
 prompt = "Write a program that reads one word and prints it twice on one line, with a space between (for `hey`: `hey hey`)."
+
+[cases]
+stdin = ["str 1..10"]

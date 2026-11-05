@@ -1,0 +1,57 @@
+{
+  "fingerprint": "42b3fafa6c0d",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Bird:\n    def __init__(self, wingspan):\n        self.wingspan = wingspan\n\n    @property\n    def wingspan(self):\n        return self._wingspan\n\n    @wingspan.setter\n    def wingspan(self, value):\n        if value <= 0:\n            raise ValueError(\"wingspan must be positive\")\n        self._wingspan = value\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Bird:\n    def __init__(self, wingspan):\n        self.wingspan = wingspan\n\n    @property\n    def wingspan(self):\n        return self._wingspan\n\n    @wingspan.setter\n    def wingspan(self, value):\n        if value <= 0:\n            raise ValueError(\"wingspan must be positive\")\n        self._wingspan = value\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Bird:\n    def __init__(self, wingspan):\n        self.wingspan = wingspan\n\n    @property\n    def wingspan(self):\n        return self._wingspan\n\n    @wingspan.setter\n    def wingspan(self, value):\n        if value <= 0:\n            raise ValueError(\"wingspan must be positive\")\n        self._wingspan = value\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Bird:\n    def __init__(self, wingspan):\n        self.wingspan = wingspan\n\n    @property\n    def wingspan(self):\n        return self._wingspan\n\n    @wingspan.setter\n    def wingspan(self, value):\n        if value <= 0:\n            raise ValueError(\"wingspan must be positive\")\n        self._wingspan = value\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Bird:\n    def __init__(self, wingspan):\n        self.wingspan = wingspan\n\n    @property\n    def wingspan(self):\n        return self._wingspan\n\n    @wingspan.setter\n    def wingspan(self, value):\n        if value <= 0:\n            raise ValueError(\"wingspan must be positive\")\n        self._wingspan = value\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,21 @@
+[feature.fn-print]
+summary = "print()"
+detect = ["call:print"]
+
+[feature.function-def]
+summary = "def"
+detect = ["node:FunctionDef"]
+
+[feature.return-statement]
+summary = "return"
+detect = ["node:Return"]
+
+[feature.docstring]
+summary = "docstrings"
+detect = ["node:Docstring"]
+words = ["docstring"]
+say = "write a docstring"
+
+[feature.fn-sum]
+summary = "sum()"
+detect = ["call:sum"]

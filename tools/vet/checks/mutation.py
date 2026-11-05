@@ -1,14 +1,11 @@
 """Rule weak-tests: every broken version of a model solution (a mutant) must fail its visible tests or hidden cases.
 
 A survivor is run on a large fuzz set from the item's [cases]: when it agrees with the solution everywhere it is
-equivalent (listed, not reported). Results are kept per item fingerprint in .vet-cache/mutation/ for the real
-content; the stored broken versions are what a later "Spot the bug" mode reuses.
+equivalent (listed, not reported). Results are cached per item (tools/vet/cache.py, kind "mutation"); the stored
+broken versions are what a later "Spot the bug" mode reuses.
 """
 
-import hashlib
-import json
 import os
-import tempfile
 from collections import Counter
 from collections.abc import Iterable, Sequence
 from concurrent.futures import ThreadPoolExecutor
@@ -17,14 +14,17 @@ from pathlib import Path
 from typing import Literal, cast
 
 from ..adapter import CheckJob, CheckOutcome, LanguageAdapter, Mutant
+from ..cache import Computed, Group, cache_for, framework_hash, per_group, read
 from ..cases.expect import CasesProblem, buildable_cases, item_decl
 from ..cases.spec import CasesDecl, NoCases
 from ..finding import Finding, subject
 from ..model import Content, Item
-from ..python.adapter import ROOT
 
 FUZZ_COUNT = 2000
-CACHE = ROOT / ".vet-cache" / "mutation"
+# a mutant that loops forever counts as killed; a third of the general limit keeps the dozens that do cheap,
+# and the slowest real job (World 3 with scikit-learn) needs about 2 s
+MUTANT_LIMIT = 10
+KIND = "mutation"
 Verdict = Literal["visible", "hidden", "equivalent", "survived"]
 
 
@@ -41,7 +41,6 @@ class MutantResult:
     differs: str = ""
 
 
-Group = list[Item]  # items that share one model solution (Content.solution_groups)
 
 
 def _first_verdict(outcomes: Sequence[CheckOutcome | None]) -> Verdict | None:
@@ -54,7 +53,7 @@ def _first_verdict(outcomes: Sequence[CheckOutcome | None]) -> Verdict | None:
     return None
 
 
-def _difference(outcome: CheckOutcome | None) -> str | None:
+def difference(outcome: CheckOutcome | None) -> str | None:
     """How a mutant differs from the solution on the fuzz cases; None when it agrees on every one."""
     if outcome is None:
         return "it runs out of time on the fuzz inputs"
@@ -91,57 +90,53 @@ class _Run:
     def __init__(self, adapter: LanguageAdapter) -> None:
         self.adapter = adapter
 
-    def results(self, groups: Sequence[Group]) -> list[list[MutantResult]]:
+    def results(self, groups: Sequence[Group]) -> list[tuple[list[MutantResult], bool]]:
+        """Each group's results, and whether they are settled: a fuzz run that timed out or could not be built may
+        come out differently on a less loaded machine, so such results are never cached. A mutant that runs out
+        of time on its tests is killed (it loops forever) and settled."""
         mutants = [self.adapter.mutants(group[0].solution) for group in groups]
         verdicts = self._verdicts(groups, mutants)
+        settled = [True] * len(groups)
         survivors = [(g, m) for g, vs in enumerate(verdicts) for m, v in enumerate(vs) if v is None]
         fuzzed = self._fuzz([(groups[g], mutants[g][m]) for g, m in survivors])
-        differs = dict(zip(survivors, fuzzed, strict=True))
-        return [[_result(m, verdicts[g][i] or _fuzz_verdict(differs[g, i]), differs.get((g, i)) or "")
-                 for i, m in enumerate(ms)] for g, ms in enumerate(mutants)]
+        differs = {key: difference for key, (difference, _) in zip(survivors, fuzzed, strict=True)}
+        for (g, _), (_, sure) in zip(survivors, fuzzed, strict=True):
+            settled[g] = settled[g] and sure
+        return [([_result(m, verdicts[g][i] or _fuzz_verdict(differs[g, i]), differs.get((g, i)) or "")
+                  for i, m in enumerate(ms)], settled[g]) for g, ms in enumerate(mutants)]
 
     def _verdicts(self, groups: Sequence[Group], mutants: Sequence[list[Mutant]]) -> list[list[Verdict | None]]:
         suites = [[(item, buildable_cases(item, self.adapter)) for item in group] for group in groups]
-        jobs = [CheckJob(m.code, item.tests, item.strict, cases)
+        # no `requires` here: a mutant that loses a required construct must not count as killed by the tests
+        jobs = [CheckJob(m.code, item.tests, item.strict, cases, limit=MUTANT_LIMIT)
                 for ms, suite in zip(mutants, suites, strict=True) for m in ms for item, cases in suite]
         outcomes = iter(self.adapter.check(jobs))
         return [[_first_verdict([next(outcomes) for _ in suite]) for _ in ms]
                 for ms, suite in zip(mutants, suites, strict=True)]
 
-    def _fuzz(self, survivors: Sequence[tuple[Group, Mutant]]) -> list[str | None]:
-        """For each survivor: how it differs on the fuzz set, "" when it agrees, None when there is no fuzz set."""
+    def _fuzz(self, survivors: Sequence[tuple[Group, Mutant]]) -> list[tuple[str | None, bool]]:
+        """For each survivor: how it differs on the fuzz set ("" when it agrees, None when there is no fuzz set),
+        and whether that answer is settled."""
         items = list({id(item): item for group, _ in survivors for item in group}.values())
         # each item's fuzz values come from its own harness run, so threads run them side by side
         with ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as pool:
             built = pool.map(lambda i: buildable_cases(i, self.adapter, fuzz=FUZZ_COUNT), items)
             fuzz = dict(zip(map(id, items), built, strict=True))
+        unbuilt = {id(i) for i in items if not fuzz[id(i)] and (d := _decl(i)) and not isinstance(d.shape, NoCases)}
         per_survivor = [[(item, fuzz[id(item)]) for item in group if fuzz[id(item)]] for group, _ in survivors]
         jobs = [CheckJob(m.code, item.tests, item.strict, cases)
                 for (_, m), suite in zip(survivors, per_survivor, strict=True) for item, cases in suite]
         outcomes = iter(self.adapter.check(jobs))
-        found: list[str | None] = []
-        for suite in per_survivor:
-            differences = [d for d in [_difference(next(outcomes)) for _ in suite] if d]
-            found.append(None if not suite else (differences[0] if differences else ""))
+        found: list[tuple[str | None, bool]] = []
+        for (group, _), suite in zip(survivors, per_survivor, strict=True):
+            ran = [next(outcomes) for _ in suite]
+            differences = [d for d in map(difference, ran) if d]
+            if any(id(item) in unbuilt for item in group):
+                differences.append(f"its {FUZZ_COUNT} fuzz inputs could not be built (the solution ran out of time "
+                                   "or crashed on them), so it cannot be told apart from an equivalent mutant")
+            sure = all(o is not None for o in ran) and not any(id(item) in unbuilt for item in group)
+            found.append((None if not suite and not differences else (differences[0] if differences else ""), sure))
         return found
-
-
-def _framework_hash() -> str:
-    """What every cached result depends on besides the item: the framework's own source."""
-    digest = hashlib.sha256()
-    for path in [ROOT / "py" / "harness.py", *sorted((ROOT / "tools" / "vet").rglob("*.py"))]:
-        digest.update(path.read_bytes())
-    return digest.hexdigest()[:12]
-
-
-def _load(path: Path, framework: str) -> list[MutantResult] | None:
-    try:
-        data = json.loads(path.read_text())
-    except (OSError, ValueError):
-        return None
-    if not isinstance(data, dict) or data.get("framework") != framework:
-        return None
-    return [_from_json(entry) for entry in cast(list[dict[str, object]], data["mutants"])]
 
 
 def _from_json(entry: dict[str, object]) -> MutantResult:
@@ -149,44 +144,25 @@ def _from_json(entry: dict[str, object]) -> MutantResult:
                         str(entry["code"]), cast(Verdict, entry["verdict"]), str(entry["differs"]))
 
 
-def _store(path: Path, data: dict[str, object]) -> None:
-    # written aside and renamed, so a run reading the cache at the same time never sees half a file
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile("w", dir=path.parent, suffix=".tmp", delete=False) as out:
-        json.dump(data, out, indent=1)
-    Path(out.name).replace(path)
+def _from_value(value: object) -> list[MutantResult]:
+    return [_from_json(entry) for entry in cast(list[dict[str, object]], value)]
 
 
 GroupResults = list[tuple[Group, list[MutantResult]]]
 
 
-def group_results(content: Content, adapter: LanguageAdapter, cache: Path | None) -> GroupResults:
-    """Every group with its mutants' results, read from cache when the group's fingerprint is there."""
+def group_results(content: Content, adapter: LanguageAdapter, folder: Path | None) -> GroupResults:
+    """Every group with its mutants' results, read from the cache folder when the group's fingerprint is there."""
     groups = content.solution_groups()
-    framework = _framework_hash() if cache else ""
-    cached = [_load(cache / f"{g[0].fingerprint}.json", framework) if cache else None for g in groups]
-    fresh = iter(_Run(adapter).results([g for g, c in zip(groups, cached, strict=True) if c is None]))
-    out = []
-    for group, stored in zip(groups, cached, strict=True):
-        results = stored if stored is not None else next(fresh)
-        if cache and stored is None:
-            _store(cache / f"{group[0].fingerprint}.json", {"framework": framework, "item": group[0].id,
-                                                            "mutants": [asdict(r) for r in results]})
-        out.append((group, results))
-    return out
 
+    def compute(todo: list[Group]) -> list[Computed]:
+        return [([asdict(r) for r in results], settled) for results, settled in _Run(adapter).results(todo)]
 
-def cache_for(content: Content) -> Path | None:
-    """.vet-cache/mutation/ for the real content; for other content (fixtures, canaries) the folder named by
-    VET_CACHE, which the Python tests set so canaries share the results of the items they leave unchanged."""
-    if content.root.resolve() == (ROOT / "content").resolve():
-        return CACHE
-    shared = os.environ.get("VET_CACHE")
-    return Path(shared) / "mutation" if shared else None
+    return [(g, _from_value(v)) for g, v in zip(groups, per_group(groups, folder, compute), strict=True)]
 
 
 def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
-    for group, results in group_results(content, adapter, cache_for(content)):
+    for group, results in group_results(content, adapter, cache_for(content, KIND)):
         first = group[0]
         about = subject(first.id, first.fingerprint, first.folder / "solution.py", content.root)
         for r in results:
@@ -200,12 +176,13 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
                 yield about.finding("weak-tests", f"{what}: {_no_cases_hint(group)}")
 
 
-def summary(content: Content, cache: Path) -> str:
+def summary(content: Content, folder: Path) -> str:
     """Counts per verdict over the cached results, for the build output."""
-    framework = _framework_hash()
+    framework = framework_hash()
     counts: Counter[str] = Counter()
     for group in content.solution_groups():
-        counts.update(r.verdict for r in _load(cache / f"{group[0].fingerprint}.json", framework) or [])
+        value = read(folder, group[0].fingerprint, framework)
+        counts.update(r.verdict for r in (_from_value(value) if value is not None else []))
     return (f"mutants: {sum(counts.values())}, killed by visible tests {counts['visible']}, only by hidden cases "
             f"{counts['hidden']} (visible tests could be stronger), equivalent {counts['equivalent']}, "
             f"surviving {counts['survived']}")

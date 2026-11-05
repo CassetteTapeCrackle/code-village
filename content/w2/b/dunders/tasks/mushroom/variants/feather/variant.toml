@@ -3,3 +3,9 @@ title = "A feather by its colour"
 prompt = "Write a class `Feather(colour)` with `__str__` returning `\"a COLOUR feather\"` (like `\"a blue feather\"`), and `__eq__` saying two feathers are equal when they have the same colour."
 
 strict = true
+
+[cases]
+class = "Feather"
+init = ["word"]
+methods = { __str__ = [] }
+reads = ["colour"]

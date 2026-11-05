@@ -1,0 +1,57 @@
+{
+  "fingerprint": "9033bb4e4f30",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def age(person):\n    return person[1]\n\n\ndef oldest_first(people):\n    return sorted(people, key=age, reverse=True)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def age(person):\n    return person[1]\n\n\ndef oldest_first(people):\n    return sorted(people, key=age, reverse=True)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def age(person):\n    return person[1]\n\n\ndef oldest_first(people):\n    return sorted(people, key=age, reverse=True)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def age(person):\n    return person[1]\n\n\ndef oldest_first(people):\n    return sorted(people, key=age, reverse=True)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def age(person):\n    return person[1]\n\n\ndef oldest_first(people):\n    return sorted(people, key=age, reverse=True)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

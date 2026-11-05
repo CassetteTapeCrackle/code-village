@@ -95,6 +95,18 @@ def _introspects(function: Function) -> bool:
                for n in ast.walk(function))
 
 
+def _binds_without_names(function: Function) -> bool:
+    """True when function binds a name other than by assignment: `except ... as`, `match` captures, a local
+    import, or a function or class defined inside it. Renaming or moving code there needs scope analysis."""
+    binders = (ast.ExceptHandler, ast.MatchAs, ast.MatchStar, ast.MatchMapping, ast.Import, ast.ImportFrom,
+               ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)
+    return any(isinstance(n, binders) for n in ast.walk(function) if n is not function)
+
+
+def _unsafe(function: Function) -> bool:
+    return _introspects(function) or _binds_without_names(function)
+
+
 def _functions(tree: ast.AST) -> list[Function]:
     return [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef | ast.AsyncFunctionDef)]
 
@@ -111,7 +123,7 @@ def _rename(function: Function, mapping: dict[str, str]) -> None:
 def rename_locals(tree: ast.Module) -> None:
     taken = _bound_names(tree)
     for function in _functions(tree):
-        if _introspects(function):
+        if _unsafe(function):
             continue
         names = sorted(_locals(function) - _inner_bindings(function))
         _rename(function, {name: _fresh(f"my_{name}", taken) for name in names})
@@ -119,12 +131,14 @@ def rename_locals(tree: ast.Module) -> None:
 
 def _param_rewrites(tree: ast.Module) -> Iterator[tuple[str, ast.Module]]:
     """One rewrite per parameter name: every function with that parameter calls it something else."""
-    names = sorted({p for f in _functions(tree) for p in _params(f)} - {"self", "cls"})
+    keywords = {n.arg for n in ast.walk(tree) if isinstance(n, ast.keyword)}
+    # a call by keyword inside the code (recursion, a helper) would break with the new name
+    names = sorted({p for f in _functions(tree) for p in _params(f)} - {"self", "cls"} - keywords)
     for name in names:
         changed = copy.deepcopy(tree)
         new = _fresh(f"my_{name}", _bound_names(changed))
         for function in _functions(changed):
-            if name in _params(function) and name not in _inner_bindings(function) and not _introspects(function):
+            if name in _params(function) and name not in _inner_bindings(function) and not _unsafe(function):
                 _rename(function, {name: new})
         yield f"rename-params:{name}", changed
 
@@ -262,19 +276,17 @@ class _ForToWhile(_Statements):
         self.generic_visit(node)
         if node.orelse:
             return node
-        items, index = _fresh("items", self.taken), _fresh("index", self.taken)
-        load = _load
-        step = ast.AugAssign(ast.Name(index, ast.Store()), ast.Add(), ast.Constant(1))
-        # the index moves on before the body runs, so `continue` in the body still moves to the next item
-        take = ast.Assign(targets=[node.target], value=ast.Subscript(load(items), load(index), ast.Load()))
-        test = ast.Compare(load(index), [ast.Lt()], [ast.Call(load("len"), [load(items)], [])])
-        return [ast.Assign(targets=[ast.Name(items, ast.Store())], value=ast.Call(load("list"), [node.iter], [])),
-                ast.Assign(targets=[ast.Name(index, ast.Store())], value=ast.Constant(0)),
-                ast.While(test, [take, step, *node.body], [])]
+        items = _fresh("items", self.taken)
+        # next() stays lazy like the for loop (an endless iterator, a list that grows while it is walked), and
+        # taking the item first keeps `continue` moving on to the next one
+        take = ast.Try([ast.Assign(targets=[node.target], value=ast.Call(_load("next"), [_load(items)], []))],
+                       [ast.ExceptHandler(_load("StopIteration"), None, [ast.Break()])], [], [])
+        return [ast.Assign(targets=[ast.Name(items, ast.Store())], value=ast.Call(_load("iter"), [node.iter], [])),
+                ast.While(ast.Constant(True), [take, *node.body], [])]
 
 
 def for_to_while(tree: ast.Module) -> None:
-    if not {"list", "len"} & _bound_names_assigned(tree):
+    if not {"iter", "next", "StopIteration"} & _bound_names_assigned(tree):
         _ForToWhile(tree).visit(tree)
 
 
@@ -294,8 +306,8 @@ def _piece(part: ast.expr) -> ast.expr | None:
     value = part.value
     if part.conversion in CONVERSIONS:
         value = ast.Call(ast.Name(CONVERSIONS[part.conversion], ast.Load()), [value], [])
-    if part.format_spec is None:
-        return value if part.conversion in CONVERSIONS else ast.Call(ast.Name("str", ast.Load()), [value], [])
+    if part.format_spec is None:  # f"{x}" calls format(x, ""), which may differ from str(x)
+        return ast.Call(ast.Name("format", ast.Load()), [value, ast.Constant("")], [])
     spec = part.format_spec
     if not isinstance(spec, ast.JoinedStr) or not all(isinstance(v, ast.Constant) for v in spec.values):
         return None
@@ -318,7 +330,7 @@ class _FstringToConcat(ast.NodeTransformer):
 
 
 def fstring_to_concat(tree: ast.Module) -> None:
-    if not {"str", "repr", "ascii", "format"} & _bound_names_assigned(tree):
+    if not {"repr", "ascii", "format"} & _bound_names_assigned(tree):
         _FstringToConcat().visit(tree)
 
 
@@ -449,11 +461,12 @@ def _top_level_functions(tree: ast.Module) -> Iterator[tuple[int, Function]]:
 def extract_helper(tree: ast.Module) -> None:
     """The first returned expression moves into a helper function that the return calls."""
     for index, function in _top_level_functions(tree):
-        if any(isinstance(n, ast.Nonlocal | ast.Global) for n in _own_nodes(function)):
+        if any(isinstance(n, ast.Nonlocal | ast.Global) for n in _own_nodes(function)) or _unsafe(function):
             continue
         local = _params(function) | _locals(function)
         for ret in (n for n in _own_nodes(function) if isinstance(n, ast.Return)):
-            if ret.value is None or not _extractable(ret.value):
+            # a recursive call through a helper doubles the frames per level, so deep recursion would fail
+            if ret.value is None or not _extractable(ret.value) or function.name in _loads(ret.value):
                 continue
             free = sorted(_loads(ret.value) & local)
             name = _fresh("helper", _bound_names(tree))
