@@ -1,5 +1,5 @@
 {
-  "fingerprint": "8fa3ec13ddbf",
+  "fingerprint": "19f43c959aea",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "def safe_divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return None\n\n\nprint(safe_divide(10, 2), safe_divide(1, 0))",
+      "code": "def safe_divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return None\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def safe_divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return None\n\n\nprint(safe_divide(10, 2))\nprint(safe_divide(1, 0))\n",
+      "code": "def safe_divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return None\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",

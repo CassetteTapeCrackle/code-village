@@ -1,59 +1,39 @@
 # Known gaps: written by `pnpm gaps --write`. Never edit by hand; fix the content instead.
 
 [[gap]]
-rule = "blind-missing"
-item = "lost-satchel"
-fingerprint = "f60bef8d10d4"
-
-[[gap]]
-rule = "blind-untriaged"
-item = "data-summary"
-fingerprint = "ef66c96f3c2e"
-
-[[gap]]
-rule = "blind-untriaged"
-item = "gradebook"
-fingerprint = "38d08c9503f5"
-
-[[gap]]
-rule = "blind-untriaged"
-item = "sales-report"
-fingerprint = "f6c7dd5bc606"
-
-[[gap]]
 rule = "cases-missing"
 item = "data-summary"
-fingerprint = "ef66c96f3c2e"
+fingerprint = "1268951043fa"
 
 [[gap]]
 rule = "cases-missing"
 item = "gradebook"
-fingerprint = "38d08c9503f5"
+fingerprint = "25be7b6325b1"
 
 [[gap]]
 rule = "cases-missing"
 item = "guessing-stone"
-fingerprint = "ee47fc3b7484"
+fingerprint = "024cbc8f4989"
 
 [[gap]]
 rule = "cases-missing"
 item = "lost-satchel"
-fingerprint = "f60bef8d10d4"
+fingerprint = "c9affd671791"
 
 [[gap]]
 rule = "cases-missing"
 item = "ranger-registry"
-fingerprint = "7ee952b45ea0"
+fingerprint = "87adb1b91a19"
 
 [[gap]]
 rule = "cases-missing"
 item = "sales-report"
-fingerprint = "f6c7dd5bc606"
+fingerprint = "eeb0c56be3f4"
 
 [[gap]]
 rule = "cases-missing"
 item = "songbird-playlist"
-fingerprint = "6441288c163a"
+fingerprint = "741eaab9eb6e"
 
 [[gap]]
 rule = "cases-missing"
@@ -93,7 +73,7 @@ fingerprint = "3348c924197f"
 [[gap]]
 rule = "cases-missing"
 item = "star-classifier"
-fingerprint = "2d4efd71aa37"
+fingerprint = "d511165f5eaa"
 
 [[gap]]
 rule = "cases-missing"
@@ -238,7 +218,7 @@ fingerprint = "366c3819d751"
 [[gap]]
 rule = "fence-untyped"
 item = "lost-satchel"
-fingerprint = "f60bef8d10d4"
+fingerprint = "c9affd671791"
 
 [[gap]]
 rule = "ledger-missing"
@@ -268,7 +248,7 @@ fingerprint = "972117635422"
 [[gap]]
 rule = "ledger-missing"
 item = "data-summary"
-fingerprint = "ef66c96f3c2e"
+fingerprint = "1268951043fa"
 
 [[gap]]
 rule = "ledger-missing"
@@ -288,7 +268,7 @@ fingerprint = "34fa754b94fe"
 [[gap]]
 rule = "ledger-missing"
 item = "errors"
-fingerprint = "77ee07472f1e"
+fingerprint = "541c25c3d738"
 
 [[gap]]
 rule = "ledger-missing"
@@ -313,7 +293,7 @@ fingerprint = "c15ffda8d038"
 [[gap]]
 rule = "ledger-missing"
 item = "gradebook"
-fingerprint = "38d08c9503f5"
+fingerprint = "25be7b6325b1"
 
 [[gap]]
 rule = "ledger-missing"
@@ -323,7 +303,7 @@ fingerprint = "717a73615ef9"
 [[gap]]
 rule = "ledger-missing"
 item = "guessing-stone"
-fingerprint = "ee47fc3b7484"
+fingerprint = "024cbc8f4989"
 
 [[gap]]
 rule = "ledger-missing"
@@ -363,7 +343,7 @@ fingerprint = "eeacabce7072"
 [[gap]]
 rule = "ledger-missing"
 item = "lost-satchel"
-fingerprint = "f60bef8d10d4"
+fingerprint = "c9affd671791"
 
 [[gap]]
 rule = "ledger-missing"
@@ -393,7 +373,7 @@ fingerprint = "7ec3b5816ffc"
 [[gap]]
 rule = "ledger-missing"
 item = "ranger-registry"
-fingerprint = "7ee952b45ea0"
+fingerprint = "87adb1b91a19"
 
 [[gap]]
 rule = "ledger-missing"
@@ -403,7 +383,7 @@ fingerprint = "f989697f0b52"
 [[gap]]
 rule = "ledger-missing"
 item = "sales-report"
-fingerprint = "f6c7dd5bc606"
+fingerprint = "eeb0c56be3f4"
 
 [[gap]]
 rule = "ledger-missing"
@@ -413,7 +393,7 @@ fingerprint = "8b013107a643"
 [[gap]]
 rule = "ledger-missing"
 item = "songbird-playlist"
-fingerprint = "6441288c163a"
+fingerprint = "741eaab9eb6e"
 
 [[gap]]
 rule = "ledger-missing"
@@ -423,7 +403,7 @@ fingerprint = "afb8c3eaccaf"
 [[gap]]
 rule = "ledger-missing"
 item = "star-classifier"
-fingerprint = "2d4efd71aa37"
+fingerprint = "d511165f5eaa"
 
 [[gap]]
 rule = "ledger-missing"
@@ -453,7 +433,7 @@ fingerprint = "6694393bb9d8"
 [[gap]]
 rule = "prompt-asks-construct"
 item = "gradebook"
-fingerprint = "38d08c9503f5"
+fingerprint = "25be7b6325b1"
 
 [[gap]]
 rule = "remember-unbacked"
@@ -488,7 +468,7 @@ fingerprint = "34fa754b94fe"
 [[gap]]
 rule = "remember-unbacked"
 item = "errors"
-fingerprint = "77ee07472f1e"
+fingerprint = "541c25c3d738"
 
 [[gap]]
 rule = "remember-unbacked"
@@ -603,12 +583,12 @@ fingerprint = "6694393bb9d8"
 [[gap]]
 rule = "weak-tests"
 item = "gradebook"
-fingerprint = "38d08c9503f5"
+fingerprint = "25be7b6325b1"
 
 [[gap]]
 rule = "weak-tests"
 item = "ranger-registry"
-fingerprint = "7ee952b45ea0"
+fingerprint = "87adb1b91a19"
 
 [[gap]]
 rule = "weak-tests"

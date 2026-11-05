@@ -1,39 +1,19 @@
 {
-  "fingerprint": "38d08c9503f5",
+  "fingerprint": "25be7b6325b1",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece != \"\":\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
-      "visible": "fail",
+      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece != \"\":\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if len(marks) == 0:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
+      "visible": "pass",
       "hidden": "none",
-      "failure": "blank lines ignored: your code raised ValueError: not enough values to unpack (expected 2, got 1)",
+      "failure": "",
       "case": "",
       "fuzz": "none",
       "input": "",
       "temperature": 0.2
     },
     {
-      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks_text = marks_text.strip()\n\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece:\n            marks.append(int(piece))\n\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
-      "visible": "fail",
-      "hidden": "none",
-      "failure": "blank lines ignored: your code raised ValueError: not enough values to unpack (expected 2, got 1)",
-      "case": "",
-      "fuzz": "none",
-      "input": "",
-      "temperature": 0.6
-    },
-    {
-      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece:\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
-      "visible": "fail",
-      "hidden": "none",
-      "failure": "blank lines ignored: your code raised ValueError: not enough values to unpack (expected 2, got 1)",
-      "case": "",
-      "fuzz": "none",
-      "input": "",
-      "temperature": 1.0
-    },
-    {
-      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece != \"\":\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if len(marks) == 0:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
+      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece != \"\":\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -43,10 +23,30 @@
       "temperature": 0.6
     },
     {
-      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece != \"\":\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
-      "visible": "fail",
+      "code": "def parse_line(line):\n    parts = line.split(\":\", 1)\n    name = parts[0].strip()\n    marks_text = parts[1].strip() if len(parts) > 1 else \"\"\n\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece != \"\":\n            marks.append(int(piece))\n\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n\n    for line in lines:\n        if not line.strip():\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
+      "visible": "pass",
       "hidden": "none",
-      "failure": "blank lines ignored: your code raised ValueError: not enough values to unpack (expected 2, got 1)",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def parse_line(line):\n    name_part, marks_part = line.split(\":\", 1)\n    name = name_part.strip()\n    marks_text = marks_part.strip()\n    marks = []\n    if marks_text:\n        for piece in marks_text.split(\",\"):\n            piece = piece.strip()\n            if piece:\n                marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def parse_line(line):\n    name, marks_text = line.split(':', 1)\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(','):\n        piece = piece.strip()\n        if piece:\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if not line.strip():\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
       "case": "",
       "fuzz": "none",
       "input": "",

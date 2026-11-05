@@ -3604,23 +3604,40 @@ else:
 
 ## Hidden cases refuse an equal number of another type
 
-The hidden cases compare exactly, so a correct answer that returns an equal number of another type (`5` for `5.0`) is refused. Whether the comparison should forgive this is the owner's call, so no answer was changed to fit it.
-
-- generators-average: a learner who writes `return statistics.mean(numbers)` is right, but `average([1])` returns `1` and the hidden case expects `1.0`, so the exact comparison refuses it. The right answer that showed this (`right/uses-statistics.py`) was removed from the item, because no lesson teaches `statistics` yet and the vocabulary check flags it (`unknown-feature`). Nothing was changed to fit the comparison; the item has a plain `sum` and `/` right answer instead.
-- Other right answers changed only to match a type comparison: none.
+Decided by the owner on 2026-11-05: hidden cases keep comparing exactly, so `5` where the solution gives `5.0` is
+refused. No right answer was bent to fit it.
 
 ## Feature order: prompts that introduce what no lesson teaches yet
 
-Every lesson now lists `teaches`, so the order check runs on the whole course. Code was rewritten to use only what
-is taught by then (owner's choice: rewrite, never teach earlier). These three remain the owner's call, since the
-fix would change a prompt or a lesson's text:
+Every lesson now lists `teaches`, and code was rewritten to use only what is taught by then (owner, 2026-11-05:
+rewrite, never teach earlier). Decided by the owner on 2026-11-05:
 
-- errors-safe-divide: the prompt asks for `except ZeroDivisionError`, and only this prompt names it (the lesson
-  shows it in hidden claims only). The errors lesson now lists `exception-zero-division` in `teaches` because the
-  learner meets it there. Consider one sentence in the lesson: dividing by zero raises `ZeroDivisionError`.
-- gradebook, stage 3-ranking: the prompt's tip teaches `sorted(pairs, key=lambda pair: ...)` in a World 1 region b
-  boss, before `sorted` (w1/c) and `lambda` (w3/a). The `requires = ["lambda", "sort-key"]` a cloud session added
-  on 2026-11-04 is removed again, and the model solution now ranks with a loop. A learner can still follow the tip.
-  Consider moving the tip, or keeping it as the boss's deliberate stretch.
-- guessing-stone, stage 2: the prompt names `strip` and `isdecimal` as tools, but `strip` is taught in w1/b and
-  `isdecimal` nowhere. The model solution now reads the number without them. Consider rewording the prompt.
+- errors-safe-divide: the errors lesson now says that dividing by zero raises `ZeroDivisionError`.
+- gradebook, stage 3-ranking: the lambda tip stays as the boss's stretch; the model solution ranks with a loop.
+- guessing-stone, stage 2: the prompt no longer names `strip` and `isdecimal`.
+
+## Hard mode states every rule
+
+Decided by the owner on 2026-11-05: hard mode only drops the starter code. Every rule a hard test checks is now in
+a stage prompt (gradebook, lost-satchel, songbird-playlist, ranger-registry, sales-report, data-summary,
+star-classifier), and the boss screen says "more tests" instead of "stricter tests".
+
+## blind: lost-satchel, attempt 0 <!-- session triage -->
+
+- decision: model-wrong (by the session)
+- note: The parse prompt shows this exact case, so the attempt is wrong: two word item: parse("take old lamp") returned ('take', 'old'), expected ('take', 'old lamp') ^
+
+## blind: lost-satchel, attempt 1 <!-- session triage -->
+
+- decision: model-wrong (by the session)
+- note: The parse prompt shows this exact case, so the attempt is wrong: two word item: parse("take old lamp") returned ('take', 'old'), expected ('take', 'old lamp') ^
+
+## blind: lost-satchel, attempt 2 <!-- session triage -->
+
+- decision: model-wrong (by the session)
+- note: The parse prompt shows this exact case, so the attempt is wrong: two word item: parse("take old lamp") returned ('take', 'old'), expected ('take', 'old lamp') ^
+
+## blind: lost-satchel, attempt 3 <!-- session triage -->
+
+- decision: model-wrong (by the session)
+- note: The parse prompt shows this exact case, so the attempt is wrong: two word item: parse("take old lamp") returned ('take', 'old'), expected ('take', 'old lamp') ^

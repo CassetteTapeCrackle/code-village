@@ -5,7 +5,7 @@
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "pass",
+      "hidden": "none",
       "failure": "",
       "case": "",
       "fuzz": "agree",
@@ -15,7 +15,7 @@
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "pass",
+      "hidden": "none",
       "failure": "",
       "case": "",
       "fuzz": "agree",
@@ -25,7 +25,7 @@
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "pass",
+      "hidden": "none",
       "failure": "",
       "case": "",
       "fuzz": "agree",
@@ -35,7 +35,7 @@
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "pass",
+      "hidden": "none",
       "failure": "",
       "case": "",
       "fuzz": "agree",
@@ -45,7 +45,7 @@
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef labels_for(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "pass",
+      "hidden": "none",
       "failure": "",
       "case": "",
       "fuzz": "agree",

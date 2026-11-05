@@ -1,5 +1,5 @@
 {
-  "fingerprint": "b03a12fd94ca",
+  "fingerprint": "ae10d4ac92c6",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n\n\nprint(parse_price(\"19.99\"))\nprint(parse_price(\"free\"))\n",
+      "code": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

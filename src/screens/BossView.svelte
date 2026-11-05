@@ -216,7 +216,7 @@
             <CodePanel
               id="{boss.id}-hard"
               title="{boss.title}, hard mode"
-              prompt="No starter code, stricter tests, and {boss.hardChecks} Checks per attempt."
+              prompt="No starter code, more tests, and {boss.hardChecks} Checks per attempt."
               starter=""
               draftKey="boss:{boss.id}:hard"
               passed={Boolean(mine.hardWonAt)}

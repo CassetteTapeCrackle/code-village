@@ -31,7 +31,7 @@ assert error_from(lambda: [1][5]) is IndexError
 assert error_from(lambda: {}["key"]) is KeyError
 ```
 
-`try` runs code that might fail, and `except SomeError` handles that kind of error only.
+`try` runs code that might fail, and `except SomeError` handles that kind of error only. Dividing by zero raises `ZeroDivisionError`.
 
 ```python claim id=auto-8f9ad33b3734
 try:
