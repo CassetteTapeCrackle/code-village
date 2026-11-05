@@ -44,15 +44,6 @@ claude = "agree"
 decided = "auto"
 
 [[sentence]]
-fp = "7eb0dbc2bfba"
-text = "`scale_columns(rows)` takes a list of rows of numbers and returns new rows where each column is scaled to 0 to 1: `(value - smallest) / (largest - smallest)` within its column."
-where = "stage:stars-scale:prompt"
-status = "not-a-fact"
-deepseek = "agree"
-claude = "agree"
-decided = "auto"
-
-[[sentence]]
 fp = "93f00695dbcc"
 text = "`nearest_label(X, y, point)` returns the label in `y` of the row of `X` nearest to `point`, by hand with `math.dist`."
 where = "stage:stars-nearest:prompt"

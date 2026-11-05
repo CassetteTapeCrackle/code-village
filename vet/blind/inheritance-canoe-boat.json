@@ -1,54 +1,54 @@
 {
-  "fingerprint": "bc9bd5b079f8",
+  "fingerprint": "76e619f21b9a",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Boat:\n    def __init__(self, name):\n        self.name = name\n\n    def describe(self):\n        return f\"{self.name} floats\"\n\n\nclass Canoe(Boat):\n    def __init__(self, name, paddles):\n        super().__init__(name)\n        self.paddles = paddles\n\n    def describe(self):\n        return super().describe() + f\" with {self.paddles} paddles\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Boat:\n    def __init__(self, name):\n        self.name = name\n\n    def describe(self):\n        return f\"{self.name} floats\"\n\n\nclass Canoe(Boat):\n    def __init__(self, name, paddles):\n        super().__init__(name)\n        self.paddles = paddles\n\n    def describe(self):\n        return super().describe() + f\" with {self.paddles} paddles\"",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Boat:\n    def __init__(self, name):\n        self.name = name\n\n    def describe(self):\n        return f\"{self.name} floats\"\n\n\nclass Canoe(Boat):\n    def __init__(self, name, paddles):\n        super().__init__(name)\n        self.paddles = paddles\n\n    def describe(self):\n        return super().describe() + f\" with {self.paddles} paddles\"\n\n\nprint(Canoe(\"Otter\", 2).describe())\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Boat:\n    def __init__(self, name):\n        self.name = name\n\n    def describe(self):\n        return f\"{self.name} floats\"\n\n\nclass Canoe(Boat):\n    def __init__(self, name, paddles):\n        super().__init__(name)\n        self.paddles = paddles\n\n    def describe(self):\n        return super().describe() + f\" with {self.paddles} paddles\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Boat:\n    def __init__(self, name):\n        self.name = name\n\n    def describe(self):\n        return f\"{self.name} floats\"\n\n\nclass Canoe(Boat):\n    def __init__(self, name, paddles):\n        super().__init__(name)\n        self.paddles = paddles\n\n    def describe(self):\n        return super().describe() + f\" with {self.paddles} paddles\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

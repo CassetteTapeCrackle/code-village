@@ -5,6 +5,7 @@ world = "w3"
 region = "a"
 order = 1
 concepts = ["functions-as-values"]
+teaches = ["fn-map-filter", "lambda"]
 remember = ["A function is a value: store it in a name, put it in a list, pass it to another function.", "lambda n: n * 2 is a small function with no name, written right where it is used.", "map(f, items) applies f to every item; filter(f, items) keeps the items where f gives True. Wrap them in list() to see the results.", "Pass a function by its name, without brackets: key=by_price, not key=by_price(items)."]
 [loot]
 id = "brass-pointer"
@@ -52,7 +53,7 @@ assert speak is shout
 assert speak('a') == 'A'
 ```
 
-```python claim
+```python claim id=functions-as-values-claim-1
 def shout(text):
     return text.upper() + "!"
 
@@ -73,7 +74,7 @@ f = lambda n: n * 2
 assert f(4) == 8
 ```
 
-```python claim
+```python claim id=functions-as-values-claim-2
 assert (lambda n: n * 2)(4) == 8
 ```
 
@@ -93,7 +94,7 @@ assert list(m) == ['2']
 assert list(f) == [1]
 ```
 
-```python claim
+```python claim id=functions-as-values-claim-3
 m = map(lambda n: n * 10, [3, 8])
 assert not isinstance(m, list)
 assert next(m) == 30 and list(m) == [80]
@@ -135,7 +136,7 @@ else:
     assert False
 ```
 
-```python claim
+```python claim id=functions-as-values-claim-4
 def loud(word):
     return word.upper()
 

@@ -5,3 +5,7 @@ title = "Shortest first"
 prompt = "Finish `sort_by_length(words)` so the words come back shortest first. Words of the same length keep their order."
 hints = ["`sorted` takes a `key`.", "`sorted([\"bb\", \"a\"], key=len)` puts the short one first. Use the same call on your list."]
 gotcha = false
+
+[cases]
+call = "sort_by_length"
+args = ["list<word> 0..8"]

@@ -5,6 +5,7 @@ world = "w3"
 region = "c"
 order = 10
 concepts = ["train-test"]
+teaches = ["sklearn-metrics", "sklearn-model-selection", "sklearn-score"]
 remember = ["model.score(X, y) is the accuracy: the share of rows it labels right, from 0.0 to 1.0.", "train_test_split(X, y, test_size=0.25, random_state=0) keeps a quarter of the examples aside to test on; random_state makes the split the same every run.", "fit on the training part only, then score on the test part.", "Scoring a model on the data it learned from looks too good: a 1-neighbour model scores 1.0 there. Only the test score tells you how it does on new data."]
 [loot]
 id = "summit-pennant"
@@ -24,7 +25,7 @@ print(accuracy_score(truth, guess))
 
 A model's `score(X, y)` predicts every row of `X` and gives the accuracy against `y` in one go.
 
-```python claim
+```python claim id=train-test-claim-1
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -51,7 +52,7 @@ assert e[0] == a and e[1] == b
 assert train_test_split(X, y, test_size=0.25, random_state=1)[0] != a
 ```
 
-```python claim
+```python claim id=train-test-claim-2
 from sklearn.model_selection import train_test_split
 
 first = train_test_split(list(range(10)), test_size=0.3, random_state=0)
@@ -88,7 +89,7 @@ m2 = KNeighborsClassifier(n_neighbors=1).fit(X2, y2)
 assert m2.score(X2, y2) < 1.0
 ```
 
-```python claim
+```python claim id=train-test-claim-3
 from sklearn.neighbors import KNeighborsClassifier
 
 X, y = [[1], [2], [3]], ["a", "b", "a"]

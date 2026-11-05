@@ -1,54 +1,54 @@
 {
-  "fingerprint": "d577e1bd6824",
+  "fingerprint": "25d2c7fc49a7",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef vote_labels(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef vote_labels(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef vote_labels(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef vote_labels(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef vote_labels(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=3)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

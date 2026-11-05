@@ -5,3 +5,6 @@ title = "The leaderboard"
 prompt = "Finish `Score` so that scores sort by `points`, then by `name`, and `best(scores)` returns the name of the highest score."
 hints = ["One argument to the decorator makes dataclasses sortable.", "Pass `order=True` to the decorator. For `best`, use `max` on the list and read the score's `name`."]
 gotcha = false
+
+[cases]
+none = "best takes Score objects, which a case cannot make"

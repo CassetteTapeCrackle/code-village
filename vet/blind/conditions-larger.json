@@ -1,54 +1,54 @@
 {
-  "fingerprint": "aa6fa4e0f73d",
+  "fingerprint": "574c0b4071d6",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

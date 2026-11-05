@@ -5,6 +5,7 @@ world = "w1"
 region = "a"
 order = 1
 concepts = ["values"]
+teaches = ["fn-bool", "fn-float", "fn-int", "fn-round", "fn-str", "fn-type", "function-def", "math-module", "return-statement"]
 remember = ["Every value has a type: int, float, str or bool. type(x) tells you which.", "= stores a value in a name; the name can point at a new value later.", "+ adds numbers but joins strings: \"3\" + \"4\" is \"34\".", "int(), float() and str() convert; int() cuts the decimals off, round() goes to the nearest whole number (a half goes to the even one: round(2.5) is 2).", "import math loads a module of extra tools: then math.sqrt(x) and math.floor(x) work."]
 [loot]
 id = "pebble-counter"
@@ -25,7 +26,7 @@ assert type(True) is bool
 assert type(False) is bool
 ```
 
-```python claim
+```python claim id=values-claim-1
 assert type(7) is int and type(7.5) is float and type("7") is str and type(True) is bool
 ```
 
@@ -54,7 +55,7 @@ print(apples)
 
 Numbers do arithmetic: `*` multiplies, `/` divides and always gives a float, `//` divides and rounds down to a whole number, `%` gives the remainder, and `**` raises to a power.
 
-```python claim
+```python claim id=values-claim-2
 assert 7 / 2 == 3.5 and type(6 / 2) is float
 assert 7 // 2 == 3 and -7 // 2 == -4 and 7.5 // 2 == 3.0
 assert 7 % 2 == 1 and 2 ** 3 == 8
@@ -89,7 +90,7 @@ assert '3' + '4' == '34'
 assert '3' + '4' != 7
 ```
 
-```python claim
+```python claim id=values-claim-3
 assert "3" + "4" == "34" and int("3") + int("4") == 7 and float("2.5") == 2.5 and str(12) == "12"
 ```
 
@@ -109,7 +110,7 @@ assert int(-2.9) == -2
 assert str(5) == '5' and str(1.5) == '1.5' and str(True) == 'True' and str(None) == 'None'
 ```
 
-```python claim
+```python claim id=values-claim-4
 assert int(9.99) == 9 and int(-9.99) == -9
 assert round(9.99) == 10 and round(2.5) == 2 and round(3.5) == 4
 ```

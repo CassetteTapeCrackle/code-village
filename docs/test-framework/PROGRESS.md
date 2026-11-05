@@ -554,3 +554,54 @@ Each session reads this first and updates it last. Newest entries at the top of 
 - A new rule's check goes in `CHECKS` with its rules (`tools/vet/run.py`); a check that reruns code many times belongs
   in `SLOW_RULES`, and code that shapes a cached result belongs in `RESULT_SOURCES`.
 - Track B Task B.3 can merge `test-framework` into `report-button`.
+
+## Part 7 handoff (branch `gap-fixes`, draft PR 10)
+
+Read this first when you take over. The branch starts at the supervisor's tip `64eeb84` and does not contain
+`test-framework`; the owner decides how the branches combine. One item per commit, pushed after each commit. CI
+runs for a push are cancelled by the next push, so the green run to look at is the one for the last commit.
+
+### Done
+- `tools/vet/repin.py`: `python -m tools.vet.repin <item id>... [--drop RULE]...` moves an item's gap entries to
+  its new fingerprint, drops the named rules (one `--drop` per rule), and re-judges the stored blind attempts. A
+  blind run is re-pinned only when the solver's question (lesson text, prompt, starter) is unchanged.
+- weak-tests: every item is fixed except the six `testing-*` tasks and a few bosses (see Open).
+- cases-missing: every task and variant has a `[cases]` table, or `none = "why"` where a case cannot build the
+  input (objects, files, CSV text, functions, generators, properties). Bosses still lack stage-level cases.
+- wrong-too-few and right-missing: two or three `wrong/` answers and one `right/` answer for most tasks and
+  variants (the list is whatever is left in `vet/gaps.toml`).
+
+### Decisions
+- A survivor that agrees with the solution on every input gets a `[cases]` table. A survivor that differs gets a
+  visible test, and the item usually gets `[cases]` as well so its `cases-missing` gap closes.
+- Editing a variant changes its parent task's fingerprint: re-pin the parent too (`repin <parent> <variant>`).
+- `wrong/` and `right/` answers may only use features the lessons teach (`unknown-feature`): no `extend`,
+  `insert`, `id`, `reversed`, `Counter`, `itertools`, `statistics`, `percentile`, `format`, `rsplit`, `.index`.
+  Always include `unknown-feature` in the quick check.
+- The default compare forgives case, spacing and punctuation: tasks about exact text set `strict = true`
+  (strings-initials, clean-tag, file-name, comprehensions-shout-all).
+- Strict tasks, confirmed by the owner on 2026-11-05: strings-initials, strings-clean-tag and strings-file-name
+  compare text exactly, since their prompts ask for exact capitals or lower case. The 22 `requires` stay too.
+- The e2e result pattern accepts the app's 'Still running after 5 s' message as a finished, failing run, so a
+  starter that never stops does not time out the spec (properties-ranger-age, properties-wingspan).
+- Hidden cases compare exactly. A right answer that returns `5` for `5.0` is refused; the owner decides, see
+  `vet/triage.md` ("Hidden cases refuse an equal number of another type"). No answer was bent to fit.
+- `[cases]` for two lists that must be the same length (train-test accuracy, mistakes) draws both at one fixed
+  length, since the prompt does not say what unequal lists do.
+
+### Open
+- The six `testing-*` tasks keep their `weak-tests` gaps: the tests judge the learner's own test function with a
+  few broken functions, so mutants of the model test (a dropped assert, shifted constants) survive. Killing them
+  means probes beyond what the prompts promise. Left for the owner.
+- `ranger-registry` keeps three survivors (`== None` for `is None`, and string order or identity on a species in
+  the model test); `knn-sklearn-*` have none left.
+- Bosses: stage-level `[cases]`, plus `wrong/` and `right/` for data-summary, gradebook, guessing-stone,
+  lost-satchel, ranger-registry, sales-report, squirrel-storehouse, star-classifier, songbird-playlist, tour-hello.
+- Then `ledger-missing`, `teaches-missing`, `claim-id-missing`, `remember-unbacked`, `prompt-asks-construct`,
+  `blind-missing` (7), `blind-untriaged` (3).
+- Prompt rewrites that change what a task asks go to `vet/triage.md` for the owner, not into the content.
+
+### Next
+- Finish wrong/right for the files-json, pandas, nearest-neighbour, train-test, search-sort-insert/rank items,
+  then the bosses; then the remaining false-claim and progression rules.
+- After every few items rerun `pnpm content` and `pnpm gaps --write` and confirm the gap list is unchanged.

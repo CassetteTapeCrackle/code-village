@@ -6,7 +6,8 @@ import { finishTour, showTask, typeCode } from "./helpers";
 // shows "We also tried", and the model solution passes. One page per lesson. Built from the bundle's content files,
 // so a new world gets all of it from content alone (spec 16).
 const BASE = process.env.BASE_URL ?? "http://localhost:5173";
-const RESULT = /tests passed|Error/;
+// A run the app stopped after 5 s (a starter or wrong answer that never ends) is a finished, failing run too
+const RESULT = /tests passed|Error|Still running after 5 s/;
 
 // Sharding splits files unless tests may run in parallel; the serial describes below stay whole (one lesson each)
 test.describe.configure({ mode: "parallel" });

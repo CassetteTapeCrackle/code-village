@@ -5,6 +5,7 @@ world = "w3"
 region = "a"
 order = 3
 concepts = ["files-json"]
+teaches = ["file-read", "file-write", "fn-open", "json-module", "with-statement"]
 remember = ["with open(path) as f: closes the file for you when the block ends, even after an error.", "\"r\" reads (the default), \"w\" writes a fresh file, \"a\" adds to the end of it.", "json.dump(data, f) saves lists, dicts, numbers, strings, True, False and None; json.load(f) reads them back.", "Opening with \"w\" empties the file first: use \"a\" to keep what is already there."]
 [loot]
 id = "field-logbook"
@@ -13,7 +14,7 @@ name = "Field Logbook"
 
 Data that should outlive your program goes in a **file**. `open(path, "w")` opens one for writing, and `with` closes it for you when the block ends, so nothing is lost even if an error happens halfway.
 
-```python claim
+```python claim id=files-json-claim-1
 with open("notes.txt", "w") as f:
     pass
 
@@ -52,7 +53,7 @@ s.write('c\n')
 assert s.getvalue() == 'abc\n'
 ```
 
-```python claim
+```python claim id=files-json-claim-2
 with open("notes.txt", "w") as f:
     f.write("fern")
     f.write("moss\n")
@@ -102,7 +103,7 @@ assert json.dumps("it's") == '"it\'s"'
 assert isinstance(json.dumps([1]), str)
 ```
 
-```python claim
+```python claim id=files-json-claim-3
 import json
 
 assert json.dumps([None, "hi", True]) == '[null, "hi", true]'
@@ -113,7 +114,7 @@ assert json.loads(json.dumps({1: (2, 3)})) == {"1": [2, 3]}
 
 The mode decides what happens to what is already in the file. `"w"` starts a fresh file every time, even when one is there; `"a"` (append) keeps it and writes at the end.
 
-```python claim
+```python claim id=files-json-claim-4
 with open("log.txt", "w") as f:
     f.write("day 1\n")
 with open("log.txt", "a") as f:

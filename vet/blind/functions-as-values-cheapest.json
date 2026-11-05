@@ -1,54 +1,54 @@
 {
-  "fingerprint": "a9c268223200",
+  "fingerprint": "0051c434688c",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def by_price(item):\n    return item[1]\n\n\ndef cheapest_first(items):\n    return sorted(items, key=by_price)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def by_price(item):\n    return item[1]\n\n\ndef cheapest_first(items):\n    return sorted(items, key=by_price)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def by_price(item):\n    return item[1]\n\n\ndef cheapest_first(items):\n    return sorted(items, key=by_price)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def by_price(item):\n    return item[1]\n\n\ndef cheapest_first(items):\n    return sorted(items, key=by_price)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def by_price(item):\n    return item[1]\n\n\ndef cheapest_first(items):\n    return sorted(items, key=by_price)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

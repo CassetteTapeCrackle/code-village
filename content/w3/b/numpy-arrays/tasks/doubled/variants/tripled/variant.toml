@@ -1,3 +1,7 @@
 id = "numpy-arrays-tripled"
 title = "Three times the snow"
 prompt = "`tripled(depths)` should return a list with every depth times 3. It repeats the list three times instead (that is what `*` does to a list): find and fix the bug."
+
+[cases]
+call = "tripled"
+args = ["list<int 0..9> 0..6"]

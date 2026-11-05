@@ -1,54 +1,54 @@
 {
-  "fingerprint": "42296442df0b",
+  "fingerprint": "4b07ff4004fe",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "import numpy as np\n\n\ndef row_means(rows):\n    grid = np.array(rows)\n    return grid.mean(axis=1).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "import numpy as np\n\n\ndef row_means(rows):\n    grid = np.array(rows)\n    return grid.mean(axis=1).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef row_means(rows):\n    grid = np.array(rows)\n    return grid.mean(axis=1).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "import numpy as np\n\n\ndef row_means(rows):\n    grid = np.array(rows)\n    return grid.mean(axis=1).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef row_means(rows):\n    grid = np.array(rows)\n    return grid.mean(axis=1).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

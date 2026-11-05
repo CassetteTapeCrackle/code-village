@@ -7,3 +7,6 @@ hints = ["Use an f-string with `{total:.2f}`.", "`print(f\"{name}: {score:.1f}\"
 gotcha = false
 
 strict = true
+
+[cases]
+stdin = ["word", "int 1..20", "int 1..9"]

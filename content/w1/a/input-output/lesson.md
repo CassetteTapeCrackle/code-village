@@ -5,6 +5,7 @@ world = "w1"
 region = "a"
 order = 2
 concepts = ["io"]
+teaches = ["f-string", "fn-input", "print-end"]
 remember = ["print() separates values with spaces; end=\"\" stops the new line.", "input() always returns a str, even when the user types digits.", "f\"{x}\" puts a value inside text; {x:.2f} shows 2 decimals."]
 [loot]
 id = "tin-whistle"
@@ -30,7 +31,7 @@ with contextlib.redirect_stdout(buf):
 assert buf.getvalue() == 'a 1 True\n'
 ```
 
-```python claim
+```python claim id=input-output-claim-1
 import contextlib
 import io
 
@@ -73,7 +74,7 @@ assert f'v={x + 1}' == 'v=4'
 assert f'{len("ab")}' == '2'
 ```
 
-```python claim
+```python claim id=input-output-claim-2
 score = 17.456
 assert f"{score:.1f}" == "17.5" and f"{score:.2f}" == "17.46" and f"{3 + 4}" == "7"
 ```

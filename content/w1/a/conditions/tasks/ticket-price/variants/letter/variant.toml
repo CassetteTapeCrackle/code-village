@@ -1,3 +1,7 @@
 id = "conditions-letter"
 title = "Letter grades"
 prompt = "Finish `letter(score)`: `\"A\"` from 16, `\"B\"` from 12 to 15, `\"C\"` from 10 to 11, and `\"F\"` under 10."
+
+[cases]
+call = "letter"
+args = ["int 0..20"]

@@ -5,6 +5,7 @@ world = "w3"
 region = "a"
 order = 4
 concepts = ["pandas-tables"]
+teaches = ["array-reductions", "io-stringio", "numpy-arrays", "numpy-statistics", "pandas-basics", "pandas-conversions", "pandas-groupby", "pandas-sort-values"]
 remember = ["pd.read_csv(io.StringIO(text)) turns CSV text into a table (a DataFrame); io.StringIO makes text behave like a file.", "df[\"col\"] is one column; df[df[\"col\"] > 3] keeps the rows where the test holds; .tolist() gives a plain list.", "df.groupby(\"team\")[\"col\"].max() answers once per group.", "One bad value (like ?) makes pandas read the whole column as text: + then joins instead of adding. pd.to_numeric(col, errors=\"coerce\") turns it back into numbers."]
 [loot]
 id = "survey-ledger"
@@ -38,7 +39,7 @@ assert isinstance(df, pd.DataFrame)
 assert df['a'].tolist() == [1, 3]
 ```
 
-```python claim
+```python claim id=pandas-tables-claim-1
 import io
 import pandas as pd
 
@@ -143,7 +144,7 @@ b = pd.read_csv(io.StringIO('n,p\na,1\nb,?\nc,3\n'))
 assert not pd.api.types.is_numeric_dtype(b['p'])
 ```
 
-```python claim
+```python claim id=pandas-tables-claim-2
 import io
 import pandas as pd
 
@@ -191,7 +192,7 @@ d = pd.DataFrame({'p': ['9', '10']}).sort_values('p')
 assert d['p'].tolist() == ['10', '9']
 ```
 
-```python claim
+```python claim id=pandas-tables-claim-3
 import pandas as pd
 
 assert pd.Series(["9", "10"]).sort_values().tolist() == ["10", "9"]

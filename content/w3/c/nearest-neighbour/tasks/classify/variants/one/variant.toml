@@ -1,3 +1,7 @@
 id = "nearest-neighbour-one"
 title = "One neighbour"
 prompt = "Finish `label_of(known, point)`: `known` is a list of `(point, label)` pairs. Return the label of the pair nearest to `point`."
+
+[cases]
+call = "label_of"
+args = ["list<tuple<tuple<int 0..9, int 0..9>, choice valley|summit>> 1..6", "tuple<int 0..9, int 0..9>"]

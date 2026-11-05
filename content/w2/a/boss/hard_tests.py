@@ -13,3 +13,10 @@ def test_two_storehouses():
     b = learner["Inventory"]("hazelnuts", 9, 3)
     a.sell(2)
     expect_equal((b.stock, b.sales, b.revenue), (9, 0, 0), "the hazelnuts after selling acorns")
+
+def test_sales_add_up():
+    """two sales add to the totals instead of replacing them"""
+    inv = learner["Inventory"]("acorns", 10, 2)
+    inv.sell(2)
+    inv.sell(3)
+    expect_equal((inv.stock, inv.sales, inv.revenue), (5, 5, 10), "sell(2), then sell(3), from 10 acorns at 2")

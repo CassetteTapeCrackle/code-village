@@ -5,6 +5,7 @@ world = "w2"
 region = "b"
 order = 6
 concepts = ["dunders"]
+teaches = []
 remember = ["__str__ returns the text print shows; __repr__ the text you see inside a list.", "__eq__ decides what == means for your objects.", "__len__ makes len(obj) work, and an empty object then counts as false.", "Dunder methods return their answer: a __str__ that prints breaks print."]
 [loot]
 id = "carved-nameplate"
@@ -63,7 +64,7 @@ with contextlib.redirect_stdout(buf):
 assert buf.getvalue() == 'friendly\n'
 ```
 
-```python claim
+```python claim id=dunders-claim-1
 class Fox:
     def __str__(self):
         return "friendly"
@@ -110,7 +111,7 @@ print(Coin(2) == Coin(2), Coin(2) == Coin(5), Coin(2) == 2)
 
 Writing `__eq__` has one cost: Python no longer lets those objects go in a set or be keys in a dict (`TypeError: unhashable type`). Sets and dicts find items by a number worked out from each object, and the old one, based on identity, would disagree with your new `==`.
 
-```python claim
+```python claim id=dunders-claim-2
 class Coin:
     def __init__(self, value):
         self.value = value
@@ -157,7 +158,7 @@ else:
     assert False
 ```
 
-```python claim
+```python claim id=dunders-claim-3
 class Badge:
     def __str__(self):
         print("Badge of Sam")

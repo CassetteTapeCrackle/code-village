@@ -1,54 +1,54 @@
 {
-  "fingerprint": "1f200a6d1e7c",
+  "fingerprint": "5a71f9131e52",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Sign:\n    def __init__(self, place):\n        self.place = place\n\n    def __str__(self):\n        return f\"To {self.place}\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

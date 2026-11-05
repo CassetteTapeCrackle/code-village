@@ -1,54 +1,54 @@
 {
-  "fingerprint": "ff410bbbe012",
+  "fingerprint": "09017449c326",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def copy_and_add(items, x):\n    new = items.copy()\n    new.append(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def copy_and_add(items, x):\n    new = items.copy()\n    new.append(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def copy_and_add(items, x):\n    new = items.copy()\n    new.append(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def copy_and_add(items, x):\n    new = items.copy()\n    new.append(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def copy_and_add(items, x):\n    new = items.copy()\n    new.append(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

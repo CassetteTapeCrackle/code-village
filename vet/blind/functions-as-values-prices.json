@@ -1,54 +1,54 @@
 {
-  "fingerprint": "6da763269b28",
+  "fingerprint": "edc7eed40cbb",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def with_tax(prices):\n    return list(map(lambda p: p * 1.5, prices))\n\n\nprint(with_tax([10, 20, 4]))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def with_tax(prices):\n    return list(map(lambda p: p * 1.5, prices))",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def with_tax(prices):\n    return list(map(lambda p: p * 1.5, prices))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def with_tax(prices):\n    return list(map(lambda p: p * 1.5, prices))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def with_tax(prices):\n    return list(map(lambda p: p * 1.5, prices))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

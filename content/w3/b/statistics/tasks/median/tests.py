@@ -6,3 +6,6 @@ def test_even():
 
 def test_one():
     expect_equal(learner["median"]([5]), 5, "median([5])")
+
+def test_longer_lists():
+    expect_equal([learner["median"]([5, 1, 4, 2, 3]), learner["median"]([6, 1, 5, 2, 4, 3])], [3, 3.5], "median([5, 1, 4, 2, 3]) and median([6, 1, 5, 2, 4, 3])")

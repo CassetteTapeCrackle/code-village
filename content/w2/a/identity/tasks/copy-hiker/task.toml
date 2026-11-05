@@ -5,3 +5,6 @@ title = "A hiker's twin"
 prompt = "Finish `copy_hiker(hiker)`: return a **new** `Hiker` with the same name and a copy of the pack, so packing the copy's bag leaves the original's alone."
 hints = ["Make the new object with `Hiker(...)`, and copy the list with `list(...)` or `.copy()`.", "Make a new `Hiker` from the old one's `name` and a copied `pack`. `list(...)` or `.copy()` makes an independent list."]
 gotcha = false
+
+[cases]
+none = "it takes objects of the learner's own classes, which a case cannot make"

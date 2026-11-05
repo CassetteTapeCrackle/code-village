@@ -5,6 +5,7 @@ world = "w1"
 region = "b"
 order = 7
 concepts = ["grids"]
+teaches = []
 remember = ["grid[r][c]: first the row, then the column.", "A loop inside a loop visits every cell.", "[[0] * 3] * 3 repeats one row three times; build each row on its own."]
 [loot]
 id = "slate-grid"
@@ -51,7 +52,7 @@ g[0][0] = 9
 assert g == [[9, 0, 0]] * 3
 ```
 
-```python claim
+```python claim id=grids-claim-1
 shared = [[0] * 3] * 3
 assert shared[0] is shared[1]
 own = [[0] * 3 for _ in range(3)]

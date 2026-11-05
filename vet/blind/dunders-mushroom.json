@@ -1,54 +1,54 @@
 {
-  "fingerprint": "bed0eb39405e",
+  "fingerprint": "81b7e4182e15",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Mushroom:\n    def __init__(self, name, spots):\n        self.name = name\n        self.spots = spots\n\n    def __str__(self):\n        return f\"{self.name} ({self.spots} spots)\"\n\n    def __eq__(self, other):\n        return self.name == other.name and self.spots == other.spots\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Mushroom:\n    def __init__(self, name, spots):\n        self.name = name\n        self.spots = spots\n\n    def __str__(self):\n        return f\"{self.name} ({self.spots} spots)\"\n\n    def __eq__(self, other):\n        return self.name == other.name and self.spots == other.spots\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Mushroom:\n    def __init__(self, name, spots):\n        self.name = name\n        self.spots = spots\n\n    def __str__(self):\n        return f\"{self.name} ({self.spots} spots)\"\n\n    def __eq__(self, other):\n        return self.name == other.name and self.spots == other.spots\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Mushroom:\n    def __init__(self, name, spots):\n        self.name = name\n        self.spots = spots\n\n    def __str__(self):\n        return f\"{self.name} ({self.spots} spots)\"\n\n    def __eq__(self, other):\n        return self.name == other.name and self.spots == other.spots\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Mushroom:\n    def __init__(self, name, spots):\n        self.name = name\n        self.spots = spots\n\n    def __str__(self):\n        return f\"{self.name} ({self.spots} spots)\"\n\n    def __eq__(self, other):\n        return self.name == other.name and self.spots == other.spots\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

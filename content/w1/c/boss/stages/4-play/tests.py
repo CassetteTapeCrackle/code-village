@@ -15,3 +15,7 @@ def test_confusion():
 def test_look_and_missing_item():
     out = run_program(["go north", "look", "take sword", "quit"])
     expect_equal(out, GATE + HALL + HALL + "You see: lamp\nThere is no sword here.\nBye!\n")
+
+def test_back_inventory_and_unknown_verbs():
+    out = run_program(["go north", "take lamp", "inventory", "go south", "open door", "xyzzy", "quit"])
+    expect_equal(out, GATE + HALL + "Taken: lamp\nSatchel: lamp\n" + GATE + "I don't understand.\nI don't understand.\nBye!\n")

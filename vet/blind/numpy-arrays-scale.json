@@ -1,54 +1,54 @@
 {
-  "fingerprint": "ffe14e48934e",
+  "fingerprint": "16ab3afb9480",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "import numpy as np\n\n\ndef scale(values, factor):\n    return np.array(values) * factor\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "import numpy as np\n\n\ndef scale(values, factor):\n    return np.array(values) * factor\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef scale(values, factor):\n    a = np.array(values)\n    return a * factor\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "import numpy as np\n\n\ndef scale(values, factor):\n    return np.array(values) * factor\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef scale(values, factor):\n    return np.array(values) * factor\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

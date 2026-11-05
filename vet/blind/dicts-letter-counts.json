@@ -1,54 +1,54 @@
 {
-  "fingerprint": "39b80cbbebdc",
+  "fingerprint": "f39d320d986d",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def letter_counts(word):\n    counts = {}\n    for letter in word:\n        counts[letter] = counts.get(letter, 0) + 1\n    return counts\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def letter_counts(word):\n    counts = {}\n    for letter in word:\n        counts[letter] = counts.get(letter, 0) + 1\n    return counts\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def letter_counts(word):\n    counts = {}\n    for letter in word:\n        counts[letter] = counts.get(letter, 0) + 1\n    return counts\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def letter_counts(word):\n    counts = {}\n    for letter in word:\n        counts[letter] = counts.get(letter, 0) + 1\n    return counts\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def letter_counts(word):\n    counts = {}\n    for letter in word:\n        counts[letter] = counts.get(letter, 0) + 1\n    return counts\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

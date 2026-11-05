@@ -5,3 +5,7 @@ title = "The first big one"
 prompt = "Finish `first_over(numbers, limit)`: it returns the first number bigger than `limit`, or `None` if there is none. `None` is Python's value for nothing."
 hints = ["Inside the loop, check each number against `limit`.", "When a number is bigger than `limit`, return it straight away; a `return` ends the loop and the function."]
 gotcha = false
+
+[cases]
+call = "first_over"
+args = ["list<int -20..20> 0..8", "int -20..20"]

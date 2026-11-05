@@ -1,54 +1,54 @@
 {
-  "fingerprint": "780919911e27",
+  "fingerprint": "b61eb450626d",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "from dataclasses import dataclass\n\n\n@dataclass\nclass Sapling:\n    name: str\n    height: int = 1\n\n    def grow(self, cm):\n        self.height += cm",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "from dataclasses import dataclass\n\n\n@dataclass\nclass Sapling:\n    name: str\n    height: int = 1\n\n    def grow(self, cm):\n        self.height += cm\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from dataclasses import dataclass\n\n@dataclass\nclass Sapling:\n    name: str\n    height: int = 1\n\n    def grow(self, cm):\n        self.height += cm\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "from dataclasses import dataclass\n\n\n@dataclass\nclass Sapling:\n    name: str\n    height: int = 1\n\n    def grow(self, cm):\n        self.height += cm\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "from dataclasses import dataclass\n\n@dataclass\nclass Sapling:\n    name: str\n    height: int = 1\n\n    def grow(self, cm):\n        self.height += cm\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

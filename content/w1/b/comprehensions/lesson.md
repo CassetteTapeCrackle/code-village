@@ -5,6 +5,7 @@ world = "w1"
 region = "b"
 order = 9
 concepts = ["comprehensions"]
+teaches = ["enumerate-start", "fn-enumerate", "fn-zip", "list-comprehension"]
 remember = ["[f(x) for x in items if test(x)] builds a list in one line.", "enumerate(items) gives (index, item); add start=1 to count from 1.", "zip stops at the shortest list, without any warning."]
 [loot]
 id = "weaving-loom"
@@ -29,7 +30,7 @@ assert list(enumerate(['a', 'b'], start=1)) == [(1, 'a'), (2, 'b')]
 assert list(zip([1, 2], ['a', 'b'])) == [(1, 'a'), (2, 'b')]
 ```
 
-```python claim
+```python claim id=comprehensions-claim-1
 assert list(enumerate("ab")) == [(0, "a"), (1, "b")]
 assert list(enumerate("ab", start=1)) == [(1, "a"), (2, "b")]
 assert [n for n in [1, 2, 3, 4] if n % 2 == 0] == [2, 4]

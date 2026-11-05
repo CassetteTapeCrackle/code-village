@@ -1,54 +1,54 @@
 {
-  "fingerprint": "3237ce11936e",
+  "fingerprint": "10a2cad4517b",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def find_all(items, target):\n    found = []\n    for i, x in enumerate(items):\n        if x == target:\n            found.append(i)\n    return found\n\n\nprint(find_all([7, 3, 9, 3], 3), find_all([7, 3, 9], 4))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def find_all(items, target):\n    found = []\n    for i, x in enumerate(items):\n        if x == target:\n            found.append(i)\n    return found\n\n\nprint(find_all([7, 3, 9, 3, 3], 3), find_all([7, 3, 9], 4))",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def find_all(items, target):\n    result = []\n    for i, x in enumerate(items):\n        if x == target:\n            result.append(i)\n    return result\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def find_all(items, target):\n    indices = []\n    for i, x in enumerate(items):\n        if x == target:\n            indices.append(i)\n    return indices\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def find_all(items, target):\n    indices = []\n    for i, x in enumerate(items):\n        if x == target:\n            indices.append(i)\n    return indices\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

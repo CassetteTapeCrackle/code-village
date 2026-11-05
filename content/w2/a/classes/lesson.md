@@ -5,6 +5,7 @@ world = "w2"
 region = "a"
 order = 1
 concepts = ["classes"]
+teaches = ["class-def"]
 remember = ["A class is a blueprint; calling it, like Fox(\"Sly\", 3), makes an object.", "__init__ runs when the object is made; self is that object.", "self.name = name stores an attribute on that one object.", "Every method's first parameter is self."]
 [loot]
 id = "acorn-badge"
@@ -57,7 +58,7 @@ f = Fox("Sly", 3)
 assert calls == [(f, "Sly", 3)]
 ```
 
-```python claim
+```python claim id=classes-claim-1
 class Fox:
     def __init__(self, name):
         self.name = name
@@ -123,7 +124,7 @@ a = A()
 assert a.describe() is a
 ```
 
-```python claim
+```python claim id=classes-claim-2
 class Fox:
     def describe():
         return "fox"

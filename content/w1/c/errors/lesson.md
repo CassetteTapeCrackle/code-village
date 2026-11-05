@@ -5,6 +5,7 @@ world = "w1"
 region = "c"
 order = 11
 concepts = ["errors"]
+teaches = ["exception-index-error", "exception-type-error", "exception-value-error", "exception-zero-division", "raise-statement", "try-except"]
 remember = ["Read a traceback from the bottom: the error's name and message, then the line it came from.", "try / except SomeError handles that one kind of error; a bare except: hides your bugs too.", "raise ValueError(\"message\") signals a problem yourself."]
 [loot]
 id = "magnifying-glass"
@@ -15,7 +16,7 @@ When something goes wrong, Python raises an **exception** and prints a traceback
 
 The usual suspects: `NameError` (a name that does not exist), `TypeError` (the wrong type, like `"3" + 4`), `ValueError` (the right type but a bad value, like `int("abc")`), `IndexError` and `KeyError`.
 
-```python claim
+```python claim id=errors-claim-1
 def error_from(make):
     try:
         make()
@@ -30,7 +31,7 @@ assert error_from(lambda: [1][5]) is IndexError
 assert error_from(lambda: {}["key"]) is KeyError
 ```
 
-`try` runs code that might fail, and `except SomeError` handles that kind of error only.
+`try` runs code that might fail, and `except SomeError` handles that kind of error only. Dividing by zero raises `ZeroDivisionError`.
 
 ```python claim id=auto-8f9ad33b3734
 try:

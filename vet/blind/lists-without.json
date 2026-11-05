@@ -1,54 +1,54 @@
 {
-  "fingerprint": "20e251243c47",
+  "fingerprint": "7358f0dc3c86",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def without(items, x):\n    new = items.copy()\n    new.remove(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def without(items, x):\n    new = items.copy()\n    new.remove(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def without(items, x):\n    new = items.copy()\n    new.remove(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def without(items, x):\n    new = items.copy()\n    new.remove(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def without(items, x):\n    new = items.copy()\n    new.remove(x)\n    return new\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

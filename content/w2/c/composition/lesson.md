@@ -5,6 +5,7 @@ world = "w2"
 region = "c"
 order = 10
 concepts = ["composition"]
+teaches = ["fn-sum"]
 remember = ["Inheritance says 'is a': an owl is an animal.", "Composition says 'has a': a keeper has animals, kept as attributes.", "The outer object hands work to its parts: self.engine.start().", "When in doubt, prefer having a part to being one."]
 [loot]
 id = "toolbelt"
@@ -57,7 +58,7 @@ print(cart.total(), len(cart.wheels))
 
 Inheriting just to reuse some methods is tempting, and it makes odd claims: if `Ranger` inherits from `Backpack`, a ranger **is** a backpack, and every backpack method becomes a ranger method. Give the ranger a backpack instead.
 
-```python claim
+```python claim id=composition-claim-1
 class Backpack:
     def add(self, item):
         pass

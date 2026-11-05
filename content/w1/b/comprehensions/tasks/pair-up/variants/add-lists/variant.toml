@@ -1,3 +1,7 @@
 id = "comprehensions-add-lists"
 title = "Add two lists"
 prompt = "`add_lists(a, b)` should add the lists item by item, counting a missing item as 0: `add_lists([1, 2, 3], [10, 20])` is `[11, 22, 3]`. It loses the last items: find and fix the bug. Loop over `range(max(len(a), len(b)))`: `max` gives the bigger of its values."
+
+[cases]
+call = "add_lists"
+args = ["list<int 0..9> 0..6", "list<int 0..9> 0..6"]

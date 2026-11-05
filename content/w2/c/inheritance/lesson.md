@@ -5,6 +5,7 @@ world = "w2"
 region = "c"
 order = 9
 concepts = ["inheritance"]
+teaches = ["fn-super"]
 remember = ["class Owl(Animal) makes Owl a kind of Animal: it gets all of Animal's methods.", "A method with the same name in the child overrides the parent's.", "super().describe() calls the parent's version from inside the child.", "A child's __init__ must call super().__init__(...), or the parent's attributes are never set."]
 [loot]
 id = "family-tree-sketch"
@@ -65,7 +66,7 @@ print(o.describe(), o.sound(), isinstance(o, Animal))
 
 Python looks for a method in the object's class first, then in its parent, then the parent's parent.
 
-```python claim
+```python claim id=inheritance-claim-1
 class A:
     pass
 
@@ -133,7 +134,7 @@ assert not hasattr(c, 'a')
 assert C.__init__ is not P.__init__
 ```
 
-```python claim
+```python claim id=inheritance-claim-2
 class Animal:
     def __init__(self, name):
         self.name = name

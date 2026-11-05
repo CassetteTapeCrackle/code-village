@@ -1,3 +1,6 @@
 id = "search-sort-insert"
 title = "Keep the list in order"
 prompt = "Finish `with_new(sorted_values, x)`: return a new sorted list with `x` added in its place, using `bisect.insort` on a copy (leave `sorted_values` unchanged)."
+
+[cases]
+none = "it needs an already sorted list, which a case cannot guarantee"

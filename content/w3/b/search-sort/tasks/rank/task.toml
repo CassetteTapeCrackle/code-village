@@ -5,3 +5,6 @@ title = "Your place in the race"
 prompt = "Finish `rank(sorted_times, time)`: `sorted_times` is sorted from fastest to slowest. Return how many times are faster (smaller) than `time`, with `bisect`."
 hints = ["The index `bisect_left` gives is how many values come before `time`.", "`bisect.bisect_left([10, 20, 30], 20)` is 1: the position where 20 would go."]
 gotcha = false
+
+[cases]
+none = "it needs an already sorted list, which a case cannot guarantee"

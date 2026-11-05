@@ -5,3 +5,9 @@ title = "Pack a backpack"
 prompt = "Finish `Backpack`: `pack(item)` already adds an item, and `count()` should return how many items are packed."
 hints = ["The items live in `self.items`, a list.", "`len()` counts the items in a list. Return the length of the list stored on `self`."]
 gotcha = false
+
+[cases]
+class = "Backpack"
+init = ["word"]
+methods = { pack = ["word"], count = [] }
+reads = ["owner", "items"]

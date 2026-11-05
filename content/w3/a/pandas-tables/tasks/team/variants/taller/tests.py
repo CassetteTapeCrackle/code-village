@@ -5,3 +5,6 @@ def test_two():
 
 def test_none():
     expect_equal(learner["count_taller"](TEXT, 200), 0, "count_taller(TEXT, 200)")
+
+def test_equal_height_is_not_taller():
+    expect_equal(learner["count_taller"](TEXT, 160), 1, "count_taller(TEXT, 160)")

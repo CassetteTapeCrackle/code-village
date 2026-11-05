@@ -1,54 +1,54 @@
 {
-  "fingerprint": "badd5cc69b8e",
+  "fingerprint": "f28b4ba53eca",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def greeting(name, word=\"Hello\"):\n    return word + \", \" + name + \"!\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def greeting(name, word=\"Hello\"):\n    return word + \", \" + name + \"!\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def greeting(name, word=\"Hello\"):\n    return f\"{word}, {name}!\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def greeting(name, word=\"Hello\"):\n    return word + \", \" + name + \"!\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def greeting(name, word=\"Hello\"):\n    return word + \", \" + name + \"!\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

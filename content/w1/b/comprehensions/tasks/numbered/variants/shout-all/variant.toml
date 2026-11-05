@@ -3,3 +3,7 @@ title = "Shout them all"
 prompt = "Finish `shout_all(words)` so `shout_all([\"tea\", \"jam\"])` returns `[\"TEA!\", \"JAM!\"]`."
 
 strict = true
+
+[cases]
+call = "shout_all"
+args = ["list<word> 0..6"]

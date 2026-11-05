@@ -5,6 +5,7 @@ world = "w2"
 region = "a"
 order = 3
 concepts = ["identity"]
+teaches = ["fn-isinstance"]
 remember = ["== asks: same value? is asks: the very same object?", "b = a gives a second name for the same object: change one, you change both.", "Your own objects are == only when they are the same object, until you write __eq__.", "isinstance(x, Fox) asks whether x is a Fox."]
 [loot]
 id = "twin-pinecones"
@@ -60,7 +61,7 @@ assert a == b
 assert a is not b
 ```
 
-```python claim
+```python claim id=identity-claim-1
 a = [1, 2]
 c = a
 c.append(3)
@@ -95,7 +96,7 @@ assert x == x
 assert x != y
 ```
 
-```python claim
+```python claim id=identity-claim-2
 class Fox:
     def __init__(self, name):
         self.name = name
@@ -143,7 +144,7 @@ x.remove(A(2))
 assert len(x) == 1
 ```
 
-```python claim
+```python claim id=identity-claim-3
 a, b = ["tent"], ["tent"]
 bags = [a, b]
 bags.remove(b)

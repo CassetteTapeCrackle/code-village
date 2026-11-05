@@ -1,3 +1,9 @@
 id = "class-attributes-canoe-seats"
 title = "Room in the canoe"
 prompt = "Write a class `Canoe` with a class attribute `capacity = 2`. `Canoe()` gets its own empty `crew` list, and `board(person)` adds a person and returns `True` while there is room, otherwise `False`."
+
+[cases]
+class = "Canoe"
+init = []
+methods = { board = ["word"] }
+reads = ["crew"]

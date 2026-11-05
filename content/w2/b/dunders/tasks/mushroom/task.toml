@@ -7,3 +7,9 @@ hints = ["`__str__` returns an f-string; `__eq__(self, other)` compares both att
 gotcha = false
 
 strict = true
+
+[cases]
+class = "Mushroom"
+init = ["word", "int 0..9"]
+methods = { __str__ = [] }
+reads = ["name", "spots"]

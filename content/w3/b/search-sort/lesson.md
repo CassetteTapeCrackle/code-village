@@ -5,6 +5,7 @@ world = "w3"
 region = "b"
 order = 7
 concepts = ["search-sort"]
+teaches = ["bisect-module"]
 remember = ["A linear search looks at every item in turn: fine for short lists, slow for long ones.", "A binary search halves a sorted list at each step: about 20 steps for a million items.", "bisect.bisect_left(sorted_list, x) gives where x is, or where it would go; bisect.insort adds x and keeps the list sorted.", "A binary search only works on sorted data: on an unsorted list it skips the part where the value is. Sort first."]
 [loot]
 id = "sorting-sieve"
@@ -39,7 +40,7 @@ assert count == 1000000
 
 When the list is **sorted**, there is a much faster way, like finding a word in a dictionary. Look at the middle item: if it is too small, the target can only be in the right half, so throw the left half away, and repeat. This is a **binary search**. Each step halves what is left, so a million items take about 20 steps.
 
-```python claim
+```python claim id=search-sort-claim-1
 items = list(range(1_000_000))
 most = 0
 for target in [-1, 0, 499_999, 999_999, 1_000_000]:
@@ -83,7 +84,7 @@ assert bisect_left([10, 20, 30], 5) == 0
 assert bisect_left([10, 20, 30], 99) == 3
 ```
 
-```python claim
+```python claim id=search-sort-claim-2
 import bisect
 
 assert bisect.bisect_left([1, 3, 3, 5], 3) == 1

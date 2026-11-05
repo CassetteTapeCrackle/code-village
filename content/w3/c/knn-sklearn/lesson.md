@@ -5,6 +5,7 @@ world = "w3"
 region = "c"
 order = 9
 concepts = ["knn-sklearn"]
+teaches = ["sklearn-fit-predict", "sklearn-neighbors"]
 remember = ["X is a list of rows (one list of features per example); y is the list of their labels.", "model = KNeighborsClassifier(n_neighbors=k), then model.fit(X, y) learns and model.predict(rows) labels new rows.", "predict gives a NumPy array: .tolist() turns it into a plain list.", "predict wants a list of rows, even for one point: model.predict([[x, y]]), not model.predict([x, y])."]
 [loot]
 id = "telescope-lens"
@@ -51,7 +52,7 @@ assert type(r.tolist()) is list
 assert r.tolist() == ['low', 'high']
 ```
 
-```python claim
+```python claim id=knn-sklearn-claim-1
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -89,7 +90,7 @@ assert m.fit([[0],[1]], [0,1]) is m
 assert KNeighborsClassifier(n_neighbors=1).fit([[0],[1]], [0,1]).predict([[1]]).tolist() == [1]
 ```
 
-```python claim
+```python claim id=knn-sklearn-claim-2
 from sklearn.neighbors import KNeighborsClassifier
 
 model = KNeighborsClassifier(n_neighbors=1)
@@ -119,7 +120,7 @@ except ValueError as e:
     assert 'Expected 2D array, got 1D array instead' in str(e)
 ```
 
-```python claim
+```python claim id=knn-sklearn-claim-3
 from sklearn.neighbors import KNeighborsClassifier
 
 model = KNeighborsClassifier(n_neighbors=1).fit([[1, 1], [9, 9]], ["fern", "pine"])

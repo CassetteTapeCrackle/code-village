@@ -1,54 +1,54 @@
 {
-  "fingerprint": "a4869f76ef86",
+  "fingerprint": "e15a7f064d5e",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def diagonal(grid):\n    values = []\n    for i in range(len(grid)):\n        values.append(grid[i][i])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def diagonal(grid):\n    values = []\n    for i in range(len(grid)):\n        values.append(grid[i][i])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def diagonal(grid):\n    values = []\n    for i in range(len(grid)):\n        values.append(grid[i][i])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def diagonal(grid):\n    values = []\n    for i in range(len(grid)):\n        values.append(grid[i][i])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def diagonal(grid):\n    values = []\n    for i in range(len(grid)):\n        values.append(grid[i][i])\n    return values\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

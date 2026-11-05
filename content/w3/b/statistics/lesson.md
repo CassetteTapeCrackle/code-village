@@ -5,6 +5,7 @@ world = "w3"
 region = "b"
 order = 6
 concepts = ["statistics"]
+teaches = []
 remember = ["The mean is the sum divided by the count; the median is the middle value once sorted (with an even count, the mean of the two middle ones).", "The range (max minus min) and the standard deviation say how spread out the values are.", "np.std(x, ddof=0) treats the values as everything there is; ddof=1 as a sample. pandas uses ddof=1 unless told otherwise, so always write ddof.", "One huge value drags the mean but hardly moves the median: use the median for a typical value."]
 [loot]
 id = "weather-vane"
@@ -33,7 +34,7 @@ import statistics
 assert statistics.median([1, 2, 3, 4]) == 2.5
 ```
 
-```python claim
+```python claim id=statistics-claim-1
 import numpy as np
 
 assert float(np.median([1, 2, 3, 4])) == 2.5 and float(np.median([3, 1, 2])) == 2.0
@@ -72,7 +73,7 @@ assert np.mean(x) == 2.5
 assert np.median(x) == 2.5
 ```
 
-```python claim
+```python claim id=statistics-claim-2
 import math
 import numpy as np
 import pandas as pd

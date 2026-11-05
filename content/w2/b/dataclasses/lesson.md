@@ -5,6 +5,7 @@ world = "w2"
 region = "b"
 order = 8
 concepts = ["dataclasses"]
+teaches = ["annotation", "dataclass-decorator", "dataclasses-import"]
 remember = ["@dataclass writes __init__, __repr__ and __eq__ from the fields you list.", "name: str names a field and notes its type; Python does not check the type.", "A list default needs field(default_factory=list).", "@dataclass(order=True) sorts by the fields, in order."]
 [loot]
 id = "seed-packet"
@@ -35,7 +36,7 @@ assert P(1, 2) == P(1, 2)
 assert repr(P(1, 2)) == 'P(x=1, y=2)'
 ```
 
-```python claim
+```python claim id=dataclasses-claim-1
 import sys
 from dataclasses import dataclass
 
@@ -86,7 +87,7 @@ assert f.name == 'name'
 assert f.type is str
 ```
 
-```python claim
+```python claim id=dataclasses-claim-2
 from dataclasses import dataclass
 
 @dataclass
@@ -125,7 +126,7 @@ assert not (P(2, 0) < P(1, 9))
 assert hasattr(P, '__lt__') and hasattr(P, '__le__') and hasattr(P, '__gt__') and hasattr(P, '__ge__')
 ```
 
-```python claim
+```python claim id=dataclasses-claim-3
 from dataclasses import dataclass
 
 @dataclass(order=True)
@@ -163,7 +164,7 @@ except ValueError:
 assert raised
 ```
 
-```python claim
+```python claim id=dataclasses-claim-4
 from dataclasses import dataclass
 
 try:
@@ -191,7 +192,7 @@ print(a, b)
 
 The `__eq__` a dataclass writes has the same cost as your own: its objects cannot go in a set.
 
-```python claim
+```python claim id=dataclasses-claim-5
 from dataclasses import dataclass
 
 @dataclass

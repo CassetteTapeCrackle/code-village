@@ -2,3 +2,4 @@ id = "registry-animals"
 title = "Animals and birds"
 prompt = "`Animal(name, species)` has `describe()` returning `\"Sly the fox\"`. `Bird(Animal)` also takes a `wingspan` and its `describe()` adds `\", wingspan 95 cm\"` to the animal's text. Remember `super().__init__(...)`."
 hp = 20
+requires = ["fn-super"]

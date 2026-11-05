@@ -172,15 +172,6 @@ claude = "agree"
 decided = "auto"
 
 [[sentence]]
-fp = "82ee434ec437"
-text = "What does the `\"w\"` mode do to a file that already exists?"
-where = "task:files-json-logbook:hint:0"
-status = "not-a-fact"
-deepseek = "agree"
-claude = "agree"
-decided = "auto"
-
-[[sentence]]
 fp = "f483c1ac346c"
 text = "`save_scores(path, scores)` should write every score on its own line."
 where = "task:files-json-scores:prompt"

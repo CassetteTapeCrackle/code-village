@@ -3601,3 +3601,43 @@ else:
 - why it is here: verdicts differ or doubt it (deepseek true, claude unsure)
 - deepseek: true, not-a-fact. This is an exercise target with dataset-specific baseline scores, not a general claim about Python or a library. The scores depend on the hidden data and split, so the sentence is an exercise description rather than a checkable Python fact.
 - claude: unsure, not-a-fact. The 0.8 target is an exercise requirement. The 0.5 and 0.4 baselines depend on the course's hidden dataset and split, so they cannot be checked here.
+
+## Hidden cases refuse an equal number of another type
+
+Decided by the owner on 2026-11-05: hidden cases keep comparing exactly, so `5` where the solution gives `5.0` is
+refused. No right answer was bent to fit it.
+
+## Feature order: prompts that introduce what no lesson teaches yet
+
+Every lesson now lists `teaches`, and code was rewritten to use only what is taught by then (owner, 2026-11-05:
+rewrite, never teach earlier). Decided by the owner on 2026-11-05:
+
+- errors-safe-divide: the errors lesson now says that dividing by zero raises `ZeroDivisionError`.
+- gradebook, stage 3-ranking: the lambda tip stays as the boss's stretch; the model solution ranks with a loop.
+- guessing-stone, stage 2: the prompt no longer names `strip` and `isdecimal`.
+
+## Hard mode states every rule
+
+Decided by the owner on 2026-11-05: hard mode only drops the starter code. Every rule a hard test checks is now in
+a stage prompt (gradebook, lost-satchel, songbird-playlist, ranger-registry, sales-report, data-summary,
+star-classifier), and the boss screen says "more tests" instead of "stricter tests".
+
+## blind: lost-satchel, attempt 0 <!-- session triage -->
+
+- decision: model-wrong (by the session)
+- note: The parse prompt shows this exact case, so the attempt is wrong: two word item: parse("take old lamp") returned ('take', 'old'), expected ('take', 'old lamp') ^
+
+## blind: lost-satchel, attempt 1 <!-- session triage -->
+
+- decision: model-wrong (by the session)
+- note: The parse prompt shows this exact case, so the attempt is wrong: two word item: parse("take old lamp") returned ('take', 'old'), expected ('take', 'old lamp') ^
+
+## blind: lost-satchel, attempt 2 <!-- session triage -->
+
+- decision: model-wrong (by the session)
+- note: The parse prompt shows this exact case, so the attempt is wrong: two word item: parse("take old lamp") returned ('take', 'old'), expected ('take', 'old lamp') ^
+
+## blind: lost-satchel, attempt 3 <!-- session triage -->
+
+- decision: model-wrong (by the session)
+- note: The parse prompt shows this exact case, so the attempt is wrong: two word item: parse("take old lamp") returned ('take', 'old'), expected ('take', 'old lamp') ^

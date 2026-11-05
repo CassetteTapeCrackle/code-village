@@ -5,6 +5,7 @@ world = "w3"
 region = "b"
 order = 5
 concepts = ["numpy-arrays"]
+teaches = []
 remember = ["np.array(values) makes an array: maths on it (a * 2, a + b) works on every value at once.", "grid.shape gives (rows, columns); grid[r, c] reads one value and grid[:, c] a whole column; sum(axis=0) adds down the columns.", "NumPy answers are NumPy numbers: float(x), int(x) and a.tolist() turn them into plain Python ones.", "* repeats a list but multiplies an array: [1, 2] * 2 is [1, 2, 1, 2], np.array([1, 2]) * 2 is [2 4]."]
 [loot]
 id = "abacus-beads"
@@ -32,7 +33,7 @@ assert (a + a).tolist() == [2, 4, 6]
 assert a.sum() == 6 and a.min() == 1 and a.max() == 3 and a.mean() == 2.0
 ```
 
-```python claim
+```python claim id=numpy-arrays-claim-1
 import numpy as np
 
 a = np.array([3, 5, 8])
@@ -70,7 +71,7 @@ g = np.array([[1, 2], [3, 4]])
 assert g.ndim == 2 and g.shape == (2, 2)
 ```
 
-```python claim
+```python claim id=numpy-arrays-claim-2
 import numpy as np
 
 grid = np.array([[1, 2, 3], [4, 5, 6]])
@@ -106,7 +107,7 @@ assert repr(x) == 'np.float64(2.0)'
 assert str([x]) == '[np.float64(2.0)]'
 ```
 
-```python claim
+```python claim id=numpy-arrays-claim-3
 import numpy as np
 
 m = np.array([1.5, 2.5]).mean()

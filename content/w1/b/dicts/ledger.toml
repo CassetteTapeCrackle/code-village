@@ -180,15 +180,6 @@ claude = "agree"
 decided = "auto"
 
 [[sentence]]
-fp = "4d2e20349257"
-text = "`sorted([\"b\", \"a\"])` gives `[\"a\", \"b\"]`: it takes any iterable, a set too."
-where = "task:dicts-unique-sorted:hint:1"
-status = "claim:auto-4d2e20349257"
-deepseek = "agree"
-claude = "agree"
-decided = "auto"
-
-[[sentence]]
 fp = "9bdb92ba6471"
 text = "Finish `in_both(a, b)`: it returns a sorted list of the values found in both lists, each only once."
 where = "task:dicts-in-both:prompt"

@@ -5,3 +5,6 @@ title = "Next year"
 prompt = "This program reads an age and should print `Next year you will be N`, with N one more than the age. It crashes: find and fix the bug."
 hints = ["Run it and read the error: what type does `input()` give?", "`int(\"7\")` gives `7`. Put `input()` inside `int(...)`."]
 gotcha = true
+
+[cases]
+stdin = ["int 0..99"]

@@ -1,54 +1,54 @@
 {
-  "fingerprint": "20f2ee0d30cc",
+  "fingerprint": "e9ecd64b2478",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        # call self.write for each line\n        for line in lines:\n            self.write(line)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        # call self.write for each line\n        for line in lines:\n            self.write(line)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        # call self.write for each line\n        for line in lines:\n            self.write(line)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        # call self.write for each line\n        for line in lines:\n            self.write(line)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Notebook:\n    def __init__(self):\n        self.lines = []\n\n    def write(self, line):\n        self.lines.append(line)\n\n    def write_lines(self, lines):\n        for line in lines:\n            self.write(line)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

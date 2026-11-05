@@ -51,7 +51,8 @@ Any task, variant or boss folder may also hold `wrong/*.py` (see below).
 
 `boss.md` front matter: `id`, `title`, `world`, `region`, `hard_checks`, `[trophy]`, `[hard_trophy]`; the
 text below it is the intro. A boss needs 3 to 5 stages (`stage.toml`: `id`, `title`, `prompt`, `hp`), and
-`solution.py` must pass every stage's tests and `hard_tests.py`. One boss per region, in a region with lessons.
+`solution.py` must pass every stage's tests and `hard_tests.py`. One boss per region, in a region with lessons. Hard mode only drops the starter code: every rule `hard_tests.py` checks must be stated in the boss
+text or a stage prompt, so a player never loses a Check on something the prompt did not say.
 
 ## Hidden cases
 

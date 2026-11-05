@@ -5,6 +5,7 @@ world = "w3"
 region = "a"
 order = 2
 concepts = ["generators"]
+teaches = ["fn-next", "generator-expression", "generator-yield"]
 remember = ["yield hands out one value and pauses the function; asking for the next value carries on from there.", "A generator makes its values on demand: loop over it, call next() on it, or give it to sum, max or list.", "(n * n for n in items) is a generator expression: a list comprehension in round brackets.", "A generator is used up after one pass: a second loop gets nothing. Keep a list if you need the values twice."]
 [loot]
 id = "spring-coil"
@@ -44,7 +45,7 @@ assert inspect.isgeneratorfunction(g)
 assert inspect.isgenerator(g())
 ```
 
-```python claim
+```python claim id=generators-claim-1
 ran = []
 
 def countdown(n):
@@ -79,7 +80,7 @@ next(x)
 assert log == [0]
 ```
 
-```python claim
+```python claim id=generators-claim-2
 import sys
 
 assert sys.getsizeof(n for n in range(1_000_000)) < 1000
@@ -104,7 +105,7 @@ print(sum(n * n for n in range(4)))
 
 `map` and `filter` from the last lesson work the same way, which is why they needed `list()` to show their results.
 
-```python claim
+```python claim id=generators-claim-3
 m = map(abs, [-1, -2])
 assert list(m) == [1, 2] and list(m) == []
 ```

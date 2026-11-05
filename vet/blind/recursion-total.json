@@ -1,54 +1,54 @@
 {
-  "fingerprint": "947316e5b5a9",
+  "fingerprint": "68e0eb42da11",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def total(numbers):\n    if not numbers:\n        return 0\n    return numbers[0] + total(numbers[1:])\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def total(numbers):\n    if len(numbers) == 0:\n        return 0\n    return numbers[0] + total(numbers[1:])\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def total(numbers):\n    if len(numbers) == 0:\n        return 0\n    return numbers[0] + total(numbers[1:])\n\nprint(total([1, 2, 3, 4]))\nprint(total([]))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def total(numbers):\n    if len(numbers) == 0:\n        return 0\n    return numbers[0] + total(numbers[1:])\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def total(numbers):\n    if len(numbers) == 0:\n        return 0\n    return numbers[0] + total(numbers[1:])\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

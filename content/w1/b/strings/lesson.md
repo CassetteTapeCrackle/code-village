@@ -5,6 +5,7 @@ world = "w1"
 region = "b"
 order = 5
 concepts = ["strings"]
+teaches = ["fn-len", "slicing", "str-case", "str-replace", "str-split", "str-strip"]
 remember = ["Index and slice strings: s[1:4] stops before index 4. Lists (next lesson) work the same way.", "Strings never change: s.upper() returns a new string, so keep it (s = s.upper()).", "split() turns a string into a list of words; strip() removes spaces and line breaks at both ends."]
 [loot]
 id = "ink-pot"
@@ -27,7 +28,7 @@ assert isinstance(s, Sequence)
 assert list(s) == ['a', 'b', 'c']
 ```
 
-```python claim
+```python claim id=strings-claim-1
 word = "village"
 assert word[0] == "v" and word[-1] == "e" and word[1:4] == "ill" and len(word[1:4]) == 3
 ```
@@ -48,7 +49,7 @@ assert s.replace('Hi', 'Yo') == ' \tYo there\n'
 assert s == ' \tHi there\n'
 ```
 
-```python claim
+```python claim id=strings-claim-2
 assert " \t fern\n ".strip() == "fern"
 assert "a  b\tc".split() == ["a", "b", "c"] and "a, b".split(", ") == ["a", "b"]
 ```
@@ -75,7 +76,7 @@ except TypeError:
 assert ok
 ```
 
-```python claim
+```python claim id=strings-claim-3
 name = "mika"
 loud = name.upper()
 assert name == "mika" and loud == "MIKA"

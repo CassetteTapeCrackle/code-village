@@ -1,54 +1,54 @@
 {
-  "fingerprint": "f55ce264c6c8",
+  "fingerprint": "b99c13c4930b",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def shout_all(words):\n    return [w.upper() + \"!\" for w in words]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

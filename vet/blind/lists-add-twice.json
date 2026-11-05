@@ -1,54 +1,54 @@
 {
-  "fingerprint": "a9d174d2d65b",
+  "fingerprint": "c9a539ad32b9",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def add_twice(items, x):\n    items.append(x)\n    items.append(x)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def add_twice(items, x):\n    items.append(x)\n    items.append(x)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def add_twice(items, x):\n    items.append(x)\n    items.append(x)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def add_twice(items, x):\n    items.append(x)\n    items.append(x)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def add_twice(items, x):\n    items.append(x)\n    items.append(x)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

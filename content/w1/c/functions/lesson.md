@@ -5,6 +5,7 @@ world = "w1"
 region = "c"
 order = 10
 concepts = ["functions"]
+teaches = ["fn-sorted", "function-def", "return-statement", "sort-key"]
 remember = ["return hands a value back; print only shows it, and the caller gets None.", "A default fills in a missing argument: def greet(name, greeting=\"Hello\").", "Never use a list as a default: use None and make the list inside the function.", "sorted(items, key=len) sorts by what the key function returns."]
 [loot]
 id = "recipe-card"
@@ -26,7 +27,7 @@ def f(a):
 assert callable(f) and f.__name__ == 'f' and f(1) == 1
 ```
 
-```python claim
+```python claim id=functions-claim-1
 def show(n):
     print(n)
 
@@ -68,7 +69,7 @@ assert sorted(data, key=lambda t: t[1], reverse=True) == [('a', 1), ('b', 1), ('
 assert sorted(['ccc', 'a', 'bb'], key=len) == ['a', 'bb', 'ccc']
 ```
 
-```python claim
+```python claim id=functions-claim-2
 assert sorted(["kiwi", "plum", "fig"], key=len) == ["fig", "kiwi", "plum"]
 
 def greet(name, greeting="Hello"):

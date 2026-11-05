@@ -1,54 +1,54 @@
 {
-  "fingerprint": "9364addc898c",
+  "fingerprint": "6b4694264f07",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def has_score(scores, s):\n    items = sorted(scores)\n    low, high = 0, len(items) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if items[mid] == s:\n            return True\n        if items[mid] < s:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return False\n\nprint(has_score([90, 20, 70, 40], 90))\nprint(has_score([90, 20, 70, 40], 50))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def has_score(scores, s):\n    scores = sorted(scores)\n    low, high = 0, len(scores) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if scores[mid] == s:\n            return True\n        if scores[mid] < s:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return False\n\n\nprint(has_score([90, 20, 70, 40], 90))\nprint(has_score([90, 20, 70, 40], 50))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def has_score(scores, s):\n    scores = sorted(scores)\n    low, high = 0, len(scores) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if scores[mid] == s:\n            return True\n        if scores[mid] < s:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return False\n\n\nprint(has_score([90, 20, 70, 40], 90), has_score([90, 20, 70, 40], 50))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def has_score(scores, s):\n    ordered = sorted(scores)\n    low, high = 0, len(ordered) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if ordered[mid] == s:\n            return True\n        if ordered[mid] < s:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return False\n\n\nprint(has_score([90, 20, 70, 40], 90))\nprint(has_score([90, 20, 70, 40], 50))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def has_score(scores, s):\n    scores = sorted(scores)\n    low, high = 0, len(scores) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if scores[mid] == s:\n            return True\n        if scores[mid] < s:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return False\n\n\nprint(has_score([90, 20, 70, 40], 90), has_score([90, 20, 70, 40], 50))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

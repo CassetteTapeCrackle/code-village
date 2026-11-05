@@ -5,6 +5,7 @@ world = "w2"
 region = "b"
 order = 7
 concepts = ["sortable"]
+teaches = ["fn-min-max", "sorted-reverse"]
 remember = ["sorted, max and min need to compare: give them a key, or a __lt__.", "key=f sorts by what f returns for each item.", "__lt__(self, other) answers: is self less than other?", "reverse=True puts the biggest first."]
 [loot]
 id = "ranked-feathers"
@@ -69,7 +70,7 @@ assert sorted(data, key=lambda t: t[1]) == [('c', 0), ('a', 1), ('b', 1)]
 assert sorted(data, key=lambda t: t[1], reverse=True) == [('a', 1), ('b', 1), ('c', 0)]
 ```
 
-```python claim
+```python claim id=sortable-claim-1
 words = ["kiwi", "fig", "plum"]
 assert sorted(words, key=len, reverse=True) == ["kiwi", "plum", "fig"]
 ```
@@ -105,7 +106,7 @@ class A:
 assert [a.v for a in sorted([A(2), A(1)])] == [1, 2]
 ```
 
-```python claim
+```python claim id=sortable-claim-2
 asked = []
 
 class Box:

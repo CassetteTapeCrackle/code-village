@@ -5,6 +5,7 @@ world = "w2"
 region = "b"
 order = 5
 concepts = ["properties"]
+teaches = ["property-decorator", "property-setter"]
 remember = ["@property lets a method be read like an attribute: plot.area, no brackets.", "A setter (@area.setter) runs on assignment and can refuse bad values.", "Store the real value under another name, like self._age, or the setter calls itself forever.", "A leading underscore means: please do not touch this from outside."]
 [loot]
 id = "bark-ledger"
@@ -115,7 +116,7 @@ else:
 assert t.d == 2
 ```
 
-```python claim
+```python claim id=properties-claim-1
 class Thermometer:
     def __init__(self, degrees):
         self.degrees = degrees
@@ -179,7 +180,7 @@ else:
     assert False
 ```
 
-```python claim
+```python claim id=properties-claim-2
 class Ranger:
     def __init__(self, age):
         self.age = age

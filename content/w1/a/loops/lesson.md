@@ -5,6 +5,7 @@ world = "w1"
 region = "a"
 order = 4
 concepts = ["loops"]
+teaches = ["break-continue", "fn-list", "fn-range", "for-loop", "while-loop"]
 remember = ["range(a, b) starts at a and stops before b: range(1, 4) is 1, 2, 3.", "for repeats once per item; while repeats as long as its condition is True.", "break leaves the loop at once; continue skips to the next round."]
 [loot]
 id = "knotted-rope"
@@ -29,7 +30,7 @@ for item in ['a', 'b', 'c']:
 assert n == 3
 ```
 
-```python claim
+```python claim id=loops-claim-1
 assert list(range(3)) == [0, 1, 2] and list(range(1, 4)) == [1, 2, 3] and list(range(0)) == []
 ```
 
@@ -70,7 +71,7 @@ for i in range(5):
 assert out == [0, 2]
 ```
 
-```python claim
+```python claim id=loops-claim-2
 seen = []
 for n in range(10):
     if n == 1:

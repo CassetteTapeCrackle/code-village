@@ -5,3 +5,9 @@ title = "Penguins waddle"
 prompt = "Finish `Penguin(Bird)`: it overrides `move()` so that `Penguin(\"Pip\").move()` returns `\"Pip waddles\"`, while other birds still fly."
 hints = ["Write `move` again inside `Penguin`; `self.name` is set by `Bird.__init__`.", "Override `move` in `Penguin` and return a sentence with the name and the word `waddles`."]
 gotcha = false
+
+[cases]
+class = "Penguin"
+init = ["word"]
+methods = { move = [] }
+reads = ["name"]

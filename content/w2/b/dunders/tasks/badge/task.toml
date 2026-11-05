@@ -7,3 +7,9 @@ hints = ["What does `__str__` give back to whoever called it?", "`__str__` must 
 gotcha = true
 
 strict = true
+
+[cases]
+class = "Badge"
+init = ["word"]
+methods = { __str__ = [] }
+reads = ["owner"]

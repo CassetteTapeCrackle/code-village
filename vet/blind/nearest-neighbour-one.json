@@ -1,54 +1,54 @@
 {
-  "fingerprint": "f5c7d8bba9e5",
+  "fingerprint": "985e7acbe5db",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "import math\n\n\ndef label_of(known, point):\n    best = min(known, key=lambda pair: math.dist(pair[0], point))\n    return best[1]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "import math\n\n\ndef label_of(known, point):\n    best = min(known, key=lambda pair: math.dist(pair[0], point))\n    return best[1]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import math\n\n\ndef label_of(known, point):\n    best = min(known, key=lambda pair: math.dist(pair[0], point))\n    return best[1]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "import math\n\n\ndef label_of(known, point):\n    best = min(known, key=lambda pair: math.dist(pair[0], point))\n    return best[1]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import math\n\n\ndef label_of(known, point):\n    best = min(known, key=lambda pair: math.dist(pair[0], point))\n    return best[1]\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

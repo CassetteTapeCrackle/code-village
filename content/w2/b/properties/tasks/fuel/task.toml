@@ -5,3 +5,7 @@ title = "A fuel gauge"
 prompt = "Finish the setter of `Stove.fuel`: it should store values from 0 to 100, and raise `ValueError(\"fuel must be 0 to 100\")` for anything outside."
 hints = ["Check the value first, then store it in `self._fuel`.", "Reject values below 0 or above 100 with the exact `ValueError` message from the prompt, then store the value in `self._fuel`."]
 gotcha = false
+requires = ["property-setter"]
+
+[cases]
+none = "the checks run on assignment to a property, which a case cannot make"

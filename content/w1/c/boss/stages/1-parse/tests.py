@@ -9,3 +9,7 @@ def test_one_word():
 
 def test_empty():
     expect_equal(learner["parse"](""), ("", ""), 'parse("")')
+
+def test_lower_case_exactly():
+    """the verb and noun come back in lower case, not just equal ignoring case"""
+    expect_equal(learner["parse"]("Take Lamp") == ("take", "lamp"), True, 'parse("Take Lamp") == ("take", "lamp")')

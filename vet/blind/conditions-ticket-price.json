@@ -1,54 +1,54 @@
 {
-  "fingerprint": "17e949b10193",
+  "fingerprint": "942a73275067",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def ticket_price(age):\n    if age < 4:\n        return 0\n    elif age < 18:\n        return 5\n    elif age < 65:\n        return 9\n    else:\n        return 6\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def ticket_price(age):\n    if age < 4:\n        return 0\n    elif age < 18:\n        return 5\n    elif age < 65:\n        return 9\n    else:\n        return 6\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def ticket_price(age):\n    if age < 4:\n        return 0\n    elif age < 18:\n        return 5\n    elif age < 65:\n        return 9\n    else:\n        return 6\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def ticket_price(age):\n    if age < 4:\n        return 0\n    elif age < 18:\n        return 5\n    elif age < 65:\n        return 9\n    else:\n        return 6\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def ticket_price(age):\n    if age < 4:\n        return 0\n    elif age < 18:\n        return 5\n    elif age < 65:\n        return 9\n    else:\n        return 6\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

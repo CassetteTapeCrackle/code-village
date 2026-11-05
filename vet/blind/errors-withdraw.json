@@ -1,54 +1,54 @@
 {
-  "fingerprint": "4d31ed85a86b",
+  "fingerprint": "439ac126ff76",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def withdraw(balance, amount):\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def withdraw(balance, amount):\n    # raise ValueError(\"not enough money\") when amount is bigger than balance\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
-      "input": "",
-      "temperature": 0.6
-    },
-    {
-      "code": "def withdraw(balance, amount):\n    # raise ValueError(\"not enough money\") when amount is bigger than balance\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
-      "visible": "pass",
-      "hidden": "none",
-      "failure": "",
-      "case": "",
-      "fuzz": "none",
-      "input": "",
-      "temperature": 1.0
-    },
-    {
-      "code": "def withdraw(balance, amount):\n    # raise ValueError(\"not enough money\") when amount is bigger than balance\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n\n\ntry:\n    print(withdraw(100, 30))\n    print(withdraw(100, 200))\nexcept ValueError as e:\n    print(e)\n",
-      "visible": "pass",
-      "hidden": "none",
-      "failure": "",
-      "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def withdraw(balance, amount):\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def withdraw(balance, amount):\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def withdraw(balance, amount):\n    if amount > balance:\n        raise ValueError(\"not enough money\")\n    return balance - amount\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

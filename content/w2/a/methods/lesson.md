@@ -5,6 +5,7 @@ world = "w2"
 region = "a"
 order = 2
 concepts = ["methods"]
+teaches = ["augmented-assignment"]
 remember = ["A method that answers returns a value and changes nothing.", "A method that changes updates attributes on self and usually returns None.", "self.other() calls another method on the same object.", "obj.method without () is the method itself, not its result."]
 [loot]
 id = "whittled-spoon"
@@ -31,7 +32,7 @@ print(w.coins, w.can_buy(8))
 
 `spend` changes the wallet; `can_buy` only answers. Keeping the two apart makes code easy to follow: you know which calls can change things.
 
-```python claim
+```python claim id=methods-claim-1
 class Wallet:
     def __init__(self):
         self.coins = 10
@@ -93,7 +94,7 @@ assert A().m != 5
 assert callable(A().m)
 ```
 
-```python claim
+```python claim id=methods-claim-2
 class Owl:
     def hoot(self):
         return ""

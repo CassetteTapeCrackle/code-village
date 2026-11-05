@@ -1,3 +1,7 @@
 id = "dataclasses-quiver-default"
 title = "A quiver for everyone"
 prompt = "`Quiver` should start with an empty `arrows` list of its own, but the program fails before any quiver is made: find and fix it with `field(default_factory=list)` (import `field` from `dataclasses`)."
+construct_words_ok = "the prompt only names the dataclasses module the fix comes from"
+
+[cases]
+none = "it only stores a fresh list, and the visible tests read it"

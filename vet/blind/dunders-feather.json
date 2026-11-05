@@ -1,54 +1,54 @@
 {
-  "fingerprint": "d8ebfbb69a84",
+  "fingerprint": "82438c5f0d1c",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "class Feather:\n    def __init__(self, colour):\n        self.colour = colour\n\n    def __str__(self):\n        return f\"a {self.colour} feather\"\n\n    def __eq__(self, other):\n        return self.colour == other.colour\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

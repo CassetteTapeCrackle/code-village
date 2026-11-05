@@ -1,54 +1,54 @@
 {
-  "fingerprint": "23799011c98f",
+  "fingerprint": "f8062d477839",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def add_item(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def add_item(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def add_item(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def add_item(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def add_item(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

@@ -1,54 +1,54 @@
 {
-  "fingerprint": "c0061355627d",
+  "fingerprint": "5b705ba078b5",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "import numpy as np\n\n\ndef column_totals(rows):\n    grid = np.array(rows)\n    return grid.sum(axis=0).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "import numpy as np\n\n\ndef column_totals(rows):\n    grid = np.array(rows)\n    return grid.sum(axis=0).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef column_totals(rows):\n    grid = np.array(rows)\n    return grid.sum(axis=0).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "import numpy as np\n\n\ndef column_totals(rows):\n    grid = np.array(rows)\n    return grid.sum(axis=0).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef column_totals(rows):\n    grid = np.array(rows)\n    return grid.sum(axis=0).tolist()\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

@@ -5,3 +5,7 @@ title = "A friendly default"
 prompt = "Write `greeting(name, word=\"Hello\")` that returns `\"Hello, Noa!\"` for `greeting(\"Noa\")` and `\"Hi, Sam!\"` for `greeting(\"Sam\", \"Hi\")`."
 hints = ["Put the default in the `def` line.", "Build the answer with an f-string: the `word`, then a comma and a space, then the `name`, then `!`."]
 gotcha = false
+
+[cases]
+call = "greeting"
+args = ["word", "word"]

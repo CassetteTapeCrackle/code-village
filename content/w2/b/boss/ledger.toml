@@ -51,12 +51,3 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
-
-[[sentence]]
-fp = "62a763d9e9ad"
-text = "`sorted_by_length()` returns the songs shortest first, using a key function."
-where = "stage:playlist-find:prompt"
-status = "not-a-fact"
-deepseek = "agree"
-claude = "agree"
-decided = "auto"
