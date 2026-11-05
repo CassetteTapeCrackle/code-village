@@ -29,12 +29,14 @@ def _ruff(paths: list[str]) -> str:
 
 
 def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
-    solutions = sorted(str(p) for p in content.root.rglob("solution.py"))
+    root = content.root.resolve()
+    solutions = sorted(str(p) for p in root.rglob("solution.py"))
     for line in _ruff(solutions).splitlines():
         path, sep, rest = line.partition(".py:")
         if not sep:
             continue
-        solution = Path(path + ".py")
-        where = str(solution.relative_to(content.root))
-        yield subject(where, fingerprint_text(solution.read_text()), solution, content.root).finding(
+        # ruff prints a path relative to the working folder when the file lies under it, absolute otherwise
+        solution = Path(path + ".py").resolve()
+        where = str(solution.relative_to(root))
+        yield subject(where, fingerprint_text(solution.read_text()), solution, root).finding(
             "solution-lint", f"the solution breaks a lint rule: {rest}")
