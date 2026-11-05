@@ -34,6 +34,7 @@ const lesson: Lesson = {
         starter: "print(1)",
         tests: "",
         cases: [],
+        requires: [],
         hints: [],
         gotcha: false,
         variants: [],
