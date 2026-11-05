@@ -750,7 +750,7 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - The owner sets `GITHUB_ISSUES_TOKEN` with wrangler before deploying; with no token, reports are stored and
   no issue is opened (test `no_token_stores_only`).
 
-- [ ] **Step 1 to 4:** Fail, implement, pass (`pnpm test:worker`). Commit, push.
+- [x] **Step 1 to 4:** Fail, implement, pass (`pnpm test:worker`). Commit, push.
 
 ### Task B.2: Button, notice, version note
 
@@ -759,17 +759,17 @@ Use the `refactor-safely` approach: move code, change nothing it does, tests gre
 - Modify: `src/lesson/LessonView.svelte`, `src/lesson/TaskPanel.svelte`, `src/lesson/CodePanel.svelte`,
   `src/net/api.ts`
 
-- [ ] **Step 1:** The button sits on every lesson and task, sends a button report with the current code. The
+- [x] **Step 1:** The button sits on every lesson and task, sends a button report with the current code. The
   line under the editor reads exactly: `If Check looks wrong, we send your code anonymously so we can fix it
   and improve the site.` The lesson footer reads: `Written for Python 3.12 and newer.`
-- [ ] **Step 2 to 4:** Component tests, implement, pass. Commit, push.
+- [x] **Step 2 to 4:** Component tests, implement, pass. Commit, push.
 
 ### Task B.3: Automatic report (after Session 2 is on `test-framework`)
 
-- [ ] **Step 1:** `git merge test-framework` into `report-button` (allowed: not `dev` or `main`).
-- [ ] **Step 2:** `src/learning/autoReport.ts`: `shouldAutoReport(result: CheckResult): boolean` is true when
+- [x] **Step 1:** `git merge test-framework` into `report-button` (allowed: not `dev` or `main`).
+- [x] **Step 2:** `src/learning/autoReport.ts`: `shouldAutoReport(result: CheckResult): boolean` is true when
   some visible result failed and the hidden summary passed. At most once per item per session. Tests first.
-- [ ] **Step 3:** Commit, push. The owner opens the pull request for `report-button` into `dev`.
+- [x] **Step 3:** Commit, push. The owner opens the pull request for `report-button` into `dev`.
 
 ---
 

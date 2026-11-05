@@ -1,4 +1,4 @@
-// The Env shape (DB, ASSETS, TURNSTILE_SITE_KEY, TURNSTILE_SECRET, IP_SALT) is generated into
+// The Env shape (DB, ASSETS, TURNSTILE_SITE_KEY, TURNSTILE_SECRET, IP_SALT, GITHUB_ISSUES_TOKEN) is generated into
 // worker-configuration.d.ts by `wrangler types`; regenerate it when wrangler.jsonc changes.
 export type Env = Cloudflare.Env;
 
@@ -9,4 +9,6 @@ export type Deps = {
   askModel: (messages: { role: string; content: string }[]) => Promise<ReadableStream<string>>;
   // Keeps the detached stream task alive after the response is returned.
   waitUntil: (work: Promise<unknown>) => void;
+  // Returns the new GitHub issue number, or null when it could not open one.
+  openIssue: (title: string, body: string, labels: string[]) => Promise<number | null>;
 };

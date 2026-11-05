@@ -19,6 +19,13 @@ const runner = vi.hoisted(() => ({
   retry: () => {},
 }));
 vi.mock("../runner/shared", () => ({ getRunner: () => runner }));
+const api = vi.hoisted(() => ({
+  sendReport: vi.fn(async () => ({ ok: true as const, data: { ok: true as const } })),
+}));
+vi.mock("../net/api", async (importOriginal) => ({
+  ...(await importOriginal<object>()),
+  sendReport: api.sendReport,
+}));
 
 const lesson: Lesson = {
   id: "values",
@@ -93,9 +100,48 @@ test("Run on the tour task moves the tour on without input lines", async () => {
   await vi.waitFor(() => expect(tour.state.step).toBe("check"));
 });
 
+test("the line under the editor says what an automatic report sends", () => {
+  render(TaskPanel, { lesson, task });
+  expect(
+    screen.getByText(
+      "If Check looks wrong, we send your code anonymously so we can fix it and improve the site.",
+    ),
+  ).toBeTruthy();
+});
+
+test("a task has its own report button", () => {
+  render(TaskPanel, { lesson, task });
+  expect(screen.getByRole("button", { name: "Report a problem" })).toBeTruthy();
+});
+
 test("Check sends the task itself as the suite, hidden cases included", async () => {
   vi.useRealTimers();
   render(TaskPanel, { lesson, task });
   await fireEvent.click(screen.getByRole("button", { name: "Check" }));
   await vi.waitFor(() => expect(runner.check).toHaveBeenCalledWith("print(1)", task));
+});
+
+test("code that passes every hidden case but fails a visible test is reported once, anonymously", async () => {
+  vi.useRealTimers();
+  const result = {
+    error: null,
+    results: [
+      { name: "adds", passed: false, message: "returned 3, expected 4", hidden: false },
+      { name: "hidden cases", passed: true, message: "", hidden: true },
+    ],
+  };
+  runner.check.mockResolvedValue({ kind: "ok", result });
+  render(TaskPanel, { lesson, task: { ...task, id: "values-auto-report" } });
+  await fireEvent.click(screen.getByRole("button", { name: "Check" }));
+  await vi.waitFor(() =>
+    expect(api.sendReport).toHaveBeenCalledWith({
+      kind: "auto",
+      item: "values-auto-report",
+      code: "print(1)",
+      message: "adds: returned 3, expected 4",
+    }),
+  );
+  await fireEvent.click(screen.getByRole("button", { name: "Check" }));
+  await vi.waitFor(() => expect(runner.check).toHaveBeenCalledTimes(2));
+  expect(api.sendReport).toHaveBeenCalledTimes(1);
 });

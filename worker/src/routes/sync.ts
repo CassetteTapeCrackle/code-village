@@ -12,7 +12,7 @@ const SIGNOUT = "Sign in again: this device is not registered.";
 
 const dayOf = (d: Date): string => d.toISOString().slice(0, 10);
 
-function knownTask(taskId: string): boolean {
+export function knownTask(taskId: string): boolean {
   return bundle.lessons.some((lesson) =>
     lesson.blocks.some(
       (block) =>

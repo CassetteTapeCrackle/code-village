@@ -1,5 +1,5 @@
 import { afterEach, expect, test, vi } from "vitest";
-import { api } from "./api";
+import { api, sendReport } from "./api";
 
 afterEach(() => vi.unstubAllGlobals());
 
@@ -33,5 +33,23 @@ test("a JSON error body is surfaced as error", async () => {
     status: 409,
     error: "That nickname is taken.",
     data: { error: "That nickname is taken." },
+  });
+});
+
+test("a report goes to the report endpoint with the build id and no token", async () => {
+  let seen: { url: string; init?: RequestInit } | undefined;
+  vi.stubGlobal("fetch", (input: RequestInfo | URL, init?: RequestInit) => {
+    seen = { url: String(input), init };
+    return Promise.resolve(new Response(JSON.stringify({ ok: true }), { status: 201 }));
+  });
+  await sendReport({ kind: "auto", item: "t1", code: "x = 1", message: "expected 2" });
+  expect(seen?.url).toBe("/api/report");
+  expect(new Headers(seen?.init?.headers).get("authorization")).toBeNull();
+  expect(JSON.parse(String(seen?.init?.body))).toEqual({
+    kind: "auto",
+    item: "t1",
+    code: "x = 1",
+    message: "expected 2",
+    build: __BUILD_ID__,
   });
 });

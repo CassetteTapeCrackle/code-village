@@ -7,6 +7,7 @@
   import { teacherFor, teacherLine, type TaskEvent } from "../learning/school";
   import { game } from "../store/progress.svelte";
   import Dialog from "../ui/Dialog.svelte";
+  import ReportButton from "../ui/ReportButton.svelte";
   import ExampleBlock from "./ExampleBlock.svelte";
   import PredictBlock from "./PredictBlock.svelte";
   import SeedToast from "./SeedToast.svelte";
@@ -74,6 +75,10 @@
       {/if}
     {/each}
     {#if justPassed && !wide}<SeedToast concepts={lesson.concepts} />{/if}
+    <footer class="lesson-footer">
+      <p>Written for Python 3.12 and newer.</p>
+      <ReportButton item={lesson.id} code="" />
+    </footer>
   </div>
   <aside class="remember paper px">
     <h2>Remember</h2>
@@ -238,6 +243,14 @@
   .next {
     width: 100%;
     margin-top: -8px;
+  }
+  .lesson-footer {
+    margin-top: 28px;
+    color: var(--dim);
+    font-size: 14px;
+  }
+  .lesson-footer p {
+    margin: 0;
   }
   .remember {
     margin-top: 28px;

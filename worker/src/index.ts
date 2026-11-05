@@ -1,6 +1,7 @@
 import type { Env } from "./env";
 import { askWorkersAi } from "./aiStream";
 import { deleteInactive, wrapLegacyRecoveryHashes } from "./cron";
+import { openGithubIssue } from "./github";
 import { handle } from "./router";
 import { verifyTurnstile } from "./turnstile";
 
@@ -11,6 +12,7 @@ export default {
       now: () => new Date(),
       askModel: (messages) => askWorkersAi(env, messages),
       waitUntil: (work) => ctx.waitUntil(work),
+      openIssue: (title, body, labels) => openGithubIssue(env.GITHUB_ISSUES_TOKEN, title, body, labels),
     });
   },
   scheduled(_controller, env, ctx) {

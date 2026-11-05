@@ -4,6 +4,7 @@ import { mcp } from "./mcp";
 import { agentTokenStatus, makeAgentToken, revokeAgentToken } from "./routes/agent";
 import { deleteMe, me, recover, register } from "./routes/identity";
 import { getSave, sync } from "./routes/sync";
+import { postReport } from "./routes/report";
 import { leaderboard, news, playerCard } from "./routes/social";
 import { tutor } from "./routes/tutor";
 
@@ -33,6 +34,7 @@ export async function handle(request: Request, env: Env, deps: Deps): Promise<Re
   if (url.pathname.startsWith("/api/players/") && request.method === "GET") return playerCard(request, env);
   if (url.pathname === "/api/news" && request.method === "GET") return news(request, env);
   if (url.pathname === "/api/tutor" && request.method === "POST") return tutor(request, env, deps);
+  if (url.pathname === "/api/report" && request.method === "POST") return postReport(request, env, deps);
   if (url.pathname.startsWith("/api/")) return fail(404, "No such API route.");
   return env.ASSETS.fetch(request);
 }
