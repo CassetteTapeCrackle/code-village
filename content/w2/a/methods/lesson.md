@@ -5,6 +5,7 @@ world = "w2"
 region = "a"
 order = 2
 concepts = ["methods"]
+teaches = ["augmented-assignment"]
 remember = ["A method that answers returns a value and changes nothing.", "A method that changes updates attributes on self and usually returns None.", "self.other() calls another method on the same object.", "obj.method without () is the method itself, not its result."]
 [loot]
 id = "whittled-spoon"

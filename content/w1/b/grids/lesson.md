@@ -5,6 +5,7 @@ world = "w1"
 region = "b"
 order = 7
 concepts = ["grids"]
+teaches = []
 remember = ["grid[r][c]: first the row, then the column.", "A loop inside a loop visits every cell.", "[[0] * 3] * 3 repeats one row three times; build each row on its own."]
 [loot]
 id = "slate-grid"

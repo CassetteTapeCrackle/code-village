@@ -5,6 +5,7 @@ world = "w2"
 region = "b"
 order = 8
 concepts = ["dataclasses"]
+teaches = ["annotation", "dataclass-decorator", "dataclasses-import"]
 remember = ["@dataclass writes __init__, __repr__ and __eq__ from the fields you list.", "name: str names a field and notes its type; Python does not check the type.", "A list default needs field(default_factory=list).", "@dataclass(order=True) sorts by the fields, in order."]
 [loot]
 id = "seed-packet"

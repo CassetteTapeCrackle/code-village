@@ -8,7 +8,10 @@ def scale_columns(rows):
         column = [row[c] for row in rows]
         low, high = min(column), max(column)
         for row in rows:
-            row[c] = 0.0 if high == low else (row[c] - low) / (high - low)
+            if high == low:
+                row[c] = 0.0
+            else:
+                row[c] = (row[c] - low) / (high - low)
     return rows
 
 

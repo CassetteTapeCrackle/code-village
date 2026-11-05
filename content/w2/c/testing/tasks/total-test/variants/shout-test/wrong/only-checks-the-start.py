@@ -3,4 +3,4 @@ def shout(word):
 
 
 def test_shout():
-    assert shout("hey").startswith("HEY")
+    assert shout("hey")[:3] == "HEY"

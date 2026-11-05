@@ -144,15 +144,6 @@ claude = "agree"
 decided = "auto"
 
 [[sentence]]
-fp = "f7a475c9eae2"
-text = "`sorted(names)` returns a new sorted list; `names.sort()` sorts in place."
-where = "task:search-sort-member:hint:1"
-status = "claim:auto-f7a475c9eae2"
-deepseek = "agree"
-claude = "agree"
-decided = "auto"
-
-[[sentence]]
 fp = "b48b811bc0d2"
 text = "`has_score(scores, s)` uses a binary search to say whether `s` is in `scores`."
 where = "task:search-sort-score:prompt"

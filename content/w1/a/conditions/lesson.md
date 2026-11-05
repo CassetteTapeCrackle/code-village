@@ -5,6 +5,7 @@ world = "w1"
 region = "a"
 order = 3
 concepts = ["conditions"]
+teaches = ["if-statement"]
 remember = ["== compares, = stores. if x = 3: is a syntax error.", "if / elif / else: only the first branch whose condition is True runs.", "Write a full comparison on each side: x == 1 or x == 2, never x == 1 or 2."]
 [loot]
 id = "brass-compass"

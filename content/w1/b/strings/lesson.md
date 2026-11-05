@@ -5,6 +5,7 @@ world = "w1"
 region = "b"
 order = 5
 concepts = ["strings"]
+teaches = ["fn-len", "slicing", "str-case", "str-replace", "str-split", "str-strip"]
 remember = ["Index and slice strings: s[1:4] stops before index 4. Lists (next lesson) work the same way.", "Strings never change: s.upper() returns a new string, so keep it (s = s.upper()).", "split() turns a string into a list of words; strip() removes spaces and line breaks at both ends."]
 [loot]
 id = "ink-pot"

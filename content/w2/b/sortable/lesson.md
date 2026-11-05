@@ -5,6 +5,7 @@ world = "w2"
 region = "b"
 order = 7
 concepts = ["sortable"]
+teaches = ["fn-min-max", "sorted-reverse"]
 remember = ["sorted, max and min need to compare: give them a key, or a __lt__.", "key=f sorts by what f returns for each item.", "__lt__(self, other) answers: is self less than other?", "reverse=True puts the biggest first."]
 [loot]
 id = "ranked-feathers"

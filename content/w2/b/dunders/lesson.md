@@ -5,6 +5,7 @@ world = "w2"
 region = "b"
 order = 6
 concepts = ["dunders"]
+teaches = []
 remember = ["__str__ returns the text print shows; __repr__ the text you see inside a list.", "__eq__ decides what == means for your objects.", "__len__ makes len(obj) work, and an empty object then counts as false.", "Dunder methods return their answer: a __str__ that prints breaks print."]
 [loot]
 id = "carved-nameplate"

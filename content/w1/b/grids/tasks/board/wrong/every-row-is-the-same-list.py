@@ -1,3 +1,6 @@
 def make_board(rows, cols):
     row = ["."] * cols
-    return [row for _ in range(rows)]
+    board = []
+    for _ in range(rows):
+        board.append(row)
+    return board

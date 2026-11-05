@@ -5,6 +5,7 @@ world = "w1"
 region = "a"
 order = 1
 concepts = ["values"]
+teaches = ["fn-bool", "fn-float", "fn-int", "fn-round", "fn-str", "fn-type", "function-def", "math-module", "return-statement"]
 remember = ["Every value has a type: int, float, str or bool. type(x) tells you which.", "= stores a value in a name; the name can point at a new value later.", "+ adds numbers but joins strings: \"3\" + \"4\" is \"34\".", "int(), float() and str() convert; int() cuts the decimals off, round() goes to the nearest whole number (a half goes to the even one: round(2.5) is 2).", "import math loads a module of extra tools: then math.sqrt(x) and math.floor(x) work."]
 [loot]
 id = "pebble-counter"

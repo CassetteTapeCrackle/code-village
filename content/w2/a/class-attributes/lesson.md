@@ -5,6 +5,7 @@ world = "w2"
 region = "a"
 order = 4
 concepts = ["class-attributes"]
+teaches = []
 remember = ["An attribute set on the class is shared by every object of that class.", "An attribute set through self belongs to that one object.", "A list on the class is one list for everybody: make lists in __init__.", "Change a shared counter through the class: Ranger.count += 1."]
 [loot]
 id = "shared-lantern-hook"

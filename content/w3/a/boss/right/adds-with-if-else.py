@@ -24,8 +24,13 @@ def totals(sales):
 
 def save_report(path, sales):
     by_product = totals(sales)
-    best = max(by_product, key=by_product.get) if by_product else None
-    report = {"total": sum(by_product.values()), "by_product": by_product, "best": best}
+    total = 0.0
+    for product in by_product:
+        total = total + by_product[product]
+    best = None
+    if by_product:
+        best = max(by_product, key=by_product.get)
+    report = {"total": total, "by_product": by_product, "best": best}
     with open(path, "w") as f:
         json.dump(report, f)
 

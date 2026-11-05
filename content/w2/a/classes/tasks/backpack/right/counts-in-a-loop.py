@@ -9,5 +9,5 @@ class Backpack:
     def count(self):
         total = 0
         for _ in self.items:
-            total += 1
+            total = total + 1
         return total

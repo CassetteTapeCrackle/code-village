@@ -3,7 +3,7 @@ concept = "conditions"
 kind = "fix"
 title = "Is it the weekend?"
 prompt = "`is_weekend(day)` should return `True` for `\"sat\"` or `\"sun\"` and `False` for any other day. It has a bug: find and fix it."
-hints = ["Try `is_weekend(\"mon\")`: what comes back?", "Each side of `or` needs its own comparison of `day`: one for `\"sat\"`, one for `\"sun\"`."]
+hints = ["Try `is_weekend(\"mon\")`: what comes back?", "Each side of `or` needs its own comparison of `day`: one for \"sat\", one for \"sun\"."]
 gotcha = true
 
 [cases]

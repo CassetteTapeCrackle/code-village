@@ -5,6 +5,7 @@ world = "w1"
 region = "c"
 order = 12
 concepts = ["recursion"]
+teaches = []
 remember = ["A recursive function calls itself on a smaller input.", "Every recursion needs a base case that answers without calling itself.", "With no base case, Python stops with RecursionError after about 1000 calls."]
 [loot]
 id = "nesting-dolls"

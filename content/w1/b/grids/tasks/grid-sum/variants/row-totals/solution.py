@@ -1,5 +1,8 @@
 def row_totals(grid):
     totals = []
     for row in grid:
-        totals.append(sum(row))
+        total = 0
+        for value in row:
+            total = total + value
+        totals.append(total)
     return totals

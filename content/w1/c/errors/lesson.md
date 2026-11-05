@@ -5,6 +5,7 @@ world = "w1"
 region = "c"
 order = 11
 concepts = ["errors"]
+teaches = ["exception-index-error", "exception-type-error", "exception-value-error", "exception-zero-division", "raise-statement", "try-except"]
 remember = ["Read a traceback from the bottom: the error's name and message, then the line it came from.", "try / except SomeError handles that one kind of error; a bare except: hides your bugs too.", "raise ValueError(\"message\") signals a problem yourself."]
 [loot]
 id = "magnifying-glass"

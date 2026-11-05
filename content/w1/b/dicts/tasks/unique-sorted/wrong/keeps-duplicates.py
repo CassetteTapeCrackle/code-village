@@ -1,2 +1,4 @@
 def unique_sorted(values):
-    return sorted(values)
+    result = list(values)
+    result.sort()
+    return result

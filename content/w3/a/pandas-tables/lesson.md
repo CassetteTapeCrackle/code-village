@@ -5,6 +5,7 @@ world = "w3"
 region = "a"
 order = 4
 concepts = ["pandas-tables"]
+teaches = ["array-reductions", "io-stringio", "numpy-arrays", "numpy-statistics", "pandas-basics", "pandas-conversions", "pandas-groupby", "pandas-sort-values"]
 remember = ["pd.read_csv(io.StringIO(text)) turns CSV text into a table (a DataFrame); io.StringIO makes text behave like a file.", "df[\"col\"] is one column; df[df[\"col\"] > 3] keeps the rows where the test holds; .tolist() gives a plain list.", "df.groupby(\"team\")[\"col\"].max() answers once per group.", "One bad value (like ?) makes pandas read the whole column as text: + then joins instead of adding. pd.to_numeric(col, errors=\"coerce\") turns it back into numbers."]
 [loot]
 id = "survey-ledger"

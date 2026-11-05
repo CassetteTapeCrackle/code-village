@@ -7,10 +7,22 @@ def hint(secret, guess):
 
 
 def read_guess(text):
-    text = text.strip()
-    if not text.isdecimal():
+    number = 0
+    seen = False
+    ended = False
+    for c in text:
+        if c == " ":
+            if seen:
+                ended = True
+            continue
+        if c not in "0123456789":
+            return None
+        if ended:
+            return None
+        number = number * 10 + int(c)
+        seen = True
+    if not seen:
         return None
-    number = int(text)
     if number < 1 or number >= 100:
         return None
     return number

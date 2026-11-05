@@ -5,6 +5,7 @@ world = "w1"
 region = "c"
 order = 10
 concepts = ["functions"]
+teaches = ["fn-sorted", "function-def", "return-statement", "sort-key"]
 remember = ["return hands a value back; print only shows it, and the caller gets None.", "A default fills in a missing argument: def greet(name, greeting=\"Hello\").", "Never use a list as a default: use None and make the list inside the function.", "sorted(items, key=len) sorts by what the key function returns."]
 [loot]
 id = "recipe-card"

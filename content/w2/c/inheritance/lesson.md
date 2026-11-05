@@ -5,6 +5,7 @@ world = "w2"
 region = "c"
 order = 9
 concepts = ["inheritance"]
+teaches = ["fn-super"]
 remember = ["class Owl(Animal) makes Owl a kind of Animal: it gets all of Animal's methods.", "A method with the same name in the child overrides the parent's.", "super().describe() calls the parent's version from inside the child.", "A child's __init__ must call super().__init__(...), or the parent's attributes are never set."]
 [loot]
 id = "family-tree-sketch"

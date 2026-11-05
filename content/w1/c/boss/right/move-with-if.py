@@ -5,11 +5,25 @@ ROOMS = {
 }
 
 
+def join_words(words, gap):
+    text = ""
+    for word in words:
+        if text != "":
+            text = text + gap
+        text = text + word
+    return text
+
+
 def parse(command):
     words = command.lower().split()
     if not words:
         return "", ""
-    return words[0], " ".join(words[1:])
+    noun = ""
+    for word in words[1:]:
+        if noun != "":
+            noun = noun + " "
+        noun = noun + word
+    return words[0], noun
 
 
 def move(rooms, here, direction):
@@ -23,7 +37,11 @@ def take(rooms, here, item, satchel):
     items = rooms[here]["items"]
     if item not in items:
         return False
-    items.remove(item)
+    kept = []
+    for thing in items:
+        if thing != item:
+            kept.append(thing)
+    rooms[here]["items"] = kept
     satchel.append(item)
     return True
 
@@ -40,7 +58,7 @@ def play():
         if verb == "look":
             print(ROOMS[here]["description"])
             if ROOMS[here]["items"]:
-                print("You see: " + ", ".join(ROOMS[here]["items"]))
+                print("You see: " + join_words(ROOMS[here]["items"], ", "))
         elif verb == "go":
             new = move(ROOMS, here, noun)
             if new == here:
@@ -58,7 +76,7 @@ def play():
                 print(f"There is no {noun} here.")
         elif verb == "inventory":
             if satchel:
-                print("Satchel: " + ", ".join(satchel))
+                print("Satchel: " + join_words(satchel, ", "))
             else:
                 print("Satchel: (empty)")
         else:

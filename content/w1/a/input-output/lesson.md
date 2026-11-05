@@ -5,6 +5,7 @@ world = "w1"
 region = "a"
 order = 2
 concepts = ["io"]
+teaches = ["f-string", "fn-input", "print-end"]
 remember = ["print() separates values with spaces; end=\"\" stops the new line.", "input() always returns a str, even when the user types digits.", "f\"{x}\" puts a value inside text; {x:.2f} shows 2 decimals."]
 [loot]
 id = "tin-whistle"

@@ -5,6 +5,7 @@ world = "w3"
 region = "c"
 order = 10
 concepts = ["train-test"]
+teaches = ["sklearn-metrics", "sklearn-model-selection", "sklearn-score"]
 remember = ["model.score(X, y) is the accuracy: the share of rows it labels right, from 0.0 to 1.0.", "train_test_split(X, y, test_size=0.25, random_state=0) keeps a quarter of the examples aside to test on; random_state makes the split the same every run.", "fit on the training part only, then score on the test part.", "Scoring a model on the data it learned from looks too good: a 1-neighbour model scores 1.0 there. Only the test score tells you how it does on new data."]
 [loot]
 id = "summit-pennant"

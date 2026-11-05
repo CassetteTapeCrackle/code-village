@@ -5,6 +5,7 @@ world = "w1"
 region = "b"
 order = 6
 concepts = ["lists"]
+teaches = ["copy-method", "list-append", "list-remove", "list-sort"]
 remember = [
   "A list keeps values in order; the first index is 0 and -1 is the last.",
   "append, remove and sort change the list itself and return None.",

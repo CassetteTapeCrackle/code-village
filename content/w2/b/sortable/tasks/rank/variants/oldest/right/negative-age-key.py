@@ -4,9 +4,9 @@ class Tree:
         self.age = age
 
 
-def age_of(tree):
-    return tree.age
+def negative_age(tree):
+    return -tree.age
 
 
 def oldest_first(trees):
-    return [t.kind for t in sorted(trees, key=lambda t: -t.age)]
+    return [t.kind for t in sorted(trees, key=negative_age)]

@@ -1,9 +1,9 @@
 {
-  "fingerprint": "0a51d3b0fece",
+  "fingerprint": "f4239b6fbc58",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def without_note(notes, note):\n    result = [n for n in notes if n is not note]\n    return result\n",
+      "code": "def without_note(notes, note):\n    result = []\n    skipped = False\n    for n in notes:\n        if not skipped and n is note:\n            skipped = True\n        else:\n            result.append(n)\n    return result\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -13,7 +13,27 @@
       "temperature": 0.2
     },
     {
-      "code": "def without_note(notes, note):\n    return [n for n in notes if n is not note]\n",
+      "code": "def without_note(notes, note):\n    result = []\n    skipped = False\n    for n in notes:\n        if not skipped and n is note:\n            skipped = True\n        else:\n            result.append(n)\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def without_note(notes, note):\n    result = []\n    skipped = False\n    for n in notes:\n        if not skipped and n is note:\n            skipped = True\n        else:\n            result.append(n)\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def without_note(notes, note):\n    result = []\n    skipped = False\n    for n in notes:\n        if not skipped and n is note:\n            skipped = True\n        else:\n            result.append(n)\n    return result\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -24,26 +44,6 @@
     },
     {
       "code": "def without_note(notes, note):\n    result = []\n    for n in notes:\n        if n is not note:\n            result.append(n)\n    return result\n",
-      "visible": "pass",
-      "hidden": "none",
-      "failure": "",
-      "case": "",
-      "fuzz": "none",
-      "input": "",
-      "temperature": 1.0
-    },
-    {
-      "code": "def without_note(notes, note):\n    result = []\n    for item in notes:\n        if item is not note:\n            result.append(item)\n    return result\n",
-      "visible": "pass",
-      "hidden": "none",
-      "failure": "",
-      "case": "",
-      "fuzz": "none",
-      "input": "",
-      "temperature": 0.6
-    },
-    {
-      "code": "def without_note(notes, note):\n    result = []\n    removed = False\n    for n in notes:\n        if not removed and n is note:\n            removed = True\n            continue\n        result.append(n)\n    return result\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

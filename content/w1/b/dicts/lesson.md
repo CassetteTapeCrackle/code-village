@@ -5,6 +5,7 @@ world = "w1"
 region = "b"
 order = 8
 concepts = ["dicts"]
+teaches = ["dict-get", "fn-set"]
 remember = ["A dict maps keys to values: d[key] reads, d[key] = value adds or changes.", "A missing key raises KeyError: check with in first, or use d.get(key, default).", "A tuple is a fixed group like (x, y); a set keeps each value once."]
 [loot]
 id = "key-ring"

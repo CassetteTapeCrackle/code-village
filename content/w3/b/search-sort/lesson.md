@@ -5,6 +5,7 @@ world = "w3"
 region = "b"
 order = 7
 concepts = ["search-sort"]
+teaches = ["bisect-module"]
 remember = ["A linear search looks at every item in turn: fine for short lists, slow for long ones.", "A binary search halves a sorted list at each step: about 20 steps for a million items.", "bisect.bisect_left(sorted_list, x) gives where x is, or where it would go; bisect.insort adds x and keeps the list sorted.", "A binary search only works on sorted data: on an unsorted list it skips the part where the value is. Sort first."]
 [loot]
 id = "sorting-sieve"

@@ -5,6 +5,7 @@ world = "w3"
 region = "a"
 order = 1
 concepts = ["functions-as-values"]
+teaches = ["fn-map-filter", "lambda"]
 remember = ["A function is a value: store it in a name, put it in a list, pass it to another function.", "lambda n: n * 2 is a small function with no name, written right where it is used.", "map(f, items) applies f to every item; filter(f, items) keeps the items where f gives True. Wrap them in list() to see the results.", "Pass a function by its name, without brackets: key=by_price, not key=by_price(items)."]
 [loot]
 id = "brass-pointer"

@@ -5,6 +5,7 @@ world = "w3"
 region = "a"
 order = 3
 concepts = ["files-json"]
+teaches = ["file-read", "file-write", "fn-open", "json-module", "with-statement"]
 remember = ["with open(path) as f: closes the file for you when the block ends, even after an error.", "\"r\" reads (the default), \"w\" writes a fresh file, \"a\" adds to the end of it.", "json.dump(data, f) saves lists, dicts, numbers, strings, True, False and None; json.load(f) reads them back.", "Opening with \"w\" empties the file first: use \"a\" to keep what is already there."]
 [loot]
 id = "field-logbook"

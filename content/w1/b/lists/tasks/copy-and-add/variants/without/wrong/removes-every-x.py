@@ -1,2 +1,6 @@
 def without(items, x):
-    return [i for i in items if i != x]
+    new = items.copy()
+    for i in items:
+        if i == x:
+            new.remove(i)
+    return new

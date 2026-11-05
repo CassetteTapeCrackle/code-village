@@ -5,6 +5,7 @@ world = "w1"
 region = "b"
 order = 9
 concepts = ["comprehensions"]
+teaches = ["enumerate-start", "fn-enumerate", "fn-zip", "list-comprehension"]
 remember = ["[f(x) for x in items if test(x)] builds a list in one line.", "enumerate(items) gives (index, item); add start=1 to count from 1.", "zip stops at the shortest list, without any warning."]
 [loot]
 id = "weaving-loom"

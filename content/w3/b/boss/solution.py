@@ -3,7 +3,7 @@ import numpy as np
 
 
 def clean(rows):
-    seen = set()
+    seen = []
     speeds = []
     for row in rows:
         time, value = row.split(",")
@@ -13,7 +13,7 @@ def clean(rows):
             speed = float(value)
         except ValueError:
             continue
-        seen.add(time)
+        seen.append(time)
         speeds.append(speed)
     return speeds
 

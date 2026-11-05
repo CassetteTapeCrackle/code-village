@@ -5,6 +5,7 @@ world = "w2"
 region = "c"
 order = 11
 concepts = ["testing"]
+teaches = ["assert-statement", "exception-assertion-error"]
 remember = ["assert condition, \"message\" stops with AssertionError when the condition is false.", "A test calls your code with inputs whose answers you already know.", "Test the edges too: zero, one item, an empty list, the limits.", "Never put brackets around assert's two parts: a tuple is always true."]
 [loot]
 id = "rangers-whistle"

@@ -3608,3 +3608,19 @@ The hidden cases compare exactly, so a correct answer that returns an equal numb
 
 - generators-average: a learner who writes `return statistics.mean(numbers)` is right, but `average([1])` returns `1` and the hidden case expects `1.0`, so the exact comparison refuses it. The right answer that showed this (`right/uses-statistics.py`) was removed from the item, because no lesson teaches `statistics` yet and the vocabulary check flags it (`unknown-feature`). Nothing was changed to fit the comparison; the item has a plain `sum` and `/` right answer instead.
 - Other right answers changed only to match a type comparison: none.
+
+## Feature order: prompts that introduce what no lesson teaches yet
+
+Every lesson now lists `teaches`, so the order check runs on the whole course. Code was rewritten to use only what
+is taught by then (owner's choice: rewrite, never teach earlier). These three remain the owner's call, since the
+fix would change a prompt or a lesson's text:
+
+- errors-safe-divide: the prompt asks for `except ZeroDivisionError`, and only this prompt names it (the lesson
+  shows it in hidden claims only). The errors lesson now lists `exception-zero-division` in `teaches` because the
+  learner meets it there. Consider one sentence in the lesson: dividing by zero raises `ZeroDivisionError`.
+- gradebook, stage 3-ranking: the prompt's tip teaches `sorted(pairs, key=lambda pair: ...)` in a World 1 region b
+  boss, before `sorted` (w1/c) and `lambda` (w3/a). The `requires = ["lambda", "sort-key"]` a cloud session added
+  on 2026-11-04 is removed again, and the model solution now ranks with a loop. A learner can still follow the tip.
+  Consider moving the tip, or keeping it as the boss's deliberate stretch.
+- guessing-stone, stage 2: the prompt names `strip` and `isdecimal` as tools, but `strip` is taught in w1/b and
+  `isdecimal` nowhere. The model solution now reads the number without them. Consider rewording the prompt.

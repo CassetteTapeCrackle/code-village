@@ -2,4 +2,3 @@ id = "gradebook-ranking"
 title = "The ranking"
 prompt = "`ranking(lines)` returns `(name, average)` pairs, best average first. Equal averages are in alphabetical order. Tip: `sorted(pairs, key=lambda pair: (-pair[1], pair[0]))` sorts by average, highest first, then by name. `lambda pair: ...` is a tiny one-line function, and the minus sign flips the order."
 hp = 40
-requires = ["lambda", "sort-key"]

@@ -5,6 +5,7 @@ world = "w2"
 region = "a"
 order = 3
 concepts = ["identity"]
+teaches = ["fn-isinstance"]
 remember = ["== asks: same value? is asks: the very same object?", "b = a gives a second name for the same object: change one, you change both.", "Your own objects are == only when they are the same object, until you write __eq__.", "isinstance(x, Fox) asks whether x is a Fox."]
 [loot]
 id = "twin-pinecones"

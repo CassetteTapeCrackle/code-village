@@ -3,7 +3,9 @@ class Bucket:
         self.litres = litres
 
     def pour(self, n):
-        self.litres = max(self.litres - n, 0)
+        self.litres = self.litres - n
+        if self.litres < 0:
+            self.litres = 0
 
     def is_dry(self):
         return self.litres < 0

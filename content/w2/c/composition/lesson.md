@@ -5,6 +5,7 @@ world = "w2"
 region = "c"
 order = 10
 concepts = ["composition"]
+teaches = ["fn-sum"]
 remember = ["Inheritance says 'is a': an owl is an animal.", "Composition says 'has a': a keeper has animals, kept as attributes.", "The outer object hands work to its parts: self.engine.start().", "When in doubt, prefer having a part to being one."]
 [loot]
 id = "toolbelt"

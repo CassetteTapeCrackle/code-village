@@ -5,6 +5,7 @@ world = "w3"
 region = "c"
 order = 9
 concepts = ["knn-sklearn"]
+teaches = ["sklearn-fit-predict", "sklearn-neighbors"]
 remember = ["X is a list of rows (one list of features per example); y is the list of their labels.", "model = KNeighborsClassifier(n_neighbors=k), then model.fit(X, y) learns and model.predict(rows) labels new rows.", "predict gives a NumPy array: .tolist() turns it into a plain list.", "predict wants a list of rows, even for one point: model.predict([[x, y]]), not model.predict([x, y])."]
 [loot]
 id = "telescope-lens"

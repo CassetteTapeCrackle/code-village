@@ -3,5 +3,5 @@ def numbered(items):
     n = 1
     for item in items:
         result.append(str(n) + ". " + item)
-        n += 1
+        n = n + 1
     return result
