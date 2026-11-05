@@ -1,0 +1,57 @@
+{
+  "fingerprint": "d910fad45b8d",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Quiver:\n    archer: str\n    arrows: list = field(default_factory=list)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Quiver:\n    archer: str\n    arrows: list = field(default_factory=list)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Quiver:\n    archer: str\n    arrows: list = field(default_factory=list)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Quiver:\n    archer: str\n    arrows: list = field(default_factory=list)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from dataclasses import dataclass, field\n\n\n@dataclass\nclass Quiver:\n    archer: str\n    arrows: list = field(default_factory=list)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -1,0 +1,10 @@
+# The triple starter already returns the answer.
+base = "good"
+expect = ["starter-passes"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/starter.py"
+text = '''
+def triple(n):
+    return n * 3
+'''

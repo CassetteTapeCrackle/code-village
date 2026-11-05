@@ -1,0 +1,57 @@
+{
+  "fingerprint": "4d896dac47b6",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Egg:\n    def __init__(self, colour):\n        self.colour = colour\n\n\nclass Nest:\n    def __init__(self):\n        self.eggs = []\n\n    def lay(self, egg):\n        self.eggs.append(egg)\n\n    def colours(self):\n        return [egg.colour for egg in self.eggs]\n\n\nnest = Nest()\nnest.lay(Egg(\"blue\"))\nnest.lay(Egg(\"white\"))\nprint(nest.colours(), len(nest.eggs))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Egg:\n    def __init__(self, colour):\n        self.colour = colour\n\n\nclass Nest:\n    def __init__(self):\n        self.eggs = []\n\n    def lay(self, egg):\n        self.eggs.append(egg)\n\n    def colours(self):\n        return [egg.colour for egg in self.eggs]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Egg:\n    def __init__(self, colour):\n        self.colour = colour\n\n\nclass Nest:\n    def __init__(self):\n        self.eggs = []\n\n    def lay(self, egg):\n        self.eggs.append(egg)\n\n    def colours(self):\n        return [egg.colour for egg in self.eggs]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Egg:\n    def __init__(self, colour):\n        self.colour = colour\n\n\nclass Nest:\n    def __init__(self):\n        self.eggs = []\n\n    def lay(self, egg):\n        self.eggs.append(egg)\n\n    def colours(self):\n        return [egg.colour for egg in self.eggs]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Egg:\n    def __init__(self, colour):\n        self.colour = colour\n\n\nclass Nest:\n    def __init__(self):\n        self.eggs = []\n\n    def lay(self, egg):\n        self.eggs.append(egg)\n\n    def colours(self):\n        return [egg.colour for egg in self.eggs]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

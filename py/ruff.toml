@@ -1,0 +1,2 @@
+# The harness follows the framework rules in tools/ruff.toml.
+extend = "../tools/ruff.toml"

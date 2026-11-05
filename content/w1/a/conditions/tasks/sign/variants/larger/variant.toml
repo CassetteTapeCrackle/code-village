@@ -1,3 +1,7 @@
 id = "conditions-larger"
 title = "The larger one"
 prompt = "Write `larger(a, b)` that returns the bigger of the two numbers (either one if they are equal)."
+
+[cases]
+call = "larger"
+args = ["int -50..50", "int -50..50"]

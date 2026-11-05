@@ -1,0 +1,16 @@
+# The sub stage has hp 0, so it takes no damage to beat.
+base = "good"
+expect = ["stage-hp-invalid"]
+
+[[file]]
+path = "w1/a/boss/stages/2-sub/stage.toml"
+text = '''
+id = "calc-sub"
+title = "Subtract"
+prompt = "Write `sub(a, b)`."
+hp = 0
+
+[cases]
+call = "sub"
+args = ["int -50..50", "int -50..50"]
+'''

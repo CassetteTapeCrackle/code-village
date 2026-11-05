@@ -1,3 +1,8 @@
 id = "numpy-arrays-fahrenheit"
 title = "Degrees for visitors"
 prompt = "Write `to_fahrenheit(celsius)`: it returns a NumPy array of the temperatures in the list `celsius`, each turned into Fahrenheit with `c * 9 / 5 + 32`."
+
+[cases]
+call = "to_fahrenheit"
+args = ["list<int -40..100> 1..6"]
+compare = "array"

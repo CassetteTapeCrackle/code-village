@@ -5,3 +5,7 @@ title = "Totals per column"
 prompt = "Finish `column_totals(rows)`: `rows` is a list of equal-length lists of numbers. Return a plain list with the total of each column."
 hints = ["`np.array(rows).sum(axis=0)` adds down the columns.", "End with `.tolist()` to give back a plain list."]
 gotcha = false
+
+[cases]
+call = "column_totals"
+args = ["list<list<int 0..9> 3..3> 1..5"]

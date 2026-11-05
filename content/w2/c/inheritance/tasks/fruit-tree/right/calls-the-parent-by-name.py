@@ -1,0 +1,16 @@
+class Tree:
+    def __init__(self, kind, height):
+        self.kind = kind
+        self.height = height
+
+    def describe(self):
+        return f"{self.kind}, {self.height} m"
+
+
+class FruitTree(Tree):
+    def __init__(self, kind, height, fruit):
+        super().__init__(kind, height)
+        self.fruit = fruit
+
+    def describe(self):
+        return Tree.describe(self) + f", gives {self.fruit}"

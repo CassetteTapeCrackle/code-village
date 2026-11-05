@@ -1,0 +1,55 @@
+# The add stage prompt does not name the parameters but its test passes them by keyword (a=, b=).
+base = "good"
+expect = ["test-keyword-unnamed"]
+
+[[file]]
+path = "w1/a/boss/stages/1-add/stage.toml"
+text = '''
+id = "calc-add"
+title = "Add"
+prompt = "Write `add` to add two numbers."
+hp = 10
+
+[cases]
+call = "add"
+args = ["int -50..50", "int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/boss/stages/1-add/tests.py"
+text = '''
+def test_add():
+    expect_equal(learner["add"](a=2, b=3), 5, "add(2, 3)")
+'''
+
+[[file]]
+path = "w1/a/boss/ledger.toml"
+text = '''
+[[sentence]]
+fp = "1257fcb833af"
+text = "Build a tiny calculator."
+where = "boss:intro"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "a5fc894f837e"
+text = "Write `add` to add two numbers."
+where = "stage:calc-add:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "765e4d096d09"
+text = "Write `sub(a, b)`."
+where = "stage:calc-sub:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "740c2c34c844"
+text = "Write `mul(a, b)`."
+where = "stage:calc-mul:prompt"
+status = "not-a-fact"
+decided = "owner"
+'''

@@ -1,0 +1,285 @@
+{
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "cff90d44a04c",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`a is not b` is True when a and b are different objects, even if they are equal.",
+      "assert": "a = {'t': 1}\nb = {'t': 1}\nassert a == b\nassert a is not b\nassert not (a is not a)"
+    },
+    {
+      "fp": "ea76d1fbdd11",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "`==` calls `__eq__`, which usually compares values. It leaves out that `__eq__` can be defined to mean anything, and that default objects compare by identity.",
+      "assert": null
+    },
+    {
+      "fp": "7527abbbf463",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`is` tests identity: two equal lists built separately are not the same object.",
+      "assert": "a = [1]\nb = [1]\nc = a\nassert a is c\nassert a is not b"
+    },
+    {
+      "fp": "f4a3e6cca780",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "It holds for mutable objects changed in place, such as lists. It leaves out that rebinding `a` does not change `b`, and that immutable objects cannot be changed.",
+      "assert": null
+    },
+    {
+      "fp": "5d8027403670",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Without `__eq__`, the default equality is identity, so two separate instances with the same data are not equal.",
+      "assert": "class Fox:\n    def __init__(self, n):\n        self.n = n\na = Fox(1)\nb = Fox(1)\nassert a != b\nassert a == a\nclass Fox2(Fox):\n    def __eq__(self, o):\n        return self.n == o.n\nassert Fox2(1) == Fox2(1)"
+    },
+    {
+      "fp": "f77235d305e6",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`isinstance(x, Fox)` is True when x is a Fox (or an instance of a subclass).",
+      "assert": "class Fox:\n    pass\nclass Dog:\n    pass\nassert isinstance(Fox(), Fox)\nassert not isinstance(Dog(), Fox)"
+    },
+    {
+      "fp": "885304e01b50",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "A useful two-way split for beginners. It leaves out methods that both change the object and return a value, such as `list.pop`.",
+      "assert": null
+    },
+    {
+      "fp": "2cd6733225ee",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Describes query-style methods. It ignores methods that return a value but also have side effects.",
+      "assert": null
+    },
+    {
+      "fp": "c65defaa3deb",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Hedged with 'usually', so it is fine. It leaves out mutators that return a value, like `pop`.",
+      "assert": null
+    },
+    {
+      "fp": "e08b054d7412",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the example class in the lesson, not general Python behavior.",
+      "assert": null
+    },
+    {
+      "fp": "eeab6265f9fb",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A design recommendation: separate methods that change state from methods that only answer.",
+      "assert": null
+    },
+    {
+      "fp": "1b5c2447ba93",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction describing the class to write.",
+      "assert": null
+    },
+    {
+      "fp": "2cd2f1d6673d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint describing the exercise's methods.",
+      "assert": null
+    },
+    {
+      "fp": "049e985328db",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint telling the learner how to implement `use`.",
+      "assert": null
+    },
+    {
+      "fp": "c8debc79092c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint telling the learner how to implement `is_empty`.",
+      "assert": null
+    },
+    {
+      "fp": "afaaba2c168b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction describing the class to write.",
+      "assert": null
+    },
+    {
+      "fp": "3b1d55cfd3ea",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`max` returns the larger of its arguments.",
+      "assert": "assert max(3, 7) == 7\nassert max(-2, 0) == 0\nassert max(5, 5) == 5"
+    },
+    {
+      "fp": "ca66e17ab7cf",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Inside a method, `self.other()` calls another method on the same object.",
+      "assert": "class A:\n    def a(self):\n        return 1\n    def b(self):\n        return self.a() + 1\nassert A().b() == 2"
+    },
+    {
+      "fp": "0648cf98bb69",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Describes the benefit of reuse (avoiding duplication), a design principle rather than a language behavior.",
+      "assert": null
+    },
+    {
+      "fp": "4d830e6bcbc8",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "d6d6eceab853",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint telling the learner to loop.",
+      "assert": null
+    },
+    {
+      "fp": "0e18880a4989",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint telling the learner how to write `add_all`.",
+      "assert": null
+    },
+    {
+      "fp": "4f8caad3db41",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "5891ff3f2606",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A method is only called when followed by parentheses; without them you get the method object.",
+      "assert": "class A:\n    def m(self):\n        return 5\nassert A().m() == 5\nassert A().m != 5\nassert callable(A().m)"
+    },
+    {
+      "fp": "8e8dce7e0d78",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A bound method object is truthy, so `if obj.method:` is always taken.",
+      "assert": "class A:\n    def m(self):\n        return False\nassert bool(A().m) is True\nassert bool(A().m()) is False"
+    },
+    {
+      "fp": "8f5709ebd6df",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise statement describing the required behavior.",
+      "assert": null
+    },
+    {
+      "fp": "6a78de3a04bb",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the bug in the exercise and asks the learner to fix it.",
+      "assert": null
+    },
+    {
+      "fp": "29ce29c1c50f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A question and instruction to the learner.",
+      "assert": null
+    },
+    {
+      "fp": "c4134f4158da",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Parentheses call the method; without them you get the method object.",
+      "assert": "class K:\n    def is_hot(self):\n        return False\nk = K()\nassert k.is_hot() is False\nassert callable(k.is_hot)\nassert k.is_hot is not False\nassert type(k.is_hot).__name__ == 'method'"
+    },
+    {
+      "fp": "714b9f94b2e5",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise statement describing the required behavior.",
+      "assert": null
+    },
+    {
+      "fp": "488e3be4b6be",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the bug in the exercise and asks the learner to fix it.",
+      "assert": null
+    },
+    {
+      "fp": "5144fa2f620c",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Describes the lesson's 'answering' method category. It leaves out methods that return a value and also change state.",
+      "assert": null
+    },
+    {
+      "fp": "f5731ae902c1",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Describes the lesson's 'changing' method category, hedged with 'usually'. It leaves out mutators that return a value.",
+      "assert": null
+    },
+    {
+      "fp": "2a1e80a3418d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`self.other()` inside a method calls another method of the same instance.",
+      "assert": "class A:\n    def other(self):\n        return 'o'\n    def m(self):\n        return self.other()\nassert A().m() == 'o'"
+    },
+    {
+      "fp": "9bfc2a7bb292",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Without parentheses you get the bound method object, not the value it returns.",
+      "assert": "class A:\n    def m(self):\n        return 3\na = A()\nassert a.m != 3\nassert a.m() == 3\nassert a.m.__func__ is A.m"
+    },
+    {
+      "fp": "afe630a854c6",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Describes a common kind of data-holding class in a loose way. It does not claim all such classes need these three methods.",
+      "assert": null
+    },
+    {
+      "fp": "4aa42932afba",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "By default `@dataclass` generates `__init__`, `__repr__` and `__eq__` from the annotated fields.",
+      "assert": "from dataclasses import dataclass\n@dataclass\nclass P:\n    x: int\n    y: int\nassert '__init__' in P.__dict__\nassert '__repr__' in P.__dict__\nassert '__eq__' in P.__dict__\nassert P(1, 2) == P(1, 2)\nassert repr(P(1, 2)) == 'P(x=1, y=2)'"
+    },
+    {
+      "fp": "e2b98438f996",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The from-import loads the module but binds only the name `dataclass` in the importing namespace.",
+      "assert": "import sys\nns = {}\nexec('from dataclasses import dataclass', ns)\nassert 'dataclasses' in sys.modules\nassert 'dataclass' in ns\nassert 'dataclasses' not in ns"
+    },
+    {
+      "fp": "163b554ae513",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In a dataclass, an annotated name like `name: str` defines a field with that type annotation.",
+      "assert": "from dataclasses import dataclass, fields\n@dataclass\nclass P:\n    name: str\nf = fields(P)[0]\nassert f.name == 'name'\nassert f.type is str"
+    },
+    {
+      "fp": "40ba8c023c38",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Dataclass annotations are not enforced at runtime; a wrong type is accepted.",
+      "assert": "from dataclasses import dataclass\n@dataclass\nclass P:\n    name: str\np = P(123)\nassert p.name == 123"
+    }
+  ]
+}

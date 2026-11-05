@@ -1,4 +1,4 @@
 id = "sales-report-file"
 title = "Keep the report"
-prompt = "`save_report(path, sales)` writes a JSON report to `path`: `{\"total\": ..., \"by_product\": totals(sales), \"best\": the product that brought in the most}`. `load_report(path)` reads it back as a dict. `json.dump` refuses NumPy whole numbers (like `numpy.int64`) and NumPy `True`/`False`, so turn every number into a plain `int` or `float`."
+prompt = "`save_report(path, sales)` writes a JSON report to `path`: `{\"total\": ..., \"by_product\": totals(sales), \"best\": the product that brought in the most}`. With no sales, `total` is `0` and `best` is `None`. `load_report(path)` reads it back as a dict. `json.dump` refuses NumPy whole numbers (like `numpy.int64`) and NumPy `True`/`False`, so turn every number into a plain `int` or `float`."
 hp = 35

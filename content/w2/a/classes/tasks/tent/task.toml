@@ -5,3 +5,6 @@ title = "Pitch a tent"
 prompt = "Write a class `Tent` whose `__init__(self, owner, size)` stores `owner` and `size` as attributes: `Tent(\"Noa\", 2).owner` is `\"Noa\"`."
 hints = ["Inside `__init__`, store each value on `self`.", "For each parameter, store it on `self` under the same name: `owner` and `size`."]
 gotcha = false
+
+[cases]
+none = "it only stores what it is given, and the visible tests read each attribute"

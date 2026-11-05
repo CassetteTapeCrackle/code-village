@@ -1,0 +1,270 @@
+[[sentence]]
+fp = "b71611ef8425"
+text = "To double every price in a list, you write a loop or a comprehension."
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b4f2062a47d1"
+text = "**NumPy** gives you the **array**: a list of numbers where maths works on every value at once."
+where = "text:0"
+status = "simplification"
+reason = "A NumPy array is a fixed-type container of numbers with element-wise maths. It is not literally a Python list, and it can hold other types too."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "adb4b5b26c03"
+text = "`a * 2` doubles each value, `a + a` adds the values pair by pair, and arrays have `sum`, `min`, `max` and `mean` built in."
+where = "text:2"
+status = "claim:auto-adb4b5b26c03"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "21814a38487e"
+text = "Write `scale(values, factor)`: it returns a NumPy array with every value of the list `values` multiplied by `factor`."
+where = "task:numpy-arrays-scale:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1f20c27953bf"
+text = "Make an array first: `np.array(values)`."
+where = "task:numpy-arrays-scale:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3120ac69ec57"
+text = "An array multiplies element by element: `np.array([1, 2]) * 3` scales each value."
+where = "task:numpy-arrays-scale:hint:1"
+status = "claim:auto-3120ac69ec57"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a0104d61e8d0"
+text = "Write `to_fahrenheit(celsius)`: it returns a NumPy array of the temperatures in the list `celsius`, each turned into Fahrenheit with `c * 9 / 5 + 32`."
+where = "task:numpy-arrays-fahrenheit:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2efaabfaec35"
+text = "An array can have rows and columns."
+where = "text:5"
+status = "claim:auto-2efaabfaec35"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "46f2c90e43fe"
+text = "`shape` tells you how many of each."
+where = "text:5"
+status = "claim:auto-46f2c90e43fe"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4e0eb53ca73e"
+text = "`grid[r, c]` reads one value; a `:` means \"all of them\", so `grid[:, 0]` is the first column."
+where = "text:5"
+status = "claim:auto-4e0eb53ca73e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1351e1260046"
+text = "`axis=0` works down the columns, `axis=1` along the rows."
+where = "text:5"
+status = "claim:auto-1351e1260046"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bef88be929d1"
+text = "They print like plain numbers on their own, but show their type inside a list."
+where = "text:8"
+status = "claim:auto-bef88be929d1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fb02aadf87dd"
+text = "`float()`, `int()` and `.tolist()` turn them into plain Python values, which is what you want to return, save to JSON, or compare."
+where = "text:8"
+status = "claim:auto-fb02aadf87dd"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "57d706f4316c"
+text = "Finish `column_totals(rows)`: `rows` is a list of equal-length lists of numbers."
+where = "task:numpy-arrays-columns:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f453bd3a18b3"
+text = "Return a plain list with the total of each column."
+where = "task:numpy-arrays-columns:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "03d04b538442"
+text = "`np.array(rows).sum(axis=0)` adds down the columns."
+where = "task:numpy-arrays-columns:hint:0"
+status = "claim:auto-03d04b538442"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "511c5a6256f2"
+text = "Finish `row_means(rows)`: `rows` is a list of equal-length lists of numbers."
+where = "task:numpy-arrays-row-means:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2cf003dcea8d"
+text = "Return a plain list with the mean of each row (`axis=1` works along the rows)."
+where = "task:numpy-arrays-row-means:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3d8426e215ad"
+text = "Careful: the same `*` does different things to a list and to an array."
+where = "text:12"
+status = "claim:auto-3d8426e215ad"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b53ec373654c"
+text = "A list times 2 is the list **repeated** twice."
+where = "text:12"
+status = "claim:auto-b53ec373654c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "25c3306f66c0"
+text = "`doubled(values)` should return a list with every value doubled."
+where = "task:numpy-arrays-doubled:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c531a529d3c0"
+text = "`values` is a list."
+where = "task:numpy-arrays-doubled:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "86b9bc75af11"
+text = "What does `*` do to a list?"
+where = "task:numpy-arrays-doubled:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3c9fe7d92143"
+text = "`np.array` makes an array, and `*` on an array multiplies every element."
+where = "task:numpy-arrays-doubled:hint:1"
+status = "claim:auto-3c9fe7d92143"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7c9a2a849df6"
+text = "`tolist()` gives a plain list back."
+where = "task:numpy-arrays-doubled:hint:1"
+status = "claim:auto-7c9a2a849df6"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a0fa27a2fa2a"
+text = "`tripled(depths)` should return a list with every depth times 3."
+where = "task:numpy-arrays-tripled:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fc36ec77e9c7"
+text = "It repeats the list three times instead (that is what `*` does to a list): find and fix the bug."
+where = "task:numpy-arrays-tripled:prompt"
+status = "claim:auto-fc36ec77e9c7"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8ed8dd04c455"
+text = "np.array(values) makes an array: maths on it (a * 2, a + b) works on every value at once."
+where = "remember:0"
+status = "claim:auto-8ed8dd04c455"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a158ca50e7c1"
+text = "NumPy answers are NumPy numbers: float(x), int(x) and a.tolist() turn them into plain Python ones."
+where = "remember:2"
+status = "claim:auto-a158ca50e7c1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ef955cb85221"
+text = "repeats a list but multiplies an array: [1, 2] * 2 is [1, 2, 1, 2], np.array([1, 2]) * 2 is [2 4]."
+where = "remember:3"
+status = "claim:auto-ef955cb85221"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

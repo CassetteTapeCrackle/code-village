@@ -1,0 +1,65 @@
+# An attempt passes every test but differs from the solution on the fuzz inputs.
+base = "blind-base"
+expect = ["blind-disagrees"]
+
+[[file]]
+path = "../vet/blind/basics-double.json"
+text = '''
+{
+  "fingerprint": "0d599c5374ef",
+  "model": "recorded",
+  "attempts": [
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "differs",
+      "input": "We also tried double(1000): expected 2000, your code returned 1000.",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}
+'''

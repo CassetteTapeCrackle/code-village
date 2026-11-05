@@ -1,3 +1,7 @@
 id = "dataclasses-races"
 title = "The fastest runner"
 prompt = "Finish `Race` so that races sort by `time`, then `runner`, and `winner(races)` returns the runner with the smallest time. `@dataclass(order=True)` makes a dataclass sortable, and `min` finds the smallest."
+construct_words_ok = "the prompt shows the decorator as a hint for sorting; any way to make the class sortable is fine"
+
+[cases]
+none = "winner takes Race objects, which a case cannot make"

@@ -1,0 +1,26 @@
+# Triple moves to concept letters, leaving numbers with two tasks and letters with one.
+base = "good"
+expect = ["concept-too-few-tasks"]
+
+[[file]]
+path = "concepts.toml"
+text = '''
+numbers = "numbers"
+letters = "letters"
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "letters"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)`."
+hints = ["Multiply by 3."]
+gotcha = true
+
+[cases]
+call = "triple"
+args = ["int -50..50"]
+'''

@@ -1,0 +1,80 @@
+[[sentence]]
+fp = "51a7814e3f1f"
+text = "Deep in the quarry sits a stone that thinks of a number from 1 to 100 and gives you five guesses."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a37ff05ae60c"
+text = "Write the game it plays."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "597600157920"
+text = "Your program has three functions."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d26b7b6fab2d"
+text = "To make testing possible, the stone's secret number is the first line the program reads."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "85eb3cd78118"
+text = "`hint(secret, guess)` returns `\"higher\"` when the guess is too small, `\"lower\"` when it is too big, and `\"correct\"` when it is right."
+where = "stage:guessing-hint:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ff35eec1ad65"
+text = "`read_guess(text)` returns the guess as an int, ignoring spaces around it, or `None` when the text is not a whole number from 1 to 100."
+where = "stage:guessing-read:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "491a8caf6f36"
+text = "`play(secret)` reads guesses with `input()` (no question text)."
+where = "stage:guessing-play:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "43077cd86928"
+text = "For each guess it prints `higher` or `lower`, or `Correct! Guesses used: N` and stops."
+where = "stage:guessing-play:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f13526e1f409"
+text = "A line that is not a valid guess prints `Please type a whole number from 1 to 100.` and does not use up a guess."
+where = "stage:guessing-play:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

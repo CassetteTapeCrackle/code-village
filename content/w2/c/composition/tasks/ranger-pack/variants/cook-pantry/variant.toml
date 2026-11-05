@@ -1,3 +1,6 @@
 id = "composition-cook-pantry"
 title = "A cook is not a pantry"
 prompt = "A `Cook` should **have** a `Pantry` called `pantry`, so `cook.pantry.store(\"flour\")` works, but right now a cook **is** a pantry: fix the design by giving the cook a `Pantry()` in `__init__` instead of inheriting."
+
+[cases]
+none = "the point is the Pantry object held in an attribute, which a case cannot read"

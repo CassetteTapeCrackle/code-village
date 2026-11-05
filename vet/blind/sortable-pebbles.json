@@ -1,0 +1,57 @@
+{
+  "fingerprint": "364ae86481fa",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Pebble:\n    def __init__(self, size):\n        self.size = size\n\n    def __lt__(self, other):\n        return self.size < other.size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Pebble:\n    def __init__(self, size):\n        self.size = size\n\n    def __lt__(self, other):\n        return self.size < other.size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Pebble:\n    def __init__(self, size):\n        self.size = size\n\n    def __lt__(self, other):\n        return self.size < other.size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Pebble:\n    def __init__(self, size):\n        self.size = size\n\n    def __lt__(self, other):\n        return self.size < other.size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Pebble:\n    def __init__(self, size):\n        self.size = size\n\n    def __lt__(self, other):\n        return self.size < other.size\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

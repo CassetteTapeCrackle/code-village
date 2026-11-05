@@ -47,7 +47,11 @@ const DOWNLOAD_FAILED =
 // NumPy, pandas and scikit-learn load (from our own folder) and import before the learner's code runs, so the
 // seconds this takes never count against the 5 s limit. Returns an error for the learner when the download fails.
 async function loadLibraries(job: Job): Promise<string | null> {
-  const source = job.mode === "run" ? job.code : `${job.code}\n${job.tests}`;
+  // hidden cases with array or frame inputs import NumPy or pandas in their setup
+  const source =
+    job.mode === "run"
+      ? job.code
+      : [job.code, job.tests, ...job.cases.map((c) => (c.kind === "expr" ? c.setup : ""))].join("\n");
   const found = python.globals.get("heavy_imports")(source) as PyProxy;
   const roots = [...new Set((found.toJs() as string[]).map((m) => m.split(".")[0]))];
   try {
@@ -83,6 +87,12 @@ onmessage = async ({ data }: MessageEvent<Job>) => {
   const json =
     data.mode === "run"
       ? python.globals.get("run_code_json")(data.code, JSON.stringify(data.inputs))
-      : python.globals.get("run_tests_json")(data.code, data.tests, data.strict);
+      : python.globals.get("run_tests_json")(
+          data.code,
+          data.tests,
+          data.strict,
+          JSON.stringify(data.cases),
+          JSON.stringify(data.requires),
+        );
   post({ type: "done", id: data.id, result: JSON.parse(json as string) });
 };

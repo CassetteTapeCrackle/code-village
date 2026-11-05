@@ -14,12 +14,16 @@ export default defineConfig({
       // a fresh worktree copies Pyodide and builds every module on its first start, which takes over two minutes
       timeout: 300_000,
     },
-    // the production build, for the service worker (offline) test
-    {
-      command: "pnpm build && pnpm preview --port 4173 --strictPort",
-      url: "http://localhost:4173",
-      reuseExistingServer: true,
-      timeout: 240_000,
-    },
+    // the production build, for the service worker (offline) test; the generated specs never use it
+    ...(process.env.E2E_NO_PREVIEW
+      ? []
+      : [
+          {
+            command: "pnpm build && pnpm preview --port 4173 --strictPort",
+            url: "http://localhost:4173",
+            reuseExistingServer: true,
+            timeout: 240_000,
+          },
+        ]),
   ],
 });

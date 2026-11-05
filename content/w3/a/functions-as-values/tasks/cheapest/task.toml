@@ -5,3 +5,7 @@ title = "Cheapest first"
 prompt = "`cheapest_first(items)` should sort `(name, price)` pairs from the lowest price to the highest. It crashes instead: find and fix the bug."
 hints = ["Read the error: `key=` must be given a function. What does `by_price(items)` give?", "Pass the function itself as `key`, without calling it."]
 gotcha = true
+
+[cases]
+call = "cheapest_first"
+args = ["list<tuple<word, int 1..50>> 0..6"]

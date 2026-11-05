@@ -1,0 +1,57 @@
+{
+  "fingerprint": "bbf4e598c7a5",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_similar(animals, mystery):\n    grams = scale([a[1] for a in animals] + [mystery[0]])\n    metres = scale([a[2] for a in animals] + [mystery[1]])\n    target = (grams[-1], metres[-1])\n    best = min(range(len(animals)), key=lambda i: math.dist((grams[i], metres[i]), target))\n    return animals[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_similar(animals, mystery):\n    grams = scale([a[1] for a in animals] + [mystery[0]])\n    metres = scale([a[2] for a in animals] + [mystery[1]])\n    target = (grams[-1], metres[-1])\n    best = min(range(len(animals)), key=lambda i: math.dist((grams[i], metres[i]), target))\n    return animals[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_similar(animals, mystery):\n    grams = scale([a[1] for a in animals] + [mystery[0]])\n    metres = scale([a[2] for a in animals] + [mystery[1]])\n    target = (grams[-1], metres[-1])\n    best = min(range(len(animals)), key=lambda i: math.dist((grams[i], metres[i]), target))\n    return animals[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_similar(animals, mystery):\n    grams = scale([a[1] for a in animals] + [mystery[0]])\n    metres = scale([a[2] for a in animals] + [mystery[1]])\n    target = (grams[-1], metres[-1])\n    best = min(range(len(animals)), key=lambda i: math.dist((grams[i], metres[i]), target))\n    return animals[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import math\n\n\ndef scale(column):\n    low, high = min(column), max(column)\n    return [(x - low) / (high - low) for x in column]\n\n\ndef most_similar(animals, mystery):\n    grams = scale([a[1] for a in animals] + [mystery[0]])\n    metres = scale([a[2] for a in animals] + [mystery[1]])\n    target = (grams[-1], metres[-1])\n    best = min(range(len(animals)), key=lambda i: math.dist((grams[i], metres[i]), target))\n    return animals[best][0]\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

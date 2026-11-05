@@ -1,4 +1,4 @@
-import type { CheckResult, Job, RunResult, WorkerMessage } from "./protocol";
+import type { CheckResult, CheckSuite, Job, RunResult, WorkerMessage } from "./protocol";
 
 export type Outcome<T> =
   { kind: "ok"; result: T } | { kind: "timeout" } | { kind: "unavailable"; message: string };
@@ -9,7 +9,7 @@ export type WorkerLike = {
 };
 export type Runner = {
   run(code: string, inputs?: string[]): Promise<Outcome<RunResult>>;
-  check(code: string, tests: string, strict?: boolean): Promise<Outcome<CheckResult>>;
+  check(code: string, suite: CheckSuite): Promise<Outcome<CheckResult>>;
   status(): "loading" | "ready" | "failed";
   retry(): void;
 };
@@ -118,8 +118,17 @@ export function createRunner({
   start();
   return {
     run: (code, inputs = []) => submit<RunResult>({ id: nextId++, mode: "run", code, inputs }),
-    check: (code, tests, strict = false) =>
-      submit<CheckResult>({ id: nextId++, mode: "check", code, tests, strict }),
+    check: (code, { tests, strict = false, cases, requires }) =>
+      // cases and requires from Svelte $state are proxies, which postMessage cannot clone; JSON gives plain copies
+      submit<CheckResult>({
+        id: nextId++,
+        mode: "check",
+        code,
+        tests,
+        strict,
+        cases: JSON.parse(JSON.stringify(cases)),
+        requires: JSON.parse(JSON.stringify(requires)),
+      }),
     status: () => state,
     retry: () => {
       if (state !== "failed") return;

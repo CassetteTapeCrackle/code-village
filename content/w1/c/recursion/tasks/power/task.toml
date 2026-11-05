@@ -5,3 +5,7 @@ title = "It never stops"
 prompt = "`power(base, exp)` should return `base` to the power `exp` (with `exp` 0 or more), recursively. It crashes: find and fix it."
 hints = ["Read the error: the calls never stop. What should `power(base, 0)` be?", "Add a base case first: when `exp` is 0, the answer is 1."]
 gotcha = true
+
+[cases]
+call = "power"
+args = ["int -3..3", "int 0..8"]

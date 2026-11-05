@@ -1,0 +1,85 @@
+# A prompt asks for a lambda, but the task does not require one.
+base = "good"
+expect = ["prompt-asks-construct"]
+
+[[file]]
+path = "features.toml"
+text = '''
+[feature.fn-print]
+summary = "print()"
+detect = ["call:print"]
+
+[feature.function-def]
+summary = "def"
+detect = ["node:FunctionDef"]
+
+[feature.return-statement]
+summary = "return"
+detect = ["node:Return"]
+
+[feature.fn-sum]
+summary = "sum()"
+detect = ["call:sum"]
+
+[feature.lambda]
+summary = "lambda expressions"
+detect = ["node:Lambda"]
+words = ["lambda"]
+say = "use a lambda"
+'''
+
+[[file]]
+path = "w1/a/basics/lesson.md"
+text = '''
++++
+id = "basics"
+title = "Basics"
+world = "w1"
+region = "a"
+order = 1
+concepts = ["numbers"]
+teaches = ["fn-print", "function-def", "return-statement", "fn-sum", "lambda"]
+remember = ["Multiplying by 2 doubles a number."]
+[loot]
+id = "test-coin"
+name = "Test Coin"
++++
+
+Numbers can be multiplied.
+
+```python claim
+assert 2 * 21 == 42
+```
+
+```python example
+print(2 * 21)
+```
+
+```python predict
+print(3 * 3)
+```
+
+::task double
+
+::task half
+
+::task triple
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/double/task.toml"
+text = '''
+id = "basics-double"
+concept = "numbers"
+kind = "write"
+title = "Double it"
+prompt = "Write `double(n)` as a lambda."
+hints = ["Multiply by 2."]
+gotcha = true
+
+strict = true
+
+[cases]
+call = "double"
+args = ["int -50..50"]
+'''

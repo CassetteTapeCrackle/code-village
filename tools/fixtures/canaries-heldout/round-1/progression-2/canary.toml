@@ -1,0 +1,21 @@
+# A right/ answer for the boss uses import operator, which the vocabulary does not list.
+base = "good"
+expect = ["progression"]
+
+[[file]]
+path = "w1/a/boss/right/other-ways.py"
+text = '''
+import operator
+
+
+def add(a, b):
+    return sum([a, b])
+
+
+def sub(a, b):
+    return operator.sub(a, b)
+
+
+def mul(a, b):
+    return b * a
+'''

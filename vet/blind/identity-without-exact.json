@@ -1,0 +1,57 @@
+{
+  "fingerprint": "2662cd7d8e93",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def without_exact(bags, bag):\n    result = []\n    removed = False\n    for item in bags:\n        if not removed and item is bag:\n            removed = True\n        else:\n            result.append(item)\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def without_exact(bags, bag):\n    result = list(bags)\n    for i in range(len(result)):\n        if result[i] is bag:\n            del result[i]\n            break\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def without_exact(bags, bag):\n    result = list(bags)\n    for i, b in enumerate(result):\n        if b is bag:\n            del result[i]\n            break\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def without_exact(bags, bag):\n    result = list(bags)\n    for i, b in enumerate(result):\n        if b is bag:\n            del result[i]\n            break\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def without_exact(bags, bag):\n    result = list(bags)\n    for i, item in enumerate(result):\n        if item is bag:\n            del result[i]\n            break\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

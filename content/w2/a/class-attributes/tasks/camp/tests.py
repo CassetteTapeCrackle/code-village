@@ -8,3 +8,6 @@ def test_adds():
     a = learner["Camp"]("East")
     a.add_tent("red tent")
     expect_equal(a.tents, ["red tent"], "camp East's tents")
+
+def test_keeps_its_name():
+    expect_equal(learner["Camp"]("West").name, "West", "camp West's name")

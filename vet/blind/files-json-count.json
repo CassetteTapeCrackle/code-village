@@ -1,0 +1,57 @@
+{
+  "fingerprint": "7efc1295d89b",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def count_lines(path):\n    count = 0\n    with open(path) as f:\n        for line in f:\n            count += 1\n    return count\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def count_lines(path):\n    count = 0\n    with open(path) as f:\n        for line in f:\n            count += 1\n    return count\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def count_lines(path):\n    count = 0\n    with open(path) as f:\n        for line in f:\n            count += 1\n    return count\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def count_lines(path):\n    count = 0\n    with open(path) as f:\n        for line in f:\n            count += 1\n    return count\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def count_lines(path):\n    count = 0\n    with open(path) as f:\n        for line in f:\n            count += 1\n    return count\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

@@ -5,6 +5,7 @@ world = "w1"
 region = "c"
 order = 11
 concepts = ["errors"]
+teaches = ["exception-index-error", "exception-type-error", "exception-value-error", "exception-zero-division", "raise-statement", "try-except"]
 remember = ["Read a traceback from the bottom: the error's name and message, then the line it came from.", "try / except SomeError handles that one kind of error; a bare except: hides your bugs too.", "raise ValueError(\"message\") signals a problem yourself."]
 [loot]
 id = "magnifying-glass"
@@ -15,7 +16,7 @@ When something goes wrong, Python raises an **exception** and prints a traceback
 
 The usual suspects: `NameError` (a name that does not exist), `TypeError` (the wrong type, like `"3" + 4`), `ValueError` (the right type but a bad value, like `int("abc")`), `IndexError` and `KeyError`.
 
-```python claim
+```python claim id=errors-claim-1
 def error_from(make):
     try:
         make()
@@ -30,7 +31,23 @@ assert error_from(lambda: [1][5]) is IndexError
 assert error_from(lambda: {}["key"]) is KeyError
 ```
 
-`try` runs code that might fail, and `except SomeError` handles that kind of error only.
+`try` runs code that might fail, and `except SomeError` handles that kind of error only. Dividing by zero raises `ZeroDivisionError`.
+
+```python claim id=auto-8f9ad33b3734
+try:
+    try:
+        int('abc')
+    except TypeError:
+        handled = True
+except ValueError:
+    handled = False
+assert handled is False
+try:
+    1 / 0
+except ZeroDivisionError:
+    handled = True
+assert handled
+```
 
 ```python example
 def to_number(text):
@@ -45,6 +62,16 @@ print(to_number("42"), to_number("forty"))
 ::task safe-divide
 
 A bare `except:` catches **everything**, even a typo in a variable name. The bug disappears and the function quietly gives the wrong answer. Catch the error you expect, and let the rest show up.
+
+```python claim id=auto-5bd91c7fcbe5
+def f():
+    value = 1
+    try:
+        return valeu
+    except:
+        return None
+assert f() is None
+```
 
 ```python predict
 def parse(text):
@@ -73,3 +100,23 @@ except ValueError as e:
 ```
 
 ::task withdraw
+
+```python claim id=auto-2daf6b471ed9
+try:
+    1 / 0
+except ZeroDivisionError:
+    ok = True
+assert ok
+try:
+    1 // 0
+except ZeroDivisionError:
+    ok = True
+assert ok
+```
+
+```python claim id=auto-14b37d801a5d
+try:
+    raise ValueError("message")
+except ValueError as e:
+    assert e.args == ("message",)
+```

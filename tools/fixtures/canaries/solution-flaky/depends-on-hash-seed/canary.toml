@@ -1,0 +1,15 @@
+# A triple test takes the first item of a set of strings, so its result changes with the hash seed (9 first under seed
+# 0, which every run uses, but 6 first under seeds 3 and 4).
+base = "good"
+expect = ["solution-flaky"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_triple():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+
+def test_triple_spread():
+    seen = {str(learner["triple"](n)) for n in (1, 2, 3)}
+    expect_equal(list(seen)[0], "9", "the first of the results")
+'''

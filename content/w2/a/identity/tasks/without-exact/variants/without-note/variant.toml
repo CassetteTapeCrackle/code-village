@@ -1,3 +1,6 @@
 id = "identity-without-note"
 title = "That note, not its twin"
 prompt = "`without_note(notes, note)` should return the notes without that exact note object (a dict), even when another note is equal to it. It removes the wrong one: find and fix it. `is not` asks \"not the very same object?\"."
+
+[cases]
+none = "the point is which object is removed, and a case cannot tell equal objects apart"

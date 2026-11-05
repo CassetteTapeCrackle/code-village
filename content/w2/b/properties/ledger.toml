@@ -1,0 +1,215 @@
+[[sentence]]
+fp = "df43872268d7"
+text = "Often that is fine."
+where = "text:0"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bb5fc3f566ae"
+text = "Sometimes a value should be **worked out** from others, or **checked** before it is stored."
+where = "text:0"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1d420bca9e3e"
+text = "A **property** handles both while still reading like a plain attribute."
+where = "text:0"
+status = "claim:auto-1d420bca9e3e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3cdb7055760c"
+text = "`@property` turns `area` into something you read without brackets, and it is always up to date."
+where = "text:2"
+status = "claim:auto-3cdb7055760c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3b479d892ab0"
+text = "Write a class `Plot` storing `width` and `depth`, with two properties: `area` (width times depth) and `fence` (the length of fence around it, 2 times (width plus depth))."
+where = "task:properties-plot:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "447556b3bef0"
+text = "For `area`, multiply the two stored numbers."
+where = "task:properties-plot:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d90e976c7a46"
+text = "For `fence`, add them and double the sum."
+where = "task:properties-plot:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a2a4f1337fc9"
+text = "Write a class `Window` storing `width` and `height`, with a property `glass` that returns width times height (put `@property` above the method)."
+where = "task:properties-window:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fa7a0e3c1b41"
+text = "A **setter** runs whenever the attribute is assigned, so it can refuse bad values."
+where = "text:5"
+status = "claim:auto-fa7a0e3c1b41"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8af73c12d70c"
+text = "The real value is stored under another name, by convention with a leading underscore: `_degrees` means \"please do not touch from outside\"."
+where = "text:5"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3273f319d816"
+text = "Finish the setter of `Stove.fuel`: it should store values from 0 to 100, and raise `ValueError(\"fuel must be 0 to 100\")` for anything outside."
+where = "task:properties-fuel:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "860936eaff1f"
+text = "Check the value first, then store it in `self._fuel`."
+where = "task:properties-fuel:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8d1514bb9de5"
+text = "Reject values below 0 or above 100 with the exact `ValueError` message from the prompt, then store the value in `self._fuel`."
+where = "task:properties-fuel:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2b4c478ae4f3"
+text = "Finish the setter of `Radio.volume`: store values from 0 to 10 in `self._volume`, and raise `ValueError(\"volume must be 0 to 10\")` for anything outside."
+where = "task:properties-volume:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3d503da21671"
+text = "If the setter assigned `self.degrees` instead of `self._degrees`, it would call itself again, and again, until Python gives up with a `RecursionError`."
+where = "text:9"
+status = "claim:auto-3d503da21671"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1f912345a7fb"
+text = "`Ranger(name, age)` should store the age through a setter that refuses negative ages with `ValueError`."
+where = "task:properties-ranger-age:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "80604b7cff45"
+text = "Making any ranger crashes with a `RecursionError`: find and fix the bug."
+where = "task:properties-ranger-age:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "54af26928808"
+text = "What does the setter's last line assign to, and what runs when you assign to it?"
+where = "task:properties-ranger-age:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c0435c1b765b"
+text = "Store the setter's value in that same attribute instead of assigning to the property again."
+where = "task:properties-ranger-age:hint:1"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "175499e769ed"
+text = "`Bird(wingspan)` should store the wingspan through a setter that refuses 0 or less with `ValueError`."
+where = "task:properties-wingspan:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3fa75d65bc26"
+text = "Making a bird crashes with a `RecursionError`: find and fix the bug (store the value under `self._wingspan`)."
+where = "task:properties-wingspan:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "baba3b0facef"
+text = "@property lets a method be read like an attribute: plot.area, no brackets."
+where = "remember:0"
+status = "claim:auto-baba3b0facef"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "08a956703e8d"
+text = "A setter (@area.setter) runs on assignment and can refuse bad values."
+where = "remember:1"
+status = "claim:auto-08a956703e8d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "05980ad80db1"
+text = "A leading underscore means: please do not touch this from outside."
+where = "remember:3"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

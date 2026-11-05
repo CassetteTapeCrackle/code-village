@@ -1,3 +1,5 @@
+import type { HiddenCase, RequiredConstruct } from "../runner/protocol";
+
 export type Exercise = {
   id: string;
   concept: string;
@@ -7,6 +9,8 @@ export type Exercise = {
   tests: string;
   // The task teaches exact output formatting, so checks compare text exactly instead of forgiving case, spacing and punctuation.
   strict?: boolean;
+  cases: HiddenCase[];
+  requires: RequiredConstruct[];
 };
 
 export type Task = Exercise & {
@@ -36,7 +40,15 @@ export type Lesson = {
   blocks: Block[];
 };
 
-type Stage = { id: string; title: string; prompt: string; hp: number; tests: string };
+type Stage = {
+  id: string;
+  title: string;
+  prompt: string;
+  hp: number;
+  tests: string;
+  cases: HiddenCase[];
+  requires: RequiredConstruct[];
+};
 
 export type Boss = {
   id: string;
@@ -46,6 +58,8 @@ export type Boss = {
   intro: string;
   starter: string;
   hardTests: string;
+  hardCases: HiddenCase[];
+  hardRequires: RequiredConstruct[];
   hardChecks: number;
   trophy: { id: string; name: string };
   hardTrophy: { id: string; name: string };
@@ -66,7 +80,7 @@ export type World = {
 };
 
 export type Bundle = {
-  version: 3;
+  version: 5;
   python: string;
   concepts: Record<string, string>;
   worlds: World[];

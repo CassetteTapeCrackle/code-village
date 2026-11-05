@@ -1,0 +1,57 @@
+{
+  "fingerprint": "83ff55231140",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef cheapest(text):\n    df = pd.read_csv(io.StringIO(text))\n    df[\"price\"] = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return df.sort_values(\"price\").iloc[0][\"item\"]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef cheapest(text):\n    df = pd.read_csv(io.StringIO(text))\n    df[\"price\"] = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return df.sort_values(\"price\").iloc[0][\"item\"]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef cheapest(text):\n    df = pd.read_csv(io.StringIO(text))\n    df[\"price\"] = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return df.sort_values(\"price\").iloc[0][\"item\"]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef cheapest(text):\n    df = pd.read_csv(io.StringIO(text))\n    df[\"price\"] = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return df.sort_values(\"price\").iloc[0][\"item\"]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef cheapest(text):\n    df = pd.read_csv(io.StringIO(text))\n    df[\"price\"] = pd.to_numeric(df[\"price\"], errors=\"coerce\")\n    return df.sort_values(\"price\").iloc[0][\"item\"]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

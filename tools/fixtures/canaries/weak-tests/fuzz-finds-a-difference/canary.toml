@@ -1,0 +1,44 @@
+# Only n = 77 is special, and neither the test nor the 20 hidden cases try it, so dropping the `if` (and
+# changing 77) survives them; the 2000 fuzz inputs try 77, so these mutants are told apart from equivalent ones.
+base = "good"
+expect = ["weak-tests"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/solution.py"
+text = '''
+def triple(n):
+    if n == 77:
+        return 0
+    return n * 3
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_triple():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)`: three times n, but 0 for the lucky number 77."
+hints = ["Check for 77 first."]
+gotcha = false
+
+[cases]
+call = "triple"
+args = ["int -100..100"]
+count = 20
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/right/added-three-times.py"
+text = '''
+def triple(n):
+    return 0 if n == 77 else n + n + n
+'''

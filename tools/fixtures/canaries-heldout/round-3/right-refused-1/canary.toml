@@ -1,0 +1,13 @@
+# The triple test compares with the float literal 0.3, which the model answer itself (0.30000000000000004) misses.
+base = "good"
+expect = ["right-refused"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_triple():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+
+def test_triple_tenth():
+    expect_equal(learner["triple"](0.1), 0.3, "triple(0.1)")
+'''

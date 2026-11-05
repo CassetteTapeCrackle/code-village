@@ -1,0 +1,13 @@
+class Bird:
+    def __init__(self, wingspan):
+        self.wingspan = wingspan
+
+    @property
+    def wingspan(self):
+        return self._wingspan
+
+    @wingspan.setter
+    def wingspan(self, value):
+        if not value > 0:
+            raise ValueError("wingspan must be positive")
+        self._wingspan = value

@@ -1,0 +1,57 @@
+{
+  "fingerprint": "f15199eca0c4",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def first_char(text):\n    try:\n        return text[0]\n    except IndexError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def first_char(text):\n    try:\n        return text[0]\n    except IndexError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def first_char(text):\n    try:\n        return text[0]\n    except IndexError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def first_char(text):\n    try:\n        return text[0]\n    except IndexError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def first_char(text):\n    try:\n        return text[0]\n    except IndexError:\n        return None\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

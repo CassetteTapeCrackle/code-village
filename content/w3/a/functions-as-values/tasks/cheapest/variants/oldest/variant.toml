@@ -1,3 +1,8 @@
 id = "functions-as-values-oldest"
 title = "Oldest first"
 prompt = "`oldest_first(people)` should sort `(name, age)` pairs from the oldest to the youngest. It crashes: find and fix the bug. (Mind the brackets after the key function.)"
+construct_words_ok = "the prompt names the key function only in a hint about brackets"
+
+[cases]
+call = "oldest_first"
+args = ["list<tuple<word, int 1..90>> 0..6"]

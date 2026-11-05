@@ -6,3 +6,7 @@ def test_sunday():
 
 def test_monday():
     expect_equal(learner["is_weekend"]("mon"), False, 'is_weekend("mon")')
+
+def test_midweek():
+    expect_equal([learner["is_weekend"](d) for d in ("tue", "wed", "thu")], [False, False, False],
+                 'is_weekend("tue"), ("wed") and ("thu")')

@@ -1,0 +1,18 @@
+# The triple task has no title.
+base = "good"
+expect = ["field-missing"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+prompt = "Write `triple(n)`."
+hints = ["Multiply by 3."]
+gotcha = false
+
+[cases]
+call = "triple"
+args = ["int -50..50"]
+'''

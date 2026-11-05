@@ -1,0 +1,57 @@
+{
+  "fingerprint": "f4239b6fbc58",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def without_note(notes, note):\n    result = []\n    skipped = False\n    for n in notes:\n        if not skipped and n is note:\n            skipped = True\n        else:\n            result.append(n)\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def without_note(notes, note):\n    result = []\n    skipped = False\n    for n in notes:\n        if not skipped and n is note:\n            skipped = True\n        else:\n            result.append(n)\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def without_note(notes, note):\n    result = []\n    skipped = False\n    for n in notes:\n        if not skipped and n is note:\n            skipped = True\n        else:\n            result.append(n)\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def without_note(notes, note):\n    result = []\n    skipped = False\n    for n in notes:\n        if not skipped and n is note:\n            skipped = True\n        else:\n            result.append(n)\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def without_note(notes, note):\n    result = []\n    for n in notes:\n        if n is not note:\n            result.append(n)\n    return result\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

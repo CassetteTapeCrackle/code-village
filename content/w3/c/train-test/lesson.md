@@ -5,6 +5,7 @@ world = "w3"
 region = "c"
 order = 10
 concepts = ["train-test"]
+teaches = ["sklearn-metrics", "sklearn-model-selection", "sklearn-score"]
 remember = ["model.score(X, y) is the accuracy: the share of rows it labels right, from 0.0 to 1.0.", "train_test_split(X, y, test_size=0.25, random_state=0) keeps a quarter of the examples aside to test on; random_state makes the split the same every run.", "fit on the training part only, then score on the test part.", "Scoring a model on the data it learned from looks too good: a 1-neighbour model scores 1.0 there. Only the test score tells you how it does on new data."]
 [loot]
 id = "summit-pennant"
@@ -24,7 +25,7 @@ print(accuracy_score(truth, guess))
 
 A model's `score(X, y)` predicts every row of `X` and gives the accuracy against `y` in one go.
 
-```python claim
+```python claim id=train-test-claim-1
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -38,7 +39,20 @@ assert model.score([[2], [8]], ["b", "b"]) == 0.5
 
 But which examples should you ask about? Not the ones it learned from: that is like giving a class the exam's answers the day before. Keep some examples aside. `train_test_split` shuffles the rows and splits them into a **training** part to `fit` on and a **test** part to `score` on. `random_state` fixes the shuffle, so every run gives the same split (and the same results).
 
-```python claim
+```python claim id=auto-75a13d00fe2d
+from sklearn.model_selection import train_test_split
+X = list(range(20))
+y = list(range(20))
+a, b, c, d = train_test_split(X, y, test_size=0.25, random_state=0)
+assert len(a) == 15 and len(b) == 5
+assert sorted(a + b) == X
+assert a != sorted(a)
+e = train_test_split(X, y, test_size=0.25, random_state=0)
+assert e[0] == a and e[1] == b
+assert train_test_split(X, y, test_size=0.25, random_state=1)[0] != a
+```
+
+```python claim id=train-test-claim-2
 from sklearn.model_selection import train_test_split
 
 first = train_test_split(list(range(10)), test_size=0.3, random_state=0)
@@ -61,7 +75,21 @@ print(X_test)
 
 A model that has seen an example knows its label. A 1-neighbour model is the extreme case: each training point's nearest neighbour is itself, so on its own training data it is never wrong (unless two identical rows have different labels).
 
-```python claim
+```python claim id=auto-a82e58ac9ac1
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+rng = np.random.RandomState(0)
+X = rng.rand(50, 3)
+y = rng.randint(0, 2, 50)
+m = KNeighborsClassifier(n_neighbors=1).fit(X, y)
+assert m.score(X, y) == 1.0
+X2 = np.vstack([X, X[:1]])
+y2 = np.append(y, 1 - y[0])
+m2 = KNeighborsClassifier(n_neighbors=1).fit(X2, y2)
+assert m2.score(X2, y2) < 1.0
+```
+
+```python claim id=train-test-claim-3
 from sklearn.neighbors import KNeighborsClassifier
 
 X, y = [[1], [2], [3]], ["a", "b", "a"]
@@ -84,3 +112,18 @@ print(model.score(X_train, y_train), model.score(X_test, y_test))
 Perfect on what it has seen, a coin toss on what it has not. Only the test score is the honest one.
 
 ::task honest
+
+```python claim id=auto-d33a47dbeb20
+assert list(zip([1, 2], [1, 3])) == [(1, 1), (2, 3)]
+```
+
+```python claim id=auto-721fee6027f7
+import numpy as np
+from sklearn.model_selection import train_test_split
+X = np.arange(40).reshape(20, 2)
+y = np.arange(20)
+a = train_test_split(X, y, test_size=0.25, random_state=0)
+b = train_test_split(X, y, test_size=0.25, random_state=0)
+assert len(a[1]) == 5 and len(a[0]) == 15
+assert all((p == q).all() for p, q in zip(a, b))
+```

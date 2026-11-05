@@ -1,0 +1,10 @@
+# the mul stage test expects 6 * 7 to be 48, so the model solution fails its own test
+base = "good"
+expect = ["right-refused"]
+
+[[file]]
+path = "w1/a/boss/stages/3-mul/tests.py"
+text = '''
+def test_mul():
+    expect_equal(learner["mul"](6, 7), 48, "mul(6, 7)")
+'''

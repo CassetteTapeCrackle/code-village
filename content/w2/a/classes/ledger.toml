@@ -1,0 +1,234 @@
+[[sentence]]
+fp = "54436124c274"
+text = "You have used **objects** all along: `\"hi\"` is an object of the `str` class, and `upper()` is something it can do."
+where = "text:0"
+status = "claim:auto-54436124c274"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1524f3effb35"
+text = "A **class** is a blueprint for making your own objects, with their own data and their own actions."
+where = "text:0"
+status = "simplification"
+reason = "It is a fair beginner definition of a class. It leaves out that a class is itself an object."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3743c3296af4"
+text = "Calling `Fox(\"Sly\", 3)` makes a new object and runs `__init__` on it."
+where = "text:2"
+status = "claim:auto-3743c3296af4"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cd8d37511a26"
+text = "`self` is the object being made, so `self.name = name` stores an **attribute** on that object."
+where = "text:2"
+status = "claim:auto-cd8d37511a26"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "33f41835a10c"
+text = "Each object keeps its own attributes."
+where = "text:2"
+status = "claim:auto-33f41835a10c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "da28ddd501c7"
+text = "Write a class `Tent` whose `__init__(self, owner, size)` stores `owner` and `size` as attributes: `Tent(\"Noa\", 2).owner` is `\"Noa\"`."
+where = "task:classes-tent:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6201fe3d06a9"
+text = "For each parameter, store it on `self` under the same name: `owner` and `size`."
+where = "task:classes-tent:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "712beaaae90c"
+text = "Write a class `Canoe` whose `__init__(self, name, seats)` stores `name` and `seats`: `Canoe(\"Otter\", 2).seats` is `2`."
+where = "task:classes-canoe:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "690c5066e44e"
+text = "A function written inside a class is a **method**."
+where = "text:5"
+status = "claim:auto-690c5066e44e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ff91d5105782"
+text = "When you call `a.describe()`, Python passes `a` in as `self` for you."
+where = "text:8"
+status = "claim:auto-ff91d5105782"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "45b361e00a13"
+text = "If you forget to write `self` in the `def`, the call hands over one argument too many."
+where = "text:8"
+status = "claim:auto-45b361e00a13"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5ae7765cb291"
+text = "`Counter()` starts with `total` at 0, and `add(amount)` should add `amount` to `total`."
+where = "task:classes-counter:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f3d5cffcaa64"
+text = "Calling `add` crashes: find and fix the bug."
+where = "task:classes-counter:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4a0c0244c4f1"
+text = "Read the error: how many arguments does `add` take, and how many does Python pass?"
+where = "task:classes-counter:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bbc37da04262"
+text = "Python fills the first parameter with the object itself: `counter.add(2)` passes `counter`."
+where = "task:classes-counter:hint:1"
+status = "claim:auto-bbc37da04262"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5288afd19433"
+text = "Add `self` before `amount`."
+where = "task:classes-counter:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "56b4fb964d16"
+text = "`Lantern()` starts with `lit` as `False`, and `light()` should set `lit` to `True`."
+where = "task:classes-lantern:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d6f0a22e3b3e"
+text = "Calling `light` crashes: find and fix the bug (every method needs `self` first)."
+where = "task:classes-lantern:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e7d74614fc67"
+text = "Finish `Backpack`: `pack(item)` already adds an item, and `count()` should return how many items are packed."
+where = "task:classes-backpack:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "61ec1f53d733"
+text = "The items live in `self.items`, a list."
+where = "task:classes-backpack:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "45bdc2200b54"
+text = "`len()` counts the items in a list."
+where = "task:classes-backpack:hint:1"
+status = "claim:auto-45bdc2200b54"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0d1bc731e2cc"
+text = "Return the length of the list stored on `self`."
+where = "task:classes-backpack:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5a66f9c5dec5"
+text = "Finish `Basket`: `put(fruit)` already adds a fruit, and `has(fruit)` should return `True` when that fruit is in the basket."
+where = "task:classes-basket:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b5392ef34e4b"
+text = "`fruit in self.fruits` checks a list."
+where = "task:classes-basket:prompt"
+status = "claim:auto-b5392ef34e4b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fe3251c21e43"
+text = "__init__ runs when the object is made; self is that object."
+where = "remember:1"
+status = "claim:auto-fe3251c21e43"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a42c91cdd14d"
+text = "self.name = name stores an attribute on that one object."
+where = "remember:2"
+status = "claim:auto-a42c91cdd14d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

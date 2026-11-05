@@ -30,7 +30,7 @@
   });
 
   async function check(e: Exercise, code: string): Promise<void> {
-    const o = await getRunner().check(code, e.tests, e.strict);
+    const o = await getRunner().check(code, e);
     outcomes[e.id] = o;
     if (passedAll(o)) passed.add(e.id);
     else passed.delete(e.id);

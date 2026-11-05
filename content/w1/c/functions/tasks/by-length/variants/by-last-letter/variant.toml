@@ -1,3 +1,7 @@
 id = "functions-by-last-letter"
 title = "By the last letter"
 prompt = "Finish `sort_by_last(words)` so the words come back sorted by their last letter. The helper `last_letter` is ready."
+
+[cases]
+call = "sort_by_last"
+args = ["list<word> 0..8"]

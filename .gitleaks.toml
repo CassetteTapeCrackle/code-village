@@ -1,0 +1,7 @@
+# Default gitleaks rules, plus one allowlist for the fake bearer tokens in worker/test/auth.test.ts.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Fake test tokens such as tok-main-0123456789..."
+regexes = ['''^tok-[a-z-]+-0123456789''']

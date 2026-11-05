@@ -1,0 +1,264 @@
+[[sentence]]
+fp = "17025e5c8ad4"
+text = "This region builds a first piece of **machine learning**: a program that learns to label things from examples instead of from rules you write."
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e19b9375e22e"
+text = "It starts with a distance."
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4fa394281648"
+text = "`math.dist` measures the straight line between two points."
+where = "text:0"
+status = "claim:auto-4fa394281648"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5f6faffa4a35"
+text = "Write `closest(points, target)`: `points` is a list of tuples of numbers, one number per feature; the tests use two and three features."
+where = "task:nearest-neighbour-closest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3832e0736f74"
+text = "Return the whole nearest tuple, using `math.dist`."
+where = "task:nearest-neighbour-closest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ada86b3c692b"
+text = "`math.dist((0, 0), (3, 4))` is `5.0`: the distance between two points."
+where = "task:nearest-neighbour-closest:hint:1"
+status = "claim:auto-ada86b3c692b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8a47c0765ad2"
+text = "Write `farthest(points, target)`: `points` is a list of `(x, y)` tuples."
+where = "task:nearest-neighbour-farthest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4f217f544eed"
+text = "Return the point farthest from `target`, using `math.dist`."
+where = "task:nearest-neighbour-farthest:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1e14560501fc"
+text = "Now the idea."
+where = "text:5"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "78b25ee84154"
+text = "You know some points and their labels."
+where = "text:5"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ebc70bfbf01f"
+text = "That is the whole nearest-neighbour method."
+where = "text:5"
+status = "simplification"
+reason = "Fine for the basic method. It leaves out k neighbours, weighting and other distance measures, though k comes next."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f0ae182866b4"
+text = "Finish `vote(known, point)`: `known` is a list of `(point, label)` pairs."
+where = "task:nearest-neighbour-classify:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a599b633e2be"
+text = "Take the 3 pairs nearest to `point` and return the label most of them have."
+where = "task:nearest-neighbour-classify:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "27d3e415a089"
+text = "Sort `known` by distance to `point` and keep the first 3."
+where = "task:nearest-neighbour-classify:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a18a6824a545"
+text = "`sorted([3, 1, 2])[:2]` keeps the two smallest: a slice with `[:3]` keeps three."
+where = "task:nearest-neighbour-classify:hint:1"
+status = "claim:auto-a18a6824a545"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fa6815940e4e"
+text = "Finish `label_of(known, point)`: `known` is a list of `(point, label)` pairs."
+where = "task:nearest-neighbour-one:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ea43e9626421"
+text = "Return the label of the pair nearest to `point`."
+where = "task:nearest-neighbour-one:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c7bbfbe548bd"
+text = "A distance adds up the (squared) differences of every feature, so the feature with the biggest numbers decides almost everything."
+where = "text:9"
+status = "simplification"
+reason = "Distances sum squared differences, so a feature on a much larger scale dominates. It leaves out that this only holds when the scales differ a lot."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b95518f8b1f2"
+text = "Here the weight is in grams and the length in metres:"
+where = "text:9"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ea7c0c26f089"
+text = "`most_similar(animals, mystery)` gets `(name, grams, metres)` tuples and a `(grams, metres)` mystery, and should return the name of the most similar animal once both columns are scaled to 0 to 1."
+where = "task:nearest-neighbour-similar:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7f8c145bdcba"
+text = "It scales them, but then measures with the raw numbers: find and fix the bug."
+where = "task:nearest-neighbour-similar:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2dd7ccc7db9d"
+text = "`grams` and `metres` hold the scaled values; the mystery's are the last of each."
+where = "task:nearest-neighbour-similar:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fe3bc65bd771"
+text = "The mystery's scaled values are the last entry of `grams` and of `metres`; put those two last values in a tuple."
+where = "task:nearest-neighbour-similar:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7c35cc28ef1e"
+text = "`most_like(hikes, wanted)` gets `(name, climb_m, km)` tuples and a `(climb_m, km)` wish, and should return the most similar hike once both columns are scaled to 0 to 1."
+where = "task:nearest-neighbour-hike:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4ad34558ca08"
+text = "It scales them, then measures with the raw numbers (where the metres climbed swamp the km): find and fix the bug."
+where = "task:nearest-neighbour-hike:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "59d2e0d6b302"
+text = "math.dist(a, b) is the straight-line distance between two points, in any number of dimensions."
+where = "remember:0"
+status = "claim:auto-59d2e0d6b302"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b48d424a4187"
+text = "Nearest neighbour: to label a new point, copy the label of the closest point you already know."
+where = "remember:1"
+status = "simplification"
+reason = "This is the standard definition of 1-nearest-neighbour classification. It leaves out ties and the choice of distance."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4f67c49dc6e9"
+text = "With k neighbours, the k closest points vote."
+where = "remember:2"
+status = "simplification"
+reason = "This is the standard k-nearest-neighbours idea, with a majority vote. It leaves out distance weighting and tie handling."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "43d82437c6e0"
+text = "Columns with big numbers swamp the small ones in a distance: scale every column to 0 to 1 first."
+where = "remember:3"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

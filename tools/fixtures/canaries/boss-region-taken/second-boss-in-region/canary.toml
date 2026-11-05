@@ -1,0 +1,126 @@
+# A second boss, in folder w1/b, also guards region a.
+base = "good"
+expect = ["boss-region-taken"]
+
+[[file]]
+path = "w1/b/boss/boss.md"
+text = '''
++++
+id = "calc2"
+title = "Calculator"
+world = "w1"
+region = "a"
+hard_checks = 3
+[trophy]
+id = "calc2-trophy"
+name = "Calc Trophy"
+[hard_trophy]
+id = "calc2-gold"
+name = "Gold Calc"
+
+[cases]
+none = "one() takes no input, so there is nothing to vary"
+
++++
+
+Build a tiny calculator.
+'''
+
+[[file]]
+path = "w1/b/boss/starter.py"
+text = '''
+def one():
+    return 0
+'''
+
+[[file]]
+path = "w1/b/boss/solution.py"
+text = '''
+def one():
+    return 1
+'''
+
+[[file]]
+path = "w1/b/boss/hard_tests.py"
+text = '''
+def test_one():
+    expect_equal(learner["one"](), 1, "one()")
+'''
+
+[[file]]
+path = "w1/b/boss/stages/1-one/stage.toml"
+text = '''
+id = "calc2-1"
+title = "One"
+prompt = "Write `one()`."
+hp = 10
+
+[cases]
+none = "one() takes no input, so there is nothing to vary"
+'''
+
+[[file]]
+path = "w1/b/boss/stages/1-one/tests.py"
+text = '''
+def test_one():
+    expect_equal(learner["one"](), 1, "one()")
+'''
+
+[[file]]
+path = "w1/b/boss/stages/2-one/stage.toml"
+text = '''
+id = "calc2-2"
+title = "One"
+prompt = "Write `one()`."
+hp = 10
+
+[cases]
+none = "one() takes no input, so there is nothing to vary"
+'''
+
+[[file]]
+path = "w1/b/boss/stages/2-one/tests.py"
+text = '''
+def test_one():
+    expect_equal(learner["one"](), 1, "one()")
+'''
+
+[[file]]
+path = "w1/b/boss/stages/3-one/stage.toml"
+text = '''
+id = "calc2-3"
+title = "One"
+prompt = "Write `one()`."
+hp = 10
+
+[cases]
+none = "one() takes no input, so there is nothing to vary"
+'''
+
+[[file]]
+path = "w1/b/boss/stages/3-one/tests.py"
+text = '''
+def test_one():
+    expect_equal(learner["one"](), 1, "one()")
+'''
+
+[[file]]
+path = "w1/b/boss/right/plus-zero.py"
+text = '''
+def one():
+    return 1 + 0
+'''
+
+[[file]]
+path = "w1/b/boss/wrong/zero.py"
+text = '''
+def one():
+    return 0
+'''
+
+[[file]]
+path = "w1/b/boss/wrong/two.py"
+text = '''
+def one():
+    return 2
+'''

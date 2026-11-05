@@ -27,6 +27,9 @@ describe("content bundle", () => {
       "dunders-mushroom",
       "dunders-sign",
       "io-receipt",
+      "strings-clean-tag",
+      "strings-file-name",
+      "strings-initials",
       "strings-shout",
       "strings-whisper",
     ]);

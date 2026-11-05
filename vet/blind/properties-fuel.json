@@ -1,0 +1,57 @@
+{
+  "fingerprint": "d114a94c78cd",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Stove:\n    def __init__(self, fuel):\n        self.fuel = fuel\n\n    @property\n    def fuel(self):\n        return self._fuel\n\n    @fuel.setter\n    def fuel(self, value):\n        if value < 0 or value > 100:\n            raise ValueError(\"fuel must be 0 to 100\")\n        self._fuel = value\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Stove:\n    def __init__(self, fuel):\n        self.fuel = fuel\n\n    @property\n    def fuel(self):\n        return self._fuel\n\n    @fuel.setter\n    def fuel(self, value):\n        if value < 0 or value > 100:\n            raise ValueError(\"fuel must be 0 to 100\")\n        self._fuel = value\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Stove:\n    def __init__(self, fuel):\n        self.fuel = fuel\n\n    @property\n    def fuel(self):\n        return self._fuel\n\n    @fuel.setter\n    def fuel(self, value):\n        if value < 0 or value > 100:\n            raise ValueError(\"fuel must be 0 to 100\")\n        self._fuel = value\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Stove:\n    def __init__(self, fuel):\n        self.fuel = fuel\n\n    @property\n    def fuel(self):\n        return self._fuel\n\n    @fuel.setter\n    def fuel(self, value):\n        if value < 0 or value > 100:\n            raise ValueError(\"fuel must be 0 to 100\")\n        self._fuel = value",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Stove:\n    def __init__(self, fuel):\n        self.fuel = fuel\n\n    @property\n    def fuel(self):\n        return self._fuel\n\n    @fuel.setter\n    def fuel(self, value):\n        if value < 0 or value > 100:\n            raise ValueError(\"fuel must be 0 to 100\")\n        self._fuel = value\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

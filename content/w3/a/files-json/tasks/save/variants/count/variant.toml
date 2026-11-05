@@ -1,3 +1,6 @@
 id = "files-json-count"
 title = "How many lines"
 prompt = "Write `count_lines(path)`: it opens the file at `path` and returns how many lines it has."
+
+[cases]
+none = "it reads a file at a path, which a case cannot set up"

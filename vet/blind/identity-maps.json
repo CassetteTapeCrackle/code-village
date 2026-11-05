@@ -1,0 +1,57 @@
+{
+  "fingerprint": "6dd3fec513ce",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Map:\n    def __init__(self, region):\n        self.region = region\n\n\ndef compare_maps(a, b):\n    if a is b:\n        return \"same map\"\n    if a.region == b.region:\n        return \"copies\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Map:\n    def __init__(self, region):\n        self.region = region\n\n\ndef compare_maps(a, b):\n    if a is b:\n        return \"same map\"\n    if a.region == b.region:\n        return \"copies\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Map:\n    def __init__(self, region):\n        self.region = region\n\n\ndef compare_maps(a, b):\n    if a is b:\n        return \"same map\"\n    if a.region == b.region:\n        return \"copies\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Map:\n    def __init__(self, region):\n        self.region = region\n\n\ndef compare_maps(a, b):\n    if a is b:\n        return \"same map\"\n    if a.region == b.region:\n        return \"copies\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Map:\n    def __init__(self, region):\n        self.region = region\n\n\ndef compare_maps(a, b):\n    if a is b:\n        return \"same map\"\n    if a.region == b.region:\n        return \"copies\"\n    return \"different\"\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

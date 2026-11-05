@@ -1,0 +1,29 @@
+# The first world has a [key], so nothing could open it.
+base = "good"
+expect = ["world-key-invalid"]
+
+[[file]]
+path = "w1/world.toml"
+text = '''
+# The world's words and wiring. Its look lives in code (src/village/areas.ts, terrain.ts).
+id = "w1"
+order = 1
+name = "The Village"
+area = "village"
+regions = { a = "Basics" }
+
+[building]
+name = "School"
+place = "school"
+
+[teacher]
+name = "Ms. Juniper"
+portrait = "teacher"
+
+[key]
+boss = "calc"
+trophy = "calc-trophy"
+trophy_name = "Calc Trophy"
+opens = "o"
+gate_hint = "h"
+'''

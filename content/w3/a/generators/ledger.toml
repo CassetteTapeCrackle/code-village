@@ -1,0 +1,260 @@
+[[sentence]]
+fp = "defb2b6ff81c"
+text = "A function with `yield` in it is a **generator**."
+where = "text:0"
+status = "claim:auto-defb2b6ff81c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d5237e4443c6"
+text = "Calling it runs nothing yet."
+where = "text:0"
+status = "claim:auto-d5237e4443c6"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "421c53fe3a1f"
+text = "Each time a loop asks for the next value, the function runs until its next `yield`, hands out that value, and pauses there."
+where = "text:0"
+status = "claim:auto-421c53fe3a1f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d8fc989711ce"
+text = "The values are made one at a time, only when asked for."
+where = "text:3"
+status = "claim:auto-d8fc989711ce"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3ada29ed1870"
+text = "Write a generator `evens(limit)` that yields `0, 2, 4, ...` up to but not including `limit`."
+where = "task:generators-evens:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9c615cd0fb13"
+text = "Use `yield`, not a list: `list(evens(7))` is `[0, 2, 4, 6]`."
+where = "task:generators-evens:prompt"
+status = "claim:auto-9c615cd0fb13"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e6f55937ce7e"
+text = "Start from 0 and keep yielding while the number is still below `limit`."
+where = "task:generators-evens:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6b0b4c91ee61"
+text = "Each time round, yield the current number, then move to the next even one by adding 2."
+where = "task:generators-evens:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5b1cfd974611"
+text = "Write a generator `down(start, step)` that yields `start`, then `start - step`, and so on while the value is above 0."
+where = "task:generators-count-down:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2d0ee773b714"
+text = "Use `yield`: `list(down(10, 3))` is `[10, 7, 4, 1]`."
+where = "task:generators-count-down:prompt"
+status = "claim:auto-2d0ee773b714"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "40291418cdef"
+text = "`next()` asks a generator for one value."
+where = "text:6"
+status = "claim:auto-40291418cdef"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "30e4030db26b"
+text = "Finish `total_letters(words)`: it returns how many letters all the words have together, with `sum` over a generator expression."
+where = "task:generators-letters:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1723f81f21c7"
+text = "Inside `sum(...)`, write `len(w)` for each `w` in `words`."
+where = "task:generators-letters:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c707fdf728a1"
+text = "`sum(len(w) for w in [\"hi\", \"there\"])` is 7; use the same shape on `words`."
+where = "task:generators-letters:hint:1"
+status = "claim:auto-c707fdf728a1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5b36ab9c83cf"
+text = "Finish `count_long(words)`: it returns how many words have more than 3 letters, with `sum` over a generator expression that gives `1` for each long word."
+where = "task:generators-count-long:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c7fbd5ed460e"
+text = "A generator remembers where it stopped, and it never starts over."
+where = "text:11"
+status = "claim:auto-c7fbd5ed460e"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2a3f2d919f89"
+text = "If you need the values twice, keep them in a list: `scores = [s for s in [4, 9, 2]]`."
+where = "text:13"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5032a7e00428"
+text = "`spread(numbers)` should return the largest number minus the smallest."
+where = "task:generators-spread:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1099d6bd62a3"
+text = "It crashes instead: find and fix the bug."
+where = "task:generators-spread:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "458cae9ad58f"
+text = "`max(values)` walks through the whole generator."
+where = "task:generators-spread:hint:0"
+status = "claim:auto-458cae9ad58f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "88a1504e37af"
+text = "What is left in it for `min`?"
+where = "task:generators-spread:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a09b4cbd3e39"
+text = "Turn the generator into a list first, so `max` and `min` can both walk it."
+where = "task:generators-spread:hint:1"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "92a632335498"
+text = "`average(numbers)` should return the sum divided by how many numbers there are."
+where = "task:generators-average:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "20c362f331bd"
+text = "It crashes: find and fix the bug."
+where = "task:generators-average:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "000480a0f259"
+text = "(A generator can only be walked through once.)"
+where = "task:generators-average:prompt"
+status = "claim:auto-000480a0f259"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "564b7d36b670"
+text = "yield hands out one value and pauses the function; asking for the next value carries on from there."
+where = "remember:0"
+status = "claim:auto-564b7d36b670"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "753aa04099ec"
+text = "A generator makes its values on demand: loop over it, call next() on it, or give it to sum, max or list."
+where = "remember:1"
+status = "claim:auto-753aa04099ec"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b56a8023540b"
+text = "A generator is used up after one pass: a second loop gets nothing."
+where = "remember:3"
+status = "claim:auto-b56a8023540b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9b9e99ae331d"
+text = "Keep a list if you need the values twice."
+where = "remember:3"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

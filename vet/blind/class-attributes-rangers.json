@@ -1,0 +1,57 @@
+{
+  "fingerprint": "fc89ec978c76",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Ranger:\n    count = 0\n\n    def __init__(self, name):\n        self.name = name\n        Ranger.count += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Ranger:\n    count = 0\n\n    def __init__(self, name):\n        self.name = name\n        Ranger.count += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Ranger:\n    count = 0\n\n    def __init__(self, name):\n        self.name = name\n        Ranger.count += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Ranger:\n    count = 0\n\n    def __init__(self, name):\n        self.name = name\n        Ranger.count += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Ranger:\n    count = 0\n\n    def __init__(self, name):\n        self.name = name\n        # count this ranger\n        Ranger.count += 1\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

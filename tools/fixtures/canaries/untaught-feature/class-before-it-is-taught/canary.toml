@@ -1,0 +1,39 @@
+# A right answer uses class, which the vocabulary lists but no lesson teaches yet.
+base = "good"
+expect = ["untaught-feature"]
+
+[[file]]
+path = "features.toml"
+text = '''
+[feature.fn-print]
+summary = "print()"
+detect = ["call:print"]
+
+[feature.function-def]
+summary = "def"
+detect = ["node:FunctionDef"]
+
+[feature.return-statement]
+summary = "return"
+detect = ["node:Return"]
+
+[feature.fn-sum]
+summary = "sum()"
+detect = ["call:sum"]
+
+[feature.class-def]
+summary = "class"
+detect = ["node:ClassDef"]
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/right/with-class.py"
+text = '''
+class Tripler:
+    def go(self, n):
+        return n * 3
+
+
+def triple(n):
+    return Tripler().go(n)
+'''

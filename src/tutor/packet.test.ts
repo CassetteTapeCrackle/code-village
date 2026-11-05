@@ -27,13 +27,15 @@ const task: Task = {
   hints: ["Start the total at zero and add each price to it."],
   gotcha: false,
   variants: [],
+  cases: [],
+  requires: [],
 };
 
 const failedCheck: CheckResult = {
   error: null,
   results: [
-    { name: "two items", passed: false, message: "total is 5, expected 6" },
-    { name: "empty cart", passed: true, message: "" },
+    { name: "two items", passed: false, message: "total is 5, expected 6", hidden: false },
+    { name: "empty cart", passed: true, message: "", hidden: false },
   ],
 };
 

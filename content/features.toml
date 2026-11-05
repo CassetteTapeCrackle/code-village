@@ -1,0 +1,452 @@
+# Everything code can use that a lesson can teach. A lesson lists the ids it teaches in `teaches` (front matter);
+# code in a lesson, task, hint or boss may use only what that lesson or an earlier one teaches.
+# detect: node:<AstClass>, call:<builtin> (called, or passed as a value), method:<name>, import:<module>, decorator:<name>, kwarg:<call>.<name>
+# words: how a task prompt names a construct it requires (matched in the prompt, lower case)
+# say: what Check tells the learner to do when a task requires the feature, as the end of
+#   "Your code works, but this task asks you to <say>."
+# Code that uses a builtin call, method call, import, decorator or tracked syntax listed nowhere here fails the
+# build as unknown-feature: add it here, then to the `teaches` of the lesson that introduces it.
+
+# Syntax
+[feature.for-loop]
+summary = "for loops"
+detect = ["node:For"]
+words = ["for loop"]
+say = "write a for loop"
+
+[feature.while-loop]
+summary = "while loops"
+detect = ["node:While"]
+words = ["while loop"]
+say = "write a while loop"
+
+[feature.break-continue]
+summary = "break and continue"
+detect = ["node:Break", "node:Continue"]
+
+[feature.if-statement]
+summary = "if, elif and else"
+detect = ["node:If"]
+
+[feature.conditional-expression]
+summary = "a if condition else b"
+detect = ["node:IfExp"]
+words = ["conditional expression", "one-line if"]
+say = "use a conditional expression (a if condition else b)"
+
+[feature.match-statement]
+summary = "match and case"
+detect = ["node:Match"]
+words = ["match statement"]
+say = "use a match statement"
+
+[feature.function-def]
+summary = "def"
+detect = ["node:FunctionDef"]
+
+[feature.return-statement]
+summary = "return"
+detect = ["node:Return"]
+
+[feature.lambda]
+summary = "lambda expressions"
+detect = ["node:Lambda"]
+words = ["lambda"]
+say = "use a lambda"
+
+[feature.class-def]
+summary = "class"
+detect = ["node:ClassDef"]
+
+[feature.try-except]
+summary = "try, except, else and finally"
+detect = ["node:Try"]
+words = ["try/except", "try and except", "try block"]
+say = "use try and except"
+
+[feature.raise-statement]
+summary = "raise"
+detect = ["node:Raise"]
+
+[feature.assert-statement]
+summary = "assert"
+detect = ["node:Assert"]
+
+[feature.with-statement]
+summary = "with"
+detect = ["node:With"]
+words = ["with statement", "with block"]
+say = "use a with statement"
+
+[feature.global-nonlocal]
+summary = "global and nonlocal"
+detect = ["node:Global", "node:Nonlocal"]
+words = ["global statement", "nonlocal"]
+say = "use global or nonlocal"
+
+[feature.generator-yield]
+summary = "yield and yield from"
+detect = ["node:Yield", "node:YieldFrom"]
+words = ["yield"]
+say = "use yield"
+
+[feature.unpack-star]
+summary = "starred unpacking, *rest and *args"
+detect = ["node:Starred"]
+words = ["starred", "*args"]
+say = "use starred unpacking"
+
+[feature.list-comprehension]
+summary = "list comprehensions"
+detect = ["node:ListComp"]
+words = ["list comprehension", "comprehension"]
+say = "use a list comprehension"
+
+[feature.set-comprehension]
+summary = "set comprehensions"
+detect = ["node:SetComp"]
+words = ["set comprehension"]
+say = "use a set comprehension"
+
+[feature.dict-comprehension]
+summary = "dict comprehensions"
+detect = ["node:DictComp"]
+words = ["dict comprehension"]
+say = "use a dict comprehension"
+
+[feature.generator-expression]
+summary = "generator expressions"
+detect = ["node:GeneratorExp"]
+words = ["generator expression"]
+say = "use a generator expression"
+
+[feature.f-string]
+summary = "f-strings"
+detect = ["node:JoinedStr"]
+words = ["f-string"]
+say = "build the text with an f-string"
+
+[feature.augmented-assignment]
+summary = "+=, -= and the other augmented assignments"
+detect = ["node:AugAssign"]
+words = ["augmented assignment"]
+say = "use an augmented assignment such as +="
+
+[feature.slicing]
+summary = "slices such as items[1:3]"
+detect = ["node:Slice"]
+words = ["slice", "slicing"]
+say = "use a slice"
+
+[feature.annotation]
+summary = "variable annotations such as name: str"
+detect = ["node:AnnAssign"]
+words = ["annotation"]
+say = "annotate the variable (name: type)"
+
+[feature.async-await]
+summary = "async def, await, async for and async with"
+detect = ["node:AsyncFunctionDef", "node:Await", "node:AsyncFor", "node:AsyncWith"]
+words = ["async", "await"]
+say = "use async and await"
+
+[feature.docstring]
+summary = "docstrings"
+detect = ["node:Docstring"]
+words = ["docstring"]
+say = "write a docstring"
+
+[feature.delete]
+summary = "del"
+detect = ["node:Delete"]
+
+[feature.walrus]
+summary = "the := operator"
+detect = ["node:NamedExpr"]
+words = ["walrus"]
+say = "use the := operator"
+
+# Builtins
+[feature.fn-print]
+summary = "print()"
+detect = ["call:print"]
+
+[feature.fn-input]
+summary = "input()"
+detect = ["call:input"]
+
+[feature.fn-int]
+summary = "int()"
+detect = ["call:int"]
+
+[feature.fn-float]
+summary = "float()"
+detect = ["call:float"]
+
+[feature.fn-str]
+summary = "str()"
+detect = ["call:str"]
+
+[feature.fn-bool]
+summary = "bool()"
+detect = ["call:bool"]
+
+[feature.fn-len]
+summary = "len()"
+detect = ["call:len"]
+
+[feature.fn-range]
+summary = "range()"
+detect = ["call:range"]
+
+[feature.fn-enumerate]
+summary = "enumerate()"
+detect = ["call:enumerate"]
+
+[feature.fn-zip]
+summary = "zip()"
+detect = ["call:zip"]
+
+[feature.fn-sorted]
+summary = "sorted()"
+detect = ["call:sorted"]
+
+[feature.fn-sum]
+summary = "sum()"
+detect = ["call:sum"]
+
+[feature.fn-min-max]
+summary = "min() and max()"
+detect = ["call:min", "call:max"]
+
+[feature.fn-round]
+summary = "round()"
+detect = ["call:round"]
+
+[feature.fn-list]
+summary = "list()"
+detect = ["call:list"]
+
+[feature.fn-set]
+summary = "set()"
+detect = ["call:set"]
+
+[feature.fn-map-filter]
+summary = "map() and filter()"
+detect = ["call:map", "call:filter"]
+
+[feature.fn-next]
+summary = "next()"
+detect = ["call:next"]
+
+[feature.fn-isinstance]
+summary = "isinstance()"
+detect = ["call:isinstance"]
+
+[feature.fn-type]
+summary = "type()"
+detect = ["call:type"]
+
+[feature.fn-super]
+summary = "super()"
+detect = ["call:super"]
+words = ["super()"]
+say = "call super()"
+
+[feature.fn-open]
+summary = "open()"
+detect = ["call:open"]
+
+[feature.exception-value-error]
+summary = "ValueError(...)"
+detect = ["call:ValueError"]
+
+[feature.exception-zero-division]
+summary = "ZeroDivisionError"
+detect = ["call:ZeroDivisionError"]
+
+[feature.exception-index-error]
+summary = "IndexError"
+detect = ["call:IndexError"]
+
+[feature.exception-type-error]
+summary = "TypeError"
+detect = ["call:TypeError"]
+
+[feature.exception-assertion-error]
+summary = "AssertionError"
+detect = ["call:AssertionError"]
+
+[feature.print-end]
+summary = "print(..., end=...)"
+detect = ["kwarg:print.end"]
+
+[feature.enumerate-start]
+summary = "enumerate(..., start=...)"
+detect = ["kwarg:enumerate.start"]
+
+[feature.sorted-reverse]
+summary = "sorted(..., reverse=True)"
+detect = ["kwarg:sorted.reverse", "kwarg:sort.reverse"]
+
+[feature.sort-key]
+summary = "a key function for sorted(), sort(), min() and max()"
+detect = ["kwarg:sorted.key", "kwarg:sort.key", "kwarg:min.key", "kwarg:max.key"]
+words = ["key function", "key="]
+say = "pass a key function (key=...)"
+
+# Methods of the core types
+[feature.str-case]
+summary = "str.lower() and str.upper()"
+detect = ["method:lower", "method:upper"]
+
+[feature.str-strip]
+summary = "str.strip()"
+detect = ["method:strip"]
+
+[feature.str-split]
+summary = "str.split(), splitlines() and partition()"
+detect = ["method:split", "method:splitlines", "method:partition"]
+
+[feature.str-join]
+summary = "str.join()"
+detect = ["method:join"]
+
+[feature.str-replace]
+summary = "str.replace()"
+detect = ["method:replace"]
+
+[feature.str-startswith]
+summary = "str.startswith()"
+detect = ["method:startswith"]
+
+[feature.str-isdecimal]
+summary = "str.isdecimal()"
+detect = ["method:isdecimal"]
+
+[feature.list-append]
+summary = "list.append()"
+detect = ["method:append"]
+
+[feature.list-remove]
+summary = "list.remove()"
+detect = ["method:remove"]
+
+[feature.list-sort]
+summary = "list.sort()"
+detect = ["method:sort"]
+
+[feature.copy-method]
+summary = "copy() on a list or dict"
+detect = ["method:copy"]
+
+[feature.set-add]
+summary = "set.add()"
+detect = ["method:add"]
+
+[feature.dict-get]
+summary = "dict.get()"
+detect = ["method:get"]
+
+[feature.dict-values]
+summary = "dict.values()"
+detect = ["method:values"]
+
+[feature.file-read]
+summary = "reading a file: read() and readlines()"
+detect = ["method:read", "method:readlines"]
+
+[feature.file-write]
+summary = "writing a file: write()"
+detect = ["method:write"]
+
+# Libraries
+[feature.math-module]
+summary = "the math module"
+detect = ["import:math", "method:sqrt", "method:floor", "method:dist"]
+
+[feature.bisect-module]
+summary = "the bisect module"
+detect = ["import:bisect", "method:bisect_left", "method:bisect_right", "method:insort"]
+
+[feature.json-module]
+summary = "the json module"
+detect = ["import:json", "method:load", "method:loads", "method:dump", "method:dumps"]
+
+[feature.io-stringio]
+summary = "io.StringIO"
+detect = ["import:io", "method:StringIO"]
+
+[feature.dataclasses-import]
+summary = "the dataclasses module"
+detect = ["import:dataclasses"]
+
+[feature.dataclass-decorator]
+summary = "@dataclass"
+detect = ["decorator:dataclass"]
+words = ["@dataclass", "dataclass"]
+say = "put @dataclass above the class"
+
+[feature.property-decorator]
+summary = "@property"
+detect = ["decorator:property"]
+words = ["@property", "property"]
+say = "put @property above the method"
+
+[feature.property-setter]
+summary = "@name.setter"
+detect = ["decorator:setter"]
+words = [".setter", "setter"]
+say = "put @<name>.setter above the setter"
+
+[feature.numpy-arrays]
+summary = "NumPy arrays"
+detect = ["import:numpy", "method:array", "method:tolist"]
+
+[feature.array-reductions]
+summary = "max(), min(), sum() and round() on arrays and columns"
+detect = ["method:max", "method:min", "method:sum", "method:round"]
+
+[feature.numpy-statistics]
+summary = "mean, median and standard deviation"
+detect = ["method:mean", "method:median", "method:std"]
+
+[feature.pandas-basics]
+summary = "pandas Series and reading a table"
+detect = ["import:pandas", "method:Series", "method:read_csv"]
+
+[feature.pandas-groupby]
+summary = "groupby"
+detect = ["method:groupby"]
+
+[feature.pandas-sort-values]
+summary = "sort_values"
+detect = ["method:sort_values"]
+
+[feature.pandas-describe]
+summary = "describe"
+detect = ["method:describe"]
+
+[feature.pandas-conversions]
+summary = "to_dict and to_numeric"
+detect = ["method:to_dict", "method:to_numeric"]
+
+[feature.sklearn-neighbors]
+summary = "scikit-learn neighbours"
+detect = ["import:sklearn.neighbors"]
+
+[feature.sklearn-model-selection]
+summary = "scikit-learn model selection"
+detect = ["import:sklearn.model_selection"]
+
+[feature.sklearn-metrics]
+summary = "scikit-learn metrics"
+detect = ["import:sklearn.metrics"]
+
+[feature.sklearn-fit-predict]
+summary = "fit() and predict()"
+detect = ["method:fit", "method:predict"]
+
+[feature.sklearn-score]
+summary = "score()"
+detect = ["method:score"]

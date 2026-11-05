@@ -16,6 +16,8 @@ export default ts.config(
     ignores: [
       "dist/",
       "public/pyodide/",
+      // results and the older Pythons the content check keeps (tools/vet), libraries included
+      ".vet-cache/",
       "src/content/bundle.json",
       "worker/worker-configuration.d.ts",
       "**/.wrangler/**",

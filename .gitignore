@@ -20,14 +20,21 @@ src/content/bundle.json.sha256
 !.env.example
 worker/.dev.vars
 
-# Python bytecode
+# Python bytecode and test coverage data
 __pycache__/
+.coverage
+.coverage.*
 
-# Local-only notes, plans and agent scratch: kept on disk, never in the repo
-/docs/
-/CLAUDE.md
-/AGENTS.md
-.claude/
+# Local-only notes, plans and agent scratch: kept on disk, never in the repo.
+# Project rules, skills and hooks are committed so cloud sessions get them.
+/docs/*
+!/docs/test-framework/
+.claude/*
+!.claude/rules/
+!.claude/skills/
+!.claude/hooks/
+!.claude/settings.json
+!.claude/cloud-setup.sh
 .opencode/
 .superpowers/
 .handoff/
@@ -37,3 +44,4 @@ __pycache__/
 .idea/
 .vscode/
 *.swp
+.vet-cache/

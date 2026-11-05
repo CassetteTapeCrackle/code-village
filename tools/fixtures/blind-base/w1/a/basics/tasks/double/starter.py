@@ -1,0 +1,2 @@
+def double(n):
+    pass

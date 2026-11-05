@@ -1,0 +1,297 @@
+[[sentence]]
+fp = "260a984735b1"
+text = "Every value has a **type**: whole numbers are `int`, numbers with a decimal point are `float`, text between quotes is `str`, and `True` and `False` are `bool`."
+where = "text:0"
+status = "claim:auto-260a984735b1"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "31a48562257d"
+text = "`type()` tells you which one you have."
+where = "text:0"
+status = "claim:auto-31a48562257d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6837fd24e72f"
+text = "A **variable** is a name for a value."
+where = "text:3"
+status = "simplification"
+reason = "A variable is a name bound to an object. It leaves out that the name refers to the object rather than holding a copy."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4eaa3c0bbd52"
+text = "`=` takes the value on the right and stores it under the name on the left."
+where = "text:3"
+status = "claim:auto-4eaa3c0bbd52"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1953230e7bb6"
+text = "You can store a new value later, even one computed from the old one."
+where = "text:3"
+status = "claim:auto-1953230e7bb6"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "59dda76943e9"
+text = "Most tasks ask you to finish a small **function**."
+where = "text:8"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "677b25269616"
+text = "A line like `def total_price(price, quantity):` gives it a name and lists the values it receives, its **parameters**."
+where = "text:8"
+status = "claim:auto-677b25269616"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "450001abe5d8"
+text = "The indented lines below are its body, and `return` hands the answer back."
+where = "text:8"
+status = "claim:auto-450001abe5d8"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b92b52837735"
+text = "The Functions lesson explains all of this in depth later."
+where = "text:8"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f89c3b8e2726"
+text = "Write `total_price(price, quantity)` that returns the price of one item times how many there are."
+where = "task:values-total-price:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "036b2b99dd97"
+text = "Multiply the two parameters."
+where = "task:values-total-price:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bec2346bcb75"
+text = "Put the `*` operator between the two parameters, after `return`."
+where = "task:values-total-price:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "974e3fca14eb"
+text = "Write `average_of_two(a, b)` that returns the number halfway between `a` and `b`."
+where = "task:values-average:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0b19fb6484f0"
+text = "So `\"3\" + \"4\"` is `\"34\"`, not 7."
+where = "text:10"
+status = "claim:auto-0b19fb6484f0"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "68aa4e06577a"
+text = "Convert first with `int()`, `float()` or `str()`."
+where = "text:10"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "daa5fb40e056"
+text = "`add_strings(a, b)` gets two numbers written as text, like `\"3\"` and `\"4\"`, and should return their sum as an int (here, 7)."
+where = "task:values-add-strings:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8511cc020620"
+text = "It has a bug: find and fix it."
+where = "task:values-add-strings:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "54dbde06a9ef"
+text = "Run it: what does `\"3\" + \"4\"` give?"
+where = "task:values-add-strings:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "122a84d92b21"
+text = "`next_number(text)` gets a number written as text, like `\"41\"`, and should return the next number, `42`."
+where = "task:values-next-number:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "ec445dfe8d25"
+text = "It returns `\"411\"` instead: find and fix the bug."
+where = "task:values-next-number:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "80b6ff8f3836"
+text = "`int()` on a float cuts the decimals off (it does not round), and `str()` turns any value into text, which is handy for building messages."
+where = "text:14"
+status = "claim:auto-80b6ff8f3836"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "089b3fc04e42"
+text = "Python also comes with **modules** of extra tools."
+where = "text:17"
+status = "claim:auto-089b3fc04e42"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "720eb3ca6ecd"
+text = "`import math` loads one, and then its tools are ready to use with `math.` in front."
+where = "text:17"
+status = "claim:auto-720eb3ca6ecd"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "7325bef3f38d"
+text = "Finish `describe(name, age)` so that `describe(\"Noa\", 12)` returns `\"Noa is 12 years old\"`."
+where = "task:values-describe:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "aa839b5a4ac3"
+text = "`age` is an int."
+where = "task:values-describe:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cd70ffe8ee8b"
+text = "`str(age)` turns the number into text."
+where = "task:values-describe:hint:1"
+status = "claim:auto-cd70ffe8ee8b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "796ab6f8aa7d"
+text = "Join the name, the words and `str(age)` with `+` in the order the prompt shows."
+where = "task:values-describe:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "b4889d4c94c0"
+text = "Finish `price_label(item, price)` so that `price_label(\"tea\", 2.5)` returns `\"Price of tea: 2.5\"`."
+where = "task:values-price-label:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d05a075dccff"
+text = "type(x) tells you which."
+where = "remember:0"
+status = "claim:auto-d05a075dccff"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "db7ec3cdfcec"
+text = "= stores a value in a name; the name can point at a new value later."
+where = "remember:1"
+status = "claim:auto-db7ec3cdfcec"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "843056d01e96"
+text = "adds numbers but joins strings: \"3\" + \"4\" is \"34\"."
+where = "remember:2"
+status = "claim:auto-843056d01e96"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cd9c3cd83895"
+text = "int(), float() and str() convert; int() cuts the decimals off, round() goes to the nearest whole number (a half goes to the even one: round(2.5) is 2)."
+where = "remember:3"
+status = "claim:auto-cd9c3cd83895"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "67b42be6f7e0"
+text = "import math loads a module of extra tools: then math.sqrt(x) and math.floor(x) work."
+where = "remember:4"
+status = "claim:auto-67b42be6f7e0"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

@@ -1,0 +1,19 @@
+# The boss starter gives add a docstring, a feature no lesson teaches.
+base = "good"
+expect = ["progression"]
+
+[[file]]
+path = "w1/a/boss/starter.py"
+text = '''
+def add(a, b):
+    """Add two numbers."""
+    pass
+
+
+def sub(a, b):
+    pass
+
+
+def mul(a, b):
+    pass
+'''

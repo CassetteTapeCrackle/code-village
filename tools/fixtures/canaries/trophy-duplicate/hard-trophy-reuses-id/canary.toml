@@ -1,0 +1,27 @@
+# The boss hard trophy reuses the id of its normal trophy.
+base = "good"
+expect = ["trophy-duplicate"]
+
+[[file]]
+path = "w1/a/boss/boss.md"
+text = '''
++++
+id = "calc"
+title = "Calculator"
+world = "w1"
+region = "a"
+hard_checks = 3
+[trophy]
+id = "calc-trophy"
+name = "Calc Trophy"
+[hard_trophy]
+id = "calc-trophy"
+name = "Gold Calc"
+
+[cases]
+call = "sub"
+args = ["int -50..50", "int -50..50"]
++++
+
+Build a tiny calculator.
+'''

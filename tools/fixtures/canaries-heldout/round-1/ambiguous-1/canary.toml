@@ -1,0 +1,122 @@
+# The triple task requires fn-sum, but its prompt never names sum, so a correct n * 3 is refused with no way to know.
+base = "good"
+expect = ["ambiguous"]
+
+[[file]]
+path = "features.toml"
+text = '''
+[feature.fn-print]
+summary = "print()"
+detect = ["call:print"]
+
+[feature.function-def]
+summary = "def"
+detect = ["node:FunctionDef"]
+
+[feature.return-statement]
+summary = "return"
+detect = ["node:Return"]
+
+[feature.fn-sum]
+summary = "sum()"
+detect = ["call:sum"]
+words = ["sum"]
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)`."
+hints = ["Add the number to itself three times."]
+requires = ["fn-sum"]
+gotcha = false
+
+[cases]
+call = "triple"
+args = ["int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/solution.py"
+text = '''
+def triple(n):
+    return sum([n, n, n])
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/right/added-three-times.py"
+text = '''
+def triple(n):
+    return sum([n] * 3)
+'''
+
+[[file]]
+path = "w1/a/basics/ledger.toml"
+text = '''
+[[sentence]]
+fp = "5200066b97e8"
+text = "Numbers can be multiplied."
+where = "text:0"
+status = "claim:times-two"
+decided = "owner"
+
+[[sentence]]
+fp = "66ec437924e8"
+text = "Write `double(n)`."
+where = "task:basics-double:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "a82bdae3baef"
+text = "Multiply by 2."
+where = "task:basics-double:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "f534e12368ba"
+text = "Write `quadruple(n)`."
+where = "task:basics-double-quadruple:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "4a8843c31c0b"
+text = "Write `half(n)`."
+where = "task:basics-half:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "60e91b832049"
+text = "Divide by 2."
+where = "task:basics-half:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "90c9d737af26"
+text = "Write `triple(n)`."
+where = "task:basics-triple:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "04556d0e7a22"
+text = "Add the number to itself three times."
+where = "task:basics-triple:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "6d3af89c09f9"
+text = "Multiplying by 2 doubles a number."
+where = "remember:0"
+status = "claim:times-two"
+decided = "owner"
+'''

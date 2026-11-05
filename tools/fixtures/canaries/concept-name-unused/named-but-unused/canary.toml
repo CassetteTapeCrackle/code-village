@@ -1,0 +1,10 @@
+# concepts.toml names a concept nothing uses.
+base = "good"
+expect = ["concept-name-unused"]
+
+[[file]]
+path = "concepts.toml"
+text = '''
+numbers = "numbers"
+gone = "gone"
+'''

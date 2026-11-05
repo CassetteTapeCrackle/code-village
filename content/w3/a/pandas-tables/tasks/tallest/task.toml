@@ -5,3 +5,6 @@ title = "Who is tallest?"
 prompt = "Write `tallest(text)`: `text` is CSV with the columns `name` and `height`. Read it with pandas and return the name of the tallest person."
 hints = ["Read the text as a table with pandas: `pd.read_csv(io.StringIO(text))`.", "Sort by the height column and take the last row; read its name column."]
 gotcha = false
+
+[cases]
+none = "it takes CSV text, which cannot be built from simple types"

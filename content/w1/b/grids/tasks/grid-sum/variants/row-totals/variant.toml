@@ -1,3 +1,7 @@
 id = "grids-row-totals"
 title = "Row totals"
 prompt = "Write `row_totals(grid)` that returns a list with the total of each row."
+
+[cases]
+call = "row_totals"
+args = ["list<list<int 0..9> 0..4> 0..4"]

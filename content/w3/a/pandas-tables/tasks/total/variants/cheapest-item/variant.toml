@@ -1,3 +1,6 @@
 id = "pandas-tables-cheapest-item"
 title = "The cheapest item"
 prompt = "`cheapest(text)` should return the item with the lowest price in a CSV where some prices are `?`. It picks the wrong one (the `?` made the prices text, and text sorts `\"10\"` before `\"9\"`): find and fix the bug."
+
+[cases]
+none = "it takes CSV text, which cannot be built from simple types"

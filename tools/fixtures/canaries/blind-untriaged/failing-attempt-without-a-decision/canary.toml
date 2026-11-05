@@ -1,0 +1,65 @@
+# An attempt fails a hidden case and nobody has said why.
+base = "blind-base"
+expect = ["blind-untriaged"]
+
+[[file]]
+path = "../vet/blind/basics-double.json"
+text = '''
+{
+  "fingerprint": "0d599c5374ef",
+  "model": "recorded",
+  "attempts": [
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "fail",
+      "hidden": "fail",
+      "failure": "double: double(3) returned 5, expected 6",
+      "case": "We also tried double(3): expected 6, your code returned 5.",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def double(n):\n    return n * 2\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}
+'''

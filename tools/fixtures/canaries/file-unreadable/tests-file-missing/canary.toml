@@ -1,0 +1,7 @@
+# The half task has no tests.py.
+# An unreadable task is skipped, so concept numbers drops to two tasks.
+base = "good"
+expect = ["file-unreadable", "concept-too-few-tasks"]
+
+[[delete]]
+path = "w1/a/basics/tasks/half/tests.py"

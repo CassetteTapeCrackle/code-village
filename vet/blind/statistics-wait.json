@@ -1,0 +1,57 @@
+{
+  "fingerprint": "e7c768f03ddb",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

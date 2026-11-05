@@ -4,6 +4,7 @@ title = "The Songbird Playlist"
 world = "w2"
 region = "b"
 hard_checks = 5
+requires = ["dataclass-decorator"]
 [trophy]
 id = "songbird-flute"
 name = "Songbird Flute"

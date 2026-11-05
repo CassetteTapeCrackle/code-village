@@ -1,0 +1,16 @@
+# Framework code in tools/ and py/ (py/ruff.toml extends this). Lesson solutions keep LINT_RULES in
+# tools/vet/checks/style.py, run with --isolated, so this file never reaches content/.
+target-version = "py312"
+line-length = 120
+# fixtures are lesson code: tests.py uses names the harness injects
+extend-exclude = ["fixtures"]
+
+[lint]
+select = ["E", "F", "W", "B", "SIM", "I", "UP", "C90", "PL", "RUF", "ANN"]
+
+[lint.mccabe]
+max-complexity = 10
+
+[lint.per-file-ignores]
+# tests compare against literal expected values
+"test_*.py" = ["PLR2004"]

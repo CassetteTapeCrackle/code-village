@@ -1,0 +1,26 @@
+{
+  "job": "blind",
+  "items": [
+    {
+      "id": "conditions-sign",
+      "fingerprint": "97afed50d365",
+      "context": "A comparison gives a `bool`: `==` equal, `!=` not equal, `<`, `<=`, `>`, `>=`. Careful: one `=` stores a value, two `==` compare, and `if x = 3:` is a syntax error.\n\n```python\nprint(3 == 3, 3 != 4, 10 <= 9)\n```\n\n`if` runs its indented block only when its condition is `True`. `elif` tries another condition, and `else` catches everything left. Only the first branch that matches runs.\n\n```python\ntemp = 18\nif temp > 25:\n    print(\"hot\")\nelif temp > 15:\n    print(\"mild\")\nelse:\n    print(\"cold\")\n```",
+      "prompt": "Write `sign(n)` that returns `\"positive\"`, `\"negative\"` or `\"zero\"`.",
+      "starter": "def sign(n):\n    pass\n"
+    },
+    {
+      "id": "properties-fuel",
+      "fingerprint": "3297ad9c2699",
+      "context": "Anyone can change an object's attributes from outside. Often that is fine. Sometimes a value should be **worked out** from others, or **checked** before it is stored. A **property** handles both while still reading like a plain attribute.\n\n```python\nclass Plot:\n    def __init__(self, width, depth):\n        self.width = width\n        self.depth = depth\n\n    @property\n    def area(self):\n        return self.width * self.depth\n\np = Plot(3, 4)\nprint(p.area)\np.width = 5\nprint(p.area)\n```\n\n`@property` turns `area` into something you read without brackets, and it is always up to date.\n\n```python\nclass Box:\n    def __init__(self, items):\n        self.items = items\n\n    @property\n    def size(self):\n        return len(self.items)\n\nb = Box([\"acorn\"])\nb.items.append(\"cone\")\nprint(b.size, b.size + 1)\n```\n\nA **setter** runs whenever the attribute is assigned, so it can refuse bad values. The real value is stored under another name, by convention with a leading underscore: `_degrees` means \"please do not touch from outside\".\n\n```python\nclass Thermometer:\n    def __init__(self, degrees):\n        self.degrees = degrees  # this already goes through the setter\n\n    @property\n    def degrees(self):\n        return self._degrees\n\n    @degrees.setter\n    def degrees(self, value):\n        if value < -50:\n            raise ValueError(\"too cold to be true\")\n        self._degrees = value\n\nt = Thermometer(12)\nt.degrees = 20\nprint(t.degrees)\n```",
+      "prompt": "Finish the setter of `Stove.fuel`: it should store values from 0 to 100, and raise `ValueError(\"fuel must be 0 to 100\")` for anything outside.",
+      "starter": "class Stove:\n    def __init__(self, fuel):\n        self.fuel = fuel\n\n    @property\n    def fuel(self):\n        return self._fuel\n\n    @fuel.setter\n    def fuel(self, value):\n        # refuse values outside 0 to 100 with ValueError\n        pass\n"
+    },
+    {
+      "id": "statistics-median",
+      "fingerprint": "d5d7b83d8861",
+      "context": "A few numbers sum up a list of measurements: where its middle is, and how spread out it is. First by hand. The **mean** is the sum divided by the count. The **median** is the middle value once the list is sorted.\n\n```python\ntemps = [12, 15, 11, 14, 13]\nmean = sum(temps) / len(temps)\nmiddle = sorted(temps)[len(temps) // 2]\nprint(mean, middle)\n```\n\nWith an even number of values there are two middle values, and the median is their mean: the median of `[1, 2, 3, 4]` is `2.5`.",
+      "prompt": "Write `median(values)` by hand (no NumPy): sort the values, and return the middle one. With an even number of values, return the mean of the two middle ones.",
+      "starter": "def median(values):\n    pass\n"
+    }
+  ]
+}

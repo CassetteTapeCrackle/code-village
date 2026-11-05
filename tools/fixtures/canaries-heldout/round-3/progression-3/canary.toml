@@ -1,0 +1,116 @@
+# A triple hint shows len([7, 7, 7]), a builtin the vocabulary lists but no lesson teaches.
+base = "good"
+expect = ["progression"]
+
+[[file]]
+path = "features.toml"
+text = '''
+[feature.fn-print]
+summary = "print()"
+detect = ["call:print"]
+
+[feature.function-def]
+summary = "def"
+detect = ["node:FunctionDef"]
+
+[feature.return-statement]
+summary = "return"
+detect = ["node:Return"]
+
+[feature.docstring]
+summary = "docstrings"
+detect = ["node:Docstring"]
+words = ["docstring"]
+say = "write a docstring"
+
+[feature.fn-sum]
+summary = "sum()"
+detect = ["call:sum"]
+
+[feature.fn-len]
+summary = "len()"
+detect = ["call:len"]
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)`."
+hints = ["Multiply by 3, and remember that `len([7, 7, 7])` is 3."]
+gotcha = false
+
+[cases]
+call = "triple"
+args = ["int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/basics/ledger.toml"
+text = '''
+[[sentence]]
+fp = "5200066b97e8"
+text = "Numbers can be multiplied."
+where = "text:0"
+status = "claim:times-two"
+decided = "owner"
+
+[[sentence]]
+fp = "66ec437924e8"
+text = "Write `double(n)`."
+where = "task:basics-double:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "a82bdae3baef"
+text = "Multiply by 2."
+where = "task:basics-double:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "f534e12368ba"
+text = "Write `quadruple(n)`."
+where = "task:basics-double-quadruple:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "4a8843c31c0b"
+text = "Write `half(n)`."
+where = "task:basics-half:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "60e91b832049"
+text = "Divide by 2."
+where = "task:basics-half:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "90c9d737af26"
+text = "Write `triple(n)`."
+where = "task:basics-triple:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "d9a133a42177"
+text = "Multiply by 3, and remember that `len([7, 7, 7])` is 3."
+where = "task:basics-triple:hint:0"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "6d3af89c09f9"
+text = "Multiplying by 2 doubles a number."
+where = "remember:0"
+status = "claim:times-two"
+decided = "owner"
+'''

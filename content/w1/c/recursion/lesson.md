@@ -5,6 +5,7 @@ world = "w1"
 region = "c"
 order = 12
 concepts = ["recursion"]
+teaches = []
 remember = ["A recursive function calls itself on a smaller input.", "Every recursion needs a base case that answers without calling itself.", "With no base case, Python stops with RecursionError after about 1000 calls."]
 [loot]
 id = "nesting-dolls"
@@ -48,7 +49,20 @@ print(f(4))
 
 Without a base case the calls never stop. Python gives up after about a thousand of them with a `RecursionError`.
 
-```python claim
+```python claim id=auto-db472a1cf51c
+import sys
+def f(n):
+    return f(n + 1)
+assert sys.getrecursionlimit() == 1000
+try:
+    f(0)
+    raised = False
+except RecursionError:
+    raised = True
+assert raised
+```
+
+```python claim id=recursion-claim-1
 import sys
 
 depth = 0
@@ -69,3 +83,28 @@ assert raised and sys.getrecursionlimit() == 1000 and 900 < depth <= 1000
 ::task power
 
 ::task countdown-list
+
+```python claim id=auto-fc57096c331d
+numbers = [4, 5, 6]
+assert numbers[0] == 4
+assert numbers[1:] == [5, 6]
+```
+
+```python claim id=auto-dd57b7bcd03f
+word = 'hi'
+assert [word] + ['hi'] == ['hi', 'hi']
+assert [1] + [2] == [1, 2]
+```
+
+```python claim id=auto-579273e78ba0
+import sys
+def f(n):
+    return f(n + 1)
+assert sys.getrecursionlimit() == 1000
+try:
+    f(0)
+    raised = False
+except RecursionError:
+    raised = True
+assert raised
+```

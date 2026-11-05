@@ -1,0 +1,181 @@
+[[sentence]]
+fp = "19b19028f911"
+text = "It needs a **base case**: an input small enough to answer directly, so the calls stop."
+where = "text:0"
+status = "simplification"
+reason = "Correct for ordinary recursion. It leaves out that a recursion could in principle stop through an exception instead."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f3f12beb3210"
+text = "Write `total(numbers)` recursively: the total of an empty list is 0; otherwise it is the first number plus the total of the rest (`numbers[1:]`)."
+where = "task:recursion-total:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0ce5e0a99ccf"
+text = "Base case: `if len(numbers) == 0: return 0`."
+where = "task:recursion-total:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fc57096c331d"
+text = "`numbers[0]` is the first value and `numbers[1:]` is the rest; add the first to the total of the rest."
+where = "task:recursion-total:hint:1"
+status = "claim:auto-fc57096c331d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0345fb7fe78b"
+text = "Write `count_items(items)` recursively: an empty list has 0 items; otherwise it is 1 plus the count of the rest."
+where = "task:recursion-count:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0aa214f02dcf"
+text = "Without a base case the calls never stop."
+where = "text:6"
+status = "simplification"
+reason = "Logically the calls never reach an end; in practice Python stops them with RecursionError, as the next sentence says."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "db472a1cf51c"
+text = "Python gives up after about a thousand of them with a `RecursionError`."
+where = "text:6"
+status = "claim:auto-db472a1cf51c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "abbb357df3ac"
+text = "`power(base, exp)` should return `base` to the power `exp` (with `exp` 0 or more), recursively."
+where = "task:recursion-power:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4dd78660f4a0"
+text = "It crashes: find and fix it."
+where = "task:recursion-power:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "d679e9e51dd7"
+text = "Read the error: the calls never stop."
+where = "task:recursion-power:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "79168ce203a0"
+text = "What should `power(base, 0)` be?"
+where = "task:recursion-power:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "65bc874c26be"
+text = "`sum_to(n)` should return `n + (n - 1) + ... + 1`, recursively, with `sum_to(0)` equal to 0."
+where = "task:recursion-sum-to:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cae62a32d20a"
+text = "Finish `countdown_list(n)` so it returns `[n, n - 1, ..., 1]`, recursively."
+where = "task:recursion-countdown-list:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bdd08cdfe995"
+text = "`countdown_list(0)` is `[]`."
+where = "task:recursion-countdown-list:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "33b7fb55a17d"
+text = "The list for n is `[n]` followed by the list for n - 1."
+where = "task:recursion-countdown-list:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8b57f7a30e51"
+text = "The list for k is `[k]` plus the list for `k - 1`: build `[k] + rest` where `rest` is the recursive call on `k - 1`."
+where = "task:recursion-countdown-list:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f98909521d45"
+text = "Finish `repeat(word, n)` so it returns a list with `word` in it `n` times, recursively."
+where = "task:recursion-repeat:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4c4b6b8f10f1"
+text = "`repeat(\"hi\", 0)` is `[]`."
+where = "task:recursion-repeat:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "dd57b7bcd03f"
+text = "`+` joins two lists: `[word] + repeat(word, n - 1)`."
+where = "task:recursion-repeat:prompt"
+status = "claim:auto-dd57b7bcd03f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "579273e78ba0"
+text = "With no base case, Python stops with RecursionError after about 1000 calls."
+where = "remember:2"
+status = "claim:auto-579273e78ba0"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
