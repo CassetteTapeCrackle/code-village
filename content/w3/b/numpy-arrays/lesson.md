@@ -6,7 +6,7 @@ region = "b"
 order = 5
 concepts = ["numpy-arrays"]
 teaches = []
-remember = ["np.array(values) makes an array: maths on it (a * 2, a + b) works on every value at once.", "grid.shape gives (rows, columns); grid[r, c] reads one value and grid[:, c] a whole column; sum(axis=0) adds down the columns.", "NumPy answers are NumPy numbers: float(x), int(x) and a.tolist() turn them into plain Python ones.", "* repeats a list but multiplies an array: [1, 2] * 2 is [1, 2, 1, 2], np.array([1, 2]) * 2 is [2 4]."]
+remember = ["np.array(values) makes an array: maths on it (a * 2, a + b) works on every value at once.", "grid.shape gives (rows, columns); grid[r, c] reads one value and grid[:, c] a whole column; grid.sum(axis=0) adds down the columns.", "NumPy answers are NumPy numbers: float(x), int(x) and a.tolist() turn them into plain Python ones.", "* repeats a list but multiplies an array: [1, 2] * 2 is [1, 2, 1, 2], np.array([1, 2]) * 2 is [2 4]."]
 [loot]
 id = "abacus-beads"
 name = "Abacus Beads"
@@ -24,6 +24,27 @@ print(a * 2, a + a, a.sum())
 ```
 
 An array prints without commas. `a * 2` doubles each value, `a + a` adds the values pair by pair, and arrays have `sum`, `min`, `max` and `mean` built in. With a million numbers, this is also much faster than a loop.
+
+```python claim id=auto-e86f52592516
+import time
+import numpy as np
+n = 1_000_000
+a = np.arange(n)
+xs = list(range(n))
+start = time.perf_counter()
+b = a * 2
+arr_time = time.perf_counter() - start
+start = time.perf_counter()
+c = [x * 2 for x in xs]
+loop_time = time.perf_counter() - start
+assert arr_time * 3 < loop_time
+```
+
+```python claim id=auto-0c5f89edd451
+import numpy as np
+assert str(np.array([1, 2, 3])) == '[1 2 3]'
+assert ',' not in str(np.array([1.5, 2.5]))
+```
 
 ```python claim id=auto-adb4b5b26c03
 import numpy as np
@@ -89,6 +110,14 @@ print(grid.sum(axis=0))
 ```
 
 The answers NumPy gives are NumPy numbers. They print like plain numbers on their own, but show their type inside a list. `float()`, `int()` and `.tolist()` turn them into plain Python values, which is what you want to return, save to JSON, or compare.
+
+```python claim id=auto-6ed488d4bafb
+import numpy as np
+a = np.array([1, 2, 3])
+assert type(a.sum()) is not int
+assert isinstance(a.sum(), np.integer)
+assert type(a.mean()) is not float
+```
 
 ```python claim id=auto-fb02aadf87dd
 import numpy as np
@@ -195,4 +224,23 @@ assert type(a.tolist()[0]) is float
 import numpy as np
 assert [1, 2] * 2 == [1, 2, 1, 2]
 assert str(np.array([1, 2]) * 2) == '[2 4]'
+```
+
+```python claim id=auto-833faae90837
+import numpy as np
+r = np.array([1, 2]).sum(axis=0) * np.array([1, 1])
+assert type(r.tolist()) is list
+```
+
+```python claim id=auto-3438a0ef3fa6
+assert [1, 2, 3] * 2 == [1, 2, 3, 1, 2, 3]
+```
+
+```python claim id=auto-6f035779a1fe
+import numpy as np
+grid = np.array([[1, 2, 3], [4, 5, 6]])
+assert grid.shape == (2, 3)
+assert grid[1, 2] == 6
+assert grid[:, 1].tolist() == [2, 5]
+assert grid.sum(axis=0).tolist() == [5, 7, 9]
 ```

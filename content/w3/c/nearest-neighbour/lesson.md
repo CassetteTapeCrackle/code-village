@@ -30,6 +30,11 @@ print(math.sqrt((4 - 1) ** 2 + (6 - 2) ** 2))
 
 A point can have as many numbers as you like: one per thing you measured (height, weight, age...). Each number is a **feature**.
 
+```python claim id=auto-eb15eb8cc663
+import math
+assert math.dist((0, 0, 0, 0, 0), (1, 1, 1, 1, 0)) == 2.0
+```
+
 ```python claim id=nearest-neighbour-claim-1
 import math
 
@@ -55,6 +60,14 @@ print(nearest((2, 2)), nearest((7, 7)))
 
 With one neighbour, one odd example can mislead you. Taking the **k** nearest and letting them vote is steadier.
 
+```python claim id=auto-69bd60c7869a
+from sklearn.neighbors import KNeighborsClassifier
+X = [[0],[1],[2],[3],[4]]
+y = ['a','a','b','a','a']
+assert KNeighborsClassifier(n_neighbors=1).fit(X, y).predict([[2.1]]).tolist() == ['b']
+assert KNeighborsClassifier(n_neighbors=3).fit(X, y).predict([[2.1]]).tolist() == ['a']
+```
+
 ::task classify
 
 A distance adds up the (squared) differences of every feature, so the feature with the biggest numbers decides almost everything. Here the weight is in grams and the length in metres:
@@ -69,6 +82,18 @@ print(math.dist(mystery, mouse) < math.dist(mystery, snake))
 ```
 
 The grams swamp the metres. The fix is to **scale** every column to the same range, 0 for its smallest value and 1 for its largest, before measuring:
+
+```python claim id=auto-beea83ff4c61
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+X = np.array([[1.0, 10.0], [2.0, 30.0], [5.0, 20.0]])
+S = MinMaxScaler().fit_transform(X)
+for j in range(X.shape[1]):
+    assert S[:, j].min() == 0.0
+    assert S[:, j].max() == 1.0
+    assert S[X[:, j].argmin(), j] == 0.0
+    assert S[X[:, j].argmax(), j] == 1.0
+```
 
 ```python example
 def scale(column):
@@ -95,4 +120,11 @@ import math
 assert math.dist((0, 0), (3, 4)) == 5.0
 assert math.dist((0, 0, 0), (1, 2, 2)) == 3.0
 assert math.dist((1,), (4,)) == 3.0
+```
+
+```python claim id=auto-e58e5dfc15a4
+import math
+points = [(5, 5), (1, 1), (9, 9)]
+target = (2, 2)
+assert min(points, key=lambda p: math.dist(p, target)) == (1, 1)
 ```

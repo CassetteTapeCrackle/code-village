@@ -267,3 +267,39 @@ status = "claim:auto-1b0b8077bd55"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "cfdcf290b31a"
+text = "`print` only shows a value on screen, and a function without `return` gives back `None`."
+where = "text:0"
+status = "claim:auto-cfdcf290b31a"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "1db4c7cb080a"
+text = "Names created inside a function are **local**: they disappear when it returns."
+where = "text:5"
+status = "claim:auto-1db4c7cb080a"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "1e7cffb60bf2"
+text = "Put the default in the `def` line."
+where = "task:functions-greeting:hint:0"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "bd15ed64e9cd"
+text = "Use `None` as the default, and make the list inside the function when `entries is None`."
+where = "task:functions-log:prompt"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"

@@ -70,3 +70,32 @@ reason = "`print()` writes to standard output, which usually appears on screen. 
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "3cdd45525dd7"
+text = "\"`print()` shows text on the screen,\" she says."
+where = "text:0"
+status = "claim:auto-3cdd45525dd7"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "7ae6f8ffe185"
+text = "\"The text goes between the quotes.\""
+where = "text:0"
+status = "simplification"
+reason = "It is a beginner-friendly way to say that a string literal's characters sit inside the quote marks. It leaves out that print() can also display variables, numbers, and expression results, and that quotes delimit strings rather than being printed."
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "da54a5945186"
+text = "The text goes between the quotes."
+where = "remember:1"
+status = "simplification"
+reason = "A string literal is written between quotes. It leaves out that `print()` can take variables and other values without quotes."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

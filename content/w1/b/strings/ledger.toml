@@ -195,3 +195,30 @@ status = "claim:auto-304cf0a1cae2"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "aaf5ed3812ca"
+text = "`split()` cuts a string into a list of words (lists are the next lesson)."
+where = "text:5"
+status = "claim:auto-aaf5ed3812ca"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "ceb41e308347"
+text = "A method returns a new string and leaves the old one as it was, so keep the result in a variable."
+where = "text:10"
+status = "claim:auto-ceb41e308347"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "5161ad5d42d5"
+text = "split() turns a string into a list of words; strip() removes spaces and line breaks at both ends."
+where = "remember:2"
+status = "claim:auto-5161ad5d42d5"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

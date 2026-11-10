@@ -69,3 +69,39 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "002ff8ffcde1"
+text = "Skip a row whose speed is blank or not a number (`float()` raises `ValueError` then), and when an hour comes twice, keep only its first usable reading."
+where = "stage:summary-clean:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "7901bf211af8"
+text = "Return plain numbers (`float()`), not NumPy ones."
+where = "stage:summary-numbers:prompt"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "56376a9fa106"
+text = "`bisect.bisect_right` is like `bisect_left`, but gives the place just after any values equal to `limit`."
+where = "stage:summary-gusts:prompt"
+status = "doc:https://docs.python.org/3/library/bisect.html#bisect.bisect_right"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "da33cfbef74a"
+text = "With no speeds, the `count` is `0` and the other three are `None`."
+where = "stage:summary-numbers:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

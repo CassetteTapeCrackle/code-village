@@ -214,3 +214,21 @@ status = "claim:auto-b156fc7703ff"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "dff1ce9f164f"
+text = "Keep a total and loop over `range(1, n + 1)`."
+where = "task:loops-sum-to:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "22b36ab68e89"
+text = "`while` repeats as long as its condition is `True`."
+where = "text:11"
+status = "claim:auto-22b36ab68e89"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

@@ -69,6 +69,13 @@ for x in countdown(3):
 
 The values are made one at a time, only when asked for. A generator over a million numbers never holds a million numbers in memory.
 
+```python claim id=auto-807a4dcba440
+import sys
+g = (i for i in range(1_000_000))
+assert sys.getsizeof(g) < 1000
+assert sys.getsizeof(g) < sys.getsizeof(list(range(1000)))
+```
+
 ```python claim id=auto-d8fc989711ce
 log = []
 def g():
@@ -91,6 +98,14 @@ assert sys.getsizeof([n for n in range(1_000_000)]) > 1_000_000
 
 `next()` asks a generator for one value. A **generator expression** is a list comprehension in round brackets: it builds a generator instead of a list, which suits functions that only need to walk through the values once, like `sum` or `max`.
 
+```python claim id=auto-ebbf99d6396f
+import types
+g = (n for n in [1, 2, 3])
+assert isinstance(g, types.GeneratorType)
+assert sum(n for n in [1, 2, 3]) == 6
+assert max(n for n in [1, 3, 2]) == 3
+```
+
 ```python claim id=auto-40291418cdef
 g = (i for i in [5, 6])
 assert next(g) == 5
@@ -105,6 +120,15 @@ print(sum(n * n for n in range(4)))
 
 `map` and `filter` from the last lesson work the same way, which is why they needed `list()` to show their results.
 
+```python claim id=auto-98d39d66b132
+m = map(str, [1, 2])
+f = filter(None, [0, 1])
+assert not isinstance(m, list) and not isinstance(f, list)
+assert iter(m) is m and iter(f) is f
+assert list(m) == ["1", "2"] and list(f) == [1]
+assert list(m) == []
+```
+
 ```python claim id=generators-claim-3
 m = map(abs, [-1, -2])
 assert list(m) == [1, 2] and list(m) == []
@@ -113,6 +137,16 @@ assert list(m) == [1, 2] and list(m) == []
 ::task letters
 
 A generator remembers where it stopped, and it never starts over. Once a loop, `max` or `list` has walked through it, it is used up: anything after that gets nothing.
+
+```python claim id=auto-09bfb46d4ae6
+g = (i for i in [1, 2])
+assert max(g) == 2
+assert list(g) == []
+g2 = (i for i in [1, 2])
+for _ in g2:
+    pass
+assert list(g2) == []
+```
 
 ```python claim id=auto-c7fbd5ed460e
 g = (i for i in range(3))
@@ -189,4 +223,12 @@ g = (i for i in [1, 2])
 for _ in g:
     pass
 assert [x for x in g] == []
+```
+
+```python claim id=auto-8e89549aa44d
+import types
+items = [1, 2]
+g = (n * n for n in items)
+assert isinstance(g, types.GeneratorType)
+assert list(g) == [1, 4]
 ```

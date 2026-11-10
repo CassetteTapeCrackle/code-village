@@ -168,3 +168,67 @@ status = "advice"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "d969abc5d6db"
+text = "A comparison gives a `bool`: `==` equal, `!=` not equal, `<`, `<=`, `>`, `>=`."
+where = "text:0"
+status = "claim:auto-d969abc5d6db"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "14c61d358b58"
+text = "`if` runs its indented block only when its condition is `True`."
+where = "text:4"
+status = "simplification"
+reason = "The block runs when the condition is truthy, not only when it is exactly `True` (for example a non-empty string). That is fine for a beginner at this stage."
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "402c5f2d5608"
+text = "Keep going with `elif`: the order of the checks matters."
+where = "task:conditions-ticket-price:hint:0"
+status = "claim:auto-402c5f2d5608"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "8f8de9c845e1"
+text = "== compares, = stores."
+where = "remember:0"
+status = "claim:auto-8f8de9c845e1"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "81a305fab019"
+text = "if x = 3: is a syntax error."
+where = "remember:0"
+status = "claim:auto-81a305fab019"
+deepseek = "agree"
+claude = "unsure"
+decided = "owner"
+
+[[sentence]]
+fp = "ce0a631e331f"
+text = "To compare `x` with two values, write the comparison twice: `x == 1 or x == 2`."
+where = "text:10"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8cd0ee009fc4"
+text = "Each side of `or` needs its own comparison of `day`: one for \"sat\", one for \"sun\"."
+where = "task:conditions-weekend:hint:1"
+status = "advice"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

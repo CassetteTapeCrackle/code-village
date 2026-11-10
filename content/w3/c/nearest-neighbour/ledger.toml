@@ -262,3 +262,79 @@ status = "advice"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "eb15eb8cc663"
+text = "A point can have as many numbers as you like: one per thing you measured (height, weight, age...)."
+where = "text:3"
+status = "claim:auto-eb15eb8cc663"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "afd9a984552c"
+text = "Each number is a **feature**."
+where = "text:3"
+status = "simplification"
+reason = "It is acceptable for beginners, though strictly each number is a feature value belonging to a feature such as height or weight."
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "e58e5dfc15a4"
+text = "`min` with a `key` picks the point with the smallest distance."
+where = "task:nearest-neighbour-closest:hint:0"
+status = "claim:auto-e58e5dfc15a4"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "2f670df77508"
+text = "To label a new point, find the **nearest** known point and copy its label."
+where = "text:6"
+status = "simplification"
+reason = "Describes 1-nearest-neighbour. It leaves out ties and the choice of distance."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "69bd60c7869a"
+text = "With one neighbour, one odd example can mislead you."
+where = "text:8"
+status = "claim:auto-69bd60c7869a"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "307dacaef8d4"
+text = "Taking the **k** nearest and letting them vote is steadier."
+where = "text:8"
+status = "simplification"
+reason = "Usually more robust to odd examples than k=1. It leaves out that a too-large k blurs real differences."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "85cb8d8f3352"
+text = "The grams swamp the metres."
+where = "text:12"
+status = "simplification"
+reason = "It is a teaching shorthand: the gram column's larger numeric range dominates the distance calculation, though the real cause is the numeric scale and metric, not the unit name itself."
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "beea83ff4c61"
+text = "The fix is to **scale** every column to the same range, 0 for its smallest value and 1 for its largest, before measuring:"
+where = "text:12"
+status = "claim:auto-beea83ff4c61"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"

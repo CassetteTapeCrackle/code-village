@@ -231,3 +231,12 @@ status = "advice"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "4673d6d0978f"
+text = "To get an independent list, copy it: `a.copy()` or `list(a)`."
+where = "text:18"
+status = "claim:auto-4673d6d0978f"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

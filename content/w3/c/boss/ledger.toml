@@ -78,3 +78,39 @@ status = "advice"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "d1d266b3a4d8"
+text = "Temperatures in the thousands must not swamp brightness."
+where = "stage:stars-scale:prompt"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "3a999b73c0cd"
+text = "If `k` is bigger than the number of known stars, raise your own `ValueError` with a message that mentions the stars (scikit-learn's error does not)."
+where = "stage:stars-vote:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "98c762b8c10f"
+text = "It must reach 0.8 (on this split, giving every star the same label scores 0.5 at best, and skipping the scaling scores 0.4)."
+where = "stage:stars-accuracy:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "unsure"
+decided = "owner"
+
+[[sentence]]
+fp = "d1a5eda5bc9b"
+text = "`scale_columns(rows)` takes a list of rows of numbers and returns new rows where each column is scaled to 0 to 1: `(value - smallest) / (largest - smallest)` within its column; a column where every value is the same scales to `0.0`."
+where = "stage:stars-scale:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

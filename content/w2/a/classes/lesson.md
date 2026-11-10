@@ -179,3 +179,13 @@ assert a.name == 'Sly' and b.name == 'Rex'
 assert 'name' in vars(a)
 assert not hasattr(Fox, 'name')
 ```
+
+```python claim id=auto-d476c188b5db
+class Fox:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+f = Fox('Sly', 3)
+assert isinstance(f, Fox)
+assert type(f) is Fox
+```

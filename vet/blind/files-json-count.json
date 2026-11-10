@@ -1,5 +1,5 @@
 {
-  "fingerprint": "7efc1295d89b",
+  "fingerprint": "f691342958c1",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -43,7 +43,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def count_lines(path):\n    count = 0\n    with open(path) as f:\n        for line in f:\n            count += 1\n    return count\n",
+      "code": "def count_lines(path):\n    n = 0\n    with open(path) as f:\n        for line in f:\n            n += 1\n    return n\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

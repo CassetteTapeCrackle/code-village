@@ -189,3 +189,141 @@ reason = "On unsorted data a binary search may discard the half with the value. 
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "38ccdf0a993c"
+text = "To find a value in a list, the simplest way is to look at every item in turn until it turns up."
+where = "text:0"
+status = "simplification"
+reason = "Scanning every item in turn is the simplest approach. It leaves out that sorted data allows faster methods like binary search, and that sets or dicts avoid scanning."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "68158bbd3253"
+text = "This is a **linear search**."
+where = "text:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "dd7982efb35a"
+text = "Loop with `for i, x in enumerate(items):` and keep the matching `i`s in a list."
+where = "task:search-sort-find-all:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "219a584b8a7a"
+text = "When the list is **sorted**, there is a much faster way, like finding a word in a dictionary."
+where = "text:5"
+status = "claim:auto-219a584b8a7a"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "511c69f337f2"
+text = "Look at the middle item: if it is too small, the target can only be in the right half, so throw the left half away, and repeat."
+where = "text:5"
+status = "claim:auto-511c69f337f2"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "77af3bdbf8e5"
+text = "Each step halves what is left, so a million items take about 20 steps."
+where = "text:5"
+status = "claim:auto-77af3bdbf8e5"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "436fccfba9f6"
+text = "Python's `bisect` module does the halving for you."
+where = "text:8"
+status = "claim:auto-436fccfba9f6"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "66a9041c2cfd"
+text = "`insort` adds a value at that place."
+where = "text:8"
+status = "simplification"
+reason = "insort inserts and keeps the list sorted. With duplicates it inserts after equal items (insort_right), not at the bisect_left spot."
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "53791f00f24e"
+text = "`9` is right there at index 0, but the search on the unsorted list says it would go at the end."
+where = "text:16"
+status = "claim:auto-53791f00f24e"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "4da2ab1d8183"
+text = "Sort first."
+where = "text:16"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "09a999c21579"
+text = "(Sorting costs more than one linear search, so it pays off when you search the same list many times; for a single lookup, `x in items` is simpler.)"
+where = "text:16"
+status = "simplification"
+reason = "Sorting is O(n log n) and one linear search is O(n), so sorting pays off with many searches. It leaves out the case where the data is already sorted."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "a9fe7b27537b"
+text = "`bisect_left` does a binary search."
+where = "task:search-sort-member:hint:0"
+status = "doc:https://docs.python.org/3/library/bisect.html#bisect.bisect_left"
+deepseek = "agree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "1270dc54bfae"
+text = "(A binary search needs sorted data.)"
+where = "task:search-sort-score:prompt"
+status = "claim:auto-1270dc54bfae"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "61063d13db8e"
+text = "A binary search halves a sorted list at each step: about 20 steps for a million items."
+where = "remember:1"
+status = "claim:auto-61063d13db8e"
+deepseek = "agree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "787b59035384"
+text = "`sorted(names)` returns a new sorted list: use that one for the search."
+where = "task:search-sort-member:hint:1"
+status = "claim:auto-787b59035384"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

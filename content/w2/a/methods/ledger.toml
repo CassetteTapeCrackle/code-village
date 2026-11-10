@@ -243,3 +243,22 @@ status = "claim:auto-9bfc2a7bb292"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "2cd6733225ee"
+text = "Some **answer** a question: they look at the object and return a value, changing nothing."
+where = "text:0"
+status = "claim:auto-2cd6733225ee"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "5144fa2f620c"
+text = "A method that answers returns a value and changes nothing."
+where = "remember:0"
+status = "simplification"
+reason = "Describes the lesson's 'answering' method category. It leaves out methods that return a value and also change state."
+deepseek = "false"
+claude = "agree"
+decided = "owner"

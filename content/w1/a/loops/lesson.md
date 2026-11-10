@@ -60,6 +60,13 @@ for n in range(1, 4):
 
 `while` repeats as long as its condition is `True`. `break` leaves a loop at once, and `continue` skips to the next round.
 
+```python claim id=auto-22b36ab68e89
+n = 0
+while n < 3:
+    n += 1
+assert n == 3
+```
+
 ```python claim id=auto-b93bd5decfb7
 out = []
 for i in range(5):

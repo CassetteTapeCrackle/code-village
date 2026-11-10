@@ -195,3 +195,12 @@ status = "claim:auto-81b117ec7371"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "3d96ca0807e8"
+text = "A **list comprehension** builds a list in one line: what to put in, then the loop, then an optional `if` to filter."
+where = "text:0"
+status = "claim:auto-3d96ca0807e8"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

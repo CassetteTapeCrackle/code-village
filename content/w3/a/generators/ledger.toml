@@ -258,3 +258,48 @@ status = "advice"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "807a4dcba440"
+text = "A generator over a million numbers never holds a million numbers in memory."
+where = "text:6"
+status = "claim:auto-807a4dcba440"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "ebbf99d6396f"
+text = "A **generator expression** is a list comprehension in round brackets: it builds a generator instead of a list, which suits functions that only need to walk through the values once, like `sum` or `max`."
+where = "text:10"
+status = "claim:auto-ebbf99d6396f"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "98d39d66b132"
+text = "`map` and `filter` from the last lesson work the same way, which is why they needed `list()` to show their results."
+where = "text:13"
+status = "claim:auto-98d39d66b132"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "09bfb46d4ae6"
+text = "Once a loop, `max` or `list` has walked through it, it is used up: anything after that gets nothing."
+where = "text:16"
+status = "claim:auto-09bfb46d4ae6"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "8e89549aa44d"
+text = "(n * n for n in items) is a generator expression: a list comprehension in round brackets."
+where = "remember:2"
+status = "claim:auto-8e89549aa44d"
+deepseek = "false"
+claude = "agree"
+decided = "owner"

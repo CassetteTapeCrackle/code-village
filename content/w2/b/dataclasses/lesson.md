@@ -152,6 +152,26 @@ print(sorted([Score(7, "Sam"), Score(9, "Noa"), Score(7, "Ines")]))
 
 A list as a default would be shared by every object, the old trap from World 1. Dataclasses refuse it outright. Ask for a new list each time with `field(default_factory=list)`.
 
+```python claim id=auto-7a72d3d7f328
+from dataclasses import dataclass, field
+@dataclass
+class A:
+    items: list = field(default_factory=list)
+a, b = A(), A()
+a.items.append(1)
+assert b.items == []
+assert a.items is not b.items
+```
+
+```python claim id=auto-ec3d389eaa33
+class A:
+    items = []
+a, b = A(), A()
+a.items.append(1)
+assert b.items == [1]
+assert a.items is b.items
+```
+
 ```python claim id=auto-884114da1da0
 from dataclasses import dataclass
 try:
@@ -191,6 +211,23 @@ print(a, b)
 ```
 
 The `__eq__` a dataclass writes has the same cost as your own: its objects cannot go in a set.
+
+```python claim id=auto-3a283d0e7fe4
+from dataclasses import dataclass
+@dataclass
+class A:
+    x: int
+class B:
+    def __eq__(self, o):
+        return True
+for obj in (A(1), B()):
+    try:
+        {obj}
+        ok = True
+    except TypeError:
+        ok = False
+    assert not ok
+```
 
 ```python claim id=dataclasses-claim-5
 from dataclasses import dataclass
@@ -276,4 +313,13 @@ assert bad
 class Good:
     items: list = field(default_factory=list)
 assert Good().items == []
+```
+
+```python claim id=auto-7919a3aba726
+from dataclasses import dataclass
+@dataclass(order=True)
+class S:
+    points: int
+    name: str
+assert sorted([S(2, 'b'), S(1, 'z'), S(2, 'a')]) == [S(1, 'z'), S(2, 'a'), S(2, 'b')]
 ```

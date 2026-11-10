@@ -14,6 +14,16 @@ name = "Bark Ledger"
 
 Anyone can change an object's attributes from outside. Often that is fine. Sometimes a value should be **worked out** from others, or **checked** before it is stored. A **property** handles both while still reading like a plain attribute.
 
+```python claim id=auto-bbc37823cc2a
+class C:
+    pass
+c = C()
+c.x = 1
+assert c.x == 1
+c.x = 2
+assert c.x == 2
+```
+
 ```python claim id=auto-1d420bca9e3e
 class T:
     def __init__(self):
@@ -232,5 +242,35 @@ try:
     p.area = -1
     assert False
 except ValueError:
+    pass
+```
+
+```python claim id=auto-2eef6b66d3eb
+class Person:
+    def __init__(self):
+        self._age = 0
+
+    @property
+    def age(self):
+        return self._age
+
+p = Person()
+p._age = 7
+assert p.age == 7
+```
+
+```python claim id=auto-c64dffca7905
+class P:
+    @property
+    def age(self):
+        return self._age
+    @age.setter
+    def age(self, v):
+        self.age = v
+p = P()
+try:
+    p.age = 1
+    assert False
+except RecursionError:
     pass
 ```

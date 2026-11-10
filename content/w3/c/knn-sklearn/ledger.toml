@@ -223,3 +223,67 @@ status = "claim:auto-292f2cc772b9"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "3113e5b4cdea"
+text = "The examples go in `X`, a list of rows with one list of features each, and their labels go in `y`."
+where = "text:0"
+status = "claim:auto-3113e5b4cdea"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d9d1cbbbdebb"
+text = "A small k follows every single example, odd ones too; a big k listens to the crowd, and with k as big as the data it always says the most common label."
+where = "text:8"
+status = "claim:auto-d9d1cbbbdebb"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "f8aeaaf6d5ed"
+text = "`predict` always takes a **list of rows**, like `X`, even when you ask about one point."
+where = "text:15"
+status = "claim:auto-f8aeaaf6d5ed"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "75a751f7ed69"
+text = "One point is a list holding one row:"
+where = "text:15"
+status = "claim:auto-75a751f7ed69"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "2762cbe6fb42"
+text = "`predict` wants a list of rows."
+where = "task:knn-sklearn-one-point:hint:0"
+status = "claim:auto-2762cbe6fb42"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "649412122301"
+text = "Put the single row `[x, z]` inside another pair of brackets, then take the first label from the result with `tolist()[0]`."
+where = "task:knn-sklearn-one-point:hint:1"
+status = "not-a-fact"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "167db42fde20"
+text = "X is a list of rows (one list of features per example); y is the list of their labels."
+where = "remember:0"
+status = "simplification"
+reason = "Convention for the course. X and y can also be NumPy arrays or DataFrames, which this leaves out."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

@@ -213,3 +213,39 @@ status = "advice"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "bbc37823cc2a"
+text = "Anyone can change an object's attributes from outside."
+where = "text:0"
+status = "claim:auto-bbc37823cc2a"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "9e617d366111"
+text = "Each property is a method with the property decorator above it, returning a value."
+where = "task:properties-plot:hint:0"
+status = "not-a-fact"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "2eef6b66d3eb"
+text = "The getter reads `self._age`."
+where = "task:properties-ranger-age:hint:1"
+status = "claim:auto-2eef6b66d3eb"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "c64dffca7905"
+text = "Store the real value under another name, like self._age, or the setter calls itself forever."
+where = "remember:2"
+status = "claim:auto-c64dffca7905"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

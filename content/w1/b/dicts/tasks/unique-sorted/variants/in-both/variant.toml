@@ -1,6 +1,6 @@
 id = "dicts-in-both"
 title = "In both lists"
-prompt = "Finish `in_both(a, b)`: it returns a sorted list of the values found in both lists, each only once. `x in b` checks a list too, and `x not in both` is its opposite."
+prompt = "Finish `in_both(a, b)`: it returns a sorted list of the values found in both lists, each only once. `x in b` checks a list too, and `not in` is its opposite: `x not in both`."
 
 [cases]
 call = "in_both"

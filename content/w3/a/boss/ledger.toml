@@ -69,3 +69,48 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "ec0adcc7fede"
+text = "With pandas, `df.to_dict(\"records\")` gives one dict per row."
+where = "stage:sales-read:prompt"
+status = "advice"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "19a9937cd5e1"
+text = "The quantity is a plain `int`, the price a plain `float` (convert with `int()` and `float()`)."
+where = "stage:sales-read:prompt"
+status = "not-a-fact"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "0382b5125a5d"
+text = "`json.dump` refuses NumPy whole numbers (like `numpy.int64`) and NumPy `True`/`False`, so turn every number into a plain `int` or `float`."
+where = "stage:sales-report-file:prompt"
+status = "advice"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "6e97aadfbf4a"
+text = "With no sales, `total` is `0` and `best` is `None`."
+where = "stage:sales-report-file:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bc6657447258"
+text = "A price can have a thousands comma, in quotes like `\"1,200\"`: that is `1200.0`."
+where = "stage:sales-read:prompt"
+status = "not-a-fact"
+deepseek = "false"
+claude = "agree"
+decided = "owner"

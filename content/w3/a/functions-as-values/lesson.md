@@ -110,6 +110,14 @@ print(list(filter(lambda n: n > 4, nums)))
 
 To pass a function, write its name **without brackets**. With brackets you call it on the spot and pass whatever it returns, which is usually not a function at all.
 
+```python claim id=auto-281354133fc1
+def f():
+    return 5
+r = f()
+assert r == 5
+assert not callable(r)
+```
+
 ```python claim id=auto-f28b2527341c
 def f(x):
     return x + 1
@@ -177,4 +185,53 @@ lst = [f]
 def call(fn):
     return fn(1)
 assert g is f and lst[0] is f and call(f) == 1
+```
+
+```python claim id=auto-50027f9300f7
+calls = []
+def double(n):
+    calls.append(n)
+    return n * 2
+r = double(double(3))
+assert calls == [3, 6]
+assert r == 12
+```
+
+```python claim id=auto-d49d0782f2d4
+try:
+    sorted([('a', 2), ('b', 1)], key=[1, 2])
+except TypeError:
+    pass
+else:
+    assert False
+```
+
+```python claim id=auto-d2c52cf8b897
+f = lambda n: n * 2
+assert f.__name__ == '<lambda>'
+assert f(2) == 4
+```
+
+```python claim id=auto-1b2c8b19cb35
+assert list(map(str, [1, 2])) == ['1', '2']
+assert list(filter(None, [0, 1, 2])) == [1, 2]
+assert not isinstance(map(str, [1]), list)
+```
+
+```python claim id=auto-e0983576d97d
+def by_price(item):
+    return item[1]
+items = [('a', 3), ('b', 1)]
+assert sorted(items, key=by_price) == [('b', 1), ('a', 3)]
+try:
+    sorted(items, key=by_price(items))
+    ok = False
+except TypeError:
+    ok = True
+assert ok
+```
+
+```python claim id=auto-c3de5e3892b0
+words = ['a', 'big', 'a', 'cat']
+assert list(filter(lambda w: w != 'a', words)) == ['big', 'cat']
 ```

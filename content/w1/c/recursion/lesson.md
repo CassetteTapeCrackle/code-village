@@ -27,6 +27,21 @@ countdown(3)
 
 Each call waits for the smaller call to finish, then uses its answer.
 
+```python claim id=auto-610d76da992d
+order = []
+
+def f(n):
+    order.append(("enter", n))
+    if n == 0:
+        return 0
+    result = f(n - 1) + 1
+    order.append(("after", n))
+    return result
+
+assert f(3) == 3
+assert order == [("enter", 3), ("enter", 2), ("enter", 1), ("enter", 0), ("after", 1), ("after", 2), ("after", 3)]
+```
+
 ```python example
 def factorial(n):
     if n <= 1:

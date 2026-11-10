@@ -234,3 +234,95 @@ reason = "Treats the test score as the only guide to performance on new data. It
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "874a8a00bd08"
+text = "Ask it about examples whose labels you know, and count how often it is right: that share is its **accuracy**."
+where = "text:0"
+status = "claim:auto-874a8a00bd08"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "5ce5df55ef93"
+text = "A model's `score(X, y)` predicts every row of `X` and gives the accuracy against `y` in one go."
+where = "text:2"
+status = "claim:auto-5ce5df55ef93"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "affdb5a6ecdd"
+text = "Count the matches with `zip(truth, guesses)`, then divide by the length."
+where = "task:train-test-accuracy:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "4f8afae4c788"
+text = "Not the ones it learned from: that is like giving a class the exam's answers the day before."
+where = "text:5"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "b466e23d064c"
+text = "`random_state` fixes the shuffle, so every run gives the same split (and the same results)."
+where = "text:5"
+status = "claim:auto-b466e23d064c"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "c923ff2136f4"
+text = "`train_test_split` returns four lists: train inputs, test inputs, train labels, test labels."
+where = "task:train-test-evaluate:hint:0"
+status = "claim:auto-c923ff2136f4"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "549f37bf8f88"
+text = "Score the model on the test inputs and test labels, not the training ones."
+where = "task:train-test-honest:hint:1"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "a0e46d243bd0"
+text = "model.score(X, y) is the accuracy: the share of rows it labels right, from 0.0 to 1.0."
+where = "remember:0"
+status = "claim:auto-a0e46d243bd0"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "4dbb4f716afe"
+text = "Scoring a model on the data it learned from looks too good: a 1-neighbour model scores 1.0 there."
+where = "remember:3"
+status = "simplification"
+reason = "Leaves out the case of identical rows with different labels, where a 1-neighbour model scores below 1.0 on its training data."
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "194524d00eac"
+text = "A model tends to get right the examples it learned from."
+where = "text:13"
+status = "simplification"
+reason = "Most models fit their training data better than new data. How well depends on the model: a simple or heavily regularised one still gets some training examples wrong."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

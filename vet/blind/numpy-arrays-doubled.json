@@ -1,5 +1,5 @@
 {
-  "fingerprint": "f61576cd433e",
+  "fingerprint": "64e28ffc7c70",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "import numpy as np\n\n\ndef doubled(values):\n    a = np.array(values)\n    return (a * 2).tolist()\n",
+      "code": "import numpy as np\n\n\ndef doubled(values):\n    return (np.array(values) * 2).tolist()\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",

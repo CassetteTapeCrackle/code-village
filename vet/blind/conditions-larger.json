@@ -1,5 +1,5 @@
 {
-  "fingerprint": "574c0b4071d6",
+  "fingerprint": "da5cfd3a96a6",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -33,7 +33,7 @@
       "temperature": 1.0
     },
     {
-      "code": "def larger(a, b):\n    if a >= b:\n        return a\n    else:\n        return b\n",
+      "code": "def larger(a, b):\n    if a > b:\n        return a\n    elif b > a:\n        return b\n    else:\n        return a\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",

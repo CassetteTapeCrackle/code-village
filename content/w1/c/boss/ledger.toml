@@ -132,3 +132,12 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "f19a1b744bb3"
+text = "`parse(command)` returns a `(verb, noun)` pair in lower case, ignoring extra spaces: `parse(\"Take Lamp\")` is `(\"take\", \"lamp\")`, `parse(\"take old lamp\")` is `(\"take\", \"old lamp\")`, `parse(\"look\")` is `(\"look\", \"\")` and `parse(\"\")` is `(\"\", \"\")`."
+where = "stage:satchel-parse:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

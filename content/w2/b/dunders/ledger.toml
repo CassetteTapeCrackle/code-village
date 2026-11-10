@@ -195,3 +195,104 @@ status = "claim:auto-9b8f9a993644"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "fe116b23bf65"
+text = "They are named with double underscores, \"**dunder**\" methods: `print(x)` calls `x.__str__()`, `len(x)` calls `x.__len__()`, and `a == b` calls `a.__eq__(b)`."
+where = "text:0"
+status = "claim:auto-fe116b23bf65"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "259c51c508a4"
+text = "Write them, and your objects work with Python's own tools."
+where = "text:0"
+status = "simplification"
+reason = "Loosely says that defining dunder methods lets objects work with built-ins like print, len and ==. It leaves out that only the dunders you write give each behaviour."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "344bdca0d5ae"
+text = "`__str__` returns an f-string; `__eq__(self, other)` compares both attributes."
+where = "task:dunders-mushroom:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "a2d3b9cd7527"
+text = "For `__str__`, return an f-string with the name and the spots."
+where = "task:dunders-mushroom:hint:1"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "a2f252ee2da8"
+text = "Writing `__eq__` has one cost: Python no longer lets those objects go in a set or be keys in a dict (`TypeError: unhashable type`)."
+where = "text:12"
+status = "claim:auto-a2f252ee2da8"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "50c6681cc57a"
+text = "Sets and dicts find items by a number worked out from each object, and the old one, based on identity, would disagree with your new `==`."
+where = "text:12"
+status = "claim:auto-50c6681cc57a"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "9b2a3aa834d3"
+text = "With `__len__`, `len(obj)` works, and an `if` treats an object of length 0 as false."
+where = "text:14"
+status = "claim:auto-9b2a3aa834d3"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "7c543d13e28e"
+text = "These methods **return** their answer."
+where = "text:17"
+status = "claim:auto-7c543d13e28e"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "7a9b49d46a36"
+text = "`__str__` must return the text, not print it."
+where = "task:dunders-badge:hint:1"
+status = "claim:auto-7a9b49d46a36"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "72234f82f4bb"
+text = "A dunder method returns its answer."
+where = "task:dunders-sign:prompt"
+status = "simplification"
+reason = "True for `__str__`, `__repr__`, `__eq__` and `__len__`, the methods in this lesson. It leaves out that some dunders, such as `__init__`, must return None."
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "713455f7bf55"
+text = "Dunder methods return their answer: a __str__ that prints breaks print."
+where = "remember:3"
+status = "claim:auto-713455f7bf55"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"

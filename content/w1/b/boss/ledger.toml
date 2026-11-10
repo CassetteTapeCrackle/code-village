@@ -88,3 +88,39 @@ reason = "A lambda is an anonymous function limited to one expression, and negat
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "2de7b4b65a12"
+text = "A line with no marks, like `\"Ines:\"`, gives an empty list: `\"\".split(\",\")` is `[\"\"]`, so skip empty pieces before calling `int()`."
+where = "stage:gradebook-parse:prompt"
+status = "doc:https://docs.python.org/3/library/stdtypes.html#str.split"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "785dc54b7b73"
+text = "Split the line on `:` first and strip each piece, since `\"Ines:\".split(\": \")` finds no `\": \"` at all."
+where = "stage:gradebook-parse:prompt"
+status = "doc:https://docs.python.org/3/library/stdtypes.html#str.split"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "59ca71d3bcdd"
+text = "Tip: `sorted(pairs, key=lambda pair: (-pair[1], pair[0]))` sorts by average, highest first, then by name."
+where = "stage:gradebook-ranking:prompt"
+status = "advice"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "3229120cad9f"
+text = "Blank lines (empty or only spaces) are skipped, and the list it is given stays as it was."
+where = "stage:gradebook-ranking:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

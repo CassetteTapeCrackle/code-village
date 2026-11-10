@@ -44,6 +44,11 @@ assert float(np.median([1, 2, 3, 4])) == 2.5 and float(np.median([3, 1, 2])) == 
 
 The **range** (largest minus smallest) is the simplest spread. The **standard deviation** is the usual one: roughly, how far a typical value sits from the mean. NumPy has all of these. `np.std` takes a `ddof` that changes the answer a little: `ddof=0` when your values are everything there is, `ddof=1` when they are a sample of something bigger. pandas uses `ddof=1` unless you say otherwise, so in this course we always write it.
 
+```python claim id=auto-3ba19bb0cca9
+values = [4, 9, 1, 7]
+assert max(values) - min(values) == 8
+```
+
 ```python claim id=auto-f9cdb4120fb7
 import numpy as np
 import pandas as pd
@@ -118,6 +123,14 @@ print(float(s.mean()), float(s.median()), round(float(s.std(ddof=0)), 2))
 
 The mean uses every value, so a single huge one drags it far away. The median only looks at the middle, so it hardly moves.
 
+```python claim id=auto-4eae4dc71fda
+import numpy as np
+a = [3, 4, 3, 5]
+b = a + [1000]
+assert np.median(a) == 3.5
+assert np.median(b) == 4.0
+```
+
 ```python predict
 import numpy as np
 
@@ -172,4 +185,32 @@ import numpy as np
 x = [1, 2, 4, 8]
 assert abs(pd.Series(x).std() - np.std(x, ddof=1)) < 1e-12
 assert pd.Series(x).std() != np.std(x)
+```
+
+```python claim id=auto-ed59506b70c4
+import statistics
+import numpy as np
+assert statistics.median([2, 4, 6, 100]) == 5.0
+assert np.median([2, 4, 6, 100]) == 5.0
+```
+
+```python claim id=auto-7761d407507e
+import numpy as np
+x = [3, 4, 3, 5, 90]
+assert np.mean(x) == 21.0
+assert np.median(x) == 4.0
+```
+
+```python claim id=auto-61c289dea4be
+import numpy as np
+assert np.mean([3, 4, 3, 5, 90]) == 21.0
+assert np.mean([3, 4, 3, 5]) == 3.75
+```
+
+```python claim id=auto-6a17f1a58ee8
+import numpy as np
+a = [10, 11, 12, 13, 14]
+b = a[:-1] + [1000]
+assert np.mean(b) - np.mean(a) > 100
+assert np.median(b) == np.median(a)
 ```

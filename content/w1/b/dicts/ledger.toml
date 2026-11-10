@@ -214,3 +214,57 @@ status = "claim:auto-5b43766bd3ea"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "34c36491fe1d"
+text = "Loop over `text.split()` and count like the fruit example."
+where = "task:dicts-count-words:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d3c5f4d312b1"
+text = "A **set** keeps each value only once and has no order."
+where = "text:14"
+status = "claim:auto-d3c5f4d312b1"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "45dfbc3066e4"
+text = "Small whole numbers often print sorted by accident, as below, but never count on it."
+where = "text:14"
+status = "claim:auto-45dfbc3066e4"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "8951978bf48f"
+text = "`list(unique)` makes that list; `.sort()` then puts it in order, smallest first."
+where = "task:dicts-unique-sorted:hint:1"
+status = "claim:auto-8951978bf48f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9f499391ef80"
+text = "`x in b` checks a list too, and `not in` is its opposite: `x not in both`."
+where = "task:dicts-in-both:prompt"
+status = "claim:auto-9f499391ef80"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4c82e8277d09"
+text = "A set has no order, so turn it into a list first."
+where = "task:dicts-unique-sorted:hint:0"
+status = "doc:https://docs.python.org/3/library/stdtypes.html#set"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

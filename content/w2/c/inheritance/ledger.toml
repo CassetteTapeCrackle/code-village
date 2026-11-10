@@ -186,3 +186,67 @@ status = "claim:auto-a5c2d5c1e8c9"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "54f594e74f37"
+text = "Python looks for a method in the object's class first, then in its parent, then the parent's parent."
+where = "text:5"
+status = "claim:auto-54f594e74f37"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "2007bbfa77de"
+text = "`super()` reaches the parent's version, so the child can add to it instead of starting over."
+where = "text:8"
+status = "claim:auto-2007bbfa77de"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d6b2d44a7d3e"
+text = "In `__init__`, call the parent's initializer with `super()` before storing `fruit`."
+where = "task:inheritance-fruit-tree:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "df34f2e147f1"
+text = "Without `super().__init__(...)`, the parent's attributes are never set, and using them raises `AttributeError`."
+where = "text:12"
+status = "claim:auto-df34f2e147f1"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "734145287d6e"
+text = "The child's `__init__` must call `super().__init__(name)`."
+where = "task:inheritance-bat:prompt"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "7abda6f6888b"
+text = "class Owl(Animal) makes Owl a kind of Animal: it gets all of Animal's methods."
+where = "remember:0"
+status = "claim:auto-7abda6f6888b"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "bfb857ce5a3a"
+text = "A child's __init__ must call super().__init__(...), or the parent's attributes are never set."
+where = "remember:3"
+status = "simplification"
+reason = "It leaves out that this only matters when the parent's __init__ sets attributes, and that Parent.__init__(self, ...) also works."
+deepseek = "false"
+claude = "agree"
+decided = "owner"

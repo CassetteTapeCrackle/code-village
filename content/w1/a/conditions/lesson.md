@@ -14,6 +14,12 @@ name = "Brass Compass"
 
 A comparison gives a `bool`: `==` equal, `!=` not equal, `<`, `<=`, `>`, `>=`. Careful: one `=` stores a value, two `==` compare, and `if x = 3:` is a syntax error.
 
+```python claim id=auto-d969abc5d6db
+a, b = 3, 5
+for r in (a == b, a != b, a < b, a <= b, a > b, a >= b):
+    assert type(r) is bool
+```
+
 ```python claim id=auto-c877a2edb333
 x = 1
 assert (x == 1) is True
@@ -82,7 +88,7 @@ else:
 
 ::task sign
 
-Combine conditions with `and`, `or` and `not`. Each side must be a full comparison. `x == 1 or 2` does not mean "x is 1 or 2": Python reads it as `(x == 1) or 2`. When the left side is False, `or` hands back the right side itself, so the result is `2`, which counts as true in an `if`.
+Combine conditions with `and`, `or` and `not`. To compare `x` with two values, write the comparison twice: `x == 1 or x == 2`. `x == 1 or 2` does not mean "x is 1 or 2": Python reads it as `(x == 1) or 2`. When the left side is False, `or` hands back the right side itself, so the result is `2`, which counts as true in an `if`.
 
 ```python claim id=auto-1b1eba359878
 x = 3
@@ -124,4 +130,37 @@ elif x > 5:
 else:
     out.append(3)
 assert out == [1]
+```
+
+```python claim id=auto-402c5f2d5608
+def f(x):
+    if x < 10:
+        return "first"
+    elif x < 20:
+        return "second"
+
+def g(x):
+    if x < 20:
+        return "second"
+    elif x < 10:
+        return "first"
+
+assert f(5) == "first"
+assert g(5) == "second"
+```
+
+```python claim id=auto-8f8de9c845e1
+x = 3
+assert x == 3
+assert (3 == 3) is True
+assert (3 == 4) is False
+```
+
+```python claim id=auto-81a305fab019
+try:
+    compile("if x = 3:\n    pass", "<test>", "exec")
+    raised = False
+except SyntaxError:
+    raised = True
+assert raised
 ```
