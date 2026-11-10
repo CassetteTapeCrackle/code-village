@@ -6,10 +6,10 @@ Written by `python -m tools.vet.gaps --write --summary docs/test-framework/GAPS.
 | Severity | Gaps |
 | --- | --- |
 | wrong-accepted | 128 |
-| false-claim | 17 |
+| false-claim | 2 |
 | ambiguous | 2 |
 
-**147 findings in all.**
+**132 findings in all.**
 
 ## By world and rule
 
@@ -18,10 +18,8 @@ Written by `python -m tools.vet.gaps --write --summary docs/test-framework/GAPS.
 | w1 | cases-missing | wrong-accepted | 24 |
 | w1 | fence-untyped | false-claim | 1 |
 | w1 | prompt-asks-construct | ambiguous | 2 |
-| w1 | remember-unbacked | false-claim | 4 |
+| w1 | remember-unbacked | false-claim | 1 |
 | w1 | weak-tests | wrong-accepted | 3 |
 | w2 | cases-missing | wrong-accepted | 25 |
-| w2 | remember-unbacked | false-claim | 6 |
 | w2 | weak-tests | wrong-accepted | 55 |
 | w3 | cases-missing | wrong-accepted | 21 |
-| w3 | remember-unbacked | false-claim | 6 |

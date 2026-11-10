@@ -170,3 +170,15 @@ m = KNeighborsClassifier(n_neighbors=1).fit(X, y)
 assert m.score(np.array([[0], [3]]), np.array([0, 0])) == 0.5
 assert 0.0 <= m.score(X, y) <= 1.0
 ```
+
+```python claim id=remember-12c136ba2113
+from sklearn.neighbors import KNeighborsClassifier
+
+X_train = [[0], [1], [2], [3], [4], [5]]
+y_train = ["a", "b", "a", "b", "a", "b"]
+X_test = [[0.4], [1.6], [3.4], [4.6]]
+y_test = ["a", "b", "b", "a"]
+model = KNeighborsClassifier(n_neighbors=1).fit(X_train, y_train)
+assert model.score(X_train, y_train) == 1.0
+assert model.score(X_test, y_test) < 1.0
+```

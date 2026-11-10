@@ -227,83 +227,8 @@ fingerprint = "25be7b6325b1"
 
 [[gap]]
 rule = "remember-unbacked"
-item = "classes"
-fingerprint = "0388483a3364"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "composition"
-fingerprint = "f5bbb4a3893c"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "functions-as-values"
-fingerprint = "d09fd8d4216c"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "hello-village"
-fingerprint = "67745bd15206"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "identity"
-fingerprint = "f7707ac478ab"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "inheritance"
-fingerprint = "57e3c4a924b7"
-
-[[gap]]
-rule = "remember-unbacked"
 item = "input-output"
 fingerprint = "6b5ba23c1178"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "knn-sklearn"
-fingerprint = "99fef273248f"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "methods"
-fingerprint = "b3be34910ff4"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "nearest-neighbour"
-fingerprint = "92b2a1fbac3d"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "recursion"
-fingerprint = "2f16c3e2e978"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "search-sort"
-fingerprint = "14891c3a9400"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "statistics"
-fingerprint = "23477533d341"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "testing"
-fingerprint = "5cad8449017f"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "train-test"
-fingerprint = "3189b565d44a"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "values"
-fingerprint = "2983656c748f"
 
 [[gap]]
 rule = "weak-tests"

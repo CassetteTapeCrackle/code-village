@@ -52,6 +52,45 @@ cart = Cart()
 print(cart.total(), len(cart.wheels))
 ```
 
+```python claim id=remember-e2aabcfa6f51
+class Animal:
+    pass
+
+class Owl(Animal):
+    pass
+
+assert isinstance(Owl(), Animal) and issubclass(Owl, Animal)
+```
+
+```python claim id=remember-fe011f01ddbc
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+class Keeper:
+    def __init__(self, animals):
+        self.animals = animals
+
+keeper = Keeper([Animal("Sly")])
+assert keeper.animals[0].name == "Sly"
+assert not isinstance(keeper, Animal)
+```
+
+```python claim id=remember-6ee743ea40cc
+class Engine:
+    def start(self):
+        return "vroom"
+
+class Boat:
+    def __init__(self):
+        self.engine = Engine()
+
+    def start(self):
+        return self.engine.start()
+
+assert Boat().start() == "vroom"
+```
+
 ::task keeper
 
 ::task lamp

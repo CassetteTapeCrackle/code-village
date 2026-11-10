@@ -189,3 +189,18 @@ f = Fox('Sly', 3)
 assert isinstance(f, Fox)
 assert type(f) is Fox
 ```
+
+```python claim id=remember-5a6d84b8e888
+import inspect
+
+class Owl:
+    def __init__(self, name):
+        self.name = name
+
+    def hoot(self):
+        return f"{self.name}: hoo"
+
+assert list(inspect.signature(Owl.hoot).parameters)[0] == "self"
+owl = Owl("Ada")
+assert owl.hoot() == Owl.hoot(owl) == "Ada: hoo"
+```

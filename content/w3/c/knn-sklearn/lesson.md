@@ -228,3 +228,13 @@ from sklearn.neighbors import KNeighborsClassifier
 m = KNeighborsClassifier(n_neighbors=1).fit([[0],[10]], ['a','b'])
 assert m.predict([[9]]).tolist() == ['b']
 ```
+
+```python claim id=remember-167db42fde20
+from sklearn.neighbors import KNeighborsClassifier
+
+X = [[1, 2], [2, 1], [8, 9], [9, 8]]
+y = ["small", "small", "big", "big"]
+assert len(X) == len(y) and all(len(row) == 2 for row in X)
+model = KNeighborsClassifier(n_neighbors=1).fit(X, y)
+assert model.predict([[9, 9]]).tolist() == ["big"]
+```

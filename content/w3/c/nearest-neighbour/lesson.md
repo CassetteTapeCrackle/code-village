@@ -128,3 +128,21 @@ points = [(5, 5), (1, 1), (9, 9)]
 target = (2, 2)
 assert min(points, key=lambda p: math.dist(p, target)) == (1, 1)
 ```
+
+```python claim id=remember-b48d424a4187
+from sklearn.neighbors import KNeighborsClassifier
+
+X = [[0, 0], [5, 5], [10, 0]]
+y = ["fern", "moss", "reed"]
+model = KNeighborsClassifier(n_neighbors=1).fit(X, y)
+assert model.predict([[4, 6]]).tolist() == ["moss"]
+```
+
+```python claim id=remember-4f67c49dc6e9
+from sklearn.neighbors import KNeighborsClassifier
+
+X = [[0], [1], [2], [10]]
+y = ["a", "b", "b", "a"]
+assert KNeighborsClassifier(n_neighbors=3).fit(X, y).predict([[0]]).tolist() == ["b"]
+assert KNeighborsClassifier(n_neighbors=1).fit(X, y).predict([[0]]).tolist() == ["a"]
+```
