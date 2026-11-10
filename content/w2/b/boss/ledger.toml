@@ -51,3 +51,21 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "82bd5671a5ad"
+text = "Make `Song` a dataclass with fields `title` (str) and `seconds` (int), so `Song(\"Dawn\", 90)` shows as `Song(title='Dawn', seconds=90)` and equals another `Song(\"Dawn\", 90)`."
+where = "stage:playlist-song:prompt"
+status = "doc:https://docs.python.org/3/library/dataclasses.html#dataclasses.dataclass"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "7e37130350bb"
+text = "`\"Dawn\" in playlist` should be `True` when a song has that title: write `__contains__(self, title)`, which `in` calls for you."
+where = "stage:playlist-find:prompt"
+status = "doc:https://docs.python.org/3/reference/datamodel.html#object.__contains__"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"

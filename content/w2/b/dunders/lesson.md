@@ -14,6 +14,23 @@ name = "Carved Nameplate"
 
 Python calls some methods for you. They are named with double underscores, "**dunder**" methods: `print(x)` calls `x.__str__()`, `len(x)` calls `x.__len__()`, and `a == b` calls `a.__eq__(b)`. Write them, and your objects work with Python's own tools.
 
+```python claim id=auto-fe116b23bf65
+import io, contextlib
+class A:
+    def __str__(self):
+        return 'hi'
+    def __len__(self):
+        return 7
+    def __eq__(self, other):
+        return 'eq'
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    print(A())
+assert buf.getvalue() == 'hi\n'
+assert len(A()) == 7
+assert (A() == 1) == 'eq'
+```
+
 ```python claim id=auto-2bc85859096b
 calls = []
 class A:
@@ -111,6 +128,35 @@ print(Coin(2) == Coin(2), Coin(2) == Coin(5), Coin(2) == 2)
 
 Writing `__eq__` has one cost: Python no longer lets those objects go in a set or be keys in a dict (`TypeError: unhashable type`). Sets and dicts find items by a number worked out from each object, and the old one, based on identity, would disagree with your new `==`.
 
+```python claim id=auto-50c6681cc57a
+class A:
+    def __init__(self, x):
+        self.x = x
+    def __eq__(self, other):
+        return isinstance(other, A) and self.x == other.x
+    def __hash__(self):
+        return id(self)
+
+a, b = A(1), A(1)
+assert a == b
+assert hash(a) != hash(b)
+assert len({a, b}) == 2
+assert len({a: 1, b: 2}) == 2
+```
+
+```python claim id=auto-a2f252ee2da8
+class A:
+    def __eq__(self, other):
+        return True
+for f in (lambda: {A()}, lambda: {A(): 1}):
+    try:
+        f()
+    except TypeError as e:
+        assert 'unhashable' in str(e)
+    else:
+        assert False
+```
+
 ```python claim id=dunders-claim-2
 class Coin:
     def __init__(self, value):
@@ -131,6 +177,17 @@ assert raised is not None and "unhashable" in str(raised)
 
 With `__len__`, `len(obj)` works, and an `if` treats an object of length 0 as false.
 
+```python claim id=auto-9b2a3aa834d3
+class Q:
+    def __init__(self, n):
+        self.n = n
+    def __len__(self):
+        return self.n
+assert len(Q(2)) == 2
+assert not Q(0)
+assert Q(1)
+```
+
 ```python predict
 class Shelf:
     def __init__(self, books):
@@ -145,6 +202,25 @@ print(len(Shelf(["Ferns", "Moss"])), bool(Shelf([])))
 ::task quiver
 
 These methods **return** their answer. A `__str__` that prints its text and returns nothing hands `None` to `print`, which raises a `TypeError`.
+
+```python claim id=auto-7c543d13e28e
+class Greeter:
+    def __str__(self):
+        return "hello"
+
+assert str(Greeter()) == "hello"
+
+class Bad:
+    def __str__(self):
+        return None
+
+try:
+    str(Bad())
+except TypeError:
+    pass
+else:
+    raise AssertionError
+```
 
 ```python claim id=auto-79d28a2cd836
 class B:
@@ -207,4 +283,38 @@ class Q:
 assert len(Q([1])) == 1
 assert not Q([])
 assert Q([1])
+```
+
+```python claim id=auto-7a9b49d46a36
+class Badge:
+    def __init__(self, owner):
+        self.owner = owner
+    def __str__(self):
+        return f"Badge of {self.owner}"
+
+assert str(Badge("Ada")) == "Badge of Ada"
+
+class PrintOnlyBadge:
+    def __str__(self):
+        print("Badge of Ada")
+
+try:
+    str(PrintOnlyBadge())
+except TypeError:
+    pass
+else:
+    assert False, "__str__ must return a string"
+```
+
+```python claim id=auto-713455f7bf55
+class BadStr:
+    def __str__(self):
+        print("printed from __str__")
+
+try:
+    print(BadStr())
+except TypeError as exc:
+    assert "__str__ returned non-string" in str(exc)
+else:
+    raise AssertionError("print did not break")
 ```

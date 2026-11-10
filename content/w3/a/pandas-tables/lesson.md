@@ -251,3 +251,17 @@ s = pd.to_numeric(df['p'], errors='coerce')
 assert pd.api.types.is_numeric_dtype(s)
 assert s.sum() == 5
 ```
+
+```python claim id=auto-3d2b9fba9e0a
+import io
+import pandas as pd
+df = pd.read_csv(io.StringIO('item,price\ntea,3\njam,?\nbun,2\n'))
+assert not pd.api.types.is_numeric_dtype(df['price'])
+```
+
+```python claim id=auto-66de5e698b8b
+import io
+import pandas as pd
+df = pd.read_csv(io.StringIO('p\n1\n?\n3\n'))
+assert not pd.api.types.is_numeric_dtype(df['p'])
+```

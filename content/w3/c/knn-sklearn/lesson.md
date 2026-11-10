@@ -14,6 +14,14 @@ name = "Telescope Lens"
 
 **scikit-learn** has the nearest-neighbour method ready, along with many other ways to learn from examples. They all work the same way. The examples go in `X`, a list of rows with one list of features each, and their labels go in `y`. `fit` learns from them; `predict` labels new rows.
 
+```python claim id=auto-3113e5b4cdea
+from sklearn.neighbors import KNeighborsClassifier
+X = [[0, 0], [1, 1], [10, 10]]
+y = ['a', 'a', 'b']
+m = KNeighborsClassifier(n_neighbors=1).fit(X, y)
+assert m.predict([[9, 9]])[0] == 'b'
+```
+
 ```python claim id=auto-9403544dd4ce
 from sklearn.neighbors import KNeighborsClassifier
 m = KNeighborsClassifier(n_neighbors=1)
@@ -65,6 +73,16 @@ assert model.predict([[2, 2]]).tolist() == ["fern"]
 
 `n_neighbors` is the **k**: how many neighbours vote. A small k follows every single example, odd ones too; a big k listens to the crowd, and with k as big as the data it always says the most common label.
 
+```python claim id=auto-d9d1cbbbdebb
+from sklearn.neighbors import KNeighborsClassifier
+X = [[0],[1],[2],[3],[10]]
+y = ['a','a','a','a','b']
+assert KNeighborsClassifier(n_neighbors=1).fit(X, y).predict([[10]]).tolist() == ['b']
+m = KNeighborsClassifier(n_neighbors=5).fit(X, y)
+assert m.predict([[10]]).tolist() == ['a']
+assert m.predict([[-100]]).tolist() == ['a']
+```
+
 ```python claim id=auto-f3affc83bf89
 from sklearn.neighbors import KNeighborsClassifier
 m = KNeighborsClassifier(n_neighbors=3).fit([[0],[1],[2],[3]], [0,0,1,1])
@@ -100,6 +118,23 @@ assert model.fit([[1], [9]], ["a", "b"]) is model
 ::task fit
 
 `predict` always takes a **list of rows**, like `X`, even when you ask about one point. One point is a list holding one row:
+
+```python claim id=auto-75a751f7ed69
+from sklearn.neighbors import KNeighborsClassifier
+m = KNeighborsClassifier(n_neighbors=1).fit([[0,0],[10,10]], ['a','b'])
+assert len(m.predict([[8, 8]])) == 1
+```
+
+```python claim id=auto-f8aeaaf6d5ed
+from sklearn.neighbors import KNeighborsClassifier
+m = KNeighborsClassifier(n_neighbors=1).fit([[0,0],[10,10]], ['a','b'])
+assert m.predict([[8, 8]]).tolist() == ['b']
+try:
+    m.predict([8, 8])
+    raise SystemExit('no error')
+except ValueError:
+    pass
+```
 
 ```python predict
 from sklearn.neighbors import KNeighborsClassifier
@@ -186,4 +221,10 @@ try:
     raise SystemExit('no error')
 except ValueError:
     pass
+```
+
+```python claim id=auto-2762cbe6fb42
+from sklearn.neighbors import KNeighborsClassifier
+m = KNeighborsClassifier(n_neighbors=1).fit([[0],[10]], ['a','b'])
+assert m.predict([[9]]).tolist() == ['b']
 ```

@@ -34,6 +34,15 @@ print(grid[1][0], len(grid), len(grid[0]))
 
 Two loops, one inside the other, visit every cell: the outer loop takes a row, the inner loop walks along it.
 
+```python claim id=auto-e3b55e0157ff
+grid = [[1, 2], [3, 4]]
+seen = []
+for row in grid:
+    for cell in row:
+        seen.append(cell)
+assert seen == [1, 2, 3, 4]
+```
+
 ```python example
 grid = [[1, 2], [3, 4]]
 for row in grid:
@@ -92,4 +101,20 @@ assert g == [[1, 0, 0]] * 3
 h = [[0] * 3 for _ in range(3)]
 h[0][0] = 1
 assert h[1][0] == 0
+```
+
+```python claim id=auto-98e74b9bfb72
+row = ["first", "second"]
+c = 0
+assert row[0] == "first"
+assert row[c] == row[0]
+```
+
+```python claim id=auto-b16a1dda3b60
+grid = [[1, 2, 3], [4, 5, 6]]
+seen = []
+for row in grid:
+    for v in row:
+        seen.append(v)
+assert seen == [1, 2, 3, 4, 5, 6]
 ```

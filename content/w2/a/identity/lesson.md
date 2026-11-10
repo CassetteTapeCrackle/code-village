@@ -14,6 +14,13 @@ name = "Twin Pinecones"
 
 Two questions look alike but are not. `==` asks whether two values are **equal**. `is` asks whether two names point at **the very same object**.
 
+```python claim id=auto-62c940799d85
+x = [1]
+y = [1]
+assert x == y
+assert x is not y
+```
+
 ```python claim id=auto-e2dd777e1b0d
 a = [1]
 b = [1]
@@ -204,4 +211,29 @@ class Dog:
     pass
 assert isinstance(Fox(), Fox)
 assert not isinstance(Dog(), Fox)
+```
+
+```python claim id=auto-6ca3c04762d7
+p = ['a', 'b']
+q = list(p)
+r = p.copy()
+assert q == p and q is not p
+assert r == p and r is not p
+```
+
+```python claim id=auto-958aba2a003f
+p = ['a']
+q = list(p)
+r = p.copy()
+q.append('b')
+r.append('c')
+assert p == ['a']
+```
+
+```python claim id=auto-ea76d1fbdd11
+a = [3, 1]
+b = [3, 1]
+assert a == b
+assert a is not b
+assert a != [3, 2]
 ```

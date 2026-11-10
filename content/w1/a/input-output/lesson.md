@@ -117,3 +117,9 @@ x = 2.5
 assert f'{x}' == '2.5'
 assert f'{x:.2f}' == '2.50'
 ```
+
+```python claim id=auto-572f0298f720
+x = '4'
+assert f'Double: {x * 2}' == 'Double: 44'
+assert f'Double: {int(x) * 2}' == 'Double: 8'
+```

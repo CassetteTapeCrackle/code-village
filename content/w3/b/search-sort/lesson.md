@@ -40,6 +40,44 @@ assert count == 1000000
 
 When the list is **sorted**, there is a much faster way, like finding a word in a dictionary. Look at the middle item: if it is too small, the target can only be in the right half, so throw the left half away, and repeat. This is a **binary search**. Each step halves what is left, so a million items take about 20 steps.
 
+```python claim id=auto-77af3bdbf8e5
+import math
+assert math.ceil(math.log2(1_000_000)) == 20
+```
+
+```python claim id=auto-511c69f337f2
+xs = [1, 3, 5, 7, 9]
+mid = 2
+target = 7
+assert xs[mid] < target
+assert target in xs[mid + 1:]
+assert target not in xs[:mid + 1]
+```
+
+```python claim id=auto-219a584b8a7a
+data = list(range(1_000_000))
+target = 999_999
+
+linear_steps = 0
+for value in data:
+    linear_steps += 1
+    if value == target:
+        break
+
+lo, hi = 0, len(data)
+binary_steps = 0
+while lo < hi:
+    binary_steps += 1
+    mid = (lo + hi) // 2
+    if data[mid] < target:
+        lo = mid + 1
+    else:
+        hi = mid
+
+assert data[lo] == target
+assert binary_steps < linear_steps
+```
+
 ```python claim id=search-sort-claim-1
 items = list(range(1_000_000))
 most = 0
@@ -75,6 +113,11 @@ print(binary_find([2, 5, 8, 12, 20], 12))
 ```
 
 Python's `bisect` module does the halving for you. `bisect_left(items, x)` gives the index where `x` is, or where it would go to keep the list sorted. `insort` adds a value at that place.
+
+```python claim id=auto-436fccfba9f6
+import bisect
+assert bisect.bisect_left([1, 3, 5, 7], 5) == 2
+```
 
 ```python claim id=auto-7b925fdc2e0f
 from bisect import bisect_left
@@ -121,6 +164,13 @@ print(bisect.bisect_left(sorted([9, 2, 7, 4]), 9))
 
 `9` is right there at index 0, but the search on the unsorted list says it would go at the end. Sort first. (Sorting costs more than one linear search, so it pays off when you search the same list many times; for a single lookup, `x in items` is simpler.)
 
+```python claim id=auto-53791f00f24e
+import bisect
+items = [9, 8, 7]
+assert items[0] == 9
+assert bisect.bisect_left(items, 9) == len(items)
+```
+
 ::task member
 
 ```python claim id=auto-106e3cf9e6c8
@@ -155,4 +205,24 @@ assert bisect.bisect_left(l, 20) == 1
 assert bisect.bisect_left(l, 25) == 2
 bisect.insort(l, 25)
 assert l == [10, 20, 25, 30]
+```
+
+```python claim id=auto-1270dc54bfae
+def binary_search(a, x):
+    lo, hi = 0, len(a)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if a[mid] < x:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo < len(a) and a[lo] == x
+
+assert binary_search([20, 40, 70, 90], 90) is True
+assert binary_search([90, 20, 70, 40], 90) is False
+```
+
+```python claim id=auto-61063d13db8e
+import math
+assert math.ceil(math.log2(1_000_000)) == 20
 ```

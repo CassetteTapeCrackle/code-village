@@ -105,3 +105,12 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "269a58c546f9"
+text = "Remember `super().__init__(...)`."
+where = "stage:registry-animals:prompt"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

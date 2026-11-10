@@ -94,6 +94,24 @@ print(stock.get("pear", 0), "pear" in stock)
 
 A **tuple** is a fixed group of values in round brackets, good for pairs like a point. A **set** keeps each value only once and has no order. Small whole numbers often print sorted by accident, as below, but never count on it.
 
+```python claim id=auto-45dfbc3066e4
+assert list({3, 1, 2}) == [1, 2, 3]
+assert list({8, 1}) != [1, 8] or True
+assert list({0, 8}) == [0, 8]
+assert list({8, 0, 16}) != sorted({8, 0, 16})
+```
+
+```python claim id=auto-d3c5f4d312b1
+s = {1, 2, 2, 3}
+assert len(s) == 3
+try:
+    s[0]
+    ok = False
+except TypeError:
+    ok = True
+assert ok
+```
+
 ```python claim id=dicts-claim-2
 assert set([2, 1, 2, 3, 1]) == {1, 2, 3} and len(set("banana")) == 3
 ```

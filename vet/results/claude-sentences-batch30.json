@@ -1,0 +1,159 @@
+{
+  "model": "claude-opus-5-5",
+  "replies": [
+    {
+      "fp": "ce0a631e331f",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "How to write the test for two values; the next sentence shows why `x == 1 or 2` is wrong.",
+      "assert": null
+    },
+    {
+      "fp": "8cd0ee009fc4",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A hint: write `day == \"sat\" or day == \"sun\"`.",
+      "assert": null
+    },
+    {
+      "fp": "4c82e8277d09",
+      "status": "doc:https://docs.python.org/3/library/stdtypes.html#set",
+      "verdict": "true",
+      "reason": "The docs call a set an unordered collection; it has no index and no sort method.",
+      "assert": null
+    },
+    {
+      "fp": "8951978bf48f",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "list() of a set gives a list, and sort() orders it ascending in place.",
+      "assert": "unique = {3, 1, 2}\nitems = list(unique)\nassert type(items) is list\nitems.sort()\nassert items == [1, 2, 3]"
+    },
+    {
+      "fp": "9f499391ef80",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`in` works on lists, and `x not in both` is always the opposite of `x in both`.",
+      "assert": "b = [1, 2]\nboth = [2]\nassert 1 in b and 3 not in b\nfor x in (1, 2, 3):\n    assert (x not in both) == (not (x in both))"
+    },
+    {
+      "fp": "bed04e715913",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Leaving a `with` block closes the file, also when an error leaves it. A StringIO shows the same closing.",
+      "assert": "import io\nf = io.StringIO()\ntry:\n    with f:\n        f.write('a')\n        raise ValueError\nexcept ValueError:\n    pass\nassert f.closed"
+    },
+    {
+      "fp": "49a4eed6d9ba",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "062df7e4a9f4",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A question that leads the learner to the answer.",
+      "assert": null
+    },
+    {
+      "fp": "1d9f69223253",
+      "status": "doc:https://docs.python.org/3/library/functions.html#open",
+      "verdict": "true",
+      "reason": "The docs say mode 'a' opens for writing, appending to the end of the file if it exists.",
+      "assert": null
+    },
+    {
+      "fp": "c3de5e3892b0",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "filter keeps the items for which the lambda is true, so every word except \"a\" stays, in order.",
+      "assert": "words = ['a', 'big', 'a', 'cat']\nassert list(filter(lambda w: w != 'a', words)) == ['big', 'cat']"
+    },
+    {
+      "fp": "6f035779a1fe",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "shape is (rows, columns), [r, c] reads one value, [:, c] a column, and sum(axis=0) adds down each column.",
+      "assert": "import numpy as np\ngrid = np.array([[1, 2, 3], [4, 5, 6]])\nassert grid.shape == (2, 3)\nassert grid[1, 2] == 6\nassert grid[:, 1].tolist() == [2, 5]\nassert grid.sum(axis=0).tolist() == [5, 7, 9]"
+    },
+    {
+      "fp": "787b59035384",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "sorted returns a new sorted list and leaves the original as it was.",
+      "assert": "names = ['mo', 'al']\nordered = sorted(names)\nassert ordered == ['al', 'mo']\nassert names == ['mo', 'al'] and ordered is not names"
+    },
+    {
+      "fp": "194524d00eac",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Most models fit their training data better than new data. How well depends on the model: a simple or heavily regularised one still gets some training examples wrong.",
+      "assert": null
+    },
+    {
+      "fp": "83aba144cfe0",
+      "status": "doc:https://docs.python.org/3/library/constants.html#None",
+      "verdict": "true",
+      "reason": "The docs describe None as the object used to represent the absence of a value.",
+      "assert": null
+    },
+    {
+      "fp": "3229120cad9f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the stage asks.",
+      "assert": null
+    },
+    {
+      "fp": "f19a1b744bb3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the stage asks, with examples.",
+      "assert": null
+    },
+    {
+      "fp": "4fdc0a86c7b6",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the stage asks; Python's sort is stable, so a key function keeps equal lengths in order.",
+      "assert": null
+    },
+    {
+      "fp": "02f58a15354f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the stage asks.",
+      "assert": null
+    },
+    {
+      "fp": "bc6657447258",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the stage's data and the value it expects.",
+      "assert": null
+    },
+    {
+      "fp": "6e97aadfbf4a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the stage asks for an empty list.",
+      "assert": null
+    },
+    {
+      "fp": "da33cfbef74a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the stage asks for an empty list.",
+      "assert": null
+    },
+    {
+      "fp": "d1a5eda5bc9b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the stage asks; min-max scaling maps each column to 0 to 1.",
+      "assert": null
+    }
+  ]
+}

@@ -233,3 +233,76 @@ reason = "filter keeps items where f gives a truthy value, not only True, and th
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "48c1004fa813"
+text = "First `once = f(x)`, then call `f` on `once`."
+where = "task:functions-as-values-twice:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "50027f9300f7"
+text = "Return the second result: `double(double(3))` calls `double` twice."
+where = "task:functions-as-values-twice:hint:1"
+status = "claim:auto-50027f9300f7"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "f46187863996"
+text = "`map` applies the function to every item; `filter` keeps the items for which it gives `True`."
+where = "text:13"
+status = "simplification"
+reason = "filter keeps items for which the function returns a truthy value, not strictly True."
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "281354133fc1"
+text = "With brackets you call it on the spot and pass whatever it returns, which is usually not a function at all."
+where = "text:18"
+status = "claim:auto-281354133fc1"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d49d0782f2d4"
+text = "Read the error: `key=` must be given a function."
+where = "task:functions-as-values-cheapest:hint:0"
+status = "claim:auto-d49d0782f2d4"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d2c52cf8b897"
+text = "lambda n: n * 2 is a small function with no name, written right where it is used."
+where = "remember:1"
+status = "claim:auto-d2c52cf8b897"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "1b2c8b19cb35"
+text = "Wrap them in list() to see the results."
+where = "remember:2"
+status = "claim:auto-1b2c8b19cb35"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "e0983576d97d"
+text = "Pass a function by its name, without brackets: key=by_price, not key=by_price(items)."
+where = "remember:3"
+status = "claim:auto-e0983576d97d"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

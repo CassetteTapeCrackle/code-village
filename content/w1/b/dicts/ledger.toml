@@ -214,3 +214,30 @@ status = "claim:auto-5b43766bd3ea"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "34c36491fe1d"
+text = "Loop over `text.split()` and count like the fruit example."
+where = "task:dicts-count-words:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d3c5f4d312b1"
+text = "A **set** keeps each value only once and has no order."
+where = "text:14"
+status = "claim:auto-d3c5f4d312b1"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "45dfbc3066e4"
+text = "Small whole numbers often print sorted by accident, as below, but never count on it."
+where = "text:14"
+status = "claim:auto-45dfbc3066e4"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

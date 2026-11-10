@@ -215,3 +215,49 @@ status = "claim:auto-52b08215b5c1"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "4321bf685e64"
+text = "Data that should outlive your program goes in a **file**."
+where = "text:0"
+status = "simplification"
+reason = "Files are the basic way to keep data after the program ends. It leaves out databases and other storage."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "f47c5ffc5ee6"
+text = "Reading a file line by line gives each line with its `\"\\n\"`, which `strip()` removes."
+where = "text:3"
+status = "claim:auto-f47c5ffc5ee6"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "c93fee5912f1"
+text = "`\"w\"` starts a fresh file every time, even when one is there; `\"a\"` (append) keeps it and writes at the end."
+where = "text:15"
+status = "claim:auto-c93fee5912f1"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "4a2e2bdd6b91"
+text = "\"r\" reads (the default), \"w\" writes a fresh file, \"a\" adds to the end of it."
+where = "remember:1"
+status = "claim:auto-4a2e2bdd6b91"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "299dffa91c42"
+text = "Opening with \"w\" empties the file first: use \"a\" to keep what is already there."
+where = "remember:3"
+status = "claim:auto-299dffa91c42"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

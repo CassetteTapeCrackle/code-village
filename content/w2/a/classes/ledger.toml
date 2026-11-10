@@ -232,3 +232,41 @@ status = "claim:auto-a42c91cdd14d"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "70fe108088fb"
+text = "Inside `__init__`, store each value on `self`."
+where = "task:classes-tent:hint:0"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "8d5dc7584d0a"
+text = "Its first parameter is always `self`, the object you called it on, so the method can read and change that object's attributes."
+where = "text:9"
+status = "simplification"
+reason = "It is true for ordinary methods. It leaves out that the name self is only a convention, and that classmethods take cls and staticmethods take no automatic first argument."
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d476c188b5db"
+text = "A class is a blueprint; calling it, like Fox(\"Sly\", 3), makes an object."
+where = "remember:0"
+status = "claim:auto-d476c188b5db"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "5a6d84b8e888"
+text = "Every method's first parameter is self."
+where = "remember:3"
+status = "simplification"
+reason = "True for ordinary instance methods. It leaves out staticmethod (no self) and classmethod (cls first), and the name self is only a convention."
+deepseek = "false"
+claude = "agree"
+decided = "owner"

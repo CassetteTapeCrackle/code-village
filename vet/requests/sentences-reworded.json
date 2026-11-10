@@ -1,0 +1,138 @@
+{
+  "job": "sentences",
+  "note": "launch-fixes 2026-11-10: the 22 sentences reworded since the last review",
+  "sentences": [
+    {
+      "fp": "ce0a631e331f",
+      "text": "To compare `x` with two values, write the comparison twice: `x == 1 or x == 2`.",
+      "where": "text:10",
+      "paragraph": "Combine conditions with `and`, `or` and `not`. To compare `x` with two values, write the comparison twice: `x == 1 or x == 2`. `x == 1 or 2` does not mean \"x is 1 or 2\": Python reads it as `(x == 1) or 2`. When the left side is False, `or` hands back the right side itself, so the result is `2`, which counts as true in an `if`."
+    },
+    {
+      "fp": "8cd0ee009fc4",
+      "text": "Each side of `or` needs its own comparison of `day`: one for \"sat\", one for \"sun\".",
+      "where": "task:conditions-weekend:hint:1",
+      "paragraph": "Each side of `or` needs its own comparison of `day`: one for \"sat\", one for \"sun\"."
+    },
+    {
+      "fp": "4c82e8277d09",
+      "text": "A set has no order, so turn it into a list first.",
+      "where": "task:dicts-unique-sorted:hint:0",
+      "paragraph": "A set has no order, so turn it into a list first."
+    },
+    {
+      "fp": "8951978bf48f",
+      "text": "`list(unique)` makes that list; `.sort()` then puts it in order, smallest first.",
+      "where": "task:dicts-unique-sorted:hint:1",
+      "paragraph": "`list(unique)` makes that list; `.sort()` then puts it in order, smallest first."
+    },
+    {
+      "fp": "9f499391ef80",
+      "text": "`x in b` checks a list too, and `not in` is its opposite: `x not in both`.",
+      "where": "task:dicts-in-both:prompt",
+      "paragraph": "Finish `in_both(a, b)`: it returns a sorted list of the values found in both lists, each only once. `x in b` checks a list too, and `not in` is its opposite: `x not in both`."
+    },
+    {
+      "fp": "bed04e715913",
+      "text": "`open(path, \"w\")` opens one for writing, and `with` closes it for you when the block ends, even if an error happens halfway.",
+      "where": "text:0",
+      "paragraph": "Data that should outlive your program goes in a **file**. `open(path, \"w\")` opens one for writing, and `with` closes it for you when the block ends, even if an error happens halfway."
+    },
+    {
+      "fp": "49a4eed6d9ba",
+      "text": "Open the file for writing inside a `with`, then loop over `lines`.",
+      "where": "task:files-json-save:hint:0",
+      "paragraph": "Open the file for writing inside a `with`, then loop over `lines`."
+    },
+    {
+      "fp": "062df7e4a9f4",
+      "text": "What does the w mode of open do to a file that already exists?",
+      "where": "task:files-json-logbook:hint:0",
+      "paragraph": "What does the w mode of open do to a file that already exists?"
+    },
+    {
+      "fp": "1d9f69223253",
+      "text": "The a mode adds to the end of the file instead.",
+      "where": "task:files-json-logbook:hint:1",
+      "paragraph": "The a mode adds to the end of the file instead."
+    },
+    {
+      "fp": "c3de5e3892b0",
+      "text": "`list(filter(lambda w: w != \"a\", words))` keeps every word except a.",
+      "where": "task:functions-as-values-keep-long:hint:1",
+      "paragraph": "`list(filter(lambda w: w != \"a\", words))` keeps every word except a."
+    },
+    {
+      "fp": "6f035779a1fe",
+      "text": "grid.shape gives (rows, columns); grid[r, c] reads one value and grid[:, c] a whole column; grid.sum(axis=0) adds down the columns.",
+      "where": "remember:1",
+      "paragraph": "grid.shape gives (rows, columns); grid[r, c] reads one value and grid[:, c] a whole column; grid.sum(axis=0) adds down the columns."
+    },
+    {
+      "fp": "787b59035384",
+      "text": "`sorted(names)` returns a new sorted list: use that one for the search.",
+      "where": "task:search-sort-member:hint:1",
+      "paragraph": "`sorted(names)` returns a new sorted list: use that one for the search."
+    },
+    {
+      "fp": "194524d00eac",
+      "text": "A model tends to get right the examples it learned from.",
+      "where": "text:13",
+      "paragraph": "A model tends to get right the examples it learned from. A 1-neighbour model is the extreme case: each training point's nearest neighbour is itself, so on its own training data it is never wrong (unless two identical rows have different labels)."
+    },
+    {
+      "fp": "83aba144cfe0",
+      "text": "`None` is Python's value for \"nothing\".",
+      "where": "stage:guessing-read:prompt",
+      "paragraph": "`read_guess(text)` returns the guess as an int, ignoring spaces around it, or `None` when the text is not a whole number from 1 to 100. `None` is Python's value for \"nothing\"."
+    },
+    {
+      "fp": "3229120cad9f",
+      "text": "Blank lines (empty or only spaces) are skipped, and the list it is given stays as it was.",
+      "where": "stage:gradebook-ranking:prompt",
+      "paragraph": "`ranking(lines)` returns `(name, average)` pairs, best average first. Equal averages are in alphabetical order. Blank lines (empty or only spaces) are skipped, and the list it is given stays as it was. Tip: `sorted(pairs, key=lambda pair: (-pair[1], pair[0]))` sorts by average, highest first, then by name. `lambda pair: ...` is a tiny one-line function, and the minus sign flips the order."
+    },
+    {
+      "fp": "f19a1b744bb3",
+      "text": "`parse(command)` returns a `(verb, noun)` pair in lower case, ignoring extra spaces: `parse(\"Take Lamp\")` is `(\"take\", \"lamp\")`, `parse(\"take old lamp\")` is `(\"take\", \"old lamp\")`, `parse(\"look\")` is `(\"look\", \"\")` and `parse(\"\")` is `(\"\", \"\")`.",
+      "where": "stage:satchel-parse:prompt",
+      "paragraph": "`parse(command)` returns a `(verb, noun)` pair in lower case, ignoring extra spaces: `parse(\"Take Lamp\")` is `(\"take\", \"lamp\")`, `parse(\"take old lamp\")` is `(\"take\", \"old lamp\")`, `parse(\"look\")` is `(\"look\", \"\")` and `parse(\"\")` is `(\"\", \"\")`."
+    },
+    {
+      "fp": "4fdc0a86c7b6",
+      "text": "`sorted_by_length()` returns the songs shortest first, using a key function; songs of equal length keep the order they were added in.",
+      "where": "stage:playlist-find:prompt",
+      "paragraph": "`\"Dawn\" in playlist` should be `True` when a song has that title: write `__contains__(self, title)`, which `in` calls for you. `sorted_by_length()` returns the songs shortest first, using a key function; songs of equal length keep the order they were added in."
+    },
+    {
+      "fp": "02f58a15354f",
+      "text": "`Keeper(name)` keeps its `name` and has its own list of animals: `adopt(animal)` adds one, and `feed_all()` returns `[\"Sly is fed\", ...]` in adoption order.",
+      "where": "stage:registry-keepers:prompt",
+      "paragraph": "`Keeper(name)` keeps its `name` and has its own list of animals: `adopt(animal)` adds one, and `feed_all()` returns `[\"Sly is fed\", ...]` in adoption order."
+    },
+    {
+      "fp": "bc6657447258",
+      "text": "A price can have a thousands comma, in quotes like `\"1,200\"`: that is `1200.0`.",
+      "where": "stage:sales-read:prompt",
+      "paragraph": "`read_sales(text)` reads CSV text with the columns `product`, `quantity` and `price`, and returns a list of dicts, one per row, like `{\"product\": \"lamp\", \"quantity\": 2, \"price\": 12.5}`. With pandas, `df.to_dict(\"records\")` gives one dict per row. The quantity is a plain `int`, the price a plain `float` (convert with `int()` and `float()`). A price can have a thousands comma, in quotes like `\"1,200\"`: that is `1200.0`."
+    },
+    {
+      "fp": "6e97aadfbf4a",
+      "text": "With no sales, `total` is `0` and `best` is `None`.",
+      "where": "stage:sales-report-file:prompt",
+      "paragraph": "`save_report(path, sales)` writes a JSON report to `path`: `{\"total\": ..., \"by_product\": totals(sales), \"best\": the product that brought in the most}`. With no sales, `total` is `0` and `best` is `None`. `load_report(path)` reads it back as a dict. `json.dump` refuses NumPy whole numbers (like `numpy.int64`) and NumPy `True`/`False`, so turn every number into a plain `int` or `float`."
+    },
+    {
+      "fp": "da33cfbef74a",
+      "text": "With no speeds, the `count` is `0` and the other three are `None`.",
+      "where": "stage:summary-numbers:prompt",
+      "paragraph": "`summary(speeds)` returns a dict with the `count`, the `mean` rounded to 2 decimals, the `median`, and the standard deviation `std` with `ddof=0` rounded to 2 decimals. Return plain numbers (`float()`), not NumPy ones. With no speeds, the `count` is `0` and the other three are `None`."
+    },
+    {
+      "fp": "d1a5eda5bc9b",
+      "text": "`scale_columns(rows)` takes a list of rows of numbers and returns new rows where each column is scaled to 0 to 1: `(value - smallest) / (largest - smallest)` within its column; a column where every value is the same scales to `0.0`.",
+      "where": "stage:stars-scale:prompt",
+      "paragraph": "`scale_columns(rows)` takes a list of rows of numbers and returns new rows where each column is scaled to 0 to 1: `(value - smallest) / (largest - smallest)` within its column; a column where every value is the same scales to `0.0`. Temperatures in the thousands must not swamp brightness."
+    }
+  ]
+}

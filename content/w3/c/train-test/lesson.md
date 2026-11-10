@@ -14,6 +14,13 @@ name = "Summit Pennant"
 
 How good is a model? Ask it about examples whose labels you know, and count how often it is right: that share is its **accuracy**. By hand, and then with scikit-learn:
 
+```python claim id=auto-874a8a00bd08
+from sklearn.metrics import accuracy_score
+y_true = [0, 1, 1, 0]
+y_pred = [0, 1, 0, 0]
+assert accuracy_score(y_true, y_pred) == 0.75
+```
+
 ```python example
 from sklearn.metrics import accuracy_score
 
@@ -24,6 +31,13 @@ print(accuracy_score(truth, guess))
 ```
 
 A model's `score(X, y)` predicts every row of `X` and gives the accuracy against `y` in one go.
+
+```python claim id=auto-5ce5df55ef93
+from sklearn.neighbors import KNeighborsClassifier
+m = KNeighborsClassifier(n_neighbors=1).fit([[0], [1], [2], [3]], [0, 0, 1, 1])
+assert m.score([[0], [3]], [0, 0]) == 0.5
+assert m.score([[0], [3]], [0, 1]) == 1.0
+```
 
 ```python claim id=train-test-claim-1
 from sklearn.metrics import accuracy_score
@@ -38,6 +52,14 @@ assert model.score([[2], [8]], ["b", "b"]) == 0.5
 ::task accuracy
 
 But which examples should you ask about? Not the ones it learned from: that is like giving a class the exam's answers the day before. Keep some examples aside. `train_test_split` shuffles the rows and splits them into a **training** part to `fit` on and a **test** part to `score` on. `random_state` fixes the shuffle, so every run gives the same split (and the same results).
+
+```python claim id=auto-b466e23d064c
+from sklearn.model_selection import train_test_split
+X = list(range(20))
+a = train_test_split(X, random_state=1)
+b = train_test_split(X, random_state=1)
+assert a == b
+```
 
 ```python claim id=auto-75a13d00fe2d
 from sklearn.model_selection import train_test_split
@@ -73,7 +95,7 @@ print(X_test)
 
 ::task evaluate
 
-A model that has seen an example knows its label. A 1-neighbour model is the extreme case: each training point's nearest neighbour is itself, so on its own training data it is never wrong (unless two identical rows have different labels).
+A model tends to get right the examples it learned from. A 1-neighbour model is the extreme case: each training point's nearest neighbour is itself, so on its own training data it is never wrong (unless two identical rows have different labels).
 
 ```python claim id=auto-a82e58ac9ac1
 import numpy as np
@@ -126,4 +148,25 @@ a = train_test_split(X, y, test_size=0.25, random_state=0)
 b = train_test_split(X, y, test_size=0.25, random_state=0)
 assert len(a[1]) == 5 and len(a[0]) == 15
 assert all((p == q).all() for p, q in zip(a, b))
+```
+
+```python claim id=auto-c923ff2136f4
+from sklearn.model_selection import train_test_split
+X = [[i] for i in range(8)]
+y = list(range(8))
+r = train_test_split(X, y, test_size=0.25, random_state=0)
+assert len(r) == 4 and all(isinstance(p, list) for p in r)
+Xtr, Xte, ytr, yte = r
+assert len(Xtr) == len(ytr) == 6 and len(Xte) == len(yte) == 2
+assert [x[0] for x in Xte] == yte
+```
+
+```python claim id=auto-a0e46d243bd0
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+X = np.array([[0], [1], [2], [3]])
+y = np.array([0, 0, 1, 1])
+m = KNeighborsClassifier(n_neighbors=1).fit(X, y)
+assert m.score(np.array([[0], [3]]), np.array([0, 0])) == 0.5
+assert 0.0 <= m.score(X, y) <= 1.0
 ```

@@ -14,6 +14,10 @@ name = "Weaving Loom"
 
 A **list comprehension** builds a list in one line: what to put in, then the loop, then an optional `if` to filter.
 
+```python claim id=auto-3d96ca0807e8
+assert [x * 2 for x in range(5) if x % 2 == 1] == [2, 6]
+```
+
 ```python example
 nums = [1, 2, 3, 4, 5]
 print([n * n for n in nums])

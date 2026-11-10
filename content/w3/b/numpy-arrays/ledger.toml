@@ -268,3 +268,48 @@ status = "claim:auto-ef955cb85221"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "0c5f89edd451"
+text = "An array prints without commas."
+where = "text:2"
+status = "claim:auto-0c5f89edd451"
+deepseek = "agree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "e86f52592516"
+text = "With a million numbers, this is also much faster than a loop."
+where = "text:2"
+status = "claim:auto-e86f52592516"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "6ed488d4bafb"
+text = "The answers NumPy gives are NumPy numbers."
+where = "text:13"
+status = "claim:auto-6ed488d4bafb"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "833faae90837"
+text = "End with `.tolist()` to give back a plain list."
+where = "task:numpy-arrays-columns:hint:1"
+status = "claim:auto-833faae90837"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "3438a0ef3fa6"
+text = "For `[1, 2, 3]` it returns `[1, 2, 3, 1, 2, 3]`: find and fix the bug."
+where = "task:numpy-arrays-doubled:prompt"
+status = "claim:auto-3438a0ef3fa6"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

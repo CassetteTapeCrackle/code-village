@@ -179,3 +179,51 @@ status = "claim:auto-579273e78ba0"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "e625c33bf8b3"
+text = "A **recursive** function calls itself on a smaller problem."
+where = "text:0"
+status = "simplification"
+reason = "Good beginner definition. It leaves out that a recursive call is not always strictly smaller in a formal sense, and that recursion can be indirect."
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "610d76da992d"
+text = "Each call waits for the smaller call to finish, then uses its answer."
+where = "text:2"
+status = "claim:auto-610d76da992d"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "ae8acf1870b0"
+text = "Add a base case first: when `exp` is 0, the answer is 1."
+where = "task:recursion-power:hint:1"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "15baa40d7c64"
+text = "A recursive function calls itself on a smaller input."
+where = "remember:0"
+status = "simplification"
+reason = "Good beginner definition. It leaves out indirect recursion and the formal meaning of smaller."
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "e611f88b22b0"
+text = "Every recursion needs a base case that answers without calling itself."
+where = "remember:1"
+status = "simplification"
+reason = "True for terminating recursion. It leaves out that a function could stop through an exception instead."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

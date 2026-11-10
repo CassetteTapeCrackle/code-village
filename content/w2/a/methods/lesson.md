@@ -14,6 +14,17 @@ name = "Whittled Spoon"
 
 Methods come in two kinds. Some **answer** a question: they look at the object and return a value, changing nothing. Others **change** the object: they update its attributes and usually return `None`.
 
+```python claim id=auto-2cd6733225ee
+s = "abc"
+t = s.upper()
+assert t == "ABC"
+assert s == "abc"
+d = {1: 2}
+v = d.get(1)
+assert v == 2
+assert d == {1: 2}
+```
+
 ```python example
 class Wallet:
     def __init__(self, coins):

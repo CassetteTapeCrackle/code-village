@@ -268,3 +268,97 @@ status = "claim:auto-d97c11b644ac"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "589fdb77ac8b"
+text = "A few numbers sum up a list of measurements: where its middle is, and how spread out it is."
+where = "text:0"
+status = "simplification"
+reason = "Center and spread are the usual summaries. Other summaries exist."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "aef1584757b5"
+text = "The **median** is the middle value once the list is sorted."
+where = "text:0"
+status = "simplification"
+reason = "Correct for an odd count. The next paragraph covers the even count."
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "3ba19bb0cca9"
+text = "The **range** (largest minus smallest) is the simplest spread."
+where = "text:7"
+status = "claim:auto-3ba19bb0cca9"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "1a03744101b9"
+text = "The mean uses every value, so a single huge one drags it far away."
+where = "text:17"
+status = "simplification"
+reason = "It is a simplified statistical statement: an outlier shifts the arithmetic mean by its deviation divided by the number of values, and how 'far' is relative."
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "4eae4dc71fda"
+text = "The median only looks at the middle, so it hardly moves."
+where = "text:17"
+status = "claim:auto-4eae4dc71fda"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "ed59506b70c4"
+text = "With an even number of prices, return the mean of the two middle values, so `[2, 4, 6, 100]` gives `5.0`."
+where = "task:statistics-typical:prompt"
+status = "claim:auto-ed59506b70c4"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "7761d407507e"
+text = "For `[3, 4, 3, 5, 90]` it returns `21.0` instead of `4.0`: find and fix the bug."
+where = "task:statistics-typical:prompt"
+status = "claim:auto-7761d407507e"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "61c289dea4be"
+text = "The mean uses every value, the 90 too."
+where = "task:statistics-typical:hint:0"
+status = "claim:auto-61c289dea4be"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "cb32bba8b598"
+text = "The range (max minus min) and the standard deviation say how spread out the values are."
+where = "remember:1"
+status = "simplification"
+reason = "Both are measures of spread. The sentence does not say how they differ in outlier sensitivity."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "6a17f1a58ee8"
+text = "One huge value drags the mean but hardly moves the median: use the median for a typical value."
+where = "remember:3"
+status = "claim:auto-6a17f1a58ee8"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
