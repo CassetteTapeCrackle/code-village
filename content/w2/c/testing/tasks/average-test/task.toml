@@ -5,3 +5,6 @@ title = "Test the edges"
 prompt = "`test_average()` already checks a normal list. Add two checks: a list of one number gives that number, and an empty list raises `ValueError` (the helper `raises_value_error(f, arg)` tells you whether it does)."
 hints = ["One `assert` for `[5]`, one `assert` using the helper with `[]`.", "Add two asserts: one on the result for a list with one number (the number itself), and one on the helper's answer for an empty list (it should say the error was raised)."]
 gotcha = false
+
+[cases]
+none = "the learner writes the test function, which takes no input a case could vary"

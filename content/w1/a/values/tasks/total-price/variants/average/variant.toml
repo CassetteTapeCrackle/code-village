@@ -1,3 +1,8 @@
 id = "values-average"
 title = "Halfway"
 prompt = "Write `average_of_two(a, b)` that returns the number halfway between `a` and `b`."
+
+[cases]
+call = "average_of_two"
+args = ["int -50..50", "int -50..50"]
+compare = "float"

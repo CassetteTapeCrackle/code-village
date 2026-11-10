@@ -10,6 +10,9 @@ name = "Miner's Lamp"
 [hard_trophy]
 id = "gold-nugget"
 name = "Gold Nugget"
+
+[cases]
+none = "every stage takes CSV text, sale dicts or a file path, which a case cannot build"
 +++
 
 The old mine's shop sells lamps, ropes and picks to climbers, and writes every sale on a slip of CSV. Turn the slips into a report the miners can keep.

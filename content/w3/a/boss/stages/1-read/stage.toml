@@ -2,3 +2,6 @@ id = "sales-read"
 title = "Read the slips"
 prompt = "`read_sales(text)` reads CSV text with the columns `product`, `quantity` and `price`, and returns a list of dicts, one per row, like `{\"product\": \"lamp\", \"quantity\": 2, \"price\": 12.5}`. With pandas, `df.to_dict(\"records\")` gives one dict per row. The quantity is a plain `int`, the price a plain `float` (convert with `int()` and `float()`). A price can have a thousands comma, in quotes like `\"1,200\"`: that is `1200.0`."
 hp = 30
+
+[cases]
+none = "it takes CSV text, which cannot be built from simple types"

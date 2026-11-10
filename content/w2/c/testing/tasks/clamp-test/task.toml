@@ -5,3 +5,6 @@ title = "Test the clamp"
 prompt = "`clamp(n, low, high)` keeps `n` between `low` and `high`. Write `test_clamp()` with `assert`s checking a number in the middle, one below `low` and one above `high`. Your test must pass with this `clamp`, and fail if `clamp` forgot either limit."
 hints = ["Three asserts, one for each case.", "Use a value inside the limits, a negative value below the low limit, and a value above the high limit; assert each result equals the clamped value."]
 gotcha = false
+
+[cases]
+none = "the learner writes the test function, which takes no input a case could vary"

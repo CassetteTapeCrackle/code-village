@@ -1,3 +1,6 @@
 id = "testing-even-test"
 title = "Test is_even"
 prompt = "`is_even(n)` returns `True` for even numbers. Write `test_is_even()` with `assert`s for an even number and an odd number (check the odd one with `not`: `assert not is_even(7)`). It must pass with this `is_even`, and fail if `is_even` always said `True`."
+
+[cases]
+none = "the learner writes the test function, which takes no input a case could vary"

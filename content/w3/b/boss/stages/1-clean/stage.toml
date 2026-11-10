@@ -2,3 +2,6 @@ id = "summary-clean"
 title = "Clean the log"
 prompt = "`clean(rows)` gets strings like `\"06:00,12\"` (an hour and a wind speed) and returns the speeds as plain floats, in order. Skip a row whose speed is blank or not a number (`float()` raises `ValueError` then), and when an hour comes twice, keep only its first usable reading."
 hp = 30
+
+[cases]
+none = "a row mixes an hour, a comma and a speed, which a case cannot build"

@@ -20,7 +20,7 @@ The rooms are given in `ROOMS`. Each room has a `description`, its `exits` (a di
 
 Hard mode starts from an empty page, so here is the map to copy:
 
-```python
+```
 ROOMS = {
     "gate": {"description": "A broken gate. A path leads north.", "exits": {"north": "hall"}, "items": []},
     "hall": {"description": "A hall of fallen pillars. Exits: south, east.", "exits": {"south": "gate", "east": "vault"}, "items": ["lamp"]},

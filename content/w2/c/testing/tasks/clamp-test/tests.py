@@ -27,3 +27,16 @@ def test_catches_missing_low():
     finally:
         fn.__globals__["clamp"] = real
     raise Failure("test_clamp() should fail when clamp ignores low")
+
+def test_catches_a_wrong_middle():
+    """your test checks a number in the middle"""
+    fn = learner["test_clamp"]
+    real = fn.__globals__["clamp"]
+    fn.__globals__["clamp"] = lambda n, low, high: n + 1 if low < n < high else max(low, min(n, high))
+    try:
+        fn()
+    except AssertionError:
+        return
+    finally:
+        fn.__globals__["clamp"] = real
+    raise Failure("test_clamp() should fail when clamp gets a number in the middle wrong")

@@ -10,6 +10,11 @@ name = "Wind Gauge"
 [hard_trophy]
 id = "storm-glass"
 name = "Storm Glass"
+
+[cases]
+call = "summary"
+args = ["list<int 0..60> 0..9"]
+compare = "float"
 +++
 
 The weather station on the windy ridge logs the wind every hour, and the wind gets into the log too: blank readings, words where numbers should be, hours written twice. Make sense of it.

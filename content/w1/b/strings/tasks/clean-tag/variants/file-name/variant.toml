@@ -2,3 +2,6 @@ id = "strings-file-name"
 title = "A file name"
 prompt = "Finish `file_name(title)`: strip the spaces at the ends, make it lower-case, swap the spaces inside for `_`, and add `.txt`: `file_name(\"  My Notes \")` is `\"my_notes.txt\"`."
 strict = true
+
+[cases]
+none = "a case cannot draw text with one space between words, and the prompt does not say what other spacing gives"

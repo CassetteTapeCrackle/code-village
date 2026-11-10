@@ -2,3 +2,7 @@ id = "summary-gusts"
 title = "The strongest gusts"
 prompt = "`top(speeds, n)` returns the `n` biggest speeds, biggest first. `count_over(speeds, limit)` returns how many speeds are above `limit` (a speed equal to the limit is not above it): sort them, then let `bisect` find where `limit` falls. `bisect.bisect_right` is like `bisect_left`, but gives the place just after any values equal to `limit`."
 hp = 35
+
+[cases]
+call = "count_over"
+args = ["list<int 0..60> 0..10", "int 0..60"]

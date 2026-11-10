@@ -3,3 +3,6 @@ title = "A song"
 prompt = "Make `Song` a dataclass with fields `title` (str) and `seconds` (int), so `Song(\"Dawn\", 90)` shows as `Song(title='Dawn', seconds=90)` and equals another `Song(\"Dawn\", 90)`."
 hp = 25
 requires = ["dataclass-decorator"]
+
+[cases]
+none = "it only stores what it is given, and the visible tests read each attribute"

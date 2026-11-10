@@ -14,3 +14,16 @@ def test_catches_always_true():
     finally:
         fn.__globals__["is_even"] = real
     raise Failure("test_is_even() should fail when is_even always says True")
+
+def test_catches_always_false():
+    """your test checks an even number"""
+    fn = learner["test_is_even"]
+    real = fn.__globals__["is_even"]
+    fn.__globals__["is_even"] = lambda n: False
+    try:
+        fn()
+    except AssertionError:
+        return
+    finally:
+        fn.__globals__["is_even"] = real
+    raise Failure("test_is_even() should fail when is_even always says False")

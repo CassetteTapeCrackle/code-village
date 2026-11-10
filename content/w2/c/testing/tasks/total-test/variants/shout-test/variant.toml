@@ -1,3 +1,6 @@
 id = "testing-shout-test"
 title = "Another test that cannot fail"
 prompt = "`test_shout()` passes even when `shout` is broken. Fix the test, not `shout`: an `assert` with brackets around both parts checks a pair, and a pair is always true."
+
+[cases]
+none = "the learner writes the test function, which takes no input a case could vary"

@@ -10,6 +10,11 @@ name = "Brass Ledger"
 [hard_trophy]
 id = "golden-ledger"
 name = "Golden Ledger"
+
+[cases]
+call = "average"
+args = ["list<int 0..20> 0..8"]
+compare = "float"
 +++
 
 The marsh school's gradebook got soaked, and only its lines of text survived. Each line is a name, a colon, then marks separated by commas, like `Noa: 12, 15, 9`.

@@ -1,3 +1,6 @@
 id = "testing-first-test"
 title = "Test the first item"
 prompt = "`test_first()` already checks a normal list. Add a check that `first([])` raises `IndexError`, using the helper `raises_index_error(f, arg)`. Your test must fail if `first` returned `None` for an empty list."
+
+[cases]
+none = "the learner writes the test function, which takes no input a case could vary"
