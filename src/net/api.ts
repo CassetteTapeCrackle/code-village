@@ -4,6 +4,19 @@ export type ApiResult<T> =
 const isRecord = (v: unknown): v is Record<string, unknown> =>
   typeof v === "object" && v !== null && !Array.isArray(v);
 
+// Reports carry no token: the worker stores no nickname or user id with them.
+export type ReportRequest = {
+  kind: "button" | "auto";
+  item: string;
+  code: string;
+  message?: string;
+  turnstile?: string;
+};
+
+export function sendReport(report: ReportRequest): Promise<ApiResult<{ ok: true }>> {
+  return api<{ ok: true }>("/api/report", { method: "POST", body: { ...report, build: __BUILD_ID__ } });
+}
+
 // Never throws: a network failure is { ok: false, status: 0 }.
 export async function api<T>(
   path: string,

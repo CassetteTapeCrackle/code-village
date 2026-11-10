@@ -1,3 +1,7 @@
 id = "loops-first-even"
 title = "The first even one"
-prompt = "Finish `first_even(numbers)`: it returns the first even number in the list, or `None` if there is none. A number `n` is even when `n % 2 == 0`."
+prompt = "Finish `first_even(numbers)`: it returns the first even number in the list, or `None` if there is none. `None` is Python's value for nothing. A number `n` is even when `n % 2 == 0`."
+
+[cases]
+call = "first_even"
+args = ["list<int -20..20> 0..8"]

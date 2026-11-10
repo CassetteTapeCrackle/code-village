@@ -1,0 +1,57 @@
+{
+  "fingerprint": "50a6d3a65bf2",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Lantern:\n    def __init__(self):\n        self.lit = False\n\n    def light(self):\n        self.lit = True\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Lantern:\n    def __init__(self):\n        self.lit = False\n\n    def light(self):\n        self.lit = True\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Lantern:\n    def __init__(self):\n        self.lit = False\n\n    def light(self):\n        self.lit = True\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Lantern:\n    def __init__(self):\n        self.lit = False\n\n    def light(self):\n        self.lit = True\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Lantern:\n    def __init__(self):\n        self.lit = False\n\n    def light(self):\n        self.lit = True\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

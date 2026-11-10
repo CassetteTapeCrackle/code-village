@@ -2,6 +2,10 @@ id = "comprehensions-pair-up"
 concept = "comprehensions"
 kind = "fix"
 title = "Nobody left out"
-prompt = "`pair_up(names, scores)` should pair every name with its score, using `None` when a name has no score yet. It has a bug: find and fix it."
+prompt = "`pair_up(names, scores)` should pair every name with its score, using `None` when a name has no score yet. Return a list of `(name, score)` pairs in the same order as `names`. It has a bug: find and fix it."
 hints = ["Try three names and two scores: who goes missing?", "Loop with `enumerate(names)`; use `scores[i]` when `i < len(scores)`, otherwise `None`."]
 gotcha = true
+
+[cases]
+call = "pair_up"
+args = ["list<word> 0..6", "list<int 0..20> 0..6"]

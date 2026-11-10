@@ -6,6 +6,7 @@
   import { bundle } from "../content/bundle";
   import type { Boss } from "../content/types";
   import { bossOpen, hardOpen } from "../learning/access";
+  import { applySkip } from "../learning/skip";
   import {
     bossHp,
     bossState,
@@ -20,7 +21,7 @@
   import CodePanel from "../lesson/CodePanel.svelte";
   import TestResults from "../lesson/TestResults.svelte";
   import { passedAll, type Outcome } from "../runner/client";
-  import type { CheckResult } from "../runner/protocol";
+  import type { CheckResult, CheckSuite } from "../runner/protocol";
   import { getRunner } from "../runner/shared";
   import { moment } from "../ui/moments.svelte";
   import { LAIRS, lairName, lairOf } from "../village/layout";
@@ -30,8 +31,11 @@
   import { TROPHY_SPRITES } from "../art/trophies";
   import { game, update } from "../store/progress.svelte";
 
-  type Suite = { title: string; tests: string };
-  let { boss }: { boss: Boss } = $props();
+  type Suite = CheckSuite & { title: string };
+  let { boss, skip = false }: { boss: Boss; skip?: boolean } = $props();
+  // The route flag is read once: after the win the world is marked skipped, and the screen must not
+  // flip back to the sleeping view under the learner.
+  const skipMode = untrack(() => skip);
   const mine = $derived(bossState(game.progress, boss.id));
   const hp = $derived(bossHp(boss, mine));
   const checksLeft = $derived(hardChecksLeft(boss, mine));
@@ -67,7 +71,7 @@
     results = [];
     const passed: boolean[] = [];
     for (const suite of suites) {
-      const outcome = await getRunner().check(code, suite.tests);
+      const outcome = await getRunner().check(code, suite);
       results = [...results, { title: suite.title, outcome }];
       passed.push(passedAll(outcome));
     }
@@ -78,7 +82,12 @@
     const passed = await runSuites(code, boss.stages);
     const beaten = boss.stages.filter((_, i) => passed[i]).map((s) => s.id);
     const before = mine.stagesPassed.length;
-    update((p) => passStages(p, boss, beaten, today()));
+    update((p) => {
+      const day = today();
+      const next = passStages(p, boss, beaten, day);
+      const allStages = boss.stages.every((s) => bossState(next, boss.id).stagesPassed.includes(s.id));
+      return skipMode && allStages ? applySkip(bundle, next, boss.world, day) : next;
+    });
     if (mine.stagesPassed.length > before) moment("pass");
   }
 
@@ -86,7 +95,7 @@
     update((p) => recordHardCheck(p, boss));
     const passed = await runSuites(code, [
       ...boss.stages,
-      { title: "Hard mode tests", tests: boss.hardTests },
+      { title: "Hard mode tests", tests: boss.hardTests, cases: boss.hardCases, requires: boss.hardRequires },
     ]);
     if (passed.every(Boolean)) update((p) => winHard(p, boss, today()));
   }
@@ -105,12 +114,17 @@
 </script>
 
 <Screen title={boss.title} here="boss" wide>
-  {#if !bossOpen(bundle, game.progress, boss)}
+  {#if !bossOpen(bundle, game.progress, boss) && !skipMode}
     <div class="asleep paper px">
       <LairScene {lair} cleared={false} />
       <p>This boss wakes up once every lesson of its region is passed.</p>
     </div>
   {:else}
+    {#if skipMode}
+      <p class="skip-note paper px">
+        Test out: winning this fight marks every lesson of this world as done. Hard mode stays yours to win.
+      </p>
+    {/if}
     <!-- the arena: the lair with its HP built in, the stage notes pinned beside the code -->
     <div class="arena">
       <div class="scene">
@@ -202,7 +216,7 @@
             <CodePanel
               id="{boss.id}-hard"
               title="{boss.title}, hard mode"
-              prompt="No starter code, stricter tests, and {boss.hardChecks} Checks per attempt."
+              prompt="No starter code, more tests, and {boss.hardChecks} Checks per attempt."
               starter=""
               draftKey="boss:{boss.id}:hard"
               passed={Boolean(mine.hardWonAt)}
@@ -467,6 +481,16 @@
     padding: 16px;
     display: grid;
     gap: 10px;
+  }
+  .skip-note {
+    margin: 0;
+    padding: 10px 14px;
+    color: var(--ink-dark);
+    font-size: 14px;
+    line-height: 1.45;
+    box-shadow:
+      inset 0 0 0 3px var(--outline),
+      inset 6px 0 0 3px var(--butter);
   }
   .won {
     color: var(--good);

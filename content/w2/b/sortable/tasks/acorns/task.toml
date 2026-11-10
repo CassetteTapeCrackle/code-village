@@ -3,5 +3,5 @@ concept = "sortable"
 kind = "write"
 title = "The heaviest acorn"
 prompt = "Give the class `Acorn` a `__lt__` method comparing `weight`, so that `sorted(acorns)` orders them lightest first and `max(acorns)` finds the heaviest."
-hints = ["`__lt__(self, other)` returns `True` when `self` is lighter than `other`.", "`return self.mass < other.mass`"]
+hints = ["`__lt__(self, other)` returns `True` when `self` is lighter than `other`.", "Compare the two objects' `weight` attributes with `<`, so `True` means `self` is lighter."]
 gotcha = false

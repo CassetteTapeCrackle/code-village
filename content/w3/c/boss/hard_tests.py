@@ -22,3 +22,9 @@ def test_scaling_leaves_the_catalogue_alone():
 def test_flat_column():
     """a column where every value is the same scales to 0.0"""
     expect_equal(learner["scale_columns"]([[5, 1], [5, 3]]), [[0.0, 0.0], [0.0, 1.0]], "scale_columns([[5, 1], [5, 3]])")
+
+def test_the_split_is_the_one_asked_for():
+    """on noisy data the accuracy depends on test_size, the random_state and the 3 neighbours"""
+    X = [[3974, 9], [3534, 6], [6751, 8], [5562, 2], [5480, 1], [6722, 8], [4062, 9], [3959, 4], [5937, 8], [5215, 9], [4951, 7], [5617, 3], [3949, 3], [6555, 9], [4597, 1], [5750, 2]]
+    y = ["dwarf", "dwarf", "giant", "dwarf", "giant", "giant", "giant", "giant", "giant", "giant", "dwarf", "giant", "dwarf", "dwarf", "dwarf", "giant"]
+    expect_equal(learner["star_accuracy"](X, y), 0.5, "star_accuracy on 16 noisy stars")

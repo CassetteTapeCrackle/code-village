@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { regionToOpen, teacherGreeting } from "./school";
-import { testBundle } from "./test-bundle";
+import { article, regionToOpen, teacherGreeting } from "./school";
+import { lesson, task, testBundle } from "./test-bundle";
 import { emptyProgress, type Progress } from "./types";
 
 const bundle = testBundle();
@@ -32,11 +32,25 @@ test("a half-done lesson comes first, then the next one, then the bosses", () =>
 test("the teacher reacts to each Check, and celebrates the whole lesson", async () => {
   const { teacherLine } = await import("./school");
   const lesson = bundle.lessons[2];
-  expect(teacherLine(lesson, 0, 2, "start", null)).toBe("lists rule");
-  expect(teacherLine(lesson, 1, 2, "pass", "lists-2")).toBe("Well done! 1 of 2 passed. Next: lists-2.");
-  expect(teacherLine(lesson, 0, 2, "fail", null)).toMatch(/first red line/);
-  expect(teacherLine(lesson, 0, 2, "error", null)).toMatch(/stopped with an error/);
-  expect(teacherLine(lesson, 2, 2, "pass", null)).toMatch(/lists seed is on its way/);
+  expect(teacherLine(bundle, lesson, 0, 2, "start", null)).toBe("lists rule");
+  expect(teacherLine(bundle, lesson, 1, 2, "pass", "lists-2")).toBe(
+    "Well done! 1 of 2 passed. Next: lists-2.",
+  );
+  expect(teacherLine(bundle, lesson, 0, 2, "fail", null)).toMatch(/first red line/);
+  expect(teacherLine(bundle, lesson, 0, 2, "error", null)).toMatch(/stopped with an error/);
+  expect(teacherLine(bundle, lesson, 2, 2, "pass", null)).toMatch(/lists seed is on its way/);
+});
+
+test("the seed line takes the article its concept sounds like", async () => {
+  const { teacherLine } = await import("./school");
+  const io = lesson("io", "a", ["io"], [task("io-1", "io")]);
+  expect(teacherLine(bundle, io, 1, 1, "pass", null)).toBe(
+    "That is the whole lesson! An input and output seed is on its way to the garden.",
+  );
+  expect(teacherLine(bundle, bundle.lessons[1], 1, 1, "pass", null)).toMatch(/A loops seed/);
+  expect(article("input and output")).toBe("An");
+  expect(article("errors and debugging")).toBe("An");
+  expect(article("lists")).toBe("A");
 });
 
 test("the lessons board unfolds the next lesson's region, else an awake boss's, else none", () => {

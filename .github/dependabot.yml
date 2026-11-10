@@ -3,17 +3,28 @@ version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
+    target-branch: dev # main only takes finished releases from dev
     schedule:
       interval: weekly
+    # hijacked releases are usually caught and pulled within days: never propose one younger than a week
+    cooldown:
+      default-days: 7
     groups:
       actions-minor-patch:
         patterns: ["*"]
         update-types: [minor, patch]
   - package-ecosystem: npm
     directory: /
+    target-branch: dev
     schedule:
       interval: weekly
+    # matches minimumReleaseAge in pnpm-workspace.yaml, so pnpm never refuses what Dependabot proposes
+    cooldown:
+      default-days: 7
     groups:
+      # the worker tests run vitest inside Cloudflare's pool, which supports only some vitest versions: move them together
+      vitest:
+        patterns: ["vitest", "@vitest/*", "@cloudflare/vitest-plugin"]
       npm-minor-patch:
         patterns: ["*"]
         update-types: [minor, patch]

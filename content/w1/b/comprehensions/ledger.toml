@@ -1,0 +1,197 @@
+[[sentence]]
+fp = "e686be7164c0"
+text = "Write `odd_squares(numbers)` that returns the squares of the odd numbers, in order."
+where = "task:comprehensions-odd-squares:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "554308c610e3"
+text = "Try a list comprehension."
+where = "task:comprehensions-odd-squares:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "954175a1ce04"
+text = "A number is odd when `n % 2 == 1`."
+where = "task:comprehensions-odd-squares:hint:0"
+status = "claim:auto-954175a1ce04"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "0c1c7caf35b7"
+text = "Filter inside the brackets: `[w.upper() for w in words if len(w) > 3]` keeps the long words, upper-cased."
+where = "task:comprehensions-odd-squares:hint:1"
+status = "claim:auto-0c1c7caf35b7"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "02c6549d9ab7"
+text = "Write `long_words(words)` that returns the words with more than 3 letters, in order."
+where = "task:comprehensions-long-words:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e134244d8cfd"
+text = "`enumerate` gives each item together with its index (add `start=1` to count from 1), and `zip` walks two lists side by side."
+where = "text:3"
+status = "claim:auto-e134244d8cfd"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "dfe5c5a81f5a"
+text = "`zip` stops at the **shortest** list, silently: the extra items are dropped without any error."
+where = "text:6"
+status = "claim:auto-dfe5c5a81f5a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "69cbe8af9d9d"
+text = "`pair_up(names, scores)` should pair every name with its score, using `None` when a name has no score yet."
+where = "task:comprehensions-pair-up:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "5c9ccc0a4560"
+text = "Return a list of `(name, score)` pairs in the same order as `names`."
+where = "task:comprehensions-pair-up:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8511cc020620"
+text = "It has a bug: find and fix it."
+where = "task:comprehensions-pair-up:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "149a27ee6506"
+text = "Try three names and two scores: who goes missing?"
+where = "task:comprehensions-pair-up:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6ff07b35d032"
+text = "Loop with `enumerate(names)`; use `scores[i]` when `i < len(scores)`, otherwise `None`."
+where = "task:comprehensions-pair-up:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1d6e72b8ea7d"
+text = "`add_lists(a, b)` should add the lists item by item, counting a missing item as 0: `add_lists([1, 2, 3], [10, 20])` is `[11, 22, 3]`."
+where = "task:comprehensions-add-lists:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bc598ea919ef"
+text = "It loses the last items: find and fix the bug."
+where = "task:comprehensions-add-lists:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "07577722abd8"
+text = "Loop over `range(max(len(a), len(b)))`: `max` gives the bigger of its values."
+where = "task:comprehensions-add-lists:prompt"
+status = "claim:auto-07577722abd8"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fac115c5c55f"
+text = "Finish `numbered(items)` so `numbered([\"tea\", \"jam\"])` returns `[\"1. tea\", \"2. jam\"]`."
+where = "task:comprehensions-numbered:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "197e503dd2f2"
+text = "`enumerate(items, start=1)` gives `(1, \"tea\")`, `(2, \"jam\")`."
+where = "task:comprehensions-numbered:hint:0"
+status = "claim:auto-197e503dd2f2"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "97bf74a23e73"
+text = "Inside the brackets, use the position and the item from `enumerate`, and put the position, a dot and a space before the item in the f-string."
+where = "task:comprehensions-numbered:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "cfa53c65e8e8"
+text = "Finish `shout_all(words)` so `shout_all([\"tea\", \"jam\"])` returns `[\"TEA!\", \"JAM!\"]`."
+where = "task:comprehensions-shout-all:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "423e5f1b0b36"
+text = "[f(x) for x in items if test(x)] builds a list in one line."
+where = "remember:0"
+status = "claim:auto-423e5f1b0b36"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f928c4da3c8b"
+text = "enumerate(items) gives (index, item); add start=1 to count from 1."
+where = "remember:1"
+status = "claim:auto-f928c4da3c8b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "81b117ec7371"
+text = "zip stops at the shortest list, without any warning."
+where = "remember:2"
+status = "claim:auto-81b117ec7371"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

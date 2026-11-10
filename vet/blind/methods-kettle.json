@@ -1,0 +1,57 @@
+{
+  "fingerprint": "a0f3447bd0ae",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Kettle:\n    def __init__(self, temperature):\n        self.temperature = temperature\n\n    def is_hot(self):\n        return self.temperature >= 90\n\n\ndef ready(kettle):\n    return kettle.is_hot()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Kettle:\n    def __init__(self, temperature):\n        self.temperature = temperature\n\n    def is_hot(self):\n        return self.temperature >= 90\n\n\ndef ready(kettle):\n    return kettle.is_hot()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Kettle:\n    def __init__(self, temperature):\n        self.temperature = temperature\n\n    def is_hot(self):\n        return self.temperature >= 90\n\n\ndef ready(kettle):\n    return kettle.is_hot()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Kettle:\n    def __init__(self, temperature):\n        self.temperature = temperature\n\n    def is_hot(self):\n        return self.temperature >= 90\n\n\ndef ready(kettle):\n    return kettle.is_hot()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Kettle:\n    def __init__(self, temperature):\n        self.temperature = temperature\n\n    def is_hot(self):\n        return self.temperature >= 90\n\n\ndef ready(kettle):\n    return kettle.is_hot()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

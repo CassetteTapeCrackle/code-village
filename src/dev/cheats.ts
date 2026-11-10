@@ -1,7 +1,10 @@
 // Debug shortcuts for the cheat screen. Each one goes through the real learning rules,
 // so XP, loot, plants and trophies come out exactly as if the work had been done.
 import type { Boss, Bundle, Lesson } from "../content/types";
+import { PORTRAITS } from "../art/sprites";
+import { TROPHY_SPRITES } from "../art/trophies";
 import { DECOR } from "../village/decor";
+import { ITEM_SPRITES } from "../village/destinies";
 import { worldById } from "../worlds/registry";
 import { passStages, winHard } from "../learning/boss";
 import { addDays } from "../learning/dates";
@@ -67,4 +70,42 @@ export function openWorld(bundle: Bundle, p: Progress, day: Day, worldId: string
 // Every lesson passed, every boss beaten on hard mode, and the village at its top level.
 export function finishEverything(bundle: Bundle, p: Progress, day: Day): Progress {
   return reachLevel(beatBosses(bundle, passLessons(bundle, p, day), day, true), TOP_LEVEL);
+}
+
+// Wipes one world's work and its skip, so its lair can be tested again. XP stays as it is: this is a
+// test shortcut, not save surgery.
+export function resetWorld(bundle: Bundle, p: Progress, worldId: string): Progress {
+  const lessons = bundle.lessons.filter((l) => l.world === worldId);
+  const lessonIds = new Set(lessons.map((l) => l.id));
+  const taskIds = new Set(lessons.flatMap(lessonTasks).map((t) => t.id));
+  const bossIds = new Set(bundle.bosses.filter((b) => b.world === worldId).map((b) => b.id));
+  const without = <T>(record: Record<string, T>, drop: (key: string) => boolean): Record<string, T> =>
+    Object.fromEntries(Object.entries(record).filter(([key]) => !drop(key)));
+  const worldsSkipped = { ...p.worldsSkipped };
+  delete worldsSkipped[worldId];
+  return {
+    ...p,
+    tasks: without(p.tasks, (id) => taskIds.has(id)),
+    lessons: without(p.lessons, (id) => lessonIds.has(id)),
+    bosses: without(p.bosses, (id) => bossIds.has(id)),
+    drafts: without(p.drafts, (id) => {
+      const bossKey = id.startsWith("boss:") ? id.slice("boss:".length).replace(/:hard$/, "") : "";
+      return taskIds.has(id) || bossIds.has(bossKey);
+    }),
+    worldsSkipped,
+  };
+}
+
+// What a world's content names but nobody has drawn yet: it shows placeholder art (star, sprout, traveller).
+export function missingArt(b: Bundle): string[] {
+  const trophies = b.bosses
+    .flatMap((x) => [x.trophy.id, x.hardTrophy.id])
+    .filter((id) => !TROPHY_SPRITES[id]);
+  const items = b.lessons.map((l) => l.loot.id).filter((id) => !ITEM_SPRITES[id]);
+  const portraits = b.worlds.map((w) => w.teacher.portrait).filter((id) => !PORTRAITS[id]);
+  return [
+    ...trophies.map((id) => `trophy ${id}`),
+    ...items.map((id) => `item ${id}`),
+    ...portraits.map((id) => `portrait ${id}`),
+  ];
 }

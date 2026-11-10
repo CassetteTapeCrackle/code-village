@@ -1,0 +1,8 @@
+# concepts.toml names no concept.
+base = "good"
+expect = ["concept-unnamed"]
+
+[[file]]
+path = "concepts.toml"
+text = '''
+'''

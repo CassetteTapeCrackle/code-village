@@ -1,0 +1,57 @@
+{
+  "fingerprint": "a4e76aaf859a",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Tally:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, n):\n        self.total += n\n\n    def add_all(self, numbers):\n        # call self.add for each number\n        for n in numbers:\n            self.add(n)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Tally:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, n):\n        self.total += n\n\n    def add_all(self, numbers):\n        for n in numbers:\n            self.add(n)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Tally:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, n):\n        self.total += n\n\n    def add_all(self, numbers):\n        for n in numbers:\n            self.add(n)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Tally:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, n):\n        self.total += n\n\n    def add_all(self, numbers):\n        for n in numbers:\n            self.add(n)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Tally:\n    def __init__(self):\n        self.total = 0\n\n    def add(self, n):\n        self.total += n\n\n    def add_all(self, numbers):\n        # call self.add for each number\n        for n in numbers:\n            self.add(n)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

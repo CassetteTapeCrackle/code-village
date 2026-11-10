@@ -3,5 +3,6 @@ concept = "sortable"
 kind = "complete"
 title = "Birds in order"
 prompt = "Finish the key function `name_of(bird)` so that `alphabetical(birds)` returns the birds sorted by name."
-hints = ["A key function takes one bird and returns what to sort by.", "`return fish.species`"]
+hints = ["A key function takes one bird and returns what to sort by.", "Return the `name` attribute of the bird you are given."]
 gotcha = false
+requires = ["sort-key"]

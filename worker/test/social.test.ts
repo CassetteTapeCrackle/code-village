@@ -3,6 +3,7 @@ import { beforeAll, expect, test } from "vitest";
 import { bundle } from "../../src/content/bundle";
 import { addDays } from "../../src/learning/dates";
 import { handle } from "../src/router";
+import { forgetSocialAnswers } from "../src/routes/social";
 
 const deps = {
   verifyHuman: async () => true,
@@ -116,6 +117,7 @@ test("a banned player disappears from the board, the card and the news", async (
   // the first all-board answer is cached for 60 s, so drop it to read a fresh one
   const cache = (caches as { default?: Cache }).default;
   await cache?.delete("https://x/api/leaderboard");
+  forgetSocialAnswers();
   const all = (await (await get("/api/leaderboard")).json()) as Board;
   expect(all.rows.map((r) => r.nickname)).toEqual(["Ada"]);
   const week = (await (await get("/api/leaderboard?period=week")).json()) as Board;
@@ -157,6 +159,7 @@ test("news is newest first and capped at thirty", async () => {
   }
   const cache = (caches as { default?: Cache }).default;
   await cache?.delete("https://x/api/news");
+  forgetSocialAnswers();
   const res = await get("/api/news");
   const feed = (await res.json()) as { items: { nickname: string; kind: string; id: string; day: string }[] };
   expect(feed.items.length).toBe(30);
@@ -174,7 +177,21 @@ test("a player name with a bad escape is a plain 404", async () => {
 test("junk query parameters share the plain board's cache entry", async () => {
   const cache = (caches as { default?: Cache }).default;
   await cache?.delete("https://x/api/leaderboard");
+  forgetSocialAnswers();
   await get("/api/leaderboard?x=random&period=all");
   // the canonical key, not the raw URL, so the entry is reachable without the junk parameters
   expect(await cache?.match("https://x/api/leaderboard")).toBeTruthy();
+});
+
+test("without the edge cache (a workers.dev host), the Worker still answers from memory for 60 s", async () => {
+  const cache = (caches as { default?: Cache }).default;
+  await cache?.delete("https://x/api/leaderboard");
+  forgetSocialAnswers();
+  const before = (await (await get("/api/leaderboard")).json()) as Board;
+  const id = await seedPlayer("Latecomer", "2026-10-15T08:00:00.000Z", "2026-10-15");
+  await cache?.delete("https://x/api/leaderboard"); // what workers.dev does: nothing was kept at the edge
+  const after = (await (await get("/api/leaderboard")).json()) as Board;
+  expect(after).toEqual(before);
+  await env.DB.prepare("DELETE FROM players WHERE id = ?").bind(id).run();
+  forgetSocialAnswers();
 });

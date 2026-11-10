@@ -3,5 +3,8 @@ concept = "class-attributes"
 kind = "complete"
 title = "How many rangers?"
 prompt = "Finish `Ranger`: the class attribute `count` starts at 0, and every new ranger should add 1 to it."
-hints = ["Change the shared counter through the class, not through `self`.", "Change the shared number through the class: `Scout.total += 1`."]
+hints = ["Change the shared counter through the class, not through `self`.", "Change the counter on the class itself: `Ranger.count` goes up by 1 for each new ranger."]
 gotcha = false
+
+[cases]
+none = "the counter lives on the class and grows with every object, so a case cannot compare it"

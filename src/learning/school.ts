@@ -1,15 +1,13 @@
-import type { Bundle, Lesson } from "../content/types";
+import type { Bundle, Lesson, World } from "../content/types";
+import { conceptName } from "../content/bundle";
+import { regularLessons } from "../content/lessons";
+import { worldById } from "../worlds/registry";
 import { lessonTasks } from "./progress";
 import type { Progress } from "./types";
 
-const TEACHER_NAME = "Ms. Juniper";
-
-// Each world's lessons have their own teacher: Ms. Juniper at the schoolhouse, Ranger Noa at the cabin.
-export type Teacher = { name: string; portrait: "teacher" | "ranger" | "stargazer" };
-export function teacherFor(world: string): Teacher {
-  if (world === "w2") return { name: "Ranger Noa", portrait: "ranger" };
-  if (world === "w3") return { name: "Stargazer Alex", portrait: "stargazer" };
-  return { name: TEACHER_NAME, portrait: "teacher" };
+// Each world's lessons have their own teacher, named in its world.toml.
+export function teacherFor(world: string): World["teacher"] {
+  return worldById(world)?.teacher ?? { name: "Ms. Juniper", portrait: "teacher" };
 }
 
 // What the teacher says at the schoolhouse door: where to pick up, in that order of priority.
@@ -18,7 +16,7 @@ export function teacherGreeting(
   p: Progress,
   world = "w1",
 ): { line: string; lessonId: string | null } {
-  const lessons = bundle.lessons.filter((l) => l.world === world);
+  const lessons = regularLessons(bundle.lessons).filter((l) => l.world === world);
   const started = lessons.find(
     (l) => !p.lessons[l.id] && lessonTasks(l).some((t) => p.tasks[t.id]?.passedAt),
   );
@@ -42,16 +40,25 @@ export function teacherGreeting(
 
 export type TaskEvent = "start" | "pass" | "fail" | "error";
 
+// The seed line starts a sentence, so the article is capitalised: "An input and output seed", "A loops seed".
+// shortcut: first letter only, fine for these concept names, which have no silent or "you" vowels.
+export function article(word: string): "A" | "An" {
+  return /^[aeiou]/i.test(word) ? "An" : "A";
+}
+
 // The teacher's line on the lesson desk, reacting to the latest Check.
 export function teacherLine(
+  bundle: Bundle,
   lesson: Lesson,
   passed: number,
   total: number,
   event: TaskEvent,
   nextTitle: string | null,
 ): string {
-  if (passed === total && total > 0)
-    return `That is the whole lesson! A ${lesson.concepts[0]} seed is on its way to the garden.`;
+  if (passed === total && total > 0) {
+    const name = conceptName(bundle, lesson.concepts[0]);
+    return `That is the whole lesson! ${article(name)} ${name} seed is on its way to the garden.`;
+  }
   if (event === "pass")
     return `Well done! ${passed} of ${total} passed.${nextTitle ? ` Next: ${nextTitle}.` : ""}`;
   if (event === "fail")
@@ -70,7 +77,9 @@ export function regionToOpen(bundle: Bundle, p: Progress, world = "w1"): string 
     (b) =>
       b.world === world &&
       !p.bosses[b.id]?.wonAt &&
-      bundle.lessons.filter((l) => l.world === world && l.region === b.region).every((l) => p.lessons[l.id]),
+      bundle.lessons
+        .filter((l) => !l.tour && l.world === world && l.region === b.region)
+        .every((l) => p.lessons[l.id]),
   );
   return boss?.region ?? null;
 }

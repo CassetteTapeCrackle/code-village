@@ -1,5 +1,6 @@
 import { stamp } from "../art/draw";
 import { SPRITE_COLORS } from "../art/palette";
+import { ICONS } from "../art/sprites";
 import { TROPHY_SPRITES } from "../art/trophies";
 import type { Palette } from "../village/clock";
 import { ITEM_SPRITES } from "../village/destinies";
@@ -18,6 +19,7 @@ export const HOME_SPOTS: Record<string, { x: number; y: number; where: string }>
   "abacus-beads": { x: 82, y: 34, where: "on the desk" },
   "nesting-dolls": { x: 104, y: 12, where: "on the mantel" },
   "weaving-loom": { x: 130, y: 26, where: "in the corner, with its rug" },
+  "welcome-bell": { x: 18, y: 49, where: "on the floor by the door" },
 };
 
 export function drawHouseRoom(
@@ -74,8 +76,7 @@ export function drawHouseRoom(
   }
   const shown = trophies.slice(-(3 + extra));
   shown.forEach((id, i) => {
-    const grid = TROPHY_SPRITES[id];
-    if (!grid) return;
+    const grid = TROPHY_SPRITES[id] ?? ICONS.star; // a trophy whose sprite is not drawn yet
     const x = i < 3 ? 28 + i * 13 : 155 + (i - 3) * 13;
     stamp(ctx, grid, s, x, 13 - grid.length);
   });

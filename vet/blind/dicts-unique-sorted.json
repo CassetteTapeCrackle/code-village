@@ -1,0 +1,57 @@
+{
+  "fingerprint": "04dcc49a609b",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def unique_sorted(values):\n    unique = set(values)\n    # turn it back into a sorted list\n    return sorted(unique)\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

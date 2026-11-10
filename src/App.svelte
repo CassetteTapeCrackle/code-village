@@ -19,11 +19,13 @@
   import SchoolView from "./screens/SchoolView.svelte";
   import BoardView from "./screens/BoardView.svelte";
   import { levelFor } from "./learning/xp";
+  import { canSkip } from "./learning/skip";
   import { game } from "./store/progress.svelte";
-  import { tickClock } from "./village/clock-state.svelte";
+  import { liftedFog, previewBeach, tickClock } from "./village/clock-state.svelte";
   import Village from "./village/Village.svelte";
   import { getRunner } from "./runner/shared";
   import { onIdle } from "./ui/idle";
+  import TourOverlay from "./tour/TourOverlay.svelte";
 
   tickClock();
   $effect(() => {
@@ -42,6 +44,10 @@
   const route = $derived(parseRoute(hash));
   const lesson = $derived(route.name === "lesson" ? lessonById(route.id) : undefined);
   const boss = $derived(route.name === "boss" ? bossById(route.id) : undefined);
+  // The skip route only counts for a sleeping final boss of an open world that has not been skipped yet.
+  const skipFight = $derived(
+    Boolean(boss && route.name === "boss" && route.skip && canSkip(bundle, game.progress, boss)),
+  );
   // A lesson, a boss or the sandbox is where Python runs: warm the runner while the page is idle, so the first
   // Check does not wait for Pyodide to download. The map and the other boards never run code, so they do not.
   $effect(() => {
@@ -61,7 +67,10 @@
   // The village stays under every page: a board opens beside the page's building, and closing it returns to the map.
   const focus = $derived(focusFor(route, bundle));
   const covered = $derived(route.name !== "home");
-  const villageKey = $derived(`${open.join(",")}|${levelFor(game.progress.xp)}`);
+  // the cheat screen lifting the fog over a world with no content also rebuilds the map
+  const villageKey = $derived(
+    `${open.join(",")}|${levelFor(game.progress.xp)}|${liftedFog.on}|${previewBeach.level}`,
+  );
   $effect(() => {
     board.back = focus.back;
     board.backLabel = focus.backLabel;
@@ -98,7 +107,7 @@
         {:else if lesson}
           {#key lesson.id}<LessonView {lesson} />{/key}
         {:else if boss}
-          {#key boss.id}<BossView {boss} />{/key}
+          {#key boss.id}<BossView {boss} skip={skipFight} />{/key}
         {:else if route.name === "cheat" && cheatsEnabled()}
           <CheatView />
         {:else if route.name === "school"}
@@ -119,6 +128,7 @@
     <Toasts />
     <ConflictDialog />
   </main>
+  <TourOverlay />
 </div>
 
 <style>

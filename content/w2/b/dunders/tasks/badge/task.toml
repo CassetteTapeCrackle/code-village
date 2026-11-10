@@ -3,5 +3,13 @@ concept = "dunders"
 kind = "fix"
 title = "A badge that will not print"
 prompt = "`print(Badge(\"Sam\"))` should show `Badge of Sam`, and `str(Badge(\"Sam\"))` should be that text. Instead the text appears and then Python crashes with a `TypeError`: find and fix the bug."
-hints = ["What does `__str__` give back to whoever called it?", "Give the text back instead of printing it: `return f\"Ticket for {self.holder}\"`."]
+hints = ["What does `__str__` give back to whoever called it?", "`__str__` must return the text, not print it. Build the same \"Badge of ...\" text from `self.owner` and return it."]
 gotcha = true
+
+strict = true
+
+[cases]
+class = "Badge"
+init = ["word"]
+methods = { __str__ = [] }
+reads = ["owner"]

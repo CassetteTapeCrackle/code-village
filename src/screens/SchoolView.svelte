@@ -1,8 +1,10 @@
 <script lang="ts">
   import Screen from "../ui/Screen.svelte";
+  import { onMount } from "svelte";
   import { ICONS } from "../art/sprites";
   import { bundle } from "../content/bundle";
   import { regionName } from "../content/regions";
+  import { regularLessons, tourLesson } from "../content/lessons";
   import { bossOpen } from "../learning/access";
   import { bossState } from "../learning/boss";
   import { lessonTasks } from "../learning/progress";
@@ -13,6 +15,7 @@
   import SpriteCanvas from "../ui/SpriteCanvas.svelte";
   import Blocked from "../ui/Blocked.svelte";
   import { WORLDS, openWorlds, worldById } from "../worlds/registry";
+  import { tourEvent } from "../tour/tour.svelte";
 
   // One lessons board for every world: the schoolhouse (World 1), the ranger's cabin, the observatory.
   // The teacher speaks, one card says what to do now, and each region is a fold of one-line lesson rows.
@@ -20,8 +23,18 @@
   const open = $derived(openWorlds(bundle, game.progress));
   const here = $derived(worldById(world));
   const regionKey = (x: { world: string; region: string }): string => `${x.world}/${x.region}`;
-  const regions = $derived([...new Set(bundle.lessons.filter((l) => l.world === world).map(regionKey))]);
+  const regions = $derived([
+    ...new Set(
+      regularLessons(bundle.lessons)
+        .filter((l) => l.world === world)
+        .map(regionKey),
+    ),
+  ]);
   const greeting = $derived(teacherGreeting(bundle, game.progress, world));
+  const firstTour = $derived.by(() => {
+    const lesson = tourLesson(bundle);
+    return lesson && lesson.world === world && !game.progress.lessons[lesson.id] ? lesson : undefined;
+  });
   const hrefFor = (id: string): string => (id === "w1" ? "#/school" : `#/school/${id}`);
   const next = $derived(
     greeting.lessonId ? bundle.lessons.find((l) => l.id === greeting.lessonId) : undefined,
@@ -32,6 +45,8 @@
   // Only one region starts unfolded: where you are now. The others are one line each until opened.
   // svelte-ignore state_referenced_locally (the board remounts per world, so reading it once is right)
   let unfolded: string | null = $state(regionToOpen(bundle, game.progress, world));
+  // The tour's second moving step ends when the school is actually open, after Mochi's walk.
+  onMount(() => tourEvent("walk-building"));
 </script>
 
 {#if !here || !open.includes(world)}
@@ -52,6 +67,22 @@
     {/if}
     {#if regions.length > 0}
       <Dialog who={teacherFor(world).name} portrait={teacherFor(world).portrait} line={greeting.line} />
+      {#if firstTour}
+        <a
+          class="lead tour px"
+          data-tour="tour-lesson"
+          href="#/lesson/{firstTour.id}"
+          onclick={() => tourEvent("lesson-list")}
+        >
+          <SpriteCanvas grid={ICONS.book} scale={5} />
+          <span
+            ><small>Start here</small><b>{firstTour.title}</b>
+            · {lessonTasks(firstTour).length}
+            {lessonTasks(firstTour).length === 1 ? "task" : "tasks"}</span
+          >
+          <span class="arrow" aria-hidden="true">&gt;</span>
+        </a>
+      {/if}
       {#if next}
         <a class="lead px" href="#/lesson/{next.id}">
           <SpriteCanvas grid={ICONS.book} scale={5} />
@@ -72,10 +103,10 @@
         </p>
       </div>
     {/if}
-    <div class="regions">
+    <div class="regions" data-tour="lesson-list">
       {#each regions as key (key)}
         {@const [world, region] = key.split("/")}
-        {@const lessons = bundle.lessons.filter((l) => regionKey(l) === key)}
+        {@const lessons = regularLessons(bundle.lessons).filter((l) => regionKey(l) === key)}
         {@const passed = lessons.filter((l) => game.progress.lessons[l.id]).length}
         {@const bosses = bundle.bosses.filter((b) => regionKey(b) === key)}
         {@const awake = bosses.some(
@@ -185,6 +216,9 @@
   }
   .regions {
     margin-top: 18px;
+  }
+  .tour {
+    margin-bottom: 10px;
   }
   .fold-h {
     margin: 0;

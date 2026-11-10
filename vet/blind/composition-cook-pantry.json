@@ -1,0 +1,57 @@
+{
+  "fingerprint": "565712001886",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Pantry:\n    def __init__(self):\n        self.shelf = []\n\n    def store(self, food):\n        self.shelf.append(food)\n\n\nclass Cook:\n    def __init__(self, name):\n        self.name = name\n        self.pantry = Pantry()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Pantry:\n    def __init__(self):\n        self.shelf = []\n\n    def store(self, food):\n        self.shelf.append(food)\n\n\nclass Cook:\n    def __init__(self, name):\n        self.name = name\n        self.pantry = Pantry()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Pantry:\n    def __init__(self):\n        self.shelf = []\n\n    def store(self, food):\n        self.shelf.append(food)\n\n\nclass Cook:\n    def __init__(self, name):\n        self.name = name\n        self.pantry = Pantry()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Pantry:\n    def __init__(self):\n        self.shelf = []\n\n    def store(self, food):\n        self.shelf.append(food)\n\n\nclass Cook:\n    def __init__(self, name):\n        self.name = name\n        self.pantry = Pantry()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Pantry:\n    def __init__(self):\n        self.shelf = []\n\n    def store(self, food):\n        self.shelf.append(food)\n\n\nclass Cook:\n    def __init__(self, name):\n        self.name = name\n        self.pantry = Pantry()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

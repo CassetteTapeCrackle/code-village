@@ -3,5 +3,9 @@ concept = "generators"
 kind = "write"
 title = "Even steps"
 prompt = "Write a generator `evens(limit)` that yields `0, 2, 4, ...` up to but not including `limit`. Use `yield`, not a list: `list(evens(7))` is `[0, 2, 4, 6]`."
-hints = ["Start at `n = 0` and loop while `n < limit`.", "In the loop: `yield n`, then `n += 2`."]
+hints = ["Start from 0 and keep yielding while the number is still below `limit`.", "Each time round, yield the current number, then move to the next even one by adding 2."]
 gotcha = false
+requires = ["generator-yield"]
+
+[cases]
+none = "it returns a generator, which a case cannot compare"

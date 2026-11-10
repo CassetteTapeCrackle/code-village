@@ -13,13 +13,17 @@ export type BoardRow = {
 export type PlayerCard = BoardRow & { joined: string; trophies: string[]; recent: NewsItem[] };
 export type NewsItem = {
   nickname: string;
-  kind: "lesson_passed" | "boss_won" | "boss_hard_won";
+  kind: "lesson_passed" | "boss_won" | "boss_hard_won" | "world_skipped";
   id: string;
   day: string;
 };
 
 // News carries ids, not titles: the browser looks titles up in its bundle, so the server never sends text it did not write.
 export function newsLine(item: NewsItem, bundle: Bundle): string {
+  if (item.kind === "world_skipped") {
+    const world = bundle.worlds.find((w) => w.id === item.id)?.name ?? "a world";
+    return `${item.nickname} tested out of ${world.toLowerCase()}`;
+  }
   if (item.kind === "lesson_passed") {
     return `${item.nickname} finished ${bundle.lessons.find((l) => l.id === item.id)?.title ?? "something new"}`;
   }

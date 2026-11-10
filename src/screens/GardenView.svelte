@@ -2,7 +2,7 @@
   import Screen from "../ui/Screen.svelte";
   import { FLOWERS } from "../art/palette";
   import { BIG_PLANTS, WATERING_CAN } from "../art/sprites";
-  import { bundle } from "../content/bundle";
+  import { bundle, capitalise, conceptName } from "../content/bundle";
   import { today } from "../learning/dates";
   import { bedStatus, gardenBeds } from "../learning/garden";
   import { dueReviews, type ReviewItem } from "../learning/review";
@@ -63,7 +63,7 @@
             {:else if bed.stage === "wilting"}<span class="tag bad">wilting</span>
             {:else if bed.due}<span class="tag warn">due today</span>
             {:else}<span class="tag good">growing</span>{/if}
-            <h2>{bed.concept}</h2>
+            <h2>{capitalise(conceptName(bundle, bed.concept))}</h2>
             <p>{bedStatus(bed)}</p>
           </div>
         </div>

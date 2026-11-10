@@ -1,4 +1,6 @@
 import { expect, test } from "vitest";
+import { bundle } from "../content/bundle";
+import { applySkip, finalBoss } from "../learning/skip";
 import { emptyProgress, type Progress } from "../learning/types";
 import { diffEvents, eventsFromProgress, isSyncEvent, MAX_CODE_CHARS } from "./events";
 
@@ -49,5 +51,19 @@ test("isSyncEvent refuses junk", () => {
   expect(isSyncEvent({ kind: "lesson_passed", id: 3, at: "2026-10-01" })).toBe(false);
   expect(isSyncEvent({ kind: "xp_granted", id: "x", at: "2026-10-01" })).toBe(false);
   expect(isSyncEvent({ kind: "task_passed", id: "t", at: "2026-10-01", hints: -1, code: "" })).toBe(false);
+  expect(isSyncEvent({ kind: "world_skipped", id: "w1", at: "2026-10-01" })).toBe(true);
   expect(isSyncEvent(null)).toBe(false);
+});
+
+test("a skip sends its final boss's stages and one world_skipped, not one event per task", () => {
+  const after = applySkip(bundle, emptyProgress(), "w1", "2026-10-10");
+  const final = finalBoss(bundle, "w1")!;
+  expect(diffEvents(emptyProgress(), after)).toEqual([
+    ...final.stages.map((stage) => ({
+      kind: "boss_stage_passed",
+      id: `${final.id}/${stage.id}`,
+      at: "2026-10-10",
+    })),
+    { kind: "world_skipped", id: "w1", at: "2026-10-10" },
+  ]);
 });

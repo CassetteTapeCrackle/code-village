@@ -3,5 +3,11 @@ concept = "inheritance"
 kind = "write"
 title = "A tree that bears fruit"
 prompt = "`Tree(kind, height)` is given, with `describe()` returning `\"oak, 20 m\"`. Write `FruitTree(Tree)`: `FruitTree(kind, height, fruit)` also stores `fruit`, and its `describe()` adds `\", gives FRUIT\"` to the parent's text: `\"apple, 4 m, gives apples\"`."
-hints = ["In `__init__`, call the parent's initializer with `super()` before storing `fruit`.", "Extend the parent's text: `return super().describe() + f\", with {self.topping}\"`."]
+hints = ["In `__init__`, call the parent's initializer with `super()` before storing `fruit`.", "Extend the parent's text: call `super().describe()`, add a comma and the text with `self.fruit`, and return the joined string."]
 gotcha = false
+
+[cases]
+class = "FruitTree"
+init = ["word", "int 1..40", "word"]
+methods = { describe = [] }
+reads = ["kind", "height", "fruit"]

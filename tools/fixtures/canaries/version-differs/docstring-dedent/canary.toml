@@ -1,0 +1,45 @@
+# Python 3.13 strips a docstring's common indentation, so this predict block prints another text on 3.12.
+base = "good"
+expect = ["version-differs"]
+
+[[file]]
+path = "w1/a/basics/lesson.md"
+text = '''
++++
+id = "basics"
+title = "Basics"
+world = "w1"
+region = "a"
+order = 1
+concepts = ["numbers"]
+remember = ["Multiplying by 2 doubles a number."]
+[loot]
+id = "test-coin"
+name = "Test Coin"
++++
+
+Numbers can be multiplied.
+
+```python claim
+assert 2 * 21 == 42
+```
+
+```python example
+print(2 * 21)
+```
+
+```python predict
+def greet():
+    """Say hi.
+
+    Twice."""
+
+print(repr(greet.__doc__))
+```
+
+::task double
+
+::task half
+
+::task triple
+'''

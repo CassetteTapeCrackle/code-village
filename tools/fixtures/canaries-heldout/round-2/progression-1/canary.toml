@@ -1,0 +1,40 @@
+# the double solution calls int(), a builtin the vocabulary knows but no lesson teaches
+base = "good"
+expect = ["progression"]
+
+[[file]]
+path = "features.toml"
+text = '''
+[feature.fn-print]
+summary = "print()"
+detect = ["call:print"]
+
+[feature.function-def]
+summary = "def"
+detect = ["node:FunctionDef"]
+
+[feature.return-statement]
+summary = "return"
+detect = ["node:Return"]
+
+[feature.docstring]
+summary = "docstrings"
+detect = ["node:Docstring"]
+words = ["docstring"]
+say = "write a docstring"
+
+[feature.fn-sum]
+summary = "sum()"
+detect = ["call:sum"]
+
+[feature.fn-int]
+summary = "int()"
+detect = ["call:int"]
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/double/solution.py"
+text = '''
+def double(n):
+    return int(n) * 2
+'''

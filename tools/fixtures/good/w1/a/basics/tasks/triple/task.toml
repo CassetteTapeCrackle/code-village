@@ -5,3 +5,7 @@ title = "Triple it"
 prompt = "Write `triple(n)`."
 hints = ["Multiply by 3."]
 gotcha = false
+
+[cases]
+call = "triple"
+args = ["int -50..50"]

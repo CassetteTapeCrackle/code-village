@@ -1,0 +1,15 @@
+# A boss stage whose test would read the learner's file; the open() never runs, so the stage still passes.
+base = "good"
+expect = ["test-inspects-code"]
+
+[[file]]
+path = "w1/a/boss/stages/1-add/tests.py"
+text = '''
+def test_add():
+    expect_equal(learner["add"](2, 3), 5, "add(2, 3)")
+
+
+def read_code():
+    with open("solution.py") as f:
+        return f.read()
+'''

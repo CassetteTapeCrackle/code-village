@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 import { openWith } from "./helpers";
 
 // The Signboard: every place opens as a board over the village, which stays on screen under it.

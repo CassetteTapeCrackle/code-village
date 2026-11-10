@@ -1,0 +1,31 @@
+# The triple hidden cases are judged by a validity rule that accepts any int, so any int-returning answer that passes triple(2) is accepted.
+base = "good"
+expect = ["wrong-accepted"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)`."
+hints = ["Multiply by 3."]
+gotcha = false
+
+[cases]
+call = "triple"
+args = ["int -50..50"]
+valid = "is_valid"
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_triple():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+
+
+def is_valid(args, answer):
+    return isinstance(answer, int)
+'''

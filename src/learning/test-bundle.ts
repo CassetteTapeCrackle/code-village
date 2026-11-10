@@ -1,7 +1,7 @@
 import type { Boss, Bundle, Exercise, Lesson, Task } from "../content/types";
 
 function exercise(id: string, concept: string): Exercise {
-  return { id, concept, title: id, prompt: "", starter: "", tests: "" };
+  return { id, concept, title: id, prompt: "", starter: "", tests: "", cases: [], requires: [] };
 }
 
 export function task(id: string, concept: string, variants: string[] = []): Task {
@@ -37,18 +37,41 @@ function boss(id: string, region: string, stageIds: string[]): Boss {
     intro: "",
     starter: "",
     hardTests: "",
+    hardCases: [],
+    hardRequires: [],
     hardChecks: 2,
     trophy: { id: `${id}-trophy`, name: "Trophy" },
     hardTrophy: { id: `${id}-gold`, name: "Gold" },
-    stages: stageIds.map((s) => ({ id: s, title: s, prompt: "", hp: 10, tests: "" })),
+    stages: stageIds.map((s) => ({
+      id: s,
+      title: s,
+      prompt: "",
+      hp: 10,
+      tests: "",
+      cases: [],
+      requires: [],
+    })),
   };
 }
 
 // Region a teaches vars and loops; region b teaches lists and has the gradebook boss.
 export function testBundle(): Bundle {
   return {
-    version: 2,
+    version: 5,
     python: "3.14",
+    concepts: { vars: "values and variables", io: "input and output", loops: "loops", lists: "lists" },
+    worlds: [
+      {
+        id: "w1",
+        order: 1,
+        name: "The Village",
+        area: "village",
+        regions: { a: "First programs", b: "Collections" },
+        building: { name: "School", placeId: "school" },
+        teacher: { name: "Ms. Juniper", portrait: "teacher" },
+        key: null,
+      },
+    ],
     lessons: [
       lesson("vars", "a", ["vars"], [task("vars-1", "vars", ["vars-1b"]), task("vars-2", "vars")]),
       lesson("loops", "a", ["loops"], [task("loops-1", "loops")]),

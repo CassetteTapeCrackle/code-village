@@ -5,3 +5,7 @@ title = "The middle value"
 prompt = "Write `median(values)` by hand (no NumPy): sort the values, and return the middle one. With an even number of values, return the mean of the two middle ones."
 hints = ["Sort the values first. How does integer division give you the index of the middle value?", "With an even count, the two middle values are `s[mid - 1]` and `s[mid]`: add them and divide by 2."]
 gotcha = false
+
+[cases]
+call = "median"
+args = ["list<int -20..20> 1..9"]

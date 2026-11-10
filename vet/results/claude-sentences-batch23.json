@@ -1,0 +1,285 @@
+{
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "7d2dbc0cc391",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "e0cf4c09dc5e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It sets the exercise's input guarantee. It says nothing about how Python behaves.",
+      "assert": null
+    },
+    {
+      "fp": "3ba19bb0cca9",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "It defines the range as a spread measure. It leaves out that the range is very sensitive to outliers.",
+      "assert": null
+    },
+    {
+      "fp": "14b24ec0724d",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "This is an informal description of the standard deviation. It is not exactly the average distance from the mean.",
+      "assert": null
+    },
+    {
+      "fp": "d36ea8d902e0",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "NumPy has a range function (`np.ptp`) and `np.std`. It also has the mean and median from earlier.",
+      "assert": "import numpy as np\nx = [1, 2, 3, 4]\nassert np.ptp(x) == 3\nassert np.std(x, ddof=0) > 0\nassert np.mean(x) == 2.5\nassert np.median(x) == 2.5"
+    },
+    {
+      "fp": "2cb4ad90700c",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`ddof=0` divides by n and `ddof=1` divides by n-1, so the answers differ slightly.",
+      "assert": "import numpy as np\nx = [1, 2, 3, 4]\na = np.std(x, ddof=0)\nb = np.std(x, ddof=1)\nassert abs(a - (1.25 ** 0.5)) < 1e-12\nassert abs(b - ((5 / 3) ** 0.5)) < 1e-12\nassert a != b"
+    },
+    {
+      "fp": "f9cdb4120fb7",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The pandas `std` defaults to `ddof=1`, unlike NumPy, which defaults to 0.",
+      "assert": "import numpy as np\nimport pandas as pd\nx = [1, 2, 3, 4]\ns = pd.Series(x)\nassert s.std() == s.std(ddof=1)\nassert abs(s.std() - np.std(x, ddof=1)) < 1e-12\nassert s.std() != np.std(x)"
+    },
+    {
+      "fp": "8cc05159ad45",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A DataFrame and its Series both have mean, median, std, min and max, and the DataFrame applies them per column.",
+      "assert": "import pandas as pd\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 9]})\nassert df['a'].mean() == 2\nassert df['b'].median() == 5\nassert df.mean().to_dict() == {'a': 2.0, 'b': 6.0}\nassert df.max().to_dict() == {'a': 3, 'b': 9}\nassert df.std(ddof=0).shape == (2,)"
+    },
+    {
+      "fp": "d89b6ee3833b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise description.",
+      "assert": null
+    },
+    {
+      "fp": "ea952e762ac1",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`np.std` computes the standard deviation.",
+      "assert": "import numpy as np\nassert np.std([2, 4, 4, 4, 5, 5, 7, 9], ddof=0) == 2.0"
+    },
+    {
+      "fp": "a298e1bd02ec",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "8bd12823c08a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint for the exercise. Wrapping in `float()` does give a plain Python float.",
+      "assert": null
+    },
+    {
+      "fp": "3e21121db19e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise description.",
+      "assert": null
+    },
+    {
+      "fp": "1a03744101b9",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "One huge value changes the mean a lot.",
+      "assert": "import numpy as np\na = [3, 4, 3, 5]\nb = a + [1000]\nassert np.mean(b) > 100 * np.mean(a)"
+    },
+    {
+      "fp": "4eae4dc71fda",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A huge extra value shifts the median only a little.",
+      "assert": "import numpy as np\na = [3, 4, 3, 5]\nb = a + [1000]\nassert np.median(a) == 3.5\nassert np.median(b) == 4.0"
+    },
+    {
+      "fp": "1f1473172d74",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A sentence fragment: the quoted question that opens the next sentence.",
+      "assert": null
+    },
+    {
+      "fp": "cbdb276e4f51",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A recommendation. The median is the usual choice for a typical value when outliers are present.",
+      "assert": null
+    },
+    {
+      "fp": "87529f9ab70d",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "ed59506b70c4",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The median of [2, 4, 6, 100] is the mean of 4 and 6, which is 5.0.",
+      "assert": "import statistics\nimport numpy as np\nassert statistics.median([2, 4, 6, 100]) == 5.0\nassert np.median([2, 4, 6, 100]) == 5.0"
+    },
+    {
+      "fp": "7761d407507e",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The mean of [3, 4, 3, 5, 90] is 105/5 = 21.0 and the median is 4. The sentence also tells the learner to fix the bug.",
+      "assert": "import numpy as np\nx = [3, 4, 3, 5, 90]\nassert np.mean(x) == 21.0\nassert np.median(x) == 4.0"
+    },
+    {
+      "fp": "61c289dea4be",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The mean includes the 90, which pulls it up.",
+      "assert": "import numpy as np\nassert np.mean([3, 4, 3, 5, 90]) == 21.0\nassert np.mean([3, 4, 3, 5]) == 3.75"
+    },
+    {
+      "fp": "87ee12f1ecb0",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A guiding question. The answer is the median.",
+      "assert": null
+    },
+    {
+      "fp": "f14d37ef996b",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The median of [3, 4, 90] is 4, and NumPy returns the float 4.0.",
+      "assert": "import numpy as np\nr = np.median([3, 4, 90])\nassert r == 4.0\nassert isinstance(r, float)"
+    },
+    {
+      "fp": "23263ce81e08",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "c08b9a780839",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the bug in the exercise and gives an instruction.",
+      "assert": null
+    },
+    {
+      "fp": "3717221d8d28",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "These are the standard definitions of the mean and median, including the even-count case.",
+      "assert": "import statistics\nx = [4, 1, 3, 2]\nassert sum(x) / len(x) == statistics.mean(x) == 2.5\ns = sorted(x)\nassert (s[1] + s[2]) / 2 == statistics.median(x) == 2.5\ny = [5, 1, 3]\nassert sorted(y)[1] == statistics.median(y)"
+    },
+    {
+      "fp": "cb32bba8b598",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Both are measures of spread. The sentence does not say how they differ in outlier sensitivity.",
+      "assert": null
+    },
+    {
+      "fp": "47c67956233f",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`ddof=0` is the population standard deviation and `ddof=1` is the sample standard deviation.",
+      "assert": "import numpy as np\nimport statistics\nx = [1, 2, 4, 8]\nassert abs(np.std(x, ddof=0) - statistics.pstdev(x)) < 1e-12\nassert abs(np.std(x, ddof=1) - statistics.stdev(x)) < 1e-12"
+    },
+    {
+      "fp": "d97c11b644ac",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The pandas default is `ddof=1`. Writing `ddof` explicitly is a sensible rule for the course.",
+      "assert": "import pandas as pd\nimport numpy as np\nx = [1, 2, 4, 8]\nassert abs(pd.Series(x).std() - np.std(x, ddof=1)) < 1e-12\nassert pd.Series(x).std() != np.std(x)"
+    },
+    {
+      "fp": "6a17f1a58ee8",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "One outlier moves the mean far and the median little. Using the median for a typical value is the usual advice.",
+      "assert": "import numpy as np\na = [10, 11, 12, 13, 14]\nb = a[:-1] + [1000]\nassert np.mean(b) - np.mean(a) > 100\nassert np.median(b) == np.median(a)"
+    },
+    {
+      "fp": "4b9e3cd2c922",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "scikit-learn provides `KNeighborsClassifier`, a nearest-neighbour method, among many other estimators.",
+      "assert": "from sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.linear_model import LogisticRegression\nassert hasattr(KNeighborsClassifier, 'fit')\nassert hasattr(DecisionTreeClassifier, 'fit')\nassert hasattr(LogisticRegression, 'fit')"
+    },
+    {
+      "fp": "d1aa0f1ddcbb",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "Most estimators share the `fit` and `predict` pattern. Some, like clustering or transformers, differ in details.",
+      "assert": null
+    },
+    {
+      "fp": "3113e5b4cdea",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "scikit-learn accepts X as a list of rows of features and y as a list of labels.",
+      "assert": "from sklearn.neighbors import KNeighborsClassifier\nX = [[0, 0], [1, 1], [10, 10]]\ny = ['a', 'a', 'b']\nm = KNeighborsClassifier(n_neighbors=1).fit(X, y)\nassert m.predict([[9, 9]])[0] == 'b'"
+    },
+    {
+      "fp": "9403544dd4ce",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`fit` learns from the examples and `predict` gives labels for new rows.",
+      "assert": "from sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1)\nm.fit([[0], [10]], ['low', 'high'])\nassert list(m.predict([[1], [9]])) == ['low', 'high']"
+    },
+    {
+      "fp": "f1bc9f6251cf",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It refers to earlier course material.",
+      "assert": null
+    },
+    {
+      "fp": "12fc83219328",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`predict` returns an ndarray and `.tolist()` converts it to a plain list.",
+      "assert": "import numpy as np\nfrom sklearn.neighbors import KNeighborsClassifier\nm = KNeighborsClassifier(n_neighbors=1).fit([[0], [10]], ['low', 'high'])\nr = m.predict([[1], [9]])\nassert isinstance(r, np.ndarray)\nassert type(r.tolist()) is list\nassert r.tolist() == ['low', 'high']"
+    },
+    {
+      "fp": "2df42f0be206",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    },
+    {
+      "fp": "7a87800fa89b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction.",
+      "assert": null
+    },
+    {
+      "fp": "d3ce613b8589",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`predict` returns an array and `tolist()` turns it into a list.",
+      "assert": "import numpy as np\nfrom sklearn.neighbors import KNeighborsClassifier\nmodel = KNeighborsClassifier(n_neighbors=1).fit([[0], [10]], [0, 1])\nr = model.predict([[1], [9]])\nassert isinstance(r, np.ndarray)\nassert r.tolist() == [0, 1]\nassert type(r.tolist()) is list"
+    },
+    {
+      "fp": "2c8124d15550",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction.",
+      "assert": null
+    }
+  ]
+}

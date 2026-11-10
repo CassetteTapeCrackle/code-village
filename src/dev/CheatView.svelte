@@ -2,31 +2,49 @@
   import Screen from "../ui/Screen.svelte";
   import { bundle } from "../content/bundle";
   import { regionName } from "../content/regions";
+  import { regularLessons } from "../content/lessons";
+  import { restartTour } from "../tour/tour.svelte";
   import { today } from "../learning/dates";
   import { emptyProgress } from "../learning/types";
   import { levelFor } from "../learning/xp";
   import { game, update } from "../store/progress.svelte";
-  import { clock, forceSeason, forceTime, forcedSeason } from "../village/clock-state.svelte";
+  import {
+    clock,
+    forceSeason,
+    forceShoreStage,
+    liftFog,
+    liftedFog,
+    previewBeach,
+    previewBeachLevel,
+    forceTime,
+    forcedSeason,
+    forcedShoreStage,
+  } from "../village/clock-state.svelte";
   import { DECOR } from "../village/decor";
+  import { SHORE_LEVELS } from "../village/features/shore";
   import { WORLDS, openWorlds } from "../worlds/registry";
   import {
     TOP_LEVEL,
     beatBosses,
     finishEverything,
+    missingArt,
     openWorld,
     passLessons,
     plantsDue,
     reachLevel,
+    resetWorld,
   } from "./cheats";
 
   const day = today();
+  const counted = regularLessons(bundle.lessons);
   // every world with content, each with its regions and bosses, in order
-  const worlds = WORLDS.filter((w) => bundle.lessons.some((l) => l.world === w.id)).map((w) => ({
+  const worlds = WORLDS.filter((w) => counted.some((l) => l.world === w.id)).map((w) => ({
     ...w,
-    regions: [...new Set(bundle.lessons.filter((l) => l.world === w.id).map((l) => l.region))],
+    regions: [...new Set(counted.filter((l) => l.world === w.id).map((l) => l.region))],
     bosses: bundle.bosses.filter((b) => b.world === w.id),
   }));
   const levels = [...new Set(DECOR.map((d) => d.level))];
+  const missing = missingArt(bundle);
   const open = $derived(openWorlds(bundle, game.progress));
   let done = $state("");
   let confirmReset = $state(false);
@@ -43,11 +61,19 @@
     <code>VITE_CHEAT=1</code>.
   </p>
   <p>
-    Level {levelFor(game.progress.xp)} · {game.progress.xp} XP · {Object.keys(game.progress.lessons).length} of
-    {bundle.lessons.length} lessons passed · open: {WORLDS.filter((w) => open.includes(w.id))
+    Level {levelFor(game.progress.xp)} · {game.progress.xp} XP ·
+    {Object.keys(game.progress.lessons).filter((id) => counted.some((l) => l.id === id)).length} of
+    {counted.length} lessons passed · open: {WORLDS.filter((w) => open.includes(w.id))
       .map((w) => w.name)
       .join(", ")}
   </p>
+
+  <section aria-labelledby="tour-h">
+    <h2 id="tour-h">Tour</h2>
+    <div class="row">
+      <button type="button" onclick={restartTour}>Restart the tour</button>
+    </div>
+  </section>
 
   <section aria-labelledby="all-h">
     <h2 id="all-h">Everything</h2>
@@ -103,6 +129,12 @@
             run(`${w.name}: every lesson passed.`, (p) =>
               passLessons(bundle, p, day, (l) => l.world === w.id),
             )}>Pass all its lessons</button
+        >
+        <button
+          type="button"
+          onclick={() =>
+            run(`${w.name}: reset, ready to test out again.`, (p) => resetWorld(bundle, p, w.id))}
+          >Reset this world</button
         >
         {#each w.regions as r (r)}
           <button
@@ -183,6 +215,50 @@
       {/each}
       <button type="button" onclick={() => forceSeason(null)}>Follow the real date</button>
     </div>
+  </section>
+
+  <section aria-labelledby="shore-h">
+    <h2 id="shore-h">Shore story (now: {forcedShoreStage.stage ?? "from the bosses"})</h2>
+    <p>World 4 has no bosses yet: force a stage to preview the boat, the lairs and the lighthouse beam.</p>
+    <div class="row">
+      {#each [0, 1, 2, 3] as stage (stage)}
+        <button
+          type="button"
+          aria-pressed={forcedShoreStage.stage === stage}
+          onclick={() => forceShoreStage(stage)}>Stage {stage}</button
+        >
+      {/each}
+      <button type="button" onclick={() => forceShoreStage(null)}>Follow the bosses</button>
+    </div>
+    <p>The beach grows with levels above today's cap. Preview each step (your real level stays the same):</p>
+    <div class="row">
+      {#each Object.entries(SHORE_LEVELS).sort((a, b) => a[1] - b[1]) as [what, level] (what)}
+        <button
+          type="button"
+          aria-pressed={previewBeach.level === level}
+          onclick={() => previewBeachLevel(level)}>{level}: {what}</button
+        >
+      {/each}
+      <button type="button" onclick={() => previewBeachLevel(null)}>Real level</button>
+    </div>
+    <p>The shore stays under fog until World 4 has content. Lift it to walk there.</p>
+    <div class="row">
+      <button type="button" aria-pressed={liftedFog.on} onclick={() => liftFog(!liftedFog.on)}
+        >{liftedFog.on ? "Bring the fog back" : "Lift the fog over the shore"}</button
+      >
+    </div>
+  </section>
+
+  <section aria-labelledby="art-h">
+    <h2 id="art-h">Still on placeholder art</h2>
+    {#if missing.length === 0}
+      <p>Every trophy, item and teacher has its own sprite.</p>
+    {:else}
+      <p>These show a star, a sprout or a hooded traveller until someone draws them:</p>
+      <ul>
+        {#each missing as m (m)}<li>{m}</li>{/each}
+      </ul>
+    {/if}
   </section>
 
   <section aria-labelledby="reset-h">

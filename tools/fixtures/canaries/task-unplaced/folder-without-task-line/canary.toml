@@ -1,0 +1,9 @@
+# A task folder the lesson never places with ::task.
+base = "good"
+expect = ["task-unplaced"]
+
+[[file]]
+path = "w1/a/basics/tasks/extra/task.toml"
+text = '''
+id = "basics-extra"
+'''

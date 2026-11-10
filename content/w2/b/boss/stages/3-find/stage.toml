@@ -1,4 +1,5 @@
 id = "playlist-find"
 title = "Find and sort"
-prompt = "`\"Dawn\" in playlist` should be `True` when a song has that title: write `__contains__(self, title)`, which `in` calls for you. `sorted_by_length()` returns the songs shortest first, using a key function."
+prompt = "`\"Dawn\" in playlist` should be `True` when a song has that title: write `__contains__(self, title)`, which `in` calls for you. `sorted_by_length()` returns the songs shortest first, using a key function; songs of equal length keep the order they were added in."
 hp = 40
+requires = ["sort-key"]

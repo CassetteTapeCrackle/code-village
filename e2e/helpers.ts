@@ -1,5 +1,22 @@
 import type { Page } from "@playwright/test";
 
+// e2e saves start after the first-visit tour: its card is a dialog and its tips cover the map, so a test
+// that is not about the tour should never meet them. The tour's own spec navigates without this.
+export const TOUR_FINISHED = {
+  step: "goodbye",
+  done: true,
+  skipped: false,
+  joined: false,
+  recoverySaved: false,
+  seenTips: ["garden", "library", "house", "sandbox", "board", "today"],
+};
+
+export async function finishTour(page: Page): Promise<void> {
+  await page.addInitScript((state) => {
+    localStorage.setItem("code-village/tour", JSON.stringify(state));
+  }, TOUR_FINISHED);
+}
+
 export async function typeCode(page: Page, taskTitle: string, code: string): Promise<void> {
   const editor = page.getByLabel(`Your code for ${taskTitle}`);
   await editor.click();
@@ -10,6 +27,7 @@ export async function typeCode(page: Page, taskTitle: string, code: string): Pro
 
 // Writes a save the way the app does, then loads the page fresh so the app reads it.
 export async function openWith(page: Page, path: string, progress: object): Promise<void> {
+  await finishTour(page);
   await page.goto("/");
   await page.evaluate((p) => localStorage.setItem("code-village/progress", JSON.stringify(p)), progress);
   await page.goto(path);
@@ -24,14 +42,15 @@ export async function openSeeded(
   seenLevel: number,
 ): Promise<void> {
   await page.addInitScript(
-    ({ p, seen }) => {
+    ({ p, seen, tour }) => {
       if (sessionStorage.getItem("__seeded")) return;
       sessionStorage.setItem("__seeded", "1");
       localStorage.clear();
       localStorage.setItem("code-village/progress", JSON.stringify(p));
       localStorage.setItem("code-village/seen-level", String(seen));
+      localStorage.setItem("code-village/tour", JSON.stringify(tour));
     },
-    { p: progress, seen: seenLevel },
+    { p: progress, seen: seenLevel, tour: TOUR_FINISHED },
   );
   await page.goto(path);
 }

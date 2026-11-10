@@ -1,0 +1,19 @@
+# A hint was reworded but the ledger still holds the fingerprint of the old sentence.
+base = "good"
+expect = ["false-claim"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/task.toml"
+text = '''
+id = "basics-half"
+concept = "numbers"
+kind = "write"
+title = "Half it"
+prompt = "Write `half(n)`."
+hints = ["Divide n by 2."]
+gotcha = false
+
+[cases]
+call = "half"
+args = ["int -50..50"]
+'''

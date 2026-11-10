@@ -1,0 +1,57 @@
+{
+  "fingerprint": "5a741c204196",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef names_in(text, team):\n    df = pd.read_csv(io.StringIO(text))\n    return df[df[\"team\"] == team][\"name\"].tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef names_in(text, team):\n    df = pd.read_csv(io.StringIO(text))\n    return df[df[\"team\"] == team][\"name\"].tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef names_in(text, team):\n    df = pd.read_csv(io.StringIO(text))\n    return df[df[\"team\"] == team][\"name\"].tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef names_in(text, team):\n    df = pd.read_csv(io.StringIO(text))\n    return df[df[\"team\"] == team][\"name\"].tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import io\nimport pandas as pd\n\n\ndef names_in(text, team):\n    df = pd.read_csv(io.StringIO(text))\n    return df[df[\"team\"] == team][\"name\"].tolist()\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

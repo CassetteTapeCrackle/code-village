@@ -1,0 +1,74 @@
+# The half task requires a docstring but its prompt never says so; the solution and right answer carry one.
+base = "good"
+expect = ["ambiguous"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/task.toml"
+text = '''
+id = "basics-half"
+concept = "numbers"
+kind = "write"
+title = "Half it"
+prompt = "Write `half(n)`."
+hints = ["Divide by 2."]
+gotcha = false
+requires = ["docstring"]
+
+[cases]
+call = "half"
+args = ["int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/half/solution.py"
+text = '''
+def half(n):
+    """Return half of n."""
+    return n / 2
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/half/right/times-a-half.py"
+text = '''
+def half(n):
+    """Return half of n."""
+    return n * 0.5
+'''
+
+[[file]]
+path = "w1/a/basics/lesson.md"
+text = '''
++++
+id = "basics"
+title = "Basics"
+world = "w1"
+region = "a"
+order = 1
+concepts = ["numbers"]
+teaches = ["fn-print", "function-def", "return-statement", "fn-sum", "docstring"]
+remember = ["Multiplying by 2 doubles a number."]
+[loot]
+id = "test-coin"
+name = "Test Coin"
++++
+
+Numbers can be multiplied.
+
+```python claim id=times-two
+assert 2 * 21 == 42
+```
+
+```python example
+print(2 * 21)
+```
+
+```python predict
+print(3 * 3)
+```
+
+::task double
+
+::task half
+
+::task triple
+'''

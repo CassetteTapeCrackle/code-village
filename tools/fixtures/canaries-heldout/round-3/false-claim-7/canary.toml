@@ -1,0 +1,11 @@
+# The model answer for double keeps an unused local variable, so it breaks the lint rules learners are held to.
+base = "good"
+expect = ["false-claim"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/solution.py"
+text = '''
+def double(n):
+    result = n * 2
+    return n * 2
+'''

@@ -1,49 +1,10 @@
-import type { Bundle } from "../content/types";
+import { bundle } from "../content/bundle";
+import type { Bundle, World } from "../content/types";
 import { trophiesWon } from "../learning/house";
 import type { Progress } from "../learning/types";
 
-// Every world, in order. A world opens when the learner owns its key trophy (the previous world's last boss).
-export type World = {
-  id: string;
-  name: string;
-  area: string;
-  building: { name: string; placeId: string };
-  key: { bossId: string; trophyId: string; trophyName: string; opens: string } | null;
-};
-
-export const WORLDS: World[] = [
-  {
-    id: "w1",
-    name: "The Village",
-    area: "village",
-    building: { name: "School", placeId: "school" },
-    key: null,
-  },
-  {
-    id: "w2",
-    name: "The Forest",
-    area: "forest",
-    building: { name: "Ranger's cabin", placeId: "cabin" },
-    key: {
-      bossId: "lost-satchel",
-      trophyId: "ruin-lantern",
-      trophyName: "Ruin Lantern",
-      opens: "lights the forest path",
-    },
-  },
-  {
-    id: "w3",
-    name: "The Mountains",
-    area: "mountains",
-    building: { name: "Observatory", placeId: "observatory" },
-    key: {
-      bossId: "ranger-registry",
-      trophyId: "ranger-badge",
-      trophyName: "Ranger's Badge",
-      opens: "gets you over the rockslide",
-    },
-  },
-];
+// Every world, in order, from the content (content/<world>/world.toml).
+export const WORLDS: World[] = bundle.worlds;
 
 export const worldById = (id: string): World | undefined => WORLDS.find((w) => w.id === id);
 

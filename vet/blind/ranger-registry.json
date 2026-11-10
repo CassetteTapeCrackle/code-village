@@ -1,0 +1,57 @@
+{
+  "fingerprint": "87adb1b91a19",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Animal:\n    def __init__(self, name, species):\n        self.name = name\n        self.species = species\n\n    def describe(self):\n        return f'{self.name} the {self.species}'\n\n\nclass Bird(Animal):\n    def __init__(self, name, species, wingspan):\n        super().__init__(name, species)\n        self.wingspan = wingspan\n\n    def describe(self):\n        return f'{super().describe()}, wingspan {self.wingspan} cm'\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f'{animal.name} is fed' for animal in self.animals]\n\n\nclass Registry:\n    def __init__(self):\n        self.animals = []\n        self.log = []\n\n    def arrive(self, animal):\n        for existing in self.animals:\n            if existing.name == animal.name:\n                raise ValueError(f'{animal.name} is already registered')\n        self.animals.append(animal)\n        self.log.append(f'{animal.name} arrived')\n\n    def find(self, name):\n        for animal in self.animals:\n            if animal.name == name:\n                return animal\n        return None\n\n\ndef test_registry():\n    registry = Registry()\n    sly = Animal('Sly', 'fox')\n    registry.arrive(sly)\n    assert registry.find('Sly') is sly\n    assert registry.find('Rusty') is None\n    try:\n        registry.arrive(Animal('Sly', 'fox'))\n        assert False\n    except ValueError:\n        pass\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Animal:\n    def __init__(self, name, species):\n        self.name = name\n        self.species = species\n\n    def describe(self):\n        return f'{self.name} the {self.species}'\n\n\nclass Bird(Animal):\n    def __init__(self, name, species, wingspan):\n        super().__init__(name, species)\n        self.wingspan = wingspan\n\n    def describe(self):\n        return super().describe() + f', wingspan {self.wingspan} cm'\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f'{animal.name} is fed' for animal in self.animals]\n\n\nclass Registry:\n    def __init__(self):\n        self.animals = []\n        self.log = []\n\n    def arrive(self, animal):\n        for existing in self.animals:\n            if existing.name == animal.name:\n                raise ValueError(f'{animal.name} is already registered')\n        self.animals.append(animal)\n        self.log.append(f'{animal.name} arrived')\n\n    def find(self, name):\n        for animal in self.animals:\n            if animal.name == name:\n                return animal\n        return None\n\n\ndef test_registry():\n    registry = Registry()\n    sly = Animal('Sly', 'fox')\n    registry.arrive(sly)\n    assert registry.find('Sly') is sly\n    assert registry.find('Nobody') is None\n    try:\n        registry.arrive(Animal('Sly', 'fox'))\n        assert False\n    except ValueError:\n        pass\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Animal:\n    def __init__(self, name, species):\n        self.name = name\n        self.species = species\n\n    def describe(self):\n        return f\"{self.name} the {self.species}\"\n\n\nclass Bird(Animal):\n    def __init__(self, name, species, wingspan):\n        super().__init__(name, species)\n        self.wingspan = wingspan\n\n    def describe(self):\n        return super().describe() + f\", wingspan {self.wingspan} cm\"\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f\"{animal.name} is fed\" for animal in self.animals]\n\n\nclass Registry:\n    def __init__(self):\n        self.animals = []\n        self.log = []\n\n    def arrive(self, animal):\n        for existing in self.animals:\n            if existing.name == animal.name:\n                raise ValueError(f\"{animal.name} is already registered\")\n        self.animals.append(animal)\n        self.log.append(f\"{animal.name} arrived\")\n\n    def find(self, name):\n        for animal in self.animals:\n            if animal.name == name:\n                return animal\n        return None\n\n\ndef test_registry():\n    registry = Registry()\n    sly = Animal(\"Sly\", \"fox\")\n    registry.arrive(sly)\n    assert registry.find(\"Sly\") is sly\n    assert registry.find(\"Unknown\") is None\n\n    try:\n        registry.arrive(Animal(\"Sly\", \"wolf\"))\n        assert False\n    except ValueError:\n        pass\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Animal:\n    def __init__(self, name, species):\n        self.name = name\n        self.species = species\n\n    def describe(self):\n        return f'{self.name} the {self.species}'\n\n\nclass Bird(Animal):\n    def __init__(self, name, species, wingspan):\n        super().__init__(name, species)\n        self.wingspan = wingspan\n\n    def describe(self):\n        return super().describe() + f', wingspan {self.wingspan} cm'\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f'{animal.name} is fed' for animal in self.animals]\n\n\nclass Registry:\n    def __init__(self):\n        self.animals = []\n        self.log = []\n\n    def arrive(self, animal):\n        if self.find(animal.name) is not None:\n            raise ValueError(f'{animal.name} is already registered')\n        self.animals.append(animal)\n        self.log.append(f'{animal.name} arrived')\n\n    def find(self, name):\n        for animal in self.animals:\n            if animal.name == name:\n                return animal\n        return None\n\n\ndef test_registry():\n    registry = Registry()\n    sly = Animal('Sly', 'fox')\n    registry.arrive(sly)\n    assert registry.find('Sly') is sly\n    assert registry.find('Unknown') is None\n    try:\n        registry.arrive(Animal('Sly', 'fox'))\n        assert False\n    except ValueError:\n        pass\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Animal:\n    def __init__(self, name, species):\n        self.name = name\n        self.species = species\n\n    def describe(self):\n        return f\"{self.name} the {self.species}\"\n\n\nclass Bird(Animal):\n    def __init__(self, name, species, wingspan):\n        super().__init__(name, species)\n        self.wingspan = wingspan\n\n    def describe(self):\n        return super().describe() + f\", wingspan {self.wingspan} cm\"\n\n\nclass Keeper:\n    def __init__(self, name):\n        self.name = name\n        self.animals = []\n\n    def adopt(self, animal):\n        self.animals.append(animal)\n\n    def feed_all(self):\n        return [f\"{animal.name} is fed\" for animal in self.animals]\n\n\nclass Registry:\n    def __init__(self):\n        self.animals = []\n        self.log = []\n\n    def arrive(self, animal):\n        if self.find(animal.name) is not None:\n            raise ValueError(f\"{animal.name} is already registered\")\n        self.animals.append(animal)\n        self.log.append(f\"{animal.name} arrived\")\n\n    def find(self, name):\n        for animal in self.animals:\n            if animal.name == name:\n                return animal\n        return None\n\n\ndef test_registry():\n    registry = Registry()\n    animal = Animal(\"Sly\", \"fox\")\n    registry.arrive(animal)\n    assert registry.find(\"Sly\") is animal\n    assert registry.find(\"Unknown\") is None\n\n    duplicate = Animal(\"Sly\", \"fox\")\n    try:\n        registry.arrive(duplicate)\n    except ValueError:\n        pass\n    else:\n        assert False\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

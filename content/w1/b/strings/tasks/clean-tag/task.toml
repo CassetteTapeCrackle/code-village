@@ -3,5 +3,6 @@ concept = "strings"
 kind = "complete"
 title = "Tidy tags"
 prompt = "Finish `clean_tag(tag)`: strip the spaces at the ends, make it lower-case, and swap the spaces inside for `-`. `\"  Python Village \"` becomes `\"python-village\"`."
-hints = ["Chain the methods, keeping each result.", "`return word.lower().replace(\" \", \"_\")`"]
+hints = ["Chain the methods, keeping each result.", "`lower()` returns a lower-case copy and `replace(old, new)` returns a copy with every old part swapped for new. Chain them after `strip()`."]
 gotcha = false
+strict = true

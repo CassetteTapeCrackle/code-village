@@ -1,3 +1,7 @@
 id = "loops-count-evens"
 title = "Count the evens"
 prompt = "Write `count_evens(numbers)` that returns how many numbers in the list are even (a number `n` is even when `n % 2 == 0`)."
+
+[cases]
+call = "count_evens"
+args = ["list<int -20..20> 0..8"]

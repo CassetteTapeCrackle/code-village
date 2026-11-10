@@ -1,0 +1,5 @@
+base = "good"
+expect = ["wrong-too-few"]
+
+[[delete]]
+path = "w1/a/basics/tasks/triple/wrong/plus-three.py"

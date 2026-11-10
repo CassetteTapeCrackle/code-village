@@ -5,6 +5,7 @@ world = "w2"
 region = "c"
 order = 10
 concepts = ["composition"]
+teaches = ["fn-sum"]
 remember = ["Inheritance says 'is a': an owl is an animal.", "Composition says 'has a': a keeper has animals, kept as attributes.", "The outer object hands work to its parts: self.engine.start().", "When in doubt, prefer having a part to being one."]
 [loot]
 id = "toolbelt"
@@ -31,6 +32,10 @@ print(Boat("Otter").start())
 
 `Boat` does not inherit from `Engine`: a boat is not an engine. It holds one and asks it to do the engine's job. Below, `sum` adds up a list of numbers.
 
+```python claim id=auto-6671a2672b0e
+assert sum([1, 2, 3]) == 6
+```
+
 ```python predict
 class Wheel:
     def __init__(self, size):
@@ -53,7 +58,7 @@ print(cart.total(), len(cart.wheels))
 
 Inheriting just to reuse some methods is tempting, and it makes odd claims: if `Ranger` inherits from `Backpack`, a ranger **is** a backpack, and every backpack method becomes a ranger method. Give the ranger a backpack instead.
 
-```python claim
+```python claim id=composition-claim-1
 class Backpack:
     def add(self, item):
         pass

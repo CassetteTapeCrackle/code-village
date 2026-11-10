@@ -1,0 +1,22 @@
+# A lesson in region b, which w1/world.toml does not name.
+base = "good"
+expect = ["region-unnamed"]
+
+[[file]]
+path = "w1/b/other/lesson.md"
+text = '''
++++
+id = "other"
+title = "Other"
+world = "w1"
+region = "b"
+order = 2
+concepts = ["numbers"]
+remember = ["Numbers add up."]
+[loot]
+id = "other-coin"
+name = "Coin"
++++
+
+Numbers add up.
+'''

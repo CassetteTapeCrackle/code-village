@@ -1,3 +1,9 @@
 id = "methods-notebook"
 title = "Write many lines"
 prompt = "Finish `Notebook`: `write(line)` already adds a line to `lines`, and `write_lines(lines)` should add each one by calling `self.write`."
+
+[cases]
+class = "Notebook"
+init = []
+methods = { write = ["word"], write_lines = ["list<word> 0..3"] }
+reads = ["lines"]

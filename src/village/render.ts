@@ -1,4 +1,5 @@
 import { px, stamp, type Grid } from "../art/draw";
+import { FIGURES, type FigureName } from "../art/figures";
 import type { DrawEnv } from "./features/env";
 import { FEATURES, FLAT_FEATURES, FLAT_PLACES, unlocked, type Feature } from "./scenery";
 import { beginCapture, covering, drawPiece, endCapture, pieces, type Piece } from "../art/standing";
@@ -17,9 +18,12 @@ import { groundStyle, riverCenterPx, treeKind, villageGrowth } from "./terrain";
 import { hash01 } from "./noise";
 import { BALLOON } from "../art/scenes";
 import { drawLife, type Life } from "./critters";
+import { drawShoreLife } from "./shoreCritters";
+import { drawShoreStory } from "./features/shoreStory";
 import { leafColours, snowCapped, type Season } from "./weather";
 import { drawMine, drawObservatory, drawPeak, drawRidge, summit } from "./features/mountainPlaces";
 import { drawCabin, drawDen, drawHollowOak, drawMaze } from "./features/forestPlaces";
+import { SHORE_LAIRS } from "./features/shoreLairs";
 import { drawGardenPlace, drawMarsh, drawQuarry, drawRuins, polishHouse } from "./features/villagePlaces";
 import { MAP_COLORS, SPRITE_COLORS, TINTS, type MapColors } from "../art/palette";
 import {
@@ -47,7 +51,8 @@ import {
 } from "../art/sprites";
 import type { Palette, TimeOfDay } from "./clock";
 import type { Activity } from "./routines";
-import { styleAt } from "./areas";
+import { duneLine, styleAt } from "./areas";
+import { drawShore } from "./shorePaint";
 import { MAP_H, MAP_W, PLACES, TILE, VX, VY, village, type Place, type VillageMap } from "./layout";
 import { overlap, type ViewRect } from "./view";
 
@@ -69,6 +74,7 @@ const BUILDING_SPRITES: Record<string, (p: Place) => Grid> = {
   house: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "j", icon: ICONS.heart }),
   cabin: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "d", wall: "h", icon: ICONS.sprout }),
   observatory: (p) => observatory(p.w * TILE, p.h * TILE),
+  hall: (p) => building({ w: p.w * TILE, h: p.h * TILE, roof: "z", wall: "w", icon: ICONS.anchor }),
 };
 
 function drawTile(
@@ -86,18 +92,31 @@ function drawTile(
   const at = (x: number, y: number): string => map.tiles[y]?.[x] ?? ".";
   const style = styleAt(tx, ty);
   const meadow = style === "mountains" && ty >= 17; // the lower slopes are still green
+  const shore = style === "shore";
+  const lawn = shore && ty + 1 < duneLine(tx) - 0.8; // whole tiles of grass above the dune line
   const [g1, g2, g3] =
     style === "forest"
       ? [c.forest, c.forest2, c.forest3]
       : style === "mountains" && !meadow
         ? [c.rock, c.rock2, c.rock3]
-        : [c.grass, c.grass2, c.grass3];
+        : shore && !lawn
+          ? [c.sand, c.sand2, c.sand3]
+          : [c.grass, c.grass2, c.grass3];
   for (let y = 0; y < TILE; y++) {
     for (let x = 0; x < TILE; x++) {
       const gx = ox + x;
       const gy = oy + y;
       let color = g1;
-      if (t === "~") color = (gx + gy * 2) % 7 === 0 ? c.water2 : c.water;
+      if (
+        shore &&
+        !lawn &&
+        ".T*D".includes(t) &&
+        gy / TILE < duneLine(gx / TILE) + (hash01(gx, gy, 92) - 0.5) * 0.5
+      )
+        color = (gx * 7 + gy * 3) % 11 === 0 ? c.grass2 : c.grass; // the lawn's ragged last pixels
+      else if (t === "~" && shore)
+        color = g1; // sand under the river: its own painter draws the water
+      else if (t === "~") color = (gx + gy * 2) % 7 === 0 ? c.water2 : c.water;
       else if (t === "#") color = y === 0 || y === TILE - 1 ? s.k : gx % 3 === 0 ? c.bridge2 : c.bridge;
       else if (t === "P") color = gx % 4 === 0 || gy % 4 === 0 ? c.path2 : c.plaza;
       else if (t === "=" || t === "G") {
@@ -128,7 +147,7 @@ function drawTile(
     px(ctx, s.S, ox + 5, oy + 5, 2, 1);
     return;
   }
-  if (t === "*") {
+  if (t === "*" && style !== "shore") {
     px(ctx, s.p, ox + 2, oy + 3);
     px(ctx, s.a, ox + 5, oy + 5);
     px(ctx, s.W, ox + 4, oy + 2);
@@ -157,6 +176,11 @@ function drawLair(
   const lair = place.lair ?? place.id;
   if (["oak", "maze", "den", "mine", "ridge", "peak"].includes(lair)) {
     drawWildLair(ctx, place, lair, state, palette, season);
+    return;
+  }
+  if (lair in SHORE_LAIRS) {
+    SHORE_LAIRS[lair as keyof typeof SHORE_LAIRS](ctx, { c, s }, place, state);
+    if (state === "asleep") stamp(ctx, ZZZ, s, (place.x + place.w / 2) * TILE - 3, place.y * TILE + 4);
     return;
   }
   if (lair === "quarry") drawQuarry(ctx, { c, s }, place, state);
@@ -453,6 +477,7 @@ export function drawTerrain(
   drawMountainGround(ctx, map, { c, s });
   drawForestGround(ctx, map, { c, s });
   drawVillageGround(ctx, map, { c, s }, palette === "night");
+  drawShore(ctx, map, { c, s }, season);
   drawSeasonGround(ctx, map, { c, s }, season, palette === "night");
   drawRiver(ctx, map, { c, s }, palette === "night");
   drawPaths(ctx, map, { c, s });
@@ -511,7 +536,17 @@ export function drawScene(
     else stand(draw);
   }
   const found = new Set(scene.found);
-  const env: DrawEnv = { ctx, s, c, palette, map, found, season: scene.season, plots: scene.plots };
+  const env: DrawEnv = {
+    ctx,
+    s,
+    c,
+    palette,
+    map,
+    found,
+    season: scene.season,
+    plots: scene.plots,
+    lairs: scene.lairs,
+  };
   const shown = FEATURES.filter((f) => unlocked(f, scene.level, found));
   const drawFeature = (f: Feature): void =>
     FLAT_FEATURES.has(f.id) ? f.draw(env) : stand((g) => f.draw({ ...env, ctx: g }));
@@ -625,12 +660,15 @@ type Walker = {
   facing: 1 | -1;
   moving: boolean;
   clothes?: string;
+  name?: string;
   activity?: Activity | null;
 };
 export type DynamicScene = {
   palette: Palette;
+  lairs: Record<string, LairState>; // the shore story: which lairs are cleared (the boat, the beam)
   time: TimeOfDay;
   t: number; // seconds since the loop started, for animation phases
+  level: number;
   mochi: Walker;
   napping: boolean;
   villagers: Walker[];
@@ -649,6 +687,16 @@ export type DynamicScene = {
   view?: ViewRect; // the part of the map being painted: actors and clouds clear of it are skipped
 };
 
+// Which grid a named villager walks as: their own figure, or the shared VILLAGER for anyone unknown.
+export function figureFor(name: string | undefined): Grid {
+  return name && name in FIGURES ? FIGURES[name as FigureName] : VILLAGER;
+}
+
+// The top of a figure standing on `tileY`: the y drawActivity anchors its props to.
+export function activityTop(tileY: number, grid: Grid): number {
+  return Math.round(tileY * TILE + TILE - grid.length) - 1;
+}
+
 function drawWalker(
   ctx: CanvasRenderingContext2D,
   grid: Grid,
@@ -665,9 +713,15 @@ function drawWalker(
 }
 
 // What a villager holds or shows while doing their job, drawn on top of their sprite at (x, y).
-function drawActivity(ctx: CanvasRenderingContext2D, s: Record<string, string>, w: Walker, t: number): void {
+function drawActivity(
+  ctx: CanvasRenderingContext2D,
+  s: Record<string, string>,
+  w: Walker,
+  grid: Grid,
+  t: number,
+): void {
   const x = Math.round(w.x * TILE);
-  const y = Math.round(w.y * TILE + TILE - VILLAGER.length) - 1;
+  const y = activityTop(w.y, grid);
   const f = w.facing;
   const hand = f > 0 ? x + 7 : x;
   switch (w.activity) {
@@ -711,6 +765,17 @@ function drawActivity(ctx: CanvasRenderingContext2D, s: Record<string, string>, 
       px(ctx, s.k, x, y - 5, 8, 6);
       px(ctx, s.d, x + 1, y - 4, 6, 4);
       px(ctx, s.o, x + 1, y - 2, 6, 1);
+      break;
+    }
+    case "mend": {
+      // a net draped over his hands: two sagging rows, and a needle pulling through the mesh
+      for (let i = 0; i < 9; i++) {
+        const sag = Math.round(Math.sin((i / 8) * Math.PI) * 2);
+        px(ctx, s.net, x + i, y + 5 + sag);
+        if (i % 2 === 0) px(ctx, s.net, x + i, y + 7 + sag);
+      }
+      const pull = Math.round(Math.sin(t * 3));
+      px(ctx, s.k, x + 4 + pull, y + 9, 2, 1);
       break;
     }
   }
@@ -794,6 +859,13 @@ export function drawDynamic(ctx: CanvasRenderingContext2D, scene: DynamicScene):
   const s = SPRITE_COLORS[scene.palette];
   const c = MAP_COLORS[scene.palette];
   drawLife(ctx, s, MAP_COLORS[scene.palette], scene.life);
+  drawShoreLife(ctx, s, c, { ...scene.life, level: scene.level, mochi: scene.mochi });
+  drawShoreStory(ctx, s, c, {
+    lairs: scene.lairs,
+    palette: scene.palette,
+    t: scene.t,
+    still: scene.still,
+  });
   const house = PLACES.find((p) => p.kind === "house")!;
   const catX = (house.x + house.w) * TILE + 16;
   const catY = (house.y + house.h) * TILE - 8;
@@ -815,7 +887,7 @@ export function drawDynamic(ctx: CanvasRenderingContext2D, scene: DynamicScene):
   scene.birds.forEach((bird, i) => drawBird(ctx, s, bird, i, scene.t));
   // walkers from the back to the front; after each, whatever stands in front of it is drawn again over it
   const walkers = [
-    ...scene.villagers.map((v) => ({ w: v, grid: VILLAGER })),
+    ...scene.villagers.map((v) => ({ w: v, grid: figureFor(v.name) })),
     { w: scene.mochi, grid: MOCHI },
   ].sort((a, b) => a.w.y - b.w.y);
   for (const { w, grid } of walkers) {
@@ -829,8 +901,8 @@ export function drawDynamic(ctx: CanvasRenderingContext2D, scene: DynamicScene):
     if (scene.view && !overlap(box, scene.view)) continue; // a walker clear of the view
     if (grid === MOCHI) drawMochi(ctx, s, c, scene);
     else {
-      drawWalker(ctx, VILLAGER, { ...s, "1": w.clothes ?? s["1"] }, w, scene.t, c.shadow);
-      if (w.activity) drawActivity(ctx, s, w, scene.t);
+      drawWalker(ctx, grid, grid === VILLAGER ? { ...s, "1": w.clothes ?? s["1"] } : s, w, scene.t, c.shadow);
+      if (w.activity) drawActivity(ctx, s, w, grid, scene.t);
     }
     for (const piece of covering(scene.standing, box, feet)) drawPiece(ctx, piece);
   }

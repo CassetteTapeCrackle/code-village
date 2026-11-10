@@ -3,23 +3,27 @@
   import { onMount, untrack } from "svelte";
   import { bundle } from "../content/bundle";
   import { regionName } from "../content/regions";
+  import { regularLessons } from "../content/lessons";
   import { bossOpen } from "../learning/access";
   import { bossState } from "../learning/boss";
+  import { canSkip } from "../learning/skip";
   import { today } from "../learning/dates";
   import { STAGE_NAMES, isWilting } from "../learning/plants";
   import { levelFor } from "../learning/xp";
   import { game } from "../store/progress.svelte";
   import { VILLAGER_CLOTHES } from "../art/palette";
   import { announceLevel, moment } from "../ui/moments.svelte";
+  import { clearedLine } from "../ui/celebrate";
   import { isRainyDay, type Palette } from "./clock";
-  import { clock, forcedSeason } from "./clock-state.svelte";
+  import { clock, forcedSeason, forcedShoreStage, liftedFog, previewBeach } from "./clock-state.svelte";
   import { lootFound } from "../learning/house";
   import { seasonFor, windAt, type Season } from "./weather";
   import { rockLine } from "./terrain";
   import { FEATURES, featureLand } from "./scenery";
+  import { shoreStoryLairs } from "./features/shoreStory";
   import { DESTINIES, newScenes, SCENE_FEATURES, type NewScene } from "./destinies";
-  import { decorFor, newSince, villagersFor } from "./decor";
-  import { describeJob, jobsFor, type Job } from "./routines";
+  import { decorFor, newSince, villagerNames } from "./decor";
+  import { BRAM_HOME, describeJob, jobsFor, type Job } from "./routines";
   import TodayCard from "../ui/TodayCard.svelte";
   import { board, boardWidth, NARROW } from "../ui/board.svelte";
   import { clearShowMe, showMe } from "../ui/showme.svelte";
@@ -32,11 +36,12 @@
     TILE,
     VX,
     buildMap,
+    village,
     type Place,
     type Point,
   } from "./layout";
   import { actorAt, actorAtPoint, stepActor, tileOf, type Actor } from "./motion";
-  import { findPath } from "./paths";
+  import { findPath, findWalk } from "./paths";
   import {
     BIRD_SCARE_TILES,
     BIRD_SPOTS,
@@ -52,7 +57,7 @@
   import { freshMemory, pickLine, type LineMemory } from "./lines";
   import { AREAS, type Area } from "./areas";
   import { modal } from "../ui/modal";
-  import { forgetClosed, openWorlds, unseenOpened, worldById } from "../worlds/registry";
+  import { forgetClosed, openWorlds, unseenOpened, WORLDS, worldById } from "../worlds/registry";
   import { cachedTerrain, keepTerrain, terrainCacheKey } from "./terrainCache";
   import { coveredRect, covers, type ViewRect } from "./view";
   import { SAMPLE_COUNT, SAMPLE_WARMUP_MS, WINDOW_COUNT, lightOverride, shouldGoLight } from "./light";
@@ -60,26 +65,29 @@
   import { paintRate, perfEnabled } from "./perf";
   import { onIdle } from "../ui/idle";
   import { prefetchLessonAssets } from "../lesson/prefetch";
+  import { tourEvent } from "../tour/tour.svelte";
 
   // While a board is open (covered), the village keeps `focus` (a place id) lit beside it and stops taking clicks.
   let { focus = null, covered = false }: { focus?: string | null; covered?: boolean } = $props();
 
   // Worlds open when their key trophy is owned; read once when the village opens (App remounts it when one opens).
-  const open = openWorlds(bundle, game.progress);
+  // the cheat screen can lift the fog over areas whose world has no content yet, for testers
+  const open = [
+    ...openWorlds(bundle, game.progress),
+    ...(liftedFog.on ? AREAS.map((a) => a.world).filter((w) => !worldById(w)) : []),
+  ];
   const map = buildMap(open, featureLand());
   const closedAreas = AREAS.filter((a) => !open.includes(a.world));
   const day = today();
   // Who lives here grows with the level (Lou at 2, Mika at 6); counted when the village opens.
   // Noa the ranger lives in the forest once its road is open, and Alex the stargazer in the mountains.
-  const VILLAGERS = [
-    ...villagersFor(levelFor(game.progress.xp)),
-    ...(open.includes("w2") ? ["Noa"] : []),
-    ...(open.includes("w3") ? ["Alex"] : []),
-  ];
+  const VILLAGERS = villagerNames(levelFor(game.progress.xp), open);
   const HOMES: Record<string, Point> = {
+    Juniper: village(28, 14), // below the school door
     Noa: { x: 20, y: 46 },
     Alex: { x: 78, y: 14 },
     Wren: { x: 28, y: 51 },
+    Bram: BRAM_HOME, // the walk below his hut; the hut's own ground is not walkable
   };
   const concepts = [...new Set(bundle.lessons.flatMap((l) => l.concepts))];
 
@@ -87,20 +95,34 @@
     p.region ? bundle.bosses.find((b) => b.world === p.world && b.region === p.region) : undefined;
 
   function lairState(p: Place): LairState {
+    // the cheat screen can force a shore story stage for previews (World 4 has no bosses yet)
+    const forced = forcedShoreStage.stage;
+    if (forced !== null && p.kind === "lair" && p.world === "w4")
+      return shoreStoryLairs(forced)[p.id] ?? "asleep";
     const boss = bossFor(p);
     if (!boss) return "scenery";
     if (bossState(game.progress, boss.id).wonAt) return "cleared";
     return bossOpen(bundle, game.progress, boss) ? "awake" : "asleep";
   }
 
+  // The sleeping lair that offers a skip: the final boss of an open world, before it has been skipped.
+  function skipBossFor(p: Place) {
+    if (p.kind !== "lair" || lairState(p) !== "asleep") return undefined;
+    const boss = bossFor(p);
+    return boss && canSkip(bundle, game.progress, boss) ? boss : undefined;
+  }
+
   function hrefFor(p: Place): string | null {
     if (p.kind === "school") return "#/school";
-    if (p.kind === "cabin" || p.kind === "observatory") return `#/school/${p.world}`;
+    if (p.kind === "cabin" || p.kind === "observatory" || p.kind === "hall")
+      return worldById(p.world) ? `#/school/${p.world}` : null; // a world with no lessons yet has no school
     if (p.kind === "library") return "#/library";
     if (p.kind === "garden") return "#/garden";
     if (p.kind === "house") return "#/house";
     const boss = bossFor(p);
-    return boss && lairState(p) !== "asleep" ? `#/boss/${boss.id}` : null;
+    if (boss && lairState(p) !== "asleep") return `#/boss/${boss.id}`;
+    const skip = skipBossFor(p);
+    return skip ? `#/boss/${skip.id}/skip` : null;
   }
 
   const lairs = $derived(
@@ -116,7 +138,7 @@
   );
   const scene = $derived({
     palette: clock.palette,
-    level: levelFor(game.progress.xp),
+    level: Math.max(levelFor(game.progress.xp), previewBeach.level ?? 0), // the cheat can preview a later beach
     found: lootFound(bundle, game.progress).map((f) => f.id),
     plots,
     lairs,
@@ -164,6 +186,12 @@
   let wakeLoop: (() => void) | undefined; // set by the frame loop, so a board closing can resume it
   // Mochi idles at the west edge of the square, beside the fountain when there is one
   const mochi = actorAt({ x: PLAZA.x, y: PLAZA.center.y }, 12);
+  // the tile Mochi stands on, for the end-to-end tests (the map itself is a canvas)
+  let mochiTile = $state(`${Math.round(mochi.x)},${Math.round(mochi.y)}`);
+  function noteMochiTile(): void {
+    const key = `${Math.round(mochi.x)},${Math.round(mochi.y)}`;
+    if (key !== mochiTile) mochiTile = key;
+  }
   const starts = [20, 36, 12, 44].map((x) => x + VX);
   // each villager works through their routine: walk to a spot, do something there for a while, move on
   const villagers: {
@@ -209,20 +237,23 @@
     ctx.rect(view.x, view.y, view.w, view.h);
     ctx.clip();
     ctx.drawImage(staticLayer, view.x, view.y, view.w, view.h, view.x, view.y, view.w, view.h);
-    const walker = (a: Actor, clothes?: string) => ({
+    const walker = (a: Actor, name?: string, clothes?: string) => ({
       x: a.x,
       y: a.y,
       facing: a.facing,
       moving: a.moving,
       clothes,
+      name,
     });
     drawDynamic(ctx, {
       palette: clock.palette,
+      lairs,
       time: clock.time,
       t: seconds,
+      level: scene.level,
       mochi: walker(mochi),
       napping: idle > NAP_AFTER,
-      villagers: villagers.map((v) => {
+      villagers: villagers.map((v, i) => {
         const job = v.jobs[v.job];
         let activity = !job
           ? null
@@ -237,7 +268,7 @@
           !villagers.some((o) => o !== v && Math.hypot(o.actor.x - v.actor.x, o.actor.y - v.actor.y) < 3)
         )
           activity = null;
-        return { ...walker(v.actor, v.clothes), activity };
+        return { ...walker(v.actor, VILLAGERS[i], v.clothes), activity };
       }),
       rain,
       ducks: decorFor(scene.level).includes("ducks"),
@@ -321,6 +352,7 @@
       travel = null;
       location.hash = href;
     }
+    noteMochiTile();
     for (const v of villagers) {
       if (v.actor.path.length > 0) {
         stepActor(v.actor, dt);
@@ -357,9 +389,21 @@
       e.preventDefault();
       return;
     }
+    const skip = skipBossFor(place);
+    if (skip) {
+      // The sleeping final boss opens its offer first; the boss screen is one click further.
+      e.preventDefault();
+      offered = skip;
+      return;
+    }
     const href = hrefFor(place);
     if (!href || reduced || e.metaKey || e.ctrlKey || e.shiftKey) return;
-    const path = findPath(map, tileOf(mochi), place.door);
+    const path = findWalk(
+      map,
+      tileOf(mochi),
+      place.door,
+      closedAreas.map((a) => a.rect),
+    );
     if (!path) return;
     e.preventDefault();
     mochi.path = path.slice(1);
@@ -616,12 +660,7 @@
   function checkScenes(): void {
     const seen = readSeenScenes();
     const fresh = newScenes(bundle.lessons, scene.found, seen, FEATURES);
-    if (fresh === null)
-      markSeenScenes(
-        scene.found.flatMap((id) =>
-          DESTINIES[id]?.kind === "scene" ? [(DESTINIES[id] as { feature: string }).feature] : [],
-        ),
-      );
+    if (fresh === null) markScenesSeen();
     else if (fresh.length > 0) newOnMap = fresh;
   }
   function closeNewOnMap(showMe: boolean): void {
@@ -709,7 +748,7 @@
     const gate = closedAreas.find((a) => Math.abs(a.gate.x - tx) <= 1 && Math.abs(a.gate.y - ty) <= 1);
     const scene_ = sceneAt(tx, ty);
     hint = gate
-      ? { text: gate.hint, x: gate.gate.x, y: gate.gate.y }
+      ? { text: worldById(gate.world)?.key?.gateHint ?? "", x: gate.gate.x, y: gate.gate.y }
       : scene_
         ? { text: scene_.text, x: scene_.at.x + 0.5, y: scene_.at.y }
         : null;
@@ -748,7 +787,7 @@
 
   // Clicking a villager on the map talks to them, like the buttons under the map.
   function clickMap(e: MouseEvent): void {
-    if (drag?.moved || (e.target as Element).closest("a")) return;
+    if (drag?.moved || (e.target as Element).closest("a, .place")) return;
     const box = world.getBoundingClientRect();
     const x = (e.clientX - box.left) / (TILE * scale) - 0.5;
     const y = (e.clientY - box.top) / (TILE * scale) - 0.5;
@@ -758,11 +797,81 @@
       y,
     );
     if (hit >= 0) speak(hit);
-    else hover(e); // phones: a tap on an item or a blocked road shows its name
+    else {
+      hover(e); // phones: a tap on an item or a blocked road shows its name
+      // a click anywhere else sends Mochi walking; clicks on grass, sand and paths all count
+      travel = null;
+      const path = findWalk(
+        map,
+        tileOf(mochi),
+        { x: Math.round(x), y: Math.round(y) },
+        closedAreas.map((a) => a.rect),
+      );
+      if (!path) {
+        mochi.path = []; // the click still cancels the walk he was on
+        return;
+      }
+      idle = 0;
+      if (reduced) {
+        const end = path[path.length - 1];
+        mochi.x = end.x;
+        mochi.y = end.y;
+        mochi.path = [];
+        noteMochiTile();
+        paint();
+      } else mochi.path = path.slice(1);
+      tourEvent("walk-anywhere");
+    }
+  }
+
+  // A sleeping final boss offers a test out before the fight.
+  let offered = $state<{ id: string; title: string } | null>(null);
+
+  // One "World cleared" moment after a skip, instead of the road, level and scene banners stacking up.
+  const CLEARED_KEY = "code-village/seen-cleared";
+  let clearedWorld: string | null = $state(null);
+  function readSeenCleared(): string[] {
+    try {
+      const saved = localStorage.getItem(CLEARED_KEY);
+      if (saved === null) return [];
+      // A world that is no longer skipped (a cheat reset) was clearly not seen yet: its skip is new again.
+      return (JSON.parse(saved) as string[]).filter((id) => game.progress.worldsSkipped[id]);
+    } catch {
+      return [];
+    }
+  }
+  function markSeenCleared(ids: string[]): void {
+    try {
+      localStorage.setItem(CLEARED_KEY, JSON.stringify(ids));
+    } catch {
+      // private mode: the moment may show again next visit
+    }
+  }
+  function markScenesSeen(): void {
+    markSeenScenes(
+      scene.found.flatMap((id) =>
+        DESTINIES[id]?.kind === "scene" ? [(DESTINIES[id] as { feature: string }).feature] : [],
+      ),
+    );
+  }
+  function checkCleared(): boolean {
+    const skipped = WORLDS.filter((w) => game.progress.worldsSkipped[w.id]).map((w) => w.id);
+    const seen = readSeenCleared();
+    const unseen = skipped.filter((id) => !seen.includes(id));
+    if (unseen.length === 0) return false;
+    // Everything that would have raised a banner for this change is marked seen with it.
+    markSeenCleared([...new Set([...seen, ...skipped])]);
+    markSeen(levelFor(game.progress.xp));
+    markSeenWorlds(open);
+    markScenesSeen();
+    clearedWorld = unseen[unseen.length - 1];
+    moment("fanfare");
+    return true;
   }
 
   // The banners wait for the map: they show when the village is in view, not under a board.
   function checkBanners(): void {
+    if (checkCleared()) return;
     checkOpened();
     if (!opened) checkLevelUp();
     if (!opened) checkScenes();
@@ -825,10 +934,16 @@
       mochi.x = focused.door.x;
       mochi.y = focused.door.y;
       mochi.path = [];
+      noteMochiTile();
       paint();
       return;
     }
-    const path = findPath(map, tileOf(mochi), focused.door);
+    const path = findWalk(
+      map,
+      tileOf(mochi),
+      focused.door,
+      closedAreas.map((a) => a.rect),
+    );
     if (path && path.length > 1) {
       mochi.path = path.slice(1);
       idle = 0;
@@ -854,10 +969,18 @@
   });
 
   // The newest open world's regions, as the small progress strip on the map.
-  const stripWorld = open.at(-1) ?? "w1";
+  const stripWorld = open.filter((w) => worldById(w)).at(-1) ?? "w1"; // a world with no lessons yet has no progress
   const strip = $derived(
-    [...new Set(bundle.lessons.filter((l) => l.world === stripWorld).map((l) => l.region))].map((region) => {
-      const these = bundle.lessons.filter((l) => l.world === stripWorld && l.region === region);
+    [
+      ...new Set(
+        regularLessons(bundle.lessons)
+          .filter((l) => l.world === stripWorld)
+          .map((l) => l.region),
+      ),
+    ].map((region) => {
+      const these = regularLessons(bundle.lessons).filter(
+        (l) => l.world === stripWorld && l.region === region,
+      );
       return {
         region,
         name: regionName(stripWorld, region),
@@ -896,6 +1019,7 @@
       onclick={clickMap}
       onpointermove={hover}
       onpointerleave={() => (hint = null)}
+      data-mochi={mochiTile}
       style="width: {MAP_W * TILE * scale}px; height: {MAP_H * TILE * scale}px"
     >
       <canvas bind:this={canvas} width={MAP_W * TILE} height={MAP_H * TILE} aria-hidden="true"></canvas>
@@ -911,6 +1035,7 @@
                   class="place"
                   {href}
                   style={box}
+                  data-place={p.id}
                   aria-label={placeLabel(p)}
                   onclick={(e) => go(e, p)}
                   draggable="false"
@@ -921,14 +1046,15 @@
                     class:left={p.x < 3}
                     class:right={p.x + p.w > MAP_W - 3}
                     >{p.name}{#if p.kind === "lair"}
-                      <span class="tag {lairs[p.id] === 'cleared' ? 'good' : 'warn'}"
-                        >{lairs[p.id] === "cleared" ? "beaten" : "awake"}</span
-                      >{/if}</span
+                      {#if lairs[p.id] === "cleared"}<span class="tag good">beaten</span>
+                      {:else if lairs[p.id] === "awake"}<span class="tag warn">awake</span>
+                      {:else}<span class="tag sleep">asleep</span>{/if}
+                    {/if}</span
                   >
                 </a>
               </li>
             {:else if lairs[p.id] === "asleep"}
-              <li class="place" style={box}>
+              <li class="place" style={box} data-place={p.id}>
                 <span
                   class="plate quiet"
                   aria-hidden="true"
@@ -943,7 +1069,8 @@
           {/each}
           {#each closedAreas as a (a.id)}
             <li class="sr-only">
-              The road to {worldById(a.world)?.name.replace("The ", "the ")} is blocked. {a.hint}
+              The road to {worldById(a.world)?.name.replace("The ", "the ")} is blocked. {worldById(a.world)
+                ?.key?.gateHint}
             </li>
           {/each}
         </ul>
@@ -974,7 +1101,7 @@
       onclick={() => (location.hash = "#/")}
     ></div>
   {:else}
-    <div class="note"><TodayCard /></div>
+    <div class="note" data-tour="today"><TodayCard /></div>
     {#if !showMe.at}<div class="worldstrip paper px" aria-label="Progress in {worldById(stripWorld)?.name}">
         <b>{worldById(stripWorld)?.name}</b>
         {#each strip as r (r.region)}<span
@@ -1006,7 +1133,27 @@
     </ul>
     <p class="sr-only" aria-live="polite">{heard}</p>
   </section>
-  {#if opened}
+  {#if clearedWorld}
+    <div
+      class="levelup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cleared-h"
+      use:modal={() => (clearedWorld = null)}
+    >
+      <div class="card paper px">
+        <span class="ribbon">Tested out</span>
+        <h2 id="cleared-h">World cleared</h2>
+        <p class="opened-line">{worldById(clearedWorld)?.name}</p>
+        <p>{clearedLine(bundle, clearedWorld)}</p>
+        <div class="row">
+          <button type="button" class="primary" onclick={() => (clearedWorld = null)}
+            >Back to the village</button
+          >
+        </div>
+      </div>
+    </div>
+  {:else if opened}
     <div
       class="levelup"
       role="dialog"
@@ -1042,6 +1189,31 @@
         <div class="row">
           <button type="button" class="primary" onclick={() => closeNewOnMap(true)}>Show me</button>
           <button type="button" onclick={() => closeNewOnMap(false)}>Later</button>
+        </div>
+      </div>
+    </div>
+  {/if}
+  {#if offered}
+    <div
+      class="levelup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="offer-h"
+      use:modal={() => (offered = null)}
+    >
+      <div class="card paper px">
+        <span class="ribbon">Test out</span>
+        <h2 id="offer-h">Already know this world?</h2>
+        <p class="opened-line">{offered.title} is still asleep, but you can wake it for a test.</p>
+        <p class="warn">
+          Winning marks every lesson of this world as done, and its bosses as beaten. Hard mode stays yours to
+          win.
+        </p>
+        <div class="row">
+          <a class="btnlink primary px" href={`#/boss/${offered.id}/skip`} onclick={() => (offered = null)}
+            >Challenge the boss now</a
+          >
+          <button type="button" onclick={() => (offered = null)}>Not yet</button>
         </div>
       </div>
     </div>
@@ -1356,6 +1528,12 @@
   .opened-line {
     margin: 0;
     font-size: 18px;
+  }
+  .levelup .warn {
+    margin: 0;
+    color: var(--bad);
+    font-size: 15px;
+    line-height: 1.45;
   }
   .hint-bubble {
     position: absolute;

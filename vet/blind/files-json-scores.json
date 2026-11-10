@@ -1,0 +1,57 @@
+{
+  "fingerprint": "6585875df67b",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def save_scores(path, scores):\n    with open(path, \"w\") as f:\n        for s in scores:\n            f.write(str(s) + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def save_scores(path, scores):\n    with open(path, \"w\") as f:\n        for s in scores:\n            f.write(str(s) + \"\\n\")",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def save_scores(path, scores):\n    with open(path, \"w\") as f:\n        for s in scores:\n            f.write(str(s) + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def save_scores(path, scores):\n    with open(path, \"w\") as f:\n        for s in scores:\n            f.write(str(s) + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def save_scores(path, scores):\n    with open(path, \"w\") as f:\n        for s in scores:\n            f.write(str(s) + \"\\n\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

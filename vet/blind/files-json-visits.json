@@ -1,0 +1,57 @@
+{
+  "fingerprint": "81ceeff6e30a",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import json\n\n\ndef sign(path, name):\n    with open(path) as f:\n        names = json.load(f)\n    names.append(name)\n    with open(path, \"w\") as f:\n        json.dump(names, f)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import json\n\n\ndef sign(path, name):\n    with open(path) as f:\n        names = json.load(f)\n    names.append(name)\n    with open(path, \"w\") as f:\n        json.dump(names, f)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import json\n\n\ndef sign(path, name):\n    with open(path) as f:\n        names = json.load(f)\n    names.append(name)\n    with open(path, \"w\") as f:\n        json.dump(names, f)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import json\n\n\ndef sign(path, name):\n    with open(path) as f:\n        names = json.load(f)\n    names.append(name)\n    with open(path, \"w\") as f:\n        json.dump(names, f)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import json\n\n\ndef sign(path, name):\n    with open(path) as f:\n        names = json.load(f)\n    names.append(name)\n    with open(path, \"w\") as f:\n        json.dump(names, f)\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

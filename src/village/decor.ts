@@ -47,3 +47,14 @@ export function villagersFor(level: number): string[] {
     ...(ids.includes("wren") ? ["Wren"] : []),
   ];
 }
+
+// Everyone wandering the map: the level's villagers, the rangers of open worlds, the teacher, and Juniper.
+export function villagerNames(level: number, open: string[]): string[] {
+  return [
+    ...villagersFor(level),
+    ...(open.includes("w2") ? ["Noa"] : []),
+    ...(open.includes("w3") ? ["Alex"] : []),
+    ...(open.includes("w4") ? ["Bram"] : []),
+    "Juniper",
+  ];
+}

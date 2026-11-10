@@ -7,10 +7,23 @@ import type { Job, WorkerMessage } from "./protocol";
 const post = (m: WorkerMessage): void => postMessage(m);
 let python: PyodideInterface;
 
+// Learner code reaches this worker's globals through `import js`. Cache Storage and IndexedDB belong to the
+// whole origin, and the service worker serves the app's own script from Cache Storage, so pasted code could
+// replace that script and run on the page next load. A nested Worker would bring fresh copies of both. Deleted
+// at the prototype too, so no getter is left to call: Python cannot rebuild a browser API.
+function sealOrigin(): void {
+  for (const name of ["caches", "indexedDB"]) {
+    Reflect.deleteProperty(WorkerGlobalScope.prototype, name);
+    Reflect.deleteProperty(self, name);
+  }
+  Reflect.deleteProperty(self, "Worker");
+}
+
 async function boot(): Promise<void> {
   try {
     python = await loadPyodide({ indexURL: self.name });
     python.runPython(harnessSource);
+    sealOrigin(); // before "ready": no learner code runs until then
     post({ type: "ready" });
   } catch (e) {
     post({ type: "load-failed", message: e instanceof Error ? e.message : String(e) });
@@ -34,7 +47,11 @@ const DOWNLOAD_FAILED =
 // NumPy, pandas and scikit-learn load (from our own folder) and import before the learner's code runs, so the
 // seconds this takes never count against the 5 s limit. Returns an error for the learner when the download fails.
 async function loadLibraries(job: Job): Promise<string | null> {
-  const source = job.mode === "run" ? job.code : `${job.code}\n${job.tests}`;
+  // hidden cases with array or frame inputs import NumPy or pandas in their setup
+  const source =
+    job.mode === "run"
+      ? job.code
+      : [job.code, job.tests, ...job.cases.map((c) => (c.kind === "expr" ? c.setup : ""))].join("\n");
   const found = python.globals.get("heavy_imports")(source) as PyProxy;
   const roots = [...new Set((found.toJs() as string[]).map((m) => m.split(".")[0]))];
   try {
@@ -70,6 +87,12 @@ onmessage = async ({ data }: MessageEvent<Job>) => {
   const json =
     data.mode === "run"
       ? python.globals.get("run_code_json")(data.code, JSON.stringify(data.inputs))
-      : python.globals.get("run_tests_json")(data.code, data.tests);
+      : python.globals.get("run_tests_json")(
+          data.code,
+          data.tests,
+          data.strict,
+          JSON.stringify(data.cases),
+          JSON.stringify(data.requires),
+        );
   post({ type: "done", id: data.id, result: JSON.parse(json as string) });
 };

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { quietRunNote } from "../lesson/quietRun";
   import LazyCodeEditor from "../lesson/LazyCodeEditor.svelte";
   import LoadFailed from "../lesson/LoadFailed.svelte";
   import { TIMEOUT_MESSAGE } from "../runner/client";
@@ -33,15 +34,19 @@
     }
   }
 
+  let quiet = $state(false); // the last run worked and printed nothing
+
   async function run(): Promise<void> {
     running = true;
     const outcome = await getRunner().run(code, inputs.split("\n"));
     running = false;
     unavailable = outcome.kind === "unavailable" ? outcome.message : null;
     if (outcome.kind === "ok") {
+      quiet = outcome.result.stdout === "" && !outcome.result.error;
       output = outcome.result.stdout;
       error = outcome.result.error;
     } else if (outcome.kind === "timeout") {
+      quiet = false;
       output = "";
       error = TIMEOUT_MESSAGE;
     }
@@ -51,6 +56,7 @@
     save("");
     output = "";
     error = null;
+    quiet = false;
     version++;
   }
 </script>
@@ -74,7 +80,9 @@
       </label>
       <section class="paper px" aria-labelledby="out-h">
         <h2 id="out-h">Output</h2>
-        <pre aria-live="polite">{output}{#if error}<span class="err">{error}</span>{/if}</pre>
+        <pre aria-live="polite">{output}{#if error}<span class="err">{error}</span>{:else if quiet}<span
+              class="quiet">{quietRunNote(code, false)}</span
+            >{/if}</pre>
       </section>
       {#if unavailable}<LoadFailed message={unavailable} />{/if}
     </div>
@@ -141,6 +149,10 @@
   h2 {
     margin: 0;
     font-size: 18px;
+  }
+  .quiet {
+    white-space: normal;
+    opacity: 0.8;
   }
   pre {
     margin: 0;

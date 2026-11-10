@@ -3,5 +3,5 @@ concept = "statistics"
 kind = "complete"
 title = "Sum it up"
 prompt = "Finish `summary(values)`: it returns a dict with the `mean`, the `median`, and the standard deviation `std` with `ddof=0` rounded to 2 decimals, all as plain floats."
-hints = ["The missing line is the `std`, like the others: `np.std(values, ddof=0)`.", "`round(3.14159, 2)` gives `3.14`; wrap the std call in it."]
+hints = ["The missing value is the standard deviation, which NumPy's `std` computes. Pass `ddof=0`.", "The prompt needs a plain float rounded to 2 decimals, so wrap the result in `round(..., 2)` and `float(...)`."]
 gotcha = false

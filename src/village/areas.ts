@@ -1,8 +1,10 @@
 import { VX, village, type Point } from "./grid";
 import type { Place } from "./layout";
+import { valueNoise } from "./noise";
+import type { GroundStyle } from "./terrain";
 
 export type Rect = { x: number; y: number; w: number; h: number };
-export type AreaStyle = "village" | "forest" | "mountains";
+export type AreaStyle = "village" | "forest" | "mountains" | "shore";
 // One area per world. Coordinates are world tiles; the village area matches VX, VY in layout.ts.
 export type Area = {
   id: string;
@@ -13,7 +15,9 @@ export type Area = {
   road: Point[]; // corner points of the road from the village into the hub, walked in order
   gate: Point; // the blocked tile on that road while the world is closed
   gateSprite: "logs" | "rocks";
-  hint: string; // shown when hovering the blocked road
+  // A newer area owns its ground: terrain.ts asks it first for points inside its rect. The forest and the
+  // mountains have none: terrain.ts blends them on purpose.
+  ground?: (x: number, y: number) => GroundStyle;
   places: Place[];
 };
 
@@ -27,7 +31,6 @@ export const AREAS: Area[] = [
     road: [village(11, 18), { x: 20, y: 46 }], // the main street, on west past the library
     gate: village(-1, 18),
     gateSprite: "logs",
-    hint: "Fallen logs block the forest path. It is too dark beyond them. A light might help...",
     places: [
       {
         id: "cabin",
@@ -94,7 +97,6 @@ export const AREAS: Area[] = [
     road: [village(38, 18), village(38, -14)], // north from the street, east of the stall
     gate: village(38, -1),
     gateSprite: "rocks",
-    hint: "A rockslide blocks the mountain path. You would need a way to climb over it...",
     places: [
       {
         id: "observatory",
@@ -152,9 +154,89 @@ export const AREAS: Area[] = [
       },
     ],
   },
+  // World 4's shore, south of the village: a harbour, three lairs and the walkway row that joins them.
+  {
+    id: "shore",
+    world: "w4",
+    rect: { x: 0, y: 64, w: 96, h: 22 },
+    style: "shore",
+    hub: { x: 68, y: 70 },
+    road: [
+      { x: 68, y: 57 },
+      { x: 68, y: 70 },
+      { x: 73, y: 70 },
+      { x: 73, y: 82 },
+    ], // on south from the plaza's lane, then east and down the long jetty
+    gate: { x: 68, y: 64 },
+    gateSprite: "logs",
+    ground: (x, y) => {
+      if (y >= shoreLine(x)) return "sea";
+      if (y > shoreLine(x) - 1.2 + 0.25 * valueNoise(x * 2, 1, 60)) return "wet";
+      return y < duneLine(x) ? "village" : "sand";
+    },
+    places: [
+      {
+        id: "harbour",
+        name: "Harbour",
+        kind: "hall",
+        world: "w4",
+        x: 70,
+        y: 65,
+        w: 6,
+        h: 5,
+        door: { x: 72, y: 70 },
+        route: "hv",
+      },
+      {
+        id: "tide-pools",
+        name: "The tide pools",
+        kind: "lair",
+        lair: "pools",
+        world: "w4",
+        region: "a",
+        x: 3,
+        y: 74,
+        w: 9,
+        h: 5,
+        door: { x: 7, y: 73 },
+        route: "hv",
+      },
+      {
+        id: "wreck",
+        name: "The wreck",
+        kind: "lair",
+        lair: "wreck",
+        world: "w4",
+        region: "b",
+        x: 43,
+        y: 74,
+        w: 6,
+        h: 4,
+        door: { x: 46, y: 73 },
+        route: "hv",
+      },
+      {
+        id: "lighthouse",
+        name: "The lighthouse",
+        kind: "lair",
+        lair: "lighthouse",
+        world: "w4",
+        region: "c",
+        x: 88,
+        y: 72,
+        w: 5,
+        h: 6,
+        door: { x: 86, y: 71 },
+        route: "hv",
+      },
+    ],
+  },
 ];
 
-const inRect = (r: Rect, x: number, y: number): boolean =>
+// The walkway row the shore's doors open onto: the boardwalk, footbridge and paved route all run along it.
+export const SHORE_WALK_ROW = 70;
+
+export const inRect = (r: Rect, x: number, y: number): boolean =>
   x >= r.x && x < r.x + r.w && y >= r.y && y < r.y + r.h;
 
 function areaAt(x: number, y: number): Area | undefined {
@@ -164,3 +246,17 @@ function areaAt(x: number, y: number): Area | undefined {
 export function styleAt(x: number, y: number): AreaStyle {
   return areaAt(x, y)?.style ?? "village";
 }
+
+// Where the village lawn gives way to sand (tiles): a wavy line just inside the shore.
+export const duneLine = (x: number): number => 65.6 + 2.6 * valueNoise(x / 3.5, 7.7, 91);
+
+const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
+// Where the beach meets the sea (tiles): the mockup's shore(x) in shapes.py, a gentle wave with a cove under the
+// wreck, a tide-pool point west and the headland running out east under the lighthouse.
+export const shoreLine = (x: number): number => {
+  let base = 78.2 + 1.2 * Math.sin(x / 7) + (valueNoise(x / 4, 3.1, 5) - 0.5) * 2;
+  base -= 3.2 * Math.exp(-(((x - 46) / 6.5) ** 2));
+  base += 4.5 * clamp01((x - 84) / 5) ** 1.5;
+  base += 1.6 * Math.exp(-(((x - 8) / 4) ** 2));
+  return base;
+};

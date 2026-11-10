@@ -1,3 +1,4 @@
 id = "sortable-by-height"
 title = "Trees by height"
 prompt = "Finish the key function `height_of(tree)` so that `shortest_first(trees)` returns the trees sorted by `height`. A key function takes one item and returns what to sort by."
+requires = ["sort-key"]

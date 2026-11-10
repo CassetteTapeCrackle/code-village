@@ -1,3 +1,6 @@
 id = "files-json-scores"
 title = "Only the last score"
 prompt = "`save_scores(path, scores)` should write every score on its own line. Only the last score ends up in the file: find and fix the bug. (Look at where the file is opened, and in which mode.)"
+
+[cases]
+none = "it writes a file at a path, which a case cannot set up"

@@ -3,5 +3,10 @@ concept = "errors"
 kind = "complete"
 title = "Not enough money"
 prompt = "Finish `withdraw(balance, amount)`: it returns the new balance, but raises `ValueError(\"not enough money\")` when `amount` is bigger than `balance`."
-hints = ["Check before subtracting.", "`if amount > balance: raise ValueError(\"not enough money\")`"]
+hints = ["Check before subtracting.", "Check whether `amount` is bigger than `balance`, then raise `ValueError` with the message from the prompt before subtracting."]
 gotcha = false
+
+[cases]
+call = "withdraw"
+args = ["int 0..50", "int 0..60"]
+raises = ["ValueError"]

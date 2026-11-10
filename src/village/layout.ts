@@ -4,7 +4,7 @@ export { TILE, VX, VY, village, type Point };
 import { AREAS, styleAt, type Rect } from "./areas";
 import { forestGrowth, groundStyle, isBackRange, mountainGrowth, riverTiles, villageGrowth } from "./terrain";
 
-type PlaceKind = "school" | "cabin" | "observatory" | "library" | "house" | "garden" | "lair";
+type PlaceKind = "school" | "cabin" | "observatory" | "library" | "house" | "garden" | "lair" | "hall";
 export type Lair = "quarry" | "marsh" | "ruins";
 export type Place = {
   id: string;
@@ -23,7 +23,7 @@ export type Place = {
 export type VillageMap = { w: number; h: number; tiles: string[] };
 
 export const MAP_W = 96;
-export const MAP_H = 64;
+export const MAP_H = 86; // rows 64 and on are World 4's shore
 export const STREET_Y = VY + 18;
 // The bridge columns: the river runs straight where the roads cross it (see riverCenterPx in terrain.ts).
 export const RIVER_X = [VX + 41, VX + 42];
@@ -149,6 +149,7 @@ export const PLACES: Place[] = [
 ];
 
 const WALKABLE = new Set(["=", "#", "P"]);
+const GROUND = new Set([".", "*"]);
 
 // The lair a region's boss lives in, and how to name it in a sentence ("the quarry", "the hollow oak").
 export function lairOf(world: string, region: string): Place | undefined {
@@ -160,6 +161,14 @@ export function lairName(world: string, region: string): string {
 
 export function walkable(map: VillageMap, x: number, y: number): boolean {
   return y >= 0 && y < map.h && x >= 0 && x < map.w && WALKABLE.has(map.tiles[y][x]);
+}
+
+// Where Mochi may walk: paths, grass and flowers, but not the land a closed area keeps fogged.
+export function mochiCanStand(map: VillageMap, x: number, y: number, closed: readonly Rect[]): boolean {
+  if (y < 0 || y >= map.h || x < 0 || x >= map.w) return false;
+  const tile = map.tiles[y][x];
+  if (!WALKABLE.has(tile) && !GROUND.has(tile)) return false;
+  return !closed.some((r) => x >= r.x && x < r.x + r.w && y >= r.y && y < r.y + r.h);
 }
 
 export function inside(place: Place, x: number, y: number): boolean {
@@ -201,6 +210,8 @@ function route(place: Place): Point[] {
 export function buildMap(open: string[] = ["w1"], reserved: readonly Rect[] = []): VillageMap {
   const grid = Array.from({ length: MAP_H }, () => Array<string>(MAP_W).fill("."));
   for (let y = 0; y < MAP_H; y++) for (const x of riverTiles(y)) grid[y][x] = "~";
+  for (let y = 0; y < MAP_H; y++)
+    for (let x = 0; x < MAP_W; x++) if (groundStyle(x + 0.5, y + 0.5) === "sea") grid[y][x] = "~";
   for (const place of PLACES) {
     for (let y = place.y; y < place.y + place.h; y++)
       for (let x = place.x; x < place.x + place.w; x++) grid[y][x] = "B";
@@ -247,13 +258,17 @@ export function buildMap(open: string[] = ["w1"], reserved: readonly Rect[] = []
         else if (tileHash(x, y) % 17 === 1) grid[y][x] = "*";
         continue;
       }
+      if (ground === "sand" || ground === "wet") {
+        if (tileHash(x, y) % 23 === 1) grid[y][x] = "*"; // a shell
+        continue;
+      }
       if (ground === "village") {
         if (villageGrowth(x, y, MAP_W, MAP_H)) grid[y][x] = "T";
         continue;
       }
       const edge = x < 2 || y < 2 || x >= MAP_W - 2 || y >= MAP_H - 2;
       const h = tileHash(x, y);
-      const every = edge ? 3 : { village: 13, forest: 4, mountains: 9 }[styleAt(x, y)]; // the forest grows thick
+      const every = edge ? 3 : { village: 13, forest: 4, mountains: 9, shore: 13 }[styleAt(x, y)]; // the forest grows thick
       if (h % every === 0) grid[y][x] = "T";
       else if (h % 17 === 1) grid[y][x] = "*";
     }

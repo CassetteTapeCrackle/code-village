@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { AREAS } from "../village/areas";
   import { worldById } from "../worlds/registry";
   import Screen from "./Screen.svelte";
 
   // What a locked world's screens show: the road is not open yet, and the hint for opening it.
   let { world }: { world: string } = $props();
   const known = $derived(worldById(world));
-  const hint = $derived(AREAS.find((a) => a.world === world)?.hint ?? "");
+  const hint = $derived(known?.key?.gateHint ?? "");
 </script>
 
 {#if known}

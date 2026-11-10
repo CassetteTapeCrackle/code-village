@@ -2,6 +2,6 @@ id = "statistics-typical"
 concept = "statistics"
 kind = "fix"
 title = "A typical price"
-prompt = "`typical_price(prices)` should return the typical price: the middle one once sorted, so that one huge price cannot drag it. For `[3, 4, 3, 5, 90]` it returns `21.0` instead of `4.0`: find and fix the bug."
+prompt = "`typical_price(prices)` should return the typical price: the middle one once sorted, so that one huge price cannot drag it. With an even number of prices, return the mean of the two middle values, so `[2, 4, 6, 100]` gives `5.0`. For `[3, 4, 3, 5, 90]` it returns `21.0` instead of `4.0`: find and fix the bug."
 hints = ["The mean uses every value, the 90 too. Which number only looks at the middle?", "`np.median([3, 4, 90])` is `4.0`: it ignores the outlier."]
 gotcha = true

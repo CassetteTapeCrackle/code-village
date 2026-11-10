@@ -1,0 +1,14 @@
+# The boss hard test expects mul(-3, -3) to be -9, so the model solution and every right answer fail it.
+base = "good"
+expect = ["right-refused"]
+
+[[file]]
+path = "w1/a/boss/hard_tests.py"
+text = '''
+def test_negative():
+    expect_equal(learner["sub"](-1, -1), 0, "sub(-1, -1)")
+
+
+def test_both_negative():
+    expect_equal(learner["mul"](-3, -3), -9, "mul(-3, -3)")
+'''

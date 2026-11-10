@@ -6,6 +6,8 @@ import { ITEM_SCENES } from "./features/itemScenes";
 import { LEVEL_DECOR } from "./features/levelDecor";
 import { LEVEL_REWARDS } from "./features/levels";
 import { MOUNTAIN_FEATURES } from "./features/mountains";
+import { SHORE_FEATURES } from "./features/shore";
+import { SHORE_LIFE } from "./features/shoreLife";
 import { HEDGEROWS, VILLAGE_LIFE } from "./features/villageLife";
 import { FOREST_SCENES } from "./features/scenes/forest";
 import { MOUNTAIN_SCENES } from "./features/scenes/mountains";
@@ -30,6 +32,18 @@ export const FLAT_FEATURES: ReadonlySet<string> = new Set([
   "gold-panning",
   "rowboat",
   "mushroom-ring",
+  "boardwalk",
+  "footbridge",
+  "lighthouse-path",
+  "quay",
+  "long-jetty",
+  "second-jetty",
+  "slipway",
+  "boat",
+  "shore-bunting",
+  "towels",
+  "sandcastles",
+  "rowboats",
 ]);
 export const FLAT_PLACES: ReadonlySet<string> = new Set(["marsh", "den", "quarry"]);
 
@@ -54,6 +68,8 @@ export const FEATURES: Feature[] = [
   HEDGEROWS,
   ...LEVEL_DECOR,
   ...LEVEL_REWARDS,
+  ...SHORE_FEATURES,
+  ...SHORE_LIFE,
   ...VILLAGE_LIFE,
   ...VILLAGE_SCENES,
   ...FOREST_SCENES,

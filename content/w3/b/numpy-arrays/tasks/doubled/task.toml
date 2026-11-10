@@ -3,5 +3,9 @@ concept = "numpy-arrays"
 kind = "fix"
 title = "Double the rations"
 prompt = "`doubled(values)` should return a list with every value doubled. For `[1, 2, 3]` it returns `[1, 2, 3, 1, 2, 3]`: find and fix the bug."
-hints = ["`values` is a list. What does `*` do to a list?", "`return (np.array(items) * 3).tolist()`"]
+hints = ["`values` is a list. What does `*` do to a list?", "`np.array` makes an array, and `*` on an array multiplies every element. `tolist()` gives a plain list back."]
 gotcha = true
+
+[cases]
+call = "doubled"
+args = ["list<int 0..9> 0..6"]

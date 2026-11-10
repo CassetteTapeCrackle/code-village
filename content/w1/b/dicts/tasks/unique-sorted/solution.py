@@ -1,3 +1,5 @@
 def unique_sorted(values):
     unique = set(values)
-    return sorted(unique)
+    result = list(unique)
+    result.sort()
+    return result

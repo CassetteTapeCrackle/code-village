@@ -3,4 +3,5 @@ def in_both(a, b):
     for x in a:
         # add x when it is also in b, and not in both yet
         pass
-    return sorted(both)
+    both.sort()
+    return both

@@ -1,0 +1,57 @@
+{
+  "fingerprint": "40d6268d5528",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "class Hiker:\n    def __init__(self, name, km):\n        self.name = name\n        self.km = km\n\n\ndef km_of(hiker):\n    return hiker.km\n\n\ndef rank(hikers):\n    return [h.name for h in sorted(hikers, key=km_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "class Hiker:\n    def __init__(self, name, km):\n        self.name = name\n        self.km = km\n\n\ndef km_of(hiker):\n    return hiker.km\n\n\ndef rank(hikers):\n    return [h.name for h in sorted(hikers, key=km_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Hiker:\n    def __init__(self, name, km):\n        self.name = name\n        self.km = km\n\n\ndef km_of(hiker):\n    return hiker.km\n\n\ndef rank(hikers):\n    return [h.name for h in sorted(hikers, key=km_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "class Hiker:\n    def __init__(self, name, km):\n        self.name = name\n        self.km = km\n\n\ndef km_of(hiker):\n    return hiker.km\n\n\ndef rank(hikers):\n    return [h.name for h in sorted(hikers, key=km_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "class Hiker:\n    def __init__(self, name, km):\n        self.name = name\n        self.km = km\n\n\ndef km_of(hiker):\n    return hiker.km\n\n\ndef rank(hikers):\n    return [h.name for h in sorted(hikers, key=km_of, reverse=True)]\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

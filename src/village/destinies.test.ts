@@ -5,9 +5,10 @@ import { DESTINIES, ITEM_SPRITES, SCENE_FEATURES, newScenes } from "./destinies"
 describe("item destinies", () => {
   const loot = bundle.lessons.map((l) => l.loot.id);
 
-  it("gives every lesson item exactly one destiny and its own sprite", () => {
-    expect(Object.keys(DESTINIES).sort()).toEqual([...loot].sort());
-    for (const id of loot) expect(ITEM_SPRITES[id], id).toBeDefined();
+  // a new world's items may have no sprite yet: they show the sprout icon, and the cheat page lists them
+  it("draws only real lesson items and gives each drawn one a destiny", () => {
+    expect(Object.keys(ITEM_SPRITES).filter((id) => !loot.includes(id))).toEqual([]);
+    expect(Object.keys(DESTINIES).sort()).toEqual(Object.keys(ITEM_SPRITES).sort());
   });
 
   it("sends twenty five items into the world and eight into the house", () => {

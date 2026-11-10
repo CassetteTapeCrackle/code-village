@@ -1,0 +1,19 @@
+# The triple task's [cases] names a type the generator does not know.
+base = "good"
+expect = ["cases-decl-invalid"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)`."
+hints = ["Multiply by 3."]
+gotcha = false
+
+[cases]
+call = "triple"
+args = ["integer -50..50"]
+'''

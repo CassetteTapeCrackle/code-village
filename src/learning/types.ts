@@ -17,9 +17,20 @@ export type Progress = {
   drafts: Record<string, string>;
   reviewLast: Record<string, string>;
   bosses: Record<string, BossProgress>;
+  worldsSkipped: Record<string, Day>;
 };
 
 // New fields get an empty default here, so older version-1 saves load without a migration.
 export function emptyProgress(): Progress {
-  return { version: 1, xp: 0, tasks: {}, lessons: {}, plants: {}, drafts: {}, reviewLast: {}, bosses: {} };
+  return {
+    version: 1,
+    xp: 0,
+    tasks: {},
+    lessons: {},
+    plants: {},
+    drafts: {},
+    reviewLast: {},
+    bosses: {},
+    worldsSkipped: {},
+  };
 }

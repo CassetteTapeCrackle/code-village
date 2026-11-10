@@ -1,0 +1,57 @@
+{
+  "fingerprint": "5b1f8218fcad",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "def is_even(n):\n    return n % 2 == 0\n\n\ndef test_is_even():\n    assert is_even(4), \"4 is even\"\n    assert is_even(0), \"0 is even\"\n    assert not is_even(7), \"7 is odd\"\n\n\ntest_is_even()\nprint(\"all good\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "def is_even(n):\n    return n % 2 == 0\n\n\ndef test_is_even():\n    assert is_even(4), \"4 is even\"\n    assert is_even(0), \"0 is even\"\n    assert not is_even(7), \"7 is odd\"\n\n\ntest_is_even()\nprint(\"all good\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def is_even(n):\n    return n % 2 == 0\n\n\ndef test_is_even():\n    assert is_even(4)\n    assert not is_even(7)\n\n\ntest_is_even()\nprint(\"all good\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def is_even(n):\n    return n % 2 == 0\n\n\ndef test_is_even():\n    assert is_even(4), \"4 is even\"\n    assert not is_even(7), \"7 is odd\"\n\n\ntest_is_even()\nprint(\"all good\")",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def is_even(n):\n    return n % 2 == 0\n\n\ndef test_is_even():\n    assert is_even(4)\n    assert not is_even(7)\n\n\ntest_is_even()\nprint(\"all good\")\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

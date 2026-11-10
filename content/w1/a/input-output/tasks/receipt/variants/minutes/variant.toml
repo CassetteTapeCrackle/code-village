@@ -1,3 +1,6 @@
 id = "io-minutes"
 title = "Hours to minutes"
 prompt = "The program reads a number of hours. Finish it so it prints one line like `2 hours = 120 minutes`."
+
+[cases]
+stdin = ["int 0..24"]

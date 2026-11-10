@@ -1,0 +1,251 @@
+[[sentence]]
+fp = "4aa42932afba"
+text = "A **dataclass** writes all three for you from a list of **fields**."
+where = "text:0"
+status = "claim:auto-4aa42932afba"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e2b98438f996"
+text = "`from dataclasses import dataclass` loads the `dataclasses` module and gives you just its `dataclass` tool by name, so you can write `dataclass` without the module's name in front."
+where = "text:0"
+status = "claim:auto-e2b98438f996"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "163b554ae513"
+text = "`name: str` names a field and notes its type."
+where = "text:3"
+status = "claim:auto-163b554ae513"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "40ba8c023c38"
+text = "The type is a note for readers: Python does not check it."
+where = "text:3"
+status = "claim:auto-40ba8c023c38"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c17870ec18bb"
+text = "A field can have a default, and the class can still have methods of its own."
+where = "text:3"
+status = "claim:auto-c17870ec18bb"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4ae5acd25be9"
+text = "Write a dataclass `Sapling` with fields `name` (str) and `height` (int, default 1), and a method `grow(cm)` that adds `cm` to `height`."
+where = "task:dataclasses-sapling:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "dc3c89753e0b"
+text = "`repr(Sapling(\"oak\"))` should be `Sapling(name='oak', height=1)`."
+where = "task:dataclasses-sapling:prompt"
+status = "claim:auto-dc3c89753e0b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "adafbdd06a95"
+text = "Import the decorator from `dataclasses`, put it above the class, and list the fields in the class body."
+where = "task:dataclasses-sapling:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1cdab5f9e5ee"
+text = "Fields with defaults use `name: type = value`."
+where = "task:dataclasses-sapling:hint:1"
+status = "claim:auto-1cdab5f9e5ee"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8f31e33f6490"
+text = "In `grow`, add the argument to the height attribute on `self`."
+where = "task:dataclasses-sapling:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e81443311df0"
+text = "Write a dataclass `Toadstool` with fields `name` (str) and `spots` (int, default 0), and a method `add_spot()` that adds 1 to `spots`."
+where = "task:dataclasses-mushroom-spots:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "f43f820e2ffd"
+text = "Start with `from dataclasses import dataclass` and put `@dataclass` above the class."
+where = "task:dataclasses-mushroom-spots:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "8c018517ce6d"
+text = "`@dataclass(order=True)` also writes `__lt__` and friends: objects compare field by field, in the order the fields are written."
+where = "text:7"
+status = "claim:auto-8c018517ce6d"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1a1568b97c63"
+text = "Finish `Score` so that scores sort by `points`, then by `name`, and `best(scores)` returns the name of the highest score."
+where = "task:dataclasses-scores:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "e4fc39be4b96"
+text = "One argument to the decorator makes dataclasses sortable."
+where = "task:dataclasses-scores:hint:0"
+status = "claim:auto-e4fc39be4b96"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "99e7e1fd267d"
+text = "Pass `order=True` to the decorator."
+where = "task:dataclasses-scores:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a6a3f1db7109"
+text = "For `best`, use `max` on the list and read the score's `name`."
+where = "task:dataclasses-scores:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "36a7c2752e2d"
+text = "Finish `Race` so that races sort by `time`, then `runner`, and `winner(races)` returns the runner with the smallest time."
+where = "task:dataclasses-races:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "02ed8607cac2"
+text = "`@dataclass(order=True)` makes a dataclass sortable, and `min` finds the smallest."
+where = "task:dataclasses-races:prompt"
+status = "claim:auto-02ed8607cac2"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "884114da1da0"
+text = "Dataclasses refuse it outright."
+where = "text:11"
+status = "claim:auto-884114da1da0"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "a7d8b06d8f4a"
+text = "`Satchel` should start with an empty `items` list of its own."
+where = "task:dataclasses-satchel:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "fd520dde9746"
+text = "The program fails before any satchel is made: find and fix the bug."
+where = "task:dataclasses-satchel:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9230e61b94bd"
+text = "Read the error: what does it say about a mutable default?"
+where = "task:dataclasses-satchel:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "2190c507811d"
+text = "Import `field` too, then wrap the list: `field(default_factory=list)`."
+where = "task:dataclasses-satchel:hint:1"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "6706e39eda6c"
+text = "`Quiver` should start with an empty `arrows` list of its own, but the program fails before any quiver is made: find and fix it with `field(default_factory=list)` (import `field` from `dataclasses`)."
+where = "task:dataclasses-quiver-default:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "630cd812963b"
+text = "@dataclass writes __init__, __repr__ and __eq__ from the fields you list."
+where = "remember:0"
+status = "claim:auto-630cd812963b"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c86cf282530a"
+text = "name: str names a field and notes its type; Python does not check the type."
+where = "remember:1"
+status = "claim:auto-c86cf282530a"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "c6b29f000258"
+text = "A list default needs field(default_factory=list)."
+where = "remember:2"
+status = "claim:auto-c6b29f000258"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

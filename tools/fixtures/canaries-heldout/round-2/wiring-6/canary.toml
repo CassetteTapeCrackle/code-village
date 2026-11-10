@@ -1,0 +1,132 @@
+# the task in the new lesson reuses the id basics-double of a task in another lesson
+base = "good"
+expect = ["wiring"]
+
+[[file]]
+path = "w1/a/signs/lesson.md"
+text = '''
++++
+id = "signs"
+title = "Signs"
+world = "w1"
+region = "a"
+order = 2
+concepts = ["numbers"]
+teaches = ["fn-abs"]
+remember = ["`abs(-5)` and `abs(5)` both give 5."]
+[loot]
+id = "test-ring"
+name = "Test Ring"
++++
+
+The `abs` function drops the sign of a number.
+
+```python claim id=abs-sign
+assert abs(-5) == 5
+assert abs(5) == 5
+```
+
+```python example
+print(abs(-7))
+```
+
+::task flip
+'''
+
+[[file]]
+path = "w1/a/signs/ledger.toml"
+text = '''
+[[sentence]]
+fp = "0238015bde8d"
+text = "The `abs` function drops the sign of a number."
+where = "text:0"
+status = "claim:abs-sign"
+decided = "owner"
+
+[[sentence]]
+fp = "1ab09334b43a"
+text = "`abs(-5)` and `abs(5)` both give 5."
+where = "remember:0"
+status = "claim:abs-sign"
+decided = "owner"
+
+[[sentence]]
+fp = "38eae96e34c2"
+text = "Write `flip(n)` so that it returns `n` with its sign changed."
+where = "task:basics-double:prompt"
+status = "not-a-fact"
+decided = "owner"
+
+[[sentence]]
+fp = "9745ecab1f1c"
+text = "Swap positive for negative and the other way round."
+where = "task:basics-double:hint:0"
+status = "not-a-fact"
+decided = "owner"
+'''
+
+[[file]]
+path = "w1/a/signs/tasks/flip/task.toml"
+text = '''
+id = "basics-double"
+concept = "numbers"
+kind = "write"
+title = "Flip it"
+prompt = "Write `flip(n)` so that it returns `n` with its sign changed."
+hints = ["Swap positive for negative and the other way round."]
+gotcha = false
+
+[cases]
+call = "flip"
+args = ["int -50..50"]
+'''
+
+[[file]]
+path = "w1/a/signs/tasks/flip/starter.py"
+text = '''
+def flip(n):
+    pass
+'''
+
+[[file]]
+path = "w1/a/signs/tasks/flip/solution.py"
+text = '''
+def flip(n):
+    return -n
+'''
+
+[[file]]
+path = "w1/a/signs/tasks/flip/tests.py"
+text = '''
+def test_positive():
+    expect_equal(learner["flip"](3), -3, "flip(3)")
+
+
+def test_negative():
+    expect_equal(learner["flip"](-2), 2, "flip(-2)")
+
+
+def test_zero():
+    expect_equal(learner["flip"](0), 0, "flip(0)")
+'''
+
+[[file]]
+path = "w1/a/signs/tasks/flip/wrong/same.py"
+text = '''
+def flip(n):
+    return n
+'''
+
+[[file]]
+path = "w1/a/signs/tasks/flip/wrong/always-negative.py"
+text = '''
+def flip(n):
+    return -abs(n)
+'''
+
+[[file]]
+path = "w1/a/signs/tasks/flip/right/times-minus-one.py"
+text = '''
+def flip(n):
+    return n * -1
+'''

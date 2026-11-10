@@ -1,0 +1,57 @@
+{
+  "fingerprint": "ad78d3825602",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef classify(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef classify(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef classify(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef classify(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "from sklearn.neighbors import KNeighborsClassifier\n\n\ndef classify(X, y, new_rows):\n    model = KNeighborsClassifier(n_neighbors=1)\n    model.fit(X, y)\n    return model.predict(new_rows).tolist()\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

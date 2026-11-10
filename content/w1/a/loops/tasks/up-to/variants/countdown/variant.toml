@@ -1,3 +1,7 @@
 id = "loops-countdown"
 title = "Countdown"
 prompt = "`countdown(n)` should return the list `[n, n - 1, ..., 1]`. The third number in `range(start, stop, step)` is the step, so `-1` counts down. It has a bug: find and fix it."
+
+[cases]
+call = "countdown"
+args = ["int 0..30"]

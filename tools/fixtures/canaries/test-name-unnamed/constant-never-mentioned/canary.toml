@@ -1,0 +1,34 @@
+# a test reads a module level name FACTOR that the prompt never mentions, so any other correct triple is refused
+base = "good"
+expect = ["test-name-unnamed"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/solution.py"
+text = '''
+FACTOR = 3
+
+
+def triple(n):
+    return n * FACTOR
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/right/added-three-times.py"
+text = '''
+FACTOR = 3
+
+
+def triple(n):
+    return n + n + n
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_triple():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+
+
+def test_factor():
+    expect_equal(learner["FACTOR"], 3, "FACTOR")
+'''

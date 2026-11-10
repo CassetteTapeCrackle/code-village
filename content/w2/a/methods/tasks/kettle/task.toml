@@ -3,5 +3,8 @@ concept = "methods"
 kind = "fix"
 title = "Is the kettle ready?"
 prompt = "`ready(kettle)` should return `True` only when the kettle is hot. It says every kettle is ready: find and fix the bug."
-hints = ["Print `kettle.is_hot` and `kettle.is_hot()`: what is the difference?", "Call the method: `return stove.is_on()`."]
+hints = ["Print `kettle.is_hot` and `kettle.is_hot()`: what is the difference?", "Add parentheses after the method name to call it; without them you get the method object."]
 gotcha = true
+
+[cases]
+none = "it takes objects of the learner's own classes, which a case cannot make"

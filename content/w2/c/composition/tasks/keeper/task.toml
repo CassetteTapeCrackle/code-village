@@ -3,5 +3,8 @@ concept = "composition"
 kind = "write"
 title = "The animal keeper"
 prompt = "`Animal(name)` is given. Write a class `Keeper(name)` that has its own empty `animals` list, `adopt(animal)` to add one, and `feed_all()` returning a list like `[\"Sly is fed\", \"Ollie is fed\"]` in adoption order."
-hints = ["The keeper holds animals in `self.animals`; it does not inherit from `Animal`.", "`return [f\"{pet.name} is ready\" for pet in self.pets]`"]
+hints = ["The keeper holds animals in `self.animals`; it does not inherit from `Animal`.", "Return a list built from `self.animals`: for each animal, an f-string with its `name` and `is fed`."]
 gotcha = false
+
+[cases]
+none = "adopt takes Animal objects, which a case cannot make"

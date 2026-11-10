@@ -1,0 +1,13 @@
+# For negative numbers the solution returns a string hash, which changes with every Python process (hash
+# randomization), so the run that checks the expected values gets other answers than the run that made them.
+base = "good"
+expect = ["solution-fails-cases"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/solution.py"
+text = '''
+def triple(n):
+    if n < 0:
+        return hash("triple")
+    return n * 3
+'''

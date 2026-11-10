@@ -1,0 +1,10 @@
+# concepts.toml lists a concept called strings that no lesson or task uses.
+base = "good"
+expect = ["wiring"]
+
+[[file]]
+path = "concepts.toml"
+text = '''
+numbers = "numbers"
+strings = "strings"
+'''

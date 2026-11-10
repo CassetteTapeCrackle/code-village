@@ -1,0 +1,28 @@
+# the key of world w2 names the boss calc correctly but a trophy id that boss never awards
+base = "good"
+expect = ["wiring"]
+
+[[file]]
+path = "w2/world.toml"
+text = '''
+id = "w2"
+order = 2
+name = "The Forest"
+area = "village"
+regions = {}
+
+[building]
+name = "Hut"
+place = "hut"
+
+[teacher]
+name = "Mr. Oak"
+portrait = "teacher"
+
+[key]
+boss = "calc"
+trophy = "calc-gold-trophy"
+trophy_name = "Calc Trophy"
+opens = "forest"
+gate_hint = "Beat the calculator first."
+'''

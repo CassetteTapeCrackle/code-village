@@ -5,6 +5,7 @@ world = "w3"
 region = "c"
 order = 8
 concepts = ["nearest-neighbour"]
+teaches = []
 remember = ["math.dist(a, b) is the straight-line distance between two points, in any number of dimensions.", "Nearest neighbour: to label a new point, copy the label of the closest point you already know.", "With k neighbours, the k closest points vote.", "Columns with big numbers swamp the small ones in a distance: scale every column to 0 to 1 first."]
 [loot]
 id = "star-map"
@@ -12,6 +13,11 @@ name = "Star Map"
 +++
 
 This region builds a first piece of **machine learning**: a program that learns to label things from examples instead of from rules you write. It starts with a distance. `math.dist` measures the straight line between two points.
+
+```python claim id=auto-4fa394281648
+import math
+assert math.dist((0, 0), (3, 4)) == 5.0
+```
 
 ```python example
 import math
@@ -24,7 +30,7 @@ print(math.sqrt((4 - 1) ** 2 + (6 - 2) ** 2))
 
 A point can have as many numbers as you like: one per thing you measured (height, weight, age...). Each number is a **feature**.
 
-```python claim
+```python claim id=nearest-neighbour-claim-1
 import math
 
 assert math.dist((0, 0, 0), (1, 2, 2)) == 3.0
@@ -73,3 +79,20 @@ print([round(x, 2) for x in scale([20, 500, 150])])
 ```
 
 ::task similar
+
+```python claim id=auto-ada86b3c692b
+import math
+assert math.dist((0, 0), (3, 4)) == 5.0
+```
+
+```python claim id=auto-a18a6824a545
+assert sorted([3, 1, 2])[:2] == [1, 2]
+assert sorted([3, 1, 2, 0])[:3] == [0, 1, 2]
+```
+
+```python claim id=auto-59d2e0d6b302
+import math
+assert math.dist((0, 0), (3, 4)) == 5.0
+assert math.dist((0, 0, 0), (1, 2, 2)) == 3.0
+assert math.dist((1,), (4,)) == 3.0
+```

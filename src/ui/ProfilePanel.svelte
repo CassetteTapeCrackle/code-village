@@ -5,6 +5,7 @@
   import { game, update } from "../store/progress.svelte";
   import { backfill, flushNow, syncConflict } from "../store/sync.svelte";
   import { unpackSave } from "../store/storage";
+  import { tourEvent, tour } from "../tour/tour.svelte";
   import ConnectPanel from "./ConnectPanel.svelte";
   import { modal } from "./modal";
   import { renderTurnstile } from "./turnstile";
@@ -82,6 +83,7 @@
     void flushNow();
     recoveryShown = res.data.recoveryCode;
     nickname = "";
+    tourEvent("join-board");
   }
 
   async function recover(): Promise<void> {
@@ -156,19 +158,25 @@
   }
 </script>
 
-<section aria-labelledby="board-heading">
+<section aria-labelledby="board-heading" data-tour="profile">
   <div class="h">
     <h2 id="board-heading">{account.current ? "Village board" : "Join the village board"}</h2>
     <span class="meta">{account.current ? account.current.nickname : "no nickname yet"}</span>
   </div>
 
   {#if recoveryShown}
-    <div class="code paper px">
+    <div class="code paper px" data-tour="recovery">
       <p>
         Write this down. It is the only way back to your nickname on a new device or after clearing the
         browser.
       </p>
       <p class="big px">{recoveryShown}</p>
+      {#if tour.state.step === "recovery" && !tour.state.done}
+        <label class="saved">
+          <input type="checkbox" onchange={(e) => e.currentTarget.checked && tourEvent("recovery")} /> I saved it
+          somewhere
+        </label>
+      {/if}
       <div class="foot">
         <button type="button" class="primary" onclick={copyCode}>Copy</button>
         <button type="button" onclick={() => (recoveryShown = null)}>Done</button>
@@ -291,6 +299,13 @@
     font: 700 20px var(--font-pixel);
     letter-spacing: 1px;
     color: var(--text);
+  }
+  .saved {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 14px;
   }
   .foot {
     display: flex;

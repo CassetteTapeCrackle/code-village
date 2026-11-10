@@ -1,0 +1,13 @@
+# The solution imports a module it never uses (F401).
+base = "good"
+expect = ["solution-lint"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/solution.py"
+text = '''
+import os
+
+
+def double(n):
+    return n * 2
+'''

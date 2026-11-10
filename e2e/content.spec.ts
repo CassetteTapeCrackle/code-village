@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 import { showTask, typeCode } from "./helpers";
 
 test("a whole-program task reads its input in the browser", async ({ page }) => {

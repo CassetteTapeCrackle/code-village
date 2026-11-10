@@ -2,6 +2,7 @@ import type { MapColors } from "../../art/palette";
 import type { Palette } from "../clock";
 import { TILE, VX, VY } from "../grid";
 import type { VillageMap } from "../layout";
+import type { LairState } from "../render";
 import type { Season } from "../weather";
 
 // `found` lists the items found so far, for features that change with one (the orchard gate opens with the Key Ring).
@@ -14,6 +15,7 @@ export type DrawEnv = {
   found: ReadonlySet<string>;
   season: Season;
   plots: readonly { concept: string; stage: string | null }[];
+  lairs: Record<string, LairState>;
 };
 
 // Village props are drawn in village pixels (0, 0 is the village's top-left corner).

@@ -8,3 +8,6 @@ def test_refuses():
     except ValueError:
         return
     raise Failure("withdraw(5, 8) should raise ValueError")
+
+def test_everything():
+    expect_equal(learner["withdraw"](5, 5), 0, "withdraw(5, 5)")

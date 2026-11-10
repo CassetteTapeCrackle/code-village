@@ -1,0 +1,285 @@
+{
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "f483c1ac346c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "82b29b1d27a6",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the bug in the exercise and gives an instruction.",
+      "assert": null
+    },
+    {
+      "fp": "f3eb3f33c2c3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "fb6dbce2f4d6",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A with block closes the file when it exits, including when an exception is raised.",
+      "assert": "import os\ntry:\n    with open(os.devnull) as f:\n        raise ValueError\nexcept ValueError:\n    pass\nassert f.closed"
+    },
+    {
+      "fp": "4a2e2bdd6b91",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The default mode is 'r'. 'w' starts a fresh file and 'a' appends.",
+      "assert": "import os, tempfile\nd = tempfile.mkdtemp()\np = os.path.join(d, 'a.txt')\nwith open(p, 'w') as f:\n    f.write('1')\nwith open(p, 'a') as f:\n    f.write('2')\nwith open(p) as f:\n    assert f.mode == 'r'\n    assert f.read() == '12'\nwith open(p, 'w') as f:\n    f.write('3')\nwith open(p) as f:\n    assert f.read() == '3'"
+    },
+    {
+      "fp": "52b08215b5c1",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "json can round-trip these types. Tuples and other types are not mentioned, but the listed ones all work.",
+      "assert": "import json, io\ndata = [1, 2.5, 'a', True, False, None, {'k': [1]}]\nf = io.StringIO()\njson.dump(data, f)\nf.seek(0)\nassert json.load(f) == data"
+    },
+    {
+      "fp": "299dffa91c42",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Mode 'w' truncates the file on open, and 'a' keeps the existing content.",
+      "assert": "import os, tempfile\np = os.path.join(tempfile.mkdtemp(), 'a.txt')\nwith open(p, 'w') as f:\n    f.write('old')\nwith open(p, 'a') as f:\n    f.write('new')\nwith open(p) as f:\n    assert f.read() == 'oldnew'\nwith open(p, 'w') as f:\n    pass\nwith open(p) as f:\n    assert f.read() == ''"
+    },
+    {
+      "fp": "f60783745113",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Functions are first-class objects that can be bound to names like any other value.",
+      "assert": "def f():\n    return 1\ng = f\nassert type(f).__name__ == 'function'\nassert g is f"
+    },
+    {
+      "fp": "6a3afaa4d608",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Functions can be given a second name, stored in a list, and passed to another function that calls them.",
+      "assert": "def f(x):\n    return x + 1\ng = f\nfs = [f, g]\ndef run(fn, v):\n    return fn(v)\nassert fs[0](1) == 2\nassert run(f, 1) == 2"
+    },
+    {
+      "fp": "ec15ff90ab93",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Without brackets, the assignment only binds a second name to the same function object.",
+      "assert": "def shout(w):\n    return w.upper()\nspeak = shout\nassert speak is shout\nassert speak('a') == 'A'"
+    },
+    {
+      "fp": "e4d6d7d89f76",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the example code does.",
+      "assert": null
+    },
+    {
+      "fp": "359cac50ae74",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "2d40c429dc4a",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "If add_one adds 1, applying it twice to 5 gives 7.",
+      "assert": "def add_one(n):\n    return n + 1\ndef apply_twice(f, x):\n    return f(f(x))\nassert apply_twice(add_one, 5) == 7"
+    },
+    {
+      "fp": "48c1004fa813",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A hint on how to solve the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "50027f9300f7",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "double(double(3)) calls double twice, inner first, and the outer result is the second result.",
+      "assert": "calls = []\ndef double(n):\n    calls.append(n)\n    return n * 2\nr = double(double(3))\nassert calls == [3, 6]\nassert r == 12"
+    },
+    {
+      "fp": "d08f9810e565",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "e1477b47c491",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "len('moss') is 4 and str(4) is '4'.",
+      "assert": "def compose(f, g, x):\n    return f(g(x))\nassert compose(str, len, 'moss') == '4'"
+    },
+    {
+      "fp": "8ceaddc451ee",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A lambda with parameter n returns n * 2.",
+      "assert": "f = lambda n: n * 2\nassert f(4) == 8"
+    },
+    {
+      "fp": "7b6ea40c072c",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A lambda can be passed as the key of sorted.",
+      "assert": "assert sorted([3, 1, 2], key=lambda n: -n) == [3, 2, 1]"
+    },
+    {
+      "fp": "78061c035ea1",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "They accept any iterable, not only a list, and map can take several iterables.",
+      "assert": null
+    },
+    {
+      "fp": "f46187863996",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "filter keeps items for which the function returns a truthy value, not strictly True.",
+      "assert": null
+    },
+    {
+      "fp": "19fe2f121661",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "map and filter return lazy iterators, so list() is needed to see all the results.",
+      "assert": "m = map(str, [1, 2])\nf = filter(None, [0, 1])\nassert not isinstance(m, list) and not isinstance(f, list)\nassert next(m) == '1'\nassert list(m) == ['2']\nassert list(f) == [1]"
+    },
+    {
+      "fp": "8fefb0bc9bf3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "746561bf6e2b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint describing what the lambda should do.",
+      "assert": null
+    },
+    {
+      "fp": "da9850a4ccfe",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The filter keeps only words for which startswith('a') is True.",
+      "assert": "words = ['ant', 'bee', 'ape']\nassert list(filter(lambda w: w.startswith('a'), words)) == ['ant', 'ape']"
+    },
+    {
+      "fp": "6132394a6b8e",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "f28b2527341c",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The bare name refers to the function object, which can be passed along.",
+      "assert": "def f(x):\n    return x + 1\nassert list(map(f, [1, 2])) == [2, 3]"
+    },
+    {
+      "fp": "281354133fc1",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "With brackets the function runs immediately, and its return value (usually not callable) is what gets passed.",
+      "assert": "def f():\n    return 5\nr = f()\nassert r == 5\nassert not callable(r)"
+    },
+    {
+      "fp": "128ddf5b1c30",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Arguments are evaluated first, so loud() raises TypeError for the missing argument before map is called.",
+      "assert": "def loud(word):\n    return word.upper()\ntry:\n    map(loud(), ['a'])\nexcept TypeError as e:\n    assert 'word' in str(e)\nelse:\n    assert False"
+    },
+    {
+      "fp": "347a185b7102",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "1099d6bd62a3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the bug in the exercise and gives an instruction.",
+      "assert": null
+    },
+    {
+      "fp": "d49d0782f2d4",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "key must be a callable (or None), and a non-callable value such as a list raises TypeError.",
+      "assert": "try:\n    sorted([('a', 2), ('b', 1)], key=[1, 2])\nexcept TypeError:\n    pass\nelse:\n    assert False"
+    },
+    {
+      "fp": "77fd639eebcd",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A guiding question for the learner.",
+      "assert": null
+    },
+    {
+      "fp": "3fa201ba22fb",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "An instruction on how to fix the bug.",
+      "assert": null
+    },
+    {
+      "fp": "b6340866e402",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise function should do.",
+      "assert": null
+    },
+    {
+      "fp": "20c362f331bd",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the bug in the exercise and gives an instruction.",
+      "assert": null
+    },
+    {
+      "fp": "78b67b3b90f4",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A hint for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "207cdde5f7da",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Functions can be bound to names, put in lists and passed to other functions.",
+      "assert": "def f(x):\n    return x\ng = f\nlst = [f]\ndef call(fn):\n    return fn(1)\nassert g is f and lst[0] is f and call(f) == 1"
+    },
+    {
+      "fp": "d2c52cf8b897",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "A lambda is an anonymous function, whose name is just '<lambda>'.",
+      "assert": "f = lambda n: n * 2\nassert f.__name__ == '<lambda>'\nassert f(2) == 4"
+    },
+    {
+      "fp": "c77867c67920",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "filter keeps items where f gives a truthy value, not only True, and the paragraph's advice to wrap them in list() holds because both are lazy.",
+      "assert": null
+    }
+  ]
+}

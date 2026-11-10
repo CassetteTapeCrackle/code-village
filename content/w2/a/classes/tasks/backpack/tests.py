@@ -6,3 +6,6 @@ def test_two_items():
 
 def test_empty():
     expect_equal(learner["Backpack"]("Ines").count(), 0, "a new backpack's count()")
+
+def test_keeps_its_owner():
+    expect_equal(learner["Backpack"]("Sam").owner, "Sam", "the owner of Backpack('Sam')")

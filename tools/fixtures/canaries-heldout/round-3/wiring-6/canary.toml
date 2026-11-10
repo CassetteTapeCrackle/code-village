@@ -1,0 +1,21 @@
+# Every task in the numbers concept has gotcha false, so the concept has no gotcha.
+base = "good"
+expect = ["wiring"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/task.toml"
+text = '''
+id = "basics-double"
+concept = "numbers"
+kind = "write"
+title = "Double it"
+prompt = "Write `double(n)`."
+hints = ["Multiply by 2."]
+gotcha = false
+
+strict = true
+
+[cases]
+call = "double"
+args = ["int -50..50"]
+'''

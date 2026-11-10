@@ -1,6 +1,7 @@
 <script lang="ts">
   import { MOCHI } from "../art/sprites";
   import { bundle } from "../content/bundle";
+  import { regularLessons } from "../content/lessons";
   import { bossOpen } from "../learning/access";
   import { bossState } from "../learning/boss";
   import { today } from "../learning/dates";
@@ -12,7 +13,7 @@
   // What to do next: pinned on the map, and hanging from the plank everywhere else.
   // only worlds whose road is open count: a locked world's lessons are not next yet
   const open = $derived(openWorlds(bundle, game.progress));
-  const lessons = $derived(bundle.lessons.filter((l) => open.includes(l.world)));
+  const lessons = $derived(regularLessons(bundle.lessons).filter((l) => open.includes(l.world)));
   const next = $derived(lessons.find((l) => !game.progress.lessons[l.id]) ?? null);
   const due = $derived(dueReviews(bundle, game.progress, today()).length);
   const awake = $derived(

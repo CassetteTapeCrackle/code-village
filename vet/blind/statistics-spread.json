@@ -1,0 +1,57 @@
+{
+  "fingerprint": "c3ee5810f882",
+  "model": "deepseek-flash",
+  "attempts": [
+    {
+      "code": "import numpy as np\n\n\ndef spread(values):\n    a = np.array(values)\n    return {\"range\": float(a.max() - a.min()), \"std\": round(float(np.std(a, ddof=1)), 2)}\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    },
+    {
+      "code": "import numpy as np\n\n\ndef spread(values):\n    a = np.array(values)\n    return {\"range\": float(a.max() - a.min()), \"std\": round(float(np.std(a, ddof=1)), 2)}\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import numpy as np\n\n\ndef spread(values):\n    a = np.array(values)\n    return {\n        \"range\": float(a.max() - a.min()),\n        \"std\": round(float(np.std(a, ddof=1)), 2),\n    }\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "import numpy as np\n\n\ndef spread(values):\n    a = np.array(values)\n    return {\"range\": float(a.max() - a.min()), \"std\": round(float(np.std(a, ddof=1)), 2)}\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "import numpy as np\n\n\ndef spread(values):\n    a = np.array(values)\n    return {\"range\": float(a.max() - a.min()), \"std\": round(float(np.std(a, ddof=1)), 2)}\n",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
+      "temperature": 0.2
+    }
+  ],
+  "triage": []
+}

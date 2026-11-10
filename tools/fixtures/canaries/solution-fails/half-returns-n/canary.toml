@@ -1,0 +1,10 @@
+# The half solution forgets to divide.
+base = "good"
+expect = ["solution-fails"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/solution.py"
+text = '''
+def half(n):
+    return n
+'''

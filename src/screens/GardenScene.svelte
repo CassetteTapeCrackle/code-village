@@ -3,6 +3,7 @@
   import { FLOWERS, MAP_COLORS, SPRITE_COLORS } from "../art/palette";
   import { scaleFor } from "../art/scale";
   import { BENCH, BIG_PLANTS, MOCHI, SHED, WATERING_CAN, WELL } from "../art/sprites";
+  import { bundle, conceptName } from "../content/bundle";
   import { regionName } from "../content/regions";
   import { bedStatus, type Bed } from "../learning/garden";
   import { clock } from "../village/clock-state.svelte";
@@ -180,7 +181,7 @@
         type="button"
         class="bed"
         aria-pressed={bed.concept === selected}
-        aria-label="{bed.concept}: {bedStatus(bed)}"
+        aria-label="{conceptName(bundle, bed.concept)}: {bedStatus(bed)}"
         style="left: {(x - 3) * scale}px; top: {(y - 16) * scale}px; width: {46 * scale}px; height: {47 *
           scale}px"
         onclick={() => onselect(bed.concept)}
@@ -189,7 +190,7 @@
           class="sign"
           class:due={bed.due && bed.stage !== "wilting"}
           class:wilt={bed.stage === "wilting"}
-          title={bed.concept}>{bed.concept}</span
+          title={conceptName(bundle, bed.concept)}>{conceptName(bundle, bed.concept)}</span
         >
       </button>
     {/each}

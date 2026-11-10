@@ -1,4 +1,5 @@
 import type { Bundle } from "../content/types";
+import { conceptName } from "../content/bundle";
 import { bossOpen } from "../learning/access";
 import { bossState } from "../learning/boss";
 import { isWilting } from "../learning/plants";
@@ -17,7 +18,7 @@ export function talkContext(bundle: Bundle, p: Progress, day: Day): TalkContext 
   const concepts = new Set(bundle.lessons.flatMap((l) => l.concepts));
   const wilting = Object.entries(p.plants)
     .filter(([concept, plant]) => concepts.has(concept) && isWilting(plant, day))
-    .map(([concept]) => concept);
+    .map(([concept]) => conceptName(bundle, concept)); // the nudge shows names, never ids
   const awake = bundle.bosses.find((b) => bossOpen(bundle, p, b) && !bossState(p, b.id).wonAt);
   return {
     wilting,

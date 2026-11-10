@@ -11,7 +11,7 @@ type SocialEvent = SyncEvent & { received: string };
 type PlayerEvents = { nickname: string; createdAt: string; lastActive: string; events: SocialEvent[] };
 type Rankable = { row: BoardRow; createdAt: string };
 
-const NEWS_KINDS = new Set(["lesson_passed", "boss_won", "boss_hard_won"]);
+const NEWS_KINDS = new Set(["lesson_passed", "boss_won", "boss_hard_won", "world_skipped"]);
 
 function isNewsEvent(e: SocialEvent): e is SocialEvent & { kind: NewsItem["kind"] } {
   return NEWS_KINDS.has(e.kind);
@@ -80,7 +80,18 @@ function weekStart(now: Date): string {
 
 // The cache key is canonical: only the parameters the answer depends on survive, so junk
 // query strings cannot fill the cache or dodge a hit.
+// caches.default does nothing on a *.workers.dev host, so each Worker instance also keeps its answers in
+// memory for the same time: without it, every anonymous board, news or card request reads all events.
+const remembered = new Map<string, { until: number; body: string; headers: [string, string][] }>();
+
+// Tests change the data between requests and need fresh answers.
+export function forgetSocialAnswers(): void {
+  remembered.clear();
+}
+
 async function cached(key: Request, make: () => Promise<Response>): Promise<Response> {
+  const kept = remembered.get(key.url);
+  if (kept && kept.until > Date.now()) return new Response(kept.body, { headers: kept.headers });
   // the workerd runtime has caches.default; the generated CacheStorage type does not declare it
   const cache: Cache | undefined = (caches as { default?: Cache }).default;
   if (cache) {
@@ -89,8 +100,15 @@ async function cached(key: Request, make: () => Promise<Response>): Promise<Resp
   }
   const res = await make();
   if (!res.ok) return res;
-  const out = new Response(res.body, { status: res.status, headers: new Headers(res.headers) });
-  out.headers.set("cache-control", `public, max-age=${LIMITS.leaderboardCacheSeconds}`);
+  const headers = new Headers(res.headers);
+  headers.set("cache-control", `public, max-age=${LIMITS.leaderboardCacheSeconds}`);
+  const body = await res.text();
+  remembered.set(key.url, {
+    until: Date.now() + LIMITS.leaderboardCacheSeconds * 1000,
+    body,
+    headers: [...headers],
+  });
+  const out = new Response(body, { status: res.status, headers });
   if (cache) await cache.put(key, out.clone());
   return out;
 }
@@ -122,7 +140,8 @@ export async function playerCard(request: Request, env: Env): Promise<Response> 
   } catch {
     return fail(404, "No such player.");
   }
-  return cached(new Request(`${url.origin}${url.pathname}`), async () => {
+  // keyed by the lowercase name: /api/players/MaPlE and /api/players/maple are one entry, not one per casing
+  return cached(new Request(`${url.origin}/api/players/${encodeURIComponent(nickname)}`), async () => {
     // one indexed lookup first: a random nickname must not trigger the full board load
     const exists = await env.DB.prepare("SELECT 1 FROM players WHERE nickname_key = ?")
       .bind(nickname)

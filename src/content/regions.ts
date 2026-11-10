@@ -1,10 +1,6 @@
-// Region names from the spec (section 3), keyed by world then region letter.
-const REGION_NAMES: Record<string, Record<string, string>> = {
-  w1: { a: "First programs", b: "Collections", c: "Structure" },
-  w2: { a: "Classes", b: "Behaviour", c: "Families" },
-  w3: { a: "Data", b: "Numbers", c: "A first model" },
-};
+import { worldById } from "../worlds/registry";
 
+// Region names live in each world's world.toml.
 export function regionName(world: string, region: string): string {
-  return REGION_NAMES[world]?.[region] ?? `Region ${region}`;
+  return worldById(world)?.regions[region] ?? `Region ${region}`;
 }

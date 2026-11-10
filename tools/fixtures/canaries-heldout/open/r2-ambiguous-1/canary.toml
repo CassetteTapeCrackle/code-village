@@ -1,0 +1,24 @@
+# half(n) is pinned to floor division by the tests (half(7) is 3) while the prompt never says what to do with odd numbers
+base = "good"
+expect = ["ambiguous"]
+
+[[file]]
+path = "w1/a/basics/tasks/half/solution.py"
+text = '''
+def half(n):
+    return n // 2
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/half/right/times-a-half.py"
+text = '''
+def half(n):
+    return n >> 1
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/half/tests.py"
+text = '''
+def test_half():
+    expect_equal(learner["half"](7), 3, "half(7)")
+'''

@@ -1,0 +1,13 @@
+# the quadruple test demands an int result, though the prompt never says so, so a float 8.0 answer is refused
+base = "good"
+expect = ["right-refused"]
+
+[[file]]
+path = "w1/a/basics/tasks/double/variants/quadruple/tests.py"
+text = '''
+def test_quadruple():
+    result = learner["quadruple"](2)
+    expect_equal(result, 8, "quadruple(2)")
+    if not isinstance(result, int):
+        raise Failure("quadruple(2) should be a whole number, not a float")
+'''

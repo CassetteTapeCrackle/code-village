@@ -1,3 +1,8 @@
 id = "numpy-arrays-row-means"
 title = "The mean of each row"
 prompt = "Finish `row_means(rows)`: `rows` is a list of equal-length lists of numbers. Return a plain list with the mean of each row (`axis=1` works along the rows)."
+
+[cases]
+call = "row_means"
+args = ["list<list<int 0..9> 3..3> 1..5"]
+compare = "float"

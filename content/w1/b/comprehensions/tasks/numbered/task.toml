@@ -3,5 +3,9 @@ concept = "comprehensions"
 kind = "complete"
 title = "A numbered list"
 prompt = "Finish `numbered(items)` so `numbered([\"tea\", \"jam\"])` returns `[\"1. tea\", \"2. jam\"]`."
-hints = ["`enumerate(items, start=1)` gives `(1, \"tea\")`, `(2, \"jam\")`.", "`return [f\"{n}) {name}\" for n, name in enumerate(names, start=1)]`"]
+hints = ["`enumerate(items, start=1)` gives `(1, \"tea\")`, `(2, \"jam\")`.", "Inside the brackets, use the position and the item from `enumerate`, and put the position, a dot and a space before the item in the f-string."]
 gotcha = false
+
+[cases]
+call = "numbered"
+args = ["list<word> 0..6"]

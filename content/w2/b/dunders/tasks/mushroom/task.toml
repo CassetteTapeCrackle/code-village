@@ -3,5 +3,13 @@ concept = "dunders"
 kind = "write"
 title = "Name that mushroom"
 prompt = "Write a class `Mushroom(name, spots)` with `__str__` returning text like `\"fly agaric (5 spots)\"`, and `__eq__` saying two mushrooms are equal when both name and spots match."
-hints = ["`__str__` returns an f-string; `__eq__(self, other)` compares both attributes.", "For a `Boat`: `return f\"{self.name} ({self.seats} seats)\"` and `return isinstance(other, Boat) and self.name == other.name and self.seats == other.seats`."]
+hints = ["`__str__` returns an f-string; `__eq__(self, other)` compares both attributes.", "For `__str__`, return an f-string with the name and the spots. For `__eq__`, first check that `other` is a `Mushroom`, then compare both attributes."]
 gotcha = false
+
+strict = true
+
+[cases]
+class = "Mushroom"
+init = ["word", "int 0..9"]
+methods = { __str__ = [] }
+reads = ["name", "spots"]

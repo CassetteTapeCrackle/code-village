@@ -3,4 +3,4 @@ class Counter:
         self.total = 0
 
     def add(amount):
-        self.total += amount
+        self.total = self.total + amount

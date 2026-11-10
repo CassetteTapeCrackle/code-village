@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { bundle, conceptName } from "../content/bundle";
   import { today } from "../learning/dates";
   import { STAGE_NAMES } from "../learning/plants";
   import { REVIEW_MAX_CHECKS, finishReview, reviewVerdict, type ReviewItem } from "../learning/review";
@@ -19,7 +20,7 @@
   const item = $derived(items[index]);
 
   async function check(code: string): Promise<void> {
-    checked = await getRunner().check(code, item.exercise.tests);
+    checked = await getRunner().check(code, item.exercise);
     if (checked.kind === "unavailable") return; // Python not loading is not the learner's miss
     checks += 1;
     const v = reviewVerdict(checks, passedAll(checked));
@@ -42,7 +43,7 @@
   }
 </script>
 
-<p class="count">Review {index + 1} of {items.length} · {item.concept}</p>
+<p class="count">Review {index + 1} of {items.length} · {conceptName(bundle, item.concept)}</p>
 {#key index}
   <CodePanel
     id="review-{index}"
@@ -56,12 +57,14 @@
     <TestResults outcome={checked} />
     {#if verdict === "passed"}
       <p class="good">
-        Well remembered. Your {item.concept} plant is now a {STAGE_NAMES[
+        Well remembered. Your {conceptName(bundle, item.concept)} plant is now a {STAGE_NAMES[
           game.progress.plants[item.concept].stage
         ]}. +{XP.review} XP
       </p>
     {:else if verdict === "failed"}
-      <p class="bad">This one slipped. The {item.concept} plant shrank a little and comes back tomorrow.</p>
+      <p class="bad">
+        This one slipped. The {conceptName(bundle, item.concept)} plant shrank a little and comes back tomorrow.
+      </p>
     {:else}
       <button type="button" onclick={() => settle(false)}>I don't remember this</button>
     {/if}

@@ -1,0 +1,285 @@
+{
+  "model": "claude-sonnet-5-5",
+  "replies": [
+    {
+      "fp": "e7d74614fc67",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction describing the task.",
+      "assert": null
+    },
+    {
+      "fp": "61ec1f53d733",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise's given setup, not Python behavior.",
+      "assert": null
+    },
+    {
+      "fp": "45bdc2200b54",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "len() returns the number of items in a list.",
+      "assert": "assert len([1, 2, 3]) == 3\nassert len([]) == 0"
+    },
+    {
+      "fp": "0d1bc731e2cc",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction for the exercise.",
+      "assert": null
+    },
+    {
+      "fp": "5a66f9c5dec5",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction describing the task.",
+      "assert": null
+    },
+    {
+      "fp": "b5392ef34e4b",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The `in` operator tests membership in a list.",
+      "assert": "fruits = ['apple', 'pear']\nassert ('apple' in fruits) is True\nassert ('fig' in fruits) is False"
+    },
+    {
+      "fp": "d476c188b5db",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Calling a class creates an instance of it.",
+      "assert": "class Fox:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\nf = Fox('Sly', 3)\nassert isinstance(f, Fox)\nassert type(f) is Fox"
+    },
+    {
+      "fp": "fe3251c21e43",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "__init__ is called on the newly created object, which is passed as self.",
+      "assert": "seen = []\nclass A:\n    def __init__(self):\n        seen.append(self)\na = A()\nassert seen == [a] and seen[0] is a"
+    },
+    {
+      "fp": "a42c91cdd14d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Assigning to self.name sets an instance attribute only on that object.",
+      "assert": "class Fox:\n    def __init__(self, name):\n        self.name = name\na = Fox('Sly')\nb = Fox('Rex')\nassert a.name == 'Sly' and b.name == 'Rex'\nassert 'name' in vars(a)\nassert not hasattr(Fox, 'name')"
+    },
+    {
+      "fp": "5a6d84b8e888",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "True for ordinary instance methods. It leaves out staticmethod (no self) and classmethod (cls first), and the name self is only a convention.",
+      "assert": null
+    },
+    {
+      "fp": "62c940799d85",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A framing sentence introducing the contrast between == and is.",
+      "assert": null
+    },
+    {
+      "fp": "bbf40e5a57da",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "== tests equality of values (via __eq__).",
+      "assert": "a = [1, 2]\nb = [1, 2]\nassert a == b\nassert a is not b"
+    },
+    {
+      "fp": "e2dd777e1b0d",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`is` tests object identity.",
+      "assert": "a = [1]\nb = [1]\nc = a\nassert c is a\nassert not (b is a)"
+    },
+    {
+      "fp": "4e84ba978aa3",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Two equal list literals are separate objects.",
+      "assert": "a = [1, 2, 3]\nb = [1, 2, 3]\nassert a == b\nassert a is not b"
+    },
+    {
+      "fp": "5f6deba07ea0",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Assignment binds a second name to the same object without copying.",
+      "assert": "a = [1, 2]\nc = a\nassert c is a\nc.append(3)\nassert a == [1, 2, 3]"
+    },
+    {
+      "fp": "bf97c39212ba",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "`is not` is the negation of `is`.",
+      "assert": "a = [1]\nb = [1]\nc = a\nassert (a is not b) is True\nassert (a is not c) is False"
+    },
+    {
+      "fp": "cdb4ee2aea69",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A stray full stop fragment, not a statement.",
+      "assert": null
+    },
+    {
+      "fp": "144230b59c81",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction describing the function to write.",
+      "assert": null
+    },
+    {
+      "fp": "6f55a13ad8f3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the exercise setup.",
+      "assert": null
+    },
+    {
+      "fp": "0f5728975cce",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A hint on the order of checks: identity first, because identical objects also have equal names.",
+      "assert": null
+    },
+    {
+      "fp": "d8a4a0082bbe",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A hint on how to structure the solution.",
+      "assert": null
+    },
+    {
+      "fp": "1a19e0f16754",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes what the exercise expects.",
+      "assert": null
+    },
+    {
+      "fp": "52d368a6a1fa",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction describing the function to write.",
+      "assert": null
+    },
+    {
+      "fp": "a2535e1d6da2",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Without __eq__, the default == falls back to identity comparison.",
+      "assert": "class A:\n    pass\nx = A()\ny = A()\nassert x == x\nassert x != y"
+    },
+    {
+      "fp": "bb5e6b3108d6",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "isinstance(a, Fox) is True when a is a Fox (or a subclass instance).",
+      "assert": "class Fox:\n    pass\nassert isinstance(Fox(), Fox) is True\nassert isinstance(3, Fox) is False"
+    },
+    {
+      "fp": "929db346cc59",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction describing the task.",
+      "assert": null
+    },
+    {
+      "fp": "6ca3c04762d7",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "list(...) and .copy() both create a new list, and Hiker(...) creates a new object.",
+      "assert": "p = ['a', 'b']\nq = list(p)\nr = p.copy()\nassert q == p and q is not p\nassert r == p and r is not p"
+    },
+    {
+      "fp": "44583a0f2ef2",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise hint describing the steps to take.",
+      "assert": null
+    },
+    {
+      "fp": "958aba2a003f",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Both create a new list, so changes to the copy don't affect the original (shallow copy, which is fine for a list of strings).",
+      "assert": "p = ['a']\nq = list(p)\nr = p.copy()\nq.append('b')\nr.append('c')\nassert p == ['a']"
+    },
+    {
+      "fp": "9dd17ded6958",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An exercise instruction describing the task.",
+      "assert": null
+    },
+    {
+      "fp": "619bc09de2ae",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "list.copy() returns a shallow copy of the list.",
+      "assert": "f = ['a', 'b']\ng = f.copy()\nassert g == f and g is not f"
+    },
+    {
+      "fp": "21e325ac7426",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Methods like remove, index, count and the in operator compare items with ==.",
+      "assert": "class A:\n    def __init__(self, v):\n        self.v = v\n    def __eq__(self, o):\n        return self.v == o.v\nx = [A(1), A(2)]\nassert x.index(A(2)) == 1\nassert x.count(A(1)) == 1\nx.remove(A(2))\nassert len(x) == 1"
+    },
+    {
+      "fp": "ce28001d7582",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "list.remove removes the first item equal (==) to x, which may be a different object than the one passed.",
+      "assert": "a = [1]\nb = [1]\nbags = [a, b]\nbags.remove(b)\nassert len(bags) == 1\nassert bags[0] is b\nassert bags[0] is not a"
+    },
+    {
+      "fp": "0c161a453c3b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the intended behavior of the exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "f8141baa5e82",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction to find and fix a bug.",
+      "assert": null
+    },
+    {
+      "fp": "9636cc75a82e",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "remove deletes the first item that compares == to the argument.",
+      "assert": "a = [1]\nb = [1]\nbags = [a, b]\nbags.remove(b)\nassert bags[0] is b"
+    },
+    {
+      "fp": "3dba916f967c",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "A guiding question to the learner.",
+      "assert": null
+    },
+    {
+      "fp": "f1be44a2d3cf",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "A hint: filtering with `is not` keeps by identity, whereas `!=` would drop equal but different bags.",
+      "assert": null
+    },
+    {
+      "fp": "1726f3577660",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "Describes the intended behavior of the exercise function.",
+      "assert": null
+    },
+    {
+      "fp": "2d5c24103010",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "An instruction to find and fix a bug.",
+      "assert": null
+    }
+  ]
+}
