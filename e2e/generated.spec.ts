@@ -8,6 +8,7 @@ import { finishTour, showTask, typeCode } from "./helpers";
 const BASE = process.env.BASE_URL ?? "http://localhost:5173";
 // A run the app stopped after 5 s (a starter or wrong answer that never ends) is a finished, failing run too
 const RESULT = /tests passed|Error|Still running after 5 s/;
+const FAILED = /✗|Error|Still running after 5 s/;
 
 // Sharding splits files unless tests may run in parallel; the serial describes below stay whole (one lesson each)
 test.describe.configure({ mode: "parallel" });
@@ -65,12 +66,12 @@ for (const [lesson, tasks] of lessons(chosen().tasks)) {
 
         await runCheck(region); // the starter as it comes
         await expect(notPassed).toHaveCount(0);
-        await expect(region.locator(".results")).toContainText(/✗|Error/);
+        await expect(region.locator(".results")).toContainText(FAILED);
 
         if (task.wrong) {
           await typeCode(page, task.title, code(task.wrong));
           await runCheck(region);
-          await expect(region.locator(".results")).toContainText(/✗|Error/);
+          await expect(region.locator(".results")).toContainText(FAILED);
           await expect(notPassed).toHaveCount(0);
         }
         if (task.hiddenMutant) {
