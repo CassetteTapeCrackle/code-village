@@ -1,9 +1,9 @@
 {
-  "fingerprint": "024cbc8f4989",
+  "fingerprint": "cc6ae64ea8af",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def hint(secret, guess):\n    if guess < secret:\n        return 'higher'\n    if guess > secret:\n        return 'lower'\n    return 'correct'\n\n\ndef read_guess(text):\n    text = text.strip()\n    try:\n        value = int(text)\n    except ValueError:\n        return None\n\n    if 1 <= value <= 100:\n        return value\n    return None\n\n\ndef play(secret):\n    guesses = 0\n\n    while guesses < 5:\n        guess = read_guess(input())\n\n        if guess is None:\n            print('Please type a whole number from 1 to 100.')\n            continue\n\n        guesses += 1\n        result = hint(secret, guess)\n\n        if result == 'correct':\n            print(f'Correct! Guesses used: {guesses}')\n            return\n\n        print(result)\n\n    print(f'Out of guesses. It was {secret}.')\n\n\nif __name__ == '__main__':\n    play(int(input()))\n",
+      "code": "def hint(secret, guess):\n    if guess < secret:\n        return \"higher\"\n    if guess > secret:\n        return \"lower\"\n    return \"correct\"\n\n\ndef read_guess(text):\n    s = text.strip()\n    if not s.isdigit():\n        return None\n    n = int(s)\n    if 1 <= n <= 100:\n        return n\n    return None\n\n\ndef play(secret):\n    used = 0\n    while used < 5:\n        guess = read_guess(input())\n        if guess is None:\n            print(\"Please type a whole number from 1 to 100.\")\n            continue\n        used += 1\n        result = hint(secret, guess)\n        if result == \"correct\":\n            print(f\"Correct! Guesses used: {used}\")\n            return\n        print(result)\n    print(f\"Out of guesses. It was {secret}.\")\n\n\nif __name__ == \"__main__\":\n    play(int(input()))\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "def hint(secret, guess):\n    if guess < secret:\n        return \"higher\"\n    if guess > secret:\n        return \"lower\"\n    return \"correct\"\n\n\ndef read_guess(text):\n    text = text.strip()\n    if not text.isdigit():\n        return None\n    number = int(text)\n    if 1 <= number <= 100:\n        return number\n    return None\n\n\ndef play(secret):\n    used = 0\n    while used < 5:\n        guess = read_guess(input())\n        if guess is None:\n            print(\"Please type a whole number from 1 to 100.\")\n            continue\n        used += 1\n        result = hint(secret, guess)\n        if result == \"correct\":\n            print(\"Correct! Guesses used: \" + str(used))\n            return\n        print(result)\n    print(\"Out of guesses. It was \" + str(secret) + \".\")\n\n\nif __name__ == \"__main__\":\n    play(int(input()))\n",
+      "code": "def hint(secret, guess):\n    if guess < secret:\n        return \"higher\"\n    if guess > secret:\n        return \"lower\"\n    return \"correct\"\n\n\ndef read_guess(text):\n    text = text.strip()\n    try:\n        guess = int(text)\n    except ValueError:\n        return None\n    if 1 <= guess <= 100:\n        return guess\n    return None\n\n\ndef play(secret):\n    guesses = 0\n    while guesses < 5:\n        guess = read_guess(input())\n        if guess is None:\n            print(\"Please type a whole number from 1 to 100.\")\n            continue\n        guesses += 1\n        result = hint(secret, guess)\n        if result == \"correct\":\n            print(f\"Correct! Guesses used: {guesses}\")\n            return\n        print(result)\n    print(f\"Out of guesses. It was {secret}.\")\n\n\nif __name__ == \"__main__\":\n    play(int(input()))\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def hint(secret, guess):\n    if guess < secret:\n        return 'higher'\n    if guess > secret:\n        return 'lower'\n    return 'correct'\n\n\ndef read_guess(text):\n    text = text.strip()\n    if not text.isdigit():\n        return None\n    guess = int(text)\n    if 1 <= guess <= 100:\n        return guess\n    return None\n\n\ndef play(secret):\n    guesses_used = 0\n    while guesses_used < 5:\n        guess = read_guess(input())\n        if guess is None:\n            print('Please type a whole number from 1 to 100.')\n            continue\n        guesses_used += 1\n        result = hint(secret, guess)\n        if result == 'correct':\n            print(f'Correct! Guesses used: {guesses_used}')\n            return\n        print(result)\n    print(f'Out of guesses. It was {secret}.')\n\n\nif __name__ == '__main__':\n    play(int(input()))\n",
+      "code": "def hint(secret, guess):\n    if guess < secret:\n        return \"higher\"\n    if guess > secret:\n        return \"lower\"\n    return \"correct\"\n\n\ndef read_guess(text):\n    s = text.strip()\n    if not s.isdigit():\n        return None\n    guess = int(s)\n    if 1 <= guess <= 100:\n        return guess\n    return None\n\n\ndef play(secret):\n    used = 0\n    while used < 5:\n        guess = read_guess(input())\n        if guess is None:\n            print(\"Please type a whole number from 1 to 100.\")\n            continue\n        used += 1\n        result = hint(secret, guess)\n        if result == \"correct\":\n            print(f\"Correct! Guesses used: {used}\")\n            return\n        print(result)\n    print(f\"Out of guesses. It was {secret}.\")\n\n\nif __name__ == \"__main__\":\n    play(int(input()))\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -33,7 +33,7 @@
       "temperature": 1.0
     },
     {
-      "code": "def hint(secret, guess):\n    if guess < secret:\n        return \"higher\"\n    if guess > secret:\n        return \"lower\"\n    return \"correct\"\n\n\ndef read_guess(text):\n    text = text.strip()\n    if not text.isdigit():\n        return None\n    guess = int(text)\n    if 1 <= guess <= 100:\n        return guess\n    return None\n\n\ndef play(secret):\n    guesses = 0\n    while guesses < 5:\n        guess = read_guess(input())\n        if guess is None:\n            print(\"Please type a whole number from 1 to 100.\")\n            continue\n        guesses += 1\n        result = hint(secret, guess)\n        if result == \"correct\":\n            print(\"Correct! Guesses used:\", guesses)\n            return\n        print(result)\n    print(\"Out of guesses. It was \" + str(secret) + \".\")\n\n\nif __name__ == \"__main__\":\n    play(int(input()))\n",
+      "code": "def hint(secret, guess):\n    if guess < secret:\n        return 'higher'\n    if guess > secret:\n        return 'lower'\n    return 'correct'\n\n\ndef read_guess(text):\n    text = text.strip()\n    if not text.isdigit():\n        return None\n    guess = int(text)\n    if 1 <= guess <= 100:\n        return guess\n    return None\n\n\ndef play(secret):\n    guesses = 0\n    while guesses < 5:\n        guess = read_guess(input())\n        if guess is None:\n            print('Please type a whole number from 1 to 100.')\n            continue\n        guesses += 1\n        result = hint(secret, guess)\n        if result == 'correct':\n            print(f'Correct! Guesses used: {guesses}')\n            return\n        print(result)\n    print(f'Out of guesses. It was {secret}.')\n\n\nif __name__ == '__main__':\n    play(int(input()))\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -43,7 +43,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def hint(secret, guess):\n    if guess < secret:\n        return \"higher\"\n    if guess > secret:\n        return \"lower\"\n    return \"correct\"\n\n\ndef read_guess(text):\n    text = text.strip()\n    try:\n        guess = int(text)\n    except ValueError:\n        return None\n    if 1 <= guess <= 100:\n        return guess\n    return None\n\n\ndef play(secret):\n    guesses_used = 0\n    while guesses_used < 5:\n        guess = read_guess(input())\n        if guess is None:\n            print(\"Please type a whole number from 1 to 100.\")\n            continue\n\n        guesses_used += 1\n        result = hint(secret, guess)\n\n        if result == \"correct\":\n            print(f\"Correct! Guesses used: {guesses_used}\")\n            return\n\n        print(result)\n\n    print(f\"Out of guesses. It was {secret}.\")\n\n\nif __name__ == \"__main__\":\n    play(int(input()))\n",
+      "code": "def hint(secret, guess):\n    if guess < secret:\n        return \"higher\"\n    if guess > secret:\n        return \"lower\"\n    return \"correct\"\n\n\ndef read_guess(text):\n    try:\n        guess = int(text.strip())\n    except ValueError:\n        return None\n\n    if 1 <= guess <= 100:\n        return guess\n    return None\n\n\ndef play(secret):\n    guesses = 0\n\n    while guesses < 5:\n        guess = read_guess(input())\n\n        if guess is None:\n            print(\"Please type a whole number from 1 to 100.\")\n            continue\n\n        guesses += 1\n        result = hint(secret, guess)\n\n        if result == \"correct\":\n            print(f\"Correct! Guesses used: {guesses}\")\n            return\n\n        print(result)\n\n    print(f\"Out of guesses. It was {secret}.\")\n\n\nif __name__ == \"__main__\":\n    play(int(input()))\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",

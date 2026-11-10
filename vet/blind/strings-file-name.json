@@ -1,9 +1,9 @@
 {
-  "fingerprint": "a65479d1e79e",
+  "fingerprint": "de705f4a686e",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def file_name(title):\n    name = title.strip()\n    name = name.lower()\n    name = name.replace(\" \", \"_\")\n    name = name + \".txt\"\n    return name\n",
+      "code": "def file_name(title):\n    name = title.strip()\n    name = name.lower()\n    name = name.replace(\" \", \"_\")\n    return name + \".txt\"\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "def file_name(title):\n    name = title.strip()\n    name = name.lower()\n    name = name.replace(\" \", \"_\")\n    name = name + \".txt\"\n    return name\n",
+      "code": "def file_name(title):\n    name = title.strip()\n    name = name.lower().replace(\" \", \"_\") + \".txt\"\n    return name\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -33,7 +33,7 @@
       "temperature": 1.0
     },
     {
-      "code": "def file_name(title):\n    name = title.strip()\n    name = name.lower()\n    name = name.replace(\" \", \"_\")\n    name = name + \".txt\"\n    return name\n",
+      "code": "def file_name(title):\n    name = title.strip()\n    name = name.lower()\n    name = name.replace(\" \", \"_\")\n    return name + \".txt\"\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -43,7 +43,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def file_name(title):\n    name = title.strip()\n    name = name.lower()\n    name = name.replace(\" \", \"_\")\n    name = name + \".txt\"\n    return name\n",
+      "code": "def file_name(title):\n    name = title.strip()\n    name = name.lower()\n    name = name.replace(\" \", \"_\")\n    return name + \".txt\"\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

@@ -12,9 +12,7 @@ id = "golden-ledger"
 name = "Golden Ledger"
 
 [cases]
-call = "average"
-args = ["list<int 0..20> 0..8"]
-compare = "float"
+none = "hard mode judges parse_line and ranking, which take gradebook lines that mix a name, a colon and commas, which a case cannot build"
 +++
 
 The marsh school's gradebook got soaked, and only its lines of text survived. Each line is a name, a colon, then marks separated by commas, like `Noa: 12, 15, 9`.

@@ -41,3 +41,8 @@ star-classifier), and the boss screen says "more tests" instead of "stricter tes
 
 - decision: model-wrong (by the session)
 - note: The parse prompt shows this exact case, so the attempt is wrong: two word item: parse("take old lamp") returned ('take', 'old'), expected ('take', 'old lamp') ^
+
+## blind: values-next-number, attempt 2 <!-- session triage -->
+
+- decision: model-wrong (by the session)
+- note: DeepSeek returned text where the prompt asks for the next number: We also tried next_number('0'): expected 1, your code returned '1'. The visible test caught it too.

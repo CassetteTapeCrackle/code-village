@@ -1,54 +1,54 @@
 {
-  "fingerprint": "4201063383f5",
+  "fingerprint": "5ab9dfc29425",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def trimmed_mean(values):\n    ordered = sorted(values)\n    trimmed = ordered[1:-1]\n    return sum(trimmed) / len(trimmed)\n",
+      "code": "def trimmed_mean(values):\n    ordered = sorted(values)\n    kept = ordered[1:-1]\n    return sum(kept) / len(kept)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
-      "code": "def trimmed_mean(values):\n    ordered = sorted(values)\n    trimmed = ordered[1:-1]\n    return sum(trimmed) / len(trimmed)\n",
+      "code": "def trimmed_mean(values):\n    ordered = sorted(values)\n    kept = ordered[1:-1]\n    return sum(kept) / len(kept)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
-      "code": "def trimmed_mean(values):\n    ordered = sorted(values)\n    trimmed = ordered[1:-1]\n    return sum(trimmed) / len(trimmed)\n\n\nprint(trimmed_mean([1, 2, 3, 4, 100]))\n",
+      "code": "def trimmed_mean(values):\n    ordered = sorted(values)\n    kept = ordered[1:-1]\n    return sum(kept) / len(kept)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def trimmed_mean(values):\n    ordered = sorted(values)\n    trimmed = ordered[1:-1]\n    return sum(trimmed) / len(trimmed)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def trimmed_mean(values):\n    ordered = sorted(values)\n    trimmed = ordered[1:-1]\n    return sum(trimmed) / len(trimmed)\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

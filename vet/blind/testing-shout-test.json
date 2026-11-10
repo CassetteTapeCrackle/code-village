@@ -1,9 +1,9 @@
 {
-  "fingerprint": "6ac1e11d2b4c",
+  "fingerprint": "da0732fcf902",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def shout(word):\n    return word.upper() + \"!\"\n\n\ndef test_shout():\n    assert shout(\"hey\") == \"HEY!\", \"shout should add !\"\n    assert shout(\"\") == \"!\", \"empty word gives just the mark\"\n\n\ntest_shout()\nprint(\"all good\")\n",
+      "code": "def shout(word):\n    return word.upper() + \"!\"\n\n\ndef test_shout():\n    assert shout(\"hey\") == \"HEY!\", \"shout should add !\"\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "def shout(word):\n    return word.upper() + \"!\"\n\n\ndef test_shout():\n    assert shout(\"hey\") == \"HEY!\", \"shout should add !\"\n    assert shout(\"hi\") == \"HI!\", \"shout should uppercase the word\"\n    assert shout(\"\") == \"!\", \"an empty word gives just the !\"\n\n\ntest_shout()\nprint(\"all good\")\n",
+      "code": "def shout(word):\n    return word.upper() + \"!\"\n\n\ndef test_shout():\n    assert shout(\"hey\") == \"HEY!\", \"shout should add !\"\n\n\ntest_shout()\nprint(\"all good\")\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def shout(word):\n    return word.upper() + \"!\"\n\n\ndef test_shout():\n    assert shout(\"hey\") == \"HEY!\", \"shout should add !\"\n\n\ntest_shout()\nprint(\"all good\")\n",
+      "code": "def shout(word):\n    return word.upper() + \"!\"\n\n\ndef test_shout():\n    assert shout(\"hey\") == \"HEY!\", \"shout should add !\"\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

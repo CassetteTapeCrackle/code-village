@@ -1,54 +1,54 @@
 {
-  "fingerprint": "e7c768f03ddb",
+  "fingerprint": "a0e3c282ec1f",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "import numpy as np\n\n\ndef typical_wait(minutes):\n    return float(np.median(minutes))\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
