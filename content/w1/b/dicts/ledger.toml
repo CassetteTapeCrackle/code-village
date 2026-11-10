@@ -241,3 +241,30 @@ status = "claim:auto-45dfbc3066e4"
 deepseek = "disagree"
 claude = "agree"
 decided = "owner"
+
+[[sentence]]
+fp = "8951978bf48f"
+text = "`list(unique)` makes that list; `.sort()` then puts it in order, smallest first."
+where = "task:dicts-unique-sorted:hint:1"
+status = "claim:auto-8951978bf48f"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "9f499391ef80"
+text = "`x in b` checks a list too, and `not in` is its opposite: `x not in both`."
+where = "task:dicts-in-both:prompt"
+status = "claim:auto-9f499391ef80"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4c82e8277d09"
+text = "A set has no order, so turn it into a list first."
+where = "task:dicts-unique-sorted:hint:0"
+status = "doc:https://docs.python.org/3/library/stdtypes.html#set"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

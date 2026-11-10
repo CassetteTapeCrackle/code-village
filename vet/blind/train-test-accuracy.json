@@ -1,5 +1,5 @@
 {
-  "fingerprint": "b3d46ec6b81c",
+  "fingerprint": "cad8dea75b91",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -33,7 +33,7 @@
       "temperature": 1.0
     },
     {
-      "code": "def accuracy(truth, guesses):\n    return sum(t == g for t, g in zip(truth, guesses)) / len(truth)\n",
+      "code": "def accuracy(truth, guesses):\n    correct = sum(t == g for t, g in zip(truth, guesses))\n    return correct / len(truth)\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -43,7 +43,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def accuracy(truth, guesses):\n    return sum(t == g for t, g in zip(truth, guesses)) / len(truth)\n",
+      "code": "def accuracy(truth, guesses):\n    correct = sum(t == g for t, g in zip(truth, guesses))\n    return correct / len(truth)\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",

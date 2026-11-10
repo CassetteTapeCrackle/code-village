@@ -313,3 +313,12 @@ status = "claim:auto-3438a0ef3fa6"
 deepseek = "disagree"
 claude = "agree"
 decided = "owner"
+
+[[sentence]]
+fp = "6f035779a1fe"
+text = "grid.shape gives (rows, columns); grid[r, c] reads one value and grid[:, c] a whole column; grid.sum(axis=0) adds down the columns."
+where = "remember:1"
+status = "claim:auto-6f035779a1fe"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

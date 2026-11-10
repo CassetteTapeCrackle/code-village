@@ -235,3 +235,12 @@ assert type(r.tolist()) is list
 ```python claim id=auto-3438a0ef3fa6
 assert [1, 2, 3] * 2 == [1, 2, 3, 1, 2, 3]
 ```
+
+```python claim id=auto-6f035779a1fe
+import numpy as np
+grid = np.array([[1, 2, 3], [4, 5, 6]])
+assert grid.shape == (2, 3)
+assert grid[1, 2] == 6
+assert grid[:, 1].tolist() == [2, 5]
+assert grid.sum(axis=0).tolist() == [5, 7, 9]
+```

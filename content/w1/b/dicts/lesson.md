@@ -171,3 +171,19 @@ except TypeError:
 assert ok
 assert len({1, 1, 2}) == 2
 ```
+
+```python claim id=auto-8951978bf48f
+unique = {3, 1, 2}
+items = list(unique)
+assert type(items) is list
+items.sort()
+assert items == [1, 2, 3]
+```
+
+```python claim id=auto-9f499391ef80
+b = [1, 2]
+both = [2]
+assert 1 in b and 3 not in b
+for x in (1, 2, 3):
+    assert (x not in both) == (not (x in both))
+```

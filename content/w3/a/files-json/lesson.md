@@ -14,6 +14,18 @@ name = "Field Logbook"
 
 Data that should outlive your program goes in a **file**. `open(path, "w")` opens one for writing, and `with` closes it for you when the block ends, even if an error happens halfway.
 
+```python claim id=auto-bed04e715913
+import io
+f = io.StringIO()
+try:
+    with f:
+        f.write('a')
+        raise ValueError
+except ValueError:
+    pass
+assert f.closed
+```
+
 ```python claim id=files-json-claim-1
 with open("notes.txt", "w") as f:
     pass

@@ -230,3 +230,8 @@ except TypeError:
     ok = True
 assert ok
 ```
+
+```python claim id=auto-c3de5e3892b0
+words = ['a', 'big', 'a', 'cat']
+assert list(filter(lambda w: w != 'a', words)) == ['big', 'cat']
+```

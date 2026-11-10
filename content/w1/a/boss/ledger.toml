@@ -105,3 +105,12 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "disagree"
 decided = "owner"
+
+[[sentence]]
+fp = "83aba144cfe0"
+text = "`None` is Python's value for \"nothing\"."
+where = "stage:guessing-read:prompt"
+status = "doc:https://docs.python.org/3/library/constants.html#None"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

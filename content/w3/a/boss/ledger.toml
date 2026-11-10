@@ -96,3 +96,21 @@ status = "advice"
 deepseek = "disagree"
 claude = "disagree"
 decided = "owner"
+
+[[sentence]]
+fp = "6e97aadfbf4a"
+text = "With no sales, `total` is `0` and `best` is `None`."
+where = "stage:sales-report-file:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "bc6657447258"
+text = "A price can have a thousands comma, in quotes like `\"1,200\"`: that is `1200.0`."
+where = "stage:sales-read:prompt"
+status = "not-a-fact"
+deepseek = "false"
+claude = "agree"
+decided = "owner"

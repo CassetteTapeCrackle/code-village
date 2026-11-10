@@ -1,0 +1,163 @@
+{
+  "model": "deepseek-flash",
+  "calls": 22,
+  "tokens": 38369,
+  "failed": 0,
+  "seconds": 32.0,
+  "replies": [
+    {
+      "fp": "ce0a631e331f",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "It correctly recommends writing each equality check separately when testing whether x is equal to either of two values.",
+      "assert": null
+    },
+    {
+      "fp": "8cd0ee009fc4",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "This is the correct pattern for comparing one value against two alternatives with `or`; writing `day == \"sat\" or \"sun\"` does not compare `day` with `\"sun\"`.",
+      "assert": null
+    },
+    {
+      "fp": "4c82e8277d09",
+      "status": "advice",
+      "verdict": "true",
+      "reason": "Sets are unordered, so a list is useful when you need indexing or sorting. Note that list(a_set) itself has arbitrary order and must be sorted if a particular order is wanted.",
+      "assert": null
+    },
+    {
+      "fp": "8951978bf48f",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "list(unique) creates a list from the iterable, and .sort() sorts that list in place in ascending order for comparable items.",
+      "assert": "unique = {3, 1, 2}\nx = list(unique)\nx.sort()\nassert x == [1, 2, 3]"
+    },
+    {
+      "fp": "9f499391ef80",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The `in` operator tests membership in a list, and `not in` is its negation; the example is valid when `both` is a list.",
+      "assert": "b = [1, 2, 3]\nboth = [1, 2, 3]\nx = 2\nassert x in b\nassert (x in both) == (not (x not in both))\nassert 4 not in b\nassert not (4 in b)"
+    },
+    {
+      "fp": "bed04e715913",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Mode \"w\" makes the file writable, and a file used in a `with` statement is closed when the block exits, including when an exception leaves the block.",
+      "assert": "import os\n\nf = open(os.devnull, \"w\")\nassert f.writable()\nf.close()\n\nwith open(os.devnull, \"w\") as g:\n    pass\nassert g.closed\n\ntry:\n    with open(os.devnull, \"w\") as h:\n        raise RuntimeError(\"boom\")\nexcept RuntimeError:\n    pass\nassert h.closed"
+    },
+    {
+      "fp": "49a4eed6d9ba",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "The sentence is an instruction about what to do in an exercise, not a factual claim about Python behavior.",
+      "assert": null
+    },
+    {
+      "fp": "062df7e4a9f4",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "The sentence is a question asking what the w mode does, not a statement of fact to check.",
+      "assert": null
+    },
+    {
+      "fp": "1d9f69223253",
+      "status": "doc:https://docs.python.org/3/library/functions.html#open",
+      "verdict": "true",
+      "reason": "Python's open documentation says mode 'a' opens for writing and appends to the end of the file if it exists.",
+      "assert": null
+    },
+    {
+      "fp": "c3de5e3892b0",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "The filter keeps elements for which the lambda returns True, so only elements equal to the string \"a\" are removed.",
+      "assert": "words = [\"a\", \"b\", \"a\", \"c\"]\nassert list(filter(lambda w: w != \"a\", words)) == [\"b\", \"c\"]"
+    },
+    {
+      "fp": "6f035779a1fe",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "For a 2-D NumPy array, shape is (rows, columns), indexing grid[r, c] returns one element, grid[:, c] returns column c, and sum(axis=0) sums each column down the rows.",
+      "assert": "import numpy as np\ngrid = np.array([[1, 2], [3, 4]])\nassert grid.shape == (2, 2)\nassert grid[0, 1] == 2\nassert grid[:, 1].tolist() == [2, 4]\nassert grid.sum(axis=0).tolist() == [4, 6]"
+    },
+    {
+      "fp": "787b59035384",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "sorted() builds and returns a new list, leaving the original iterable unchanged; the second clause is just advice on which to use.",
+      "assert": "names = [\"b\", \"a\", \"c\"]\nresult = sorted(names)\nassert result == [\"a\", \"b\", \"c\"]\nassert isinstance(result, list)\nassert names == [\"b\", \"a\", \"c\"]"
+    },
+    {
+      "fp": "194524d00eac",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "It states a broad tendency, not a guarantee; some models underfit and can get training examples wrong.",
+      "assert": null
+    },
+    {
+      "fp": "83aba144cfe0",
+      "status": "simplification",
+      "verdict": "true",
+      "reason": "None is commonly used to represent the absence of a value, but it is actually a real singleton object of type NoneType, not literally nothing.",
+      "assert": null
+    },
+    {
+      "fp": "3229120cad9f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "The sentence specifies the expected behavior of the course's ranking function, not a Python or library behavior. It does not state anything false.",
+      "assert": null
+    },
+    {
+      "fp": "f19a1b744bb3",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "The sentence describes the intended behavior and examples of a course-defined parse function, not a built-in Python behavior. There is no implementation given to check.",
+      "assert": null
+    },
+    {
+      "fp": "4fdc0a86c7b6",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This describes the expected behavior of the exercise's method rather than a standalone Python fact. Python's stable sort makes the equal-length insertion-order condition achievable.",
+      "assert": null
+    },
+    {
+      "fp": "02f58a15354f",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "The sentence describes the intended behavior of the exercise's Keeper class, not a fact about how Python itself behaves.",
+      "assert": null
+    },
+    {
+      "fp": "bc6657447258",
+      "status": "claim",
+      "verdict": "false",
+      "reason": "The CSV quotes only protect the comma; after parsing the field is the string '1,200', and float('1,200') raises ValueError in Python 3.12. To get 1200.0, the comma must be removed or parsed by something that understands thousands separators.",
+      "assert": "import csv, io\nrow = next(csv.DictReader(io.StringIO('product,quantity,price\\nlamp,2,\"1,200\"\\n')))\ntry:\n    value = float(row['price'])\nexcept ValueError:\n    value = None\nassert value == 1200.0"
+    },
+    {
+      "fp": "6e97aadfbf4a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This describes the expected behavior of the course's custom save_report function, not a Python language or library fact. The stated empty-case values are consistent with the surrounding specification.",
+      "assert": null
+    },
+    {
+      "fp": "da33cfbef74a",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "The sentence specifies the intended behavior of the course-defined summary function on an empty list, not a built-in Python or library behavior. It is a valid exercise requirement.",
+      "assert": null
+    },
+    {
+      "fp": "d1a5eda5bc9b",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It describes the intended behavior of the exercise's scale_columns helper, not a Python built-in. The constant-column special case is a reasonable specification to avoid division by zero.",
+      "assert": null
+    }
+  ]
+}

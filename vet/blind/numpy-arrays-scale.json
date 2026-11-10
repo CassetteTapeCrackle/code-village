@@ -1,5 +1,5 @@
 {
-  "fingerprint": "16ab3afb9480",
+  "fingerprint": "93561c2f44fd",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "import numpy as np\n\n\ndef scale(values, factor):\n    a = np.array(values)\n    return a * factor\n",
+      "code": "import numpy as np\n\n\ndef scale(values, factor):\n    return np.array(values) * factor\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -43,7 +43,7 @@
       "temperature": 0.6
     },
     {
-      "code": "import numpy as np\n\n\ndef scale(values, factor):\n    return np.array(values) * factor\n",
+      "code": "import numpy as np\n\n\ndef scale(values, factor):\n    a = np.array(values)\n    return a * factor\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",

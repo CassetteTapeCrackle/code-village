@@ -316,3 +316,13 @@ reason = "Leaves out the case of identical rows with different labels, where a 1
 deepseek = "false"
 claude = "agree"
 decided = "owner"
+
+[[sentence]]
+fp = "194524d00eac"
+text = "A model tends to get right the examples it learned from."
+where = "text:13"
+status = "simplification"
+reason = "Most models fit their training data better than new data. How well depends on the model: a simple or heavily regularised one still gets some training examples wrong."
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

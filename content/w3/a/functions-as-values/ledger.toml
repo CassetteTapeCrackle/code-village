@@ -306,3 +306,12 @@ status = "claim:auto-e0983576d97d"
 deepseek = "disagree"
 claude = "agree"
 decided = "owner"
+
+[[sentence]]
+fp = "c3de5e3892b0"
+text = "`list(filter(lambda w: w != \"a\", words))` keeps every word except a."
+where = "task:functions-as-values-keep-long:hint:1"
+status = "claim:auto-c3de5e3892b0"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

@@ -318,3 +318,12 @@ status = "claim:auto-61063d13db8e"
 deepseek = "agree"
 claude = "agree"
 decided = "owner"
+
+[[sentence]]
+fp = "787b59035384"
+text = "`sorted(names)` returns a new sorted list: use that one for the search."
+where = "task:search-sort-member:hint:1"
+status = "claim:auto-787b59035384"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

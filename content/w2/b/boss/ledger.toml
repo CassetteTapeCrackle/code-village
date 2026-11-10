@@ -69,3 +69,12 @@ status = "doc:https://docs.python.org/3/reference/datamodel.html#object.__contai
 deepseek = "disagree"
 claude = "disagree"
 decided = "owner"
+
+[[sentence]]
+fp = "4fdc0a86c7b6"
+text = "`sorted_by_length()` returns the songs shortest first, using a key function; songs of equal length keep the order they were added in."
+where = "stage:playlist-find:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

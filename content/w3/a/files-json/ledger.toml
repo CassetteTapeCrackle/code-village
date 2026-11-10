@@ -261,3 +261,39 @@ status = "claim:auto-299dffa91c42"
 deepseek = "disagree"
 claude = "agree"
 decided = "owner"
+
+[[sentence]]
+fp = "bed04e715913"
+text = "`open(path, \"w\")` opens one for writing, and `with` closes it for you when the block ends, even if an error happens halfway."
+where = "text:0"
+status = "claim:auto-bed04e715913"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "49a4eed6d9ba"
+text = "Open the file for writing inside a `with`, then loop over `lines`."
+where = "task:files-json-save:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "062df7e4a9f4"
+text = "What does the w mode of open do to a file that already exists?"
+where = "task:files-json-logbook:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "1d9f69223253"
+text = "The a mode adds to the end of the file instead."
+where = "task:files-json-logbook:hint:1"
+status = "doc:https://docs.python.org/3/library/functions.html#open"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

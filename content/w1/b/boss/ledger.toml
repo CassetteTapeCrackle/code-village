@@ -115,3 +115,12 @@ status = "advice"
 deepseek = "disagree"
 claude = "disagree"
 decided = "owner"
+
+[[sentence]]
+fp = "3229120cad9f"
+text = "Blank lines (empty or only spaces) are skipped, and the list it is given stays as it was."
+where = "stage:gradebook-ranking:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

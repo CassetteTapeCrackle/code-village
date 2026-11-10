@@ -105,3 +105,12 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "unsure"
 decided = "owner"
+
+[[sentence]]
+fp = "d1a5eda5bc9b"
+text = "`scale_columns(rows)` takes a list of rows of numbers and returns new rows where each column is scaled to 0 to 1: `(value - smallest) / (largest - smallest)` within its column; a column where every value is the same scales to `0.0`."
+where = "stage:stars-scale:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

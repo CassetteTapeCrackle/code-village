@@ -226,3 +226,10 @@ assert binary_search([90, 20, 70, 40], 90) is False
 import math
 assert math.ceil(math.log2(1_000_000)) == 20
 ```
+
+```python claim id=auto-787b59035384
+names = ['mo', 'al']
+ordered = sorted(names)
+assert ordered == ['al', 'mo']
+assert names == ['mo', 'al'] and ordered is not names
+```
