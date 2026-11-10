@@ -4,5 +4,4 @@ prompt = "`parse(command)` returns a `(verb, noun)` pair in lower case, ignoring
 hp = 20
 
 [cases]
-call = "parse"
-args = ["str 0..16"]
+none = "a case cannot draw text with one space between words, and the prompt does not say what spacing inside the noun gives"

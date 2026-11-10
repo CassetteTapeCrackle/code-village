@@ -1,9 +1,9 @@
 {
-  "fingerprint": "896356c95dff",
+  "fingerprint": "1ded2c378fa4",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    assert average([7]) == 7\n    assert raises_value_error(average, []), \"empty list should raise ValueError\"\n",
+      "code": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    assert average([7]) == 7, \"a single number is its own average\"\n    assert raises_value_error(average, []), \"empty list raises ValueError\"\n\n\ntest_average()\nprint(\"all good\")\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    assert average([7]) == 7, \"single number is its own average\"\n    assert raises_value_error(average, []), \"empty list raises ValueError\"\n\n\ntest_average()\nprint(\"all good\")\n",
+      "code": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    assert average([7]) == 7, \"one number is its own average\"\n    assert raises_value_error(average, []), \"empty list raises ValueError\"\n\n\ntest_average()",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -21,16 +21,6 @@
       "fuzz": "none",
       "input": "",
       "temperature": 0.6
-    },
-    {
-      "code": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    assert average([7]) == 7, \"a single number is its own average\"\n    assert raises_value_error(average, []) == True, \"empty list raises ValueError\"\n",
-      "visible": "pass",
-      "hidden": "none",
-      "failure": "",
-      "case": "",
-      "fuzz": "none",
-      "input": "",
-      "temperature": 1.0
     },
     {
       "code": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    assert average([7]) == 7, \"one number averages to itself\"\n    assert raises_value_error(average, []), \"empty list raises ValueError\"\n\n\ntest_average()\nprint(\"all good\")\n",
@@ -40,10 +30,20 @@
       "case": "",
       "fuzz": "none",
       "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    assert average([7]) == 7, \"a single number averages to itself\"\n    assert raises_value_error(average, []), \"an empty list raises ValueError\"\n\n\ntest_average()\nprint(\"all good\")",
+      "visible": "pass",
+      "hidden": "none",
+      "failure": "",
+      "case": "",
+      "fuzz": "none",
+      "input": "",
       "temperature": 0.6
     },
     {
-      "code": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    assert average([7]) == 7, \"single number stays itself\"\n    assert raises_value_error(average, []), \"empty list raises ValueError\"\n\n\ntest_average()\n",
+      "code": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    assert average([7]) == 7, \"a single number averages to itself\"\n    assert raises_value_error(average, []), \"empty list should raise ValueError\"\n\n\ntest_average()\nprint(\"all good\")\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

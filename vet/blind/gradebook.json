@@ -1,9 +1,9 @@
 {
-  "fingerprint": "5dd549cc54aa",
+  "fingerprint": "b272e4ba3879",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks_text = marks_text.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece:\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if not line.strip():\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))",
+      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\")\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece:\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if not line.strip():\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -11,26 +11,6 @@
       "fuzz": "agree",
       "input": "",
       "temperature": 0.2
-    },
-    {
-      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks = []\n    for part in marks_text.split(\",\"):\n        part = part.strip()\n        if part != \"\":\n            marks.append(int(part))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
-      "visible": "pass",
-      "hidden": "pass",
-      "failure": "",
-      "case": "",
-      "fuzz": "agree",
-      "input": "",
-      "temperature": 0.6
-    },
-    {
-      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks_text = marks_text.strip()\n    if marks_text == \"\":\n        return name, []\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece == \"\":\n            continue\n        marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
-      "visible": "pass",
-      "hidden": "pass",
-      "failure": "",
-      "case": "",
-      "fuzz": "agree",
-      "input": "",
-      "temperature": 1.0
     },
     {
       "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece != \"\":\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
@@ -43,7 +23,27 @@
       "temperature": 0.6
     },
     {
-      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece:\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
+      "code": "def parse_line(line):\n    parts = line.split(':', 1)\n    name = parts[0].strip()\n    marks_text = parts[1].strip()\n    marks = []\n    if marks_text != '':\n        pieces = marks_text.split(',')\n        for piece in pieces:\n            piece = piece.strip()\n            if piece != '':\n                marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == '':\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 1.0
+    },
+    {
+      "code": "def parse_line(line):\n    name_part, marks_part = line.split(\":\", 1)\n    name = name_part.strip()\n    marks = []\n    for piece in marks_part.split(\",\"):\n        piece = piece.strip()\n        if piece != \"\":\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if len(marks) == 0:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
+      "visible": "pass",
+      "hidden": "pass",
+      "failure": "",
+      "case": "",
+      "fuzz": "agree",
+      "input": "",
+      "temperature": 0.6
+    },
+    {
+      "code": "def parse_line(line):\n    name, marks_text = line.split(\":\", 1)\n    name = name.strip()\n    marks_text = marks_text.strip()\n    if marks_text == \"\":\n        return name, []\n    marks = []\n    for piece in marks_text.split(\",\"):\n        piece = piece.strip()\n        if piece != \"\":\n            marks.append(int(piece))\n    return name, marks\n\n\ndef average(marks):\n    if not marks:\n        return 0.0\n    return round(sum(marks) / len(marks), 2)\n\n\ndef ranking(lines):\n    pairs = []\n    for line in lines:\n        if line.strip() == \"\":\n            continue\n        name, marks = parse_line(line)\n        pairs.append((name, average(marks)))\n    return sorted(pairs, key=lambda pair: (-pair[1], pair[0]))\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",

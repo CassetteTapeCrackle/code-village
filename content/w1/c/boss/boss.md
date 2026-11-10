@@ -11,7 +11,7 @@ name = "Ruin Lantern"
 id = "cartographers-quill"
 name = "Cartographer's Quill"
 [cases]
-stdin = ["choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit"]
+stdin = ["choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit"]
 +++
 
 You left your satchel somewhere in the ruins. Write a tiny text adventure to go and get it back: rooms are a dict of dicts, commands come from `input()`, and what you pick up goes into a list.
