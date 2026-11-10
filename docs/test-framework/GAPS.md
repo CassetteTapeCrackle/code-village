@@ -5,20 +5,16 @@ Written by `python -m tools.vet.gaps --write --summary docs/test-framework/GAPS.
 
 | Severity | Gaps |
 | --- | --- |
-| wrong-accepted | 47 |
+| wrong-accepted | 46 |
 | false-claim | 16 |
-| ambiguous | 3 |
 
-**66 findings in all.**
+**62 findings in all.**
 
 ## By world and rule
 
 | World | Rule | Severity | Count |
 | --- | --- | --- | --- |
-| w1 | blind-missing | ambiguous | 1 |
-| w1 | cases-target-unused | wrong-accepted | 1 |
 | w1 | remember-unbacked | false-claim | 4 |
-| w2 | blind-missing | ambiguous | 2 |
 | w2 | remember-unbacked | false-claim | 6 |
 | w2 | weak-tests | wrong-accepted | 46 |
 | w3 | remember-unbacked | false-claim | 6 |

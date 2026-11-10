@@ -1,5 +1,5 @@
 {
-  "fingerprint": "da7bac27f004",
+  "fingerprint": "64de0f6582f6",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -43,7 +43,7 @@
       "temperature": 0.6
     },
     {
-      "code": "import numpy as np\n\n\ndef summary(values):\n    return {\n        \"mean\": float(np.mean(values)),\n        \"median\": float(np.median(values)),\n        \"std\": round(float(np.std(values, ddof=0)), 2),\n    }\n",
+      "code": "import numpy as np\n\n\ndef summary(values):\n    return {\n        \"mean\": float(np.mean(values)),\n        \"median\": float(np.median(values)),\n        \"std\": round(float(np.std(values, ddof=0)), 2),\n    }",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",

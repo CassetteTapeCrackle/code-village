@@ -1,26 +1,6 @@
 # Known gaps: written by `pnpm gaps --write`. Never edit by hand; fix the content instead.
 
 [[gap]]
-rule = "blind-missing"
-item = "songbird-playlist"
-fingerprint = "d8b337068045"
-
-[[gap]]
-rule = "blind-missing"
-item = "testing-average-test"
-fingerprint = "1ded2c378fa4"
-
-[[gap]]
-rule = "blind-missing"
-item = "values-average"
-fingerprint = "20b4d61cc590"
-
-[[gap]]
-rule = "cases-target-unused"
-item = "gradebook"
-fingerprint = "5dd549cc54aa"
-
-[[gap]]
 rule = "remember-unbacked"
 item = "classes"
 fingerprint = "0388483a3364"
