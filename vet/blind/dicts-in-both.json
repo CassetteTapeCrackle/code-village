@@ -1,9 +1,9 @@
 {
-  "fingerprint": "93cd31168198",
+  "fingerprint": "b976f0a841ab",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        # add x when it is also in b, and not in both yet\n        if x in b and x not in both:\n            both.append(x)\n    both.sort()\n    return both\n",
+      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        if x in b and x not in both:\n            both.append(x)\n    both.sort()\n    return both\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        if x in b and x not in both:\n            both.append(x)\n    both.sort()\n    return both\n",
+      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        # add x when it is also in b, and not in both yet\n        if x in b and x not in both:\n            both.append(x)\n    both.sort()\n    return both\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        # add x when it is also in b, and not in both yet\n        if x in b and x not in both:\n            both.append(x)\n    both.sort()\n    return both\n",
+      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        if x in b and x not in both:\n            both.append(x)\n    both.sort()\n    return both\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",
@@ -33,7 +33,7 @@
       "temperature": 1.0
     },
     {
-      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        # add x when it is also in b, and not in both yet\n        if x in b and x not in both:\n            both.append(x)\n    both.sort()\n    return both\n",
+      "code": "def in_both(a, b):\n    both = []\n    for x in a:\n        if x in b and x not in both:\n            both.append(x)\n    both.sort()\n    return both\n",
       "visible": "pass",
       "hidden": "pass",
       "failure": "",

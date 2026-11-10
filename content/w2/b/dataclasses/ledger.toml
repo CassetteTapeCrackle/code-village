@@ -249,3 +249,49 @@ status = "claim:auto-c6b29f000258"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "afe630a854c6"
+text = "Many classes only hold data: an `__init__` that stores each argument, a `__repr__` to show it, an `__eq__` to compare."
+where = "text:0"
+status = "simplification"
+reason = "Describes a common kind of data-holding class in a loose way. It does not claim all such classes need these three methods."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "ec3d389eaa33"
+text = "A list as a default would be shared by every object, the old trap from World 1."
+where = "text:17"
+status = "claim:auto-ec3d389eaa33"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "7a72d3d7f328"
+text = "Ask for a new list each time with `field(default_factory=list)`."
+where = "text:17"
+status = "claim:auto-7a72d3d7f328"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "3a283d0e7fe4"
+text = "The `__eq__` a dataclass writes has the same cost as your own: its objects cannot go in a set."
+where = "text:21"
+status = "claim:auto-3a283d0e7fe4"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "7919a3aba726"
+text = "@dataclass(order=True) sorts by the fields, in order."
+where = "remember:3"
+status = "claim:auto-7919a3aba726"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

@@ -55,6 +55,14 @@ print(apples)
 
 Numbers do arithmetic: `*` multiplies, `/` divides and always gives a float, `//` divides and rounds down to a whole number, `%` gives the remainder, and `**` raises to a power.
 
+```python claim id=auto-ab4c87e26c7a
+assert 3 * 4 == 12
+assert type(4 / 2) is float and 4 / 2 == 2.0
+assert 7 // 2 == 3 and -7 // 2 == -4
+assert 7 % 3 == 1
+assert 2 ** 3 == 8
+```
+
 ```python claim id=values-claim-2
 assert 7 / 2 == 3.5 and type(6 / 2) is float
 assert 7 // 2 == 3 and -7 // 2 == -4 and 7.5 // 2 == 3.0
@@ -66,6 +74,12 @@ print(7 * 3, 7 / 2, 7 // 2, 7 % 2, 2 ** 3)
 ```
 
 Most tasks ask you to finish a small **function**. A line like `def total_price(price, quantity):` gives it a name and lists the values it receives, its **parameters**. The indented lines below are its body, and `return` hands the answer back. The starter body is `pass`, which means "nothing yet": replace it with your code. The Functions lesson explains all of this in depth later.
+
+```python claim id=auto-9432d91d0242
+def f():
+    pass
+assert f() is None
+```
 
 ```python claim id=auto-450001abe5d8
 def f(a):
@@ -84,6 +98,11 @@ assert total_price.__name__ == 'total_price'
 ::task total-price
 
 Types matter. `+` adds numbers, but it **joins** strings. So `"3" + "4"` is `"34"`, not 7. Convert first with `int()`, `float()` or `str()`.
+
+```python claim id=auto-8b9f894df9aa
+assert 3 + 4 == 7
+assert '3' + '4' == '34'
+```
 
 ```python claim id=auto-0b19fb6484f0
 assert '3' + '4' == '34'

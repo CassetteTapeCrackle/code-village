@@ -267,3 +267,30 @@ status = "claim:auto-444f94573a5f"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "07355ba32a8d"
+text = "Change it through the class: `Lantern.made += 1`."
+where = "task:class-attributes-lanterns:prompt"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "072bba4d3f5c"
+text = "Create the empty `tents` list on `self` inside `__init__`."
+where = "task:class-attributes-camp:hint:1"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "84842b2d67ee"
+text = "Change a shared counter through the class: Ranger.count += 1."
+where = "remember:3"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

@@ -232,3 +232,70 @@ status = "advice"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "31cd4817d803"
+text = "Inheritance answers \"is a\": an owl **is an** animal."
+where = "text:0"
+status = "simplification"
+reason = "Inheritance models an 'is a' relationship; this is a design guideline and leaves out subtleties."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "e6d29291613a"
+text = "Then the object keeps its parts as attributes and hands work to them."
+where = "text:0"
+status = "simplification"
+reason = "Describes composition in plain words. It leaves out that a part may also be passed in or shared, not only created inside the object."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "cd69863eeef6"
+text = "Inheriting just to reuse some methods is tempting, and it makes odd claims: if `Ranger` inherits from `Backpack`, a ranger **is** a backpack, and every backpack method becomes a ranger method."
+where = "text:7"
+status = "claim:auto-cd69863eeef6"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "cd91c1ca7e22"
+text = "A `Ranger` should **have** a `Backpack` called `pack`, so `ranger.pack.add(\"rope\")` works."
+where = "task:composition-ranger-pack:prompt"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "4ae677f74ebc"
+text = "A `Cook` should **have** a `Pantry` called `pantry`, so `cook.pantry.store(\"flour\")` works, but right now a cook **is** a pantry: fix the design by giving the cook a `Pantry()` in `__init__` instead of inheriting."
+where = "task:composition-cook-pantry:prompt"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "fe011f01ddbc"
+text = "Composition says 'has a': a keeper has animals, kept as attributes."
+where = "remember:1"
+status = "simplification"
+reason = "It is a rule of thumb for composition. It leaves out that a has-a part need not be a collection or an attribute holding objects."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "6ee743ea40cc"
+text = "The outer object hands work to its parts: self.engine.start()."
+where = "remember:2"
+status = "simplification"
+reason = "It describes delegation to parts in simple terms."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

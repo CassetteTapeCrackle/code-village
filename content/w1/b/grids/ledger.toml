@@ -150,3 +150,48 @@ status = "claim:auto-1e6a0c38fa1f"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "e3b55e0157ff"
+text = "Two loops, one inside the other, visit every cell: the outer loop takes a row, the inner loop walks along it."
+where = "text:4"
+status = "claim:auto-e3b55e0157ff"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "ed6fce54bf9f"
+text = "Use a loop over the rows, and a loop over each row's cells."
+where = "task:grids-sum:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d3ec19311c96"
+text = "Build the rows one by one: start with an empty list, and inside a loop over `rows` append a brand-new row list of `cols` dots."
+where = "task:grids-board:hint:1"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "98e74b9bfb72"
+text = "For the first column, `row[0]` is that row's first value; use `c` instead of `0`."
+where = "task:grids-column:hint:1"
+status = "claim:auto-98e74b9bfb72"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "b16a1dda3b60"
+text = "A loop inside a loop visits every cell."
+where = "remember:1"
+status = "claim:auto-b16a1dda3b60"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

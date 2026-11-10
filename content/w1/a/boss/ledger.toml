@@ -78,3 +78,39 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "65820e4200b8"
+text = "The last lines, under `if __name__ == \"__main__\":`, start the game only when the whole program runs; the first two stages check your functions on their own."
+where = "boss:intro"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "36e115f6dc93"
+text = "In a real game you would let Python pick it: `import random`, then `random.randint(1, 100)` gives a whole number from 1 to 100."
+where = "boss:intro"
+status = "doc:https://docs.python.org/3/library/random.html#random.randint"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "6c5d7ba81af7"
+text = "After 5 wrong guesses it prints `Out of guesses. It was SECRET.` Inside a loop, `continue` jumps straight to the next round and `return` leaves the function."
+where = "stage:guessing-play:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "83aba144cfe0"
+text = "`None` is Python's value for \"nothing\"."
+where = "stage:guessing-read:prompt"
+status = "doc:https://docs.python.org/3/library/constants.html#None"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

@@ -287,3 +287,30 @@ status = "advice"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "83ec8aeeb720"
+text = "The tool is `assert`: it does nothing when its condition is true, and stops with an `AssertionError` when it is false."
+where = "text:0"
+status = "claim:auto-83ec8aeeb720"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "990357b388ce"
+text = "`test_shout()` passes even when `shout` is broken."
+where = "task:testing-shout-test:prompt"
+status = "claim:auto-990357b388ce"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "514c438f8230"
+text = "Never put brackets around assert's two parts: a tuple is always true."
+where = "remember:3"
+status = "claim:auto-514c438f8230"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"

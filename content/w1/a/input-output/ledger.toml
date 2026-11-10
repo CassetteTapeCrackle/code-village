@@ -204,3 +204,57 @@ status = "claim:auto-c6ba7f566d2c"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "3c927162ea6a"
+text = "`input()` waits for the user to type a line and gives it back."
+where = "text:5"
+status = "doc:https://docs.python.org/3/library/functions.html#input"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "c60780d7d266"
+text = "It **always** gives back a `str`, even when the user types digits."
+where = "text:5"
+status = "doc:https://docs.python.org/3/library/functions.html#input"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "6e111eeafc2e"
+text = "Call `input()` with nothing inside the brackets: a question would be printed too, and the check would not match."
+where = "text:7"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "c976b6eca4ac"
+text = "`name = input()` reads the line."
+where = "task:io-greet:hint:0"
+status = "doc:https://docs.python.org/3/library/functions.html#input"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "572f0298f720"
+text = "For `4` it currently prints `Double: 44`; it should print `Double: 8`."
+where = "task:io-double:prompt"
+status = "claim:auto-572f0298f720"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "5549a0505075"
+text = "input() always returns a str, even when the user types digits."
+where = "remember:1"
+status = "doc:https://docs.python.org/3/library/functions.html#input"
+deepseek = "disagree"
+claude = "disagree"
+decided = "owner"

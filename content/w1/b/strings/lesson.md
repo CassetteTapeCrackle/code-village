@@ -40,6 +40,10 @@ print(word[0], word[-1], word[1:4], len(word))
 
 String methods give you a **new** string: `upper()`, `lower()`, `strip()` (removes spaces, tabs and line breaks at both ends), `replace(old, new)`. `split()` cuts a string into a list of words (lists are the next lesson).
 
+```python claim id=auto-aaf5ed3812ca
+assert 'noa river'.split() == ['noa', 'river']
+```
+
 ```python claim id=auto-63464a76a799
 s = ' \tHi there\n'
 assert s.strip() == 'Hi there'
@@ -63,6 +67,13 @@ print("tea".replace("t", "s").upper())
 ::task initials
 
 A string never changes in place. A method returns a new string and leaves the old one as it was, so keep the result in a variable.
+
+```python claim id=auto-ceb41e308347
+s = 'Hello'
+t = s.upper()
+assert s == 'Hello'
+assert t == 'HELLO'
+```
 
 ```python claim id=auto-79cd2ea70f4e
 s = 'abc'
@@ -136,4 +147,9 @@ s.upper()
 assert s == 'abc'
 s = s.upper()
 assert s == 'ABC'
+```
+
+```python claim id=auto-5161ad5d42d5
+assert 'a b  c'.split() == ['a', 'b', 'c']
+assert '  hi\n'.strip() == 'hi'
 ```

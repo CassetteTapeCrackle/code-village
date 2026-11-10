@@ -195,3 +195,66 @@ status = "claim:auto-0b1e35d7ff8e"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "b5f2f8a65bdf"
+text = "`sorted`, `max` (the biggest item) and `min` (the smallest) all work by comparing items: `sorted` and `min` ask `<`, `max` asks `>`."
+where = "text:0"
+status = "claim:auto-b5f2f8a65bdf"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "3cef00ce2878"
+text = "Numbers and strings know how."
+where = "text:0"
+status = "claim:auto-3cef00ce2878"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "f4379b4969e7"
+text = "`reverse=True` turns any sort around."
+where = "text:7"
+status = "claim:auto-f4379b4969e7"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "7861ffd792f7"
+text = "It crashes with a `TypeError`: give `sorted` a key function that returns `tree.age`, and keep `reverse=True`."
+where = "task:sortable-oldest:prompt"
+status = "claim:auto-7861ffd792f7"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "dedd591e846a"
+text = "`__lt__(self, other)` returns `True` when `self` is lighter than `other`."
+where = "task:sortable-acorns:hint:0"
+status = "not-a-fact"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "ee9efdf7e192"
+text = "Compare the two objects' `weight` attributes with `<`, so `True` means `self` is lighter."
+where = "task:sortable-acorns:hint:1"
+status = "claim:auto-ee9efdf7e192"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "79ffa7e12aa5"
+text = "sorted, max and min need to compare: give them a key, or a __lt__."
+where = "remember:0"
+status = "claim:auto-79ffa7e12aa5"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"

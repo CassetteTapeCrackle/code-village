@@ -14,6 +14,12 @@ name = "Recipe Card"
 
 `def` makes a **function**: a named block you call with **arguments**. `return` hands a value back to the caller. `print` only shows a value on screen, and a function without `return` gives back `None`.
 
+```python claim id=auto-cfdcf290b31a
+def f():
+    print('hi')
+assert f() is None
+```
+
 ```python claim id=auto-66b22e10d786
 def f():
     return 5
@@ -47,6 +53,18 @@ print(x, y)
 ```
 
 A parameter can have a **default**, used when the caller leaves it out. Names created inside a function are **local**: they disappear when it returns.
+
+```python claim id=auto-1db4c7cb080a
+def f():
+    inner = 1
+    return inner
+f()
+try:
+    inner
+    assert False
+except NameError:
+    pass
+```
 
 ```python claim id=auto-3eeac6338d93
 def f(a, b=3):

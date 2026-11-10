@@ -14,6 +14,36 @@ name = "Ranked Feathers"
 
 `sorted`, `max` (the biggest item) and `min` (the smallest) all work by comparing items: `sorted` and `min` ask `<`, `max` asks `>`. Numbers and strings know how. Your own objects do not, until you tell Python.
 
+```python claim id=auto-3cef00ce2878
+assert 1 < 2
+assert 'a' < 'b'
+assert sorted([3, 1, 2]) == [1, 2, 3]
+assert sorted(['b', 'a']) == ['a', 'b']
+assert max([1, 3, 2]) == 3 and min('bca') == 'a'
+```
+
+```python claim id=auto-b5f2f8a65bdf
+calls = []
+class A:
+    def __init__(s, v):
+        s.v = v
+    def __lt__(s, o):
+        calls.append('lt')
+        return s.v < o.v
+    def __gt__(s, o):
+        calls.append('gt')
+        return s.v > o.v
+xs = [A(1), A(2), A(3)]
+sorted(xs)
+assert set(calls) == {'lt'}
+calls.clear()
+min(xs)
+assert set(calls) == {'lt'}
+calls.clear()
+max(xs)
+assert set(calls) == {'gt'}
+```
+
 ```python claim id=auto-06e91d733902
 class A:
     pass
@@ -63,6 +93,13 @@ print([f.name for f in foxes])
 ::task by-name
 
 `reverse=True` turns any sort around. Items with the same key keep their order.
+
+```python claim id=auto-f4379b4969e7
+x = [(1, 'a'), (1, 'b'), (2, 'c')]
+x.sort(key=lambda p: p[0], reverse=True)
+assert x == [(2, 'c'), (1, 'a'), (1, 'b')]
+assert sorted([3, 1, 2], reverse=True) == [3, 2, 1]
+```
 
 ```python claim id=auto-edbba9ec7825
 data = [('a', 1), ('b', 1), ('c', 0)]
@@ -164,4 +201,61 @@ assert (A() < A()) is True
 
 ```python claim id=auto-0b1e35d7ff8e
 assert sorted([1, 3, 2], reverse=True) == [3, 2, 1]
+```
+
+```python claim id=auto-7861ffd792f7
+class Tree:
+    def __init__(self, kind, age):
+        self.kind = kind
+        self.age = age
+
+trees = [Tree('oak', 10), Tree('pine', 5)]
+try:
+    sorted(trees, reverse=True)
+except TypeError:
+    pass
+else:
+    raise AssertionError('expected TypeError')
+
+assert [t.kind for t in sorted(trees, key=lambda tree: tree.age, reverse=True)] == ['oak', 'pine']
+```
+
+```python claim id=auto-ee9efdf7e192
+class Obj:
+    def __init__(self, weight):
+        self.weight = weight
+    def __lt__(self, other):
+        return self.weight < other.weight
+
+a = Obj(1)
+b = Obj(2)
+assert (a < b) is True
+assert (b < a) is False
+```
+
+```python claim id=auto-79ffa7e12aa5
+class NoOrder:
+    def __init__(self, v):
+        self.v = v
+
+for func in (sorted, max, min):
+    try:
+        func([NoOrder(1), NoOrder(2)])
+    except TypeError:
+        pass
+    else:
+        assert False
+
+class Less:
+    def __init__(self, v):
+        self.v = v
+    def __lt__(self, other):
+        return self.v < other.v
+
+assert [x.v for x in sorted([Less(2), Less(1)])] == [1, 2]
+assert max([Less(1), Less(2)]).v == 2
+assert min([Less(1), Less(2)]).v == 1
+assert [x.v for x in sorted([NoOrder(2), NoOrder(1)], key=lambda x: x.v)] == [1, 2]
+assert max([NoOrder(1), NoOrder(2)], key=lambda x: x.v).v == 2
+assert min([NoOrder(1), NoOrder(2)], key=lambda x: x.v).v == 1
 ```

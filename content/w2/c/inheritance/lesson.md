@@ -66,6 +66,24 @@ print(o.describe(), o.sound(), isinstance(o, Animal))
 
 Python looks for a method in the object's class first, then in its parent, then the parent's parent.
 
+```python claim id=auto-54f594e74f37
+class A:
+    def f(self):
+        return 'a'
+class B(A):
+    pass
+class C(B):
+    pass
+assert C.__mro__[:3] == (C, B, A)
+assert C().f() == 'a'
+class B2(A):
+    def f(self):
+        return 'b'
+class C2(B2):
+    pass
+assert C2().f() == 'b'
+```
+
 ```python claim id=inheritance-claim-1
 class A:
     pass
@@ -96,6 +114,16 @@ print(B().hi(), C().hi())
 
 `super()` reaches the parent's version, so the child can add to it instead of starting over.
 
+```python claim id=auto-2007bbfa77de
+class Parent:
+    def greet(self):
+        return "hello"
+class Child(Parent):
+    def greet(self):
+        return super().greet() + " world"
+assert Child().greet() == "hello world"
+```
+
 ```python example
 class Animal:
     def __init__(self, name):
@@ -120,6 +148,21 @@ print(Fox("Sly", "bushy").describe())
 ::task penguin
 
 A child with its own `__init__` replaces the parent's. Without `super().__init__(...)`, the parent's attributes are never set, and using them raises `AttributeError`.
+
+```python claim id=auto-df34f2e147f1
+class P:
+    def __init__(self):
+        self.a = 1
+class C(P):
+    def __init__(self):
+        pass
+try:
+    C().a
+    raised = False
+except AttributeError:
+    raised = True
+assert raised
+```
 
 ```python claim id=auto-5edd558a7b3d
 class P:
@@ -183,4 +226,14 @@ class B(A):
     def describe(self):
         return super().describe() + 'B'
 assert B().describe() == 'AB'
+```
+
+```python claim id=auto-7abda6f6888b
+class Animal:
+    def eat(self):
+        return 'eats'
+class Owl(Animal):
+    pass
+assert Owl().eat() == 'eats'
+assert issubclass(Owl, Animal)
 ```

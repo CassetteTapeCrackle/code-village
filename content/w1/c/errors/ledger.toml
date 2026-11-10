@@ -188,3 +188,66 @@ status = "claim:auto-14b37d801a5d"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "a9febbccc506"
+text = "Read it from the bottom: the last line names the error and says what happened, and the lines above show where."
+where = "text:0"
+status = "claim:auto-a9febbccc506"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "809b403f6b98"
+text = "The usual suspects: `NameError` (a name that does not exist), `TypeError` (the wrong type, like `\"3\" + 4`), `ValueError` (the right type but a bad value, like `int(\"abc\")`), `IndexError` and `KeyError`."
+where = "text:0"
+status = "claim:auto-809b403f6b98"
+deepseek = "agree"
+claude = "unsure"
+decided = "owner"
+
+[[sentence]]
+fp = "7c1f869d72aa"
+text = "Put the division inside a `try`, and in the `except ZeroDivisionError` branch return `None`."
+where = "task:errors-safe-divide:hint:1"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "d010ea9dd6b8"
+text = "`raise` signals a problem yourself, with a message for whoever reads the traceback."
+where = "text:10"
+status = "claim:auto-d010ea9dd6b8"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d8d4503b334d"
+text = "Check before subtracting."
+where = "task:errors-withdraw:hint:0"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "27cb2772d0e1"
+text = "Read a traceback from the bottom: the error's name and message, then the line it came from."
+where = "remember:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "5cef9452012a"
+text = "try / except SomeError handles that one kind of error; a bare except: hides your bugs too."
+where = "remember:1"
+status = "claim:auto-5cef9452012a"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"

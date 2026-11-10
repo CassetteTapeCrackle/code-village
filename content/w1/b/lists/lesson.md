@@ -117,6 +117,16 @@ print(a)
 
 To get an independent list, copy it: `a.copy()` or `list(a)`.
 
+```python claim id=auto-4673d6d0978f
+a = [1, 2]
+b = a.copy()
+c = list(a)
+b.append(3)
+c.append(4)
+assert a == [1, 2]
+assert b is not a and c is not a
+```
+
 ```python claim id=lists-claim-2
 a = [1, 2]
 b, c = a.copy(), list(a)

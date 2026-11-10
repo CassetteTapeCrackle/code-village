@@ -249,3 +249,76 @@ status = "claim:auto-f77235d305e6"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "62c940799d85"
+text = "Two questions look alike but are not."
+where = "text:0"
+status = "claim:auto-62c940799d85"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "0f5728975cce"
+text = "Check `a is b` first, then compare names."
+where = "task:identity-trails:hint:0"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "d8a4a0082bbe"
+text = "Compare with `is` first, then the `name` attributes."
+where = "task:identity-trails:hint:1"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "6ca3c04762d7"
+text = "Make the new object with `Hiker(...)`, and copy the list with `list(...)` or `.copy()`."
+where = "task:identity-copy-hiker:hint:0"
+status = "claim:auto-6ca3c04762d7"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "958aba2a003f"
+text = "`list(...)` or `.copy()` makes an independent list."
+where = "task:identity-copy-hiker:hint:1"
+status = "claim:auto-958aba2a003f"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "f1be44a2d3cf"
+text = "Keep every bag where `x is not bag`, not `x != bag`."
+where = "task:identity-without-exact:hint:1"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "ea76d1fbdd11"
+text = "== asks: same value?"
+where = "remember:0"
+status = "claim:auto-ea76d1fbdd11"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "f4a3e6cca780"
+text = "b = a gives a second name for the same object: change one, you change both."
+where = "remember:1"
+status = "simplification"
+reason = "It holds for mutable objects changed in place, such as lists. It leaves out that rebinding `a` does not change `b`, and that immutable objects cannot be changed."
+deepseek = "false"
+claude = "agree"
+decided = "owner"

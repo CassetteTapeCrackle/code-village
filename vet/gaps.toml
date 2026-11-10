@@ -168,22 +168,22 @@ fingerprint = "115b06540153"
 [[gap]]
 rule = "cases-missing"
 item = "train-test-evaluate"
-fingerprint = "59d0116ace23"
+fingerprint = "1b1a71e699d1"
 
 [[gap]]
 rule = "cases-missing"
 item = "train-test-honest"
-fingerprint = "38822daf2067"
+fingerprint = "2ba396a1786b"
 
 [[gap]]
 rule = "cases-missing"
 item = "train-test-peek"
-fingerprint = "3f3174806432"
+fingerprint = "b546159fb7ea"
 
 [[gap]]
 rule = "cases-missing"
 item = "train-test-score-line"
-fingerprint = "8d95387e88d8"
+fingerprint = "9225a8635d67"
 
 [[gap]]
 rule = "cases-missing"
@@ -221,364 +221,89 @@ item = "lost-satchel"
 fingerprint = "c9affd671791"
 
 [[gap]]
-rule = "ledger-missing"
-item = "class-attributes"
-fingerprint = "4592faee5d52"
-
-[[gap]]
-rule = "ledger-missing"
-item = "classes"
-fingerprint = "e17d31123fdb"
-
-[[gap]]
-rule = "ledger-missing"
-item = "composition"
-fingerprint = "3f5d4e0ddac7"
-
-[[gap]]
-rule = "ledger-missing"
-item = "comprehensions"
-fingerprint = "a93255d82af5"
-
-[[gap]]
-rule = "ledger-missing"
-item = "conditions"
-fingerprint = "972117635422"
-
-[[gap]]
-rule = "ledger-missing"
-item = "data-summary"
-fingerprint = "1268951043fa"
-
-[[gap]]
-rule = "ledger-missing"
-item = "dataclasses"
-fingerprint = "0a410f15bb96"
-
-[[gap]]
-rule = "ledger-missing"
-item = "dicts"
-fingerprint = "9ad731256477"
-
-[[gap]]
-rule = "ledger-missing"
-item = "dunders"
-fingerprint = "34fa754b94fe"
-
-[[gap]]
-rule = "ledger-missing"
-item = "errors"
-fingerprint = "541c25c3d738"
-
-[[gap]]
-rule = "ledger-missing"
-item = "files-json"
-fingerprint = "a39464e54fa0"
-
-[[gap]]
-rule = "ledger-missing"
-item = "functions"
-fingerprint = "1ff9745a7bf5"
-
-[[gap]]
-rule = "ledger-missing"
-item = "functions-as-values"
-fingerprint = "272a7df3b7da"
-
-[[gap]]
-rule = "ledger-missing"
-item = "generators"
-fingerprint = "c15ffda8d038"
-
-[[gap]]
-rule = "ledger-missing"
-item = "gradebook"
-fingerprint = "25be7b6325b1"
-
-[[gap]]
-rule = "ledger-missing"
-item = "grids"
-fingerprint = "717a73615ef9"
-
-[[gap]]
-rule = "ledger-missing"
-item = "guessing-stone"
-fingerprint = "024cbc8f4989"
-
-[[gap]]
-rule = "ledger-missing"
-item = "hello-village"
-fingerprint = "8baf1f6abcee"
-
-[[gap]]
-rule = "ledger-missing"
-item = "identity"
-fingerprint = "ab432c9226a9"
-
-[[gap]]
-rule = "ledger-missing"
-item = "inheritance"
-fingerprint = "523be13ea268"
-
-[[gap]]
-rule = "ledger-missing"
-item = "input-output"
-fingerprint = "2db4b992290f"
-
-[[gap]]
-rule = "ledger-missing"
-item = "knn-sklearn"
-fingerprint = "0ab2fc822312"
-
-[[gap]]
-rule = "ledger-missing"
-item = "lists"
-fingerprint = "5ad465ae0799"
-
-[[gap]]
-rule = "ledger-missing"
-item = "loops"
-fingerprint = "eeacabce7072"
-
-[[gap]]
-rule = "ledger-missing"
-item = "lost-satchel"
-fingerprint = "c9affd671791"
-
-[[gap]]
-rule = "ledger-missing"
-item = "methods"
-fingerprint = "e75cbef66b52"
-
-[[gap]]
-rule = "ledger-missing"
-item = "nearest-neighbour"
-fingerprint = "4fd1e14ace08"
-
-[[gap]]
-rule = "ledger-missing"
-item = "numpy-arrays"
-fingerprint = "7c1a066f9908"
-
-[[gap]]
-rule = "ledger-missing"
-item = "pandas-tables"
-fingerprint = "fb1658c29b50"
-
-[[gap]]
-rule = "ledger-missing"
-item = "properties"
-fingerprint = "7ec3b5816ffc"
-
-[[gap]]
-rule = "ledger-missing"
-item = "ranger-registry"
-fingerprint = "87adb1b91a19"
-
-[[gap]]
-rule = "ledger-missing"
-item = "recursion"
-fingerprint = "f989697f0b52"
-
-[[gap]]
-rule = "ledger-missing"
-item = "sales-report"
-fingerprint = "eeb0c56be3f4"
-
-[[gap]]
-rule = "ledger-missing"
-item = "search-sort"
-fingerprint = "8b013107a643"
-
-[[gap]]
-rule = "ledger-missing"
-item = "songbird-playlist"
-fingerprint = "741eaab9eb6e"
-
-[[gap]]
-rule = "ledger-missing"
-item = "sortable"
-fingerprint = "afb8c3eaccaf"
-
-[[gap]]
-rule = "ledger-missing"
-item = "star-classifier"
-fingerprint = "d511165f5eaa"
-
-[[gap]]
-rule = "ledger-missing"
-item = "statistics"
-fingerprint = "d6c3414d6a8c"
-
-[[gap]]
-rule = "ledger-missing"
-item = "strings"
-fingerprint = "86e24adf3def"
-
-[[gap]]
-rule = "ledger-missing"
-item = "testing"
-fingerprint = "45815d2c6d41"
-
-[[gap]]
-rule = "ledger-missing"
-item = "train-test"
-fingerprint = "ed61a3291c8b"
-
-[[gap]]
-rule = "ledger-missing"
-item = "values"
-fingerprint = "6694393bb9d8"
-
-[[gap]]
 rule = "prompt-asks-construct"
 item = "gradebook"
 fingerprint = "25be7b6325b1"
 
 [[gap]]
 rule = "remember-unbacked"
-item = "class-attributes"
-fingerprint = "4592faee5d52"
-
-[[gap]]
-rule = "remember-unbacked"
 item = "classes"
-fingerprint = "e17d31123fdb"
+fingerprint = "0388483a3364"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "composition"
-fingerprint = "3f5d4e0ddac7"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "conditions"
-fingerprint = "972117635422"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "dataclasses"
-fingerprint = "0a410f15bb96"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "dunders"
-fingerprint = "34fa754b94fe"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "errors"
-fingerprint = "541c25c3d738"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "files-json"
-fingerprint = "a39464e54fa0"
+fingerprint = "f5bbb4a3893c"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "functions-as-values"
-fingerprint = "272a7df3b7da"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "generators"
-fingerprint = "c15ffda8d038"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "grids"
-fingerprint = "717a73615ef9"
+fingerprint = "d09fd8d4216c"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "hello-village"
-fingerprint = "8baf1f6abcee"
+fingerprint = "67745bd15206"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "identity"
-fingerprint = "ab432c9226a9"
+fingerprint = "f7707ac478ab"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "inheritance"
-fingerprint = "523be13ea268"
+fingerprint = "57e3c4a924b7"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "input-output"
-fingerprint = "2db4b992290f"
+fingerprint = "6b5ba23c1178"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "knn-sklearn"
-fingerprint = "0ab2fc822312"
+fingerprint = "99fef273248f"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "methods"
-fingerprint = "e75cbef66b52"
+fingerprint = "b3be34910ff4"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "nearest-neighbour"
-fingerprint = "4fd1e14ace08"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "numpy-arrays"
-fingerprint = "7c1a066f9908"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "pandas-tables"
-fingerprint = "fb1658c29b50"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "properties"
-fingerprint = "7ec3b5816ffc"
+fingerprint = "92b2a1fbac3d"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "recursion"
-fingerprint = "f989697f0b52"
+fingerprint = "2f16c3e2e978"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "search-sort"
-fingerprint = "8b013107a643"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "sortable"
-fingerprint = "afb8c3eaccaf"
+fingerprint = "14891c3a9400"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "statistics"
-fingerprint = "d6c3414d6a8c"
-
-[[gap]]
-rule = "remember-unbacked"
-item = "strings"
-fingerprint = "86e24adf3def"
+fingerprint = "23477533d341"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "testing"
-fingerprint = "45815d2c6d41"
+fingerprint = "5cad8449017f"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "train-test"
-fingerprint = "ed61a3291c8b"
+fingerprint = "3189b565d44a"
 
 [[gap]]
 rule = "remember-unbacked"
 item = "values"
-fingerprint = "6694393bb9d8"
+fingerprint = "2983656c748f"
 
 [[gap]]
 rule = "weak-tests"

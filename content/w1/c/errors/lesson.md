@@ -14,7 +14,40 @@ name = "Magnifying Glass"
 
 When something goes wrong, Python raises an **exception** and prints a traceback. Read it from the bottom: the last line names the error and says what happened, and the lines above show where.
 
+```python claim id=auto-a9febbccc506
+import traceback
+
+def f():
+    return 1 / 0
+
+try:
+    f()
+except ZeroDivisionError:
+    tb = traceback.format_exc()
+
+lines = tb.strip().splitlines()
+assert lines[-1] == 'ZeroDivisionError: division by zero'
+assert any('in f' in line for line in lines[:-1])
+assert any('line ' in line for line in lines[:-1])
+```
+
 The usual suspects: `NameError` (a name that does not exist), `TypeError` (the wrong type, like `"3" + 4`), `ValueError` (the right type but a bad value, like `int("abc")`), `IndexError` and `KeyError`.
+
+```python claim id=auto-809b403f6b98
+def _raises(exc, f):
+    try:
+        f()
+    except exc:
+        return True
+    except Exception:
+        return False
+    return False
+assert _raises(NameError, lambda: undefined_name_for_review)
+assert _raises(TypeError, lambda: "3" + 4)
+assert _raises(ValueError, lambda: int("abc"))
+assert _raises(IndexError, lambda: [][0])
+assert _raises(KeyError, lambda: {}["missing"])
+```
 
 ```python claim id=errors-claim-1
 def error_from(make):
@@ -87,6 +120,13 @@ print(parse("5"))
 
 `raise` signals a problem yourself, with a message for whoever reads the traceback.
 
+```python claim id=auto-d010ea9dd6b8
+try:
+    raise ValueError("boom")
+except ValueError as e:
+    assert str(e) == "boom"
+```
+
 ```python example
 def check_age(age):
     if age < 0:
@@ -119,4 +159,23 @@ try:
     raise ValueError("message")
 except ValueError as e:
     assert e.args == ("message",)
+```
+
+```python claim id=auto-5cef9452012a
+def f(exc):
+    try:
+        undefined_name
+    except exc:
+        return 'caught'
+assert f(Exception) == 'caught'
+try:
+    f(ValueError)
+    assert False
+except NameError:
+    pass
+try:
+    undefined_name
+except:
+    caught = True
+assert caught
 ```

@@ -105,3 +105,21 @@ status = "not-a-fact"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "269a58c546f9"
+text = "Remember `super().__init__(...)`."
+where = "stage:registry-animals:prompt"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "02f58a15354f"
+text = "`Keeper(name)` keeps its `name` and has its own list of animals: `adopt(animal)` adds one, and `feed_all()` returns `[\"Sly is fed\", ...]` in adoption order."
+where = "stage:registry-keepers:prompt"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

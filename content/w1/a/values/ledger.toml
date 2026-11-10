@@ -295,3 +295,77 @@ status = "claim:auto-67b42be6f7e0"
 deepseek = "agree"
 claude = "agree"
 decided = "auto"
+
+[[sentence]]
+fp = "e21c61269ef1"
+text = "Python works with **values**."
+where = "text:0"
+status = "simplification"
+reason = "Everything in Python is an object, and values are the beginner's word for them."
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "ab4c87e26c7a"
+text = "Numbers do arithmetic: `*` multiplies, `/` divides and always gives a float, `//` divides and rounds down to a whole number, `%` gives the remainder, and `**` raises to a power."
+where = "text:9"
+status = "claim:auto-ab4c87e26c7a"
+deepseek = "false"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "9432d91d0242"
+text = "The starter body is `pass`, which means \"nothing yet\": replace it with your code."
+where = "text:12"
+status = "claim:auto-9432d91d0242"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "ef8fa0ceffe5"
+text = "Types matter."
+where = "text:16"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "8b9f894df9aa"
+text = "`+` adds numbers, but it **joins** strings."
+where = "text:16"
+status = "claim:auto-8b9f894df9aa"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "8baa72abbc02"
+text = "Use `int()` on each piece of text before adding them."
+where = "task:values-add-strings:hint:1"
+status = "advice"
+deepseek = "disagree"
+claude = "agree"
+decided = "owner"
+
+[[sentence]]
+fp = "0ef470ec62c1"
+text = "`age` is an int: turn it into text before joining."
+where = "task:values-describe:hint:0"
+status = "advice"
+deepseek = "agree"
+claude = "disagree"
+decided = "owner"
+
+[[sentence]]
+fp = "2550426a34ed"
+text = "Every value has a type: int, float, str or bool."
+where = "remember:0"
+status = "simplification"
+reason = "Fine for a first lesson, but it leaves out other types such as list, dict and None."
+deepseek = "false"
+claude = "agree"
+decided = "owner"

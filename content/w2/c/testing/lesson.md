@@ -14,6 +14,16 @@ name = "Ranger's Whistle"
 
 Until now the checks were written for you. Writing your own is how real programmers stay sure their code still works after every change. The tool is `assert`: it does nothing when its condition is true, and stops with an `AssertionError` when it is false.
 
+```python claim id=auto-83ec8aeeb720
+assert 1 + 1 == 2
+try:
+    assert 1 + 1 == 3
+    raised = False
+except AssertionError:
+    raised = True
+assert raised
+```
+
 ```python example
 def double(n):
     return n * 2
@@ -113,4 +123,32 @@ except AssertionError as e:
     assert str(e) == 'message'
 else:
     raise SystemExit('no error')
+```
+
+```python claim id=auto-990357b388ce
+import warnings
+
+source = """
+def shout(text):
+    return "wrong"
+
+def test_shout():
+    assert (shout("a") == "A", shout("b") == "B")
+
+test_shout()
+"""
+names = {}
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore", SyntaxWarning)
+    exec(source, names)  # an AssertionError here would mean the test caught the broken shout
+assert names["shout"]("a") != "A"
+```
+
+```python claim id=auto-514c438f8230
+import warnings
+
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore", SyntaxWarning)
+    exec('assert (False, "message")')  # a two-item tuple is true: no AssertionError
+assert bool((False, "message")) is True
 ```
