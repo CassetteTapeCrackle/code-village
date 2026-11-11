@@ -1,9 +1,9 @@
 {
-  "fingerprint": "705ab6f118b2",
+  "fingerprint": "efa00afd7f14",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5, \"middle value should stay unchanged\"\n    assert clamp(-3, 0, 10) == 0, \"below low should be raised to low\"\n    assert clamp(99, 0, 10) == 10, \"above high should be lowered to high\"\n\n\ntest_clamp()\nprint(\"all good\")\n",
+      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5, 'middle value should stay unchanged'\n    assert clamp(-3, 0, 10) == 0, 'value below low should be clamped to low'\n    assert clamp(99, 0, 10) == 10, 'value above high should be clamped to high'\n\n\ntest_clamp()\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5, \"middle value stays the same\"\n    assert clamp(-3, 0, 10) == 0, \"below low is raised to low\"\n    assert clamp(99, 0, 10) == 10, \"above high is lowered to high\"\n\n\ntest_clamp()\nprint(\"all good\")\n",
+      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5\n    assert clamp(-3, 0, 10) == 0\n    assert clamp(99, 0, 10) == 10\n\n\ntest_clamp()\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5\n    assert clamp(-3, 0, 10) == 0\n    assert clamp(99, 0, 10) == 10\n\n\ntest_clamp()\nprint(\"all good\")\n",
+      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5, \"middle value stays the same\"\n    assert clamp(-3, 0, 10) == 0, \"value below low is raised to low\"\n    assert clamp(99, 0, 10) == 10, \"value above high is lowered to high\"\n\n\ntest_clamp()\nprint(\"all good\")\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -33,7 +33,7 @@
       "temperature": 1.0
     },
     {
-      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5\n    assert clamp(-3, 0, 10) == 0, \"below low is clamped to low\"\n    assert clamp(99, 0, 10) == 10, \"above high is clamped to high\"\n\n\ntest_clamp()\nprint(\"all good\")\n",
+      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5, \"middle number stays the same\"\n    assert clamp(-3, 0, 10) == 0, \"below low is raised to low\"\n    assert clamp(99, 0, 10) == 10, \"above high is lowered to high\"\n\n\ntest_clamp()\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -43,7 +43,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5\n    assert clamp(-3, 0, 10) == 0, \"below low is clamped to low\"\n    assert clamp(99, 0, 10) == 10, \"above high is clamped to high\"\n\n\ntest_clamp()\n",
+      "code": "def clamp(n, low, high):\n    return max(low, min(n, high))\n\n\ndef test_clamp():\n    assert clamp(5, 0, 10) == 5, \"a number in the middle stays the same\"\n    assert clamp(-3, 0, 10) == 0, \"a number below low is raised to low\"\n    assert clamp(99, 0, 10) == 10, \"a number above high is lowered to high\"\n\n\ntest_clamp()\nprint(\"all good\")\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
