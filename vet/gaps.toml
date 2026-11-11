@@ -79,33 +79,3 @@ fingerprint = "3189b565d44a"
 rule = "remember-unbacked"
 item = "values"
 fingerprint = "2983656c748f"
-
-[[gap]]
-rule = "weak-tests"
-item = "testing-average-test"
-fingerprint = "1ded2c378fa4"
-
-[[gap]]
-rule = "weak-tests"
-item = "testing-clamp-test"
-fingerprint = "705ab6f118b2"
-
-[[gap]]
-rule = "weak-tests"
-item = "testing-even-test"
-fingerprint = "4e3b7917c637"
-
-[[gap]]
-rule = "weak-tests"
-item = "testing-first-test"
-fingerprint = "f66621d22813"
-
-[[gap]]
-rule = "weak-tests"
-item = "testing-shout-test"
-fingerprint = "da0732fcf902"
-
-[[gap]]
-rule = "weak-tests"
-item = "testing-total-test"
-fingerprint = "cd164d82cfc3"
