@@ -27,7 +27,6 @@ equivalent = [
   "const-zero-one:7:3 (line 7: `10` became `0`)",
   "const-zero-one:7:4 (line 7: `10` became `1`)",
   "is-eq-swap:8:1 (line 8: `clamp(99, 0, 10) == 10` became `clamp(99, 0, 10) is 10`)",
-  "args-swap:8:2 (line 8: `clamp(99, 0, 10)` became `clamp(99, 10, 0)`)",
   "const-off-by-one:8:1 (line 8: `99` became `100`)",
   "const-off-by-one:8:2 (line 8: `99` became `98`)",
   "const-off-by-one:8:3 (line 8: `0` became `1`)",
