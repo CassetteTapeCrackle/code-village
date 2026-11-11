@@ -34,9 +34,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment: production
+    env:
+      BACKUP_REPO: github.com/CassetteTapeCrackle/code-village-backups.git
     steps:
-      # first, so a missing or wrong token fails before the export makes the database unavailable
-      - name: Clone the backup repo
+      # first, so a missing or refused token fails before the export makes the database unavailable. It only asks
+      # for access: a clone now would leave the token on disk while pnpm install and wrangler run third-party code
+      - name: Check the backup repo token
         env:
           BACKUP_REPO_TOKEN: ${{ secrets.BACKUP_REPO_TOKEN }}
         run: |
@@ -44,9 +47,14 @@ jobs:
             echo "::error::The production environment has no BACKUP_REPO_TOKEN secret. Create a fine-grained token with Contents: read and write on code-village-backups only, add it, then re-run."
             exit 1
           fi
-          repo="github.com/CassetteTapeCrackle/code-village-backups.git"
-          git clone --depth 1 --quiet "https://x-access-token:${BACKUP_REPO_TOKEN}@${repo}" "$RUNNER_TEMP/backups"
+          if ! git ls-remote --quiet "https://x-access-token:${BACKUP_REPO_TOKEN}@${BACKUP_REPO}" >/dev/null; then
+            echo "::error::BACKUP_REPO_TOKEN was refused by $BACKUP_REPO. Check the repo exists and the token has Contents: read and write on it."
+            exit 1
+          fi
+      # this job never pushes to this repo, so GITHUB_TOKEN stays off disk too
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
       # no pnpm cache, as in deploy.yml: the store could have been saved by a job that ran the build
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -73,8 +81,12 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # cloned only now, once no third-party code runs: the clone keeps the token in its .git/config
       - name: Push the dump to the backup repo
+        env:
+          BACKUP_REPO_TOKEN: ${{ secrets.BACKUP_REPO_TOKEN }}
         run: |
+          git clone --depth 1 --quiet "https://x-access-token:${BACKUP_REPO_TOKEN}@${BACKUP_REPO}" "$RUNNER_TEMP/backups"
           mv "$RUNNER_TEMP/code-village.sql" "$RUNNER_TEMP/backups/code-village.sql"
           cd "$RUNNER_TEMP/backups"
           git add code-village.sql
