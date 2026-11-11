@@ -67,6 +67,14 @@ class Backing(unittest.TestCase):
                  'where = "remember:0"\nstatus = "advice"')
             self.assertEqual(rules(content), [])
 
+    def test_a_docs_link_backs_a_remember_bullet_only_with_a_reason(self) -> None:
+        with content_copy() as content:
+            edit(content, LEDGER, 'where = "remember:0"\nstatus = "claim:times-two"',
+                 'where = "remember:0"\nstatus = "doc:https://docs.python.org/3/library/functions.html#len"')
+            self.assertEqual(rules(content), ["remember-unbacked"])
+            edit(content, LEDGER, 'functions.html#len"', 'functions.html#len"\nno_claim = "no claim can run it"')
+            self.assertEqual(rules(content), [])
+
     def test_a_remember_bullet_with_no_entry_is_unbacked_not_missing(self) -> None:
         with content_copy() as content:
             edit(content, LESSON, 'remember = ["Multiplying by 2 doubles a number."]',

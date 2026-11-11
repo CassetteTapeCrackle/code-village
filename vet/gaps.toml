@@ -226,11 +226,6 @@ item = "gradebook"
 fingerprint = "25be7b6325b1"
 
 [[gap]]
-rule = "remember-unbacked"
-item = "input-output"
-fingerprint = "6b5ba23c1178"
-
-[[gap]]
 rule = "weak-tests"
 item = "gradebook"
 fingerprint = "25be7b6325b1"

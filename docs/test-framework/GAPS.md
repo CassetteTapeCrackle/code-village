@@ -18,7 +18,6 @@ Written by `python -m tools.vet.gaps --write --summary docs/test-framework/GAPS.
 | w1 | cases-missing | wrong-accepted | 24 |
 | w1 | fence-untyped | false-claim | 1 |
 | w1 | prompt-asks-construct | ambiguous | 2 |
-| w1 | remember-unbacked | false-claim | 1 |
 | w1 | weak-tests | wrong-accepted | 3 |
 | w2 | cases-missing | wrong-accepted | 25 |
 | w2 | weak-tests | wrong-accepted | 55 |
