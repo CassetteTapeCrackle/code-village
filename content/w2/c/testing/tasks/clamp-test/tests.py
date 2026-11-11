@@ -40,3 +40,24 @@ def test_catches_a_wrong_middle():
     finally:
         fn.__globals__["clamp"] = real
     raise Failure("test_clamp() should fail when clamp gets a number in the middle wrong")
+
+def test_catches_off_by_one():
+    """your test checks that each result equals the clamped value"""
+    fn = learner["test_clamp"]
+    real = fn.__globals__["clamp"]
+    # one result wrong at a time: a loose check (<= or >=) on any of the three lets its bug through
+    off_by_one = [
+        lambda n, low, high: n - 1 if low < n < high else real(n, low, high),
+        lambda n, low, high: low + 1 if n < low else real(n, low, high),
+        lambda n, low, high: high - 1 if n > high else real(n, low, high),
+    ]
+    try:
+        for wrong in off_by_one:
+            fn.__globals__["clamp"] = wrong
+            try:
+                fn()
+            except AssertionError:
+                continue
+            raise Failure("test_clamp() should fail when one result of clamp is off by one: check each with ==")
+    finally:
+        fn.__globals__["clamp"] = real

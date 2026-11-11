@@ -4,3 +4,11 @@ prompt = "`is_even(n)` returns `True` for even numbers. Write `test_is_even()` w
 
 [cases]
 none = "the learner writes the test function, which takes no input a case could vary"
+# checked by hand: each is still a test that catches every bug the prompt names (a change to the given
+# code is not the learner's work, and the task judges only their test)
+equivalent = [
+  "cmp-swap:2:2 (line 2: `n % 2 == 0` became `n % 2 <= 0`)",
+  "is-eq-swap:2:1 (line 2: `n % 2 == 0` became `n % 2 is 0`)",
+  "const-zero-one:6:1 (line 6: `4` became `0`)",
+  "const-zero-one:7:2 (line 7: `7` became `1`)",
+]

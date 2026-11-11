@@ -4,3 +4,8 @@ prompt = "`test_shout()` passes even when `shout` is broken. Fix the test, not `
 
 [cases]
 none = "the learner writes the test function, which takes no input a case could vary"
+# checked by hand: each is still a test that catches every bug the prompt names (a change to the given
+# code is not the learner's work, and the task judges only their test)
+equivalent = [
+  "cmp-swap:6:4 (line 6: `shout(\"hey\") == \"HEY!\"` became `shout('hey') >= 'HEY!'`)",
+]

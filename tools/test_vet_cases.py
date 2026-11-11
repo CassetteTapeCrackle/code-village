@@ -49,6 +49,12 @@ class ParseDecl(unittest.TestCase):
     def test_none_decl(self) -> None:
         self.assertEqual(parse_decl({"none": "random output"}, "here").shape, NoCases("random output"))
 
+    def test_none_decl_lists_mutants_checked_by_hand(self) -> None:
+        decl = parse_decl({"none": "a test takes no input", "equivalent": ["line 2: `0` became `1`"]}, "here")
+        self.assertEqual(decl.shape, NoCases("a test takes no input", ("line 2: `0` became `1`",)))
+        with self.assertRaisesRegex(DeclError, "equivalent"):
+            parse_decl({"none": "a test takes no input", "equivalent": "line 2"}, "here")
+
     def test_nested_types(self) -> None:
         self.assertEqual(parse_type("list<int 0..9> 0..5"), ListT(IntT(0, 9), 0, 5))
         for text in ["dict<word, list<float 0..1>> 1..3", "tuple<int 0..3, optional<str 0..4>>",
