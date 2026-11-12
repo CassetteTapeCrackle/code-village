@@ -2,3 +2,6 @@ id = "gradebook-parse"
 title = "Read a line"
 prompt = "`parse_line(line)` returns the name and a list of int marks: `parse_line(\"Noa: 12, 15, 9\")` gives `(\"Noa\", [12, 15, 9])`. A line with no marks, like `\"Ines:\"`, gives an empty list: `\"\".split(\",\")` is `[\"\"]`, so skip empty pieces before calling `int()`. Split the line on `:` first and strip each piece, since `\"Ines:\".split(\": \")` finds no `\": \"` at all."
 hp = 30
+
+[cases]
+none = "a gradebook line mixes a name, a colon and commas, which a case cannot build"

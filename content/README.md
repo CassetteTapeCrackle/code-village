@@ -128,6 +128,9 @@ mode together):
   fail a visible test or a hidden case. A survivor that differs from the solution on 2000 extra inputs from
   `[cases]` is `weak-tests`, with the input where it differs: add a test for it. A survivor that agrees
   everywhere is equivalent and only counted. Without `[cases]` every survivor is `weak-tests`, so declare them.
+  With `none`, list the survivors you checked by hand, each named as its finding names it:
+  ``equivalent = ["const-off-by-one:6:3 (line 6: `0` became `1`)"]``. Editing the solution changes those names, so
+  the survivors come back as findings and the old entries are reported until you drop them.
   Results are cached in `.vet-cache/mutation/`, one file per item, keyed by the item's files.
 - **Rewrites**: the build rewrites the solution in ways that keep its behaviour (renamed variables or
   parameters, loop and comprehension, `for` and `while`, f-string and `+`, `x += 1` and `x = x + 1`, `if` and a

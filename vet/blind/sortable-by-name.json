@@ -1,9 +1,9 @@
 {
-  "fingerprint": "0eee87457bbe",
+  "fingerprint": "8c638de95993",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n\ndef name_of(bird):\n    # return what to sort by\n    return bird.name\n\n\ndef alphabetical(birds):\n    return sorted(birds, key=name_of)\n",
+      "code": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n\ndef name_of(bird):\n    return bird.name\n\n\ndef alphabetical(birds):\n    return sorted(birds, key=name_of)\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -13,7 +13,7 @@
       "temperature": 0.2
     },
     {
-      "code": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n\ndef name_of(bird):\n    return bird.name\n\n\ndef alphabetical(birds):\n    return sorted(birds, key=name_of)\n",
+      "code": "class Bird:\n    def __init__(self, name):\n        self.name = name\n\n\ndef name_of(bird):\n    # return what to sort by\n    return bird.name\n\n\ndef alphabetical(birds):\n    return sorted(birds, key=name_of)\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

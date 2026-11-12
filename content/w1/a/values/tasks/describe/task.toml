@@ -5,3 +5,7 @@ title = "Say how old"
 prompt = "Finish `describe(name, age)` so that `describe(\"Noa\", 12)` returns `\"Noa is 12 years old\"`. `age` is an int."
 hints = ["`age` is an int: turn it into text before joining.", "`str(age)` turns the number into text. Join the name, the words and `str(age)` with `+` in the order the prompt shows."]
 gotcha = false
+
+[cases]
+call = "describe"
+args = ["word", "int 0..120"]

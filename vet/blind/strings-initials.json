@@ -1,5 +1,5 @@
 {
-  "fingerprint": "2e2aca1a2676",
+  "fingerprint": "e62de3eec443",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def initials(full_name):\n    result = \"\"\n    for word in full_name.split():\n        result += word[0].upper()\n    return result\n",
+      "code": "def initials(full_name):\n    result = \"\"\n    for word in full_name.split():\n        result = result + word[0].upper()\n    return result\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -43,7 +43,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def initials(full_name):\n    result = \"\"\n    for word in full_name.split():\n        result = result + word[0].upper()\n    return result\n",
+      "code": "def initials(full_name):\n    result = \"\"\n    for word in full_name.split():\n        result += word[0].upper()\n    return result\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

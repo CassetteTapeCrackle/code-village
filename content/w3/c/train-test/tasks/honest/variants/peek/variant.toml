@@ -1,3 +1,8 @@
 id = "train-test-peek"
 title = "It peeked at the test"
 prompt = "`fair_score(X, y)` splits the data (`test_size=0.25`, `random_state=0`) and scores on the test part, but its score is too good: the model learned from **all** the data, the test rows too. Find and fix the bug."
+
+[cases]
+call = "fair_score"
+args = ["list<list<float 0.0..10.0> 2..2> 8..8", "list<choice a|b> 8..8"]
+compare = "float"

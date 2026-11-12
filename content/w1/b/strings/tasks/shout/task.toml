@@ -7,3 +7,7 @@ hints = ["Does `text.upper()` change `text`?", "`upper()` returns a new string, 
 gotcha = true
 
 strict = true
+
+[cases]
+call = "shout"
+args = ["str 0..12"]

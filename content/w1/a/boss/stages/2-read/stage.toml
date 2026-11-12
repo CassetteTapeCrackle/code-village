@@ -2,3 +2,7 @@ id = "guessing-read"
 title = "Read a guess"
 prompt = "`read_guess(text)` returns the guess as an int, ignoring spaces around it, or `None` when the text is not a whole number from 1 to 100. `None` is Python's value for \"nothing\"."
 hp = 30
+
+[cases]
+call = "read_guess"
+args = ["choice 0|1|2|7|42|50|64|88|99|100|101|150|1000|-5|-1|4.5|0.5|seven|ten|abc|x7|hundred"]

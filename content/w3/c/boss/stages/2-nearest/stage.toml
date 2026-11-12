@@ -2,3 +2,6 @@ id = "stars-nearest"
 title = "The nearest star"
 prompt = "`nearest_label(X, y, point)` returns the label in `y` of the row of `X` nearest to `point`, by hand with `math.dist`."
 hp = 25
+
+[cases]
+none = "two rows at the same distance make the nearest label ambiguous, and the generated edge cases build such ties"

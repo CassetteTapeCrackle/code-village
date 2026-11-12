@@ -5,3 +5,6 @@ title = "Say hello"
 prompt = "Replace `NAME` with your own name, then press Run. When you see your name, press Check."
 hints = ["Click between the quotes and type your name in place of NAME.", "Keep the quotes and the ! where they are."]
 gotcha = false
+
+[cases]
+none = "the learner prints their own name, so there is no one right output"

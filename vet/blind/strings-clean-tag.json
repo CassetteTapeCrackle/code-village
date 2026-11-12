@@ -1,9 +1,9 @@
 {
-  "fingerprint": "969d33c45987",
+  "fingerprint": "3f1ecd2d8c25",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    # make it lower-case and swap spaces for \"-\"\n    tag = tag.lower()\n    tag = tag.replace(\" \", \"-\")\n    return tag\n",
+      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    tag = tag.lower()\n    tag = tag.replace(\" \", \"-\")\n    return tag\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    tag = tag.lower()\n    tag = tag.replace(\" \", \"-\")\n    return tag\n",
+      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    # make it lower-case and swap spaces for \"-\"\n    tag = tag.lower().replace(\" \", \"-\")\n    return tag\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -33,7 +33,7 @@
       "temperature": 1.0
     },
     {
-      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    # make it lower-case and swap spaces for \"-\"\n    tag = tag.lower().replace(\" \", \"-\")\n    return tag\n",
+      "code": "def clean_tag(tag):\n    tag = tag.strip()\n    tag = tag.lower()\n    tag = tag.replace(\" \", \"-\")\n    return tag\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

@@ -1,54 +1,54 @@
 {
-  "fingerprint": "c9bc4a60893b",
+  "fingerprint": "4f0ed13fcd3a",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
-      "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
+      "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def whisper(text):\n    text = text.lower()\n    return text + \"...\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

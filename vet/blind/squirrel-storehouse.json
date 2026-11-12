@@ -1,54 +1,54 @@
 {
-  "fingerprint": "3348c924197f",
+  "fingerprint": "ad94e0fa32e3",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "class Inventory:\n    def __init__(self, product, stock, price):\n        self.product = product\n        self.stock = stock\n        self.price = price\n        self.sales = 0\n        self.revenue = 0\n\n    def sell(self, quantity):\n        if quantity > self.stock:\n            return False\n        self.stock -= quantity\n        self.sales += quantity\n        self.revenue += quantity * self.price\n        return True\n\n    def restock(self, quantity):\n        self.stock += quantity\n\n    def value(self):\n        return self.stock * self.price\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "class Inventory:\n    def __init__(self, product, stock, price):\n        self.product = product\n        self.stock = stock\n        self.price = price\n        self.sales = 0\n        self.revenue = 0\n\n    def sell(self, quantity):\n        if quantity <= self.stock:\n            self.stock -= quantity\n            self.sales += quantity\n            self.revenue += quantity * self.price\n            return True\n        return False\n\n    def restock(self, quantity):\n        self.stock += quantity\n\n    def value(self):\n        return self.stock * self.price\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
-      "code": "class Inventory:\n    def __init__(self, product, stock, price):\n        self.product = product\n        self.stock = stock\n        self.price = price\n        self.sales = 0\n        self.revenue = 0\n\n    def sell(self, quantity):\n        if quantity > self.stock:\n            return False\n        self.stock -= quantity\n        self.sales += quantity\n        self.revenue += quantity * self.price\n        return True\n\n    def restock(self, quantity):\n        self.stock += quantity\n\n    def value(self):\n        return self.stock * self.price\n",
+      "code": "class Inventory:\n    def __init__(self, product, stock, price):\n        self.product = product\n        self.stock = stock\n        self.price = price\n        self.sales = 0\n        self.revenue = 0\n\n    def sell(self, quantity):\n        if quantity <= self.stock:\n            self.stock -= quantity\n            self.sales += quantity\n            self.revenue += quantity * self.price\n            return True\n        return False\n\n    def restock(self, quantity):\n        self.stock += quantity\n\n    def value(self):\n        return self.stock * self.price\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "class Inventory:\n    def __init__(self, product, stock, price):\n        self.product = product\n        self.stock = stock\n        self.price = price\n        self.sales = 0\n        self.revenue = 0\n\n    def sell(self, quantity):\n        if quantity <= self.stock:\n            self.stock -= quantity\n            self.sales += quantity\n            self.revenue += quantity * self.price\n            return True\n        return False\n\n    def restock(self, quantity):\n        self.stock += quantity\n\n    def value(self):\n        return self.stock * self.price\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
-      "code": "class Inventory:\n    def __init__(self, product, stock, price):\n        self.product = product\n        self.stock = stock\n        self.price = price\n        self.sales = 0\n        self.revenue = 0\n\n    def sell(self, quantity):\n        if quantity <= self.stock:\n            self.stock -= quantity\n            self.sales += quantity\n            self.revenue += quantity * self.price\n            return True\n        return False\n\n    def restock(self, quantity):\n        self.stock += quantity\n\n    def value(self):\n        return self.stock * self.price\n",
+      "code": "class Inventory:\n    def __init__(self, product, stock, price):\n        self.product = product\n        self.stock = stock\n        self.price = price\n        self.sales = 0\n        self.revenue = 0\n\n    def sell(self, quantity):\n        if quantity > self.stock:\n            return False\n        self.stock -= quantity\n        self.sales += quantity\n        self.revenue += quantity * self.price\n        return True\n\n    def restock(self, quantity):\n        self.stock += quantity\n\n    def value(self):\n        return self.stock * self.price\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

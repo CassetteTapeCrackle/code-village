@@ -6,3 +6,6 @@ prompt = "Write `initials(full_name)` that returns the first letter of each word
 hints = ["`full_name.split()` gives the words; `word[0]` is a first letter.", "Start with an empty string, then add each word's first letter, upper-cased, to it inside the loop."]
 gotcha = false
 strict = true
+
+[cases]
+none = "a case cannot draw text with one space between words, and the prompt does not say what other spacing gives"

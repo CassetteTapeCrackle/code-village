@@ -1,0 +1,48 @@
+# Only one of the two survivors is listed as checked by hand, so the other is still a finding.
+base = "good"
+expect = ["weak-tests"]
+
+[[file]]
+path = "w1/a/basics/tasks/triple/solution.py"
+text = '''
+def triple(n):
+    if n < 0:
+        return 0
+    return n * 3
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/tests.py"
+text = '''
+def test_positive():
+    expect_equal(learner["triple"](2), 6, "triple(2)")
+
+def test_negative():
+    expect_equal(learner["triple"](-2), 0, "triple(-2)")
+
+def test_minus_one():
+    expect_equal(learner["triple"](-1), 0, "triple(-1)")
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/right/added-three-times.py"
+text = '''
+def triple(n):
+    return max(n, 0) * 3
+'''
+
+[[file]]
+path = "w1/a/basics/tasks/triple/task.toml"
+text = '''
+id = "basics-triple"
+concept = "numbers"
+kind = "write"
+title = "Triple it"
+prompt = "Write `triple(n)`: three times n, and 0 for a negative n."
+hints = ["Check for a negative n first."]
+gotcha = false
+
+[cases]
+none = "the canary needs a task without hidden cases"
+equivalent = ["cmp-swap:2:1 (line 2: `n < 0` became `n <= 0`)"]
+'''

@@ -2,3 +2,6 @@ id = "satchel-move"
 title = "Walk around"
 prompt = "`move(rooms, here, direction)` returns the room that exit leads to, or `here` when there is no exit that way."
 hp = 20
+
+[cases]
+none = "it takes the rooms map, whose rooms mix text, a dict and a list, which a case cannot build"

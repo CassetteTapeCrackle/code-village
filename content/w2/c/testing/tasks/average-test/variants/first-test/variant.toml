@@ -1,3 +1,16 @@
 id = "testing-first-test"
 title = "Test the first item"
 prompt = "`test_first()` already checks a normal list. Add a check that `first([])` raises `IndexError`, using the helper `raises_index_error(f, arg)`. Your test must fail if `first` returned `None` for an empty list."
+
+[cases]
+none = "the learner writes the test function, which takes no input a case could vary"
+# checked by hand: each is still a test that catches every bug the prompt names (a change to the given
+# code is not the learner's work, and the task judges only their test)
+equivalent = [
+  "return-first-arg:9:1 (line 9: `True` became `f`)",
+  "return-none:10:1 (line 10: `False` became `None`)",
+  "stmt-delete:14:1 (line 14: `assert first([\"a\", \"b\"]) == \"a\"` became `pass`)",
+  "cmp-swap:14:2 (line 14: `first([\"a\", \"b\"]) == \"a\"` became `first(['a', 'b']) <= 'a'`)",
+  "cmp-swap:14:4 (line 14: `first([\"a\", \"b\"]) == \"a\"` became `first(['a', 'b']) >= 'a'`)",
+  "is-eq-swap:14:1 (line 14: `first([\"a\", \"b\"]) == \"a\"` became `first(['a', 'b']) is 'a'`)",
+]

@@ -2,3 +2,9 @@ id = "storehouse-restock"
 title = "Restock and count"
 prompt = "`restock(quantity)` adds to the stock, and `value()` returns what the stock is worth: stock times price."
 hp = 40
+
+[cases]
+class = "Inventory"
+init = ["word", "int 0..50", "int 1..20"]
+methods = { sell = ["int 1..30"], restock = ["int 1..30"], value = [] }
+reads = ["stock", "sales", "revenue"]

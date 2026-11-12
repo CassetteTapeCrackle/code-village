@@ -2,3 +2,8 @@ id = "gradebook-average"
 title = "The average"
 prompt = "`average(marks)` returns the mean of the marks rounded to 2 decimals. No marks gives `0.0`."
 hp = 30
+
+[cases]
+call = "average"
+args = ["list<int 0..20> 0..8"]
+compare = "float"

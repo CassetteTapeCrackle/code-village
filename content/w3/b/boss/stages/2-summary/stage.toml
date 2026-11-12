@@ -2,3 +2,8 @@ id = "summary-numbers"
 title = "Sum it up"
 prompt = "`summary(speeds)` returns a dict with the `count`, the `mean` rounded to 2 decimals, the `median`, and the standard deviation `std` with `ddof=0` rounded to 2 decimals. Return plain numbers (`float()`), not NumPy ones. With no speeds, the `count` is `0` and the other three are `None`."
 hp = 35
+
+[cases]
+call = "summary"
+args = ["list<int 0..60> 0..9"]
+compare = "float"

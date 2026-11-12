@@ -1,54 +1,54 @@
 {
-  "fingerprint": "c4c32c1a898d",
+  "fingerprint": "3282d7407c2f",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def describe(name, age):\n    # join the name, \" is \", the age and \" years old\"\n    return name + \" is \" + str(age) + \" years old\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
-      "code": "def describe(name, age):\n    # join the name, \" is \", the age and \" years old\"\n    return name + \" is \" + str(age) + \" years old\"",
+      "code": "def describe(name, age):\n    # join the name, \" is \", the age and \" years old\"\n    return name + \" is \" + str(age) + \" years old\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def describe(name, age):\n    # join the name, \" is \", the age and \" years old\"\n    return name + \" is \" + str(age) + \" years old\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 1.0
     },
     {
       "code": "def describe(name, age):\n    # join the name, \" is \", the age and \" years old\"\n    return name + \" is \" + str(age) + \" years old\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def describe(name, age):\n    # join the name, \" is \", the age and \" years old\"\n    return name + \" is \" + str(age) + \" years old\"\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }

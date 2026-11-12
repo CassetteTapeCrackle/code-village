@@ -2,3 +2,6 @@ id = "satchel-play"
 title = "The whole adventure"
 prompt = "`play()` starts in `\"gate\"`, prints its description, then reads commands with `input()` until `quit` (print `Bye!`). `look` prints the description, then `You see: ...` if there are items. `go DIR` prints the new room's description, or `You can't go that way.`. `take ITEM` prints `Taken: ITEM` or `There is no ITEM here.`; taking the satchel prints `Taken: satchel`, then `You found the lost satchel. Well done!`, and ends the game. `inventory` prints `Satchel: lamp, map` or `Satchel: (empty)`. Anything else prints `I don't understand.`"
 hp = 35
+
+[cases]
+stdin = ["choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit"]

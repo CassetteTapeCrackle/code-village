@@ -1,3 +1,8 @@
 id = "train-test-score-line"
 title = "The last step"
 prompt = "Finish `test_score(X, y)`: the data is split (`test_size=0.25`, `random_state=0`) and a 1-neighbour model is fitted on the training part. Return its accuracy on the **test** part as a plain float."
+
+[cases]
+call = "test_score"
+args = ["list<list<float 0.0..10.0> 2..2> 8..8", "list<choice a|b> 8..8"]
+compare = "float"

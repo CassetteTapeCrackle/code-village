@@ -5,3 +5,7 @@ title = "Numbers written as text"
 prompt = "`add_strings(a, b)` gets two numbers written as text, like `\"3\"` and `\"4\"`, and should return their sum as an int (here, 7). It has a bug: find and fix it."
 hints = ["Run it: what does `\"3\" + \"4\"` give?", "Use `int()` on each piece of text before adding them."]
 gotcha = true
+
+[cases]
+call = "add_strings"
+args = ["choice 0|3|7|12|42|99|100|250", "choice 0|1|4|8|19|73|500"]

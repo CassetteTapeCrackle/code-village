@@ -1,3 +1,6 @@
 id = "strings-last-word"
 title = "The last word"
 prompt = "Write `last_word(sentence)` that returns the last word of a sentence (words are separated by spaces)."
+
+[cases]
+none = "a case cannot draw text with one space between words, and the prompt does not say what other spacing gives"
