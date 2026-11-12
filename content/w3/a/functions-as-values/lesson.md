@@ -235,3 +235,9 @@ assert ok
 words = ['a', 'big', 'a', 'cat']
 assert list(filter(lambda w: w != 'a', words)) == ['big', 'cat']
 ```
+
+```python claim id=remember-c77867c67920
+items = [1, 2, 3, 4]
+assert list(map(lambda n: n * 10, items)) == [10, 20, 30, 40]
+assert list(filter(lambda n: n % 2 == 0, items)) == [2, 4]
+```

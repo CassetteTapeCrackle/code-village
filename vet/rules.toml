@@ -256,7 +256,7 @@ summary = "A ledger entry matches no sentence any more: the sentence was edited 
 severity = "false-claim"
 
 [rule.remember-unbacked]
-summary = "A remember bullet is not backed by a claim and not marked as advice."
+summary = "A remember bullet is not backed by a claim, not marked as advice, and not a docs link whose no_claim says why no claim can run."
 severity = "false-claim"
 
 [rule.claim-id-unknown]

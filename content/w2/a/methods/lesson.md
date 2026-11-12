@@ -159,3 +159,30 @@ assert a.m != 3
 assert a.m() == 3
 assert a.m.__func__ is A.m
 ```
+
+```python claim id=remember-f5731ae902c1
+class Lantern:
+    def __init__(self):
+        self.oil = 0
+
+    def refill(self, amount):
+        self.oil = self.oil + amount
+
+lantern = Lantern()
+result = lantern.refill(5)
+assert lantern.oil == 5 and result is None
+```
+
+```python claim id=remember-5144fa2f620c
+class Basket:
+    def __init__(self, apples):
+        self.apples = apples
+
+    def count(self):
+        return len(self.apples)
+
+basket = Basket(["red", "green"])
+before = (dict(vars(basket)), list(basket.apples))
+assert basket.count() == 2
+assert (dict(vars(basket)), list(basket.apples)) == before
+```

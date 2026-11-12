@@ -34,6 +34,7 @@ class LedgerEntry:
     deepseek: str = ""
     claude: str = ""
     decided: str = ""
+    no_claim: str = ""  # why a doc: entry backs a remember bullet: no claim block can run its fact
 
 
 def status_kind(status: str) -> str:
@@ -68,7 +69,7 @@ def parse_ledger(text: str) -> tuple[list[LedgerEntry], list[str]]:
     problems: list[str] = []
     for number, table in enumerate(tables if isinstance(tables, list) else [], start=1):
         fields = {k: table.get(k, "") for k in ("fp", "text", "where", "status", "reason", "deepseek", "claude",
-                                                 "decided")}
+                                                 "decided", "no_claim")}
         if not all(isinstance(v, str) for v in fields.values()) or not all(fields[k] for k in
                                                                             ("fp", "text", "where", "status")):
             problems.append(f"entry {number} needs fp, text, where and status, all text")
