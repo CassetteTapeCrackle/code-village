@@ -2,3 +2,9 @@ id = "storehouse-sell"
 title = "Sell"
 prompt = "`sell(quantity)` sells that many when there is enough stock: stock goes down, `sales` goes up by the quantity, `revenue` by quantity times price, and it returns `True`. When there is not enough, it changes nothing and returns `False`."
 hp = 35
+
+[cases]
+class = "Inventory"
+init = ["word", "int 0..50", "int 1..20"]
+methods = { sell = ["int 1..30"] }
+reads = ["stock", "sales", "revenue"]

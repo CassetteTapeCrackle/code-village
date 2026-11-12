@@ -5,3 +5,30 @@ title = "Test the clamp"
 prompt = "`clamp(n, low, high)` keeps `n` between `low` and `high`. Write `test_clamp()` with `assert`s checking a number in the middle, one below `low` and one above `high`. Your test must pass with this `clamp`, and fail if `clamp` forgot either limit."
 hints = ["Three asserts, one for each case.", "Use a value inside the limits, a negative value below the low limit, and a value above the high limit; assert each result equals the clamped value."]
 gotcha = false
+
+[cases]
+none = "the learner writes the test function, which takes no input a case could vary"
+# checked by hand: each is still a test that catches every bug the prompt names (a change to the given
+# code is not the learner's work, and the task judges only their test)
+equivalent = [
+  "args-swap:2:1 (line 2: `max(low, min(n, high))` became `max(min(n, high), low)`)",
+  "args-swap:2:2 (line 2: `min(n, high)` became `min(high, n)`)",
+  "is-eq-swap:6:1 (line 6: `clamp(5, 0, 10) == 5` became `clamp(5, 0, 10) is 5`)",
+  "const-off-by-one:6:3 (line 6: `0` became `1`)",
+  "const-off-by-one:6:4 (line 6: `0` became `-1`)",
+  "const-off-by-one:6:5 (line 6: `10` became `11`)",
+  "const-off-by-one:6:6 (line 6: `10` became `9`)",
+  "is-eq-swap:7:1 (line 7: `clamp(-3, 0, 10) == 0` became `clamp(-3, 0, 10) is 0`)",
+  "const-off-by-one:7:1 (line 7: `3` became `4`)",
+  "const-off-by-one:7:2 (line 7: `3` became `2`)",
+  "const-zero-one:7:2 (line 7: `3` became `1`)",
+  "const-off-by-one:7:5 (line 7: `10` became `11`)",
+  "const-off-by-one:7:6 (line 7: `10` became `9`)",
+  "const-zero-one:7:3 (line 7: `10` became `0`)",
+  "const-zero-one:7:4 (line 7: `10` became `1`)",
+  "is-eq-swap:8:1 (line 8: `clamp(99, 0, 10) == 10` became `clamp(99, 0, 10) is 10`)",
+  "const-off-by-one:8:1 (line 8: `99` became `100`)",
+  "const-off-by-one:8:2 (line 8: `99` became `98`)",
+  "const-off-by-one:8:3 (line 8: `0` became `1`)",
+  "const-off-by-one:8:4 (line 8: `0` became `-1`)",
+]

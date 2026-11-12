@@ -1,5 +1,5 @@
 {
-  "fingerprint": "d22511dd209c",
+  "fingerprint": "71201b9b0941",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -43,7 +43,7 @@
       "temperature": 0.6
     },
     {
-      "code": "class Acorn:\n    def __init__(self, weight):\n        self.weight = weight\n\n    def __lt__(self, other):\n        return self.weight < other.weight\n",
+      "code": "class Acorn:\n    def __init__(self, weight):\n        self.weight = weight\n\n    def __lt__(self, other):\n        return self.weight < other.weight\n\n\nacorns = [Acorn(5), Acorn(2), Acorn(9), Acorn(7)]\nprint([a.weight for a in sorted(acorns)])\nprint(max(acorns).weight)\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

@@ -2,3 +2,6 @@ id = "registry-book"
 title = "The registry"
 prompt = "`Registry()` starts with empty `animals` and `log` lists. `arrive(animal)` adds the animal and logs `\"Sly arrived\"`, but raises `ValueError(\"Sly is already registered\")` when an animal with that name is already there. `find(name)` returns the animal with that name, or `None`. Keep the animals only in `self.animals`."
 hp = 30
+
+[cases]
+none = "it takes objects of the learner's own classes, which a case cannot make"

@@ -1,3 +1,8 @@
 id = "statistics-spread"
 title = "How spread out"
 prompt = "Finish `spread(values)`: it returns a dict with the `range` (largest minus smallest) and the standard deviation `std` with `ddof=1` rounded to 2 decimals, both as plain floats."
+
+[cases]
+call = "spread"
+args = ["list<int 0..50> 2..9"]
+compare = "float"

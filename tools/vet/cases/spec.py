@@ -139,6 +139,7 @@ class ProgramShape:
 @dataclass(frozen=True)
 class NoCases:
     reason: str
+    equivalent: tuple[str, ...] = ()  # surviving mutants checked by hand, each as its finding names it
 
 
 Shape = CallShape | ObjectShape | ProgramShape | NoCases
@@ -162,7 +163,7 @@ NAME = re.compile(r"[A-Za-z_]\w*")
 SHAPES = ("call", "class", "stdin", "none")
 COMMON = {"compare", "valid", "setup", "mutates", "raises", "count"}
 FIELDS = {"call": {"call", "args"} | COMMON, "class": {"class", "init", "methods", "reads", "steps"} | COMMON,
-          "stdin": {"stdin"} | COMMON, "none": {"none"}}
+          "stdin": {"stdin"} | COMMON, "none": {"none", "equivalent"}}
 
 
 class _Tokens:
@@ -391,7 +392,11 @@ def _shape(t: _Table, kind: str) -> Shape:
             reason = table["none"]
             if not isinstance(reason, str) or not reason.strip():
                 raise t.fail("none", "must say why this item has no hidden cases")
-            return NoCases(reason)
+            equivalent = table.get("equivalent", [])
+            if not isinstance(equivalent, list) or not all(isinstance(v, str) and v for v in equivalent):
+                raise t.fail("equivalent", "must list surviving mutants as their findings name them, like "
+                                           '["cmp-swap:2:1 (line 2: `n < 0` became `n <= 0`)"]')
+            return NoCases(reason, tuple(cast(list[str], equivalent)))
         case "call":
             return CallShape(t.name("call"), t.types("args", table.get("args", [])))
         case "class":

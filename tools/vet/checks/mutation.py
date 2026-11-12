@@ -1,8 +1,9 @@
 """Rule weak-tests: every broken version of a model solution (a mutant) must fail its visible tests or hidden cases.
 
 A survivor is run on a large fuzz set from the item's [cases]: when it agrees with the solution everywhere it is
-equivalent (listed, not reported). Results are cached per item (tools/vet/cache.py, kind "mutation"); the stored
-broken versions are what a later "Spot the bug" mode reuses.
+equivalent (listed, not reported). An item without hidden cases lists the survivors someone checked by hand under
+`equivalent` in its [cases], each named as its finding names it. Results are cached per item (tools/vet/cache.py,
+kind "mutation"); the stored broken versions are what a later "Spot the bug" mode reuses.
 """
 
 import os
@@ -73,8 +74,25 @@ def _result(m: Mutant, verdict: Verdict, differs: str) -> MutantResult:
 
 def _no_cases_hint(group: Group) -> str:
     if any(isinstance(decl.shape, NoCases) for item in group if (decl := _decl(item))):
-        return "add a test that fails it (no hidden cases here, so check by hand whether it is equivalent)"
+        return ("add a test that fails it (no hidden cases here, so check by hand whether it is equivalent, and if it "
+                "is, list it under equivalent in [cases])")
     return "add a test that fails it, and declare [cases] so equivalent mutants can be told apart"
+
+
+def _name(r: MutantResult) -> str:
+    """How a finding names a mutant, and so how `equivalent` lists it: the id tells apart two alike changes on one
+    line, and the summary changes when the code does."""
+    return f"{r.id} ({r.summary})"
+
+
+def _listed(r: MutantResult, checked: frozenset[str]) -> bool:
+    """A survivor checked by hand; one the fuzz set showed to differ stays a finding whatever the list says."""
+    return r.verdict == "survived" and not r.differs and _name(r) in checked
+
+
+def _checked_by_hand(group: Group) -> frozenset[str]:
+    return frozenset(text for item in group if (decl := _decl(item)) and isinstance(decl.shape, NoCases)
+                     for text in decl.shape.equivalent)
 
 
 def _decl(item: Item) -> CasesDecl | None:
@@ -165,15 +183,19 @@ def check(content: Content, adapter: LanguageAdapter) -> Iterable[Finding]:
     for group, results in group_results(content, adapter, cache_for(content, KIND)):
         first = group[0]
         about = subject(first.id, first.fingerprint, first.folder / "solution.py", content.root)
+        checked = _checked_by_hand(group)
         for r in results:
-            if r.verdict != "survived":
+            if r.verdict != "survived" or _listed(r, checked):
                 continue
-            what = f"the mutant {r.id} ({r.summary}) passes every test"
+            what = f"the mutant {_name(r)} passes every test"
             if r.differs:
                 yield about.finding("weak-tests", f"{what} and hidden case, but differs from the solution: "
                                                   f"{r.differs} Add a test or widen [cases] so it fails")
             else:
                 yield about.finding("weak-tests", f"{what}: {_no_cases_hint(group)}")
+        for entry in sorted(checked - {_name(r) for r in results if r.verdict == "survived"}):
+            yield about.finding("weak-tests", f"equivalent lists {entry}, but no surviving mutant has that name any "
+                                              "more: drop it from [cases]")
 
 
 def summary(content: Content, folder: Path) -> str:
@@ -182,7 +204,9 @@ def summary(content: Content, folder: Path) -> str:
     counts: Counter[str] = Counter()
     for group in content.solution_groups():
         value = read(folder, group[0].fingerprint, framework)
-        counts.update(r.verdict for r in (_from_value(value) if value is not None else []))
+        checked = _checked_by_hand(group)
+        counts.update("equivalent" if _listed(r, checked) else r.verdict
+                      for r in (_from_value(value) if value is not None else []))
     return (f"mutants: {sum(counts.values())}, killed by visible tests {counts['visible']}, only by hidden cases "
             f"{counts['hidden']} (visible tests could be stronger), equivalent {counts['equivalent']}, "
             f"surviving {counts['survived']}")

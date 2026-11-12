@@ -2,3 +2,6 @@ id = "registry-keepers"
 title = "Keepers"
 prompt = "`Keeper(name)` keeps its `name` and has its own list of animals: `adopt(animal)` adds one, and `feed_all()` returns `[\"Sly is fed\", ...]` in adoption order."
 hp = 25
+
+[cases]
+none = "it takes objects of the learner's own classes, which a case cannot make"

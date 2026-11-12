@@ -2,3 +2,6 @@ id = "satchel-parse"
 title = "Read a command"
 prompt = "`parse(command)` returns a `(verb, noun)` pair in lower case, ignoring extra spaces: `parse(\"Take Lamp\")` is `(\"take\", \"lamp\")`, `parse(\"take old lamp\")` is `(\"take\", \"old lamp\")`, `parse(\"look\")` is `(\"look\", \"\")` and `parse(\"\")` is `(\"\", \"\")`."
 hp = 20
+
+[cases]
+none = "a case cannot draw text with one space between words, and the prompt does not say what spacing inside the noun gives"

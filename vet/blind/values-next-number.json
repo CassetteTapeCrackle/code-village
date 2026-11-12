@@ -1,33 +1,33 @@
 {
-  "fingerprint": "f4db0fb9c2ff",
+  "fingerprint": "75a13907e08c",
   "model": "deepseek-flash",
   "attempts": [
     {
       "code": "def next_number(text):\n    return int(text) + 1\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     },
     {
       "code": "def next_number(text):\n    return int(text) + 1\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
-      "code": "def next_number(text):\n    return int(text) + 1\n",
-      "visible": "pass",
-      "hidden": "none",
-      "failure": "",
-      "case": "",
+      "code": "def next_number(text):\n    return str(int(text) + 1)\n",
+      "visible": "fail",
+      "hidden": "fail",
+      "failure": "forty one: next_number(\"41\") returned '42', expected 42\n                                          ^",
+      "case": "We also tried next_number('0'): expected 1, your code returned '1'.",
       "fuzz": "none",
       "input": "",
       "temperature": 1.0
@@ -35,23 +35,30 @@
     {
       "code": "def next_number(text):\n    return int(text) + 1\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.6
     },
     {
       "code": "def next_number(text):\n    return int(text) + 1\n",
       "visible": "pass",
-      "hidden": "none",
+      "hidden": "pass",
       "failure": "",
       "case": "",
-      "fuzz": "none",
+      "fuzz": "agree",
       "input": "",
       "temperature": 0.2
     }
   ],
-  "triage": []
+  "triage": [
+    {
+      "attempt": 2,
+      "decision": "model-wrong",
+      "by": "session",
+      "note": "DeepSeek returned text where the prompt asks for the next number: We also tried next_number('0'): expected 1, your code returned '1'. The visible test caught it too."
+    }
+  ]
 }

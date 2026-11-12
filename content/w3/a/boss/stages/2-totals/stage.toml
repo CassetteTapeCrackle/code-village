@@ -2,3 +2,6 @@ id = "sales-totals"
 title = "Totals per product"
 prompt = "`totals(sales)` takes the list from `read_sales` and returns a dict of each product and the money it brought in (quantity times price, added up over all its rows)."
 hp = 35
+
+[cases]
+none = "it takes a list of sale dicts that mix text and numbers, which a case cannot build"

@@ -11,6 +11,9 @@ name = "Songbird Flute"
 [hard_trophy]
 id = "silver-feather"
 name = "Silver Feather"
+
+[cases]
+none = "it takes objects of the learner's own classes, which a case cannot make"
 +++
 
 The songbirds in the bramble maze keep forgetting their songs. Build them a playlist that behaves like one of Python's own containers: `len` works on it, `print` shows it nicely, and `in` finds a song.

@@ -1,5 +1,5 @@
 {
-  "fingerprint": "364ae86481fa",
+  "fingerprint": "008d2a2b3b95",
   "model": "deepseek-flash",
   "attempts": [
     {
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "class Pebble:\n    def __init__(self, size):\n        self.size = size\n\n    def __lt__(self, other):\n        return self.size < other.size\n",
+      "code": "class Pebble:\n    def __init__(self, size):\n        self.size = size\n\n    def __lt__(self, other):\n        return self.size < other.size\n\n\npebbles = [Pebble(5), Pebble(2), Pebble(8)]\nprint(min(pebbles).size)\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

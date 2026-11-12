@@ -5,3 +5,18 @@ title = "Test the edges"
 prompt = "`test_average()` already checks a normal list. Add two checks: a list of one number gives that number, and an empty list raises `ValueError` (the helper `raises_value_error(f, arg)` tells you whether it does)."
 hints = ["One `assert` for `[5]`, one `assert` using the helper with `[]`.", "Add two asserts: one on the result for a list with one number (the number itself), and one on the helper's answer for an empty list (it should say the error was raised)."]
 gotcha = false
+
+[cases]
+none = "the learner writes the test function, which takes no input a case could vary"
+# checked by hand: each is still a test that catches every bug the prompt names (a change to the given
+# code is not the learner's work, and the task judges only their test)
+equivalent = [
+  "cmp-swap:2:2 (line 2: `len(numbers) == 0` became `len(numbers) <= 0`)",
+  "is-eq-swap:2:1 (line 2: `len(numbers) == 0` became `len(numbers) is 0`)",
+  "arith-swap:4:4 (line 4: `sum(numbers) / len(numbers)` became `sum(numbers) // len(numbers)`)",
+  "return-first-arg:11:1 (line 11: `True` became `f`)",
+  "return-none:12:1 (line 12: `False` became `None`)",
+  "stmt-delete:16:1 (line 16: `assert average([2, 4]) == 3` became `pass`)",
+  "cmp-swap:16:2 (line 16: `average([2, 4]) == 3` became `average([2, 4]) <= 3`)",
+  "cmp-swap:16:4 (line 16: `average([2, 4]) == 3` became `average([2, 4]) >= 3`)",
+]

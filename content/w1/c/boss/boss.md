@@ -11,7 +11,7 @@ name = "Ruin Lantern"
 id = "cartographers-quill"
 name = "Cartographer's Quill"
 [cases]
-stdin = ["choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit", "choice look|inventory|take|go|dance|open|quit"]
+stdin = ["choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit", "choice look|inventory|dance|open|quit"]
 +++
 
 You left your satchel somewhere in the ruins. Write a tiny text adventure to go and get it back: rooms are a dict of dicts, commands come from `input()`, and what you pick up goes into a list.
@@ -20,7 +20,7 @@ The rooms are given in `ROOMS`. Each room has a `description`, its `exits` (a di
 
 Hard mode starts from an empty page, so here is the map to copy:
 
-```python
+```
 ROOMS = {
     "gate": {"description": "A broken gate. A path leads north.", "exits": {"north": "hall"}, "items": []},
     "hall": {"description": "A hall of fallen pillars. Exits: south, east.", "exits": {"south": "gate", "east": "vault"}, "items": ["lamp"]},

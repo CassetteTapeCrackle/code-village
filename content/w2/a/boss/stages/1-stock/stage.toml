@@ -2,3 +2,6 @@ id = "storehouse-stock"
 title = "Stock up"
 prompt = "`Inventory(product, stock, price)` stores those three, and starts with `sales` and `revenue` at 0."
 hp = 25
+
+[cases]
+none = "it only stores what it is given, and the visible tests read each attribute"

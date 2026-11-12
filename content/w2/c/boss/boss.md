@@ -10,6 +10,12 @@ name = "Ranger's Badge"
 [hard_trophy]
 id = "ranger-compass"
 name = "Ranger's Compass"
+
+[cases]
+class = "Animal"
+init = ["word", "word"]
+methods = { describe = [] }
+reads = ["name", "species"]
 +++
 
 Ranger Noa keeps track of every animal in the forest, and the old den is full of loose papers. Build the ranger's registry with everything World 2 taught: classes, inheritance, composition, errors, and a test of your own.

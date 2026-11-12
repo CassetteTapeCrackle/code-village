@@ -5,3 +5,12 @@ title = "A test that cannot fail"
 prompt = "`test_total()` should catch a broken `total`, but it passes even when `total` always returns 0. Find and fix the bug in the test, not in `total`."
 hints = ["Read the `assert` line: what exactly is being checked?", "The parentheses turn the assert into a tuple, and a non-empty tuple is always true. Put the message after a comma instead, with no brackets around the comparison."]
 gotcha = true
+
+[cases]
+none = "the learner writes the test function, which takes no input a case could vary"
+# checked by hand: each is still a test that catches every bug the prompt names (a change to the given
+# code is not the learner's work, and the task judges only their test)
+equivalent = [
+  "cmp-swap:6:4 (line 6: `total([1, 2]) == 3` became `total([1, 2]) >= 3`)",
+  "is-eq-swap:6:1 (line 6: `total([1, 2]) == 3` became `total([1, 2]) is 3`)",
+]

@@ -1,0 +1,33 @@
+{
+  "job": "blind",
+  "items": [
+    {
+      "id": "songbird-playlist",
+      "fingerprint": "d8b337068045",
+      "context": "(no lesson text)",
+      "prompt": "The songbirds in the bramble maze keep forgetting their songs. Build them a playlist that behaves like one of Python's own containers: `len` works on it, `print` shows it nicely, and `in` finds a song.\n\nThree stages: a `Song` dataclass, a `Playlist` class, then searching and sorting. Hard mode starts from an empty page.\n\nStage 1: Make `Song` a dataclass with fields `title` (str) and `seconds` (int), so `Song(\"Dawn\", 90)` shows as `Song(title='Dawn', seconds=90)` and equals another `Song(\"Dawn\", 90)`.\n\nStage 2: `Playlist(name)` keeps its own list of songs. `add(song)` adds one, `len(playlist)` counts them (write `__len__`), and `str(playlist)` is like `\"Morning: 2 songs\"` (write `__str__`).\n\nStage 3: `\"Dawn\" in playlist` should be `True` when a song has that title: write `__contains__(self, title)`, which `in` calls for you. `sorted_by_length()` returns the songs shortest first, using a key function; songs of equal length keep the order they were added in.",
+      "starter": "from dataclasses import dataclass, field\n\n\nclass Song:\n    pass\n\n\nclass Playlist:\n    pass\n"
+    },
+    {
+      "id": "testing-average-test",
+      "fingerprint": "1ded2c378fa4",
+      "context": "Until now the checks were written for you. Writing your own is how real programmers stay sure their code still works after every change. The tool is `assert`: it does nothing when its condition is true, and stops with an `AssertionError` when it is false.\n\n```python\ndef double(n):\n    return n * 2\n\ndef test_double():\n    assert double(2) == 4\n    assert double(0) == 0, \"zero stays zero\"\n\ntest_double()\nprint(\"all good\")\n```\n\nA **test** is a function that calls your code with inputs whose answers you already know. The text after the comma is the message shown when the check fails.\n\n```python\ntry:\n    assert 1 + 1 == 3, \"maths is broken\"\nexcept AssertionError as error:\n    print(\"AssertionError:\", error)\n```\n\nGood tests also try the **edges**: zero, a single item, an empty list, the exact limits. That is where bugs like to hide.\n\n```python\ndef clamp(n, low, high):\n    return max(low, min(n, high))\n\nprint(clamp(5, 0, 10), clamp(-3, 0, 10), clamp(99, 0, 10))\n```",
+      "prompt": "`test_average()` already checks a normal list. Add two checks: a list of one number gives that number, and an empty list raises `ValueError` (the helper `raises_value_error(f, arg)` tells you whether it does).",
+      "starter": "def average(numbers):\n    if len(numbers) == 0:\n        raise ValueError(\"no numbers\")\n    return sum(numbers) / len(numbers)\n\n\ndef raises_value_error(f, arg):\n    try:\n        f(arg)\n    except ValueError:\n        return True\n    return False\n\n\ndef test_average():\n    assert average([2, 4]) == 3\n    # check a list of one number, and that an empty list raises ValueError\n"
+    },
+    {
+      "id": "values-average",
+      "fingerprint": "20b4d61cc590",
+      "context": "Python works with **values**. Every value has a **type**: whole numbers are `int`, numbers with a decimal point are `float`, text between quotes is `str`, and `True` and `False` are `bool`. `type()` tells you which one you have.\n\n```python\nprint(type(7), type(7.5), type(\"7\"), type(True))\n```\n\nA **variable** is a name for a value. `=` takes the value on the right and stores it under the name on the left. You can store a new value later, even one computed from the old one.\n\n```python\napples = 3\napples = apples + 2\nprint(apples)\n```\n\nNumbers do arithmetic: `*` multiplies, `/` divides and always gives a float, `//` divides and rounds down to a whole number, `%` gives the remainder, and `**` raises to a power.\n\n```python\nprint(7 * 3, 7 / 2, 7 // 2, 7 % 2, 2 ** 3)\n```\n\nMost tasks ask you to finish a small **function**. A line like `def total_price(price, quantity):` gives it a name and lists the values it receives, its **parameters**. The indented lines below are its body, and `return` hands the answer back. The starter body is `pass`, which means \"nothing yet\": replace it with your code. The Functions lesson explains all of this in depth later.",
+      "prompt": "Write `average_of_two(a, b)` that returns the number halfway between `a` and `b`.",
+      "starter": "def average_of_two(a, b):\n    pass\n"
+    },
+    {
+      "id": "gradebook",
+      "fingerprint": "b272e4ba3879",
+      "context": "(no lesson text)",
+      "prompt": "The marsh school's gradebook got soaked, and only its lines of text survived. Each line is a name, a colon, then marks separated by commas, like `Noa: 12, 15, 9`.\n\nWrite three functions in one program. Each stage checks one more of them; a beaten stage stays beaten.\n\nStage 1: `parse_line(line)` returns the name and a list of int marks: `parse_line(\"Noa: 12, 15, 9\")` gives `(\"Noa\", [12, 15, 9])`. A line with no marks, like `\"Ines:\"`, gives an empty list: `\"\".split(\",\")` is `[\"\"]`, so skip empty pieces before calling `int()`. Split the line on `:` first and strip each piece, since `\"Ines:\".split(\": \")` finds no `\": \"` at all.\n\nStage 2: `average(marks)` returns the mean of the marks rounded to 2 decimals. No marks gives `0.0`.\n\nStage 3: `ranking(lines)` returns `(name, average)` pairs, best average first. Equal averages are in alphabetical order. Blank lines (empty or only spaces) are skipped, and the list it is given stays as it was. Tip: `sorted(pairs, key=lambda pair: (-pair[1], pair[0]))` sorts by average, highest first, then by name. `lambda pair: ...` is a tiny one-line function, and the minus sign flips the order.",
+      "starter": "def parse_line(line):\n    pass\n\n\ndef average(marks):\n    pass\n\n\ndef ranking(lines):\n    pass\n"
+    }
+  ]
+}

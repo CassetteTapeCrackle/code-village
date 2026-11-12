@@ -128,6 +128,9 @@ mode together):
   fail a visible test or a hidden case. A survivor that differs from the solution on 2000 extra inputs from
   `[cases]` is `weak-tests`, with the input where it differs: add a test for it. A survivor that agrees
   everywhere is equivalent and only counted. Without `[cases]` every survivor is `weak-tests`, so declare them.
+  With `none`, list the survivors you checked by hand, each named as its finding names it:
+  ``equivalent = ["const-off-by-one:6:3 (line 6: `0` became `1`)"]``. Editing the solution changes those names, so
+  the survivors come back as findings and the old entries are reported until you drop them.
   Results are cached in `.vet-cache/mutation/`, one file per item, keyed by the item's files.
 - **Rewrites**: the build rewrites the solution in ways that keep its behaviour (renamed variables or
   parameters, loop and comprehension, `for` and `while`, f-string and `+`, `x += 1` and `x = x + 1`, `if` and a
@@ -221,7 +224,8 @@ decided = "auto"               # auto when both agreed and any proposed assert p
   statement about how Python behaves. `not-a-fact`: instructions, story, encouragement.
 
 Editing a sentence changes its fingerprint, so the old entry goes stale and the new wording needs a review. A
-`remember` bullet needs `claim:` or `advice`. The rules: `ledger-missing`, `ledger-stale`, `remember-unbacked`,
+`remember` bullet needs `claim:` or `advice`, or `doc:` with `no_claim` saying why no claim can run (claims cannot
+call the real `input()`). The rules: `ledger-missing`, `ledger-stale`, `remember-unbacked`,
 `claim-id-missing`, `claim-id-unknown`, `doc-anchor-missing`, and `fence-untyped` (a Python fence that is not an
 example, predict or claim). `python -m tools.vet.pending <out.json>` lists the sentences without an entry, with their
 paragraphs; the model reviews described in `docs/test-framework/PLAN.md` (Tasks 6.2 and 6.3) fill the ledger.

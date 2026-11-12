@@ -1,9 +1,9 @@
 {
-  "fingerprint": "652ece23e64f",
+  "fingerprint": "a8e3170b68c1",
   "model": "deepseek-flash",
   "attempts": [
     {
-      "code": "def last_word(sentence):\n    return sentence.strip().split()[-1]\n",
+      "code": "def last_word(sentence):\n    return sentence.split()[-1]\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",
@@ -23,7 +23,7 @@
       "temperature": 0.6
     },
     {
-      "code": "def last_word(sentence):\n    return sentence.split()[-1]\n",
+      "code": "def last_word(sentence):\n    return sentence.strip().split(\" \")[-1]\n",
       "visible": "pass",
       "hidden": "none",
       "failure": "",

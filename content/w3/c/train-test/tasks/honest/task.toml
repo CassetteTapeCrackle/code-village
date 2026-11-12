@@ -5,3 +5,8 @@ title = "Too good to be true"
 prompt = "`honest_score(X, y)` should say how well a 1-neighbour model does on examples it has not seen (split with `test_size=0.25`, `random_state=0`). It always says `1.0`: find and fix the bug."
 hints = ["Which part of the data does it score on? Which part did it learn from?", "Score the model on the test inputs and test labels, not the training ones."]
 gotcha = true
+
+[cases]
+call = "honest_score"
+args = ["list<list<float 0.0..10.0> 2..2> 8..8", "list<choice a|b> 8..8"]
+compare = "float"
