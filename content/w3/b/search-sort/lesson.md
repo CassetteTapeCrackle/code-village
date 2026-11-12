@@ -41,8 +41,19 @@ assert count == 1000000
 When the list is **sorted**, there is a much faster way, like finding a word in a dictionary. Look at the middle item: if it is too small, the target can only be in the right half, so throw the left half away, and repeat. This is a **binary search**. Each step halves what is left, so a million items take about 20 steps.
 
 ```python claim id=auto-77af3bdbf8e5
-import math
-assert math.ceil(math.log2(1_000_000)) == 20
+def steps_to_find(items, target):
+    low, high, steps = 0, len(items), 0
+    while low < high:  # each step keeps one half of what is left
+        steps += 1
+        middle = (low + high) // 2
+        if items[middle] < target:
+            low = middle + 1
+        else:
+            high = middle
+    return steps
+
+million = range(1_000_000)
+assert {steps_to_find(million, t) for t in (0, 1, 499_999, 777_777, 999_999)} <= {19, 20}
 ```
 
 ```python claim id=auto-511c69f337f2
@@ -115,8 +126,22 @@ print(binary_find([2, 5, 8, 12, 20], 12))
 Python's `bisect` module does the halving for you. `bisect_left(items, x)` gives the index where `x` is, or where it would go to keep the list sorted. `insort` adds a value at that place.
 
 ```python claim id=auto-436fccfba9f6
-import bisect
-assert bisect.bisect_left([1, 3, 5, 7], 5) == 2
+from bisect import bisect_left
+
+class Watched:
+    def __init__(self, size):
+        self.size, self.looks = size, 0
+
+    def __len__(self):
+        return self.size
+
+    def __getitem__(self, i):
+        self.looks += 1
+        return i
+
+items = Watched(1_000_000)
+assert bisect_left(items, 777_777) == 777_777
+assert items.looks <= 20
 ```
 
 ```python claim id=auto-7b925fdc2e0f
@@ -223,8 +248,19 @@ assert binary_search([90, 20, 70, 40], 90) is False
 ```
 
 ```python claim id=auto-61063d13db8e
-import math
-assert math.ceil(math.log2(1_000_000)) == 20
+def steps_to_find(items, target):
+    low, high, steps = 0, len(items), 0
+    while low < high:  # each step keeps one half of what is left
+        steps += 1
+        middle = (low + high) // 2
+        if items[middle] < target:
+            low = middle + 1
+        else:
+            high = middle
+    return steps
+
+million = range(1_000_000)
+assert {steps_to_find(million, t) for t in (0, 1, 499_999, 777_777, 999_999)} <= {19, 20}
 ```
 
 ```python claim id=auto-787b59035384
@@ -232,4 +268,28 @@ names = ['mo', 'al']
 ordered = sorted(names)
 assert ordered == ['al', 'mo']
 assert names == ['mo', 'al'] and ordered is not names
+```
+
+```python claim id=remember-d90e7184fa9a
+def linear_search(items, target):
+    looks = 0
+    for item in items:
+        looks += 1
+        if item == target:
+            return True, looks
+    return False, looks
+
+assert linear_search([4, 8, 1], 9) == (False, 3)
+assert linear_search(list(range(100_000)), -1) == (False, 100_000)
+```
+
+```python claim id=remember-47a1f9ee3b53
+from bisect import bisect_left
+
+def found(items, target):
+    i = bisect_left(items, target)
+    return i < len(items) and items[i] == target
+
+assert found([1, 3, 5, 7, 9], 7)
+assert 1 in [5, 9, 1, 7, 3] and not found([5, 9, 1, 7, 3], 1)
 ```

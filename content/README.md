@@ -221,7 +221,8 @@ decided = "auto"               # auto when both agreed and any proposed assert p
   statement about how Python behaves. `not-a-fact`: instructions, story, encouragement.
 
 Editing a sentence changes its fingerprint, so the old entry goes stale and the new wording needs a review. A
-`remember` bullet needs `claim:` or `advice`. The rules: `ledger-missing`, `ledger-stale`, `remember-unbacked`,
+`remember` bullet needs `claim:` or `advice`, or `doc:` with `no_claim` saying why no claim can run (claims cannot
+call the real `input()`). The rules: `ledger-missing`, `ledger-stale`, `remember-unbacked`,
 `claim-id-missing`, `claim-id-unknown`, `doc-anchor-missing`, and `fence-untyped` (a Python fence that is not an
 example, predict or claim). `python -m tools.vet.pending <out.json>` lists the sentences without an entry, with their
 paragraphs; the model reviews described in `docs/test-framework/PLAN.md` (Tasks 6.2 and 6.3) fill the ledger.

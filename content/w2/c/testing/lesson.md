@@ -152,3 +152,24 @@ with warnings.catch_warnings():
     exec('assert (False, "message")')  # a two-item tuple is true: no AssertionError
 assert bool((False, "message")) is True
 ```
+
+```python claim id=remember-28b108a42e4a
+def double(n):
+    return n * 2
+
+def test_double():
+    assert double(3) == 6
+    assert double(0) == 0
+
+test_double()
+
+def double(n):  # a broken version: the known answers catch it
+    return n + 2
+
+try:
+    test_double()
+    caught = False
+except AssertionError:
+    caught = True
+assert caught
+```

@@ -196,3 +196,7 @@ import math
 assert math.sqrt(9) == 3.0
 assert math.floor(2.7) == 2
 ```
+
+```python claim id=remember-2550426a34ed
+assert type(3) is int and type(2.5) is float and type("3") is str and type(True) is bool
+```

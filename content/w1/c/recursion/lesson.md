@@ -123,3 +123,41 @@ except RecursionError:
     raised = True
 assert raised
 ```
+
+```python claim id=remember-15baa40d7c64
+seen = []
+
+def countdown(n):
+    seen.append(n)
+    if n == 0:
+        return "done"
+    return countdown(n - 1)
+
+assert countdown(3) == "done"
+assert seen == [3, 2, 1, 0]
+```
+
+```python claim id=remember-e611f88b22b0
+import inspect
+import sys
+
+def forever(n):
+    return forever(n - 1)
+
+def total(n):
+    if n == 0:
+        return 0
+    return n + total(n - 1)
+
+assert total(4) == 10
+limit = sys.getrecursionlimit()
+sys.setrecursionlimit(len(inspect.stack()) + 50)  # fail fast
+try:
+    forever(3)
+    stopped = False
+except RecursionError:
+    stopped = True
+finally:
+    sys.setrecursionlimit(limit)
+assert stopped
+```

@@ -237,3 +237,26 @@ class Owl(Animal):
 assert Owl().eat() == 'eats'
 assert issubclass(Owl, Animal)
 ```
+
+```python claim id=remember-bfb857ce5a3a
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+class Forgetful(Animal):
+    def __init__(self, name, wings):
+        self.wings = wings
+
+class Bird(Animal):
+    def __init__(self, name, wings):
+        super().__init__(name)
+        self.wings = wings
+
+try:
+    Forgetful("Ada", 2).name
+    raised = False
+except AttributeError:
+    raised = True
+assert raised
+assert Bird("Ada", 2).name == "Ada"
+```

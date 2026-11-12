@@ -2,7 +2,8 @@
 and fence-untyped: every sentence a learner reads is pinned in a ledger, and says what backs it (spec 2 and 4).
 
 A ledger entry holds the fingerprint of one sentence. Editing the sentence leaves its entry stale and the
-sentence missing, so a changed word is reviewed again. `remember` bullets must be backed by a claim or be advice.
+sentence missing, so a changed word is reviewed again. `remember` bullets must be backed by a claim or be advice,
+or by the docs when `no_claim` says why no claim can run.
 """
 
 import re
@@ -52,6 +53,11 @@ def _untyped(about: Subject, texts: Sequence[str]) -> Iterable[Finding]:
                                              "id= are the only attributes): a code block must say what it is")
 
 
+def _backs_a_bullet(entry: LedgerEntry) -> bool:
+    kind = status_kind(entry.status)
+    return kind in ("claim", "advice") or (kind == "doc" and bool(entry.no_claim.strip()))
+
+
 def _judge(about: Subject, current: Sequence[Sentence], ledger: Sequence[LedgerEntry],
            claim_ids: set[str]) -> Iterable[Finding]:
     entries = {entry.fp: entry for entry in ledger}
@@ -60,10 +66,10 @@ def _judge(about: Subject, current: Sequence[Sentence], ledger: Sequence[LedgerE
     missing = [s for s in others if s.fingerprint not in entries]
     yield from _report(about, "ledger-missing", missing, "sentence(s) with no ledger entry: review each and add "
                                                          "one to ledger.toml")
-    unbacked = [s for s in remember if status_kind(entries[s.fingerprint].status if s.fingerprint in entries else "")
-                not in ("claim", "advice")]
+    unbacked = [s for s in remember if not (s.fingerprint in entries and _backs_a_bullet(entries[s.fingerprint]))]
     yield from _report(about, "remember-unbacked", unbacked,
-                       "remember bullet(s) with neither a claim:<id> entry nor status advice")
+                       "remember bullet(s) with neither a claim:<id> entry nor status advice (a doc:<url> entry "
+                       "counts only with no_claim saying why no claim can run)")
     live = {s.fingerprint for s in current}
     stale = [e for e in ledger if e.fp not in live]
     if stale:

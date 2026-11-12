@@ -237,3 +237,10 @@ assert a == b
 assert a is not b
 assert a != [3, 2]
 ```
+
+```python claim id=remember-f4a3e6cca780
+a = ["map"]
+b = a
+b.append("rope")
+assert a == ["map", "rope"] and a is b
+```
