@@ -65,8 +65,12 @@ export async function askWorkersAi(
   messages: { role: string; content: string }[],
 ): Promise<ReadableStream<string>> {
   const model = env.TUTOR_MODEL;
-  // the generated Ai type only overloads the model ids known to the runtime; the API accepts any id
-  const run = env.AI.run as unknown as (model: string, inputs: Record<string, unknown>) => Promise<unknown>;
+  // the generated Ai type only overloads the model ids known to the runtime; the API accepts any id.
+  // bound: run reads private state from `this`, so called detached it throws before reaching the model
+  const run = env.AI.run.bind(env.AI) as unknown as (
+    model: string,
+    inputs: Record<string, unknown>,
+  ) => Promise<unknown>;
   const sse = (await run(model, {
     messages,
     stream: true,
