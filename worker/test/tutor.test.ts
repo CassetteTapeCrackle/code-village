@@ -1,5 +1,5 @@
 import { env } from "cloudflare:workers";
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { LIMITS } from "../src/limits";
 import { handle } from "../src/router";
 import { withDeadline } from "../src/routes/tutor";
@@ -174,6 +174,25 @@ test("a model that fails twice before any piece gets the busy error, keeps the n
   expect((await neuronsToday()) - before).toBe(
     2 * maxNeurons("@cf/google/gemma-4-26b-a4b-it", promptCharsOf(captured)),
   );
+});
+
+test("a failed model attempt logs its error, so the reason behind busy shows in the Worker's logs", async () => {
+  const { token } = await registerPlayer("TutorNine", "10.4.0.10");
+  const logged = vi.spyOn(console, "error").mockImplementation(() => {});
+  try {
+    const deps = makeDeps(async () => {
+      throw new TypeError("binding detached");
+    });
+    const res = await ask(deps, token, question);
+    expect(await res.text()).toBe(`data: {"error":"${BUSY}"}\n\n`);
+    expect(logged).toHaveBeenCalledTimes(2);
+    expect(logged).toHaveBeenCalledWith(
+      "tutor: model attempt failed",
+      expect.objectContaining({ message: "binding detached" }),
+    );
+  } finally {
+    logged.mockRestore();
+  }
 });
 
 test("a model that returns no text at all gets the busy error, refunds the reply slot and keeps the neurons", async () => {

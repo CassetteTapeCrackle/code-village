@@ -149,7 +149,9 @@ export async function tutor(request: Request, env: Env, deps: Deps): Promise<Res
             await send({ text: value });
           }
           finished = true;
-        } catch {
+        } catch (error) {
+          // the learner only sees busy, so the reason has to reach the Worker's logs
+          console.error("tutor: model attempt failed", error);
           if (reader) await reader.cancel().catch(() => undefined);
           if (started) break; // the reply already began: keep what arrived, still count it once
         }
