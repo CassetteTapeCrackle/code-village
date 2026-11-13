@@ -38,8 +38,9 @@ Any task, variant or boss folder may also hold `wrong/*.py` (see below).
 
 - `task.toml`: `id`, `concept`, `kind` (`write`, `fix` or `complete`), `title`, `prompt`, `hints`, `gotcha`.
   Add `strict = true` only when the task teaches exact case, spacing or punctuation (alignment, `repr`): its
-  checks then compare text exactly instead of forgiving them. Lenient checks already keep numbers exact,
-  decimals included, so a decimals task stays lenient and forgives a stray `.` at the end of a line.
+  checks then compare text exactly instead of forgiving them. Lenient checks keep a `.` or `,` that sits between
+  two digits, so `7.50` stays exact and a decimals task can stay lenient, which forgives a stray `.` at the end of
+  a line.
   Every concept needs at least 3 tasks and one gotcha.
 - `solution.py` must pass every test, and `starter.py` must fail at least one.
 - `tests.py` defines `test_*` functions. They read the learner's names with `learner["name"]`, compare with

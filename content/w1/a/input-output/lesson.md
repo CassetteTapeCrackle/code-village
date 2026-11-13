@@ -93,16 +93,6 @@ print(f"{name} scored {score:.1f} points")
 assert int('7') == 7
 ```
 
-```python claim id=auto-dd12793cedb5
-import io, contextlib
-name, score = 'Ann', 3.14159
-buf = io.StringIO()
-with contextlib.redirect_stdout(buf):
-    print(f"{name}: {score:.1f}")
-assert buf.getvalue() == 'Ann: 3.1\n'
-assert f'{score:.2f}' == '3.14'
-```
-
 ```python claim id=auto-b5bfabe48513
 import io, contextlib
 buf = io.StringIO()

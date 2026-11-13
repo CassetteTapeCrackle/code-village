@@ -152,24 +152,6 @@ claude = "agree"
 decided = "auto"
 
 [[sentence]]
-fp = "52ed74a75ed6"
-text = "Use an f-string with `{total:.2f}`."
-where = "task:io-receipt:hint:0"
-status = "not-a-fact"
-deepseek = "agree"
-claude = "agree"
-decided = "auto"
-
-[[sentence]]
-fp = "dd12793cedb5"
-text = "`print(f\"{name}: {score:.1f}\")` prints one decimal; `{score:.2f}` gives two."
-where = "task:io-receipt:hint:1"
-status = "claim:auto-dd12793cedb5"
-deepseek = "agree"
-claude = "agree"
-decided = "auto"
-
-[[sentence]]
 fp = "1f06b1e3382a"
 text = "The program reads a number of hours."
 where = "task:io-minutes:prompt"

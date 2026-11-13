@@ -79,7 +79,8 @@
     margin: 6px 0 0;
   }
   .msg {
-    /* keep the message's line breaks so its caret lines up under the first line */
+    /* keep the message's line breaks so its caret lines up under the first line.
+       shortcut: a first line that wraps on a narrow screen shifts the caret, move to pre + scrolling if learners hit it */
     white-space: pre-wrap;
     font-family: var(--font-mono);
     font-size: 14px;

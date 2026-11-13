@@ -112,7 +112,9 @@ test("the context carries the lesson, the task and the failing tests", () => {
 test("a failure's caret stays under the character it marks", () => {
   const check: CheckResult = {
     error: null,
-    results: [{ name: "tea", passed: false, message: "expected 'ab', got 'ac'\n           ^", hidden: false }],
+    results: [
+      { name: "tea", passed: false, message: "expected 'ab', got 'ac'\n           ^", hidden: false },
+    ],
   };
   const lines = taskContext(lesson, task, snapshot({ check })).split("\n");
   const head = lines.findIndex((line) => line.includes("expected 'ab'"));

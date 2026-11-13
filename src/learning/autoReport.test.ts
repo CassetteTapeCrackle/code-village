@@ -38,6 +38,12 @@ test("the report carries the first failing visible test's message", () => {
   expect(autoReportMessage(r)).toBe("adds: returned 3, expected 4");
 });
 
+test("the report keeps a caret under the character it marks", () => {
+  const r = result(visible(false, "expected 'ab', got 'ac'\n           ^"), hidden(true));
+  const [head = "", caret = ""] = autoReportMessage(r).split("\n");
+  expect(caret.indexOf("^")).toBe(head.indexOf("b'"));
+});
+
 test("each item is reported at most once per session", () => {
   expect(claimAutoReport("lists-last-item")).toBe(true);
   expect(claimAutoReport("lists-last-item")).toBe(false);
