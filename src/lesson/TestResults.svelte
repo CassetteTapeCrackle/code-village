@@ -79,6 +79,8 @@
     margin: 6px 0 0;
   }
   .msg {
+    /* keep the message's line breaks so its caret lines up under the first line */
+    white-space: pre-wrap;
     font-family: var(--font-mono);
     font-size: 14px;
   }

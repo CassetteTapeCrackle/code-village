@@ -55,7 +55,11 @@ function checkReport(check: CheckResult): string {
   if (failed.length === 0) return `All ${check.results.length} tests pass.`;
   return [
     `${passed} of ${check.results.length} tests pass.`,
-    ...failed.map((r) => `- ${r.name}: ${r.message}`),
+    ...failed.map((r) => {
+      const label = `- ${r.name}: `;
+      // Indent the message's later lines past the label so its caret stays under the character it marks.
+      return label + r.message.replaceAll("\n", `\n${" ".repeat(label.length)}`);
+    }),
   ].join("\n");
 }
 

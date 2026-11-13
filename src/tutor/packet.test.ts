@@ -109,6 +109,16 @@ test("the context carries the lesson, the task and the failing tests", () => {
   expect(ctx).toContain("Checks used: 3. Hints used: 1.");
 });
 
+test("a failure's caret stays under the character it marks", () => {
+  const check: CheckResult = {
+    error: null,
+    results: [{ name: "tea", passed: false, message: "expected 'ab', got 'ac'\n           ^", hidden: false }],
+  };
+  const lines = taskContext(lesson, task, snapshot({ check })).split("\n");
+  const head = lines.findIndex((line) => line.includes("expected 'ab'"));
+  expect(lines[head + 1]?.indexOf("^")).toBe(lines[head]?.indexOf("b'"));
+});
+
 test("a check-level error is reported instead of results", () => {
   const broken: CheckResult = { error: "SyntaxError: invalid syntax (line 2)", results: [] };
   expect(taskContext(lesson, task, snapshot({ check: broken }))).toContain(
