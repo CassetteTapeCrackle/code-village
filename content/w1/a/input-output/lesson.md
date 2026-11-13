@@ -113,3 +113,20 @@ x = '4'
 assert f'Double: {x * 2}' == 'Double: 44'
 assert f'Double: {int(x) * 2}' == 'Double: 8'
 ```
+
+```python claim id=auto-83ec61813cb4
+x = 7.5
+assert f"{x:>6}" == format(x, ">6") == "   7.5"
+```
+
+```python claim id=auto-3029fccc676c
+x = 7.5
+assert f"{x:.1f}" == "7.5"
+assert f"{x:.3f}" == "7.500"
+```
+
+```python claim id=auto-4201001fe288
+x = 7.5
+assert f"{x:10f}" == "  7.500000"
+assert f"{x:2f}" == "7.500000"
+```
