@@ -1,5 +1,5 @@
 import type { Lesson, Task } from "../content/types";
-import type { CheckResult } from "../runner/protocol";
+import { labelledMessage, type CheckResult } from "../runner/protocol";
 
 export type Snapshot = {
   taskId: string;
@@ -55,7 +55,7 @@ function checkReport(check: CheckResult): string {
   if (failed.length === 0) return `All ${check.results.length} tests pass.`;
   return [
     `${passed} of ${check.results.length} tests pass.`,
-    ...failed.map((r) => `- ${r.name}: ${r.message}`),
+    ...failed.map((r) => labelledMessage(`- ${r.name}: `, r.message)),
   ].join("\n");
 }
 

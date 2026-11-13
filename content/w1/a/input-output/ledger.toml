@@ -152,24 +152,6 @@ claude = "agree"
 decided = "auto"
 
 [[sentence]]
-fp = "52ed74a75ed6"
-text = "Use an f-string with `{total:.2f}`."
-where = "task:io-receipt:hint:0"
-status = "not-a-fact"
-deepseek = "agree"
-claude = "agree"
-decided = "auto"
-
-[[sentence]]
-fp = "dd12793cedb5"
-text = "`print(f\"{name}: {score:.1f}\")` prints one decimal; `{score:.2f}` gives two."
-where = "task:io-receipt:hint:1"
-status = "claim:auto-dd12793cedb5"
-deepseek = "agree"
-claude = "agree"
-decided = "auto"
-
-[[sentence]]
 fp = "1f06b1e3382a"
 text = "The program reads a number of hours."
 where = "task:io-minutes:prompt"
@@ -259,3 +241,39 @@ deepseek = "disagree"
 claude = "disagree"
 decided = "owner"
 no_claim = "The harness replaces input() with a stand-in (there is no keyboard), so no claim block can call the real one. The docs state that it returns the line it reads as a string."
+
+[[sentence]]
+fp = "b59dfc7fbb52"
+text = "Build the whole line with one f-string, the values in the order the example shows: quantity, item, then total."
+where = "task:io-receipt:hint:0"
+status = "not-a-fact"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "83ec61813cb4"
+text = "Inside the braces, a colon after the value starts a format spec."
+where = "task:io-receipt:hint:1"
+status = "claim:auto-83ec61813cb4"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "3029fccc676c"
+text = "There, a dot then a digit then `f` sets how many decimals show."
+where = "task:io-receipt:hint:1"
+status = "claim:auto-3029fccc676c"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"
+
+[[sentence]]
+fp = "4201001fe288"
+text = "A digit with no dot sets a width instead."
+where = "task:io-receipt:hint:1"
+status = "claim:auto-4201001fe288"
+deepseek = "agree"
+claude = "agree"
+decided = "auto"

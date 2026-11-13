@@ -9,6 +9,15 @@ import { leaderboard, news, playerCard } from "./routes/social";
 import { tutor } from "./routes/tutor";
 
 export async function handle(request: Request, env: Env, deps: Deps): Promise<Response> {
+  try {
+    return await route(request, env, deps);
+  } catch (error) {
+    console.error("worker: request failed", request.method, new URL(request.url).pathname, error);
+    return fail(500, "Something broke on our side. Try again in a minute.");
+  }
+}
+
+async function route(request: Request, env: Env, deps: Deps): Promise<Response> {
   const url = new URL(request.url);
   if (url.pathname.startsWith("/api/") || url.pathname === "/mcp") {
     const { success } = await env.API_RATE_LIMIT.limit({

@@ -1,0 +1,37 @@
+{
+  "model": "deepseek-flash",
+  "calls": 4,
+  "tokens": 5867,
+  "failed": 0,
+  "seconds": 9.8,
+  "replies": [
+    {
+      "fp": "b59dfc7fbb52",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "This is an instruction describing how to build the line in the exercise, not a claim about Python behavior.",
+      "assert": null
+    },
+    {
+      "fp": "83ec61813cb4",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In a replacement field like {value:spec}, the colon separates the value from the format specification. The text after the colon is interpreted as the format spec.",
+      "assert": "assert f\"{123:04d}\" == \"0123\""
+    },
+    {
+      "fp": "3029fccc676c",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In a format spec, `.2f` sets a float to show two digits after the decimal point, as in f-strings.",
+      "assert": "x = 3.14159\nassert f\"{x:.2f}\" == \"3.14\""
+    },
+    {
+      "fp": "4201001fe288",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In a format spec, digits without a dot before the optional precision give the minimum field width, so `f\"{42:5}\"` pads the number to width 5.",
+      "assert": "assert f\"{42:5}\" == \"   42\""
+    }
+  ]
+}

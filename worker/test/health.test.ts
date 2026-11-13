@@ -1,5 +1,5 @@
 import { env } from "cloudflare:workers";
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { handle } from "../src/router";
 
 const deps = {
@@ -17,6 +17,31 @@ test("unknown API route is a 404 with a plain message", async () => {
   const res = await handle(new Request("https://x/api/nope"), env, deps);
   expect(res.status).toBe(404);
   expect(await res.json()).toEqual({ error: "No such API route." });
+});
+
+test("a route that throws answers 500 JSON and logs the failure without the query string", async () => {
+  const logged = vi.spyOn(console, "error").mockImplementation(() => {});
+  try {
+    const broken = {
+      ...deps,
+      now: () => {
+        throw new TypeError("clock detached");
+      },
+    };
+    const res = await handle(new Request("https://x/api/health?token=secret"), env, broken);
+    expect(res.status).toBe(500);
+    expect(await res.json()).toEqual({
+      error: "Something broke on our side. Try again in a minute.",
+    });
+    expect(logged).toHaveBeenCalledWith(
+      "worker: request failed",
+      "GET",
+      "/api/health",
+      expect.objectContaining({ message: "clock detached" }),
+    );
+  } finally {
+    logged.mockRestore();
+  }
 });
 
 test("one address gets 200 API calls a minute, then a 429; another address is unaffected", async () => {

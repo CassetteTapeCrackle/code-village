@@ -3,10 +3,8 @@ concept = "io"
 kind = "complete"
 title = "A small receipt"
 prompt = "The program reads an item, its price and a quantity. Finish it so it prints one line like `3 x tea = 7.50`, with the total to 2 decimals."
-hints = ["Use an f-string with `{total:.2f}`.", "`print(f\"{name}: {score:.1f}\")` prints one decimal; `{score:.2f}` gives two."]
+hints = ["Build the whole line with one f-string, the values in the order the example shows: quantity, item, then total.", "Inside the braces, a colon after the value starts a format spec. There, a dot then a digit then `f` sets how many decimals show. A digit with no dot sets a width instead."]
 gotcha = false
-
-strict = true
 
 [cases]
 stdin = ["word", "int 1..20", "int 1..9"]

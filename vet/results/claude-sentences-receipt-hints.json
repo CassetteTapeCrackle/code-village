@@ -1,0 +1,33 @@
+{
+  "model": "claude-opus-5-5",
+  "replies": [
+    {
+      "fp": "b59dfc7fbb52",
+      "status": "not-a-fact",
+      "verdict": "true",
+      "reason": "It tells the learner how to approach the exercise and names the order the example line shows.",
+      "assert": null
+    },
+    {
+      "fp": "83ec61813cb4",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "In a replacement field, the text after the colon is the format spec, passed to format() with the value.",
+      "assert": "x = 7.5\nassert f\"{x:>6}\" == format(x, \">6\") == \"   7.5\""
+    },
+    {
+      "fp": "3029fccc676c",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "With the f type, the precision after the dot is the number of digits shown after the decimal point.",
+      "assert": "x = 7.5\nassert f\"{x:.1f}\" == \"7.5\"\nassert f\"{x:.3f}\" == \"7.500\""
+    },
+    {
+      "fp": "4201001fe288",
+      "status": "claim",
+      "verdict": "true",
+      "reason": "Without a dot the number is the minimum width, and the f type keeps its default precision of 6.",
+      "assert": "x = 7.5\nassert f\"{x:10f}\" == \"  7.500000\"\nassert f\"{x:2f}\" == \"7.500000\""
+    }
+  ]
+}

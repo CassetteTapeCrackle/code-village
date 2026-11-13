@@ -1,4 +1,5 @@
-import type { CheckResult } from "../runner/protocol";
+import { labelledMessage, type CheckResult } from "../runner/protocol";
+import { MAX_REPORT_MESSAGE_CHARS } from "../sync/events";
 
 // Code that passes every hidden case but fails a visible test points at a wrong test, not a wrong answer.
 // Without hidden cases nothing vouches for the code, so a task that declares none is never reported.
@@ -11,7 +12,8 @@ export function shouldAutoReport(result: CheckResult): boolean {
 
 export function autoReportMessage(result: CheckResult): string {
   const failed = result.results.find((r) => !r.hidden && !r.passed);
-  return failed ? `${failed.name}: ${failed.message}` : "";
+  // The worker refuses a longer message, and the one report this session allows would be lost.
+  return failed ? labelledMessage(`${failed.name}: `, failed.message).slice(0, MAX_REPORT_MESSAGE_CHARS) : "";
 }
 
 const reported = new Set<string>();

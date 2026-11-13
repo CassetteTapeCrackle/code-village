@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 import type { CheckResult, TestResult } from "../runner/protocol";
+import { MAX_REPORT_MESSAGE_CHARS } from "../sync/events";
 import { autoReportMessage, claimAutoReport, shouldAutoReport } from "./autoReport";
 
 const visible = (passed: boolean, message = ""): TestResult => ({
@@ -36,6 +37,17 @@ test("a full pass and a syntax error are never reported", () => {
 test("the report carries the first failing visible test's message", () => {
   const r = result(visible(true, ""), visible(false, "returned 3, expected 4"), hidden(true));
   expect(autoReportMessage(r)).toBe("adds: returned 3, expected 4");
+});
+
+test("the report keeps a caret under the character it marks", () => {
+  const r = result(visible(false, "expected 'ab', got 'ac'\n           ^"), hidden(true));
+  const [head = "", caret = ""] = autoReportMessage(r).split("\n");
+  expect(caret.indexOf("^")).toBe(head.indexOf("b'"));
+});
+
+test("a long message is cut to what the report endpoint accepts", () => {
+  const r = result(visible(false, "x".repeat(MAX_REPORT_MESSAGE_CHARS + 50)), hidden(true));
+  expect(autoReportMessage(r)).toHaveLength(MAX_REPORT_MESSAGE_CHARS);
 });
 
 test("each item is reported at most once per session", () => {
