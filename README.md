@@ -282,7 +282,8 @@ pnpm worker:dev --local
 ```
 
 `pnpm build` is needed once, because the local server also serves the built game. With `--local`,
-everything runs on your machine and no account is needed. The teacher is off in this mode.
+everything runs on your machine and no account is needed. The teacher cannot answer in this mode
+and says it is busy.
 
 To try the teacher too, its model runs on Cloudflare, so you need your own Cloudflare account. Run
 `pnpm exec wrangler login` once, then start the server with `pnpm worker:dev` instead.
@@ -299,7 +300,7 @@ pnpm test:py
 ## License
 
 Code Village is © 2026 CassetteTapeCrackle, licensed under the
-[GNU Affero General Public License 3.0](LICENSE). You may run, change and share it. If you host a
-changed copy for other people, you must share its source under the same license.
+[GNU Affero General Public License 3.0](LICENSE). You may run, change and share it. If you share a
+copy, or host a changed copy for other people, you must offer its source under the same license.
 
 The Departure Mono font keeps its own license, in `src/styles/fonts/DepartureMono-LICENSE.txt`.
