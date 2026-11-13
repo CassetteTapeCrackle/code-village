@@ -1,0 +1,23 @@
+name: Something's broken
+description: The game did something it should not, or would not do something it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-you-did
+    attributes:
+      label: What did you do?
+      description: The steps that led to the problem, as you remember them.
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you saw, and what you expected instead. A screenshot helps.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: Firefox on a laptop, Safari on an iPhone...
