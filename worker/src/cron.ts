@@ -32,3 +32,11 @@ export async function wrapLegacyRecoveryHashes(env: Env): Promise<number> {
   if (updates.length) await env.DB.batch(updates);
   return updates.length;
 }
+
+export async function runNightly(env: Env, now: Date): Promise<void> {
+  const [deletedPlayers, wrappedHashes] = await Promise.all([
+    deleteInactive(env, now.toISOString().slice(0, 10)),
+    wrapLegacyRecoveryHashes(env),
+  ]);
+  console.log("cron: nightly done", { deletedPlayers, wrappedHashes });
+}
