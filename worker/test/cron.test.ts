@@ -1,8 +1,8 @@
 import { env } from "cloudflare:workers";
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { addDays } from "../../src/learning/dates";
 import { recoveryHash, sha256Hex } from "../src/crypto";
-import { deleteInactive, wrapLegacyRecoveryHashes } from "../src/cron";
+import { deleteInactive, runNightly, wrapLegacyRecoveryHashes } from "../src/cron";
 
 async function seed(nickname: string, lastActive: string): Promise<void> {
   await env.DB.prepare(
@@ -78,4 +78,46 @@ test("the cron wraps plain recovery hashes with the key and leaves wrapped ones 
     { nickname: "Wrapped", hash: wrapped },
   ]);
   expect(await wrapLegacyRecoveryHashes(env)).toBe(0);
+});
+
+test("the nightly run logs how many players it deleted and hashes it wrapped", async () => {
+  // empty tables, so the counts do not depend on what earlier tests left behind
+  await env.DB.batch([
+    env.DB.prepare("DELETE FROM tokens"),
+    env.DB.prepare("DELETE FROM events"),
+    env.DB.prepare("DELETE FROM saves"),
+    env.DB.prepare("DELETE FROM players"),
+  ]);
+  await seed("NightlyOld", "2025-01-01");
+  await seed("NightlyFresh", "2026-10-01");
+  await wrapLegacyRecoveryHashes(env); // every row wrapped, so only the deletion count is non-zero
+  const logged = vi.spyOn(console, "log").mockImplementation(() => {});
+  try {
+    await runNightly(env, new Date("2026-10-15T00:00:00Z"));
+    expect(logged).toHaveBeenCalledWith("cron: nightly done", {
+      deletedPlayers: 1,
+      wrappedHashes: 0,
+    });
+  } finally {
+    logged.mockRestore();
+  }
+});
+
+test("the scheduled handler runs the nightly job and keeps it alive with waitUntil", async () => {
+  const logged = vi.spyOn(console, "log").mockImplementation(() => {});
+  try {
+    const waits: Promise<unknown>[] = [];
+    const handler = (await import("../src/index")).default;
+    handler.scheduled({} as ScheduledController, env, {
+      waitUntil: (work: Promise<unknown>) => waits.push(work),
+    } as unknown as ExecutionContext);
+    expect(waits).toHaveLength(1);
+    await waits[0];
+    expect(logged).toHaveBeenCalledWith("cron: nightly done", {
+      deletedPlayers: expect.any(Number),
+      wrappedHashes: expect.any(Number),
+    });
+  } finally {
+    logged.mockRestore();
+  }
 });
