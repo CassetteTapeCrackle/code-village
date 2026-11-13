@@ -1,0 +1,4 @@
+# Commands ~/.claude/bin/guard.sh keeps on GitHub CI for this public repo, on top of test scripts and Playwright.
+# One extended regex per line. The content check and the gap run take over 10 minutes on the owner's Mac.
+pnpm (run )?(content|gaps|vet:pyodide)([[:space:];&|]|$)
+tools/content_check\.py
