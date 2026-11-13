@@ -5,6 +5,17 @@
 <p align="center"><b><a href="https://code-village.dev">Play at code-village.dev</a></b><br>
 In your browser. Nothing to install, no account needed.</p>
 
+<p align="center">
+  <a href="https://code-village.dev"><img src="https://img.shields.io/badge/play-code--village.dev-4c9a2a" alt="Play at code-village.dev"></a>
+  <a href="https://github.com/CassetteTapeCrackle/code-village/actions/workflows/ci.yml"><img src="https://github.com/CassetteTapeCrackle/code-village/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI status"></a>
+  <a href="https://github.com/CassetteTapeCrackle/code-village/actions/workflows/codeql.yml"><img src="https://github.com/CassetteTapeCrackle/code-village/actions/workflows/codeql.yml/badge.svg?branch=main" alt="CodeQL status"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue" alt="License: AGPL 3.0"></a>
+  <img src="https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white" alt="Python 3.14">
+  <img src="https://img.shields.io/badge/Svelte-5-FF3E00?logo=svelte&logoColor=white" alt="Svelte 5">
+  <img src="https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white" alt="TypeScript, strict">
+  <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?logo=cloudflare&logoColor=white" alt="Cloudflare Workers">
+</p>
+
 ## What it is
 
 Code Village is a cozy pixel village where the way forward is writing code. A lesson teaches a
@@ -240,3 +251,11 @@ offline.
 
 **Can I play on two devices?** One at a time. Join the board, then use your recovery code on the
 other device. That signs out the first one (see Your progress).
+
+## License
+
+Code Village is © 2026 CassetteTapeCrackle, licensed under the
+[GNU Affero General Public License 3.0](LICENSE). You may run, change and share it. If you host a
+changed copy for other people, you must share its source under the same license.
+
+The Departure Mono font keeps its own license, in `src/styles/fonts/DepartureMono-LICENSE.txt`.
