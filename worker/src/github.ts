@@ -24,11 +24,15 @@ export async function openGithubIssue(
       },
       body: JSON.stringify({ title, body, labels }),
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.error("github: issue not opened", res.status);
+      return null;
+    }
     const data: unknown = await res.json();
     const issue = typeof data === "object" && data !== null ? (data as { number?: unknown }).number : null;
     return typeof issue === "number" ? issue : null;
-  } catch {
+  } catch (error) {
+    console.error("github: issue request failed", error instanceof Error ? error.message : String(error));
     return null;
   }
 }
