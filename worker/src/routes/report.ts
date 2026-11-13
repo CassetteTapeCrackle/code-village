@@ -92,7 +92,10 @@ async function linkIssue(
     .bind(report.item, codeHash)
     .first();
   if (known) return;
-  if (!env.GITHUB_ISSUES_TOKEN) return;
+  if (!env.GITHUB_ISSUES_TOKEN) {
+    console.warn("report: GITHUB_ISSUES_TOKEN is not set, reports stay in D1 only");
+    return;
+  }
   if ((await issuesOpenedOn(env, day)) >= LIMITS.issuesPerDay) return;
   const { title, body, labels } = issueText(report);
   const issue = await deps.openIssue(title, body, labels);

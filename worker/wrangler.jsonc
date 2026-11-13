@@ -4,6 +4,8 @@
   "compatibility_date": "2026-10-01",
   "workers_dev": true,
   "preview_urls": false,
+  // Errors and logs are stored for a few days (not only shown live in wrangler tail), so class failures can be inspected.
+  "observability": { "enabled": true },
   "assets": { "directory": "../dist", "binding": "ASSETS", "run_worker_first": ["/api/*", "/mcp"] },
   "d1_databases": [
     {

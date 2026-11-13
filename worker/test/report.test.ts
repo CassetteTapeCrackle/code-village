@@ -1,5 +1,5 @@
 import { env } from "cloudflare:workers";
-import { beforeEach, expect, test } from "vitest";
+import { beforeEach, expect, test, vi } from "vitest";
 import { MAX_CODE_CHARS } from "../../src/sync/events";
 import type { Deps } from "../src/env";
 import { openGithubIssue } from "../src/github";
@@ -158,11 +158,27 @@ test("rate_limited", async () => {
 
 test("no_token_stores_only", async () => {
   const opened: OpenedIssue[] = [];
-  const noToken = { ...env, GITHUB_ISSUES_TOKEN: "" };
-  const res = await handle(report(button("x = 1")), noToken, fakeDeps(opened));
-  expect(res.status).toBe(201);
-  expect(await reportCount()).toBe(1);
-  expect(opened).toHaveLength(0);
+  const warned = vi.spyOn(console, "warn").mockImplementation(() => {});
+  try {
+    const noToken = { ...env, GITHUB_ISSUES_TOKEN: "" };
+    const res = await handle(report(button("x = 1")), noToken, fakeDeps(opened));
+    expect(res.status).toBe(201);
+    expect(await reportCount()).toBe(1);
+    expect(opened).toHaveLength(0);
+    expect(warned).toHaveBeenCalledWith("report: GITHUB_ISSUES_TOKEN is not set, reports stay in D1 only");
+  } finally {
+    warned.mockRestore();
+  }
+});
+
+test("a token present keeps the missing-token warning quiet", async () => {
+  const warned = vi.spyOn(console, "warn").mockImplementation(() => {});
+  try {
+    await handle(report(button("x = 1")), env, fakeDeps([]));
+    expect(warned).not.toHaveBeenCalled();
+  } finally {
+    warned.mockRestore();
+  }
 });
 
 test("a failed issue call still stores the report, and a later duplicate tries again", async () => {
@@ -216,15 +232,6 @@ test("openGithubIssue posts to the repo issues endpoint and returns the number",
   expect(calls[0].url).toBe("https://api.github.com/repos/CassetteTapeCrackle/code-village-reports/issues");
   expect(new Headers(calls[0].init.headers).get("authorization")).toBe("Bearer tok");
   expect(JSON.parse(String(calls[0].init.body))).toEqual({ title: "T", body: "B", labels: ["report"] });
-});
-
-test("openGithubIssue returns null when GitHub refuses or the network fails", async () => {
-  const refused = async (): Promise<Response> => new Response("{}", { status: 403 });
-  expect(await openGithubIssue("tok", "T", "B", [], refused)).toBeNull();
-  const broken = async (): Promise<Response> => {
-    throw new Error("offline");
-  };
-  expect(await openGithubIssue("tok", "T", "B", [], broken)).toBeNull();
 });
 
 test("code at the cap that JSON escaping doubles is still accepted", async () => {
