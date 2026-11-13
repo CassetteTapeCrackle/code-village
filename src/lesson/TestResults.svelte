@@ -79,6 +79,8 @@
     margin: 6px 0 0;
   }
   .msg {
+    /* shortcut: pre-wrap keeps the caret line under the message, but a wrapped first line shifts it; use pre + scroll if learners hit it */
+    white-space: pre-wrap;
     font-family: var(--font-mono);
     font-size: 14px;
   }

@@ -35,6 +35,7 @@ __pycache__/
 !.claude/hooks/
 !.claude/settings.json
 !.claude/cloud-setup.sh
+!.claude/ci-only
 .opencode/
 .superpowers/
 .handoff/

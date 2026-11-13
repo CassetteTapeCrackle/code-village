@@ -1,0 +1,6 @@
+# Commands ~/.claude/bin/guard.sh and opencode's git-guard.ts keep on GitHub CI for this public repo, on top of test
+# scripts and Playwright: the content check and the gap run take over 10 minutes on the owner's Mac.
+# One extended regex per line, matched where a command starts (past VAR=value prefixes).
+pnpm([[:space:]]+run)?[[:space:]]+(content|gaps|vet:pyodide)([[:space:];&|)]|$)
+(uv[[:space:]]+run[^;&|]*[[:space:]])?python[0-9.]*[[:space:]]+(tools/content_check\.py|-m[[:space:]]+tools\.vet\.gaps)
+node[^;&|]*scripts/vet-pyodide\.mjs

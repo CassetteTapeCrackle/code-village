@@ -18,6 +18,10 @@ Framework: svelte (locked). Do not introduce alternative frameworks without expl
 ## Tests
 
 - Vitest (+ Testing Library for components). Cover new logic; regression test per bug.
+- CI always runs on GitHub. On the owner's Mac, push the branch and open a PR into `dev` for the full gate
+  (`pnpm content`, `pnpm test`, `pnpm test:py`, e2e); locally, run one vitest file at most. A fresh worktree
+  has no generated `src/content/bundle.json`, so lint, typecheck and most component tests wait for CI too.
+  Cloud sessions run in a VM and keep the pre-commit gate in `.claude/rules/standards.md`.
 
 ## Depth
 

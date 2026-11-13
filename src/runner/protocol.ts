@@ -2,6 +2,11 @@ export type RunResult = { stdout: string; error: string | null };
 // hidden: the one result that stands for the hidden cases (the first failing case, or a summary when all pass)
 export type TestResult = { name: string; passed: boolean; message: string; hidden: boolean };
 export type CheckResult = { error: string | null; results: TestResult[] };
+
+// Indents a message's later lines past its label, so a caret line stays under the character it marks.
+export function labelledMessage(label: string, message: string): string {
+  return label + message.replaceAll("\n", `\n${" ".repeat(label.length)}`);
+}
 export type Compare = "exact" | "unordered" | "float" | "text" | "array" | "frame" | "valid";
 // An input generated at build time and what the model solution gave for it (py/harness.py reads it).
 // `expect` is Python source; with compare "valid" it is the input, judged by the tests.py function `valid`.
