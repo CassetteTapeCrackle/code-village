@@ -252,6 +252,50 @@ offline.
 **Can I play on two devices?** One at a time. Join the board, then use your recovery code on the
 other device. That signs out the first one (see Your progress).
 
+## Run it locally
+
+### The game
+
+You need [Node.js](https://nodejs.org) (the LTS version),
+[pnpm 11](https://pnpm.io/installation) and [uv](https://docs.astral.sh/uv/getting-started/installation/).
+uv downloads Python 3.14 for you the first time.
+
+```bash
+git clone https://github.com/CassetteTapeCrackle/code-village.git
+cd code-village
+pnpm install
+pnpm dev
+```
+
+Then open http://localhost:5173. The first start takes a few minutes, because every lesson is
+checked before the game is built.
+
+### The board (optional)
+
+The board runs on a small local server. Keep `pnpm dev` running, and in a second terminal:
+
+```bash
+cp worker/.dev.vars.example worker/.dev.vars
+pnpm worker:migrate
+pnpm build
+pnpm worker:dev --local
+```
+
+`pnpm build` is needed once, because the local server also serves the built game. With `--local`,
+everything runs on your machine and no account is needed. The teacher is off in this mode.
+
+To try the teacher too, its model runs on Cloudflare, so you need your own Cloudflare account. Run
+`pnpm exec wrangler login` once, then start the server with `pnpm worker:dev` instead.
+
+### Checks
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm test:py
+```
+
 ## License
 
 Code Village is © 2026 CassetteTapeCrackle, licensed under the
