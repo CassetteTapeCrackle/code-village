@@ -47,8 +47,13 @@ test("a new tab on a lesson link shows the splash, then opens the doors", async 
 });
 
 test("the splash gives up at 10 s when the app never starts", async ({ page }) => {
+  // Block every script but the gate, whatever the app's entry is called on this server.
   let blocked = false;
-  await page.route("**/src/main.ts", (route) => {
+  await page.route("**/*", (route) => {
+    const request = route.request();
+    if (request.resourceType() !== "script" || request.url().endsWith("/splash-gate.js")) {
+      return route.continue();
+    }
     blocked = true;
     return route.abort();
   });
