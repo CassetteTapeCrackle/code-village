@@ -27,6 +27,7 @@
   import TodayCard from "../ui/TodayCard.svelte";
   import { board, boardWidth, NARROW } from "../ui/board.svelte";
   import { clearShowMe, showMe } from "../ui/showme.svelte";
+  import { openSplash } from "../splash/splash";
   import {
     MAP_H,
     MAP_W,
@@ -478,6 +479,8 @@
         samples.length = 0;
         sampleWarmUntil = performance.now() + SAMPLE_WARMUP_MS;
         paint();
+        // the first full paint is what the splash waits for; later calls find no splash and return
+        void openSplash();
       };
       if (defer) onIdle(compose, 500);
       else compose();

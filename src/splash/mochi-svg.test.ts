@@ -13,7 +13,9 @@ test("one rect per Mochi pixel, coloured from the day palette", () => {
 });
 
 test("the two eye pixels can blink", () => {
-  const eyes = [...mochiSvg().matchAll(/<rect class="splash-eye" x="(\d+)" y="(\d+)"/g)].map((m) => `${m[1]},${m[2]}`);
+  const eyes = [...mochiSvg().matchAll(/<rect class="splash-eye" x="(\d+)" y="(\d+)"/g)].map(
+    (m) => `${m[1]},${m[2]}`,
+  );
   expect(eyes).toEqual(["4,5", "8,5"]);
 });
 
