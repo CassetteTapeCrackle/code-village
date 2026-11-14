@@ -1,0 +1,24 @@
+name: A lesson or task looks wrong
+description: A mistake in a lesson, a task, a hint or a boss, or a Check that judged your code wrongly.
+labels: [lesson]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Which lesson or task?
+      placeholder: Loops, task "Add them up"
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: Your code
+      description: Paste the code you checked, if the problem is about a Check.
+      render: python
+  - type: textarea
+    id: what-looks-wrong
+    attributes:
+      label: What looks wrong?
+      description: What Check said, or what the lesson says, and why you think it is wrong.
+    validations:
+      required: true
