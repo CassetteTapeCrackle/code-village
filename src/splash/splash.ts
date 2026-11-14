@@ -13,11 +13,18 @@ export function splashWait(sinceStartMs: number, automated: boolean): number {
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
+// At the give-up the page is freed directly, not through openSplash, which may still wait on a stalled font.
+function freePage(): void {
+  document.getElementById("app")?.removeAttribute("inert");
+  const splash = document.getElementById("splash");
+  if (splash && !splash.classList.contains("splash-open")) splash.remove();
+}
+
 // Called once before the app mounts. Keyboard and screen readers stay off the village while the wood covers it,
 // and the page is freed at SPLASH_GIVE_UP_MS even if the village never paints. Automated browsers are never held:
 // the e2e suite clicks the village right after load.
 export function holdAppBehindSplash(): void {
-  setTimeout(() => void openSplash(), Math.max(0, SPLASH_GIVE_UP_MS - performance.now()));
+  setTimeout(freePage, Math.max(0, SPLASH_GIVE_UP_MS - performance.now()));
   const shown =
     document.getElementById("splash") && !document.documentElement.classList.contains("splash-seen");
   if (!shown || navigator.webdriver === true) return;

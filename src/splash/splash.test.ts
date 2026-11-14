@@ -133,6 +133,20 @@ test("doors that start just before 10 s finish their slide", async () => {
   );
 });
 
+test("a font load that never finishes cannot hold the village past 10 s", async () => {
+  Object.defineProperty(document, "fonts", { value: { ready: new Promise(() => {}) }, configurable: true });
+  try {
+    vi.spyOn(performance, "now").mockReturnValue(500);
+    holdAppBehindSplash();
+    void openSplash(); // the village painted, the splash font is still loading
+    await vi.advanceTimersByTimeAsync(SPLASH_GIVE_UP_MS - 500);
+    expect(document.getElementById("splash")).toBeNull();
+    expect(app.hasAttribute("inert")).toBe(false);
+  } finally {
+    Reflect.deleteProperty(document, "fonts");
+  }
+});
+
 test("no splash on the page is fine", async () => {
   splash.remove();
   await expect(openSplash()).resolves.toBeUndefined();
