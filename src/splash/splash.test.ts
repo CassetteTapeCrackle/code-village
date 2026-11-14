@@ -1,8 +1,16 @@
 import { readFileSync } from "node:fs";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
-import { SPLASH_DOORS_MS, SPLASH_SEEN_KEY, openSplash, splashWait } from "./splash";
+import {
+  SPLASH_DOORS_MS,
+  SPLASH_GIVE_UP_MS,
+  SPLASH_SEEN_KEY,
+  holdAppBehindSplash,
+  openSplash,
+  splashWait,
+} from "./splash";
 
 let splash: HTMLElement;
+let app: HTMLElement;
 
 beforeEach(() => {
   vi.useFakeTimers();
@@ -10,11 +18,14 @@ beforeEach(() => {
   document.documentElement.classList.remove("splash-seen", "splash-automated");
   splash = document.createElement("div");
   splash.id = "splash";
-  document.body.append(splash);
+  app = document.createElement("div");
+  app.id = "app";
+  document.body.append(splash, app);
 });
 
 afterEach(() => {
   splash.remove();
+  app.remove();
   vi.restoreAllMocks();
   vi.useRealTimers();
 });
@@ -63,6 +74,63 @@ test("a second call while the first waits does nothing more", async () => {
   await vi.runAllTimersAsync();
   await Promise.all([first, second]);
   expect(setItem).toHaveBeenCalledTimes(1);
+});
+
+test("the village behind the splash takes no focus until the doors open", async () => {
+  vi.spyOn(performance, "now").mockReturnValue(500);
+  holdAppBehindSplash();
+  expect(app.hasAttribute("inert")).toBe(true);
+  const done = openSplash();
+  await vi.advanceTimersByTimeAsync(1500);
+  expect(splash.classList.contains("splash-open")).toBe(true);
+  expect(app.hasAttribute("inert")).toBe(false);
+  await vi.advanceTimersByTimeAsync(SPLASH_DOORS_MS);
+  await done;
+});
+
+test("a reload or an automated browser never holds the village", () => {
+  document.documentElement.classList.add("splash-seen");
+  holdAppBehindSplash();
+  expect(app.hasAttribute("inert")).toBe(false);
+  document.documentElement.classList.remove("splash-seen");
+  Object.defineProperty(navigator, "webdriver", { value: true, configurable: true });
+  try {
+    holdAppBehindSplash();
+    expect(app.hasAttribute("inert")).toBe(false);
+  } finally {
+    Reflect.deleteProperty(navigator, "webdriver");
+  }
+});
+
+test("a village that never paints still frees the page at 10 s, without the doors", async () => {
+  vi.spyOn(performance, "now").mockReturnValue(500);
+  holdAppBehindSplash();
+  await vi.advanceTimersByTimeAsync(SPLASH_GIVE_UP_MS - 500 - 1);
+  expect(document.getElementById("splash")).not.toBeNull();
+  vi.spyOn(performance, "now").mockReturnValue(SPLASH_GIVE_UP_MS);
+  // 2, not 1: fake timers push the 0 ms wait that the give-up sets mid-tick to 1 ms
+  await vi.advanceTimersByTimeAsync(2);
+  expect(document.getElementById("splash")).toBeNull();
+  expect(splash.classList.contains("splash-open")).toBe(false);
+  expect(app.hasAttribute("inert")).toBe(false);
+});
+
+test("doors that start just before 10 s finish their slide", async () => {
+  vi.spyOn(performance, "now").mockReturnValue(9500);
+  holdAppBehindSplash();
+  const done = openSplash();
+  await vi.advanceTimersByTimeAsync(1);
+  expect(splash.classList.contains("splash-open")).toBe(true);
+  vi.spyOn(performance, "now").mockReturnValue(SPLASH_GIVE_UP_MS);
+  await vi.advanceTimersByTimeAsync(500);
+  expect(document.getElementById("splash")).not.toBeNull();
+  await vi.advanceTimersByTimeAsync(SPLASH_DOORS_MS);
+  await done;
+  expect(document.getElementById("splash")).toBeNull();
+  // the CSS give-up must not hide the doors mid-slide either
+  expect(readFileSync("src/splash/splash.css", "utf8")).toMatch(
+    /#splash\.splash-open \{[^}]*animation: none;/,
+  );
 });
 
 test("no splash on the page is fine", async () => {

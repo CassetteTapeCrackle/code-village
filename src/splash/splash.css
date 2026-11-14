@@ -179,8 +179,10 @@
 }
 
 /* The barn doors: the sign and shading fade, then the wood splits down the middle and slides open. */
-.splash-open {
+/* opening cancels the 10 s give-up, so doors that start just before it finish their slide */
+#splash.splash-open {
   pointer-events: none;
+  animation: none;
 }
 .splash-open .splash-center,
 .splash-open .splash-vignette {
@@ -280,12 +282,13 @@
     background: #7b5e4a;
   }
 }
+/* the two colours come from the palette, set on the SVG by src/splash/mochi-svg.ts */
 @keyframes splash-blink {
   0% {
-    fill: #a9c98a;
+    fill: var(--splash-lid);
   }
   5.38% {
-    fill: #7fa05a;
+    fill: var(--splash-eye);
   }
 }
 @keyframes splash-fade-in {
