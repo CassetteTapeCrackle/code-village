@@ -7,7 +7,7 @@ let splash: HTMLElement;
 beforeEach(() => {
   vi.useFakeTimers();
   sessionStorage.clear();
-  document.documentElement.classList.remove("splash-seen");
+  document.documentElement.classList.remove("splash-seen", "splash-automated");
   splash = document.createElement("div");
   splash.id = "splash";
   document.body.append(splash);
@@ -74,4 +74,25 @@ test("the gate script reads the same key and sets the same class", () => {
   const gate = readFileSync("public/splash-gate.js", "utf8");
   expect(gate).toContain(SPLASH_SEEN_KEY);
   expect(gate).toContain("splash-seen");
+});
+
+// The gate is a classic script in <head>, so the test runs its real source.
+const runGate = (): void => void new Function(readFileSync("public/splash-gate.js", "utf8"))();
+
+test("the gate hides the splash on a reload, not in a new tab", () => {
+  runGate();
+  expect(document.documentElement.classList.contains("splash-seen")).toBe(false);
+  sessionStorage.setItem(SPLASH_SEEN_KEY, "1");
+  runGate();
+  expect(document.documentElement.classList.contains("splash-seen")).toBe(true);
+});
+
+test("under automation the splash lets clicks through from the first paint", () => {
+  Object.defineProperty(navigator, "webdriver", { value: true, configurable: true });
+  try {
+    runGate();
+    expect(document.documentElement.classList.contains("splash-automated")).toBe(true);
+  } finally {
+    Reflect.deleteProperty(navigator, "webdriver");
+  }
 });

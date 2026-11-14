@@ -26,6 +26,10 @@
 .splash-seen #splash {
   display: none;
 }
+/* set under navigator.webdriver: e2e tests click the village right after load */
+.splash-automated #splash {
+  pointer-events: none;
+}
 
 /* Two full-size layers clipped to halves, so the wood stays continuous across the split without a script. */
 .splash-door {
