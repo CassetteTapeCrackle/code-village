@@ -5,6 +5,7 @@ import { createHash } from "node:crypto";
 import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import type { Plugin } from "vite";
+import { injectSplashMochi } from "./src/splash/mochi-svg";
 
 // A stamp of every source file, handed to the app as __BUILD_ID__. The stored terrain picture (Village)
 // carries it in its key, so a build whose painting could differ never shows another build's map.
@@ -49,8 +50,13 @@ function precache(): Plugin {
   };
 }
 
+// Draws Mochi into the splash in index.html from the sprite grid, so the two can never drift apart.
+function splashMochi(): Plugin {
+  return { name: "splash-mochi", transformIndexHtml: injectSplashMochi };
+}
+
 export const config = defineConfig({
-  plugins: [svelte(), svelteTesting(), precache()],
+  plugins: [svelte(), svelteTesting(), precache(), splashMochi()],
   define: { __BUILD_ID__: JSON.stringify(sourceStamp()) },
   base: "./",
   server: { proxy: { "/api": "http://127.0.0.1:8787", "/mcp": "http://127.0.0.1:8787" } },

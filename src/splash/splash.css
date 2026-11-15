@@ -1,0 +1,318 @@
+/* The wood splash in index.html; src/splash/splash.ts opens its doors. Every size, colour and timing is the
+   approved mockup's (docs/mockups/2026-11-14-loading-screen: motion from v1, wood from v3's "Lighter"). */
+@font-face {
+  font-family: "Departure Mono Splash";
+  src: url("../styles/fonts/DepartureMono-Regular.woff2") format("woff2");
+  /* block, not swap: the sign must never show a fallback font */
+  font-display: block;
+}
+
+#splash {
+  --splash-m: 10px; /* one Mochi pixel */
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  font-family: "Departure Mono Splash", ui-monospace, monospace;
+  /* a load that never opens the doors must not trap the page */
+  animation: splash-give-up 0s 10s forwards;
+}
+#splash,
+#splash * {
+  box-sizing: border-box;
+}
+/* public/splash-gate.js sets this before the first paint when the tab already saw the splash */
+.splash-seen #splash {
+  display: none;
+}
+/* set under navigator.webdriver: e2e tests click the village right after load */
+.splash-automated #splash {
+  pointer-events: none;
+}
+
+/* Two full-size layers clipped to halves, so the wood stays continuous across the split without a script. */
+.splash-door {
+  position: absolute;
+  inset: 0;
+  background: #ae7b58 url("./wood-4x.png");
+}
+.splash-door-left {
+  clip-path: inset(0 50% 0 0);
+}
+.splash-door-right {
+  clip-path: inset(0 0 0 50%);
+}
+.splash-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 35%, rgb(62 42 30 / 0.45) 100%);
+}
+
+.splash-center {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  padding: 0 16px;
+}
+.splash-stack {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+.splash-mochi {
+  position: relative;
+  z-index: 1;
+  margin-bottom: calc(var(--splash-m) * -0.4);
+}
+.splash-mochi svg {
+  display: block;
+  width: calc(12 * var(--splash-m));
+  height: calc(10 * var(--splash-m));
+}
+.splash-sign {
+  position: relative;
+  z-index: 2;
+  width: min(620px, calc(100vw - 32px));
+  padding: clamp(18px, 4vw, 30px) clamp(16px, 4vw, 40px) clamp(16px, 3.6vw, 26px);
+  text-align: center;
+  color: #f1efe0;
+  background: #2f3f36;
+  box-shadow:
+    inset 0 0 0 4px #2d3527,
+    inset 0 0 0 10px #ae7b58,
+    inset 0 0 0 12px #2d3527,
+    0 6px 0 rgb(45 53 39 / 0.35);
+}
+.splash-word {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1;
+  font-size: clamp(30px, 8.4vw, 64px);
+  letter-spacing: 0.06em;
+}
+.splash-tag {
+  margin: 12px 0 0;
+  color: #c3dba2;
+  font-size: clamp(10px, 2.3vw, 15px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.splash-sparkle {
+  position: absolute;
+  z-index: 3;
+  width: calc(5 * var(--splash-m) * 0.45);
+  height: calc(5 * var(--splash-m) * 0.45);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 5' shape-rendering='crispEdges'%3E%3Cpath fill='%23f2c75c' d='M2 0h1v2h2v1H3v2H2V3H0V2h2z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+.splash-s1 {
+  left: calc(-4.5 * var(--splash-m));
+  top: calc(0.5 * var(--splash-m));
+}
+.splash-s2 {
+  left: calc(13.5 * var(--splash-m));
+  top: calc(2 * var(--splash-m));
+}
+.splash-s3 {
+  left: calc(-2 * var(--splash-m));
+  top: calc(6.5 * var(--splash-m));
+}
+.splash-s4 {
+  left: calc(11 * var(--splash-m));
+  top: calc(-2.5 * var(--splash-m));
+}
+.splash-dots {
+  display: flex;
+  gap: 10px;
+}
+.splash-dots i {
+  width: 10px;
+  height: 10px;
+  background: #7b5e4a;
+  box-shadow: 0 0 0 2px #2d3527;
+}
+
+/* The arrival: wood at once, the sign at 0.1 s, Mochi hops onto it at 0.45 s, dots from 0.7 s, sparkles from
+   1.05 s, a blink every 2.6 s from 1.5 s. */
+.splash-sign {
+  animation: splash-sign-in 380ms 100ms ease-out both;
+}
+.splash-hop {
+  animation: splash-hop 650ms 450ms ease-out both;
+  transform-origin: 50% 100%;
+}
+.splash-bob {
+  animation: splash-bob 1.2s 1.3s steps(1) infinite;
+}
+.splash-sparkle {
+  animation: splash-twinkle 700ms steps(5) both;
+}
+.splash-s1 {
+  animation-delay: 1050ms;
+}
+.splash-s2 {
+  animation-delay: 1200ms;
+}
+.splash-s3 {
+  animation-delay: 1380ms;
+}
+.splash-s4 {
+  animation-delay: 1520ms;
+}
+.splash-dots {
+  animation: splash-fade-in 200ms 700ms both;
+}
+.splash-dots i {
+  animation: splash-dot 900ms steps(1) infinite;
+}
+.splash-dots i:nth-child(2) {
+  animation-delay: 300ms;
+}
+.splash-dots i:nth-child(3) {
+  animation-delay: 600ms;
+}
+.splash-eye {
+  animation: splash-blink 2.6s 1.5s steps(1) infinite;
+}
+
+/* The barn doors: the sign and shading fade, then the wood splits down the middle and slides open. */
+/* opening cancels the 10 s give-up, so doors that start just before it finish their slide */
+#splash.splash-open {
+  pointer-events: none;
+  animation: none;
+}
+.splash-open .splash-center,
+.splash-open .splash-vignette {
+  animation: splash-fade-out 180ms ease forwards;
+}
+.splash-open .splash-door-left {
+  animation: splash-open-left 650ms 120ms cubic-bezier(0.6, 0, 0.4, 1) forwards;
+}
+.splash-open .splash-door-right {
+  animation: splash-open-right 650ms 120ms cubic-bezier(0.6, 0, 0.4, 1) forwards;
+}
+.splash-open .splash-door::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #2d3527;
+}
+.splash-open .splash-door-left::after {
+  left: calc(50% - 4px);
+}
+.splash-open .splash-door-right::after {
+  left: 50%;
+}
+
+@media (max-width: 600px) {
+  #splash {
+    --splash-m: 8px;
+  }
+  .splash-door {
+    background-image: url("./wood-3x.png");
+  }
+}
+
+@keyframes splash-sign-in {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes splash-hop {
+  0% {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+  1% {
+    opacity: 1;
+    transform: translateY(105%);
+  }
+  45% {
+    transform: translateY(-36%) scale(0.92, 1.1);
+  }
+  70% {
+    transform: translateY(0) scale(1.15, 0.85);
+  }
+  85% {
+    transform: translateY(-6%) scale(0.97, 1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes splash-bob {
+  50% {
+    transform: translateY(calc(var(--splash-m) * -1));
+  }
+}
+@keyframes splash-twinkle {
+  0% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes splash-dot {
+  0% {
+    background: #f2c75c;
+  }
+  34% {
+    background: #7b5e4a;
+  }
+}
+/* the two colours come from the palette, set on the SVG by src/splash/mochi-svg.ts */
+@keyframes splash-blink {
+  0% {
+    fill: var(--splash-lid);
+  }
+  5.38% {
+    fill: var(--splash-eye);
+  }
+}
+@keyframes splash-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes splash-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes splash-open-left {
+  to {
+    transform: translateX(-50.5%);
+  }
+}
+@keyframes splash-open-right {
+  to {
+    transform: translateX(50.5%);
+  }
+}
+@keyframes splash-give-up {
+  to {
+    visibility: hidden;
+  }
+}

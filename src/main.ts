@@ -5,7 +5,9 @@ import App from "./App.svelte";
 import "./styles/palette.css";
 import "./styles/tokens.css";
 import "./styles/kit.css";
+import { holdAppBehindSplash } from "./splash/splash";
 
+holdAppBehindSplash();
 mount(App, { target: document.getElementById("app")! });
 
 if (import.meta.env.PROD && "serviceWorker" in navigator) {
