@@ -29,6 +29,8 @@ export function setSound(on: boolean): void {
   } catch {
     // private mode: the switch lasts until the page reloads
   }
+  // A chime on the click proves sound works, and Safari only lets audio start inside a click.
+  if (on) play("pass");
 }
 
 export function moment(kind: Sound): void {
