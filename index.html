@@ -8,8 +8,39 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" type="image/png" href="./icons/icon-192.png" />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <link
+      rel="preload"
+      href="/src/styles/fonts/DepartureMono-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/src/splash/splash.css" />
+    <!-- classic and blocking on purpose: it must hide the splash on a reload before the first paint -->
+    <script src="./splash-gate.js"></script>
   </head>
   <body>
+    <div id="splash" class="splash" role="status" aria-label="Loading Code Village">
+      <div class="splash-door splash-door-left"></div>
+      <div class="splash-door splash-door-right"></div>
+      <div class="splash-vignette"></div>
+      <div class="splash-center" aria-hidden="true">
+        <div class="splash-stack">
+          <div class="splash-mochi">
+            <div class="splash-hop">
+              <div class="splash-bob"><!-- splash-mochi --></div>
+            </div>
+          </div>
+          <span class="splash-sparkle splash-s1"></span><span class="splash-sparkle splash-s2"></span>
+          <span class="splash-sparkle splash-s3"></span><span class="splash-sparkle splash-s4"></span>
+          <div class="splash-sign">
+            <p class="splash-word">CODE VILLAGE</p>
+            <p class="splash-tag">a cozy pixel village for learning to code</p>
+          </div>
+        </div>
+        <div class="splash-dots"><i></i><i></i><i></i></div>
+      </div>
+    </div>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
